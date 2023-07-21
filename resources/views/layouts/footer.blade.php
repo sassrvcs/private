@@ -195,3 +195,4 @@
 <script src="{{ asset('frontend/assets/slick/slick.min.js')}}"></script>
 <script src="{{ asset('frontend/assets/js/aos.js')}}"></script>
 <script src="{{ asset('frontend/assets/js/scripts.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

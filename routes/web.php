@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Companies\CompanieController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,6 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('frontend.login');
 });
+
+
+Route::get('/search-companie', CompanieController::class);

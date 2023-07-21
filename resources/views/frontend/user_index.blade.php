@@ -5,11 +5,23 @@
         <div class="main-banner" style="background-image: url({{ asset('frontend/assets/images/main-banner.png')}});">
             <div class="custom-container">
                 <div class="caption-box">
-                    <h1 data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000" data-aos-once="true">Formations made easier starting from <span>£12.99</span></h1>
-                    <p data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">Form a UK limited company in minutes</p>
+                    <div id="response-class">
+                        <h1 data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000" data-aos-once="true">Formations made easier starting from <span>£12.99</span></h1>
+                        <p data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">Form a UK limited company in minutes</p>
+                    </div>
+                    <div id="available-company" style="display: none">
+                        <div class=" align-items-center">
+                            <div class="col-md-6">
+                                <span class="icon"><i class="fa-regular fa-circle-check"></i></span>
+                                <h2 id="search-company-name"></h2>
+                                <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="search-box" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true">
-                        <input type="text" class="search-input" placeholder="Enter a company name to check if its available">
-                        <button type="button" class="search-btn theme-btn-primary">Search</button>
+                        <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
+                        <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
                     </div>
                     <p class="text-capitalize" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true">14+years of experience in helping thousands of people to start their business in UK</p>
                     <div class="image-stamp" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
@@ -630,4 +642,38 @@
         </div>
     </section>
     <!-- ================ end: formationsMade-easier-sec ================ -->
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('#search').click(function() {
+                var companyName = $('#company-name').val();
+
+                // Make the GET request using Axios
+                axios.get('/search-companie', {
+                    params: {
+                        'search': companyName
+                    }
+                })
+                .then(function (response) {
+                    // Handle the response data here
+                    console.log(response.data);
+
+                    if(response.data == 'available') {
+                        $('#response-class').hide();
+                        $('#search-company-name').text(companyName);
+                        $('#available-company').show(100);
+                    } else {
+                        alert('Company name not available');
+                    }
+                })
+                .catch(function (error) {
+                    // Handle any errors that occurred during the request
+                    console.error(error);
+                });
+
+            });
+        });
+    </script>
 @endsection
