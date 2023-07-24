@@ -10,7 +10,7 @@
                         <p data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">Form a UK limited company in minutes</p>
                     </div>
 
-                    {{-- <div id="available-company" style="display: none">
+                    <div id="available-company" style="display: none">
                         <div class=" align-items-center">
                             <div class="col-md-6">
                                 <span class="icon"><i class="fa-regular fa-circle-check"></i></span>
@@ -33,50 +33,15 @@
                             <h3 style="color:white;">Error! This company name is Not available.</h3>
                         </div>
                         <div class="hhr-text">Search for another name</div>
-                    </div> --}}
-
-                    <div class="col-md-7 mb-3 " id="result_show" style="display: none">
-                        <div class="search-result mb-4">
-                            <div class=" align-items-center">
-                               <div class="col-md-12">
-                                  <span class="icon"><i class="fa fa-check-circle-o"></i></span>
-                                  <h2 id="search-company-name"></h2>
-                                  <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
-                                  <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
-                               </div>
-                               <div class="col-md-4 "><a href="https://formationshunt.co.uk/packages/compare-packages/" class="btn btn-primary wow zoomIn">Choose Package<i class="fa fa-long-arrow-right ms-2"></i></a></div>
-                            </div>
-                         </div>
-                         <div class="hhr-text">Search for another name</div>
-
-                         <div class="search-box" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true">
-                            <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
-                            <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
-                        </div>
-                        <p class="text-capitalize" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true">14+years of experience in helping thousands of people to start their business in UK</p>
-                        <div class="image-stamp" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
-                            <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg')}}"></a>
-                        </div>
                     </div>
 
-                    <div id="not-available-company" style="display: none">
-                        <div class="search-result-error mb-4">
-                            <span class="icon"><i class="fa-regular fa-circle-xmark"></i></span>
-                            <h2 id="search-company-name"></h2>
-                            <h3 style="color:white;">Error! This company name is Not available.</h3>
-                        </div>
-                        <div class="hhr-text">Search for another name</div>
+                    <div class="search-box" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true">
+                        <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
+                        <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
                     </div>
-
-                    <div id="search-box-val">
-                        <div class="search-box" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true">
-                            <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
-                            <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
-                        </div>
-                        <p class="text-capitalize" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true">14+years of experience in helping thousands of people to start their business in UK</p>
-                        <div class="image-stamp" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
-                            <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg')}}"></a>
-                        </div>
+                    <p class="text-capitalize" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true">14+years of experience in helping thousands of people to start their business in UK</p>
+                    <div class="image-stamp" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
+                        <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg')}}"></a>
                     </div>
                 </div>
             </div>
@@ -722,9 +687,7 @@
                             $('#is_sensitive_word_row').show(110);
                             $('#is_sensitive_word').text(response.data.is_sensitive_word);
                         }
-                        
-                        $('#result_show').show(100);
-                        $('#search-box-val').show(100);
+                        $('#available-company').show(100);
                     } else {
                         // not-available-company
                         $('#response-class').hide();
