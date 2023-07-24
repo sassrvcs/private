@@ -23,12 +23,15 @@ class CompanieController extends Controller
         $searchText = $request->validated();
 
         $response = $this->companySearchService->searchCompany($searchText['search']);
-
         // dd($response);
-        if($response === CompanieSearchService::COMPANY_AVAILABLE) {
-            return 'available';
-        } else {
-            return 'not-available';
-        }
+
+        if($response['message'] === CompanieSearchService::COMPANY_AVAILABLE) {
+            return $response;
+        } else if($response['message'] === CompanieSearchService::COMPANY_NOT_AVAILABLE) {
+            return $response;
+        } 
+        // else {
+
+        // }
     }
 }

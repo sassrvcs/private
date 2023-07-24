@@ -2722,7 +2722,7 @@ body .show > .btn-primary.dropdown-toggle {
     align-items: center;
 }
 
-.search-result .fa-circle-check {
+.search-result .fa-check-circle-o {
     color: #87cb28;
     font-size: 40px;
 }

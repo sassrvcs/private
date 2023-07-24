@@ -9,23 +9,74 @@
                         <h1 data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000" data-aos-once="true">Formations made easier starting from <span>£12.99</span></h1>
                         <p data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">Form a UK limited company in minutes</p>
                     </div>
-                    <div id="available-company" style="display: none">
+
+                    {{-- <div id="available-company" style="display: none">
                         <div class=" align-items-center">
                             <div class="col-md-6">
                                 <span class="icon"><i class="fa-regular fa-circle-check"></i></span>
                                 <h2 id="search-company-name"></h2>
+                                <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
                                 <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
                             </div>
                         </div>
+
+                        <div class="col-md-4">
+                            <a href="#" class="btn btn-primary wow zoomIn">Choose Package<i class="fas fa-long-arrow-alt-right ms-2"></i></a>
+                        </div>
+                        <div class="hhr-text">Search for another name</div>
                     </div>
 
-                    <div class="search-box" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true">
-                        <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
-                        <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
+                    <div id="not-available-company" style="display: none">
+                        <div class="search-result-error mb-4">
+                            <span class="icon"><i class="fa-regular fa-circle-xmark"></i></span>
+                            <h2 id="search-company-name"></h2>
+                            <h3 style="color:white;">Error! This company name is Not available.</h3>
+                        </div>
+                        <div class="hhr-text">Search for another name</div>
+                    </div> --}}
+
+                    <div class="col-md-7 mb-3 " id="result_show" style="display: none">
+                        <div class="search-result mb-4">
+                            <div class=" align-items-center">
+                               <div class="col-md-12">
+                                  <span class="icon"><i class="fa fa-check-circle-o"></i></span>
+                                  <h2 id="search-company-name"></h2>
+                                  <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
+                                  <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
+                               </div>
+                               <div class="col-md-4 "><a href="https://formationshunt.co.uk/packages/compare-packages/" class="btn btn-primary wow zoomIn">Choose Package<i class="fa fa-long-arrow-right ms-2"></i></a></div>
+                            </div>
+                         </div>
+                         <div class="hhr-text">Search for another name</div>
+
+                         <div class="search-box" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true">
+                            <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
+                            <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
+                        </div>
+                        <p class="text-capitalize" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true">14+years of experience in helping thousands of people to start their business in UK</p>
+                        <div class="image-stamp" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
+                            <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg')}}"></a>
+                        </div>
                     </div>
-                    <p class="text-capitalize" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true">14+years of experience in helping thousands of people to start their business in UK</p>
-                    <div class="image-stamp" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
-                        <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg')}}"></a>
+
+                    <div id="not-available-company" style="display: none">
+                        <div class="search-result-error mb-4">
+                            <span class="icon"><i class="fa-regular fa-circle-xmark"></i></span>
+                            <h2 id="search-company-name"></h2>
+                            <h3 style="color:white;">Error! This company name is Not available.</h3>
+                        </div>
+                        <div class="hhr-text">Search for another name</div>
+                    </div>
+
+                    <div id="search-box-val">
+                        <div class="search-box" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true">
+                            <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
+                            <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
+                        </div>
+                        <p class="text-capitalize" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true">14+years of experience in helping thousands of people to start their business in UK</p>
+                        <div class="image-stamp" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
+                            <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg')}}"></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -650,6 +701,9 @@
             $('#search').click(function() {
                 var companyName = $('#company-name').val();
 
+                var searchButton = $(this);
+                searchButton.prop('disabled', true).text('Searching...');
+
                 // Make the GET request using Axios
                 axios.get('/search-companie', {
                     params: {
@@ -660,19 +714,32 @@
                     // Handle the response data here
                     console.log(response.data);
 
-                    if(response.data == 'available') {
+                    if(response.data.message == 'This company name is available.') {
                         $('#response-class').hide();
                         $('#search-company-name').text(companyName);
-                        $('#available-company').show(100);
+
+                        if(response.data.is_sensitive === 1) {
+                            $('#is_sensitive_word_row').show(110);
+                            $('#is_sensitive_word').text(response.data.is_sensitive_word);
+                        }
+                        
+                        $('#result_show').show(100);
+                        $('#search-box-val').show(100);
                     } else {
-                        alert('Company name not available');
+                        // not-available-company
+                        $('#response-class').hide();
+                        $('#search-company-name').text(companyName);
+                        $('#not-available-company').show(100);
                     }
                 })
                 .catch(function (error) {
                     // Handle any errors that occurred during the request
                     console.error(error);
+                })
+                .finally(function () {
+                    // Re-enable the button and change the text back to "Search"
+                    searchButton.prop('disabled', false).text('Search');
                 });
-
             });
         });
     </script>

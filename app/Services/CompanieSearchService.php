@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\CompanyHouseSensitiveWord;
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
 
@@ -16,34 +17,24 @@ class CompanieSearchService
     const NO_RESPONSE = 'Please try again.';
 
     /**
-     * Verify Credential
-     * @param  string  $email_id
-     * @param  string  $password
-     * @return array first element User or numeric error code, second element token or null
+     * Search compant mane as per company name
+     * @param  string  $searchText
+     * @return 'messsge as per data'
      */
-    // public function checkAuth($searchText)
-    // {
-    //     $client = new \GuzzleHttp\Client();
-    // 
-    //     $response = $client->request('GET', config('buildium.api.base_url').'rentals/units/listings', [
-    //         'headers'        => [
-    //             'x-buildium-client-id' => config('buildium.api.secret_key'),
-    //             'x-buildium-client-secret' => config('buildium.api.client_key'),
-    //             'Content-Type' => 'application/json'
-    //         ],
-    //         'form_params' => [
-    //             'entitytype' => 'RentalOwner',
-    //             'entityid' => '1'
-    //         ]
-    //     ]);
-    // 
-    //     return json_decode($response->getBody()->getContents(), false);
-    // }
-
-
     public function searchCompany($searchText)
     {
-        $searchapiSrch = str_replace(" ", "", $searchText);
+        $is_sensitive = 0;
+        $is_sensitive_word = '';
+
+        $searchvalue = trim($searchText);
+        if (stripos($searchvalue, 'ltd') !== false) {
+            $searchvalue = str_ireplace('ltd', "", $searchvalue);
+        }
+        if (stripos($searchvalue, 'limited') !== false) {
+            $searchvalue = str_ireplace('limited', "", $searchvalue);
+        }
+
+        $searchapiSrch = str_replace(" ", "", $searchvalue);
 
         // Use Laravel HTTP Facade to make the request
         $response = Http::withBasicAuth("2e662f83-1085-45ad-a213-738abc18a4ab", "")
@@ -51,13 +42,29 @@ class CompanieSearchService
 
         if ($response->successful()) {
             $response = $response->json();
-            if( !empty($response['items']) ) {
-                return CompanieSearchService::COMPANY_NOT_AVAILABLE;
+            // dd($response);
+            if( count($response['items']) == 0 ) {
+
+                $companyHouseSensitiveWord = CompanyHouseSensitiveWord::get();
+                if( !empty($companyHouseSensitiveWord) ) {
+                    foreach($companyHouseSensitiveWord as $words) {
+                        $sensitiveWords = $words->name;
+                        if (stripos($searchText,$sensitiveWords) !== false) {
+                            $is_sensitive = 1;
+                            $is_sensitive_word = $words->name;
+                        }
+                    }
+                    return ['message' => CompanieSearchService::COMPANY_AVAILABLE, 'search_text' => $searchText, 'is_sensitive' => $is_sensitive, 'is_sensitive_word' => $is_sensitive_word];
+                } else {
+                    return ['message' => CompanieSearchService::COMPANY_AVAILABLE, 'search_text' => $searchText, 'is_sensitive' => $is_sensitive, 'is_sensitive_word' => $is_sensitive_word];
+                }
+
             } else {
-                return CompanieSearchService::COMPANY_AVAILABLE;
+                return ['message' => CompanieSearchService::COMPANY_NOT_AVAILABLE, 'search_text' => $searchText, 'is_sensitive'=> $is_sensitive, 'is_sensitive_word' => $is_sensitive_word];
+                // return CompanieSearchService::COMPANY_AVAILABLE;
             }
         } else {
-            return CompanieSearchService::NO_RESPONSE;
+            return ['message' => CompanieSearchService::NO_RESPONSE, 'search_text' => $searchText, 'is_sensitive'=> $is_sensitive, 'is_sensitive_word' => $is_sensitive_word];
         }
     }
 }
