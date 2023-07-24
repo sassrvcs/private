@@ -714,6 +714,8 @@
 
                     if(response.data.message == 'This company name is available.') {
                         $('#response-class').hide();
+                        $('#result_show').hide();
+                        $('#not-available-company').hide();
                         $('#search-company-name').text(companyName);
 
                         if(response.data.is_sensitive == 1) {
