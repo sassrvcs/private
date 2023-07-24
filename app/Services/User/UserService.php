@@ -32,7 +32,7 @@ class UserService
      */
     public function checkAuth($email_id, $password)
     {
-        $user = User::with('roles')->where(['email' => $email_id])->first();
+        $user = User::where(['email' => $email_id])->first();
         if (empty($user)) {
             return [UserService::USER_NOT_FOUND, null];
         } elseif (!(Hash::check($password, $user->password))) {

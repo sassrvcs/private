@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Companies\CompanieController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,13 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('frontend.login');
 });
+Route::post('/login',[AuthController::class,'login'])->name('login');
+Route::get('/register', [AuthController::class, 'viewRegisterForm'])->name('register-form');
+Route::post('/register',[AuthController::class,'saveRegisterForm'])->name('save-register-form');
+Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-address');
+
+Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-account')->middleware('auth');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 
 Route::get('/search-companie', CompanieController::class);
