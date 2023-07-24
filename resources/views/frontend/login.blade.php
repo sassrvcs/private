@@ -34,31 +34,44 @@
     <!-- ================ start: customer_login ================ -->
     <section class="sectiongap legal rrr fix-container-width ">
         <div class="container">
+            @if (session()->has('message'))
+                <div class="alert alert-success">{{ session()->get('success') }}</div>
+            @endif
+            @if (session()->has('error'))
+                <div class="alert alert-danger">{{ session()->get('error') }}</div>
+            @endif
             <div class="customer_login">
                 <div class="row">
                     <div class="col-md-6">
                         <fieldset class="border p-3">
                             <legend class="float-none w-auto p-2">Account Login</legend>
-                            <form class="" method="post" novalidate="novalidate">
+                            <form class="" action="{{ route('login') }}" method="POST">
+                                @csrf
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Email *</label>
-                                    <input type="text" class="form-control" name="username" id="username" autocomplete="username" value="">
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{old('email')}}" autocomplete="new-password">
                                 </div>
+                                @error('email')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password&nbsp;<span class="required">*</span></label>
                                     <div class="custom-input-with-right-icon">
                                         <div class="input-box">
-                                            <input class="form-control" type="password" name="password" id="password">
+                                            <input class="form-control" type="password" id="password" name="password" maxlength="8" value="{{old('password')}}">
                                         </div>
                                         <div class="right-icon">
                                             <i class="fa fa-eye cursor-pointer" aria-hidden="true"></i>
                                         </div>
                                     </div>
+                                    @error('password')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <div class="mb-3 px-0 form-check">
+                                {{-- <div class="mb-3 px-0 form-check">
                                     <input class="" name="rememberme" type="checkbox">
                                     <label>Remember me</label>
-                                </div>
+                                </div> --}}
                                 <div class="row align-items-center">
                                     <div class="col-md-6 mb-3">
                                         <input type="hidden" value=""> <button type="submit" class="btn btn-primary">Log in</button>
@@ -75,7 +88,7 @@
                             <legend class="float-none w-auto p-2">New Customer</legend>
                             <div class="equalheight">
                                 <p>If you would like to register with Formations Hunt and import an existing company to manage using our Online Company Manager then please click 'Create Account' below.</p>
-                                <a href="#" class="btn btn-primary">Create Account</a>
+                                <a href="{{ url('/register') }}" class="btn btn-primary">Create Account</a>
                             </div>
                         </fieldset>
                     </div>
