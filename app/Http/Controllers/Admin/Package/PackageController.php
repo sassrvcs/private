@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\Package\PackageService;
 use Validator;
 use App\Models\Feature;
-
+use App\Models\Faq;
 
 class PackageController extends Controller
 {
@@ -56,12 +56,35 @@ class PackageController extends Controller
             $packageId = $this->packageService->store($input);
             $temp=[];
             $features=[];
+            $question =[];
+            $answer =[];
             foreach(data_get($input,'features') as $features){
                $temp['feature'] = $features;
                $temp['package_id'] = $packageId ;
+               $temp['created_at'] = now();
+               $temp['updated_at'] = now() ;
                $featuresArr[] = $temp;
+
             }
-            Feature::create($featuresArr);
+
+            Feature::insert($featuresArr);
+
+
+            foreach(data_get($input,'faq.question') as $k=> $question){
+                $tmp['question'] = $question;
+                $tmp['package_id'] = $packageId ;
+                $tmp['created_at'] = now();
+                $tmp['updated_at'] = now() ;
+                $id = Faq::insertGetId($tmp);
+                foreach(data_get($input,'faq.answer') as $k=> $answer){
+                    $update['answer'] = $answer;
+                    $updateArr = Faq::where('id',$id)->update($update);
+                }
+
+
+
+            }
+
             return redirect()->back()->with('message', 'Package added successfully');
         }
 

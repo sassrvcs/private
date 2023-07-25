@@ -15,7 +15,7 @@
             </div>
             <div class="center-info">
                 <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{ url('')}}">Home</a></li>
                     <li><a>Digital Packages</a></li>
                 </ul>
             </div>
@@ -35,7 +35,7 @@
     <section class="sectiongap legal rrr fix-container-width ">
         <div class="container">
             @if (session()->has('message'))
-                <div class="alert alert-success">{{ session()->get('success') }}</div>
+                <div class="alert alert-success">{{ session()->get('message') }}</div>
             @endif
             @if (session()->has('error'))
                 <div class="alert alert-danger">{{ session()->get('error') }}</div>

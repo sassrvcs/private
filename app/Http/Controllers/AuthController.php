@@ -105,9 +105,9 @@ class AuthController extends Controller
         $validate = Validator::make($request->all(), [
             'organisation' => 'required',
             'title' => 'required',
-            'forename' => 'required',
-            'surname' => 'required',
-            'phone' => 'required',
+            'forename' => 'required|alpha',
+            'surname' => 'required|alpha',
+            'phone' => 'required|numeric|digits:13',
             'email' => 'required|email|unique:users|same:confirm_email',
             'confirm_email' => 'required',
             'password' => 'required|min:8|string',
@@ -124,7 +124,9 @@ class AuthController extends Controller
                 'title.required' => 'Title is required.',
                 'forename.required' => 'Forename is required.',
                 'surname.required' => 'Surname is required.',
-                'phone.required' => 'Phone no is required.',
+                'phone.required' => 'Phone number is required.',
+                'phone.required' => 'Phone number is required.',
+                'phone.numeric' => 'Please enter valid phone number.',
                 'email.required' => 'Email is required',
                 'confirm_email.required' => 'Confirm email is required',
                 'password.required' => 'Password is required',
@@ -160,7 +162,7 @@ class AuthController extends Controller
             $address->billing_country = $request->billing_country;
             $address->save();
 
-            return redirect()->route('login')->with('message', 'Registration successfull');
+            return redirect()->route('clientlogin')->with('message', 'Registration successfull');
 
         }
     }
