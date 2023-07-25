@@ -369,14 +369,14 @@
                         </span>
                     </label>
                     <span class="input-wrapper">
-                        <input type="text" id="house_no" name="house_no" class="input-text form-control" value={{$v['house_number']}}>
+                        <input type="text" id="house_no1" name="house_no" class="input-text form-control" value={{$v['house_number']}}>
                     </span>
                 </div>
                 <p class="form-row form-group ">
                     <label for="billing_title">Street:&nbsp;<abbr class="required" title="required">*</abbr>
                     </label>
                     <span class="input-wrapper">
-                        <input type="text" name="street" id="street" class="input-text form-control @error('street') is-invalid @enderror" value={{$v['street']}}>
+                        <input type="text" name="street" id="street1" class="input-text form-control @error('street') is-invalid @enderror" value={{$v['street']}}>
                     </span>
 
                 </p>
@@ -385,7 +385,7 @@
                     <label for="billing_first_name">Locality:
                     </label>
                     <span class="input-wrapper">
-                        <input type="text" name="locality" id="locality" class="input-text form-control @error('locality') is-invalid @enderror" value={{$v['locality']}}>
+                        <input type="text" name="locality" id="locality1" class="input-text form-control @error('locality') is-invalid @enderror" value={{$v['locality']}}>
                     </span>
 
                 </div>
@@ -394,7 +394,7 @@
                     <label for="billing_first_name">Town:&nbsp;<abbr class="required" title="required">*</abbr>
                     </label>
                     <span class="input-wrapper">
-                        <input type="text" name="town" id="town" class="input-text form-control @error('town') is-invalid @enderror" value={{$v['town']}}>
+                        <input type="text" name="town" id="town1" class="input-text form-control @error('town') is-invalid @enderror" value={{$v['town']}}>
                     </span>
 
                 </div>
@@ -402,7 +402,7 @@
                     <label for="billing_first_name">County:&nbsp;
                     </label>
                     <span class="input-wrapper">
-                        <input type="text" name="county" id="county" class="input-text form-control @error('county') is-invalid @enderror" value={{$v['county']}}>
+                        <input type="text" name="county" id="county1" class="input-text form-control @error('county') is-invalid @enderror" value={{$v['county']}}>
                     </span>
 
                 </div>
