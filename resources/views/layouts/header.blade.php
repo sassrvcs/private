@@ -51,77 +51,48 @@
                                     </div>
 
                                     <div class="custom-col">
-
                                         <h5><span>Business Services</span></h5>
-
                                         <a class="dropdown-item" href="#">Business Logo Design</a>
-
                                         <a class="dropdown-item" href="#">Business Email</a>
-
                                         <a class="dropdown-item" href="#">VAT Registration</a>
-
                                         <a class="dropdown-item" href="#">PAYE Registration</a>
-
                                         <a class="dropdown-item" href="#">Business Telephone Services</a>
-
                                         <a class="dropdown-item" href="#">Business Web Design/Marketing</a>
-
                                         <a class="dropdown-item" href="#">Data Protection Registration</a>
-
                                         <a class="dropdown-item" href="#">GDPR Complaince Package</a>
-
                                     </div>
 
                                     <div class="custom-col">
 
                                         <h5><span>Business Banking</span></h5>
-
                                         <a class="dropdown-item" href="#">>Barclays Bank Account</a>
-
                                         <a class="dropdown-item" href="#">Cashplus Business Account</a>
-
                                         <a class="dropdown-item" href="#">Wise Business Account for Non UK-Residents</a>
-
                                         <a class="dropdown-item" href="#">Payoneer Business Account for Non UK – Residents</a>
-
                                         <a class="dropdown-item" href="#">ANNA Money for Small Business</a>
-
                                         <a class="dropdown-item" href="#">Card One Business Account</a>
 
                                     </div>
 
                                     <div class="custom-col">
-
                                         <h5><span>Address Services</span></h5>
-
                                         <a class="dropdown-item" href="#">Directors Service Address</a>
-
                                         <a class="dropdown-item" href="#">Registered Office Address</a>
-
                                         <a class="dropdown-item" href="#">Renewals</a>
-
                                     </div>
 
                                     <div class="custom-col">
-
                                         <h5><span>Resources</span></h5>
-
                                         <a class="dropdown-item" href="#">Share Business Ideas</a>
-
                                         <a class="dropdown-item" href="#">Helping Startups</a>
-
                                         <a class="dropdown-item" href="#">Business Help</a>
 
                                     </div>
 
                                     <div class="custom-col">
-
                                         <h5><span>Help &amp; Advice</span></h5>
-
                                         <a class="dropdown-item" href="#">Our Online Company Manager</a>
-
                                         <a class="dropdown-item" href="#">Information Required To Set Up A Company</a>
-
                                     </div>
                                 </div>
                             </div>

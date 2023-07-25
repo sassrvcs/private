@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\Package\PackageController;
+use App\Http\Controllers\Web\Home\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +19,14 @@ use App\Http\Controllers\Admin\Package\PackageController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.user_index');
-});
+// Route::get('/', function () {
+//     return view('frontend.user_index');
+// });
+
 Route::get('/login', function () {
     return view('frontend.login');
 });
+
 Route::post('/login',[AuthController::class,'login'])->name('login');
 Route::get('/register', [AuthController::class, 'viewRegisterForm'])->name('register-form');
 Route::post('/register',[AuthController::class,'saveRegisterForm'])->name('save-register-form');
@@ -34,8 +37,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 Route::get('/my-details', [AccountController::class, 'details'])->name('my_details')->middleware('auth');
 Route::post('/primary-address-save',[AccountController::class,'savePrimaryAddress'])->name('primary-address-save');
 
-
-
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/package', PackageController::class);
 
 Route::get('/search-companie', CompanieController::class);
 

@@ -14,6 +14,14 @@ use App\Models\Package;
  */
 class PackageService
 {
+    /**
+     * Package listing
+     */
+    public function index()
+    {
+        $packages = Package::with('features')->get();
+        return $packages;
+    }
 
     public function store($request)
     {
