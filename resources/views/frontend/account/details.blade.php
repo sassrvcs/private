@@ -311,7 +311,7 @@
         <div class="modal-content border-0">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Choose Address</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
                 <div>
@@ -337,7 +337,7 @@
         <div class="modal-content border-0">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Confirmation required</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
                 <div>
@@ -358,7 +358,7 @@
         <div class="modal-content border-0">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Edit Address</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
                 <form id="primaryAddrUpdateForm">
@@ -688,7 +688,7 @@
         <div class="modal-content border-0">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Choose Address</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
                 <div class="row p-3" style="padding-top: 0 !important;">
@@ -698,6 +698,7 @@
                             <input type="text" class="form-control" name="post_code" id="post_code">
                             <button type="button" class="btn btn-primary" id="findAddress">Find
                                 Address</button>
+                            <p class="adderr text-danger"></p>
                         </div>
                     </div>
 
@@ -1036,7 +1037,7 @@
         <div class="modal-content border-0">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Choose your address</h5>
-                <button type="button" class="btn-close btn-address" data-bs-dismiss="modal" aria-label="Close">X</button>
+                <button type="button" class="btn-close btn-address"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
                 <div id="post_address_blk">
@@ -1083,28 +1084,28 @@
         });
 
         $('#findAddress').click(function(){
-        $('#findAddress').html('Please Wait...');
-        var post_code = $("#post_code").val();
-        $.ajax({
-            url: "{!! route('find-address') !!}",
-            type: 'GET',
-            data: {
-                post_code: post_code
-            },
-            success: function(result) {
-
-                $("#exampleModalCenterAddress").show();
-                $("#post_address_blk").html(result);
-                $('#findAddress').html('Find Address');
+            var post_code = $("#post_code").val();
+            if(post_code==""){
+                $('.adderr').html('Please enter zipcode');
+                return false ;
+            }else{
+                $('.adderr').html('');
             }
+            $('#findAddress').html('Please Wait...');
+            $.ajax({
+                url: "{!! route('find-address') !!}",
+                type: 'GET',
+                data: {
+                    post_code: post_code
+                },
+                success: function(result) {
+
+                    $("#exampleModalCenterAddress").show();
+                    $("#post_address_blk").html(result);
+                    $('#findAddress').html('Find Address');
+                }
+            });
         });
-    });
-    $(".btn-close").click(function(){
-         $("#exampleModalCenterAddress").hide();
-         $("#addNewAddressModal").hide();
-    })
-
-
 
     });
 
