@@ -57,16 +57,16 @@
                     <span class="input-wrapper ">
                         <select class="select form-control @error('title') is-invalid @enderror" name="title" value={{old('title')}} data-placeholder="Please select...">
                             <option value="">Please select...</option>
-                            <option value="Mr">Mr</option>
-                            <option value="Mrs">Mrs</option>
-                            <option value="Miss">Miss</option>
-                            <option value="Sir">Sir</option>
-                            <option value="Ms">Ms</option>
-                            <option value="Dr">Dr</option>
-                            <option value="Madam">Madam</option>
-                            <option value="Ma'am">Ma'am</option>
-                            <option value="Lord">Lord</option>
-                            <option value="Lady">Lady</option>
+                            <option value="Mr" @if(old('title') == "Mr") selected @endif>Mr</option>
+                            <option value="Mrs" @if(old('title') == "Mrs") selected @endif>Mrs</option>
+                            <option value="Miss" @if(old('title') == "Miss") selected @endif>Miss</option>
+                            <option value="Sir" @if(old('title') == "Sir") selected @endif>Sir</option>
+                            <option value="Ms" @if(old('title') == "Ms") selected @endif>Ms</option>
+                            <option value="Dr" @if(old('title') == "Dr") selected @endif>Dr</option>
+                            <option value="Madam" @if(old('title') == "Madam") selected @endif>Madam</option>
+                            <option value="Ma'am" @if(old('title') == "Ma'am") selected @endif>Ma'am</option>
+                            <option value="Lord" @if(old('title') == "Lord") selected @endif>Lord</option>
+                            <option value="Lady" @if(old('title') == "Lady") selected @endif>Lady</option>
                         </select>
                     </span>
                 </div>
