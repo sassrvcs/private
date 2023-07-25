@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Companies\CompanieController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Admin\Package\PackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,10 @@ Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-ad
 
 Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-account')->middleware('auth');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/my-details', [AccountController::class, 'details'])->name('my_details')->middleware('auth');
+Route::post('/primary-address-save',[AccountController::class,'savePrimaryAddress'])->name('primary-address-save');
+
+
 
 
 Route::get('/search-companie', CompanieController::class);
@@ -41,7 +47,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
         Route::get('/dashboard', DashboardController::class)->name('dashboard');
         // Route::resource('change-password', ChangePasswordController::class);
 
-        // Route::resource('agent', AgentController::class);
+         Route::resource('package', PackageController::class);
         // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
 
         // Route::resource('product', ProductController::class);
