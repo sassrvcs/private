@@ -47,7 +47,7 @@
                             <div class=" align-items-center">
                                <div class="col-md-12">
                                   <span class="icon"><i class="fa fa-check-circle-o"></i></span>
-                                  <h2 id="search-company-name"></h2>
+                                  <h2 class="search-company-name"></h2>
                                   <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
                                   <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
                                </div>
@@ -59,8 +59,8 @@
                         {{-- Not Available Message --}}
                         <div id="not-available-company" style="display: none">
                             <div class="search-result-error mb-4">
-                                <span class="icon"><i class="fa-regular fa-circle-xmark"></i></span>
-                                <h2 id="search-company-name"></h2>
+                                <span class="icon"><i class="fa fa-times-circle-o"></i></span>
+                                <h2 class="search-company-name"></h2>
                                 <h3 style="color:white;">Error! This company name is Not available.</h3>
                             </div>
                             <div class="hhr-text">Search for another name</div>
@@ -715,7 +715,7 @@
                         $('#response-class').hide();
                         $('#result_show').hide();
                         $('#not-available-company').hide();
-                        $('#search-company-name').text(companyName);
+                        $('.search-company-name').text(companyName);
 
                         if(response.data.is_sensitive == 1) {
                             $('#is_sensitive_word_row').show(110);
@@ -727,15 +727,19 @@
 
                         $('#result_show').show(100);
                         $('#available-company').show(115);
+                        $('.image-stamp').hide();
+                        $('.search-input').val('');
                     } else {
                         $('#result_show').hide();
                         $('#available-company').hide();
                         $('#response-class').hide();
                         
                         // Show data
-                        $('#search-company-name').text(companyName);
+                        $('.search-company-name').text(companyName);
                         $('#result_show').show(100);
                         $('#not-available-company').show(120);
+                        $('.image-stamp').hide();
+                        $('.search-input').val('');
                     }
                 })
                 .catch(function (error) {
