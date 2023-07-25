@@ -46,7 +46,7 @@
                                         <li id="menu-item-2337" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-15 current_page_item nav-item nav-item-2337">
                                             <a href="#" class="dropdown-item active"><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Overview</span></a>
                                         </li>
-                                        <li id="menu-item-2338" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-2338"><a href="my-details.html" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>My Details</span></a></li>
+                                        <li id="menu-item-2338" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-2338"><a href="{{ route('my_details')}}" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>My Details</span></a></li>
                                         <li id="menu-item-2339" class="menu-item menu-item-type-custom menu-item-object-custom nav-item nav-item-2339"><a href="{{ route('logout')}}" class="dropdown-item " onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Logout</span></a></li>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             @csrf
@@ -96,7 +96,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <a href="#">
+                            <a href="{{ route('my_details')}}">
                                 <div class="card equalheight border">
                                     <div class="card-header p-2 my-auto">
                                         <h3>My Details<span class="float-end link-primary" style="font-size:13px;">view all<i class="fa-solid fa-arrow-right-long ms-2"></i></span></h3>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Companies\CompanieController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,10 @@ Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-ad
 
 Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-account')->middleware('auth');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/my-details', [AccountController::class, 'details'])->name('my_details')->middleware('auth');
+Route::post('/primary-address-save',[AccountController::class,'savePrimaryAddress'])->name('primary-address-save');
+
+
 
 
 Route::get('/search-companie', CompanieController::class);

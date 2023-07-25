@@ -292,7 +292,7 @@
                                 <option value="EE">Estonia</option>
                                 <option value="SZ">Eswatini</option>
                                 <option value="ET">Ethiopia</option>
-                                <option value="EN" selected>England</option>
+                                <option value="England" selected>England</option>
                                 <option value="FK">Falkland Islands</option>
                                 <option value="FO">Faroe Islands</option>
                                 <option value="FJ">Fiji</option>
@@ -454,7 +454,7 @@
                                 <option value="UG">Uganda</option>
                                 <option value="UA">Ukraine</option>
                                 <option value="AE">United Arab Emirates</option>
-                                <option value="UK">United Kingdom (UK)</option>
+                                <option value="United Kingdom (UK)">United Kingdom (UK)</option>
                                 <option value="US">United States (US)</option>
                                 <option value="UM">United States (US) Minor Outlying Islands</option>
                                 <option value="UY">Uruguay</option>
