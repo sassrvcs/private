@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
-            $table->string('package_name');
-            $table->string('package_price');
-            $table->string('short_description');
-            $table->string('description');
+            $table->string('package_name')->nullable()->index();
+            $table->string('package_price')->nullable();
+            $table->string('discount_price')->nullable();
+            $table->string('short_description')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

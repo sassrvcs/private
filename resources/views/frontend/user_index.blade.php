@@ -65,7 +65,6 @@
                             </div>
                             <div class="hhr-text">Search for another name</div>
                         </div>
-                        
                     </div>
 
                     <div class="search-box" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true">

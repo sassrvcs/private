@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(FhCompanyHouseSensitiveWordsTableSeeder::class);
+        $this->call(RoleSeeder::class);
+        $this->call(UserSeeder::class);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
