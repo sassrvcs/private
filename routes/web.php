@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Companies\CompanieController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -36,3 +37,22 @@ Route::post('/primary-address-save',[AccountController::class,'savePrimaryAddres
 
 
 Route::get('/search-companie', CompanieController::class);
+
+Route::prefix('admin')->middleware(['auth', 'auth.session'])
+->group(function () {
+    Route::name('admin.')
+    ->group(function () {
+
+        Route::get('/dashboard', DashboardController::class)->name('dashboard');
+        // Route::resource('change-password', ChangePasswordController::class);
+
+        // Route::resource('agent', AgentController::class);
+        // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
+
+        // Route::resource('product', ProductController::class);
+        // Route::resource('category', CategoryController::class);
+        Route::resource('change-password', ChangePasswordController::class);
+    });
+});
+
+require __DIR__ . '/auth.php';

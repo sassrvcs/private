@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+        .main-banner #result_show {
+            padding: 0px 0 !important;
+            min-height: 0px !important;
+        }
+    </style>
     <!-- ================ start: main-banner ================ -->
     <div class="position-relative overflow-hidden main-banner-outer">
         <div class="main-banner" style="background-image: url({{ asset('frontend/assets/images/main-banner.png')}});">
@@ -9,13 +15,55 @@
                         <h1 data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000" data-aos-once="true">Formations made easier starting from <span>£12.99</span></h1>
                         <p data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">Form a UK limited company in minutes</p>
                     </div>
-                    <div id="available-company" style="display: none">
+
+                    {{-- <div id="available-company" style="display: none">
                         <div class=" align-items-center">
                             <div class="col-md-6">
                                 <span class="icon"><i class="fa-regular fa-circle-check"></i></span>
                                 <h2 id="search-company-name"></h2>
+                                <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
                                 <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
                             </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <a href="#" class="btn btn-primary wow zoomIn">Choose Package<i class="fas fa-long-arrow-alt-right ms-2"></i></a>
+                        </div>
+                        <div class="hhr-text">Search for another name</div>
+                    </div>
+
+                    <div id="not-available-company" style="display: none">
+                        <div class="search-result-error mb-4">
+                            <span class="icon"><i class="fa-regular fa-circle-xmark"></i></span>
+                            <h2 id="search-company-name"></h2>
+                            <h3 style="color:white;">Error! This company name is Not available.</h3>
+                        </div>
+                        <div class="hhr-text">Search for another name</div>
+                    </div> --}}
+
+                    <div class="col-md-7 mb-3 " id="result_show" style="display: none">
+                        {{-- Available Message --}}
+                        <div class="search-result mb-4" id="available-company" style="display: none">
+                            <div class=" align-items-center">
+                               <div class="col-md-12">
+                                  <span class="icon"><i class="fa fa-check-circle-o"></i></span>
+                                  <h2 id="search-company-name"></h2>
+                                  <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
+                                  <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
+                               </div>
+                               <div class="col-md-4 "><a href="#" class="btn btn-primary wow zoomIn">Choose Package<i class="fa fa-long-arrow-right ms-2"></i></a></div>
+                            </div>
+                            <div class="hhr-text">Search for another name</div>
+                        </div>
+
+                        {{-- Not Available Message --}}
+                        <div id="not-available-company" style="display: none">
+                            <div class="search-result-error mb-4">
+                                <span class="icon"><i class="fa-regular fa-circle-xmark"></i></span>
+                                <h2 id="search-company-name"></h2>
+                                <h3 style="color:white;">Error! This company name is Not available.</h3>
+                            </div>
+                            <div class="hhr-text">Search for another name</div>
                         </div>
                     </div>
 
@@ -650,6 +698,9 @@
             $('#search').click(function() {
                 var companyName = $('#company-name').val();
 
+                var searchButton = $(this);
+                searchButton.prop('disabled', true).text('Searching...');
+
                 // Make the GET request using Axios
                 axios.get('/search-companie', {
                     params: {
@@ -660,19 +711,41 @@
                     // Handle the response data here
                     console.log(response.data);
 
-                    if(response.data == 'available') {
+                    if(response.data.message == 'This company name is available.') {
                         $('#response-class').hide();
+                        $('#result_show').hide();
+                        $('#not-available-company').hide();
                         $('#search-company-name').text(companyName);
-                        $('#available-company').show(100);
+
+                        if(response.data.is_sensitive == 1) {
+                            $('#is_sensitive_word_row').show(110);
+                            $('#is_sensitive_word').text(response.data.is_sensitive_word);
+                        } else {
+                            $('#is_sensitive_word_row').hide();
+                            $('#is_sensitive_word').text('');
+                        }
+
+                        $('#result_show').show(100);
+                        $('#available-company').show(115);
                     } else {
-                        alert('Company name not available');
+                        $('#result_show').hide();
+                        $('#available-company').hide();
+                        $('#response-class').hide();
+                        
+                        // Show data
+                        $('#search-company-name').text(companyName);
+                        $('#result_show').show(100);
+                        $('#not-available-company').show(120);
                     }
                 })
                 .catch(function (error) {
                     // Handle any errors that occurred during the request
                     console.error(error);
+                })
+                .finally(function () {
+                    // Re-enable the button and change the text back to "Search"
+                    searchButton.prop('disabled', false).text('Search');
                 });
-
             });
         });
     </script>
