@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\Package\PackageController;
 use App\Http\Controllers\Web\Home\HomeController;
+use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,7 @@ Route::get('/my-details', [AccountController::class, 'details'])->name('my_detai
 Route::post('/primary-address-save',[AccountController::class,'savePrimaryAddress'])->name('primary-address-save');
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
-Route::get('/package', PackageController::class);
+Route::get('/package', WebPackageController::class);
 
 Route::get('/search-companie', CompanieController::class);
 
