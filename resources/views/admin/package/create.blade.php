@@ -42,7 +42,7 @@
                                     </div>
 
                                     <div class="col-sm-4">
-                                        <x-Forms.Input type="text" mandate="*" label="Price" id="price"
+                                        <x-Forms.Input type="number" mandate="*" label="Price" id="price"
                                             name="price" value="{{ old('price') }}"
                                             class="{{ $errors->has('price') ? 'is-invalid' : '' }}"  />
                                     </div>
@@ -70,7 +70,13 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Faqs</label>
-                                        <textarea class="ckeditor form-control {{ $errors->has('faqs') ? 'is-invalid' : '' }}" name="faqs"></textarea>
+                                        <div class="field_wrapper_faq">
+                                            <div>
+                                                <input type="text" class="form-control" name="faq[question]" placeholder="question" value=""/>
+                                                <input type="text" class="form-control" name="faq[answer]" placeholder="answer" value=""/>
+                                                <a href="javascript:void(0);" class="btn btn-primary faq_add" title="Add field">add</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -123,8 +129,31 @@
             $(this).parent('div').remove(); //Remove field html
             x--; //Decrement field counter
         });
+
+        //faq add
+
+        var faqaddButton = $('.faq_add'); //Add button selector
+        var faqwrapper = $('.field_wrapper_faq'); //Input field wrapper
+        var faqfieldHTML = '<div><input type="text" class="form-control" name="faq[question][]" placeholder="question" value=""/><input type="text" class="form-control" name="faq[answer][]" placeholder="answer" value=""/><a href="javascript:void(0);" class="btn btn-danger faq_remove_button">remove</a></div>'; //New input field html
+        var y = 1; //Initial field counter is 1
+
+        //Once add button is clicked
+        $(faqaddButton).click(function(){
+            //Check maximum number of input fields
+            if(y < maxField){
+                y++; //Increment field counter
+                $(faqwrapper).append(faqfieldHTML); //Add field html
+            }
+        });
+
+        //Once remove button is clicked
+        $(faqwrapper).on('click', '.faq_remove_button', function(e){
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+            y--; //Decrement field counter
+        });
     });
-    </script>
+</script>
 
 @endsection
 

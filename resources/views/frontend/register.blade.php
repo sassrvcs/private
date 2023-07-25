@@ -14,7 +14,7 @@
         </div>
         <div class="center-info">
             <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="{{ url('')}}">Home</a></li>
                 <li><a>Digital Packages</a></li>
             </ul>
         </div>
@@ -130,11 +130,15 @@
                     <span class="input-wrapper ">
                         <div class="custom-input-with-right-icon">
                             <div class="input-box">
-                                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" maxlength="8">
+                                <input id="password-field" class="form-control @error('password') is-invalid @enderror" type="password" name="password" value={{ old('password')}}>
                             </div>
                             <div class="right-icon">
-                                <i class="fa fa-eye cursor-pointer" aria-hidden="true"></i>
+                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
+
+
+
+
                         </div>
                     </span>
                 </div>
@@ -491,8 +495,8 @@
                     </div>
                     <div class=" px-0 col-md-12 col-12">
                         <div class="px-0 form-check">
-                            <input class="" id="chek1" type="checkbox" name="chek2">
-                            <label for="chek1"> I agree to the <a href="#">Terms and Conditions</a> & <a href="#">Privacy Policy</a></label>
+                            <input class="" id="chek2" type="checkbox" name="chek2">
+                            <label for="chek2"> I agree to the <a href="#">Terms and Conditions</a>  & <a href="#">Privacy Policy</a></label>
                         </div>
                         @error('chek2')
                             <div class="error" style="color:red;">{{ $message }}</div>
@@ -523,10 +527,21 @@
 </div>
 @endsection
 
-
+@section('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
+        $(".toggle-password").click(function() {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+        input.attr("type", "text");
+        } else {
+        input.attr("type", "password");
+        }
+        });
+
         $('#findAddress').click(function(){
             var post_code = $("#post_code").val();
             $.ajax({
@@ -563,3 +578,4 @@
     }
 
 </script>
+@endsection
