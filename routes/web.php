@@ -5,6 +5,7 @@ use App\Http\Controllers\Companies\CompanieController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Admin\Package\PackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +47,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
         Route::get('/dashboard', DashboardController::class)->name('dashboard');
         // Route::resource('change-password', ChangePasswordController::class);
 
-        // Route::resource('agent', AgentController::class);
+         Route::resource('package', PackageController::class);
         // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
 
         // Route::resource('product', ProductController::class);

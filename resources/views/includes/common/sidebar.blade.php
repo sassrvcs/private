@@ -51,7 +51,7 @@
                 <a href="#" class="nav-link ">
                     <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
-                        Plans
+                        Packages
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -66,8 +66,7 @@
                     </li>
 
                     <li class="nav-item">
-                        {{-- {{ request()->routeIs('admin.agent.create') ? ' active' : '' }} --}}
-                        <a href="#" class="nav-link ">
+                        <a href="{{ route('admin.package.create')}}" class="nav-link {{ request()->routeIs('admin.package.create') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add New</p>
                         </a>
