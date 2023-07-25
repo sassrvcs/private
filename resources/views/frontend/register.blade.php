@@ -135,10 +135,6 @@
                             <div class="right-icon">
                                 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
-
-
-
-
                         </div>
                     </span>
                 </div>

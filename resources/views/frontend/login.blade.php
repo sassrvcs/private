@@ -45,23 +45,24 @@
                     <div class="col-md-6">
                         <fieldset class="border p-3">
                             <legend class="float-none w-auto p-2">Account Login</legend>
-                            <form class="" action="{{ route('login') }}" method="POST">
+                            <form class="" action="{{ route('clientlogin') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Email *</label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{old('email')}}" autocomplete="new-password">
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{old('email')}}">
+                                    @error('email')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('email')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
+
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password&nbsp;<span class="required">*</span></label>
                                     <div class="custom-input-with-right-icon">
                                         <div class="input-box">
-                                            <input class="form-control" type="password" id="password" name="password" maxlength="8" value="{{old('password')}}">
+                                            <input id="password-field" class="form-control" type="password" id="password" name="password" value="{{old('password')}}">
                                         </div>
                                         <div class="right-icon">
-                                            <i class="fa fa-eye cursor-pointer" aria-hidden="true"></i>
+                                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                         </div>
                                     </div>
                                     @error('password')
@@ -97,4 +98,21 @@
         </div>
     </section>
     <!-- ================ end: customer_login ================ -->
+@endsection
+@section('script')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".toggle-password").click(function() {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+        input.attr("type", "text");
+        } else {
+        input.attr("type", "password");
+        }
+        });
+    });
+</script>
 @endsection
