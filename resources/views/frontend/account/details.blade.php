@@ -186,7 +186,7 @@
                                                                 @endforeach
                                                             </span>
                                                             <div class="action-container">
-                                                                <button type="button" id="choosePrimaryAddress" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="openModalButton" role="button" aria-disabled="false" fdprocessedid="4xigk"><span class="ui-button-text"> Choose Another</span></button>
+                                                                <button type="button" id="choosePrimaryAddress" onclick="OpenModal('primary')" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="openModalButton" role="button" aria-disabled="false" fdprocessedid="4xigk"><span class="ui-button-text"> Choose Another</span></button>
                                                                 <button type="button" id="editPrimaryAddress" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="edit-bill-addr" role="button" aria-disabled="false" fdprocessedid="ruzkzh"><span class="ui-button-text"> Edit</span></button>
                                                             </div>
                                                         </div>
@@ -199,15 +199,14 @@
                                                     <td class="td-value-td">
                                                         <div class="td-value-inner">
                                                             <span class="efTextInput address bill-addr text-container" id="primaryPostalAddress" name="primaryPostalAddress" data-email-address="PRIMARY">
-                                                                <p>15 Raglan Court,
-                                                                    Empire Way,
-                                                                    Wembley,
-                                                                    Greater London</p>
-                                                                <p>HA90RE,
-                                                                    United Kingdom (UK)</p>
+                                                                @foreach($billing_address as $key => $value)
+
+                                                                <p>{{ $value['house_number']}}, {{$value['street']}},{{$value['locality']}},{{ $value['town']}}, {{ $value['county']}}</p>
+                                                                <p>{{ $value['billing_country']}},{{ $value['post_code']}}</p>
+                                                                @endforeach
                                                             </span>
                                                             <div class="action-container">
-                                                                <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="openModalButton" role="button" aria-disabled="false" fdprocessedid="4xigk"><span class="ui-button-text"> Choose Another</span></button>
+                                                                <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="openModalButton" onclick="OpenModal('billing')" role="button" aria-disabled="false" fdprocessedid="4xigk"><span class="ui-button-text"> Choose Another</span></button>
                                                                 <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="edit-bill-addr" role="button" aria-disabled="false" fdprocessedid="ruzkzh"><span class="ui-button-text"> Edit</span></button>
                                                             </div>
                                                         </div>
@@ -332,6 +331,33 @@
     </div>
 </div>
 <!--For primary Address Modal Popup-->
+<!-- Billing Address modal pop up -->
+<div class="modal" id="chooseBIllingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Choose Address</h5>
+                <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h3>Recently Used Addresses</h3>
+                    <div>
+                        @foreach($billing_address as $key => $value)
+                            <p>{{$value['house_number'] }}, {{$value['street']}},{{$value['locality']}},{{ $value['town']}}, {{ $value['county']}}</p>
+                            <p>{{ $value['billing_country']}},{{ $value['post_code']}}</p>
+                            <button class="btn btn-primary" type="button">Select</button>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary addNewAddress" data-dismiss="modal">Add new address</button>
+              </div>
+        </div>
+    </div>
+</div>
+<!----- END ----->
 <div class="modal" id="primaryAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
@@ -703,7 +729,7 @@
                     </div>
 
                     <div class="form-row form-group ">
-                        <label>House Name / Number: &nbsp;<span class="optional">(optional)
+                        <label>House Name / Number: &nbsp;<span class="optional">
                             </span>
                         </label>
                         <span class="input-wrapper">
@@ -756,7 +782,7 @@
                         <label for="billing_first_name">Post Code:&nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
                         <span class="input-wrapper">
-                            <input type="text" name="post_code" class="input-text form-control @error('post_code') is-invalid @enderror" value={{old('post_code')}}>
+                            <input type="text" name="post_code" id="zip" class="input-text form-control @error('post_code') is-invalid @enderror" value={{old('post_code')}}>
                         </span>
                         @error('post_code')
                             <div class="error" style="color:red;">{{ $message }}</div>
@@ -1025,7 +1051,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                <button type="button" class="btn btn-primary" id="saveAddr">Submit</button>
               </div>
         </div>
     </div>
@@ -1079,6 +1105,10 @@
             $('#choosePrimaryAddressModal').modal('show');
         });
 
+        $("#openModalButton").click(function(){
+            $('#chooseBillingAddressModal').modal('show');
+        });
+
         $(".addNewAddress").click(function(){
             $('#addNewAddressModal').modal('show');
         });
@@ -1089,6 +1119,7 @@
                 $('.adderr').html('Please enter zipcode');
                 return false ;
             }else{
+                $('#zip').val(post_code);
                 $('.adderr').html('');
             }
             $('#findAddress').html('Please Wait...');
@@ -1107,7 +1138,16 @@
             });
         });
 
+        $("#saveAddr").click(function(){
+
+
+        });
+
     });
+
+    function OpenModal(val){
+        $('#choosePrimaryAddressModal').modal('show');
+    }
 
     function selectPostalAddrApp(val){
         var value = val.split(',');

@@ -13,7 +13,9 @@ class AccountController extends Controller
     public function details(){
         $user = Auth::user();
         $primary_address = Address::where('user_id',Auth::user()->id)->where('address_type','primary_address')->get()->toArray();
-        return view('frontend.account.details', compact('user','primary_address'));
+        $billing_address = Address::where('user_id',Auth::user()->id)->where('address_type','billing_address')->get()->toArray();
+
+        return view('frontend.account.details', compact('user','primary_address','billing_address'));
     }
     public function savePrimaryAddress(Request $request){
 
