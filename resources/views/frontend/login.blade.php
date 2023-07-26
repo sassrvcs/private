@@ -59,7 +59,7 @@
                                     <label for="password" class="form-label">Password&nbsp;<span class="required">*</span></label>
                                     <div class="custom-input-with-right-icon">
                                         <div class="input-box">
-                                            <input id="password-field" class="form-control" type="password" id="password" name="password" value="{{old('password')}}">
+                                            <input id="password-field" class="form-control @error('password') is-invalid @enderror" type="password" id="password" name="password" value="{{old('password')}}">
                                         </div>
                                         <div class="right-icon">
                                             <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>

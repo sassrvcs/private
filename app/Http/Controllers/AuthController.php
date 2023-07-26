@@ -103,7 +103,6 @@ class AuthController extends Controller
     public function saveRegisterForm(Request $request){
 
         $validate = Validator::make($request->all(), [
-            'organisation' => 'required',
             'title' => 'required',
             'forename' => 'required|alpha',
             'surname' => 'required|alpha',
@@ -111,16 +110,17 @@ class AuthController extends Controller
             'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email|unique:users|same:confirm_email',
             'confirm_email' => 'required',
             'password' => 'required|min:8|string',
+            'post_code' => 'required',
+            'house_no' => 'required',
             'street' => 'required',
             'locality' => 'required',
             'town' => 'required',
-            'post_code' => 'required',
             'billing_country' => 'required',
             'chek1' => 'required',
             'chek2' => 'required'
 
             ],[
-                'organisation.required' =>'This field is required.',
+
                 'title.required' => 'Title is required.',
                 'forename.required' => 'Forename is required.',
                 'surname.required' => 'Surname is required.',
@@ -135,6 +135,7 @@ class AuthController extends Controller
                 'locality.required' =>'This field is required.',
                 'town.required' =>'This field is required.',
                 'post_code.required' =>'This field is required.',
+                'house_no.required' =>'This field is required.',
                 'billing_country.required' =>'This field is required.',
                 'chek1.required' =>'This field is required.',
                 'chek2.required' =>'This field is required.',

@@ -43,7 +43,6 @@
                 <legend class="float-none w-auto p-2">Account Holder</legend>
                 <div class="form-row form-group ">
                     <label for="username">Organisation (if applicable):
-                        <abbr class="required" title="required">*</abbr>
                     </label>
                     <span class="input-wrapper">
                         <input type="text" name="organisation" class="input-text form-control @error('organisation') is-invalid @enderror" value={{old('organisation')}}>
@@ -68,62 +67,64 @@
                             <option value="Lord" @if(old('title') == "Lord") selected @endif>Lord</option>
                             <option value="Lady" @if(old('title') == "Lady") selected @endif>Lady</option>
                         </select>
+                        @error('title')
+                            <div class="error" style="color:red;">{{ $message }}</div>
+                        @enderror
                     </span>
                 </div>
-                @error('title')
-                    <div class="error" style="color:red;">{{ $message }}</div>
-                @enderror
+
 
                 <div class="form-row form-group ">
                     <label>Forename:&nbsp;<abbr class="required" title="required">*</abbr></label>
                     <span class="input-wrapper ">
                         <input class="form-control @error('forename') is-invalid @enderror" type="text" name="forename" value={{old('forename')}}>
+                    @error('forename')
+                        <div class="error" style="color:red;">{{ $message }}</div>
+                    @enderror
                     </span>
                 </div>
-                @error('forename')
-                    <div class="error" style="color:red;">{{ $message }}</div>
-                @enderror
+
                 <div class="form-row form-group ">
                     <label>Surname:&nbsp;<abbr class="required" title="required">*</abbr></label>
                     <span class="input-wrapper ">
                         <input class="form-control @error('surname') is-invalid @enderror" type="text" name="surname" value={{old('surname')}}>
+                        @error('surname')
+                            <div class="error" style="color:red;">{{ $message }}</div>
+                        @enderror
                     </span>
                 </div>
-                @error('surname')
-                    <div class="error" style="color:red;">{{ $message }}</div>
-                @enderror
-
 
                 <div class="form-row form-group ">
                     <label>Phone Number:&nbsp;<abbr class="required" title="required">*</abbr></label>
                     <span class="input-wrapper ">
                         <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" value={{old('phone')}}>
+                        @error('phone')
+                            <div class="error" style="color:red;">{{ $message }}</div>
+                        @enderror
                     </span>
                 </div>
-                @error('phone')
-                    <div class="error" style="color:red;">{{ $message }}</div>
-                @enderror
-
 
                 <div class="form-row form-group ">
                     <label>Email:&nbsp;<abbr class="required" title="required">*</abbr></label>
                     <span class="input-wrapper ">
                         <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value={{old('email')}}>
+                        @error('email')
+                            <div class="error" style="color:red;">{{ $message }}</div>
+                        @enderror
                     </span>
                 </div>
-                @error('email')
-                    <div class="error" style="color:red;">{{ $message }}</div>
-                @enderror
+
 
                 <div class="form-row form-group ">
                     <label>Confirm Email:&nbsp;<abbr class="required" title="required">*</abbr></label>
                     <span class="input-wrapper ">
                         <input class="form-control @error('confirm_email') is-invalid @enderror" type="email" name="confirm_email" value={{ old('confirm_email')}}>
+                        @error('confirm_email')
+                            <div class="error" style="color:red;">{{ $message }}</div>
+                        @enderror
                     </span>
                 </div>
-                @error('confirm_email')
-                    <div class="error" style="color:red;">{{ $message }}</div>
-                @enderror
+
 
                 <div class="form-row form-group ">
                     <label>Password:&nbsp;<abbr class="required" title="required">*</abbr></label>
@@ -136,53 +137,66 @@
                                 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
                         </div>
+                        @error('password')
+                            <div class="error" style="color:red;">{{ $message }}</div>
+                        @enderror
                     </span>
                 </div>
-                @error('password')
-                    <div class="error" style="color:red;">{{ $message }}</div>
-                @enderror
+
             </fieldset>
             <fieldset class="border p-3">
                 <legend class="float-none w-auto p-2">Primary Address
                 </legend>
                 <div class="row p-3" style="padding-top: 0 !important;">
                     <div class="form-row form-group">
-                        <label>Post Code:</label>
-                        <div class="input-wrapper with-rg-btn">
-                            <input type="text" class="form-control" name="post_code" id="post_code">
-                            <button type="button" class="btn btn-primary" id="findAddress">Find
+                        <label>Post Code: &nbsp;<abbr class="required" title="required">*</abbr></label>
+                        <div class="input-wrapper">
+                            <div class="with-rg-btn">
+                                <input type="text" class="form-control @error('post_code') is-invalid @enderror" name="post_code" id="post_code">
+                                <button type="button" class="btn btn-primary" id="findAddress">Find
                                 Address</button>
+                            </div>
+
+                            @error('post_code')
+                                <div class="error" style="color:red;">{{ $message }}</div>
+                            @enderror
                         </div>
+
                     </div>
 
                     <div class="form-row form-group ">
-                        <label>House Name / Number: &nbsp;<span class="optional">(optional)
-                            </span>
+                        <label>House Name / Number: &nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
                         <span class="input-wrapper">
-                            <input type="text" id="house_no" name="house_no" class="input-text form-control" value={{old('house_no')}}>
+                            <input type="text" id="house_no" name="house_no" class="input-text form-control @error('house_no') is-invalid @enderror" value={{old('house_no')}}>
+                            @error('house_no')
+                                <div class="error" style="color:red;">{{ $message }}</div>
+                            @enderror
                         </span>
+
                     </div>
-                    <p class="form-row form-group ">
+                    <div class="form-row form-group ">
                         <label for="billing_title">Street:&nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
                         <span class="input-wrapper">
                             <input type="text" name="street" id="street" class="input-text form-control @error('street') is-invalid @enderror" value={{old('street')}}>
+                            @error('street')
+                                <div class="error" style="color:red;">{{ $message }}</div>
+                            @enderror
                         </span>
-                        @error('street')
-                            <div class="error" style="color:red;">{{ $message }}</div>
-                        @enderror
-                    </p>
+
+                    </div>
 
                     <div class="form-row col-md-12 form-group">
                         <label for="billing_first_name">Locality:&nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
                         <span class="input-wrapper">
                             <input type="text" name="locality" id="locality" class="input-text form-control @error('locality') is-invalid @enderror" value={{old('locality')}}>
+                            @error('locality')
+                                <div class="error" style="color:red;">{{ $message }}</div>
+                            @enderror
                         </span>
-                        @error('locality')
-                            <div class="error" style="color:red;">{{ $message }}</div>
-                        @enderror
+
                     </div>
 
                     <div class="form-row col-md-12 form-group">
@@ -190,30 +204,31 @@
                         </label>
                         <span class="input-wrapper">
                             <input type="text" name="town" id="town" class="input-text form-control @error('town') is-invalid @enderror" value={{old('town')}}>
+                            @error('town')
+                                <div class="error" style="color:red;">{{ $message }}</div>
+                            @enderror
                         </span>
-                        @error('town')
-                            <div class="error" style="color:red;">{{ $message }}</div>
-                        @enderror
+
                     </div>
                     <div class="form-row col-md-12 form-group">
                         <label for="billing_first_name">County:&nbsp;
                         </label>
                         <span class="input-wrapper">
                             <input type="text" name="county" id="county" class="input-text form-control @error('county') is-invalid @enderror" value="{{ old('county')}}">
+                            @error('country')
+                                <div class="error" style="color:red;">{{ $message }}</div>
+                            @enderror
                         </span>
-                        @error('country')
-                            <div class="error" style="color:red;">{{ $message }}</div>
-                        @enderror
+
                     </div>
                     <div class="form-row col-md-12 form-group">
-                        <label for="billing_first_name">Post Code:&nbsp;<abbr class="required" title="required">*</abbr>
+                        <label for="billing_first_name">Post Code:
                         </label>
+
                         <span class="input-wrapper">
-                            <input type="text" name="post_code" class="input-text form-control @error('post_code') is-invalid @enderror" value={{old('post_code')}}>
+                            <input type="text" name="post_code" class="input-text form-control" value={{old('post_code')}}>
                         </span>
-                        @error('post_code')
-                            <div class="error" style="color:red;">{{ $message }}</div>
-                        @enderror
+
                     </div>
                     <div class="form-row update_totals_on_change col-md-12 col-12 form-group">
                         <label for="billing_country">Country&nbsp;<abbr class="required" title="required">*</abbr></label>
@@ -471,10 +486,11 @@
                                 <option value="ZM">Zambia</option>
                                 <option value="ZW">Zimbabwe</option>
                             </select>
+                            @error('billing_country')
+                                <div class="error" style="color:red;">{{ $message }}</div>
+                            @enderror
                         </span>
-                        @error('billing_country')
-                            <div class="error" style="color:red;">{{ $message }}</div>
-                        @enderror
+
                     </div>
 
                     <div class=" px-0 col-md-12 col-12 mb-2">
