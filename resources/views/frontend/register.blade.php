@@ -149,17 +149,11 @@
                 </legend>
                 <div class="row p-3" style="padding-top: 0 !important;">
                     <div class="form-row form-group">
-                        <label>Post Code: &nbsp;<abbr class="required" title="required">*</abbr></label>
-                        <div class="input-wrapper">
-                            <div class="with-rg-btn">
-                                <input type="text" class="form-control @error('post_code') is-invalid @enderror" name="post_code" id="post_code">
+                        <label>Post Code: </label>
+                        <div class="input-wrapper with-rg-btn">
+                                <input type="text" class="form-control" name="post_code" id="post_code">
                                 <button type="button" class="btn btn-primary" id="findAddress">Find
                                 Address</button>
-                            </div>
-
-                            @error('post_code')
-                                <div class="error" style="color:red;">{{ $message }}</div>
-                            @enderror
                         </div>
 
                     </div>
@@ -188,13 +182,11 @@
                     </div>
 
                     <div class="form-row col-md-12 form-group">
-                        <label for="billing_first_name">Locality:&nbsp;<abbr class="required" title="required">*</abbr>
+                        <label for="billing_first_name">Locality:
                         </label>
                         <span class="input-wrapper">
-                            <input type="text" name="locality" id="locality" class="input-text form-control @error('locality') is-invalid @enderror" value={{old('locality')}}>
-                            @error('locality')
-                                <div class="error" style="color:red;">{{ $message }}</div>
-                            @enderror
+                            <input type="text" name="locality" id="locality" class="input-text form-control" value={{old('locality')}}>
+
                         </span>
 
                     </div>
@@ -222,11 +214,14 @@
 
                     </div>
                     <div class="form-row col-md-12 form-group">
-                        <label for="billing_first_name">Post Code:
+                        <label for="billing_first_name">Post Code:&nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
 
                         <span class="input-wrapper">
-                            <input type="text" name="post_code" class="input-text form-control" value={{old('post_code')}}>
+                            <input type="text" name="post_code" id="zip_code" class="input-text form-control @error('post_code') is-invalid @enderror" value={{old('post_code')}}>
+                            @error('post_code')
+                                <div class="error" style="color:red;">{{ $message }}</div>
+                            @enderror
                         </span>
 
                     </div>
@@ -517,7 +512,7 @@
                 </div>
             </fieldset>
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Submit Register</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
@@ -556,6 +551,10 @@
 
         $('#findAddress').click(function(){
             var post_code = $("#post_code").val();
+            $('#findAddress').html('Please Wait...');
+            if(post_code!=""){
+                $("#zip_code").val(post_code);
+            }
             $.ajax({
                 url: "{!! route('find-address') !!}",
                 type: 'GET',
@@ -563,7 +562,7 @@
                     post_code: post_code
                 },
                 success: function(result) {
-
+                   $('#findAddress').html('Find Address');
                    $("#exampleModalCenterAddress").show();
                    $("#post_address_blk").html(result);
                 }
@@ -584,8 +583,8 @@
         var value = val.split(',');
         $("#house_no").val(value[0]);
         $("#street").val(value[1]);
-        $("#locality").val(value[2]);
-        $("#town").val(value[3]);
+        $("#town").val(value[2]);
+        $("#county").val(value[3]);
         $("#exampleModalCenterAddress").hide();
     }
 
