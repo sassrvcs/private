@@ -2643,7 +2643,7 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 /* =========== end: notSureBestFor-sec =========== */
-.search-result-error .fa-circle-xmark {
+.search-result-error .fa-times-circle-o {
     color: red;
     font-size: 40px;
 }

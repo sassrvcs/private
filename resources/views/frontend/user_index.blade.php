@@ -47,7 +47,7 @@
                             <div class=" align-items-center">
                                <div class="col-md-12">
                                   <span class="icon"><i class="fa fa-check-circle-o"></i></span>
-                                  <h2 id="search-company-name"></h2>
+                                  <h2 class="search-company-name"></h2>
                                   <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
                                   <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
                                </div>
@@ -59,8 +59,8 @@
                         {{-- Not Available Message --}}
                         <div id="not-available-company" style="display: none">
                             <div class="search-result-error mb-4">
-                                <span class="icon"><i class="fa-regular fa-circle-xmark"></i></span>
-                                <h2 id="search-company-name"></h2>
+                                <span class="icon"><i class="fa fa-times-circle-o"></i></span>
+                                <h2 class="search-company-name"></h2>
                                 <h3 style="color:white;">Error! This company name is Not available.</h3>
                             </div>
                             <div class="hhr-text">Search for another name</div>
@@ -129,243 +129,49 @@
                     </ul>
                 </div>
                 <div class="companyFormationPackages-lists">
-                    <div class="cfp-list-col" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000" data-aos-once="true">
-                        <div class="cfp-list-box active">
-                            <div class="top-icon-box">
-                                <div class="inner-box">
-                                    <img src="{{ asset('frontend/assets/images/companyFormationPackages2.svg')}}">
+                    @foreach($packages as $key => $package)
+                        <div class="cfp-list-col" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000" data-aos-once="true">
+                            <div class="cfp-list-box active">
+                                <div class="top-icon-box">
+                                    <div class="inner-box">
+                                        <img src="{{ asset('frontend/assets/images/companyFormationPackages2.svg')}}">
+                                    </div>
+                                </div>
+                                <div class="text-info1">
+                                    <h4>{{ $package->package_name }}</h4>
+                                    <h3>£{{ $package->package_price }}</h3>
+                                </div>
+                                <ul class="list-info">
+                                    <li>
+                                        <div class="icon-container">
+                                        </div>
+                                        <p>LTD Company</p>
+                                    </li>
+                                    <li>
+                                        <div class="icon-container">
+                                        </div>
+                                        <p>24-72 Hour Online Formation</p>
+                                    </li>
+                                    <li>
+                                        <div class="icon-container">
+                                        </div>
+                                        <p>Digital Certificate(s)</p>
+                                    </li>
+                                    <li>
+                                        <div class="icon-container">
+                                        </div>
+                                        <p>Free Business Bank Account</p>
+                                    </li>
+                                </ul>
+                                <div class="bottom-actions">
+                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
+                                    <a href="#" class="read-more-btn">Read More</a>
                                 </div>
                             </div>
-                            <div class="text-info1">
-                                <h4>Digital</h4>
-                                <h3>£12.99</h3>
-                            </div>
-                            <ul class="list-info">
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>LTD Company</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>24-72 Hour Online Formation</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Digital Certificate(s)</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Free Business Bank Account</p>
-                                </li>
-                            </ul>
-                            <div class="bottom-actions">
-                                <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                <a href="#" class="read-more-btn">Read More</a>
-                            </div>
                         </div>
-                    </div>
-                    <div class="cfp-list-col" data-aos="fade-up" data-aos-delay="450" data-aos-duration="1200" data-aos-once="true">
-                        <div class="cfp-list-box">
-                            <div class="top-icon-box">
-                                <div class="inner-box">
-                                    <img src="{{ asset('frontend/assets/images/companyFormationPackages3.svg')}}">
-                                </div>
-                            </div>
-                            <div class="text-info1">
-                                <h4>Digital</h4>
-                                <h3>£12.99</h3>
-                            </div>
-                            <ul class="list-info">
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>LTD Company</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>24-72 Hour Online Formation</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Digital Certificate(s)</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Free Business Bank Account</p>
-                                </li>
-                            </ul>
-                            <div class="bottom-actions">
-                                <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                <a href="#" class="read-more-btn">Read More</a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="cfp-list-col" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1400" data-aos-once="true">
-                        <div class="cfp-list-box">
-                            <div class="top-icon-box">
-                                <div class="inner-box">
-                                    <img src="{{ asset('frontend/assets/images/companyFormationPackages4.svg')}}">
-                                </div>
-                            </div>
-                            <div class="text-info1">
-                                <h4>Digital</h4>
-                                <h3>£12.99</h3>
-                            </div>
-                            <ul class="list-info">
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>LTD Company</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>24-72 Hour Online Formation</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Digital Certificate(s)</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Free Business Bank Account</p>
-                                </li>
-                            </ul>
-                            <div class="bottom-actions">
-                                <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                <a href="#" class="read-more-btn">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cfp-list-col" data-aos="fade-up" data-aos-delay="550" data-aos-duration="1600" data-aos-once="true">
-                        <div class="cfp-list-box">
-                            <div class="top-icon-box">
-                                <div class="inner-box">
-                                    <img src="{{ asset('frontend/assets/images/companyFormationPackages5.svg')}}">
-                                </div>
-                            </div>
-                            <div class="text-info1">
-                                <h4>Digital</h4>
-                                <h3>£12.99</h3>
-                            </div>
-                            <ul class="list-info">
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>LTD Company</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>24-72 Hour Online Formation</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Digital Certificate(s)</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Free Business Bank Account</p>
-                                </li>
-                            </ul>
-                            <div class="bottom-actions">
-                                <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                <a href="#" class="read-more-btn">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cfp-list-col" data-aos="fade-up" data-aos-delay="600" data-aos-duration="1800" data-aos-once="true">
-                        <div class="cfp-list-box">
-                            <div class="top-icon-box">
-                                <div class="inner-box">
-                                    <img src="{{ asset('frontend/assets/images/companyFormationPackages1.svg')}}">
-                                </div>
-                            </div>
-                            <div class="text-info1">
-                                <h4>Digital</h4>
-                                <h3>£12.99</h3>
-                            </div>
-                            <ul class="list-info">
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>LTD Company</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>24-72 Hour Online Formation</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Digital Certificate(s)</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Free Business Bank Account</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>LTD Company</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>24-72 Hour Online Formation</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Digital Certificate(s)</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Free Business Bank Account</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>LTD Company</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>24-72 Hour Online Formation</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Digital Certificate(s)</p>
-                                </li>
-                                <li>
-                                    <div class="icon-container">
-                                    </div>
-                                    <p>Free Business Bank Account</p>
-                                </li>
-                            </ul>
-                            <div class="bottom-actions">
-                                <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                <a href="#" class="read-more-btn">Read More</a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
+
                 <div class="compare-actions" data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" data-aos-once="true">
                     <a href="#" class="theme-btn-primary compare-btn">Compare All Packages</a>
                 </div>
@@ -715,7 +521,7 @@
                         $('#response-class').hide();
                         $('#result_show').hide();
                         $('#not-available-company').hide();
-                        $('#search-company-name').text(companyName);
+                        $('.search-company-name').text(companyName);
 
                         if(response.data.is_sensitive == 1) {
                             $('#is_sensitive_word_row').show(110);
@@ -727,15 +533,19 @@
 
                         $('#result_show').show(100);
                         $('#available-company').show(115);
+                        $('.image-stamp').hide();
+                        $('.search-input').val('');
                     } else {
                         $('#result_show').hide();
                         $('#available-company').hide();
                         $('#response-class').hide();
                         
                         // Show data
-                        $('#search-company-name').text(companyName);
+                        $('.search-company-name').text(companyName);
                         $('#result_show').show(100);
                         $('#not-available-company').show(120);
+                        $('.image-stamp').hide();
+                        $('.search-input').val('');
                     }
                 })
                 .catch(function (error) {

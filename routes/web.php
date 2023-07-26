@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\Package\PackageController;
+use App\Http\Controllers\Web\Home\HomeController;
+use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +20,16 @@ use App\Http\Controllers\Admin\Package\PackageController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.user_index');
-});
+// Route::get('/', function () {
+//     return view('frontend.user_index');
+// });
+
 Route::get('/login', function () {
     return view('frontend.login');
 });
+
 Route::post('/login',[AuthController::class,'login'])->name('clientlogin');
+
 Route::get('/register', [AuthController::class, 'viewRegisterForm'])->name('register-form');
 Route::post('/register',[AuthController::class,'saveRegisterForm'])->name('save-register-form');
 Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-address');
@@ -34,8 +39,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('clientlogout')-
 Route::get('/my-details', [AccountController::class, 'details'])->name('my_details')->middleware('auth');
 Route::post('/primary-address-save',[AccountController::class,'savePrimaryAddress'])->name('primary-address-save');
 
-
-
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/package', WebPackageController::class);
 
 Route::get('/search-companie', CompanieController::class);
 

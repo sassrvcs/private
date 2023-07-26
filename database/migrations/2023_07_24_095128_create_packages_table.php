@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('discount_price')->nullable();
             $table->string('short_description')->nullable();
             $table->longText('description')->nullable();
+            $table->longText('notes')->nullable();
             $table->timestamps();
         });
     }
