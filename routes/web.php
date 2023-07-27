@@ -38,6 +38,8 @@ Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-accoun
 Route::post('/logout', [AuthController::class, 'logout'])->name('clientlogout')->middleware('auth');
 Route::get('/my-details', [AccountController::class, 'details'])->name('my_details')->middleware('auth');
 Route::post('/primary-address-save',[AccountController::class,'savePrimaryAddress'])->name('primary-address-save');
+Route::post('/my-details-save',[AccountController::class,'saveMyDetails'])->name('my-details-save');
+
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/package', WebPackageController::class);

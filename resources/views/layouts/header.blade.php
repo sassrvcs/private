@@ -5,7 +5,7 @@
         <div class="custom-navbar">
             <ul class="cn-menu-lists">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{ url('')}}">Home</a>
                 </li>
                 <li>
                     <div class="dropdown dropdown-s1">

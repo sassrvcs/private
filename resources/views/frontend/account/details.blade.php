@@ -107,6 +107,12 @@
                         </div>
                     </nav>
                 </div>
+                @if (session()->has('message'))
+                    <div class="alert alert-success">{{ session()->get('message') }}</div>
+                @endif
+                @if (session()->has('error'))
+                    <div class="alert alert-danger">{{ session()->get('error') }}</div>
+                @endif
                 <div class="col-12 col-md-12">
                     <div class="sec-common-title-s2 mt-4">
                         <h1>My Details</h1>
@@ -114,7 +120,8 @@
                 </div>
                 <div class="col-12 col-md-12">
                     <div class="customer-signup-s1">
-                        <form method="post" class="form-register register">
+                        <form method="post" action="{{ route('my-details-save')}}" class="form-register register">
+                            @csrf
                             <fieldset class="border p-3">
                                 <legend class="float-none w-auto p-2">Account Holder</legend>
                                 <div class="form-row form-group ">
@@ -239,14 +246,6 @@
                                         <div class="loader" style="display:none"></div>
 
                                     </div>
-                                    <div class="form-row form-group ">
-                                        <label>House Name / Number: &nbsp;<span class="optional">(optional)
-                                            </span>
-                                        </label>
-                                        <span class="input-wrapper">
-                                            <input type="text" class="input-text form-control">
-                                        </span>
-                                    </div>
                                 </div>
                             </fieldset>
 
@@ -256,17 +255,20 @@
                                 <legend class="float-none w-auto p-2">Email Addresses
                                 </legend>
                                 <div class="form-row form-group ">
-                                    <label for="username">Primary&nbsp;<abbr class="required" title="required">*</abbr></label>
+                                    <label for="username">Primary&nbsp;</label>
                                     <span class="input-wrapper">
-                                        <input type="text" class="input-text form-control">
+                                        <input type="email" name="email" value={{$user->email}} class="input-text form-control">
+                                        @error('email')
+                                            <div class="error" style="color:red;">{{ $message }}</div>
+                                        @enderror
                                     </span>
                                 </div>
 
 
                                 <div class="form-row form-group ">
-                                    <label>Billing&nbsp;<abbr class="required" title="required">*</abbr></label>
+                                    <label>Billing&nbsp;</label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control" type="text">
+                                        <input class="form-control" type="email" name="billing_email" value={{$user->billing_email}}>
                                     </span>
                                 </div>
 
@@ -274,17 +276,17 @@
                             <fieldset class="border p-3">
                                 <legend class="float-none w-auto p-2">Phone Numbers</legend>
                                 <div class="form-row form-group ">
-                                    <label for="username">Primary&nbsp;<abbr class="required" title="required">*</abbr></label>
+                                    <label for="username">Primary&nbsp;</label>
                                     <span class="input-wrapper">
-                                        <input type="text" class="input-text form-control">
+                                        <input type="number" class="input-text form-control" name="phone" value={{ $user->phone_no}}>
                                     </span>
                                 </div>
 
 
                                 <div class="form-row form-group ">
-                                    <label>Billing&nbsp;<abbr class="required" title="required">*</abbr></label>
+                                    <label>Billing&nbsp;</label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control" type="text">
+                                        <input class="form-control" type="number" class="input-text form-control" name="billing_phone" value={{ $user->billing_phone_no}}>
                                     </span>
                                 </div>
 
@@ -294,22 +296,31 @@
                                 </legend>
                                 <div class=" px-0 col-md-12 col-12 mb-2">
                                     <div class="px-0 form-check">
-                                        <b class="mr-2">Newsletter</b><input class="" id="chek1" type="checkbox">
+                                        <b class="mr-2">Newsletter</b><input class="" id="chek1" name="chek1" type="checkbox">
                                         <label for="chek1"> I would like to sign up to the newsletter distribution list
                                         </label>
+                                        @error('chek1')
+                                            <div class="error" style="color:red;">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class=" px-0 col-md-12 col-12 mb-2">
                                     <div class="px-0 form-check">
-                                        <b class="mr-2">Confirmation Statement</b> <input class="" id="chek2" type="checkbox">
+                                        <b class="mr-2">Confirmation Statement</b> <input class="" id="chek2" name="chek2" type="checkbox">
                                         <label for="chek2"> I would like to receive updates on the confirmation statement</label>
+                                        @error('chek2')
+                                            <div class="error" style="color:red;">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class=" px-0 col-md-12 col-12">
                                     <div class="px-0 form-check">
-                                        <b class="mr-2">Accounts</b> <input class="" id="chek3" type="checkbox">
+                                        <b class="mr-2">Accounts</b> <input class="" id="chek3" name="chek3" type="checkbox">
                                         <label for="chek3"> I would like to receive updates on my accounts
                                         </label>
+                                        @error('chek3')
+                                            <div class="error" style="color:red;">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </fieldset>
