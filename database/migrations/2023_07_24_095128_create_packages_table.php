@@ -22,6 +22,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->longText('notes')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

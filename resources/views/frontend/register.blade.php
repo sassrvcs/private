@@ -15,7 +15,7 @@
         <div class="center-info">
             <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
                 <li><a href="{{ url('')}}">Home</a></li>
-                <li><a>Digital Packages</a></li>
+                <li><a>Register</a></li>
             </ul>
         </div>
         <div class="call-info" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500" data-aos-once="true">
@@ -33,7 +33,7 @@
 <div class="sectiongap customer-signup-s1">
     <div class="container">
         <div class="sec-common-title-s2">
-            <h1>Account Registration with 1st Formations
+            <h1>Account Registration with Formations Hunt
             </h1>
             <p>Please complete the details below to register with us. All fields marked with * are mandatory.</p>
         </div>
@@ -494,7 +494,7 @@
                     <div class=" px-0 col-md-12 col-12 mb-2">
                         <div class="px-0 form-check">
                             <input class="" id="chek1" type="checkbox" name="chek1">
-                            <label for="chek1">I would like to receive updates from 1st Formations</label>
+                            <label for="chek1">I would like to receive updates from Formations Hunt</label>
                         </div>
                         @error('chek1')
                             <div class="error" style="color:red;">{{ $message }}</div>

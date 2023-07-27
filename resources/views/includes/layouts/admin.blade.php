@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
-  
+
     <!-- Summernote -->
     <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
 
@@ -108,12 +108,12 @@
 
     <!-- Bootstrap -->
     <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    
+
 
     <!-- jQuery UI -->
     <script src="{{ asset('admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
-    
+
 
     <!-- AdminLTE -->
     <script src="{{ asset('admin/js/adminlte.js') }}"></script>
@@ -149,7 +149,8 @@
 
 
     {{-- Axios --}}
-    <script src="{{ asset('admin/js/axios/axios.min.js') }}"></script>
+    {{-- <script src="{{ asset('admin/js/axios/axios.min.js') }}"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     {{-- Page level Scripts --}}
     @yield('scripts')
@@ -160,7 +161,7 @@
             toastr.success("{{ Session::get('success') }}");
         </script>
     @endif
-    
+
     @if (session('error'))
         <script>
             toastr.error("{{ session('error') }}");
@@ -177,7 +178,7 @@
     <script>
         // Ssn masking
         // $('[data-mask]').inputmask();
-        
+
         // Phone validation
         $(document).ready(function() {
             $('#phone').keypress(function(e) {

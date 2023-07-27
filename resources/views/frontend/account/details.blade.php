@@ -345,13 +345,17 @@
                 <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <div>
+                <div class="choose_addr">
                     <h3>Recently Used Addresses</h3>
-                    <div>
+                    <div class="current_address_grp">
                         @foreach($primary_address as $key => $value)
+                        <div class="addr_wrap">
                             <p>{{ $value['house_number']}}, {{$value['street']}},{{$value['locality']}},{{ $value['town']}}, {{ $value['county']}}</p>
                             <p>{{ $value['billing_country']}},{{ $value['post_code']}}</p>
+                        </div>
+                        <div class="button_select">
                             <button class="btn btn-primary" data-dismiss="modal" type="button">Select</button>
+                        </div>
                         @endforeach
                     </div>
                 </div>

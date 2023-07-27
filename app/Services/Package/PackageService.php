@@ -19,7 +19,7 @@ class PackageService
      */
     public function index()
     {
-        $packages = Package::with('features')->get();
+        $packages = Package::with('features')->whereNull('deleted_at')->get();
         return $packages;
     }
 
@@ -37,5 +37,14 @@ class PackageService
         return $package->id;
 
 
+    }
+    public function edit($id)
+    {
+        $package = Package::with('features','faqs')->where("id",$id)->first();
+        return $package;
+    }
+    public function destroy($id){
+        $package = Package::FindOrFail($id)->delete();
+        return $package;
     }
 }
