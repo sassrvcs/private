@@ -27,6 +27,7 @@
                         <div class="card-body">
                             <form action="{{ route('admin.package.update', $package->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <x-Forms.Input type="text" mandate="*" label="Name" id="name"
@@ -79,18 +80,30 @@
                                     <div class="col-sm-12">
                                         <label for="">Faqs</label>
                                         <div class="field_wrapper_faq">
-                                            <div>
-                                                <input type="text" class="form-control" name="faq[question]" placeholder="question" value=""/>
-                                                <input type="text" class="form-control" name="faq[answer]" placeholder="answer" value=""/>
-                                                <a href="javascript:void(0);" class="btn btn-primary faq_add" title="Add field">add</a>
-                                            </div>
+                                            <table id="example1" class="table table-bordered text-nowrap key-buttons">
+                                                @if($package->faqs)
+                                                    <tbody>
+                                                        @foreach($package->faqs as $key => $value)
+                                                            <tr class="faqrow" id="row_1">
+                                                                <td><input type="text" class="form-control" name="faq[1][question]" placeholder="question" value="{{ $value->question }}"/></td>
+                                                                <td><input type="text" class="form-control" name="faq[1][answer]" placeholder="answer" value="{{ $value->answer }}"/></td>
+
+                                                            </tr>
+                                                        @endforeach
+                                                        <td>
+                                                            <button type="button" name="add" id="faq_add" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                                            {{-- <button type="button" class="btn btn-danger remove-tr" data-rowid="1"><i class="fa fa-trash"></i></button> --}}
+                                                        </td>
+                                                    </tbody>
+                                                @endif
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Please note</label>
-                                        <textarea class="ckeditor form-control {{ $errors->has('notes') ? 'is-invalid' : '' }}" name="notes">{!! $package->note !!}</textarea>
+                                        <textarea class="ckeditor form-control {{ $errors->has('notes') ? 'is-invalid' : '' }}" name="notes">{!! $package->notes !!}</textarea>
                                     </div>
                                 </div>
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit"
@@ -110,12 +123,27 @@
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-       $('.ckeditor').ckeditor();
+
+       var i = 1;
+            $("#faq_add").click(function() {
+                ++i;
+                var row = '<tr class="faqrow" id="row_' + i + '">';
+                row += '<td><input type="text" name="faq[' + i + '][question]" placeholder="Question" class="form-control" /></td>';
+                row += '<td><input type="text" name="faq[' + i + '][answer]" placeholder="Answer" class="form-control" /><a href="javascript:void(0);" class="btn btn-danger removefaq">remove</a></td>';
+                row += '</tr>';
+
+                $("#example1").append(row);
+            });
+            $("body").on("click", ".removefaq", function () {
+                $(this).parents(".faqrow").remove();
+            })
 
     });
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
+        //$('.ckeditor').ckeditor();
+
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper

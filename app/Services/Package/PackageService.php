@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Models\Package;
+use App\Models\Feature;
+use App\Models\Faq;
 
 /**
  * @todo work in progress
@@ -25,6 +27,7 @@ class PackageService
 
     public function store($request)
     {
+        //dd($request);
 
         $package = new Package();
         $package->package_name = $request['name'];
@@ -42,6 +45,41 @@ class PackageService
     {
         $package = Package::with('features','faqs')->where("id",$id)->first();
         return $package;
+    }
+
+    public function update($request, $id){
+        $package = Package::findOrFail($id);
+        $package->package_name = $request['name'];
+        $package->package_price = $request['price'];
+        $package->short_description = $request['short_desc'];
+        $package->description = $request['description'];
+        $package->notes = $request['notes'];
+        $package->save();
+
+        $temp =[];
+        $tmp =[];
+
+        if(!empty($request['features'])){
+            Feature::where('package_id',$id)->delete();
+            foreach($request['features'] as $features){
+                $temp['feature'] = $features;
+                $temp['package_id'] = $id ;
+
+                Feature::create($temp);
+            }
+        }
+
+        if(!empty($request['faq'])){
+            Faq::where('package_id',$id)->delete();
+            foreach(array_values($request['faq']) as $k=> $value){
+                $tmp['package_id'] = $id;
+                $tmp['question'] = $value['question'];
+                $tmp['answer'] = $value['answer'];
+                Faq::create($tmp);
+            }
+
+        }
+        return true;
     }
     public function destroy($id){
         $package = Package::FindOrFail($id)->delete();

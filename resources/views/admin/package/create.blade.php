@@ -77,7 +77,7 @@
                                                 <a href="javascript:void(0);" class="btn btn-primary faq_add" title="Add field">add</a>
                                             </div> --}}
                                             <table id="example1" class="table table-bordered text-nowrap key-buttons">
-                                                <tr id="row_1">
+                                                <tr class="faqrow" id="row_1">
                                                     <td><input type="text" class="form-control" name="faq[1][question]" placeholder="question" value=""/></td>
                                                     <td><input type="text" class="form-control" name="faq[1][answer]" placeholder="answer" value=""/></td>
                                                     <td>
@@ -116,20 +116,23 @@
        var i = 1;
             $("#faq_add").click(function() {
                 ++i;
-                var row = '<tr id="row_' + i + '">';
+                var row = '<tr class="faqrow" id="row_' + i + '">';
                 row += '<td><input type="text" name="faq[' + i + '][question]" placeholder="Question" class="form-control" /></td>';
-                row += '<td><input type="text" name="faq[' + i + '][answer]" placeholder="Answer" class="form-control" /></td>';
+                row += '<td><input type="text" name="faq[' + i + '][answer]" placeholder="Answer" class="form-control" /><a href="javascript:void(0);" class="btn btn-danger removefaq">remove</a></td>';
                 row += '</tr>';
 
                 $("#example1").append(row);
             });
+            $("body").on("click", ".removefaq", function () {
+                $(this).parents(".faqrow").remove();
+            })
 
 
     });
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('.ckeditor').ckeditor();
+        //$('.ckeditor').ckeditor();
 
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector

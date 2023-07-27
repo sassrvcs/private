@@ -38,7 +38,6 @@ class PackageController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-         //dd($input);
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
@@ -92,6 +91,33 @@ class PackageController extends Controller
     {
         $package = $this->packageService->edit($id);
         return view('admin.package.edit',compact('package'));
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $input = $request->all();
+        $validate = Validator::make($request->all(), [
+            'name' => 'required',
+            'short_desc' => 'required',
+            'price' => 'required',
+            'description' => 'required'
+
+            ],[
+                'name.required' =>'This field is required.',
+                'short_desc.required' => 'This field is required.',
+                'price.required' => 'This field is required.',
+                'description.required' => 'This field is required.'
+
+            ]);
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }else{
+            $user = $this->packageService->update($input,$id);
+            if($user){
+                return Redirect::to("admin/package")->withSuccess('Package updated');
+            }
+
+        }
     }
     /**
      * Remove agent from database.

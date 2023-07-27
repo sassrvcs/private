@@ -381,59 +381,70 @@
             </div>
             <ul class="blog-slider" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500" data-aos-once="true">
                 <li>
-
-                    <div class="blog-slider-box">
-                        <img src="{{ asset('frontend/assets/images/blog1.png')}}">
-                        <div class="overlay-texts">
-                            <h4>How to Register for PAYE as an Employer?</h4>
-                            <p>8 May 2023</p>
+                    <a href="#">
+                        <div class="blog-slider-box">
+                            <img src="{{ asset('frontend/assets/images/blog1.png')}}">
+                            <div class="overlay-texts">
+                                <h4>How to Register for PAYE as an Employer?</h4>
+                                <p>8 May 2023</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </li>
                 <li>
-                    <div class="blog-slider-box">
-                        <img src="{{ asset('frontend/assets/images/blog2.png')}}">
-                        <div class="overlay-texts">
-                            <h4>How to Register for PAYE as an Employer?</h4>
-                            <p>8 May 2023</p>
+                    <a href="#">
+                        <div class="blog-slider-box">
+                            <img src="{{ asset('frontend/assets/images/blog2.png')}}">
+                            <div class="overlay-texts">
+                                <h4>How to Register for PAYE as an Employer?</h4>
+                                <p>8 May 2023</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </li>
                 <li>
-                    <div class="blog-slider-box">
-                        <img src="{{ asset('frontend/assets/images/blog3.png')}}">
-                        <div class="overlay-texts">
-                            <h4>How to Register for PAYE as an Employer?</h4>
-                            <p>8 May 2023</p>
+                    <a href="#">
+                        <div class="blog-slider-box">
+                            <img src="{{ asset('frontend/assets/images/blog3.png')}}">
+                            <div class="overlay-texts">
+                                <h4>How to Register for PAYE as an Employer?</h4>
+                                <p>8 May 2023</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </li>
                 <li>
-                    <div class="blog-slider-box">
-                        <img src="{{ asset('frontend/assets/images/blog1.png')}}">
-                        <div class="overlay-texts">
-                            <h4>How to Register for PAYE as an Employer?</h4>
-                            <p>8 May 2023</p>
+                    <a href="#">
+                        <div class="blog-slider-box">
+                            <img src="{{ asset('frontend/assets/images/blog1.png')}}">
+                            <div class="overlay-texts">
+                                <h4>How to Register for PAYE as an Employer?</h4>
+                                <p>8 May 2023</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </li>
                 <li>
-                    <div class="blog-slider-box">
-                        <img src="{{ asset('frontend/assets/images/blog2.png')}}">
-                        <div class="overlay-texts">
-                            <h4>How to Register for PAYE as an Employer?</h4>
-                            <p>8 May 2023</p>
+                    <a href="#">
+                        <div class="blog-slider-box">
+                            <img src="{{ asset('frontend/assets/images/blog2.png')}}">
+                            <div class="overlay-texts">
+                                <h4>How to Register for PAYE as an Employer?</h4>
+                                <p>8 May 2023</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </li>
                 <li>
-                    <div class="blog-slider-box">
-                        <img src="{{ asset('frontend/assets/images/blog3.png')}}">
-                        <div class="overlay-texts">
-                            <h4>How to Register for PAYE as an Employer?</h4>
-                            <p>8 May 2023</p>
+                    <a href="#">
+                        <div class="blog-slider-box">
+                            <img src="{{ asset('frontend/assets/images/blog3.png')}}">
+                            <div class="overlay-texts">
+                                <h4>How to Register for PAYE as an Employer?</h4>
+                                <p>8 May 2023</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -539,7 +550,7 @@
                         $('#result_show').hide();
                         $('#available-company').hide();
                         $('#response-class').hide();
-                        
+
                         // Show data
                         $('.search-company-name').text(companyName);
                         $('#result_show').show(100);

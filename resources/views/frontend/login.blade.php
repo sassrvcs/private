@@ -16,7 +16,7 @@
             <div class="center-info">
                 <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
                     <li><a href="{{ url('')}}">Home</a></li>
-                    <li><a>Digital Packages</a></li>
+                    <li><a>Login</a></li>
                 </ul>
             </div>
             <div class="call-info" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500" data-aos-once="true">
