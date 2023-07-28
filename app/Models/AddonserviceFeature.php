@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Feature extends Model
+class AddonserviceFeature extends Model
 {
     use HasFactory;
+    protected $table = 'add_on_service_features';
     protected $fillable = [
-        'package_id', 'service_id', 'feature'
+        'add_on_service_id', 'feature'
     ];
 
     /**
