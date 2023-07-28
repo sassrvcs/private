@@ -537,15 +537,15 @@
                         $('.search-company-name').text(companyName);
 
                         if(response.data.is_sensitive == 1) {
-                            $('#is_sensitive_word_row').show(110);
+                            $('#is_sensitive_word_row').show();
                             $('#is_sensitive_word').text(response.data.is_sensitive_word);
                         } else {
                             $('#is_sensitive_word_row').hide();
                             $('#is_sensitive_word').text('');
                         }
 
-                        $('#result_show').show(100);
-                        $('#available-company').show(115);
+                        $('#result_show').show();
+                        $('#available-company').show();
                         $('.image-stamp').hide();
                         $('.search-input').val('');
                     } else {
@@ -555,8 +555,8 @@
 
                         // Show data
                         $('.search-company-name').text(companyName);
-                        $('#result_show').show(100);
-                        $('#not-available-company').show(120);
+                        $('#result_show').show();
+                        $('#not-available-company').show();
                         $('.image-stamp').hide();
                         $('.search-input').val('');
                     }

@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Web\Checkout;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Checkout\CheckoutStepRequest;
+use App\Services\Addon\AddonService;
 use App\Services\Cart\CartService;
 // use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class CheckoutStepController extends Controller
 {
-    public function __construct(protected CartService $cartService)
-    { }
+    public function __construct(
+        protected CartService $cartService,
+        protected AddonService $addonService
+    ) { }
 
     /** 
      * Review company name and selected package
@@ -29,10 +32,10 @@ class CheckoutStepController extends Controller
      */
     public function addOnServices(CheckoutStepRequest $request)
     {
-        $updatedValue = $this->cartService->searchAndUpdateCompany($request->validated());
-        // if($updatedValue == true) {
-        // }
-        $sessionCart = $this->cartService->getCartViaSession();
-        return view('frontend.checkout_steps.addon_services', compact('sessionCart'));
+        $updatedValue   = $this->cartService->searchAndUpdateCompany($request->validated());
+        $sessionCart    = $this->cartService->getCartViaSession();
+        $addonServices  = $this->addonService->index();
+
+        return view('frontend.checkout_steps.addon_services', compact('sessionCart', 'addonServices'));
     }
 }

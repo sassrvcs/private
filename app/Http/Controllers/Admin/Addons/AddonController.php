@@ -1,0 +1,148 @@
+<?php
+
+namespace App\Http\Controllers\Admin\Addons;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+// use App\Services\Addonservice\AddonserviceService;
+// use Validator;
+// use App\Models\Addonservice;
+// use App\Models\AddonserviceFeature;
+
+use Illuminate\Support\Facades\Validator;
+use App\Services\Addon\AddonService;
+use Redirect;
+
+
+class AddonController extends Controller
+{
+    public function __construct(protected AddonService $addonService)
+    { }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $addonservicelist = $this->addonService->index();
+        return view('admin.addonservice.index',compact('addonservicelist'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.addonservice.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $input = $request->all();
+        $validate = Validator::make($request->all(), [
+            'name' => 'required',
+            'short_desc' => 'required',
+            'price' => 'required',
+            'description' => 'required'
+
+            ],[
+                'name.required' =>'This name field is required.',
+                'short_desc.required' => 'This short description field is required.',
+                'price.required' => 'This price field is required.',
+                'description.required' => 'This long description field is required.'
+
+            ]);
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }else{
+
+            $addonserviceId = $this->addonService->store($input);
+
+            return redirect()->back()->with('message', 'Add-on Service added successfully');
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    // public function show($id)
+    // {
+        
+    // }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $service = $this->addonService->edit($id);
+        return view('admin.addonservice.edit',compact('service'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $input = $request->all();
+        $validate = Validator::make($request->all(), [
+            'name' => 'required',
+            'short_desc' => 'required',
+            'price' => 'required',
+            'description' => 'required'
+
+            ],[
+                'name.required' =>'This name field is required.',
+                'short_desc.required' => 'This short description field is required.',
+                'price.required' => 'This price field is required.',
+                'description.required' => 'This description field is required.'
+
+            ]);
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }else{
+            $user = $this->addonService->update($input,$id);
+            if($user){
+                return Redirect::to("admin/addonservice")->withSuccess('Service updated');
+            }
+
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $service = $this->addonService->destroy($id);
+        if($service) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}

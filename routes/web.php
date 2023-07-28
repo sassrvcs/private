@@ -5,9 +5,12 @@ use App\Http\Controllers\Companies\CompanieController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Admin\Addons\AddonController;
 use App\Http\Controllers\Admin\Package\PackageController;
 use App\Http\Controllers\Web\Cart\CartController;
 use App\Http\Controllers\Web\Checkout\CheckoutStepController;
+// use App\Http\Controllers\Admin\AddonService\AddonServiceController;
+
 use App\Http\Controllers\Web\Home\HomeController;
 use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
 
@@ -46,7 +49,7 @@ Route::post('/my-details-save',[AccountController::class,'saveMyDetails'])->name
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/package', WebPackageController::class)->name('package');
 
-// Route::resource('/cart', CartController::class);
+Route::resource('/cart', CartController::class);
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('add-cart');
 
 Route::get('review-company-package', [CheckoutStepController::class, 'reviewCompanyPackage'])->name('review-company-package');
@@ -62,7 +65,9 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
         Route::get('/dashboard', DashboardController::class)->name('dashboard');
         // Route::resource('change-password', ChangePasswordController::class);
 
-         Route::resource('package', PackageController::class);
+        Route::resource('package', PackageController::class);
+        Route::resource('addonservice', AddonController::class);
+
         // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
 
         // Route::resource('product', ProductController::class);

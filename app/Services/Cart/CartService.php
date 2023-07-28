@@ -20,27 +20,74 @@ class CartService
     public function addCompany($companyName, $updateParam = false)
     {
         $cart = Session::get('cart', []);
-        // Session::forget('cart');
+        Session::forget('cart');
+        
+        $cartItem = [
+            'company_name' => $companyName,
+        ];
+
+        $cart[] = $cartItem;
+        
+        // dd($cart);
         // die;
-        foreach ($cart as $index => $cartItem) {
-            if (isset($cartItem['company_name']) && !empty($cartItem['company_name']) && $cartItem['company_name'] != $companyName  && $updateParam == false) {
-                // Delete Cart Session First And Re-Assign Data 
+        // foreach ($cart as $index => $cartItem) {
+        //     if (isset($cartItem['company_name']) && !empty($cartItem['company_name']) && $cartItem['company_name'] != $companyName  && $updateParam == false) {
+        //         // Delete Cart Session First And Re-Assign Data 
+        //         dd('If Tunning', $companyName);
+        //         $cartItem = [
+        //             'company_name' => $companyName,
+        //         ];
+        //     } else if (isset($cartItem['company_name']) && !empty($cartItem['company_name']) && $cartItem['company_name'] != $companyName && $updateParam == true) {
+        //         dd('Else If Tunning', $companyName);
+        //         $cart[$index]['company_name'] = $companyName;
+        //         break;
+        //     } else {
+        //         dd('Else Tunning', $companyName);
+        //         $cartItem = [
+        //             'company_name' => $companyName,
+        //         ];
+        //         $cart[] = $cartItem;
+        //     }
+        // }
 
-                $cartItem = [
-                    'company_name' => $companyName,
-                ];
-            } else if (isset($cartItem['company_name']) && !empty($cartItem['company_name']) && $cartItem['company_name'] != $companyName && $updateParam == true) {
-                $cart[$index]['company_name'] = $companyName;
-                break;
-            } else {
-                $cartItem = [
-                    'company_name' => $companyName,
-                ];
+        Session::put('cart', $cart);
+    }
 
-                $cart[] = $cartItem;
-            }
+    /**
+     * Update session cart as per company name
+     * @param array $request
+     */
+    public function updateCart($request)
+    {
+        $cart = Session::get('cart', []);
+
+        // Find the index of the first cart item with a valid company_name
+        // $indexToUpdate = null;
+        // foreach ($cart as $index => $cartItem) {
+        //     if (isset($cartItem['company_name']) && !empty($cartItem['company_name'])) {
+        //         $indexToUpdate = $index;
+        //         break;
+        //     }
+        // }
+
+        // if ($indexToUpdate !== null) {
+        //     // Update the company_name for the found cart item
+        //     $cart[$indexToUpdate]['company_name'] = $request['company_name'];
+        // } else {
+        //     // Add the new cart item if no item with company_name was found
+        //     $cartItem = [
+        //         'company_name' => $request['company_name'],
+        //     ];
+        //     $cart[] = $cartItem;
+        // }
+
+        // dd($cart);
+
+        if( isset($cart[0]['company_name'])) {
+            $cart[0]['company_name'] = $request['company_name'];
         }
 
+        // dd($cart);
         Session::put('cart', $cart);
     }
 
