@@ -107,8 +107,8 @@ class AuthController extends Controller
             'forename' => 'required|alpha',
             'surname' => 'required|alpha',
             'phone' => 'required|numeric|digits_between:8,13',
-            'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email|unique:users|same:confirm_email',
-            'confirm_email' => 'required',
+            'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email|unique:users',
+            'confirm_email' => 'required|same:email',
             'password' => 'required|min:8|string',
             'post_code' => 'required',
             'house_no' => 'required',
@@ -150,10 +150,12 @@ class AuthController extends Controller
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
+            $user->assignRole('customer');
 
             $address = new Address();
             $address->user_id = $user->id;
             $address->address_type = 'primary_address';
+            $address->house_number = $request->house_no;
             $address->street = $request->street;
             $address->locality = $request->locality;
             $address->town = $request->town;

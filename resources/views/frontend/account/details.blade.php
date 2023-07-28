@@ -1,6 +1,27 @@
 @extends('layouts.app')
 @section('content')
+<style>
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      width: 120px;
+      height: 120px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
 
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style>
 <!-- ================ start: common-inner-page-banner ================ -->
 <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png')}})">
     <div class="custom-container">
@@ -15,8 +36,8 @@
         </div>
         <div class="center-info">
             <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li><a href="index.html">Home</a></li>
-                <li><a>Digital Packages</a></li>
+                <li><a href="{{ url('')}}">Home</a></li>
+                <li><a>My Details</a></li>
             </ul>
         </div>
         <div class="call-info" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500" data-aos-once="true">
@@ -34,64 +55,15 @@
 <!-- ================ start: customer_login ================ -->
 <section class="sectiongap legal rrr fix-container-width ">
     <div class="container">
+        @if (session()->has('message'))
+            <div class="alert alert-success">{{ session()->get('message') }}</div>
+        @endif
+        @if (session()->has('error'))
+            <div class="alert alert-danger">{{ session()->get('error') }}</div>
+        @endif
         <div class="woocommerce">
             <div class="row woo-account">
-                <div class="col-md-12">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul id="menu-account-menu" class="navbar-nav me-auto mb-2 mb-md-0 ">
-                                <li id="menu-item-2336" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children dropdown nav-item nav-item-2336">
-                                    <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="_mi _before fa fa-user" aria-hidden="true"></i><span>My Account</span></a>
-                                    <ul class="dropdown-menu depth_0">
-                                        <li id="menu-item-2337" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-15 current_page_item nav-item nav-item-2337">
-                                            <a href="#" class="dropdown-item active"><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Overview</span></a>
-                                        </li>
-                                        <li id="menu-item-2338" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-2338"><a href="my-details.html" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>My Details</span></a></li>
-                                        <li id="menu-item-2339" class="menu-item menu-item-type-custom menu-item-object-custom nav-item nav-item-2339"><a href="#" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Logout</span></a></li>
-                                    </ul>
-                                </li>
-                                <li id="menu-item-2340" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children dropdown nav-item nav-item-2340">
-                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="_mi _before fa fa-book" aria-hidden="true"></i><span>Orders</span></a>
-                                    <ul class="dropdown-menu depth_0">
-                                        <li id="menu-item-4625" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-4625"><a href="#" class="dropdown-item ">View All Orders</a></li>
-                                        <li id="menu-item-4636" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-4636"><a href="#" class="dropdown-item ">Incomplete</a></li>
-                                        <li id="menu-item-4643" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-4643"><a href="#" class="dropdown-item ">In Progress</a></li>
-                                        <li id="menu-item-4639" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-4639"><a href="#" class="dropdown-item ">Completed</a></li>
-                                    </ul>
-                                </li>
-                                <li id="menu-item-2341" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children dropdown nav-item nav-item-2341">
-                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="_mi _before fa fa-industry" aria-hidden="true"></i><span>Companies</span></a>
-                                    <ul class="dropdown-menu depth_0">
-                                        <li id="menu-item-2371" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-2371"><a href="#" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>View All Companies</span></a></li>
-                                        <li id="menu-item-4655" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home nav-item nav-item-4655"><a href="#" class="dropdown-item ">Incorporate New Company</a></li>
-                                        <li id="menu-item-4656" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-4656"><a href="#" class="dropdown-item ">Import Company via Auth. Code</a></li>
-                                    </ul>
-                                </li>
-                                <li id="menu-item-2342" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children dropdown nav-item nav-item-2342">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="_mi _before fa fa-puzzle-piece" aria-hidden="true"></i><span>Services</span></a>
-                                    <ul class="dropdown-menu depth_0">
-                                        <li id="menu-item-3969" class="menu-item menu-item-type-custom menu-item-object-custom nav-item nav-item-3969"><a href="#" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>All Services</span></a></li>
-                                        <li id="menu-item-3968" class="menu-item menu-item-type-custom menu-item-object-custom nav-item nav-item-3968"><a href="#" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Services Expired</span></a></li>
-                                    </ul>
-                                </li>
-                                <li id="menu-item-2343" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children dropdown nav-item nav-item-2343">
-                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="_mi _before fas fa-chart-pie" aria-hidden="true"></i><span>Finances</span></a>
-                                    <ul class="dropdown-menu depth_0">
-                                        <li id="menu-item-5096" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-5096"><a href="#" class="dropdown-item ">Invoive History</a></li>
-                                        <li id="menu-item-5099" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-5099"><a href="#" class="dropdown-item ">Payment History</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-                @if (session()->has('message'))
-                    <div class="alert alert-success">{{ session()->get('message') }}</div>
-                @endif
-                @if (session()->has('error'))
-                    <div class="alert alert-danger">{{ session()->get('error') }}</div>
-                @endif
+                @include('layouts.navbar')
                 <div class="col-12 col-md-12">
                     <div class="sec-common-title-s2 mt-4">
                         <h1>My Details</h1>
@@ -156,7 +128,10 @@
                                 <div class="form-row form-group ">
                                     <label>New Password:&nbsp;</label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control" type="text" name="password" placeholder="Optional">
+                                        <input class="form-control" type="password" name="password" placeholder="Optional" value={{ old('password') }}>
+                                        @error('password')
+                                            <div class="error" style="color:red;">{{ $message }}</div>
+                                        @enderror
                                     </span>
                                 </div>
 
@@ -167,15 +142,18 @@
                                     <span class="input-wrapper ">
                                         <div class="custom-input-with-right-icon">
                                             <div class="input-box">
-                                                <input class="form-control" type="text" name="confirm_password" placeholder="Optional">
+                                                <input class="form-control" type="password" name="confirm_password" placeholder="Optional">
                                             </div>
                                         </div>
+                                        @error('confirm_password')
+                                            <div class="error" style="color:red;">{{ $message }}</div>
+                                        @enderror
                                     </span>
                                 </div>
                             </fieldset>
                             <fieldset class="border p-3">
                                 <legend class="float-none w-auto p-2">Contact Addresses</legend>
-                                <div class="p-3" style="padding-top: 0 !important;">
+                                <div class="row p-3" style="padding-top: 0 !important;">
                                     <div class="form-row form-group" id="contactgrp">
                                         <table class="efPostalAddresses efTableCondensed">
                                             <tbody>
@@ -189,7 +167,7 @@
 
                                                                 @foreach($primary_address as $key => $value)
 
-                                                                <p>{{ $value['house_number']}}, {{$value['street']}},{{$value['locality']}},{{ $value['town']}}, {{ $value['county']}}</p>
+                                                                <p>@if($value['house_number']){{ $value['house_number']}},@endif @if($value['street']){{$value['street']}},@endif  @if($value['locality']){{$value['locality']}}, @endif @if($value['town']){{ $value['town']}}, @endif  @if($value['county']){{ $value['county']}} @endif</p>
                                                                 <p>{{ $value['billing_country']}},{{ $value['post_code']}}</p>
                                                                 @endforeach
                                                             </span>
@@ -200,6 +178,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                @if($billing_address)
                                                 <tr>
                                                     <th style="vertical-align:top" class="th-label">
                                                         <label>Billing <span class="required_mark">*</span></label>
@@ -215,11 +194,12 @@
                                                             </span>
                                                             <div class="action-container">
                                                                 <button type="button" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="openBIllingModalButton"  role="button" aria-disabled="false" fdprocessedid="4xigk"><span class="ui-button-text"> Choose Another</span></button>
-                                                                <button type="button" id="editBillingAddress" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="edit-bill-addr" role="button" aria-disabled="false" fdprocessedid="ruzkzh"><span class="ui-button-text"> Edit</span></button>
+                                                                <button type="button"  class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force editBillingAddress" id="edit-bill-addr" role="button" aria-disabled="false" fdprocessedid="ruzkzh"><span class="ui-button-text"> Edit</span></button>
                                                             </div>
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                @endif
                                             </tbody>
                                         </table>
                                         <div class="loader" style="display:none"></div>
@@ -236,7 +216,7 @@
                                 <div class="form-row form-group ">
                                     <label for="username">Primary&nbsp;</label>
                                     <span class="input-wrapper">
-                                        <input type="email" name="email" value={{$user->email}} class="input-text form-control">
+                                        <input type="email" name="email" value={{$user->email}} class="input-text form-control" readonly>
                                         @error('email')
                                             <div class="error" style="color:red;">{{ $message }}</div>
                                         @enderror
@@ -316,7 +296,7 @@
     </div>
 </section>
 <!-- ================ end: customer_login ================ -->
-<div class="modal custom-modal-s1" id="choosePrimaryAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="choosePrimaryAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -346,7 +326,7 @@
     </div>
 </div>
 
-<div class="modal custom-modal-s1" id="BIllingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="BIllingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -373,7 +353,7 @@
 </div>
 <!--For primary Address Modal Popup-->
 <!-- Billing Address modal pop up -->
-<div class="modal custom-modal-s1" id="chooseBIllingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="chooseBIllingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -399,7 +379,7 @@
     </div>
 </div>
 {{-- edit billing address modal --}}
-<div class="modal custom-modal-s1" id="editbillingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="editbillingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -422,7 +402,7 @@
 
 
 
-<div class="modal custom-modal-s1" id="billingAddressConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="billingAddressConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -432,54 +412,56 @@
             <div class="modal-body">
                 <form class="billingAddrUpdateForm formInput" >
                     <input type="hidden" name="user_id" class="user_id" value="{{ $user->id }}">
+
                     @foreach($billing_address as $key => $v)
                         <div class="form-row form-group ">
                             <label>Name / Number:
+                                </span>
                             </label>
                             <span class="input-wrapper">
-                                <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no" value={{$v['house_number']}}>
+                                <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no" value="{{ $v['house_number'] }}">
                             </span>
                         </div>
-                        <div class="form-row form-group ">
+                        <p class="form-row form-group ">
                             <label for="billing_title">Street:
                             </label>
                             <span class="input-wrapper">
-                                <input type="text" name="street" id="street1" class="input-text form-control steet_no @error('street') is-invalid @enderror" value={{$v['street']}}>
+                                <input type="text" name="street" id="street1" class="input-text form-control steet_no @error('street') is-invalid @enderror" value="{{$v['street']}}">
                             </span>
 
-                        </div>
-                        <div class="form-row form-group">
-                            <label for="billing_first_name">Locality:
+                        </p>
+                        <div class="form-row col-md-12 form-group">
+                            <label for="locality">Locality:
                             </label>
                             <span class="input-wrapper">
-                                <input type="text" name="locality" id="locality1" class="input-text form-control locality @error('locality') is-invalid @enderror" value={{$v['locality']}}>
+                                <input type="text" name="locality" id="locality1" class="input-text form-control locality @error('locality') is-invalid @enderror" value="{{$v['locality']}}">
                             </span>
 
                         </div>
-                        <div class="form-row form-group">
-                            <label for="billing_first_name">Town:
+                        <div class="form-row col-md-12 form-group">
+                            <label for="town">Town:
                             </label>
                             <span class="input-wrapper">
-                                <input type="text" name="town" id="town1" class="input-text form-control town @error('town') is-invalid @enderror" value={{$v['town']}}>
+                                <input type="text" name="town" id="town1" class="input-text form-control town @error('town') is-invalid @enderror" value="{{$v['town']}}">
                             </span>
 
                         </div>
-                        <div class="form-row form-group">
+                        <div class="form-row col-md-12 form-group">
                             <label for="billing_first_name">County:&nbsp;
                             </label>
                             <span class="input-wrapper">
-                                <input type="text" name="county" id="county1" class="input-text form-control county @error('county') is-invalid @enderror" value={{$v['county']}}>
+                                <input type="text" name="county" id="county1" class="input-text form-control county @error('county') is-invalid @enderror" value="{{$v['county']}}">
                             </span>
 
                         </div>
-                        <div class="form-row form-group">
+                        <div class="form-row col-md-12 form-group">
                             <label for="billing_first_name">Post Code:&nbsp;
                             </label>
                             <span class="input-wrapper">
-                                <input type="text" name="post_code" class="input-text form-control zip @error('post_code') is-invalid @enderror" value={{$v['post_code']}}>
+                                <input type="text" name="post_code" class="input-text form-control zip @error('post_code') is-invalid @enderror" value="{{$v['post_code']}}">
                             </span>
                         </div>
-                        <div class="form-row update_totals_on_change form-group">
+                        <div class="form-row update_totals_on_change col-md-12 col-12 form-group">
                             <label for="billing_country">Country:</label>
                             <span class="input-wrapper">
                                 <select name="billing_country" id="billing_country" name="billing_country" class="contry  @error('billing_country') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
@@ -751,7 +733,7 @@
     </div>
 </div>
 <!----- END ----->
-<div class="modal custom-modal-s1" id="primaryAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="primaryAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -759,8 +741,10 @@
                 <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you wish to edit this address?</p>
-                <p>Do not use this option if you wish to use a different address.</p>
+                <div>
+                    Are you sure you wish to edit this address?
+                    Do not use this option if you wish to use a different address.
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirmShow" data-dismiss="modal">Confirm</button>
@@ -770,7 +754,7 @@
     </div>
 </div>
 
-<div class="modal custom-modal-s1" id="primaryAddressConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="primaryAddressConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -782,54 +766,55 @@
                     <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
                     @foreach($primary_address as $key => $v)
 
+
                         <div class="form-row form-group ">
-                            <label>Name / Number:&nbsp;<abbr class="required" title="required">*</abbr>
+                            <label>Name / Number:&nbsp;
                                 </span>
                             </label>
                             <span class="input-wrapper">
-                                <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no" value={{$v['house_number']}}>
+                                <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no" value="{{$v['house_number']}}">
                             </span>
                         </div>
-                        <div class="form-row form-group ">
-                            <label for="billing_title">Street:&nbsp;<abbr class="required" title="required">*</abbr>
+                        <p class="form-row form-group ">
+                            <label for="billing_title">Street:&nbsp;
                             </label>
                             <span class="input-wrapper">
-                                <input type="text" name="street" id="street1" class="input-text form-control steet_no" value={{$v['street']}}>
+                                <input type="text" name="street" id="street1" class="input-text form-control steet_no" value="{{$v['street']}}">
                             </span>
 
-                        </div>
-                        <div class="form-row  form-group">
+                        </p>
+                        <div class="form-row col-md-12 form-group">
                             <label for="billing_first_name">Locality:
                             </label>
                             <span class="input-wrapper">
-                                <input type="text" name="locality" id="locality1" class="input-text form-control locality" value={{$v['locality']}}>
+                                <input type="text" name="locality" id="locality1" class="input-text form-control locality" value="{{$v['locality']}}">
                             </span>
 
                         </div>
-                        <div class="form-row form-group">
+                        <div class="form-row col-md-12 form-group">
                             <label for="billing_first_name">Town:&nbsp;<abbr class="required" title="required">*</abbr>
                             </label>
                             <span class="input-wrapper">
-                                <input type="text" name="town" id="town1" class="input-text form-control town" value={{$v['town']}}>
+                                <input type="text" name="town" id="town1" class="input-text form-control town" value="{{$v['town']}}">
                             </span>
 
                         </div>
-                        <div class="form-row form-group">
+                        <div class="form-row col-md-12 form-group">
                             <label for="billing_first_name">County:&nbsp;
                             </label>
                             <span class="input-wrapper">
-                                <input type="text" name="county" id="county1" class="input-text form-control county" value={{$v['county']}}>
+                                <input type="text" name="county" id="county1" class="input-text form-control county" value="{{$v['county']}}">
                             </span>
 
                         </div>
-                        <div class="form-row form-group">
+                        <div class="form-row col-md-12 form-group">
                             <label for="billing_first_name">Post Code:&nbsp;
                             </label>
                             <span class="input-wrapper">
-                                <input type="text" name="post_code" class="input-text form-control zip" value={{$v['post_code']}}>
+                                <input type="text" name="post_code" class="input-text form-control zip" value="{{$v['post_code']}}">
                             </span>
                         </div>
-                        <div class="form-row update_totals_on_change form-group">
+                        <div class="form-row update_totals_on_change col-md-12 col-12 form-group">
                             <label for="billing_country">Country&nbsp;<abbr class="required" title="required">*</abbr></label>
                             <span class="input-wrapper">
                                 <select name="billing_country" id="billing_country" name="billing_country" class="contry country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
@@ -1101,7 +1086,7 @@
     </div>
 </div>
 
-<div class="modal custom-modal-s1" id="addNewAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="addNewAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -1109,15 +1094,15 @@
                 <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <div class="p-3" style="padding-top: 0 !important;">
+                <div class="row p-3" style="padding-top: 0 !important;">
                     <div class="form-row form-group">
                         <label>Post Code:</label>
                         <div class="input-wrapper with-rg-btn">
                             <input type="text" class="form-control" name="post_code" id="post_code">
                             <button type="button" class="btn btn-primary" id="findAddress">Find
                                 Address</button>
+                            <p class="adderr text-danger"></p>
                         </div>
-                        <p class="adderr text-danger"></p>
                     </div>
                 <form class="billingAddrUpdateForm formInputModal" >
                     <div class="form-row form-group ">
@@ -1128,7 +1113,7 @@
                             <input type="text" id="house_no" name="house_no" class="input-text form-control house_no" value={{old('house_no')}}>
                         </span>
                     </div>
-                    <div class="form-row form-group ">
+                    <p class="form-row form-group ">
                         <label for="billing_title">Street:&nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
                         <span class="input-wrapper">
@@ -1137,8 +1122,8 @@
                         @error('street')
                             <div class="error" style="color:red;">{{ $message }}</div>
                         @enderror
-                    </div>
-                    <div class="form-row form-group">
+                    </p>
+                    <div class="form-row col-md-12 form-group">
                         <label for="billing_first_name">Locality:&nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
                         <span class="input-wrapper">
@@ -1148,7 +1133,7 @@
                             <div class="error" style="color:red;">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-row form-group">
+                    <div class="form-row col-md-12 form-group">
                         <label for="billing_first_name">Town:&nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
                         <span class="input-wrapper">
@@ -1158,7 +1143,7 @@
                             <div class="error" style="color:red;">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-row form-group">
+                    <div class="form-row col-md-12 form-group">
                         <label for="billing_first_name">County:&nbsp;
                         </label>
                         <span class="input-wrapper">
@@ -1168,7 +1153,7 @@
                             <div class="error" style="color:red;">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-row form-group">
+                    <div class="form-row col-md-12 form-group">
                         <label for="billing_first_name">Post Code:&nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
                         <span class="input-wrapper">
@@ -1178,7 +1163,7 @@
                             <div class="error" style="color:red;">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-row update_totals_on_change form-group">
+                    <div class="form-row update_totals_on_change col-md-12 col-12 form-group">
                         <label for="billing_country">Country&nbsp;<abbr class="required" title="required">*</abbr></label>
                         <span class="input-wrapper">
                             <select name="billing_country" id="billing_country" name="billing_country" class="contry  @error('billing_country') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
@@ -1442,7 +1427,7 @@
                     <input type="hidden" class="address_type" name="address_type" value="primary_address">
                     <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="saveAddr">Submit1</button>
+                        <button type="button" class="btn btn-primary" id="saveAddr">Submit</button>
                       </div>
                 </form>
             </div>
@@ -1453,52 +1438,10 @@
 
 
 <!--For Find Postal Code Address Api Modal Popup-->
-<div class="modal custom-modal-s1" id="exampleModalCenterAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content border-0">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Choose your address</h5>
-                <button type="button" class="btn-close btn-address"  data-dismiss="modal" aria-label="Close">X</button>
-            </div>
-            <div class="modal-body">
-                <div id="post_address_blk">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="modal" id="exampleModalCenterAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#editPrimaryAddress').click(function(){
-            $('#primaryAddressModal').modal('show');
-        });
-
-        $('.confirmShow').click(function(){
-            $('#primaryAddressConfirmModal').modal('show');
-        });
-        $('.primaryAddrSubmit').click(function(){
-
-            var formdata = $(".primaryAddrUpdateForm").serialize();
-
-            $.ajax({
-                url: "{!! route('primary-address-save') !!}",
-                type: 'POST',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    formdata: formdata
-                },
-                success: function(result) {
-                   $("#primaryAddressConfirmModal").modal('hide');
-                   $(window).load();
-
-                }
-            });
-        });
-
+ <script>
+    $(document).ready(function(){
         $("#primary_submit,#billing_submit").click(function() {
 
             $(".loader").show();
@@ -1615,7 +1558,7 @@
             $('.address_type').val('billing_address');
             $('#addNewAddressModal').modal('show');
         });
-        $("#editBillingAddress").click(function(){
+        $(".editBillingAddress").click(function(){
             $('#editbillingAddressModal').modal('show');
         });
 
@@ -1647,12 +1590,7 @@
                 }
             });
         });
-
-
-
     });
-
-
 
     function selectPostalAddrApp(val){
         var value = val.split(',');
