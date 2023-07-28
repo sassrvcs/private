@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
 
-            $table->enum('address_type', ['primary_address', 'business_address', 'shipping_address', 'office_address'])->nullable();
+            $table->enum('address_type', ['primary_address','billing_address', 'business_address', 'shipping_address', 'office_address'])->nullable();
 
             $table->string('house_number')->nullable();
             $table->string('street')->nullable();

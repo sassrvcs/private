@@ -20,26 +20,35 @@ class CartService
     public function addCompany($companyName, $updateParam = false)
     {
         $cart = Session::get('cart', []);
-        // Session::forget('cart');
+        Session::forget('cart');
+        
+        $cartItem = [
+            'company_name' => $companyName,
+        ];
+
+        $cart[] = $cartItem;
+        
+        // dd($cart);
         // die;
-        foreach ($cart as $index => $cartItem) {
-            if (isset($cartItem['company_name']) && !empty($cartItem['company_name']) && $cartItem['company_name'] != $companyName  && $updateParam == false) {
-                // Delete Cart Session First And Re-Assign Data 
-
-                $cartItem = [
-                    'company_name' => $companyName,
-                ];
-            } else if (isset($cartItem['company_name']) && !empty($cartItem['company_name']) && $cartItem['company_name'] != $companyName && $updateParam == true) {
-                $cart[$index]['company_name'] = $companyName;
-                break;
-            } else {
-                $cartItem = [
-                    'company_name' => $companyName,
-                ];
-
-                $cart[] = $cartItem;
-            }
-        }
+        // foreach ($cart as $index => $cartItem) {
+        //     if (isset($cartItem['company_name']) && !empty($cartItem['company_name']) && $cartItem['company_name'] != $companyName  && $updateParam == false) {
+        //         // Delete Cart Session First And Re-Assign Data 
+        //         dd('If Tunning', $companyName);
+        //         $cartItem = [
+        //             'company_name' => $companyName,
+        //         ];
+        //     } else if (isset($cartItem['company_name']) && !empty($cartItem['company_name']) && $cartItem['company_name'] != $companyName && $updateParam == true) {
+        //         dd('Else If Tunning', $companyName);
+        //         $cart[$index]['company_name'] = $companyName;
+        //         break;
+        //     } else {
+        //         dd('Else Tunning', $companyName);
+        //         $cartItem = [
+        //             'company_name' => $companyName,
+        //         ];
+        //         $cart[] = $cartItem;
+        //     }
+        // }
 
         Session::put('cart', $cart);
     }
