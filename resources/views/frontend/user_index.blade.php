@@ -8,9 +8,9 @@
     </style>
     <!-- ================ start: main-banner ================ -->
     <div class="position-relative overflow-hidden main-banner-outer">
-        <div class="main-banner" style="background-image: url({{ asset('frontend/assets/images/main-banner.png')}});">
+        <div class="main-banner home-banner-src" style="background-image: url({{ asset('frontend/assets/images/main-banner.png')}});">
             <div class="custom-container">
-                <div class="caption-box">
+                <div class="caption-box" style="padding-right: 0px;">
                     <div id="response-class">
                         <h1 data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000" data-aos-once="true">Formations made easier starting from <span>£12.99</span></h1>
                         <p data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">Form a UK limited company in minutes</p>
@@ -41,17 +41,17 @@
                         <div class="hhr-text">Search for another name</div>
                     </div> --}}
 
-                    <div class="col-md-7 mb-3 " id="result_show" style="display: none">
+                    <div class="col-md-7" id="result_show" style="display: none">
                         {{-- Available Message --}}
-                        <div class="search-result mb-4" id="available-company" style="display: none">
-                            <div class=" align-items-center">
+                        <div class="search-result" id="available-company" style="display: none">
+                            <div class="mb-4 align-items-center">
                                <div class="col-md-12">
                                   <span class="icon"><i class="fa fa-check-circle-o"></i></span>
                                   <h2 class="search-company-name"></h2>
                                   <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
                                   <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
                                </div>
-                               <div class="col-md-4 "><a href="#" class="btn btn-primary wow zoomIn">Choose Package<i class="fa fa-long-arrow-right ms-2"></i></a></div>
+                               <div class="col-md-4 "><a href="{{ route('package') }}" class="btn btn-primary wow zoomIn">Choose Package<i class="fa fa-long-arrow-right ms-2"></i></a></div>
                             </div>
                             <div class="hhr-text">Search for another name</div>
                         </div>
@@ -67,13 +67,15 @@
                         </div>
                     </div>
 
-                    <div class="search-box" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true">
-                        <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
-                        <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
-                    </div>
-                    <p class="text-capitalize" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true">14+years of experience in helping thousands of people to start their business in UK</p>
-                    <div class="image-stamp" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
-                        <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg')}}"></a>
+                    <div class="col-md-7" style="padding-left: 0px; padding-right: 0px;">
+                        <div class="search-box mt-3 mb-2" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true" style="max-width: 100%">
+                            <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
+                            <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
+                        </div>
+                        <p class="text-capitalize mt-2" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true" style="font-size:13px">14+years of experience in helping thousands of people to start their business in UK</p>
+                        <div class="image-stamp" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
+                            <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg')}}"></a>
+                        </div>
                     </div>
                 </div>
             </div>

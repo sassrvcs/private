@@ -32,7 +32,6 @@
 
     {{-- Toaster --}}
     <link rel="stylesheet" href="{{ asset('admin/css/toaster/toastr.min.css') }}">
-
     <link rel="stylesheet" href="{{ asset('admin/css/daterangepicker.css') }}">
 
     {{-- Page level Css --}}
