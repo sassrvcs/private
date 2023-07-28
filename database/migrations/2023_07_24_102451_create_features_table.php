@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('features', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('package_id')->nullable();
+            $table->unsignedBigInteger('service_id')->nullable();
             $table->string('feature')->nullable();
 
             $table->timestamps();
@@ -22,6 +23,9 @@ return new class extends Migration
             $table->foreign("package_id")->references("id")->on("packages")
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            // $table->foreign("service_id")->references("id")->on("add_on_services")
+            //     ->onUpdate('cascade')
+            //     ->onDelete('cascade');    
         });
     }
 
