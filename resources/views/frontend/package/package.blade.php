@@ -1,166 +1,466 @@
 @extends('layouts.master')
 @section('content')
-    {{-- <style>
-        .main-banner #result_show {
-            padding: 0px 0 !important;
-            min-height: 0px !important;
-        }
-    </style> --}}
-    <div class="main-header">
-        <div class="custom-container">
-            <a href="index.html" class="logo"><img src="{{ asset('frontend/assets/images/logo.svg') }}"></a>
-            <div class="custom-navbar">
-                <ul class="cn-menu-lists">
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <div class="dropdown dropdown-s1">
-                            <a href="javascript:;" class="dropdown-toggle" id="cn-packages-more" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                Packages
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="cn-packages-more">
-                                <a class="dropdown-item" href="#">Compare Packages</a>
-                                <a class="dropdown-item" href="#">Digital Package</a>
-                                <a class="dropdown-item" href="#">Privacy</a>
-                                <a class="dropdown-item" href="#">Professional</a>
-                                <a class="dropdown-item" href="#">Prestige</a>
-                                <a class="dropdown-item" href="#">All Inclusive</a>
-                                <a class="dropdown-item" href="#">Non Residents</a>
-                                <a class="dropdown-item" href="#">LLP</a>
-                                <a class="dropdown-item" href="#">Limited by Guarantee</a>
-                                <a class="dropdown-item" href="#">Eseller</a>
-                                <a class="dropdown-item" href="#">PLC Package</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="dropdown dropdown-s1">
-                            <a href="javascript:;" class="dropdown-toggle" id="cn-services-more" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                Services
-                            </a>
-                            <div class="dropdown-menu mega-menu" aria-labelledby="cn-services-more">
-                                <div class="custom-container">
-                                    <div class="custom-row">
-                                        <div class="custom-col">
-                                            <h5><span>Company Services</span></h5>
-                                            <a class="dropdown-item" href="#">Apostilled Documents Service</a>
-                                            <a class="dropdown-item" href="#">Confirmation Statement Service</a>
-                                            <a class="dropdown-item" href="#">Company Dissolution</a>
-                                            <a class="dropdown-item" href="#">Company Registration</a>
-                                            <a class="dropdown-item" href="#">Certification of Good Standing</a>
-                                            <a class="dropdown-item" href="#">Company Name Change</a>
-                                            <a class="dropdown-item" href="#">Dormant Company Accounts</a>
-                                            <a class="dropdown-item" href="#">Director Appointment &amp; Resignation</a>
-                                            <a class="dropdown-item" href="#">Full Company Secretary Service</a>
-                                            <a class="dropdown-item" href="#">Issue of Share Services</a>
-                                            <a class="dropdown-item" href="#">Transfer of Share Services</a>
-                                        </div>
 
-                                        <div class="custom-col">
-
-                                            <h5><span>Business Services</span></h5>
-
-                                            <a class="dropdown-item" href="#">Business Logo Design</a>
-                                            <a class="dropdown-item" href="#">Business Email</a>
-
-                                            <a class="dropdown-item" href="#">VAT Registration</a>
-
-                                            <a class="dropdown-item" href="#">PAYE Registration</a>
-
-                                            <a class="dropdown-item" href="#">Business Telephone Services</a>
-
-                                            <a class="dropdown-item" href="#">Business Web Design/Marketing</a>
-
-                                            <a class="dropdown-item" href="#">Data Protection Registration</a>
-
-                                            <a class="dropdown-item" href="#">GDPR Complaince Package</a>
-
-                                        </div>
-
-                                        <div class="custom-col">
-
-                                            <h5><span>Business Banking</span></h5>
-
-                                            <a class="dropdown-item" href="#">>Barclays Bank Account</a>
-
-                                            <a class="dropdown-item" href="#">Cashplus Business Account</a>
-
-                                            <a class="dropdown-item" href="#">Wise Business Account for Non
-                                                UK-Residents</a>
-
-                                            <a class="dropdown-item" href="#">Payoneer Business Account for Non UK –
-                                                Residents</a>
-
-                                            <a class="dropdown-item" href="#">ANNA Money for Small Business</a>
-
-                                            <a class="dropdown-item" href="#">Card One Business Account</a>
-
-                                        </div>
-
-                                        <div class="custom-col">
-
-                                            <h5><span>Address Services</span></h5>
-
-                                            <a class="dropdown-item" href="#">Directors Service Address</a>
-
-                                            <a class="dropdown-item" href="#">Registered Office Address</a>
-
-                                            <a class="dropdown-item" href="#">Renewals</a>
-
-                                        </div>
-
-                                        <div class="custom-col">
-
-                                            <h5><span>Resources</span></h5>
-
-                                            <a class="dropdown-item" href="#">Share Business Ideas</a>
-
-                                            <a class="dropdown-item" href="#">Helping Startups</a>
-
-                                            <a class="dropdown-item" href="#">Business Help</a>
-
-                                        </div>
-
-                                        <div class="custom-col">
-
-                                            <h5><span>Help &amp; Advice</span></h5>
-
-                                            <a class="dropdown-item" href="#">Our Online Company Manager</a>
-
-                                            <a class="dropdown-item" href="#">Information Required To Set Up A
-                                                Company</a>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">About Us</a>
-                    </li>
-                    <li>
-                        <a href="#">Blogs</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact Us</a>
-                    </li>
-                </ul>
-                <div class="cn-menu-lists-overlay"></div>
+<section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/compare-packages-banner.png') }}">
+    <div class="custom-container">
+        <div class="left-info">
+            <figure data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <figcaption class="lg">Compare Company <span>Formation Packages</span></figcaption>
+            </figure>
+           <div class="d-flex">
+            <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
+            <li><a href="index.html">Home</a></li>
+            <li><a>Compare Package</a></li>
+        </ul>
+           </div>
+        </div>
+        
+        <div class="call-info" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500"
+            data-aos-once="true">
+            <div class="icon-container">
+                <img src="assets/images/ic_baseline-phone.svg">
             </div>
-            <div class="cn-right-actions">
-                <a href="#" class="theme-btn-primary login-btn"><img src="assets/images/mdi_account.svg">Client
-                    Login</a>
-                <button type="button" class="menu-toggle">
-                    <div></div>
-                </button>
+            <div class="text-box">
+                <p>Free Consultations 24/7</p>
+                <h4><a href="tel:020 3002 0032">020 3002 0032</a></h4>
             </div>
         </div>
     </div>
-    <!-- ================ end: main-header ================ -->
+</section>
+<!-- ================ end: common-inner-page-banner ================ -->
+
+<!-- ================ start: comparePackages-sec ================ -->
+<section class="companyFormationPackages-sec">
+    <div class="custom-container">
+        <div class="sec-title1 text-center">
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Compare Packages Starting at <span>£12.99</span></h2>
+        </div>
+        <div class="companyFormationPackages-content">
+            <div class="tab-menus">
+                <ul>
+                    <li data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" data-aos-once="true">
+                        <a href="#" class="active">Limited Company</a>
+                    </li>
+                    <li data-aos="fade-up" data-aos-delay="150" data-aos-duration="500" data-aos-once="true">
+                        <a href="#">Non-Residents</a>
+                    </li>
+                    <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="500" data-aos-once="true">
+                        <a href="#">LLP</a>
+                    </li>
+                    <li data-aos="fade-up" data-aos-delay="250" data-aos-duration="500" data-aos-once="true">
+                        <a href="#">Guarantee</a>
+                    </li>
+                    <li data-aos="fade-up" data-aos-delay="300" data-aos-duration="500" data-aos-once="true">
+                        <a href="#">eSeller</a>
+                    </li>
+                    <li data-aos="fade-up" data-aos-delay="350" data-aos-duration="500" data-aos-once="true">
+                        <a href="#">PLC</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="comparePackages-content"  data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="left-contents">
+                                <div class="top-info">
+                                    <img src="{{ asset('frontend/assets/images/fabicon.svg') }}">
+                                    <h3>Form a Private <span>Limited Company</span></h3>
+                                </div>
+                            </div>
+                        </th>
+                        @foreach($packages as $key => $package)    
+                            <th>
+                                <div class="items-th-info">
+                                    <div class="icon-container">
+                                        <div class="inner-box">
+                                            <img src="{{ asset('frontend/assets/images/companyFormationPackages1.svg') }}">
+                                        </div>
+                                    </div>
+                                    <h4>{{ $package->package_name }}</h4>
+                                    <h2>£{{ $package->package_price }}</h2>
+                                    <div class="bottom-actions">
+                                        <a href="{{ route('add-cart', ['id' => $package->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+                                        <a href="#" class="read-more-btn">Read More</a>
+                                    </div>
+                                </div>
+                            </th>
+                        @endforeach
+                        {{-- <th>
+                            <div class="items-th-info">
+                                <div class="icon-container">
+                                    <div class="inner-box">
+                                        <img src="{{ asset('frontend/assets/images/companyFormationPackages2.svg') }}">
+                                    </div>
+                                </div>
+                                <h4>Privacy</h4>
+                                <h2>£19.99</h2>
+                                <div class="bottom-actions">
+                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
+                                    <a href="#" class="read-more-btn">Read More</a>
+                                </div>
+                            </div>
+                        </th> --}}
+                        {{-- <th>
+                            <div class="items-th-info">
+                                <div class="icon-container">
+                                    <div class="inner-box">
+                                        <img src="{{ asset('frontend/assets/images/companyFormationPackages3.svg') }}">
+                                    </div>
+                                </div>
+                                <h4>Professional</h4>
+                                <h2>£59.99</h2>
+                                <div class="bottom-actions">
+                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
+                                    <a href="#" class="read-more-btn">Read More</a>
+                                </div>
+                            </div>
+                        </th> --}}
+                        {{-- <th>
+                            <div class="items-th-info">
+                                <div class="icon-container">
+                                    <div class="inner-box">
+                                        <img src="{{ asset('frontend/assets/images/companyFormationPackages4.svg') }}">
+                                    </div>
+                                </div>
+                                <h4>Prestige</h4>
+                                <h2>£79.99</h2>
+                                <div class="bottom-actions">
+                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
+                                    <a href="#" class="read-more-btn">Read More</a>
+                                </div>
+                            </div>
+                        </th> --}}
+                        {{-- <th>
+                            <div class="items-th-info">
+                                <div class="icon-container">
+                                    <div class="inner-box">
+                                        <img src="{{ asset('frontend/assets/images/companyFormationPackages5.svg') }}">
+                                    </div>
+                                </div>
+                                <h4>All Inclusive</h4>
+                                <h2>£109.99</h2>
+                                <div class="bottom-actions">
+                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
+                                    <a href="#" class="read-more-btn">Read More</a>
+                                </div>
+                            </div>
+                        </th> --}}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                <p>Online formation within</p>
+                            </div>
+                        </td>
+                        <td>24-72 hrs</td>
+                        <td>24-48 hrs</td>
+                        {{-- <td>24 hrs</td>
+                        <td>6-12 hrs</td>
+                        <td>3-6 hrs</td> --}}
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                <p>Email Copy of Certificate of Incorporation</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        {{-- <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td> --}}
+                    </tr>
+                    {{-- <tr>
+                        <td>
+                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                <p>Email Copy of Memorandum & Articles of Association</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                    </tr> --}}
+                    {{-- <tr>
+                        <td>
+                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                <p>Email Copy of Share Certificate(s)</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                    </tr> --}}
+                    {{-- <tr>
+                        <td>
+                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                <p>Compnay registration</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                    </tr> --}}
+                    {{-- <tr>
+                        <td>
+                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                <p>Free Online Company Manager to Maintain your Companies</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                    </tr> --}}
+                    {{-- <tr>
+                        <td>
+                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                <p>Companies House Filing Fee Paid By Us</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                    </tr> --}}
+                    {{-- <tr>
+                        <td>
+                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                <p>Free High Street business Bank Account</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                    </tr> --}}
+                    {{-- <tr>
+                        <td>
+                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                <p>Free Online Company Manager to Maintain your Companies</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                    </tr> --}}
+                    {{-- <tr>
+                        <td>
+                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                <p>Registered office address</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick2.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                    </tr> --}}
+                    {{-- <tr>
+                        <td>
+                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                <p>Free .com or .co.uk domain name</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick2.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                        <td>
+                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                        </td>
+                    </tr> --}}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+                            <div class="left-contents">
+                                <div class="top-info">
+                                    <h3>Form a Private <span>Limited Company</span></h3>
+                                </div>
+                            </div>
+                        </th>
+                        @foreach($packages as $key => $package) 
+                            <th>
+                                <div class="items-th-info">
+                                    <h4>{{ $package->package_name }}</h4>
+                                    <h2>£{{ $package->package_price }}</h2>
+                                    <div class="bottom-actions">
+                                        <a href="{{ route('add-cart', ['id' => $package->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+                                    </div>
+                                </div>
+                            </th>
+                        @endforeach
+
+                        {{-- <th>
+                            <div class="items-th-info">
+
+                                <h4>Digital</h4>
+                                <h2>£12.99</h2>
+                                <div class="bottom-actions">
+                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="items-th-info">
+
+                                <h4>Privacy</h4>
+                                <h2>£19.99</h2>
+                                <div class="bottom-actions">
+                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="items-th-info">
+                                <h4>Professional</h4>
+                                <h2>£59.99</h2>
+                                <div class="bottom-actions">
+                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="items-th-info">
+                                <h4>Prestige</h4>
+                                <h2>£79.99</h2>
+                                <div class="bottom-actions">
+                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
+                                </div>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="items-th-info">
+
+                                <h4>All Inclusive</h4>
+                                <h2>£109.99</h2>
+                                <div class="bottom-actions">
+                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
+                                </div>
+                            </div>
+                        </th> --}}
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- ================ end: comparePackages-sec ================ -->
 
 @endsection
 

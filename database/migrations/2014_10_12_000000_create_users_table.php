@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('forename')->nullable();
             $table->string('surname')->nullable();
-            $table->string('email')->unique();
-            $table->string('phone_no')->nullable();
+            $table->string('primery_email')->unique();
+            $table->string('primery_phone')->nullable();
+            $table->string('business_email')->nullable();
+            $table->string('business_phone')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
