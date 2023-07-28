@@ -1,29 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Admin\AddonService;
+namespace App\Http\Controllers\Admin\AccountingService;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\Addonservice\AddonserviceService;
+use App\Services\Accounting\AccountingService;
 use Validator;
-use App\Models\Addonservice;
-use App\Models\AddonserviceFeature;
+use App\Models\Accounting;
 use Redirect;
 
-class AddOnServiceController extends Controller
+class AccountingController extends Controller
 {
 
-    public function __construct(protected AddonserviceService $AddonserviceService)
+    public function __construct(protected AccountingService $AccountingService)
     {
-        $this->addonService = $AddonserviceService;
+        $this->accountingService = $AccountingService;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $addonservicelist = $this->addonService->index();
-        return view('admin.addonservice.index',compact('addonservicelist'));
+        $accountingservicelist = $this->accountingService->index();
+        return view('admin.accountingservice.index',compact('accountingservicelist'));
     }
 
     /**
@@ -31,7 +30,7 @@ class AddOnServiceController extends Controller
      */
     public function create()
     {
-        return view('admin.addonservice.create');
+        return view('admin.accounting.create');
     }
     public function store(Request $request)
     {
@@ -40,13 +39,13 @@ class AddOnServiceController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
-            'price' => 'required',
+            'image' => 'required',
             'description' => 'required'
 
             ],[
                 'name.required' =>'This name field is required.',
                 'short_desc.required' => 'This short description field is required.',
-                'price.required' => 'This price field is required.',
+                'image.required' => 'This image field is required.',
                 'description.required' => 'This long description field is required.'
 
             ]);
@@ -54,9 +53,9 @@ class AddOnServiceController extends Controller
             return back()->withErrors($validate->errors())->withInput();
         }else{
 
-            $addonserviceId = $this->addonService->store($input);
+            $accountserviceId = $this->accountingService->store($input);
 
-            return redirect()->back()->with('message', 'Add-on Service added successfully');
+            return redirect()->back()->with('message', 'Accounting software added successfully');
         }
 
     }

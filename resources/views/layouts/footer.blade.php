@@ -7,34 +7,34 @@
                     <h3>Packages</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a link="#">Compare Packages</a>
+                            <a href="#">Compare Packages</a>
                         </li>
                         <li>
-                            <a link="#">Digital Package</a>
+                            <a href="#">Digital Package</a>
                         </li>
                         <li>
-                            <a link="#">Professional</a>
+                            <a href="#">Professional</a>
                         </li>
                         <li>
-                            <a link="#">Prestige</a>
+                            <a href="#">Prestige</a>
                         </li>
                         <li>
-                            <a link="#">All Inclusive</a>
+                            <a href="#">All Inclusive</a>
                         </li>
                         <li>
-                            <a link="#">Non Residents</a>
+                            <a href="#">Non Residents</a>
                         </li>
                         <li>
-                            <a link="#">LLP</a>
+                            <a href="#">LLP</a>
                         </li>
                         <li>
-                            <a link="#">Guarantee</a>
+                            <a href="#">Guarantee</a>
                         </li>
                         <li>
-                            <a link="#">Eseller</a>
+                            <a href="#">Eseller</a>
                         </li>
                         <li>
-                            <a link="#">PLC Package</a>
+                            <a href="#">PLC Package</a>
                         </li>
                     </ul>
                 </div>
@@ -44,32 +44,32 @@
                     <h3>Company Services</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a link="#">Confirmation Statement Service</a>
+                            <a href="#">Confirmation Statement Service</a>
                         </li>
                         <li>
-                            <a link="#">Company Dissolution</a>
+                            <a href="#">Company Dissolution</a>
                         </li>
                         <li>
-                            <a link="#">Company Name Change</a>
+                            <a href="#">Company Name Change</a>
                         </li>
                         <li>
-                            <a link="#">Director Appointment &
+                            <a href="#">Director Appointment &
                                 Resignation</a>
                         </li>
                         <li>
-                            <a link="#">Full Company Secretary Service</a>
+                            <a href="#">Full Company Secretary Service</a>
                         </li>
                         <li>
-                            <a link="#">Issue of Share Services</a>
+                            <a href="#">Issue of Share Services</a>
                         </li>
                         <li>
-                            <a link="#">Transfer of Share Services</a>
+                            <a href="#">Transfer of Share Services</a>
                         </li>
                         <li>
-                            <a link="#">Apostilled Documents Service</a>
+                            <a href="#">Apostilled Documents Service</a>
                         </li>
                         <li>
-                            <a link="#">Business Telephone Services</a>
+                            <a href="#">Business Telephone Services</a>
                         </li>
                     </ul>
                 </div>
@@ -79,22 +79,22 @@
                     <h3>Address Services</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a link="#">Directors Service Address</a>
+                            <a href="#">Directors Service Address</a>
                         </li>
                         <li>
-                            <a link="#">Registered Office Address</a>
+                            <a href="#">Registered Office Address</a>
                         </li>
                         <li>
-                            <a link="#">Renewals</a>
+                            <a href="#">Renewals</a>
                         </li>
                     </ul>
                     <h3>Help & Advice</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a link="#">Our Online Company Manager</a>
+                            <a href="#">Our Online Company Manager</a>
                         </li>
                         <li>
-                            <a link="#">Information Required To Set Up
+                            <a href="#">Information Required To Set Up
                                 A Company</a>
                         </li>
                     </ul>
@@ -105,19 +105,19 @@
                     <h3>Legal</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a link="#">Refund and Cancellation Policy</a>
+                            <a href="#">Refund and Cancellation Policy</a>
                         </li>
                         <li>
-                            <a link="#">Terms & Conditions</a>
+                            <a href="#">Terms & Conditions</a>
                         </li>
                         <li>
-                            <a link="#">Cookies Policy</a>
+                            <a href="#">Cookies Policy</a>
                         </li>
                         <li>
-                            <a link="#">ID requirements</a>
+                            <a href="#">ID requirements</a>
                         </li>
                         <li>
-                            <a link="#">GDPR Privacy Policy</a>
+                            <a href="#">GDPR Privacy Policy</a>
                         </li>
                     </ul>
                 </div>
@@ -127,13 +127,13 @@
                     <h3>Resources</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a link="#">Business Help</a>
+                            <a href="#">Business Help</a>
                         </li>
                         <li>
-                            <a link="#">Share Business Ideas</a>
+                            <a href="#">Share Business Ideas</a>
                         </li>
                         <li>
-                            <a link="#">Helping Startups</a>
+                            <a href="#">Helping Startups</a>
                         </li>
                     </ul>
                     <div class="bottom-logo">

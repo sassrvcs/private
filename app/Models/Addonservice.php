@@ -18,6 +18,6 @@ class Addonservice extends Model
      */
     public function features()
     {
-        return $this->hasMany(Feature::class);
+        return $this->hasMany(Feature::class,'service_id');
     }
 }

@@ -7,54 +7,94 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Address;
 use Illuminate\Support\Arr;
+use Validator;
 
 class AccountController extends Controller
 {
     public function details(){
         $user = Auth::user();
         $primary_address = Address::where('user_id',Auth::user()->id)->where('address_type','primary_address')->get()->toArray();
-        return view('frontend.account.details', compact('user','primary_address'));
+        $billing_address = Address::where('user_id',Auth::user()->id)->where('address_type','billing_address')->get()->toArray();
+        return view('frontend.account.details', compact('user','primary_address','billing_address'));
     }
     public function savePrimaryAddress(Request $request){
-
-       // dd($request->all());
-
-        $formatterArr = explode("&",data_get($request->all(),'formdata')) ;
-
-        $user_id = Arr::exists($formatterArr, 0)? str_replace("user_id=","",$formatterArr)[0]:"";
-        $houseNo =Arr::exists($formatterArr, 1)? str_replace("house_no=","",$formatterArr)[1]:"";
-        $street =Arr::exists($formatterArr, 2)? str_replace("street=","",$formatterArr)[2]:"";
-        $locality =Arr::exists($formatterArr, 3)? str_replace("locality=","",$formatterArr)[3]:"";
-        $town = Arr::exists($formatterArr, 4)? str_replace("town=","",$formatterArr)[4]:"";
-        $county = Arr::exists($formatterArr, 5)? str_replace("county=","",$formatterArr)[5]:"";
-        $post_code = Arr::exists($formatterArr, 6)? str_replace("post_code=","",$formatterArr)[6]:"";
-        $billing_country = Arr::exists($formatterArr, 7)? str_replace("billing_country=","",$formatterArr)[7]:"";
-
-
-
         $temp = [];
-        $temp['address_type'] = 'primary_address';
-        $temp['house_number'] = $houseNo;
-        $temp['street'] = $street;
-        $temp['locality'] =  $locality;
-        $temp['town'] =  $town;
-        $temp['county'] =  $county;
-        $temp['post_code'] = $post_code ;
-        $temp['billing_country'] = $billing_country;
-        Address::where('user_id',$user_id)->update($temp);
+        $temp['house_number'] =$request->input('number');
+        $temp['street'] = $request->input('steet');
+        $temp['locality'] =  $request->input('locality');
+        $temp['town'] = $request->input('town');
+        $temp['county'] =  $request->input('county')??null;
+        $temp['post_code'] = $request->input('postcode');
+        $temp['billing_country'] = $request->input('contry');
 
-        // $address = Address::findOrFail($user_id);
-        // $address->address_type = 'primary_address';
-        // $address->house_number = $houseNo;
-        // $address->street = $street;
-        // $address->locality = $locality;
-        // $address->town = $town;
-        // $address->county = $county;
-        // $address->post_code = $post_code;
-        // $address->billing_country = $billing_country;
-        // dd($address);
-        //$address->save();
+        //update or create :: todo with respect to user id and address type
 
-        return true;
+         Address::where('address_type',$request->input('address_type'))->where('user_id',$request->input('user_id'))
+                     ->update($temp);
+        // $flight = Address::updateOrCreate(
+        //     [
+        //         'user_id'       => $request->input('user_id'),
+        //         'address_type'  => $request->input('address_type'),
+        //     ],
+        //     [
+        //         'house_number'     => $request->input('number'),
+        //         'street'            => $request->input('steet'),
+        //         'locality'          => $request->input('locality'),
+        //         'town'              => $request->input('town'),
+        //         'county'            => $request->input('county')??null,
+        //         'post_code'         => $request->input('postcode'),
+        //         'billing_country'   => $request->input('contry'),
+        //     ],
+        // );
+        return 1;
+    }
+
+    public function saveMyDetails(Request $request){
+        $user = Auth::user()->id;
+        $validate = Validator::make($request->all(), [
+            'title' => 'required',
+            'forename' => 'required|alpha',
+            'surname' => 'required|alpha',
+            'phone' => 'required|numeric|digits_between:8,13',
+            'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email',
+            'chek1' => 'required',
+            'chek2' => 'required',
+            'chek3' => 'required'
+
+            ],[
+
+                'title.required' => 'Title is required.',
+                'forename.required' => 'Forename is required.',
+                'surname.required' => 'Surname is required.',
+                'phone.required' => 'Phone number is required.',
+                'phone.required' => 'Phone number is required.',
+                'phone.numeric' => 'Please enter valid phone number.',
+                'email.required' => 'Email is required',
+                'email.email' => 'Please provide valid email',
+                'chek1.required' =>'This field is required.',
+                'chek2.required' =>'This field is required.',
+                'chek3.required' =>'This field is required.',
+            ]);
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }else{
+            if(!empty($request->input('password'))){
+
+            }
+            $temp = [];
+            $temp['organisation'] =$request->input('organisation');
+            $temp['title'] = $request->input('title');
+            $temp['forename'] =  $request->input('forename');
+            $temp['surname'] = $request->input('surname');
+            $temp['email'] =  $request->input('email');
+            $temp['password'] = bcrypt($request->input('password'));
+            $temp['billing_email'] = $request->input('billing_email');
+            $temp['phone_no'] =  $request->input('phone');
+            $temp['billing_phone'] = $request->input('billing_phone');
+
+
+            User::where('id',$user)->update($temp);
+            return redirect()->route('my_details')->with('message', 'Updated successfully');
+        }
     }
 }

@@ -38,9 +38,9 @@ class AuthController extends Controller
                     [$user, $token] = $this->userService->Checkauth($request->email, $request->password);
 
                     if ($user == UserService::USER_NOT_FOUND) {
-                        return redirect()->back()->with('error','User not found!');
+                        return redirect()->back()->with('error','Your username and password are not correct. Please try again.');
                     } elseif ($user == UserService::WRONG_PASSWORD) {
-                        return redirect()->back()->with('error','Password is wrong!');
+                        return redirect()->back()->with('error','Your username and password are not correct. Please try again.');
                     } else {
 
                         $credentials = $request->only('email', 'password');
@@ -103,24 +103,23 @@ class AuthController extends Controller
     public function saveRegisterForm(Request $request){
 
         $validate = Validator::make($request->all(), [
-            'organisation' => 'required',
             'title' => 'required',
             'forename' => 'required|alpha',
             'surname' => 'required|alpha',
-            'phone' => 'required|numeric|digits:13',
-            'email' => 'required|email|unique:users|same:confirm_email',
+            'phone' => 'required|numeric|digits_between:8,13',
+            'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email|unique:users|same:confirm_email',
             'confirm_email' => 'required',
             'password' => 'required|min:8|string',
-            'street' => 'required',
-            'locality' => 'required',
-            'town' => 'required',
             'post_code' => 'required',
+            'house_no' => 'required',
+            'street' => 'required',
+            'town' => 'required',
             'billing_country' => 'required',
             'chek1' => 'required',
             'chek2' => 'required'
 
             ],[
-                'organisation.required' =>'This field is required.',
+
                 'title.required' => 'Title is required.',
                 'forename.required' => 'Forename is required.',
                 'surname.required' => 'Surname is required.',
@@ -128,12 +127,13 @@ class AuthController extends Controller
                 'phone.required' => 'Phone number is required.',
                 'phone.numeric' => 'Please enter valid phone number.',
                 'email.required' => 'Email is required',
+                'email.email' => 'Please provide valid email',
                 'confirm_email.required' => 'Confirm email is required',
                 'password.required' => 'Password is required',
                 'street.required' =>'This field is required.',
-                'locality.required' =>'This field is required.',
                 'town.required' =>'This field is required.',
                 'post_code.required' =>'This field is required.',
+                'house_no.required' =>'This field is required.',
                 'billing_country.required' =>'This field is required.',
                 'chek1.required' =>'This field is required.',
                 'chek2.required' =>'This field is required.',

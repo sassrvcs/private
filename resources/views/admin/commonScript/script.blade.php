@@ -88,7 +88,7 @@
 
             Swal.fire({
                 title: 'Are you sure?',
-                text: "This will delete the agent.",
+                text: "This will delete the package.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -117,7 +117,7 @@
                                 "bg-success");
                             $("#" + user_id + "").children('span').html("Active");
                             toastr.success(user + 'Deleted Successfully!');
-                            
+
                             // Reload after 450ms and load new view
                             setTimeout(function(){
                                 window.location.reload();
@@ -191,7 +191,7 @@
                                 "bg-success");
                             $("#" + user_id + "").children('span').html("Active");
                             toastr.success(user + 'Deleted Successfully!');
-                            
+
                             // Reload after 450ms and load new view
                             setTimeout(function(){
                                 window.location.reload();

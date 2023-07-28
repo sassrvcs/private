@@ -1,18 +1,18 @@
 @extends('includes.layouts.admin')
 @section('page-title')
-    Add-on Services List
+    Package List
 @endsection
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Add-on Services List</h1>
+                <h1>Package List</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Add-on Service List</li>
+                    <li class="breadcrumb-item active">Package List</li>
                 </ol>
             </div>
         </div>
@@ -34,15 +34,15 @@
                                     oninvalid="setCustomValidity('Please enter valid email')"
                                     onchange="try{setCustomValidity('')} catch(e){}" required> --}}
 
-                                <input type="text" name="agent_id" value="" placeholder="Find by agent id" id="agent_id" class="form-control form-control-sm" required >
+                                {{-- <input type="text" name="agent_id" value="{{ $filter['agent_id'] }}" placeholder="Find by agent id" id="agent_id" class="form-control form-control-sm" required > --}}
 
-                                <div class="input-group-append">
+                                {{-- <div class="input-group-append">
                                     <button class="btn btn-sm btn_baseColor" type="submit">Search</button>
-                                </div>
+                                </div> --}}
                                 {{-- &nbsp; --}}
                                 <div class="input-group-append">
                                     {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
-                                    <a href="" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a>
+                                    {{-- <a href="#" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a> --}}
                                 </div>
                             </div>
                         </form>
@@ -57,67 +57,55 @@
                                     <tr>
                                         <th>Serial No</th>
                                         <th>Name</th>
-                                        <th>Agent Id</th>
-                                        <th>Email</th>
-                                        <th>Mobile Number</th>
-                                        <th>Joining Date</th>
-                                        <th>Status</th>
-                                        <th>Activate/Deactivate</th>
-                                        <th>Details</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>gfhfg </td>
-                                        <td>vbnbv </td>
-                                        <td>bnbvn</td>
-                                        <td>gfcg</td>
-                                        <td> gfg</td>
-                                        <td> fgfdg</td>
-                                        <td> 1</td>
-                                        
-                                        
-                                        <td>
-                                            <div class="form-group">
-                                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                                    <input type="checkbox" data-id="" class="custom-control-input">
-                                                    <label class="custom-control-label" for="customSwitch"></label>
+
+                                    @forelse ($addonservicelist as $index => $service)
+                                        <tr>
+                                            <td> {{ $index+1 }}</td>
+                                            <td> {{ $service->service_name}}</td>
+                                            <td> {{ $service->short_desc }}</td>
+                                            <td> {{ $service->price }}</td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <a href="{{ route('admin.addonservice.edit', $service->id) }}" class="" style="color: #1c55ad; padding-right: 6px;">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+
+                                                    <a href="javascript:{}" class="delete-user" data-id={{ $service->id }}  data-user="Addonservice "
+                                                            data-route="{{ route('admin.addonservice.destroy', $service->id) }}" style="color: #f30031">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+
+                                                    {{-- <a href="#" class="btn btn_baseColor btn-sm"> View </a> --}}
                                                 </div>
-                                            </div>
-                                        </td>
-                                        
-                                        <td>
-                                            <div class="form-group">
-                                                <a href="" class="" style="color: #1c55ad; padding-right: 6px;">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            
-                                                <a href="javascript:{}" class="delete-user" data-id="">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
-                                               
-                                                {{-- <a href="#" class="btn btn_baseColor btn-sm"> View </a> --}}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                   
-                                    <tr>
-                                        <td colspan="8">No Record Found.</td>
-                                    </tr>
-                                    
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5">No Record Found.</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
-                    
-                   
+
+                    {{-- @if ($users->hasPages()) --}}
                     <!-- Card Footer -->
                         <div class="card-footer">
                             <nav aria-label="Contacts Page Navigation" class="pagenation-agent">
-                               
+                               {{-- {{ $users->appends([
+                                    'form' => $filter['form'],
+                                ])->links('pagination::bootstrap-5') }} --}}
                             </nav>
                         </div>
-                    
+                    {{-- @endif --}}
                     <!-- /Card Footer -->
                 </div>
                 <!-- /.card -->
@@ -134,7 +122,7 @@
 @section('scripts')
 <script>
     {{-- $(document).ready(function(){
-        
+
     }); --}}
 </script>
 @include('admin.commonScript.script')
