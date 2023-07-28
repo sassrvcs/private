@@ -112,7 +112,14 @@
             <div class="cn-menu-lists-overlay"></div>
         </div>
         <div class="cn-right-actions">
-            <a href="{{ url('/login') }}" class="theme-btn-primary login-btn"><img src="{{ asset('frontend/assets/images/mdi_account.svg')}}">Client Login</a>
+            @if(empty(Auth::user()))
+                <a href="{{ url('/login') }}" class="theme-btn-primary login-btn"><img src="{{ asset('frontend/assets/images/mdi_account.svg')}}">Client Login</a>
+            @else
+            <a href="{{ route('clientlogout')}}" class="theme-btn-primary login-btn" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+            <form id="logout-form" action="{{ route('clientlogout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            @endif
             <button type="button" class="menu-toggle">
                 <div></div>
             </button>

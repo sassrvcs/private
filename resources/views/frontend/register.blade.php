@@ -550,23 +550,32 @@
         });
 
         $('#findAddress').click(function(){
+            var error = false;
             var post_code = $("#post_code").val();
-            $('#findAddress').html('Please Wait...');
+
             if(post_code!=""){
                 $("#zip_code").val(post_code);
+                error = false;
+
+            }else{
+                alert('Please enter post code');
+                error = true;
             }
-            $.ajax({
-                url: "{!! route('find-address') !!}",
-                type: 'GET',
-                data: {
-                    post_code: post_code
-                },
-                success: function(result) {
-                   $('#findAddress').html('Find Address');
-                   $("#exampleModalCenterAddress").show();
-                   $("#post_address_blk").html(result);
-                }
-            });
+            if(error==false){
+                $('#findAddress').html('Please Wait...');
+                    $.ajax({
+                    url: "{!! route('find-address') !!}",
+                    type: 'GET',
+                    data: {
+                        post_code: post_code
+                    },
+                    success: function(result) {
+                    $('#findAddress').html('Find Address');
+                    $("#exampleModalCenterAddress").show();
+                    $("#post_address_blk").html(result);
+                    }
+                });
+            }
         });
 
         // $("#billing_country").change(function(){
