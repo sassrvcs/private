@@ -38,8 +38,17 @@ class PackageService
         $package->save();
 
         return $package->id;
+    }
 
 
+    /**
+     * Get single package as per package ID
+     * @param string $id
+     */
+    public function getPackage($id)
+    {
+        $package = Package::findOrFail($id);
+        return $package;
     }
     public function edit($id)
     {

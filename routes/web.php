@@ -6,7 +6,10 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\Package\PackageController;
+use App\Http\Controllers\Web\Cart\CartController;
+use App\Http\Controllers\Web\Checkout\CheckoutStepController;
 use App\Http\Controllers\Admin\AddonService\AddonServiceController;
+
 use App\Http\Controllers\Web\Home\HomeController;
 use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
 
@@ -43,7 +46,13 @@ Route::post('/my-details-save',[AccountController::class,'saveMyDetails'])->name
 
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
-Route::get('/package', WebPackageController::class);
+Route::get('/package', WebPackageController::class)->name('package');
+
+// Route::resource('/cart', CartController::class);
+Route::get('/cart/{id}', [CartController::class, 'show'])->name('add-cart');
+
+Route::get('review-company-package', [CheckoutStepController::class, 'reviewCompanyPackage'])->name('review-company-package');
+Route::match(['get', 'post'], 'addon-services', [CheckoutStepController::class, 'addOnServices'])->name('addon-services');
 
 Route::get('/search-companie', CompanieController::class);
 
