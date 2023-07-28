@@ -3,24 +3,36 @@
 namespace App\Http\Controllers\Web\Cart;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cart\CartAcessRequest;
 use App\Http\Requests\Checkout\CheckoutStepRequest;
 use App\Services\Cart\CartService;
+use App\Services\CompanieSearchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 
 class CartController extends Controller
 {
-    public function __construct(protected CartService $cartService)
+    public function __construct(
+        protected CartService $cartService,
+        protected CompanieSearchService $companieSearchService)
     { }
 
     /**
-     * Display a listing of the resource.
-     * @return \Illuminate\Http\Response
+     * Update cart as per company mane and details.
+     * @param CartAcessRequest
      */
-    public function index()
+    public function index(CartAcessRequest $request)
     {
-        dd('Index');
+        $searchText = $request->validated();
+        $response = $this->companieSearchService->searchCompany($searchText['company_name']);
+
+        if($response['message'] == CompanieSearchService::COMPANY_AVAILABLE) {
+            $cart = $this->cartService->updateCart($request->validated());
+            return $response;
+        } else {
+            return $response;
+        }
     }
 
     /**

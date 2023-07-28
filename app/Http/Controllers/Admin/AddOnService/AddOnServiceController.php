@@ -90,9 +90,9 @@ class AddOnServiceController extends Controller
                 'description.required' => 'This description field is required.'
 
             ]);
-        if($validate->fails()){
+        if($validate->fails()) {
             return back()->withErrors($validate->errors())->withInput();
-        }else{
+        } else {
             $user = $this->addonService->update($input,$id);
             if($user){
                 return Redirect::to("admin/addonservice")->withSuccess('Service updated');

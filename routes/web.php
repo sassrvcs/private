@@ -49,7 +49,7 @@ Route::post('/my-details-save',[AccountController::class,'saveMyDetails'])->name
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/package', WebPackageController::class)->name('package');
 
-// Route::resource('/cart', CartController::class);
+Route::resource('/cart', CartController::class);
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('add-cart');
 
 Route::get('review-company-package', [CheckoutStepController::class, 'reviewCompanyPackage'])->name('review-company-package');

@@ -45,10 +45,8 @@
                 </a>
             </li>
 
-            {{-- {{ request()->routeIs('admin.agent.*') ? 'menu-is-opening menu-open' : '' }} --}}
-            <li class="nav-item menu-is-opening menu-open">
-                {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
-                <a href="#" class="nav-link ">
+            <li class="nav-item {{ request()->routeIs('admin.package.*') ? 'menu-is-opening menu-open' : '' }}">
+                <a href="#" class="nav-link  {{ request()->routeIs('admin.package.*') ? ' active' : '' }}">
                     <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
                         Packages

@@ -1,27 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<style>
-    .loader {
-      border: 16px solid #f3f3f3;
-      border-radius: 50%;
-      border-top: 16px solid #3498db;
-      width: 120px;
-      height: 120px;
-      -webkit-animation: spin 2s linear infinite; /* Safari */
-      animation: spin 2s linear infinite;
-    }
 
-    /* Safari */
-    @-webkit-keyframes spin {
-      0% { -webkit-transform: rotate(0deg); }
-      100% { -webkit-transform: rotate(360deg); }
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    </style>
 <!-- ================ start: common-inner-page-banner ================ -->
 <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png')}})">
     <div class="custom-container">
@@ -196,7 +175,7 @@
                             </fieldset>
                             <fieldset class="border p-3">
                                 <legend class="float-none w-auto p-2">Contact Addresses</legend>
-                                <div class="row p-3" style="padding-top: 0 !important;">
+                                <div class="p-3" style="padding-top: 0 !important;">
                                     <div class="form-row form-group" id="contactgrp">
                                         <table class="efPostalAddresses efTableCondensed">
                                             <tbody>
@@ -337,7 +316,7 @@
     </div>
 </section>
 <!-- ================ end: customer_login ================ -->
-<div class="modal" id="choosePrimaryAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal custom-modal-s1" id="choosePrimaryAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -367,7 +346,7 @@
     </div>
 </div>
 
-<div class="modal" id="BIllingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal custom-modal-s1" id="BIllingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -394,7 +373,7 @@
 </div>
 <!--For primary Address Modal Popup-->
 <!-- Billing Address modal pop up -->
-<div class="modal" id="chooseBIllingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal custom-modal-s1" id="chooseBIllingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -420,7 +399,7 @@
     </div>
 </div>
 {{-- edit billing address modal --}}
-<div class="modal" id="editbillingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal custom-modal-s1" id="editbillingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -443,7 +422,7 @@
 
 
 
-<div class="modal" id="billingAddressConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal custom-modal-s1" id="billingAddressConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -456,21 +435,20 @@
                     @foreach($billing_address as $key => $v)
                         <div class="form-row form-group ">
                             <label>Name / Number:
-                                </span>
                             </label>
                             <span class="input-wrapper">
                                 <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no" value={{$v['house_number']}}>
                             </span>
                         </div>
-                        <p class="form-row form-group ">
+                        <div class="form-row form-group ">
                             <label for="billing_title">Street:
                             </label>
                             <span class="input-wrapper">
                                 <input type="text" name="street" id="street1" class="input-text form-control steet_no @error('street') is-invalid @enderror" value={{$v['street']}}>
                             </span>
 
-                        </p>
-                        <div class="form-row col-md-12 form-group">
+                        </div>
+                        <div class="form-row form-group">
                             <label for="billing_first_name">Locality:
                             </label>
                             <span class="input-wrapper">
@@ -478,7 +456,7 @@
                             </span>
 
                         </div>
-                        <div class="form-row col-md-12 form-group">
+                        <div class="form-row form-group">
                             <label for="billing_first_name">Town:
                             </label>
                             <span class="input-wrapper">
@@ -486,7 +464,7 @@
                             </span>
 
                         </div>
-                        <div class="form-row col-md-12 form-group">
+                        <div class="form-row form-group">
                             <label for="billing_first_name">County:&nbsp;
                             </label>
                             <span class="input-wrapper">
@@ -494,14 +472,14 @@
                             </span>
 
                         </div>
-                        <div class="form-row col-md-12 form-group">
+                        <div class="form-row form-group">
                             <label for="billing_first_name">Post Code:&nbsp;
                             </label>
                             <span class="input-wrapper">
                                 <input type="text" name="post_code" class="input-text form-control zip @error('post_code') is-invalid @enderror" value={{$v['post_code']}}>
                             </span>
                         </div>
-                        <div class="form-row update_totals_on_change col-md-12 col-12 form-group">
+                        <div class="form-row update_totals_on_change form-group">
                             <label for="billing_country">Country:</label>
                             <span class="input-wrapper">
                                 <select name="billing_country" id="billing_country" name="billing_country" class="contry  @error('billing_country') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
@@ -773,7 +751,7 @@
     </div>
 </div>
 <!----- END ----->
-<div class="modal" id="primaryAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal custom-modal-s1" id="primaryAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -781,10 +759,8 @@
                 <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <div>
-                    Are you sure you wish to edit this address?
-                    Do not use this option if you wish to use a different address.
-                </div>
+                <p>Are you sure you wish to edit this address?</p>
+                <p>Do not use this option if you wish to use a different address.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirmShow" data-dismiss="modal">Confirm</button>
@@ -794,7 +770,7 @@
     </div>
 </div>
 
-<div class="modal" id="primaryAddressConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal custom-modal-s1" id="primaryAddressConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -814,15 +790,15 @@
                                 <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no" value={{$v['house_number']}}>
                             </span>
                         </div>
-                        <p class="form-row form-group ">
+                        <div class="form-row form-group ">
                             <label for="billing_title">Street:&nbsp;<abbr class="required" title="required">*</abbr>
                             </label>
                             <span class="input-wrapper">
                                 <input type="text" name="street" id="street1" class="input-text form-control steet_no" value={{$v['street']}}>
                             </span>
 
-                        </p>
-                        <div class="form-row col-md-12 form-group">
+                        </div>
+                        <div class="form-row  form-group">
                             <label for="billing_first_name">Locality:
                             </label>
                             <span class="input-wrapper">
@@ -830,7 +806,7 @@
                             </span>
 
                         </div>
-                        <div class="form-row col-md-12 form-group">
+                        <div class="form-row form-group">
                             <label for="billing_first_name">Town:&nbsp;<abbr class="required" title="required">*</abbr>
                             </label>
                             <span class="input-wrapper">
@@ -838,7 +814,7 @@
                             </span>
 
                         </div>
-                        <div class="form-row col-md-12 form-group">
+                        <div class="form-row form-group">
                             <label for="billing_first_name">County:&nbsp;
                             </label>
                             <span class="input-wrapper">
@@ -846,14 +822,14 @@
                             </span>
 
                         </div>
-                        <div class="form-row col-md-12 form-group">
+                        <div class="form-row form-group">
                             <label for="billing_first_name">Post Code:&nbsp;
                             </label>
                             <span class="input-wrapper">
                                 <input type="text" name="post_code" class="input-text form-control zip" value={{$v['post_code']}}>
                             </span>
                         </div>
-                        <div class="form-row update_totals_on_change col-md-12 col-12 form-group">
+                        <div class="form-row update_totals_on_change form-group">
                             <label for="billing_country">Country&nbsp;<abbr class="required" title="required">*</abbr></label>
                             <span class="input-wrapper">
                                 <select name="billing_country" id="billing_country" name="billing_country" class="contry country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
@@ -1125,7 +1101,7 @@
     </div>
 </div>
 
-<div class="modal" id="addNewAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal custom-modal-s1" id="addNewAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">
@@ -1133,15 +1109,15 @@
                 <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <div class="row p-3" style="padding-top: 0 !important;">
+                <div class="p-3" style="padding-top: 0 !important;">
                     <div class="form-row form-group">
                         <label>Post Code:</label>
                         <div class="input-wrapper with-rg-btn">
                             <input type="text" class="form-control" name="post_code" id="post_code">
                             <button type="button" class="btn btn-primary" id="findAddress">Find
                                 Address</button>
-                            <p class="adderr text-danger"></p>
                         </div>
+                        <p class="adderr text-danger"></p>
                     </div>
                 <form class="billingAddrUpdateForm formInputModal" >
                     <div class="form-row form-group ">
@@ -1152,7 +1128,7 @@
                             <input type="text" id="house_no" name="house_no" class="input-text form-control house_no" value={{old('house_no')}}>
                         </span>
                     </div>
-                    <p class="form-row form-group ">
+                    <div class="form-row form-group ">
                         <label for="billing_title">Street:&nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
                         <span class="input-wrapper">
@@ -1161,8 +1137,8 @@
                         @error('street')
                             <div class="error" style="color:red;">{{ $message }}</div>
                         @enderror
-                    </p>
-                    <div class="form-row col-md-12 form-group">
+                    </div>
+                    <div class="form-row form-group">
                         <label for="billing_first_name">Locality:&nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
                         <span class="input-wrapper">
@@ -1172,7 +1148,7 @@
                             <div class="error" style="color:red;">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-row col-md-12 form-group">
+                    <div class="form-row form-group">
                         <label for="billing_first_name">Town:&nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
                         <span class="input-wrapper">
@@ -1182,7 +1158,7 @@
                             <div class="error" style="color:red;">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-row col-md-12 form-group">
+                    <div class="form-row form-group">
                         <label for="billing_first_name">County:&nbsp;
                         </label>
                         <span class="input-wrapper">
@@ -1192,7 +1168,7 @@
                             <div class="error" style="color:red;">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-row col-md-12 form-group">
+                    <div class="form-row form-group">
                         <label for="billing_first_name">Post Code:&nbsp;<abbr class="required" title="required">*</abbr>
                         </label>
                         <span class="input-wrapper">
@@ -1202,7 +1178,7 @@
                             <div class="error" style="color:red;">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-row update_totals_on_change col-md-12 col-12 form-group">
+                    <div class="form-row update_totals_on_change form-group">
                         <label for="billing_country">Country&nbsp;<abbr class="required" title="required">*</abbr></label>
                         <span class="input-wrapper">
                             <select name="billing_country" id="billing_country" name="billing_country" class="contry  @error('billing_country') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
@@ -1477,7 +1453,7 @@
 
 
 <!--For Find Postal Code Address Api Modal Popup-->
-<div class="modal" id="exampleModalCenterAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal custom-modal-s1" id="exampleModalCenterAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content border-0">
             <div class="modal-header">

@@ -56,96 +56,17 @@
                              <h3>Customers also bought:</h3>
                           </div>
                           <div class="card-body">
-                             <div class="row align-items-center mb-3 pb-2 addons">
-                                <div class="col-md-8 mb-2 mb-md-0">
-                                   <h6 class="mt-0">Business Call Answering</h6>
-                                </div>
-                                <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>29.99</bdi></span></div>
-                                <div class="col-md-2 col-6 text-md-end">
-                                   <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv">Add</a>
-                                </div>
-                             </div>
-                             <div class="row align-items-center mb-3 pb-2 addons">
-                                <div class="col-md-8 mb-2 mb-md-0">
-                                   <h6 class="mt-0">Business Number Services</h6>
-                                </div>
-                                <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>5.99</bdi></span></div>
-                                <div class="col-md-2 col-6 text-md-end">
-                                   <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv">Add</a>
-                                </div>
-                             </div>
-                             {{-- <div class="row align-items-center mb-3 pb-2 addons">
-                                <div class="col-md-8 mb-2 mb-md-0">
-                                   <h6 class="mt-0">Full Company Secretary Service</h6>
-                                </div>
-                                <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>159.99</bdi></span></div>
-                                <div class="col-md-2 col-6 text-md-end">
-                                   <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv">Add</a>
-                                </div>
-                             </div>
-                             <div class="row align-items-center mb-3 pb-2 addons">
-                                <div class="col-md-8 mb-2 mb-md-0">
-                                   <h6 class="mt-0">Directors Service Address</h6>
-                                </div>
-                                <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>24.99</bdi></span></div>
-                                <div class="col-md-2 col-6 text-md-end">
-                                   <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv">Add</a>
-                                </div>
-                             </div>
-                             <div class="row align-items-center mb-3 pb-2 addons">
-                                <div class="col-md-8 mb-2 mb-md-0">
-                                   <h6 class="mt-0">Cancellation Protection</h6>
-                                </div>
-                                <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>9.99</bdi></span></div>
-                                <div class="col-md-2 col-6 text-md-end">
-                                   <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv">Add</a>
-                                </div>
-                             </div>
-                             <div class="row align-items-center mb-3 pb-2 addons">
-                                <div class="col-md-8 mb-2 mb-md-0">
-                                   <h6 class="mt-0">VAT Registration</h6>
-                                </div>
-                                <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>39.99</bdi></span></div>
-                                <div class="col-md-2 col-6 text-md-end">
-                                   <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv">Add</a>
-                                </div>
-                             </div>
-                             <div class="row align-items-center mb-3 pb-2 addons">
-                                <div class="col-md-8 mb-2 mb-md-0">
-                                   <h6 class="mt-0">PAYE Registration</h6>
-                                </div>
-                                <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>29.99</bdi></span></div>
-                                <div class="col-md-2 col-6 text-md-end">
-                                   <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv">Add</a>
-                                </div>
-                             </div>
-                             <div class="row align-items-center mb-3 pb-2 addons">
-                                <div class="col-md-8 mb-2 mb-md-0">
-                                   <h6 class="mt-0">Confirmation Statement Service</h6>
-                                </div>
-                                <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>49.99</bdi></span></div>
-                                <div class="col-md-2 col-6 text-md-end">
-                                   <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv">Add</a>
-                                </div>
-                             </div>
-                             <div class="row align-items-center mb-3 pb-2 addons">
-                                <div class="col-md-8 mb-2 mb-md-0">
-                                   <h6 class="mt-0">Apostilled Documents Service</h6>
-                                </div>
-                                <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>99.99</bdi></span></div>
-                                <div class="col-md-2 col-6 text-md-end">
-                                   <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv">Add</a>
-                                </div>
-                             </div>
-                             <div class="row align-items-center mb-3 pb-2 addons">
-                                <div class="col-md-8 mb-2 mb-md-0">
-                                   <h6 class="mt-0">Registered Office Address Service</h6>
-                                </div>
-                                <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>49.99</bdi></span></div>
-                                <div class="col-md-2 col-6 text-md-end">
-                                   <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv">Add</a>
-                                </div>
-                             </div> --}}
+                              @foreach($addonServices as $key => $addonService)   
+                                 <div class="row align-items-center mb-3 pb-2 addons">
+                                    <div class="col-md-8 mb-2 mb-md-0">
+                                       <h6 class="mt-0">{{ $addonService->service_name }}</h6>
+                                    </div>
+                                    <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $addonService->price }}</bdi></span></div>
+                                    <div class="col-md-2 col-6 text-md-end">
+                                       <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv">Add</a>
+                                    </div>
+                                 </div>
+                              @endforeach
                           </div>
                        </div>
                     </div>

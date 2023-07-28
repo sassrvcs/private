@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreign("package_id")->references("id")->on("packages")
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
             // $table->foreign("service_id")->references("id")->on("add_on_services")
             //     ->onUpdate('cascade')
             //     ->onDelete('cascade');    
