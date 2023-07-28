@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Services\Addonservice;
+namespace App\Services\Accounting;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use App\Models\Addonservice;
+use App\Models\Accounting;
 use App\Models\Feature;
 
 /**
  * @todo work in progress
  * @note extends BaseService
  */
-class AddonserviceService
+class AccountingService
 {
     /**
-     * Addonservice listing
+     * AccountingService listing
      */
     public function index()
     {
-        $addonservices = Addonservice::with('features')->get();
-        return $addonservices;
+        $accounts = AccountingService::get();
+        return $accounts;
     }
 
     /**
@@ -32,28 +32,13 @@ class AddonserviceService
     public function store($request)
     {
         return DB::transaction(function () use ($request) {
-            $addonservices = new Addonservice();
-            $addonservices->service_name = $request['name'];
-            $addonservices->price = $request['price'];
-            $addonservices->short_desc = $request['short_desc'];
-            $addonservices->long_desc = $request['description'];
-            $addonservices->save();
-
-            $features=[];
-            if($addonservices) {
-
-                foreach(data_get($request,'features') as $features){
-                    $temp['feature'] = $features;
-                    $temp['service_id'] = $addonservices->id ;
-                    $temp['created_at'] = now();
-                    $temp['updated_at'] = now() ;
-                    $featuresArr[] = $temp;
-                }
-
-                Feature::insert($featuresArr);
-            }
-
-            return $addonservices->id;
+            $accounting = new Accounting();
+            $accounting->accounting_software_name = $request['name'];
+            $accounting->image = $request['image'];
+            $accounting->short_desc = $request['short_desc'];
+            $accounting->long_desc = $request['description'];
+            $accounting->save();
+            return $accounting->id;
         });
     }
 
