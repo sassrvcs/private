@@ -792,7 +792,7 @@
 
                         </div>
                         <div class="form-row col-md-12 form-group">
-                            <label for="billing_first_name">Town:&nbsp;<abbr class="required" title="required">*</abbr>
+                            <label for="billing_first_name">Town:&nbsp;
                             </label>
                             <span class="input-wrapper">
                                 <input type="text" name="town" id="town1" class="input-text form-control town" value="{{$v['town']}}">
@@ -815,7 +815,7 @@
                             </span>
                         </div>
                         <div class="form-row update_totals_on_change col-md-12 col-12 form-group">
-                            <label for="billing_country">Country&nbsp;<abbr class="required" title="required">*</abbr></label>
+                            <label for="billing_country">Country&nbsp;</label>
                             <span class="input-wrapper">
                                 <select name="billing_country" id="billing_country" name="billing_country" class="contry country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
                                     <option value="">Select a country / region…</option>
@@ -1439,9 +1439,51 @@
 
 <!--For Find Postal Code Address Api Modal Popup-->
 <div class="modal" id="exampleModalCenterAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Choose your address</h5>
+                <button type="button" class="btn-close btn-address"  data-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <div id="post_address_blk">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
- <script>
-    $(document).ready(function(){
+
+
+@section('script')
+<script>
+    $(document).ready(function () {
+        $('#editPrimaryAddress').click(function(){
+            $('#primaryAddressModal').modal('show');
+        });
+
+        $('.confirmShow').click(function(){
+            $('#primaryAddressConfirmModal').modal('show');
+        });
+        $('.primaryAddrSubmit').click(function(){
+
+            var formdata = $(".primaryAddrUpdateForm").serialize();
+
+            $.ajax({
+                url: "{!! route('primary-address-save') !!}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    formdata: formdata
+                },
+                success: function(result) {
+                   $("#primaryAddressConfirmModal").modal('hide');
+                   $(window).load();
+
+                }
+            });
+        });
+
         $("#primary_submit,#billing_submit").click(function() {
 
             $(".loader").show();
@@ -1590,7 +1632,12 @@
                 }
             });
         });
+
+
+
     });
+
+
 
     function selectPostalAddrApp(val){
         var value = val.split(',');
