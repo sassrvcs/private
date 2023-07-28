@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Services\Addonservice;
+namespace App\Services\Addon;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use App\Models\Addonservice;
+use App\Models\Addonservice as Addon;
 use App\Models\Feature;
 
 /**
  * @todo work in progress
  * @note extends BaseService
  */
-class AddonserviceService
+class AddonService
 {
     /**
      * Addonservice listing
      */
     public function index()
     {
-        $addonservices = Addonservice::with('features')->get();
+        $addonservices = Addon::with('features')->get();
         return $addonservices;
     }
 
@@ -32,7 +32,7 @@ class AddonserviceService
     public function store($request)
     {
         return DB::transaction(function () use ($request) {
-            $addonservices = new Addonservice();
+            $addonservices = new Addon();
             $addonservices->service_name = $request['name'];
             $addonservices->price = $request['price'];
             $addonservices->short_desc = $request['short_desc'];
@@ -59,12 +59,13 @@ class AddonserviceService
 
     public function edit($id)
     {
-        $service = Addonservice::with('features')->where("id",$id)->first();
+        $service = Addon::with('features')->where("id",$id)->first();
         return $service;
     }
 
-    public function update($request, $id){
-        $service = Addonservice::findOrFail($id);
+    public function update($request, $id)
+    {
+        $service = Addon::findOrFail($id);
         $service->service_name = $request['name'];
         $service->price = $request['price'];
         $service->short_desc = $request['short_desc'];
@@ -73,7 +74,7 @@ class AddonserviceService
 
         $temp =[];
 
-        if(!empty($request['features'])){
+        if(!empty($request['features'])) {
             Feature::where('service_id',$id)->delete();
             foreach($request['features'] as $features){
                 $temp['feature'] = $features;
@@ -85,8 +86,10 @@ class AddonserviceService
 
         return true;
     }
-    public function destroy($id){
-        $service = Addonservice::FindOrFail($id)->delete();
+
+    public function destroy($id)
+    {
+        $service = Addon::FindOrFail($id)->delete();
         return $service;
     }
 }

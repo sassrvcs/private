@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin\AddonService;
+namespace App\Http\Controllers\Admin\Addons;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 // use App\Services\Addonservice\AddonserviceService;
 // use Validator;
 // use App\Models\Addonservice;
@@ -13,14 +14,16 @@ use Illuminate\Support\Facades\Validator;
 use App\Services\Addon\AddonService;
 use Redirect;
 
-class AddOnServiceController extends Controller
-{
 
+class AddonController extends Controller
+{
     public function __construct(protected AddonService $addonService)
     { }
 
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -30,15 +33,23 @@ class AddOnServiceController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
         return view('admin.addonservice.create');
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $input = $request->all();
-        // dd($input);
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
@@ -60,21 +71,39 @@ class AddOnServiceController extends Controller
 
             return redirect()->back()->with('message', 'Add-on Service added successfully');
         }
-
     }
 
     /**
+     * Display the specified resource.
      *
-     * @param string $id
-     * @return view
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function edit(string $id)
+    // public function show($id)
+    // {
+        
+    // }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
         $service = $this->addonService->edit($id);
         return view('admin.addonservice.edit',compact('service'));
     }
 
-    public function update(Request $request, string $id)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
         $input = $request->all();
         $validate = Validator::make($request->all(), [
@@ -101,7 +130,13 @@ class AddOnServiceController extends Controller
         }
     }
 
-    public function destroy(string $id)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
     {
         $service = $this->addonService->destroy($id);
         if($service) {
