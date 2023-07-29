@@ -8,14 +8,26 @@ use App\Models\User;
 use App\Models\Address;
 use Illuminate\Support\Arr;
 use Validator;
+use App\Models\Country;
 
 class AccountController extends Controller
 {
     public function details(){
         $user = Auth::user();
-        $primary_address = Address::where('user_id',Auth::user()->id)->where('address_type','primary_address')->get()->toArray();
-        $billing_address = Address::where('user_id',Auth::user()->id)->where('address_type','billing_address')->get()->toArray();
-        return view('frontend.account.details', compact('user','primary_address','billing_address'));
+        $countries = Country::all();
+        $primary_address = Address::join('countries','countries.id','=','addresses.billing_country')
+                                    ->select('countries.name as country_name','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+                                    ->where('addresses.user_id',Auth::user()->id)
+                                    ->where('addresses.address_type','primary_address')
+                                    ->get()
+                                    ->toArray();
+        $billing_address = Address::join('countries','countries.id','=','addresses.billing_country')
+                                    ->select('countries.name as country_name','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+                                    ->where('addresses.user_id',Auth::user()->id)
+                                    ->where('addresses.address_type','billing_address')
+                                    ->get()
+                                    ->toArray();
+        return view('frontend.account.details', compact('user','primary_address','billing_address','countries'));
     }
     public function savePrimaryAddress(Request $request){
         $temp = [];
