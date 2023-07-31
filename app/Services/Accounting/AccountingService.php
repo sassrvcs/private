@@ -2,6 +2,7 @@
 
 namespace App\Services\Accounting;
 
+use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Exception;
@@ -20,7 +21,7 @@ class AccountingService
      */
     public function index()
     {
-        $accounts = AccountingService::get();
+        $accounts = Accounting::get();
         return $accounts;
     }
 
@@ -32,9 +33,17 @@ class AccountingService
     public function store($request)
     {
         return DB::transaction(function () use ($request) {
+            if($request['image']) {
+                //$img_ext = $request->file('image')->getClientOriginalExtension();
+                //$filename = 'acc-software-' . time() . '.' . $img_ext;
+                $filename = time() . '.' . $request['image']->extension();
+                $path = $request['image']->move(public_path('images'), $filename);
+                //$path = $request->file('image')->move(public_path(), $filename);//image save public folder
+            }
+
             $accounting = new Accounting();
             $accounting->accounting_software_name = $request['name'];
-            $accounting->image = $request['image'];
+            $accounting->image = $filename;
             $accounting->short_desc = $request['short_desc'];
             $accounting->long_desc = $request['description'];
             $accounting->save();
@@ -44,34 +53,35 @@ class AccountingService
 
     public function edit($id)
     {
-        $service = Addonservice::with('features')->where("id",$id)->first();
-        return $service;
+        $accounting = Accounting::where("id",$id)->first();
+        return $accounting;
     }
 
     public function update($request, $id){
-        $service = Addonservice::findOrFail($id);
-        $service->service_name = $request['name'];
-        $service->price = $request['price'];
-        $service->short_desc = $request['short_desc'];
-        $service->long_desc = $request['description'];
-        $service->save();
-
-        $temp =[];
-
-        if(!empty($request['features'])){
-            Feature::where('service_id',$id)->delete();
-            foreach($request['features'] as $features){
-                $temp['feature'] = $features;
-                $temp['service_id'] = $id ;
-
-                Feature::create($temp);
-            }
+        //print_r($request);exit;
+        $accounting = Accounting::findOrFail($id);
+        $accounting->accounting_software_name = $request['name'];
+        if($request['image'])
+        {
+            $filename = time() . '.' . $request['image']->extension();
+            $path = $request['image']->move(public_path('images'), $filename);
+            $accounting->image = $filename;
         }
+        $accounting->short_desc = $request['short_desc'];
+        $accounting->long_desc = $request['description'];
+        //print_r($accounting);exit;
+        $accounting->save();
 
         return true;
     }
+
     public function destroy($id){
-        $service = Addonservice::FindOrFail($id)->delete();
-        return $service;
+        $accountingDetails = Accounting::where("id",$id)->first();
+        //print_r($accountingDetails);exit;
+        $accounting = Accounting::FindOrFail($id)->delete();
+        if(file_exists(public_path('images/'.$accountingDetails['image'].''))){
+            unlink(public_path('images/'.$accountingDetails['image'].''));
+        }
+        return $accounting;
     }
 }

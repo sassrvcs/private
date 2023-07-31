@@ -69,7 +69,8 @@ class AddonController extends Controller
 
             $addonserviceId = $this->addonService->store($input);
 
-            return redirect()->back()->with('message', 'Add-on Service added successfully');
+            //return redirect()->back()->with('message', 'Add-on Service added successfully');
+            return Redirect::to("admin/addonservice")->withSuccess('Service Added Successfully');
         }
     }
 
