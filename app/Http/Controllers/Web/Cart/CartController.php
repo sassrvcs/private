@@ -67,7 +67,8 @@ class CartController extends Controller
         $sessionCart = Session::get('cart');
 
         if(auth()->check()) {
-           dd('!!!Authorised...');
+           // dd('!!!Authorised...');
+           $this->cartService->addToCartViaSession($id);
         } else {
             // dd('!!!Show...');
             $this->cartService->addToCartViaSession($id);

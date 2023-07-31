@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 // use Validator;
 // use App\Models\Addonservice;
 // use App\Models\AddonserviceFeature;
+// use Redirect;
 
 use Illuminate\Support\Facades\Validator;
 use App\Services\Addon\AddonService;
-use Redirect;
-
+use Illuminate\Support\Facades\Redirect;
 
 class AddonController extends Controller
 {
@@ -55,20 +55,17 @@ class AddonController extends Controller
             'short_desc' => 'required',
             'price' => 'required',
             'description' => 'required'
+        ],[
+            'name.required' =>'This name field is required.',
+            'short_desc.required' => 'This short description field is required.',
+            'price.required' => 'This price field is required.',
+            'description.required' => 'This long description field is required.'
+        ]);
 
-            ],[
-                'name.required' =>'This name field is required.',
-                'short_desc.required' => 'This short description field is required.',
-                'price.required' => 'This price field is required.',
-                'description.required' => 'This long description field is required.'
-
-            ]);
         if($validate->fails()){
             return back()->withErrors($validate->errors())->withInput();
-        }else{
-
+        } else {
             $addonserviceId = $this->addonService->store($input);
-
             return redirect()->back()->with('message', 'Add-on Service added successfully');
         }
     }
@@ -81,7 +78,6 @@ class AddonController extends Controller
      */
     // public function show($id)
     // {
-        
     // }
 
     /**
@@ -111,22 +107,20 @@ class AddonController extends Controller
             'short_desc' => 'required',
             'price' => 'required',
             'description' => 'required'
+        ],[
+            'name.required' =>'This name field is required.',
+            'short_desc.required' => 'This short description field is required.',
+            'price.required' => 'This price field is required.',
+            'description.required' => 'This description field is required.'
+        ]);
 
-            ],[
-                'name.required' =>'This name field is required.',
-                'short_desc.required' => 'This short description field is required.',
-                'price.required' => 'This price field is required.',
-                'description.required' => 'This description field is required.'
-
-            ]);
-        if($validate->fails()){
+        if($validate->fails()) {
             return back()->withErrors($validate->errors())->withInput();
-        }else{
+        } else {
             $user = $this->addonService->update($input,$id);
-            if($user){
+            if($user) {
                 return Redirect::to("admin/addonservice")->withSuccess('Service updated');
             }
-
         }
     }
 

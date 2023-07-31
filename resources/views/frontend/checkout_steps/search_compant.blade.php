@@ -104,7 +104,8 @@
                     // $('#result_show').hide();
                     $('#not-available-company').hide();
                     $('.search-company-name').text(searchValue);
-
+		            $('#srchfld-three').val('');
+		    
                     // if(response.data.is_sensitive == 1) {
                     //     $('#is_sensitive_word_row').show();
                     //     $('#is_sensitive_word').text(response.data.is_sensitive_word);
