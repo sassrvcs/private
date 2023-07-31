@@ -14,6 +14,8 @@ use App\Http\Controllers\Web\Checkout\CheckoutStepController;
 use App\Http\Controllers\Web\Home\HomeController;
 use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
 
+use App\Http\Controllers\Admin\BusinessBanking\BusinessBankingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -67,6 +69,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
 
         Route::resource('package', PackageController::class);
         Route::resource('addonservice', AddonController::class);
+        Route::resource('business-banking', BusinessBankingController::class);
 
         // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
 

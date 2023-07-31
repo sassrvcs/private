@@ -71,7 +71,7 @@
                     </li>
                 </ul>
             </li>
-            
+
             <li class="nav-item {{ request()->routeIs('admin.addonservice.*') ? 'menu-is-opening menu-open' : '' }}">
                 {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
                 <a href="#" class="nav-link ">
@@ -92,6 +92,33 @@
 
                     <li class="nav-item">
                         <a href="{{ route('admin.addonservice.create')}}" class="nav-link {{ request()->routeIs('admin.addonservice.create') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add New</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item {{ request()->routeIs('admin.business-banking.*') ? 'menu-is-opening menu-open' : '' }}">
+                <a href="#" class="nav-link  {{ request()->routeIs('admin.business-banking.*') ? ' active' : '' }}">
+                    <i class="nav-icon fas fa-graduation-cap"></i>
+                    <p>
+                        Business banking
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                {{-- style="{{ request()->routeIs('admin.agent.*') ? ' display: block;' : 'display: none;' }}"" --}}
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.business-banking.index')}}"
+                            class="nav-link {{ request()->routeIs('admin.business-banking.index') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>List</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.business-banking.create')}}" class="nav-link {{ request()->routeIs('admin.business-banking.create') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add New</p>
                         </a>
