@@ -34,11 +34,10 @@ class AccountingService
     {
         return DB::transaction(function () use ($request) {
             if($request['image']) {
-                //$img_ext = $request->file('image')->getClientOriginalExtension();
-                //$filename = 'acc-software-' . time() . '.' . $img_ext;
+                
                 $filename = time() . '.' . $request['image']->extension();
                 $path = $request['image']->move(public_path('images'), $filename);
-                //$path = $request->file('image')->move(public_path(), $filename);//image save public folder
+                
             }
 
             $accounting = new Accounting();
@@ -61,7 +60,7 @@ class AccountingService
         //print_r($request);exit;
         $accounting = Accounting::findOrFail($id);
         $accounting->accounting_software_name = $request['name'];
-        if($request['image'])
+        if(isset($request["image"]))
         {
             $filename = time() . '.' . $request['image']->extension();
             $path = $request['image']->move(public_path('images'), $filename);
@@ -69,7 +68,6 @@ class AccountingService
         }
         $accounting->short_desc = $request['short_desc'];
         $accounting->long_desc = $request['description'];
-        //print_r($accounting);exit;
         $accounting->save();
 
         return true;
@@ -77,7 +75,6 @@ class AccountingService
 
     public function destroy($id){
         $accountingDetails = Accounting::where("id",$id)->first();
-        //print_r($accountingDetails);exit;
         $accounting = Accounting::FindOrFail($id)->delete();
         if(file_exists(public_path('images/'.$accountingDetails['image'].''))){
             unlink(public_path('images/'.$accountingDetails['image'].''));
