@@ -1,24 +1,23 @@
 @extends('includes.layouts.admin')
 @section('page-title')
-    Package List
+Business Banking List
 @endsection
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Package List</h1>
+                <h1>Business Banking List</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Package List</li>
+                    <li class="breadcrumb-item active">Business Banking List</li>
                 </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
-
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -56,28 +55,28 @@
                                 <thead>
                                     <tr>
                                         <th>Serial No</th>
-                                        <th>Name</th>
+                                        <th>Image</th>
                                         <th>Description</th>
-                                        <th>Price</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @forelse ($package as $index => $package)
+                                    @forelse ($data as $index => $data)
                                         <tr>
+
                                             <td> {{ $index+1 }}</td>
-                                            <td> {{ $package->package_name}}</td>
-                                            <td> {{ $package->short_description }}</td>
-                                            <td> {{ $package->package_price }}</td>
+                                            <td><img src="{{  $data->getFirstMediaUrl('business_banking_images')}}"  width="120px"></td>
+                                            <td> {{ $data->short_description }}</td>
+
                                             <td>
                                                 <div class="form-group">
-                                                    <a href="{{ route('admin.package.edit', $package->id) }}" class="" style="color: #1c55ad; padding-right: 6px;">
+                                                    <a href="{{ route('admin.business-banking.edit', $data->id) }}" class="" style="color: #1c55ad; padding-right: 6px;">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
 
-                                                    <a href="javascript:{}" class="delete-user" data-id={{ $package->id }}  data-user="Package "
-                                                            data-route="{{ route('admin.package.destroy', $package->id) }}" style="color: #f30031">
+                                                    <a href="javascript:{}" class="delete-user" data-id={{ $data->id }}  data-user="Business banking "
+                                                            data-route="{{ route('admin.business-banking.destroy', $data->id) }}" style="color: #f30031">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
 
@@ -87,7 +86,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5">No Record Found.</td>
+                                            <td colspan="4">No Record Found.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
