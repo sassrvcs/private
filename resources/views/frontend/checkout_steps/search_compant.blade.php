@@ -11,7 +11,7 @@
                     <li class="list-inline-item">5. Company Details</li>
                 </ol>
             </div>
-            @dump($sessionCart)
+            {{-- @dump($sessionCart) --}}
             <div class="col-md-8 offset-md-2">
                 <div class="search_area mb-5">
                     <div class="container">
@@ -19,9 +19,18 @@
                             <div class="search-result mb-4">
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
-                                        <span class="icon"><i class="fa fa-check-circle-o"></i></span>
-                                        <h2>{{ end($sessionCart)['company_name'] ?? '' }}</h2>
-                                        <h3>Congratulations! This company name is available.</h3>
+                                        <div class="search-result" id="available-company">
+                                            <span class="icon"><i class="fa fa-check-circle-o"></i></span>
+                                            <h2 class="search-company-name">{{ end($sessionCart)['company_name'] ?? '' }}</h2>
+                                            <h3>Congratulations! This company name is available.</h3>
+                                        </div>
+
+                                        <div id="not-available-company" style="display: none">
+                                            <span class="icon"><i class="fa fa-times-circle-o"></i></span>
+                                            <h2 class="search-company-name"></h2>
+                                            <h3 style="color:white;">Error! This company name is Not available.</h3>
+                                            {{-- <div class="hhr-text">Search for another name</div> --}}
+                                        </div>
                                     </div>
                                     <div class="col-md-4 text-end">
                                         <p class="h5">You have chosen the <span style="color:#87CB28;">{{ end($sessionCart)['package_name'] ?? '' }}</span></p>
@@ -38,7 +47,7 @@
                             <div class="hr-text"><span>Search for another name</span></div>
                         </div>
                         <div class="search mb-4">
-                            <form id="homeSrchFrm-three" method="post" name="homeSrchFrm-three">
+                            <form id="homeSrchFrm-three" name="homeSrchFrm-three" onsubmit="submitForm(event)">
                                 <input type="hidden" name="action" value="search_comp">
                                 <input type="hidden" name="hidsrch" value="">
                                 <div class="input-group ">
@@ -60,13 +69,78 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
-            $('#homeSrchFrm-three').submit(e) {
+        function submitForm(event) {
+            event.preventDefault(); // Prevent default form submission
 
-                console.log(e);
-                e.preventDefault();
+            const form = event.target; // Get the form element
+            const searchField = form.elements.srchfld; // Get the search field input element
+            const searchValue = searchField.value.trim(); // Get the value and trim whitespace
+
+            if (!searchValue) {
+                alert("Please enter a company name to search.");
+                return; // Stop the function if search field is empty
             }
 
-        });
+            console.log(form.elements);
+            // Display loader
+            const loader = form.querySelector('.srch-loader');
+            loader.style.display = 'block';
+
+            // Prepare the data to be sent
+            const formData = new FormData(form);
+
+            // Make the GET request using Axios
+            axios.get("{{ route('cart.index') }}", {
+                params: {
+                    'company_name': searchValue
+                }
+            })
+            .then(function (response) {
+                // Handle the response data here
+                console.log(response.data);
+                // Do something with the response data
+                if(response.data.message == 'This company name is available.') {
+                    // $('#response-class').hide();
+                    // $('#result_show').hide();
+                    $('#not-available-company').hide();
+                    $('.search-company-name').text(searchValue);
+		            $('#srchfld-three').val('');
+		    
+                    // if(response.data.is_sensitive == 1) {
+                    //     $('#is_sensitive_word_row').show();
+                    //     $('#is_sensitive_word').text(response.data.is_sensitive_word);
+                    // } else {
+                    //     $('#is_sensitive_word_row').hide();
+                    //     $('#is_sensitive_word').text('');
+                    // }
+
+                    // $('#result_show').show();
+                    // $('#available-company').show();
+                    // $('.image-stamp').hide();
+                    // $('.search-input').val('');
+
+                    // location.reload();
+                } else {
+                    // $('#result_show').hide();
+                    $('#available-company').hide();
+                    $('#response-class').hide();
+
+                    // Show data
+                    $('.search-company-name').text(companyName);
+                    $('#result_show').show();
+                    $('#not-available-company').show();
+                    $('.image-stamp').hide();
+                    $('.search-input').val('');
+                }
+            })
+            .catch(function (error) {
+                // Handle any errors that occurred during the request
+                console.error(error);
+            })
+            .finally(function () {
+                // Hide loader
+                loader.style.display = 'none';
+            });
+        }
     </script>
 @endsection

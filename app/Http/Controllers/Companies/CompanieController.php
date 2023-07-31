@@ -34,13 +34,10 @@ class CompanieController extends Controller
             $this->cartService->addCompany($searchText['search']);
 
             // $cart = Session::get('cart', []);
-
             // $cartItem = [
             //     'company_name' => $searchText['search'],
             // ];
-            
             // $cart[] = $cartItem;
-
             // Session::put('cart', $cart);
 
             return $response;
