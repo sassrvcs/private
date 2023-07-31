@@ -2,6 +2,9 @@
 
 namespace App\Services\Cart;
 
+// use App\Models\Addonservice;
+
+use App\Services\Addon\AddonService;
 use App\Services\Package\PackageService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -10,8 +13,10 @@ class CartService
 {
     const NO_RESPONSE = 'Please try again.';
 
-    public function __construct(protected PackageService $packageService)
-    { }
+    public function __construct(
+        protected PackageService $packageService,
+        protected AddonService $addonService
+    ) { }
     
     /**
      * Add compamy in session variable || Cart section 1st step
@@ -27,29 +32,6 @@ class CartService
         ];
 
         $cart[] = $cartItem;
-        
-        // dd($cart);
-        // die;
-        // foreach ($cart as $index => $cartItem) {
-        //     if (isset($cartItem['company_name']) && !empty($cartItem['company_name']) && $cartItem['company_name'] != $companyName  && $updateParam == false) {
-        //         // Delete Cart Session First And Re-Assign Data 
-        //         dd('If Tunning', $companyName);
-        //         $cartItem = [
-        //             'company_name' => $companyName,
-        //         ];
-        //     } else if (isset($cartItem['company_name']) && !empty($cartItem['company_name']) && $cartItem['company_name'] != $companyName && $updateParam == true) {
-        //         dd('Else If Tunning', $companyName);
-        //         $cart[$index]['company_name'] = $companyName;
-        //         break;
-        //     } else {
-        //         dd('Else Tunning', $companyName);
-        //         $cartItem = [
-        //             'company_name' => $companyName,
-        //         ];
-        //         $cart[] = $cartItem;
-        //     }
-        // }
-
         Session::put('cart', $cart);
     }
 
@@ -61,33 +43,10 @@ class CartService
     {
         $cart = Session::get('cart', []);
 
-        // Find the index of the first cart item with a valid company_name
-        // $indexToUpdate = null;
-        // foreach ($cart as $index => $cartItem) {
-        //     if (isset($cartItem['company_name']) && !empty($cartItem['company_name'])) {
-        //         $indexToUpdate = $index;
-        //         break;
-        //     }
-        // }
-
-        // if ($indexToUpdate !== null) {
-        //     // Update the company_name for the found cart item
-        //     $cart[$indexToUpdate]['company_name'] = $request['company_name'];
-        // } else {
-        //     // Add the new cart item if no item with company_name was found
-        //     $cartItem = [
-        //         'company_name' => $request['company_name'],
-        //     ];
-        //     $cart[] = $cartItem;
-        // }
-
-        // dd($cart);
-
         if( isset($cart[0]['company_name'])) {
             $cart[0]['company_name'] = $request['company_name'];
         }
 
-        // dd($cart);
         Session::put('cart', $cart);
     }
 
@@ -149,6 +108,10 @@ class CartService
             // dd($cart);
             return true;
         }
+
+        if($type == 'service') {
+            $this->updateAddonService($addedItemId);
+        }
     }
 
     /**
@@ -189,4 +152,60 @@ class CartService
         $sessionCart = Session::get('cart');
         return $sessionCart;
     }
+
+    /**
+     * Update addon service
+     */
+    private function updateAddonService($service_id)
+    {
+        $service = $this->addonService->edit($service_id);
+
+        // Get the cart from the session
+        $cart = Session::get('cart', []);
+        $cartItemCount = count($cart) -1;
+
+        $existingCartItem = null;
+        if($cartItemCount < 1) {
+            foreach ($cart as $index => $cartItem) {
+                if (isset($cartItem['company_name']) && !empty($cartItem['company_name'])) {
+                    $existingCartItem = $index;
+                    break;
+                }
+            }
+        } else {
+            $existingCartItem = $cartItemCount;
+        }
+
+        if ($existingCartItem !== null) {
+            // Item already exists in the cart, update its quantity and price
+            if (isset($cart[$existingCartItem]['quantity'])) {
+                $cart[$existingCartItem]['addon_service']['quantity'] += 1;
+            } else {
+                // If 'quantity' key is not set, initialize it to 1
+                $cart[$existingCartItem]['addon_service']['quantity'] = 1;
+            }
+
+            $cart[$existingCartItem]['addon_service']['price']           = $service->price;
+            $cart[$existingCartItem]['addon_service']['service_id']      = $service->id;
+            $cart[$existingCartItem]['addon_service']['service_name']    = $service->service_name;
+            $cart[$existingCartItem]['addon_service']['service_status']  = 1;
+        } else {
+
+            $cartItem['addon_service'] = [
+                'price'          => $service->price,
+                'quantity'       => 1,
+                'service_id'     => $service->id,
+                'service_name'   => $service->service_name,
+                'service_status' => 1,
+            ];
+    
+            $cart[] = $cartItem;
+        }
+    
+        // Save the updated cart back to the session
+        Session::put('cart', $cart);
+        // dd($cart);
+        return true;
+    }
+
 }
