@@ -84,7 +84,7 @@
                 {{-- style="{{ request()->routeIs('admin.agent.*') ? ' display: block;' : 'display: none;' }}"" --}}
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('admin.addonservice.index')}}" class="nav-link">
+                        <a href="{{ route('admin.addonservice.index')}}" class="nav-link {{ request()->routeIs('admin.addonservice.index') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>List</p>
                         </a>
@@ -98,27 +98,46 @@
                     </li>
                 </ul>
             </li>
+<<<<<<< HEAD
 
             <li class="nav-item {{ request()->routeIs('admin.business-banking.*') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link  {{ request()->routeIs('admin.business-banking.*') ? ' active' : '' }}">
                     <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
                         Business banking
+=======
+             
+            <!-- accounting Software section -->
+            <li class="nav-item {{ request()->routeIs('admin.accounting.*') ? 'menu-is-opening menu-open' : '' }}">
+                {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
+                <a href="#" class="nav-link ">
+                    <i class="nav-icon fas fa-graduation-cap"></i>
+                    <p>
+                        Accounting Software
+>>>>>>> 26e89c42469eb87511d5fc0220ed4857f2995bb6
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 {{-- style="{{ request()->routeIs('admin.agent.*') ? ' display: block;' : 'display: none;' }}"" --}}
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
+<<<<<<< HEAD
                         <a href="{{ route('admin.business-banking.index')}}"
                             class="nav-link {{ request()->routeIs('admin.business-banking.index') ? 'active' : '' }}">
+=======
+                        <a href="{{ route('admin.accounting.index')}}" class="nav-link {{ request()->routeIs('admin.accounting.index') ? 'active' : '' }}">
+>>>>>>> 26e89c42469eb87511d5fc0220ed4857f2995bb6
                             <i class="far fa-circle nav-icon"></i>
                             <p>List</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
+<<<<<<< HEAD
                         <a href="{{ route('admin.business-banking.create')}}" class="nav-link {{ request()->routeIs('admin.business-banking.create') ? 'active' : '' }}">
+=======
+                        <a href="{{ route('admin.accounting.create')}}" class="nav-link {{ request()->routeIs('admin.accounting.create') ? 'active' : '' }}">
+>>>>>>> 26e89c42469eb87511d5fc0220ed4857f2995bb6
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add New</p>
                         </a>
