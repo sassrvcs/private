@@ -62,7 +62,7 @@
                                             <input id="password-field" class="form-control @error('password') is-invalid @enderror" type="password" id="password" name="password" value="{{old('password')}}">
                                         </div>
                                         <div class="right-icon">
-                                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                            <span toggle="#password-field" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
                                         </div>
                                     </div>
                                     @error('password')
@@ -78,7 +78,7 @@
                                         <input type="hidden" value=""> <button type="submit" class="btn btn-primary">Log in</button>
                                     </div>
                                     <div class="col-md-6 mb-3 text-md-end lost_password text-md-right">
-                                        <a href="#" class="link-primary">Lost your password?</a>
+                                        <a href="{{ route('forget.password.get') }}" id="lostPassword" class="link-primary">Lost your password?</a>
                                     </div>
                                 </div>
                             </form>
@@ -97,15 +97,18 @@
             </div>
         </div>
     </section>
+
     <!-- ================ end: customer_login ================ -->
 @endsection
 @section('script')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 <script>
+
     $(document).ready(function () {
+
         $(".toggle-password").click(function() {
 
-        $(this).toggleClass("fa-eye fa-eye-slash");
+        $(this).toggleClass("fa-eye-slash fa-eye");
         var input = $($(this).attr("toggle"));
         if (input.attr("type") == "password") {
         input.attr("type", "text");
@@ -113,6 +116,24 @@
         input.attr("type", "password");
         }
         });
+
+        $("#lostPassword").click(function() {
+            $('#lostPasswordModal').show();
+        });
+        $(".forgotPasswordBtn").click(function() {
+            var email = $('#lostpwd_email').val();
+            if(email==''){
+                $('.emailerror').html('Please enter email');
+                $('#lostpwd_email').css('border','1px solid red');
+            }else{
+
+
+            }
+
+        });
+
     });
+
+
 </script>
 @endsection
