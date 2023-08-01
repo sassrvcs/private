@@ -47,7 +47,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Description <span class="mandetory">*</span></label>
-                                        <textarea class="ckeditor form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description"></textarea>
+                                        <textarea class="ckeditor form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description">{{{ old('description') }}}</textarea>
                                         <span class="error invalid-feedback">{{ $errors->first('description') }}</span>
                                     </div>
                                 </div>

@@ -45,7 +45,7 @@ class AccountingController extends Controller
                 'name.required' =>'This name field is required.',
                 'short_desc.required' => 'This short description field is required.',
                 'description.required' => 'This description field is required.',
-                'image.required' => 'This image field is required and must be a image.'
+                'image.required' => 'This image field is required and only allows image files.'
             ]);
         if($validate->fails()){
             return back()->withErrors($validate->errors())->withInput();
