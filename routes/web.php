@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\Accounting\AccountingController;
 use App\Http\Controllers\Web\Home\HomeController;
 use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
 
+use App\Http\Controllers\Admin\BusinessBanking\BusinessBankingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,6 +54,8 @@ Route::get('/package', WebPackageController::class)->name('package');
 
 Route::resource('/cart', CartController::class);
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('add-cart');
+Route::patch('/cart/{id}', [CartController::class, 'update'])->name('update-cart');
+// Route::delete('/cart/{id}', [CartController::class, 'update'])->name('delete-cart');
 
 Route::get('review-company-package', [CheckoutStepController::class, 'reviewCompanyPackage'])->name('review-company-package');
 Route::match(['get', 'post'], 'addon-services', [CheckoutStepController::class, 'addOnServices'])->name('addon-services');
@@ -68,6 +72,8 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
 
         Route::resource('package', PackageController::class);
         Route::resource('addonservice', AddonController::class);
+
+        Route::resource('business-banking', BusinessBankingController::class);
         Route::resource('accounting', AccountingController::class);
 
         // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');

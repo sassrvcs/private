@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Address;
 use Illuminate\Support\Facades\Auth;
 use Session;
+use App\Models\Country;
 
 class AuthController extends Controller
 {
@@ -16,7 +17,8 @@ class AuthController extends Controller
     { }
 
     public function viewRegisterForm(){
-        return view('frontend.register');
+        $countries = Country::all();
+        return view('frontend.register', compact('countries'));
     }
     public function myAccount(){
         $user = Auth::user();
