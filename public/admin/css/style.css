@@ -226,3 +226,22 @@ body:not(.layout-fixed) .main-sidebar {position: fixed !important;}
 .info {
   font-size: 0.8em;
 }
+
+.field-with-btn{
+  display: flex;
+  align-items: center;
+  margin: 0 0 10px;
+}
+.field-with-btn a{
+  margin-left: 10px;
+}
+.upload-img{
+  padding: 10px 0;
+}
+.upload-img .form-group .form-control{
+  border: none;
+  padding: 0;
+}
+.upload-img .form-group .form-control.form-control.is-invalid{
+  background-image: none;
+}
