@@ -53,13 +53,14 @@ class AddonController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
-            'price' => 'required',
-            'description' => 'required'
+            //'price' => 'required|min:0|not_in:0',
+            'price' => 'required|min:1|numeric',
+            //'description' => 'required'
         ],[
             'name.required' =>'This name field is required.',
             'short_desc.required' => 'This short description field is required.',
             'price.required' => 'This price field is required.',
-            'description.required' => 'This long description field is required.'
+            //'description.required' => 'This long description field is required.'
         ]);
 
         if($validate->fails()){
@@ -106,13 +107,13 @@ class AddonController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
-            'price' => 'required',
-            'description' => 'required'
+            'price' => 'required|min:1|numeric',
+            //'description' => 'required'
         ],[
             'name.required' =>'This name field is required.',
             'short_desc.required' => 'This short description field is required.',
             'price.required' => 'This price field is required.',
-            'description.required' => 'This description field is required.'
+            //'description.required' => 'This description field is required.'
         ]);
 
         if($validate->fails()) {

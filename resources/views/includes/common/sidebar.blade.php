@@ -74,7 +74,7 @@
             
             <li class="nav-item {{ request()->routeIs('admin.addonservice.*') ? 'menu-is-opening menu-open' : '' }}">
                 {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
-                <a href="#" class="nav-link ">
+                <a href="#" class="nav-link {{ request()->routeIs('admin.addonservice.*') ? ' active' : '' }}"">
                     <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
                         Add-on Services
@@ -102,7 +102,7 @@
             <!-- accounting Software section -->
             <li class="nav-item {{ request()->routeIs('admin.accounting.*') ? 'menu-is-opening menu-open' : '' }}">
                 {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
-                <a href="#" class="nav-link ">
+                <a href="#" class="nav-link {{ request()->routeIs('admin.accounting.*') ? ' active' : '' }}">
                     <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
                         Accounting Software

@@ -66,12 +66,15 @@
                                             <div class="features-wrap">
                                                 {{-- <input type="text" class="form-control" name="features[]" value=""/>
                                                 <a href="javascript:void(0);" class="btn btn-primary add_button" title="Add field">add</a> --}}
+                                                
                                                 @if($service->features)
                                                     @foreach($service->features as $key => $value)
+                                                    <?php if($value->feature!=null) { ?>
                                                         <div>    
                                                             <input type="text" class="form-control" name="features[]" value="{{ $value->feature}}"/>
                                                             <a href="javascript:void(0);" class="btn btn-danger remove_button">remove</a>
-                                                        </div>    
+                                                        </div> 
+                                                    <?php } ?>        
                                                     @endforeach
                                                     <a href="javascript:void(0);" class="btn btn-primary add_button" title="Add field">add</a>
                                                 @endif
