@@ -51,6 +51,8 @@ Route::get('/package', WebPackageController::class)->name('package');
 
 Route::resource('/cart', CartController::class);
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('add-cart');
+Route::patch('/cart/{id}', [CartController::class, 'update'])->name('update-cart');
+// Route::delete('/cart/{id}', [CartController::class, 'update'])->name('delete-cart');
 
 Route::get('review-company-package', [CheckoutStepController::class, 'reviewCompanyPackage'])->name('review-company-package');
 Route::match(['get', 'post'], 'addon-services', [CheckoutStepController::class, 'addOnServices'])->name('addon-services');

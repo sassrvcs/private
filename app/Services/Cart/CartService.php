@@ -90,6 +90,7 @@ class CartService
                 $cart[$existingCartItem]['package_name']    = $package->package_name;
                 $cart[$existingCartItem]['package_status']  = 1;
                 $cart[$existingCartItem]['step_complete']   = 1;
+                $cart[$existingCartItem]['addon_service'] = [];
             } else {
 
                 $cartItem = [
@@ -98,6 +99,7 @@ class CartService
                     'product_id'     => $package->id,
                     'package_name'   => $package->package_name,
                     'package_status' => 1,
+                    'addon_service'  => []
                 ];
         
                 $cart[] = $cartItem;
@@ -110,6 +112,7 @@ class CartService
         }
 
         if($type == 'service') {
+            // dd('Working....!');
             $this->updateAddonService($addedItemId);
         }
     }
@@ -159,11 +162,13 @@ class CartService
     private function updateAddonService($service_id)
     {
         $service = $this->addonService->edit($service_id);
+        // dd($service);
 
         // Get the cart from the session
         $cart = Session::get('cart', []);
         $cartItemCount = count($cart) -1;
 
+        // dd($cart);
         $existingCartItem = null;
         if($cartItemCount < 1) {
             foreach ($cart as $index => $cartItem) {
@@ -177,35 +182,105 @@ class CartService
         }
 
         if ($existingCartItem !== null) {
-            // Item already exists in the cart, update its quantity and price
-            if (isset($cart[$existingCartItem]['quantity'])) {
-                $cart[$existingCartItem]['addon_service']['quantity'] += 1;
-            } else {
-                // If 'quantity' key is not set, initialize it to 1
-                $cart[$existingCartItem]['addon_service']['quantity'] = 1;
+
+            // Check if the service with the same name already exists in the cart
+            $existingService = null;
+            foreach ($cart[$existingCartItem]['addon_service'] as $index => $addonService) {
+                if ($addonService['service_name'] === $service->service_name) {
+                    $existingService = $index;
+                    break;
+                }
             }
 
-            $cart[$existingCartItem]['addon_service']['price']           = $service->price;
-            $cart[$existingCartItem]['addon_service']['service_id']      = $service->id;
-            $cart[$existingCartItem]['addon_service']['service_name']    = $service->service_name;
-            $cart[$existingCartItem]['addon_service']['service_status']  = 1;
-        } else {
+            if ($existingService !== null) {
+                return false;
+            } else {
 
-            $cartItem['addon_service'] = [
-                'price'          => $service->price,
-                'quantity'       => 1,
-                'service_id'     => $service->id,
-                'service_name'   => $service->service_name,
-                'service_status' => 1,
-            ];
-    
-            $cart[] = $cartItem;
+                if (!isset($cart[$existingCartItem]['addon_service'])) {
+                    // If the 'addon_service' key is not set, initialize it as an empty array
+                    $cart[$existingCartItem]['addon_service'] = [];
+                }
+        
+                // Add the new service to the 'addon_service' array
+                $cart[$existingCartItem]['addon_service'][] = [
+                    'price' => $service->price,
+                    'quantity' => 1,
+                    'service_id' => $service->id,
+                    'service_name' => $service->service_name,
+                    'service_status' => 1,
+                ];
+            }
         }
-    
+
+        // $cart[$existingCartItem]['addon_service'] = $cartItem;
         // Save the updated cart back to the session
-        Session::put('cart', $cart);
         // dd($cart);
+
+        Session::put('cart', $cart);
         return true;
     }
 
+
+    /**
+     * Remove service ID from session | cart
+     * @param string $service_key_id
+     */
+    // public function removeAddonService($service_key_id)
+    // {
+    //     // Get the cart from the session
+    //     $cart = Session::get('cart', []);
+    //     // dd(end($cart)['addon_service']);
+    //     if (isset(end($cart)['addon_service']) && is_array(end($cart)['addon_service'])) {
+    //         // Debugging statement: Print the array before removing the element
+    //         // dump(end($cart)['addon_service']);
+    //         // $data = end($cart)['addon_service'];
+
+    //         // dump($data);'
+    //         // if(isset(end($cart)['addon_service'][$service_key_id])) {
+    //             // unset(end($cart)['addon_service'][$service_key_id]);
+    //             dump($service_key_id);
+    //             $data = end($cart)['addon_service'];
+    //             // dump(end($cart)['addon_service']);
+    //             // dump($data);
+    //             unset($data[$service_key_id]);
+
+    //             // dd($data);
+
+    //             Session::put('cart', $data);
+    //             return true;
+    //         // }
+
+    //         // Debugging statement: Print the array after removing the element
+    //         // dd(end($cart['addon_service']));
+    //         // dd(end($cart)['addon_service']);
+    //     }
+    //     // dd('Stop');
+    //     // Save the updated cart back to the session
+        
+    //     return false;
+    // }
+    
+    public function removeAddonService($service_key_id)
+    {
+        // Get the cart from the session
+        $cart = Session::get('cart', []);
+        // dd(end($cart)['addon_service']);
+        if (isset(end($cart)['addon_service']) && is_array(end($cart)['addon_service'])) {
+            
+            dump($service_key_id);
+            $data = end($cart)['addon_service'];
+            
+            unset($data[$service_key_id]);
+
+            end($cart)['addon_service'] = $data;
+
+            Session::put('cart', $cart);
+
+            return true;
+        }
+        // dd('Stop');
+        // Save the updated cart back to the session
+        
+        return false;
+    }
 }
