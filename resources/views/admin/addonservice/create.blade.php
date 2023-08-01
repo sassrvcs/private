@@ -52,8 +52,9 @@
 
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <label for="">Description</label>
-                                        <textarea class="ckeditor form-control {{ $errors->has('long_desc') ? 'is-invalid' : '' }}" name="description"></textarea>
+                                        <label for="">Description <span class="mandetory">*</span></label>
+                                        <textarea class="ckeditor form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description"></textarea>
+                                        <span class="error invalid-feedback">{{ $errors->first('description') }}</span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -62,7 +63,7 @@
                                         <div class="field_wrapper">
                                             <div>
                                                 <input type="text" class="form-control" name="features[]" value=""/>
-                                                <a href="javascript:void(0);" class="btn btn-primary add_button" title="Add field">add</a>
+                                                <a href="javascript:void(0);" class="btn btn-primary add_button" title="Add field">Add+</a>
                                             </div>
                                         </div>
                                     </div>
@@ -93,7 +94,7 @@
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div><input type="text" class="form-control" name="features[]" value=""/><a href="javascript:void(0);" class="btn btn-danger remove_button">remove</a></div>'; //New input field html
+        var fieldHTML = '<div><input type="text" class="form-control" name="features[]" value=""/><a href="javascript:void(0);" class="btn btn-danger remove_button">Remove</a></div>'; //New input field html
         var x = 1; //Initial field counter is 1
 
         //Once add button is clicked
@@ -116,7 +117,7 @@
 
         var faqaddButton = $('.faq_add'); //Add button selector
         var faqwrapper = $('.field_wrapper_faq'); //Input field wrapper
-        var faqfieldHTML = '<div><input type="text" class="form-control" name="faq[question][]" placeholder="question" value=""/><input type="text" class="form-control" name="faq[answer][]" placeholder="answer" value=""/><a href="javascript:void(0);" class="btn btn-danger faq_remove_button">remove</a></div>'; //New input field html
+        var faqfieldHTML = '<div><input type="text" class="form-control" name="faq[question][]" placeholder="question" value=""/><input type="text" class="form-control" name="faq[answer][]" placeholder="answer" value=""/><a href="javascript:void(0);" class="btn btn-danger faq_remove_button">Remove</a></div>'; //New input field html
         var y = 1; //Initial field counter is 1
 
         //Once add button is clicked
