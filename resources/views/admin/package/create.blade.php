@@ -78,8 +78,8 @@
                                             </div> --}}
                                             <table id="example1" class="table table-bordered text-nowrap key-buttons">
                                                 <tr class="faqrow" id="row_1">
-                                                    <td><input type="text" class="form-control" name="faq[1][question]" placeholder="question" value=""/></td>
-                                                    <td><input type="text" class="form-control" name="faq[1][answer]" placeholder="answer" value=""/></td>
+                                                    <td><input type="text" class="form-control" name="faq[1][question]" placeholder="Question" value=""/></td>
+                                                    <td><input type="text" class="form-control" name="faq[1][answer]" placeholder="Answer" value=""/></td>
                                                     <td>
                                                         <button type="button" name="add" id="faq_add" class="btn btn-success"><i class="fa fa-plus"></i></button>
                                                         {{-- <button type="button" class="btn btn-danger remove-tr" data-rowid="1"><i class="fa fa-trash"></i></button> --}}
@@ -93,6 +93,12 @@
                                     <div class="col-sm-12">
                                         <label for="">Please note</label>
                                         <textarea class="ckeditor form-control {{ $errors->has('notes') ? 'is-invalid' : '' }}" name="notes"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">Package Icon</label>
+                                        <input type="file" name="package_icon" class="form-control">
                                     </div>
                                 </div>
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit"

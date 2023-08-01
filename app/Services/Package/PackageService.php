@@ -37,6 +37,10 @@ class PackageService
         $package->notes = $request['notes'];
         $package->save();
 
+        if($request['package_icon']){
+            $package->addMediaFromRequest('package_icon')->toMediaCollection('package_icon');
+        }
+
         return $package->id;
     }
 

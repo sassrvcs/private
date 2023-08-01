@@ -41,7 +41,7 @@ class PackageController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric|gt:0',
             'description' => 'required'
 
             ],[
@@ -77,7 +77,7 @@ class PackageController extends Controller
                 }
 
             }
-            return Redirect::to("admin/package")->withSuccess('Package added');
+            return Redirect::to("admin/package")->withSuccess('Package added successfully');
         }
 
 
@@ -99,7 +99,7 @@ class PackageController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric|gt:0',
             'description' => 'required'
 
             ],[
