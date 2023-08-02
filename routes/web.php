@@ -17,6 +17,7 @@ use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
 
 use App\Http\Controllers\Admin\BusinessBanking\BusinessBankingController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\Subadmin\SubadminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +81,9 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
 
         Route::resource('business-banking', BusinessBankingController::class);
         Route::resource('accounting', AccountingController::class);
+
+
+        Route::resource('sub-admin', SubadminController::class);
 
         // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
 

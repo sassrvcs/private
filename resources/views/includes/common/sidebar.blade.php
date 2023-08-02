@@ -152,6 +152,35 @@
                     </li>
                 </ul>
             </li>
+
+            @role('superadmin')
+            <li class="nav-item {{ request()->routeIs('admin.sub-admin.*') ? 'menu-is-opening menu-open' : '' }}">
+                {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
+                <a href="#" class="nav-link {{ request()->routeIs('admin.sub-admin.*') ? ' active' : '' }}">
+                    <i class="nav-icon fas fa-graduation-cap"></i>
+                    <p>
+                        Sub Admin Management
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                {{-- style="{{ request()->routeIs('admin.agent.*') ? ' display: block;' : 'display: none;' }}"" --}}
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.sub-admin.index')}}" class="nav-link {{ request()->routeIs('admin.sub-admin.index') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>List</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.sub-admin.create')}}" class="nav-link {{ request()->routeIs('admin.sub-admin.create') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add New</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endrole
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
