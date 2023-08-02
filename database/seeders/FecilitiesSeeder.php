@@ -18,7 +18,6 @@ class FecilitiesSeeder extends Seeder
         DB::table('facilities')->delete();
 
         $fecilities = [
-            ['name'          => 'Online Formation Within'],
             ['name'          => 'Email Copy Of Certificate Of Incorporation'],
             ['name'          => 'Email Copy Of Memorandum & Articles Of Association'],
             ['name'          => 'Email Copy Of Share Certificate(S)'],
