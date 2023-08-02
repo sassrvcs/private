@@ -76,7 +76,8 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->type);
-        $this->cartService->addToCartViaSession($id, $request->type);
+        $response = $this->cartService->addToCartViaSession($id, $request->type);
+        return $response;
     }
 
     /**

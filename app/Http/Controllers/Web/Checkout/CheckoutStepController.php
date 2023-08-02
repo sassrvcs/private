@@ -23,6 +23,7 @@ class CheckoutStepController extends Controller
     public function reviewCompanyPackage()
     {
         $sessionCart = Session::get('cart');
+        // dump( $sessionCart );
         return view('frontend.checkout_steps.search_compant', compact('sessionCart'));
     }
 
@@ -35,7 +36,7 @@ class CheckoutStepController extends Controller
         $updatedValue   = $this->cartService->searchAndUpdateCompany($request->validated());
         $sessionCart    = $this->cartService->getCartViaSession();
         $addonServices  = $this->addonService->index();
-
+        // dump($sessionCart);
         return view('frontend.checkout_steps.addon_services', compact('sessionCart', 'addonServices'));
     }
 }

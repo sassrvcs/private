@@ -61,7 +61,7 @@
                                  <div class="row align-items-center mb-3 pb-2 addons">
                                     <div class="col-md-8 mb-2 mb-md-0">
                                        <h6 class="mt-0">{{ $addonService->service_name }}</h6>
-                                       {{-- <p class="mt-0">{{ $addonService->service_name }}</p> --}}
+                                       <p class="mt-0">{{ $addonService->short_desc }}</p>
                                     </div>
                                     <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $addonService->price }}</bdi></span></div>
                                     <div class="col-md-2 col-6 text-md-end">
@@ -85,7 +85,7 @@
                               </div>
                               <div class="card-body">
                                  <div id="order_review" class="checkout-review-order cart-items">
-                                    <table class="shop_table checkout-review-order-table">
+                                    <table class="shop_table checkout-review-order-table" id="item-tbl">
                                        <thead>
                                           <tr>
                                              <th class="product-name" colspan="3" width="75%">Item</th>
@@ -105,13 +105,15 @@
                                           </tr>
                                           @if( isset(end($sessionCart)['addon_service']) )
                                              @foreach( end($sessionCart)['addon_service'] as $key => $value)
+                                                {{-- @dump($value) --}}
                                                 <tr class="fee">
                                                    <td colspan="3">{{ $value['service_name'] }}</td>
-                                                   <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                   <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
                                                    <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
                                                 </tr>
                                              @endforeach
                                           @endif
+
                                           {{-- <tr class="fee">
                                              <td colspan="3">Pre-Submission Review (we check your company details to avoid mistakes)</td>
                                              <td class="text-end"><a href="javascript:void(0);"  class="badge bg-secondary"><i class="fa fa-times"></i></a></td>
@@ -136,7 +138,7 @@
                                           <tr class="order-total text-end">
                                              <td colspan="3"></td>
                                              <th class="text-end">Total:</th>
-                                             <td><strong><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ number_format((end($sessionCart)['price'] + 17.98 + 4.99 + 3.60), 2) }}</bdi></span></strong> </td>
+                                             <td><strong><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ number_format((end($sessionCart)['price'] ?? 0 + 17.98 + 4.99 + 3.60), 2) }}</bdi></span></strong> </td>
                                           </tr>
                                        </tbody>
                                     </table>
@@ -182,18 +184,26 @@
                })
                .then(function(response) {
                   // Success: Handle the response (e.g., show a success message, update the cart UI)
-                  console.log(response);
+                  console.log(response.data);
 
-                  // Calculate the total price and update the UI
-                  // Assuming you have elements with the IDs "netPrice", "vatPrice", and "totalPrice"
-                  // const netPrice = 17.98; // Replace with the actual net price
-                  // const vatPrice = 3.60; // Replace with the actual VAT price
+                  location.reload();
 
-                  // const total = itemData.price + netPrice + vatPrice;
+                  // Get the table element by its ID
+                  // var table = document.getElementById("item-tbl");
 
-                  // document.getElementById("netPrice").innerText = '£' + netPrice.toFixed(2);
-                  // document.getElementById("vatPrice").innerText = '£' + vatPrice.toFixed(2);
-                  // document.getElementById("totalPrice").innerText = '£' + total.toFixed(2);
+                  // // // Create a new table row
+                  // var newRow = document.createElement("tr");
+
+                  // // // Set the class attribute of the row
+                  // newRow.setAttribute("class", "fee");
+
+                  // // // Set the HTML content of the row
+                  // newRow.innerHTML = `<td colspan="3">${response.data.service_name}</td>
+                  //             <td class="text-end"><a href="javascript:void(0);" class="badge bg-secondary"><i class="fa fa-times"></i></a></td>
+                  //             <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>${response.data.price}</bdi></span></td`;
+
+                  // // // Append the new row to the table
+                  // table.appendChild(newRow);
                })
                .catch(function(error) {
                   // Error: Handle the error (e.g., show an error message)
@@ -202,35 +212,61 @@
             });
          });
 
-         removeButtons.forEach(function(button) {
-            button.addEventListener("click", function() {
+         $(document).ready(function() {
+            $('.remove').click(function() {
                const serviceId = this.getAttribute('data-service_id');
+               // const row = this.getAttribute('data-row');
                const apiUrl = this.getAttribute('data-route');
-
-               // Add the item to your cart using Axios (you can use your existing API endpoint here)
+               
                axios.delete(apiUrl)
                .then(function(response) {
                   // Success: Handle the response (e.g., show a success message, update the cart UI)
                   console.log(response);
+                  
+                  // $(this).parent('tr').remove();
 
-                  // Calculate the total price and update the UI
-                  // Assuming you have elements with the IDs "netPrice", "vatPrice", and "totalPrice"
-                  // const netPrice = 17.98; // Replace with the actual net price
-                  // const vatPrice = 3.60; // Replace with the actual VAT price
-
-                  // const total = itemData.price + netPrice + vatPrice;
-
-                  // document.getElementById("netPrice").innerText = '£' + netPrice.toFixed(2);
-                  // document.getElementById("vatPrice").innerText = '£' + vatPrice.toFixed(2);
-                  // document.getElementById("totalPrice").innerText = '£' + total.toFixed(2);
                })
                .catch(function(error) {
                   // Error: Handle the error (e.g., show an error message)
                   console.error(error);
                });
-
             });
-         })
+         });
+
+         // removeButtons.forEach(function(button) {
+         //    button.addEventListener("click", function() {
+         //       const serviceId = this.getAttribute('data-service_id');
+         //       // const row = this.getAttribute('data-row');
+         //       const apiUrl = this.getAttribute('data-route');
+
+         //       // Add the item to your cart using Axios (you can use your existing API endpoint here)
+               // axios.delete(apiUrl)
+               // .then(function(response) {
+               //    // Success: Handle the response (e.g., show a success message, update the cart UI)
+               //    console.log(response);
+                  
+               //    // var row = element.parentNode.parentNode;
+               //    // row.parentNode.removeChild(row);
+
+               //    // location.reload();
+
+               //    // const closestTr = this.closest('tr');
+               //    // if (closestTr) {
+               //    //    closestTr.remove();
+               //    // }
+
+               //    // const parentDiv = this.closest('tr');
+               //    // parentDiv.remove();
+
+               //    // const trElement = this.closest("tr");
+               //    // trElement.parentNode.removeChild(trElement);
+               // })
+               // .catch(function(error) {
+               //    // Error: Handle the error (e.g., show an error message)
+               //    console.error(error);
+               // });
+            // });
+         // })
       });
 
    </script>

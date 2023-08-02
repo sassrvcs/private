@@ -25,6 +25,15 @@ class CartService
     public function addCompany($companyName, $updateParam = false)
     {
         $cart = Session::get('cart', []);
+        // dd( $cart[0] );
+        // dump($companyName);
+        // if( isset($cart[0]['company_name']) && !empty($cart[0]['company_name'])) {
+        //     // session()->forget('cart');
+        //     // Session::put('cart', []);
+        //     // session()->forget('cart');
+        //     // dd('dsad');
+        // }
+        
         Session::forget('cart');
         
         $cartItem = [
@@ -113,7 +122,7 @@ class CartService
 
         if($type == 'service') {
             // dd('Working....!');
-            $this->updateAddonService($addedItemId);
+            return $this->updateAddonService($addedItemId);
         }
     }
 
@@ -217,78 +226,23 @@ class CartService
         // dd($cart);
 
         Session::put('cart', $cart);
-        return true;
+        return $service;
     }
 
 
     /**
      * Remove service ID from session | cart
-     * @param string $service_key_id
+     * @param string $service_key
      */
-    // public function removeAddonService($service_key_id)
-    // {
-    //     // Get the cart from the session
-    //     $cart = Session::get('cart', []);
-    //     // dd(end($cart)['addon_service']);
-    //     if (isset(end($cart)['addon_service']) && is_array(end($cart)['addon_service'])) {
-    //         // Debugging statement: Print the array before removing the element
-    //         // dump(end($cart)['addon_service']);
-    //         // $data = end($cart)['addon_service'];
-
-    //         // dump($data);'
-    //         // if(isset(end($cart)['addon_service'][$service_key_id])) {
-    //             // unset(end($cart)['addon_service'][$service_key_id]);
-    //             dump($service_key_id);
-    //             $data = end($cart)['addon_service'];
-    //             // dump(end($cart)['addon_service']);
-    //             // dump($data);
-    //             unset($data[$service_key_id]);
-
-    //             // dd($data);
-
-    //             Session::put('cart', $data);
-    //             return true;
-    //         // }
-
-    //         // Debugging statement: Print the array after removing the element
-    //         // dd(end($cart['addon_service']));
-    //         // dd(end($cart)['addon_service']);
-    //     }
-    //     // dd('Stop');
-    //     // Save the updated cart back to the session
-        
-    //     return false;
-    // }
-    
     public function removeAddonService($service_key)
     {
-        // // Get the cart from the session
-        // $cart = Session::get('cart', []);
-        // // dd(end($cart)['addon_service']);
-        // if (isset(end($cart)['addon_service']) && is_array(end($cart)['addon_service'])) {
-            
-        //     dump($service_key_id);
-        //     $data = end($cart)['addon_service'];
-            
-        //     unset($data[$service_key_id]);
-
-        //     end($cart)['addon_service'] = $data;
-        //     Session::put('cart', $cart);
-
-        //     return true;
-        // }
-        // // dd('Stop');
-        // // Save the updated cart back to the session
-        
-        // return false;
-
         $cart = session()->pull('cart', []);
 
-        dd($cart);
-
-        // if(($key = array_search($idToDelete, $products)) !== false) {
-        //     unset($products[$service_key]);
-        // }
-        // session()->put('products', $products);
+        if (isset($cart[0]['addon_service']) && is_array($cart[0]['addon_service'])) {
+            unset($cart[0]['addon_service'][$service_key]);
+    
+            session()->put('cart', $cart);
+            return true;
+        }
     }
 }
