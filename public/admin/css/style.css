@@ -230,7 +230,7 @@ body:not(.layout-fixed) .main-sidebar {position: fixed !important;}
 .field-with-btn{
   display: flex;
   align-items: center;
-  margin: 0 0 10px;
+  margin: 0 0 0px;
 }
 .field-with-btn a{
   margin-left: 10px;
@@ -244,4 +244,8 @@ body:not(.layout-fixed) .main-sidebar {position: fixed !important;}
 }
 .upload-img .form-group .form-control.form-control.is-invalid{
   background-image: none;
+}
+.features-wrap a.btn.add_button {
+  margin-bottom: 10px;
+  margin-top: 10px;
 }

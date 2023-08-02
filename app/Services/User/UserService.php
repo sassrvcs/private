@@ -58,4 +58,12 @@ class UserService
     //     $userQuery = User::with('roles')->where('id', $userId);
     //     return $userQuery;
     // }
+
+    public function index()
+    {
+        $customers = User::with('address')->where('users.id', '!=', 1)->get();
+        return $customers;
+    }
+
+
 }
