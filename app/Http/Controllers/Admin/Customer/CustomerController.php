@@ -25,41 +25,7 @@ class CustomerController extends Controller
         //print_r($customerlist['address']);exit;
         return view('admin.customer.index',compact('customerlist'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.accounting.create');
-    }
-    public function store(Request $request)
-    {
-        $input = $request->all();
-        //dd($input);
-        $validate = Validator::make($request->all(), [
-            'name' => 'required',
-            'short_desc' => 'required',
-            'description' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif'
-            ],[
-                'name.required' =>'This name field is required.',
-                'short_desc.required' => 'This short description field is required.',
-                'description.required' => 'This description field is required.',
-                'image.required' => 'This image field is required and only allows image files.',
-                'image.image' => 'This image field is required and only allows image files.'
-            ]);
-        if($validate->fails()){
-            return back()->withErrors($validate->errors())->withInput();
-        }else{
-
-            $accountserviceId = $this->userService->store($input);
-
-            //return redirect()->back()->with('message', 'Accounting software added successfully');
-            return Redirect::to("admin/accounting")->withSuccess('Accounting Software Added Successfully');
-        }
-
-    }
+    
 
     /**
      *
@@ -68,28 +34,41 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        $accounting = $this->userService->edit($id);
-        return view('admin.accounting.edit',compact('accounting'));
+        $customerDetails = $this->userService->edit($id);
+        return view('admin.customer.edit',compact('customerDetails'));
     }
 
     public function update(Request $request, string $id)
     {
         $input = $request->all();
         $validate = Validator::make($request->all(), [
-            'name' => 'required',
-            'short_desc' => 'required',
-            'description' => 'required'
+            'title' => 'required',
+            'forename' => 'required',
+            'surname' => 'required',
+            'phone' => 'required',
+            'email' => 'required|email',
+            'house_number' => 'required',
+            'street' => 'required',
+            'town' => 'required',
+            'postcode' => 'required'
             ],[
-                'name.required' =>'This name field is required.',
-                'short_desc.required' => 'This short description field is required.',
-                'description.required' => 'This description field is required.'
+                'title.required' =>'This title field is required.',
+                'forename.required' => 'This forename field is required.',
+                'surname.required' => 'This surname field is required.',
+                'phone.required' =>'This phone field is required.',
+                'email.required' => 'This email field is required.',
+                'email.email' => 'This email field should be an valid email type.',
+                'house_number.required' => 'This house number field is required.',
+                'street.required' => 'This street field is required.',
+                'town.required' => 'This town field is required.',
+                'postcode.required' => 'This postcode field is required.',
             ]);
         if($validate->fails()){
             return back()->withErrors($validate->errors())->withInput();
         }else{
             $user = $this->userService->update($input,$id);
             if($user){
-                return Redirect::to("admin/accounting")->withSuccess('Accounting Software updated');
+                return Redirect::to("admin/customer")->withSuccess('Customer Details updated');
             }
 
         }
@@ -97,9 +76,8 @@ class CustomerController extends Controller
 
     public function destroy(string $id)
     {
-        $accounting = $this->userService->destroy($id);
-        if($accounting) {
-            sleep(2);
+        $customer = $this->userService->destroy($id);
+        if($customer) {
             return 1;
         } else {
             return 0;
