@@ -15,8 +15,8 @@ class CartController extends Controller
 {
     public function __construct(
         protected CartService $cartService,
-        protected CompanieSearchService $companieSearchService)
-    { }
+        protected CompanieSearchService $companieSearchService
+    ) { }
 
     /**
      * Update cart as per company mane and details.
@@ -36,16 +36,6 @@ class CartController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @param CheckoutStepRequest
-     * @return \Illuminate\Http\Response
-     */
-    // public function create(CheckoutStepRequest $request)
-    // {
-        
-    // }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -58,7 +48,6 @@ class CartController extends Controller
 
     /**
      * Display the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -78,17 +67,6 @@ class CartController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -97,7 +75,9 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->type);
+        $response = $this->cartService->addToCartViaSession($id, $request->type);
+        return $response;
     }
 
     /**
@@ -108,6 +88,8 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $response = $this->cartService->removeAddonService($id);
+        return $response;
+        // ['message' => CompanieSearchService::COMPANY_AVAILABLE, 'search_text' => '', 'is_sensitive' => '', 'is_sensitive_word' => '']
     }
 }

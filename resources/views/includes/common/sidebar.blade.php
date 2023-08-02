@@ -84,7 +84,7 @@
                 {{-- style="{{ request()->routeIs('admin.agent.*') ? ' display: block;' : 'display: none;' }}"" --}}
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('admin.addonservice.index')}}" class="nav-link">
+                        <a href="{{ route('admin.addonservice.index')}}" class="nav-link {{ request()->routeIs('admin.addonservice.index') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>List</p>
                         </a>
@@ -119,6 +119,33 @@
 
                     <li class="nav-item">
                         <a href="{{ route('admin.business-banking.create')}}" class="nav-link {{ request()->routeIs('admin.business-banking.create') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add New</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item {{ request()->routeIs('admin.accounting.*') ? 'menu-is-opening menu-open' : '' }}">
+                {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
+                <a href="#" class="nav-link {{ request()->routeIs('admin.accounting.*') ? ' active' : '' }}">
+                    <i class="nav-icon fas fa-graduation-cap"></i>
+                    <p>
+                        Accounting Software
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                {{-- style="{{ request()->routeIs('admin.agent.*') ? ' display: block;' : 'display: none;' }}"" --}}
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.accounting.index')}}" class="nav-link {{ request()->routeIs('admin.accounting.index') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>List</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.accounting.create')}}" class="nav-link {{ request()->routeIs('admin.accounting.create') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add New</p>
                         </a>

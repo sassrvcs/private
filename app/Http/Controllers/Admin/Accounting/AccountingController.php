@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\AccountingService;
+namespace App\Http\Controllers\Admin\Accounting;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,8 +21,8 @@ class AccountingController extends Controller
      */
     public function index()
     {
-        $accountingservicelist = $this->accountingService->index();
-        return view('admin.accountingservice.index',compact('accountingservicelist'));
+        $accountinglist = $this->accountingService->index();
+        return view('admin.accounting.index',compact('accountinglist'));
     }
 
     /**
@@ -35,19 +35,15 @@ class AccountingController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        // dd($input);
+        //dd($input);
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
-            'image' => 'required',
-            'description' => 'required'
-
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif'
             ],[
                 'name.required' =>'This name field is required.',
                 'short_desc.required' => 'This short description field is required.',
-                'image.required' => 'This image field is required.',
-                'description.required' => 'This long description field is required.'
-
+                'image.required' => 'This image field is required.'
             ]);
         if($validate->fails()){
             return back()->withErrors($validate->errors())->withInput();
@@ -55,7 +51,8 @@ class AccountingController extends Controller
 
             $accountserviceId = $this->accountingService->store($input);
 
-            return redirect()->back()->with('message', 'Accounting software added successfully');
+            //return redirect()->back()->with('message', 'Accounting software added successfully');
+            return Redirect::to("admin/accounting")->withSuccess('Accounting Software Added Successfully');
         }
 
     }
@@ -67,8 +64,8 @@ class AccountingController extends Controller
      */
     public function edit(string $id)
     {
-        $service = $this->addonService->edit($id);
-        return view('admin.addonservice.edit',compact('service'));
+        $accounting = $this->accountingService->edit($id);
+        return view('admin.accounting.edit',compact('accounting'));
     }
 
     public function update(Request $request, string $id)
@@ -76,23 +73,17 @@ class AccountingController extends Controller
         $input = $request->all();
         $validate = Validator::make($request->all(), [
             'name' => 'required',
-            'short_desc' => 'required',
-            'price' => 'required',
-            'description' => 'required'
-
+            'short_desc' => 'required'
             ],[
                 'name.required' =>'This name field is required.',
-                'short_desc.required' => 'This short description field is required.',
-                'price.required' => 'This price field is required.',
-                'description.required' => 'This description field is required.'
-
+                'short_desc.required' => 'This short description field is required.'
             ]);
         if($validate->fails()){
             return back()->withErrors($validate->errors())->withInput();
         }else{
-            $user = $this->addonService->update($input,$id);
+            $user = $this->accountingService->update($input,$id);
             if($user){
-                return Redirect::to("admin/addonservice")->withSuccess('Service updated');
+                return Redirect::to("admin/accounting")->withSuccess('Accounting Software updated');
             }
 
         }
@@ -100,8 +91,8 @@ class AccountingController extends Controller
 
     public function destroy(string $id)
     {
-        $service = $this->addonService->destroy($id);
-        if($service) {
+        $accounting = $this->accountingService->destroy($id);
+        if($accounting) {
             return 1;
         } else {
             return 0;
