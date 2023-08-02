@@ -9,6 +9,7 @@ use Validator;
 use App\Models\Feature;
 use App\Models\Faq;
 use App\Models\Package;
+use App\Models\Facility;
 use Redirect;
 
 class PackageController extends Controller
@@ -33,7 +34,8 @@ class PackageController extends Controller
      */
     public function create()
     {
-        return view('admin.package.create');
+        $facility = Facility::all();
+        return view('admin.package.create', compact('facility'));
     }
     public function store(Request $request)
     {
@@ -90,7 +92,8 @@ class PackageController extends Controller
     public function edit(string $id)
     {
         $package = $this->packageService->edit($id);
-        return view('admin.package.edit',compact('package'));
+        $facility = Facility::all();
+        return view('admin.package.edit',compact('package','facility'));
     }
 
     public function update(Request $request, string $id)

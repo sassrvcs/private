@@ -15,9 +15,9 @@ class FecilitiesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('fecilities')->delete();
+        DB::table('facilities')->delete();
 
-        DB::table('fecilities')->insert([
+        DB::table('facilities')->insert([
             'name'          => 'Online Formation Within',
         ], [
             'name'          => 'Email Copy Of Certificate Of Incorporation',

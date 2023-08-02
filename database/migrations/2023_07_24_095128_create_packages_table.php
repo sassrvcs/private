@@ -22,7 +22,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->longText('notes')->nullable();
             $table->string('online_formation_within')->nullable();
-            $table->string('facilities')->nullable();
+            $table->longText('facilities')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

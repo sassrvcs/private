@@ -103,29 +103,18 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <label for="">Facilities</label>
-                                        <select class="form-select" id="multiple-select-field" data-placeholder="Choose anything" multiple>
-                                            <option>Christmas Island</option>
-                                            <option>South Sudan</option>
-                                            <option>Jamaica</option>
-                                            <option>Kenya</option>
-                                            <option>French Guiana</option>
-                                            <option>Mayotta</option>
-                                            <option>Liechtenstein</option>
-                                            <option>Denmark</option>
-                                            <option>Eritrea</option>
-                                            <option>Gibraltar</option>
-                                            <option>Saint Helena, Ascension and Tristan da Cunha</option>
-                                            <option>Haiti</option>
-                                            <option>Namibia</option>
-                                            <option>South Georgia and the South Sandwich Islands</option>
-                                            <option>Vietnam</option>
-                                            <option>Yemen</option>
-                                            <option>Philippines</option>
-                                            <option>Benin</option>
-                                            <option>Czech Republic</option>
-                                            <option>Russia</option>
-                                        </select>
+                                        <div class="form-group">
+                                            <label>Online Formation Within</label>
+                                            <input type="text" name="online_formation_within" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Facilities</label>
+                                            <select class="form-select" name="facility[]" id="multiple-select-field" data-placeholder="Choose anything" multiple>
+                                                @foreach($facility as $key => $value)
+                                                <option value={{$value->id}}>{{$value->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 {{-- <div class="row">
