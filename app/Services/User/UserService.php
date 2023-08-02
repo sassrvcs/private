@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use App\Models\Address;
 
 /**
  * @todo work in progress
@@ -58,4 +59,60 @@ class UserService
     //     $userQuery = User::with('roles')->where('id', $userId);
     //     return $userQuery;
     // }
+
+    public function index()
+    {
+        $customers = User::with('address')->where('users.id', '!=', 1)->get();
+        return $customers;
+    }
+
+    public function edit($id)
+    {
+        $customers = User::with('address')->where("id",$id)->first();
+        return $customers;
+    }
+
+    public function update($request, $id)
+    {
+        $customer = User::findOrFail($id);
+        $customer->forename = $request['forename'];
+        $customer->surname = $request['surname'];
+        $customer->email = $request['email'];
+        $customer->phone_no = $request['phone'];
+        $customer->organisation = $request['organisation'];
+        $customer->save();
+
+        $address = Address::where('user_id',$id)->first();
+        
+        if(!empty($request['house_number'])) {
+            $address->house_number = $request['house_number']; 
+        }
+        if(!empty($request['street'])) {
+            $address->street = $request['street']; 
+        }
+        if(!empty($request['locality'])) {
+            $address->locality = $request['locality']; 
+        }
+        if(!empty($request['town'])) {
+            $address->town = $request['town']; 
+        }
+        if(!empty($request['country'])) {
+            $address->country = $request['country']; 
+        }
+        if(!empty($request['postcode'])) {
+            $address->post_code = $request['postcode']; 
+        }
+        $address->save();
+
+        return true;
+    }
+
+    public function destroy($id)
+    {
+        //User::FindOrFail($id)->delete();
+        $customer = User::FindOrFail($id)->delete();
+        return $customer;
+    }
+
+
 }

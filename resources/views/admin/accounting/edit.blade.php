@@ -29,32 +29,17 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <x-Forms.Input type="text" mandate="*" label="Name" id="name"
                                             name="name" value="{{ $accounting->accounting_software_name }}"
-                                            placeholder="Enter Accounting Software name"
+                                            placeholder="Enter Accounting Software Name"
                                             class="{{ $errors->has('name') ? 'is-invalid' : '' }}" />
                                     </div>
 
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <x-Forms.Input type="text" mandate="*" label="Short Description" id="short_desc"
                                             name="short_desc" value="{{ $accounting->short_desc }}"
                                             class="{{ $errors->has('short_desc') ? 'is-invalid' : '' }}"  />
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <input type="hidden" id="has_image" name="has_image" value="0">
-                                        <span>    
-                                        <?php $stored_image = $accounting->image ;?>
-                                        <img id="preview-image-before-upload" src="<?= url("/images/$stored_image") ?>" alt="Image" width="50" height="50"/>
-                                        </span>
-                                            
-                                        <span class="sr-only">Choose File</span>
-                                        <input type="file" mandate="*" name="image" id="image"
-                                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-                                        @error('image')
-                                        <span class="text-red-600 text-sm">{{ $message }}</span>
-                                        @enderror 
                                     </div>
 
                                 </div>
@@ -62,10 +47,25 @@
 
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <label for="">Description</label>
+                                        <label for="">Description <span class="mandetory">*</span></label>
                                         <textarea class="ckeditor form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description">
                                             {!! $accounting->long_desc !!}
                                         </textarea>
+                                        <span class="error invalid-feedback">{{ $errors->first('description') }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="upload-img">
+                                            <span>    
+                                            <?php $stored_image = $accounting->image ;?>
+                                            <img id="preview-image-before-upload" src="<?= url("/images/$stored_image") ?>" alt="Image" width="50" height="50"/>
+                                            </span>
+                                            
+                                            <x-Forms.Input type="file" mandate="*" label="Image" name="image" id="image"
+                                            class="{{ $errors->has('image') ? 'is-invalid' : '' }}" />
+                                        </div>
                                     </div>
                                 </div>
                                 

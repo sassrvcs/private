@@ -1,18 +1,18 @@
 @extends('includes.layouts.admin')
 @section('page-title')
-    Add-on Service List
+    Custome List
 @endsection
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Add-on Service List</h1>
+                <h1>Custome List</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Add-on Service List</li>
+                    <li class="breadcrumb-item active">Custome List</li>
                 </ol>
             </div>
         </div>
@@ -57,27 +57,33 @@
                                     <tr>
                                         <th>Serial No</th>
                                         <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Price</th>
+                                        <th>Email</th>
+                                        <th>Phone no.</th>
+                                        <th>Address</th>
+                                        <th>Postcode</th>
+                                        <th>Organization</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @forelse ($addonservicelist as $index => $service)
+                                    @forelse ($customerlist as $index => $customer)
                                         <tr>
                                             <td> {{ $index+1 }}</td>
-                                            <td> {{ $service->service_name}}</td>
-                                            <td> {{ $service->short_desc }}</td>
-                                            <td> {{ $service->price }}</td>
+                                            <td> <?php echo($customer->title.". ".$customer->forename." ".$customer->surname); ?></td>
+                                            <td> {{ $customer->email }}</td>
+                                            <td> {{ $customer->phone_no }}</td>
+                                            <td> <?php echo($customer['address']->house_number." ".$customer['address']->street." ".$customer['address']->town); ?></td>
+                                            <td> {{ $customer['address']->post_code }}</td>
+                                            <td> {{ $customer->organisation }}</td>
                                             <td>
                                                 <div class="form-group">
-                                                    <a href="{{ route('admin.addonservice.edit', $service->id) }}" class="" style="color: #1c55ad; padding-right: 6px;">
+                                                    <a href="{{ route('admin.customer.edit', $customer->id) }}" class="" style="color: #1c55ad; padding-right: 6px;">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
 
-                                                    <a href="javascript:{}" class="delete-user" data-id={{ $service->id }}  data-user="Addonservice "
-                                                            data-route="{{ route('admin.addonservice.destroy', $service->id) }}" style="color: #f30031">
+                                                    <a href="javascript:{}" class="delete-user" data-id={{ $customer->id }}  data-user="Customer "
+                                                            data-route="{{ route('admin.customer.destroy', $customer->id) }}" style="color: #f30031">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
 
