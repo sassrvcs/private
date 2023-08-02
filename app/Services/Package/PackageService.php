@@ -27,7 +27,7 @@ class PackageService
 
     public function store($request)
     {
-        //dd($request);
+        dd($request);
 
         $package = new Package();
         $package->package_name = $request['name'];
@@ -35,6 +35,30 @@ class PackageService
         $package->short_description = $request['short_desc'];
         $package->description = $request['description'];
         $package->notes = $request['notes'];
+        $package->online_formation_within = $request['online_formation_within'];
+        $package->cerificate_incorporation = $request['chek1'];
+        $package->articles_association = $request['chek2'];
+        $package->share_certificate = $request['chek3'];
+        $package->company_reg = $request['chek4'];
+        $package->maintain_company = $request['chek5'];
+        $package->house_filling_fee = $request['chek6'];
+        $package->business_bank_account = $request['chek7'];
+        $package->company_manager = $request['chek8'];
+        $package->reg_office_address = $request['chek9'];
+        $package->free_domain_name = $request['chek10'];
+        $package->printed_coi = $request['chek11'];
+        $package->printed_articles_association = $request['chek12'];
+        $package->printed_share_certificate = $request['chek13'];
+        $package->free_call = $request['chek14'];
+        $package->vat_reg = $request['chek15'];
+        $package->confirmation_statement = $request['chek16'];
+        $package->gdpr_compliance = $request['chek17'];
+        $package->paye_reg = $request['chek18'];
+        $package->good_standing = $request['chek19'];
+        $package->hijack_protection = $request['chek20'];
+        $package->ico_reg = $request['chek21'];
+        $package->logo_design = $request['chek22'];
+        $package->website_design = $request['chek23'];
         $package->save();
 
         if($request['package_icon']){
@@ -67,7 +91,40 @@ class PackageService
         $package->short_description = $request['short_desc'];
         $package->description = $request['description'];
         $package->notes = $request['notes'];
+        $package->online_formation_within = $request['online_formation_within'];
+        $package->cerificate_incorporation = $request['chek1'];
+        $package->articles_association = $request['chek2'];
+        $package->share_certificate = $request['chek3'];
+        $package->company_reg = $request['chek4'];
+        $package->maintain_company = $request['chek5'];
+        $package->house_filling_fee = $request['chek6'];
+        $package->business_bank_account = $request['chek7'];
+        $package->company_manager = $request['chek8'];
+        $package->reg_office_address = $request['chek9'];
+        $package->free_domain_name = $request['chek10'];
+        $package->printed_coi = $request['chek11'];
+        $package->printed_articles_association = $request['chek12'];
+        $package->printed_share_certificate = $request['chek13'];
+        $package->free_call = $request['chek14'];
+        $package->vat_reg = $request['chek15'];
+        $package->confirmation_statement = $request['chek16'];
+        $package->gdpr_compliance = $request['chek17'];
+        $package->paye_reg = $request['chek18'];
+        $package->good_standing = $request['chek19'];
+        $package->hijack_protection = $request['chek20'];
+        $package->ico_reg = $request['chek21'];
+        $package->logo_design = $request['chek22'];
+        $package->website_design = $request['chek23'];
         $package->save();
+
+        if($request['package_icon']){
+            // Delete existing image
+            $packageIcon  = $package->getFirstMedia('package_icon');
+            if ($packageIcon) {
+                $packageIcon->delete();
+            }
+            $package->addMediaFromRequest('package_icon')->toMediaCollection('package_icon');
+        }
 
         $temp =[];
         $tmp =[];
