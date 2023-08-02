@@ -106,7 +106,7 @@
                                           @if( isset(end($sessionCart)['addon_service']) )
                                              @foreach( end($sessionCart)['addon_service'] as $key => $value)
                                                 {{-- @dump($value) --}}
-                                                <tr class="fee">
+                                                <tr class="fee {{ $key }}">
                                                    <td colspan="3">{{ $value['service_name'] }}</td>
                                                    <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
                                                    <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
@@ -215,7 +215,7 @@
          $(document).ready(function() {
             $('.remove').click(function() {
                const serviceId = this.getAttribute('data-service_id');
-               // const row = this.getAttribute('data-row');
+               const rowData = this.getAttribute('data-row');
                const apiUrl = this.getAttribute('data-route');
                
                axios.delete(apiUrl)
@@ -223,8 +223,7 @@
                   // Success: Handle the response (e.g., show a success message, update the cart UI)
                   console.log(response);
                   
-                  // $(this).parent('tr').remove();
-
+                  $(`.${rowData}`).remove();
                })
                .catch(function(error) {
                   // Error: Handle the error (e.g., show an error message)
