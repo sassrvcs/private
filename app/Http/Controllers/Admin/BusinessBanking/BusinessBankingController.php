@@ -83,6 +83,11 @@ class BusinessBankingController extends Controller
 
 
             if($request->hasFile('image') && $request->file('image')->isValid()){
+                // Delete existing image
+                $bankingImage  = $bankingdata->getFirstMedia('business_banking_images');
+                if ($bankingImage) {
+                    $bankingImage->delete();
+                }
                 $bankingdata->addMediaFromRequest('image')->toMediaCollection('business_banking_images');
             }
 

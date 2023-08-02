@@ -62,8 +62,8 @@ class AccountController extends Controller
         $user = Auth::user()->id;
         $validate = Validator::make($request->all(), [
             'title' => 'required',
-            'forename' => 'required|alpha',
-            'surname' => 'required|alpha',
+            'forename' => 'required',
+            'surname' => 'required',
             'phone' => 'required|numeric|digits_between:8,13',
             'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email',
             'confirm_password' =>'same:password',
