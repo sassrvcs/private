@@ -9,6 +9,7 @@ use Validator;
 use App\Models\Feature;
 use App\Models\Faq;
 use App\Models\Package;
+use App\Models\Facility;
 use Redirect;
 
 class PackageController extends Controller
@@ -33,7 +34,8 @@ class PackageController extends Controller
      */
     public function create()
     {
-        return view('admin.package.create');
+        $facility = Facility::all();
+        return view('admin.package.create', compact('facility'));
     }
     public function store(Request $request)
     {
@@ -41,14 +43,14 @@ class PackageController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric|min:1',
             'description' => 'required'
 
             ],[
-                'name.required' =>'This field is required.',
-                'short_desc.required' => 'This field is required.',
-                'price.required' => 'This field is required.',
-                'description.required' => 'This field is required.'
+                'name.required' =>'Name field is required.',
+                'short_desc.required' => 'Short description field is required.',
+                'price.required' => 'Price field is required.',
+                'description.required' => 'Description field is required.'
 
             ]);
         if($validate->fails()){
@@ -77,7 +79,7 @@ class PackageController extends Controller
                 }
 
             }
-            return Redirect::to("admin/package")->withSuccess('Package added');
+            return Redirect::to("admin/package")->withSuccess('Package added successfully');
         }
 
 
@@ -90,7 +92,8 @@ class PackageController extends Controller
     public function edit(string $id)
     {
         $package = $this->packageService->edit($id);
-        return view('admin.package.edit',compact('package'));
+        $facility = Facility::all();
+        return view('admin.package.edit',compact('package','facility'));
     }
 
     public function update(Request $request, string $id)
@@ -99,14 +102,14 @@ class PackageController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric|min:1',
             'description' => 'required'
 
             ],[
-                'name.required' =>'This field is required.',
-                'short_desc.required' => 'This field is required.',
-                'price.required' => 'This field is required.',
-                'description.required' => 'This field is required.'
+                'name.required' =>'Name field is required.',
+                'short_desc.required' => 'Short description field is required.',
+                'price.required' => 'Price field is required.',
+                'description.required' => 'Description field is required.'
 
             ]);
         if($validate->fails()){

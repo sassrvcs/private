@@ -83,7 +83,7 @@
                                 <div class="form-row form-group ">
                                     <label>Firstname:&nbsp;<abbr class="required" title="required">*</abbr></label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control @error('forename') is-invalid @enderror" type="text" name="forename" value={{ $user->forename}}>
+                                        <input class="form-control @error('forename') is-invalid @enderror" type="text" name="forename" value="{{ $user->forename}}">
                                     </span>
                                 </div>
 
@@ -91,7 +91,7 @@
                                 <div class="form-row form-group ">
                                     <label>Lastname:&nbsp;<abbr class="required" title="required">*</abbr></label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control @error('surname') is-invalid @enderror" type="text" name="surname" value={{$user->surname}}>
+                                        <input class="form-control @error('surname') is-invalid @enderror" type="text" name="surname" value="{{$user->surname}}">
                                     </span>
                                 </div>
 
@@ -99,7 +99,7 @@
                                 <div class="form-row form-group ">
                                     <label>Username:&nbsp;<abbr class="required" title="required">*</abbr></label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value={{$user->email}}>
+                                        <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{$user->email}}">
                                     </span>
                                 </div>
 
@@ -107,7 +107,7 @@
                                 <div class="form-row form-group ">
                                     <label>New Password:&nbsp;</label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control" type="password" name="password" placeholder="Optional" value={{ old('password') }}>
+                                        <input class="form-control" type="password" name="password" placeholder="Optional">
                                         @error('password')
                                             <div class="error" style="color:red;">{{ $message }}</div>
                                         @enderror
@@ -630,7 +630,7 @@
                             <div class="error" style="color:red;">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-row col-md-12 form-group">
+                    <div class="form-row form-group">
                         <label for="county">County:&nbsp;
                         </label>
                         <span class="input-wrapper">

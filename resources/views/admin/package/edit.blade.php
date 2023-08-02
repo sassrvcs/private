@@ -106,6 +106,35 @@
                                         <textarea class="ckeditor form-control {{ $errors->has('notes') ? 'is-invalid' : '' }}" name="notes">{!! $package->notes !!}</textarea>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        <label for="">Package Icon</label>
+                                        <input type="file" name="package_icon" class="form-control">
+                                    </div>
+                                    @if($package->getFirstMediaUrl('package_icon'))
+                                        <div class="col-sm-3">
+                                            <img src="{{  $package->getFirstMediaUrl('package_icon')}}"  width="120px">
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Online Formation Within</label>
+                                            <input type="text" name="online_formation_within" class="form-control" value="{{$package->online_formation_within}}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="">Facilities</label>
+                                            {{-- @php dd(json_decode($package->facilities)); @endphp --}}
+                                            <select class="form-select" name="facility[]" id="multiple-select-field" data-placeholder="Choose anything" multiple>
+                                                @foreach($facility as $key => $value)
+                                                <option value={{$value->id}} @if(!empty(json_decode($package->facilities)) && in_array($value->id,json_decode($package->facilities))) selected  @endif>{{$value->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit"
                                     onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';"> &nbsp;&nbsp; Save &nbsp;&nbsp;
                                 </button>
@@ -189,6 +218,16 @@
             y--; //Decrement field counter
         });
     });
+</script>
+<script>
+    $(document).ready(function(){
+     $( '#multiple-select-field' ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+            closeOnSelect: false,
+        } );
+    } );
 </script>
 
 @endsection

@@ -30,8 +30,12 @@
                                 @method('PUT')
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label>Image</label>
-                                        <input type="file" mandate="*" name="image" id="image" class="form-control {{ $errors->has('image') ? 'is-invalid' : '' }}">
+                                        <div class="col-md-12 mb-2">
+                                            <img id="preview-image-before-upload" src="<?= url("/images/noImage.jpg") ?>"
+                                                alt="preview image" style="max-height: 50px; max-width: 50px;">
+                                        </div>
+                                        <label>Image&nbsp;<span class="required">*</span></label>
+                                        <input type="file" mandate="*" name="image" id="image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                                         @error('image')
                                             <div class="error" style="color:red;">{{ $message }}</div>
                                         @enderror
@@ -43,7 +47,7 @@
                                     @endif
 
                                     <div class="col-sm-5">
-                                        <label>Short Description</label>
+                                        <label>Short Description&nbsp;<span class="required">*</span></label>
                                         <input type="text" mandate="*"
                                             name="short_desc" value="{{ $data->short_description }}"
                                             class="form-control {{ $errors->has('short_desc') ? 'is-invalid' : '' }}"  />
@@ -148,6 +152,26 @@
         });
     });
 </script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+       $('#image').change(function(){
+
+        let reader = new FileReader();
+
+        reader.onload = (e) => {
+          $('#preview-image-before-upload').attr('src', e.target.result);
+          //$('#has_image').value(1);
+        }
+
+        reader.readAsDataURL(this.files[0]);
+
+       });
+
+    });
+
+    </script>
 
 @endsection
 

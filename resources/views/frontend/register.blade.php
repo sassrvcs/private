@@ -134,7 +134,7 @@
                                 <input id="password-field" class="form-control @error('password') is-invalid @enderror" type="password" name="password" value={{ old('password')}}>
                             </div>
                             <div class="right-icon">
-                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                <span toggle="#password-field" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
                             </div>
                         </div>
                         @error('password')
@@ -295,7 +295,7 @@
     $(document).ready(function () {
         $(".toggle-password").click(function() {
 
-        $(this).toggleClass("fa-eye fa-eye-slash");
+        $(this).toggleClass(" fa-eye-slash fa-eye");
         var input = $($(this).attr("toggle"));
         if (input.attr("type") == "password") {
         input.attr("type", "text");

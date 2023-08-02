@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(FhCompanyHouseSensitiveWordsTableSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(CountrySeeder::class);
+        $this->call(FecilitiesSeeder::class);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

@@ -27,7 +27,6 @@ class PackageService
 
     public function store($request)
     {
-        //dd($request);
 
         $package = new Package();
         $package->package_name = $request['name'];
@@ -35,7 +34,13 @@ class PackageService
         $package->short_description = $request['short_desc'];
         $package->description = $request['description'];
         $package->notes = $request['notes'];
+        $package->online_formation_within = $request['online_formation_within'];
+        $package->facilities = (isset($request['facility'])) ? json_encode($request['facility']) : '';
         $package->save();
+
+        if(data_get($request,'package_icon')){
+            $package->addMediaFromRequest('package_icon')->toMediaCollection('package_icon');
+        }
 
         return $package->id;
     }
@@ -63,7 +68,18 @@ class PackageService
         $package->short_description = $request['short_desc'];
         $package->description = $request['description'];
         $package->notes = $request['notes'];
+        $package->online_formation_within = $request['online_formation_within'];
+        $package->facilities = (isset($request['facility'])) ? json_encode($request['facility']) : '';
         $package->save();
+
+        if(data_get($request,'package_icon')){
+            // Delete existing image
+            $packageIcon  = $package->getFirstMedia('package_icon');
+            if ($packageIcon) {
+                $packageIcon->delete();
+            }
+            $package->addMediaFromRequest('package_icon')->toMediaCollection('package_icon');
+        }
 
         $temp =[];
         $tmp =[];

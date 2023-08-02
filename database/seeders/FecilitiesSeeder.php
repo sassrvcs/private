@@ -15,11 +15,10 @@ class FecilitiesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('fecilities')->delete();
+        DB::table('facilities')->delete();
 
         $fecilities = [
-            ['name'          => 'Online Formation Within'], 
-            ['name'          => 'Email Copy Of Certificate Of Incorporation'], 
+            ['name'          => 'Email Copy Of Certificate Of Incorporation'],
             ['name'          => 'Email Copy Of Memorandum & Articles Of Association'],
             ['name'          => 'Email Copy Of Share Certificate(S)'],
             ['name'          => 'Compnay Registration'],
@@ -30,7 +29,7 @@ class FecilitiesSeeder extends Seeder
             ['name'          => 'Free .Com Or .Co.Uk Domain Name']
         ];
 
-        DB::table('fecilities')->insert($fecilities);
+        DB::table('facilities')->insert($fecilities);
 
         // Or || Change model name to your model name
         // foreach ($fecilities as $key => $value) {
