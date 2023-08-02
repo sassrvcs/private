@@ -54,6 +54,9 @@
                                     <div class="col-sm-12">
                                         <label for="">Description</label>
                                         <textarea class="ckeditor form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description"></textarea>
+                                        @error('description')
+                                        <span class="text-red-600 text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row">
@@ -97,11 +100,15 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <label for="">Package Icon</label>
-                                        <input type="file" name="package_icon" class="form-control">
+                                        <label for="">Package Icon </label>
+                                        <div class="col-md-12 mb-2">
+                                            <img id="preview-image-before-upload" src="<?= url("/images/noImage.jpg") ?>"
+                                                alt="preview image" style="max-height: 50px; max-width: 50px;">
+                                        </div>
+                                        <input type="file" name="package_icon" id="package_icon" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Online Formation Within</label>
@@ -291,6 +298,25 @@
         } );
     } );
 </script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+       $('#package_icon').change(function(){
+
+        let reader = new FileReader();
+
+        reader.onload = (e) => {
+          $('#preview-image-before-upload').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(this.files[0]);
+
+       });
+
+    });
+
+    </script>
 
 @endsection
 

@@ -43,14 +43,14 @@ class PackageController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
-            'price' => 'required|numeric|gt:0',
+            'price' => 'required|numeric|min:1',
             'description' => 'required'
 
             ],[
-                'name.required' =>'This field is required.',
-                'short_desc.required' => 'This field is required.',
-                'price.required' => 'This field is required.',
-                'description.required' => 'This field is required.'
+                'name.required' =>'Name field is required.',
+                'short_desc.required' => 'Short description field is required.',
+                'price.required' => 'Price field is required.',
+                'description.required' => 'Description field is required.'
 
             ]);
         if($validate->fails()){
@@ -102,14 +102,14 @@ class PackageController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
-            'price' => 'required|numeric|gt:0',
+            'price' => 'required|numeric|min:1',
             'description' => 'required'
 
             ],[
-                'name.required' =>'This field is required.',
-                'short_desc.required' => 'This field is required.',
-                'price.required' => 'This field is required.',
-                'description.required' => 'This field is required.'
+                'name.required' =>'Name field is required.',
+                'short_desc.required' => 'Short description field is required.',
+                'price.required' => 'Price field is required.',
+                'description.required' => 'Description field is required.'
 
             ]);
         if($validate->fails()){

@@ -29,13 +29,13 @@ class BusinessBankingController extends Controller
     public function store(Request $request){
 
         $validate = Validator::make($request->all(), [
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif',
             'short_desc' => 'required',
 
 
             ],[
-                'image.required' =>'This field is required.',
-                'short_desc.required' => 'This field is required.',
+                'image.required' =>'Image field is required.',
+                'short_desc.required' => 'Short description field is required.',
 
 
             ]);
@@ -51,7 +51,7 @@ class BusinessBankingController extends Controller
             $data->addMediaFromRequest('image')->toMediaCollection('business_banking_images');
         }
 
-        return redirect()->route('admin.business-banking.index')->withSuccess('Data added successfully');
+        return redirect()->route('admin.business-banking.index')->withSuccess('Business banking added successfully');
         }
     }
 
@@ -63,13 +63,13 @@ class BusinessBankingController extends Controller
     public function update(Request $request, string $id)
     {
         $validate = Validator::make($request->all(), [
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif',
             'short_desc' => 'required',
 
 
             ],[
-                'image.required' =>'This field is required.',
-                'short_desc.required' => 'This field is required.',
+                'image.required' =>'Image field is required.',
+                'short_desc.required' => 'Short description field is required.',
 
 
             ]);
@@ -91,7 +91,7 @@ class BusinessBankingController extends Controller
                 $bankingdata->addMediaFromRequest('image')->toMediaCollection('business_banking_images');
             }
 
-            return redirect()->route('admin.business-banking.index')->withSuccess('Data updated successfully');
+            return redirect()->route('admin.business-banking.index')->withSuccess('Business banking updated successfully');
         }
     }
 
