@@ -226,7 +226,11 @@ class CartService
         // dd($cart);
 
         Session::put('cart', $cart);
-        return $service;
+        if($existingCartItem !== null) {
+            return $service;
+        } else {
+            return false;
+        }
     }
 
 
@@ -240,7 +244,7 @@ class CartService
 
         if (isset($cart[0]['addon_service']) && is_array($cart[0]['addon_service'])) {
             unset($cart[0]['addon_service'][$service_key]);
-    
+
             session()->put('cart', $cart);
             return true;
         }

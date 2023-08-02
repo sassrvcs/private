@@ -93,7 +93,7 @@
                                              <th class="product-total text-end">Price</th>
                                           </tr>
                                        </thead>
-                                       <tbody>
+                                       <tbody id="item-tbody">
                                           <tr class="cart_item">
                                              <td class="product-name" colspan="3">
                                                 {{ end($sessionCart)['package_name'] ?? '' }}&nbsp;                                                                    
@@ -103,29 +103,20 @@
                                                 <span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ end($sessionCart)['price'] ?? '0' }}</bdi></span>                    
                                              </td>
                                           </tr>
+
                                           @if( isset(end($sessionCart)['addon_service']) )
+                                             @php $i=0; @endphp
                                              @foreach( end($sessionCart)['addon_service'] as $key => $value)
-                                                {{-- @dump($value) --}}
-                                                <tr class="fee {{ $key }}">
+                                                <tr class="fee row_{{ $key }}">
                                                    <td colspan="3">{{ $value['service_name'] }}</td>
                                                    <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
                                                    <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
                                                 </tr>
+                                                @php $i++ @endphp
                                              @endforeach
                                           @endif
 
-                                          {{-- <tr class="fee">
-                                             <td colspan="3">Pre-Submission Review (we check your company details to avoid mistakes)</td>
-                                             <td class="text-end"><a href="javascript:void(0);"  class="badge bg-secondary"><i class="fa fa-times"></i></a></td>
-                                             <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>4.99</bdi></span></td>
-                                          </tr> --}}
-                                          {{-- <tr class="fee">
-                                             <td colspan="3">Pre-Submission Review (we check your company details to avoid mistakes)</td>
-                                             <td class="text-end"><a href="javascript:void(0);"  class="badge bg-secondary"><i class="fa fa-times"></i></a></td>
-                                             <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>4.99</bdi></span></td>
-                                          </tr> --}}
-
-                                          <tr class="cart-subtotal text-end">
+                                          {{-- <tr class="cart-subtotal text-end">
                                              <td colspan="3"></td>
                                              <th class="text-end">Net:</th>
                                              <td><span class="amount"><bdi><span class="Price-currencySymbol">£</span>17.98</bdi></span></td>
@@ -139,7 +130,7 @@
                                              <td colspan="3"></td>
                                              <th class="text-end">Total:</th>
                                              <td><strong><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ number_format((end($sessionCart)['price'] ?? 0 + 17.98 + 4.99 + 3.60), 2) }}</bdi></span></strong> </td>
-                                          </tr>
+                                          </tr> --}}
                                        </tbody>
                                     </table>
                                  </div>
@@ -184,26 +175,26 @@
                })
                .then(function(response) {
                   // Success: Handle the response (e.g., show a success message, update the cart UI)
-                  console.log(response.data);
+                  console.log("{{ $i }}");
 
-                  location.reload();
+                  if (response.data.service_name) {
+                     // Get the table element by its ID
+                     var table = document.getElementById("item-tbody");
 
-                  // Get the table element by its ID
-                  // var table = document.getElementById("item-tbl");
+                     // // Create a new table row
+                     var newRow = document.createElement("tr");
 
-                  // // // Create a new table row
-                  // var newRow = document.createElement("tr");
+                     // Set the class attribute of the row
+                     newRow.setAttribute("class", "fee row_{{ $i }}");
 
-                  // // // Set the class attribute of the row
-                  // newRow.setAttribute("class", "fee");
+                     // Set the HTML content of the row
+                     newRow.innerHTML = `<td colspan="3">${response.data.service_name}</td>
+                        <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $i] ) }}" dara-row="{{ $i }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                        <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>${response.data.price}</bdi></span></td>`;
 
-                  // // // Set the HTML content of the row
-                  // newRow.innerHTML = `<td colspan="3">${response.data.service_name}</td>
-                  //             <td class="text-end"><a href="javascript:void(0);" class="badge bg-secondary"><i class="fa fa-times"></i></a></td>
-                  //             <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>${response.data.price}</bdi></span></td`;
-
-                  // // // Append the new row to the table
-                  // table.appendChild(newRow);
+                     // Append the new row to the table
+                     table.appendChild(newRow);
+                  }
                })
                .catch(function(error) {
                   // Error: Handle the error (e.g., show an error message)
@@ -214,16 +205,19 @@
 
          $(document).ready(function() {
             $('.remove').click(function() {
-               const serviceId = this.getAttribute('data-service_id');
-               const rowData = this.getAttribute('data-row');
+               // const serviceId = this.getAttribute('data-service_id');
+               const rowData = this.getAttribute('dara-row');
                const apiUrl = this.getAttribute('data-route');
-               
+               alert('dkjsj');
+               console.log(`serviceId - ${serviceId}, rowData - ${rowData}, apiUrl - ${apiUrl}`);
+
                axios.delete(apiUrl)
                .then(function(response) {
                   // Success: Handle the response (e.g., show a success message, update the cart UI)
                   console.log(response);
+                  console.log(rowData);
                   
-                  $(`.${rowData}`).remove();
+                  $(`.row_${rowData}`).remove();
                })
                .catch(function(error) {
                   // Error: Handle the error (e.g., show an error message)
@@ -239,32 +233,32 @@
          //       const apiUrl = this.getAttribute('data-route');
 
          //       // Add the item to your cart using Axios (you can use your existing API endpoint here)
-               // axios.delete(apiUrl)
-               // .then(function(response) {
-               //    // Success: Handle the response (e.g., show a success message, update the cart UI)
-               //    console.log(response);
+         //       axios.delete(apiUrl)
+         //       .then(function(response) {
+         //          // Success: Handle the response (e.g., show a success message, update the cart UI)
+         //          console.log(response);
                   
-               //    // var row = element.parentNode.parentNode;
-               //    // row.parentNode.removeChild(row);
+         //          // var row = element.parentNode.parentNode;
+         //          // row.parentNode.removeChild(row);
 
-               //    // location.reload();
+         //          // location.reload();
 
-               //    // const closestTr = this.closest('tr');
-               //    // if (closestTr) {
-               //    //    closestTr.remove();
-               //    // }
+         //          // const closestTr = this.closest('tr');
+         //          // if (closestTr) {
+         //          //    closestTr.remove();
+         //          // }
 
-               //    // const parentDiv = this.closest('tr');
-               //    // parentDiv.remove();
+         //          // const parentDiv = this.closest('tr');
+         //          // parentDiv.remove();
 
-               //    // const trElement = this.closest("tr");
-               //    // trElement.parentNode.removeChild(trElement);
-               // })
-               // .catch(function(error) {
-               //    // Error: Handle the error (e.g., show an error message)
-               //    console.error(error);
-               // });
-            // });
+         //          // const trElement = this.closest("tr");
+         //          // trElement.parentNode.removeChild(trElement);
+         //       })
+         //       .catch(function(error) {
+         //          // Error: Handle the error (e.g., show an error message)
+         //          console.error(error);
+         //       });
+         //    });
          // })
       });
 
