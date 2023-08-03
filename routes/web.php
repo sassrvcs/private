@@ -12,6 +12,7 @@ use App\Http\Controllers\Web\Checkout\CheckoutStepController;
 // use App\Http\Controllers\Admin\AddonService\AddonServiceController;
 use App\Http\Controllers\Admin\Accounting\AccountingController;
 use App\Http\Controllers\Admin\Customer\CustomerController;
+use App\Http\Controllers\Admin\Cms\CmsController;
 
 use App\Http\Controllers\Web\Home\HomeController;
 use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
@@ -83,6 +84,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
         Route::resource('accounting', AccountingController::class);
 
         Route::resource('customer', CustomerController::class);
+        Route::resource('cms', CmsController::class);
 
         // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
 

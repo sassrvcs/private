@@ -59,8 +59,10 @@
                                     <div class="col-sm-8">
                                         <div class="upload-img">
                                             <span>    
-                                            <?php $stored_image = $accounting->image ;?>
-                                            <img id="preview-image-before-upload" src="<?= url("/images/$stored_image") ?>" alt="Image" width="50" height="50"/>
+                                            {{-- <?php $stored_image = $accounting->image ;?>
+                                            <img id="preview-image-before-upload" src="<?= url("/images/$stored_image") ?>" alt="Image" width="50" height="50"/> --}}
+                                            <img id="preview-image-before-upload" src="{{ $accounting->getFirstMediaUrl('accounting_software_images') }}" alt="Image" width="50" height="50"/>
+                                            
                                             </span>
                                             
                                             <x-Forms.Input type="file" mandate="*" label="Image" name="image" id="image"

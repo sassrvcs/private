@@ -172,6 +172,25 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item {{ request()->routeIs('admin.cms.*') ? 'menu-is-opening menu-open' : '' }}">
+                {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
+                <a href="#" class="nav-link {{ request()->routeIs('admin.cms.*') ? ' active' : '' }}">
+                    <i class="nav-icon fas fa-graduation-cap"></i>
+                    <p>
+                        CMS
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                {{-- style="{{ request()->routeIs('admin.agent.*') ? ' display: block;' : 'display: none;' }}"" --}}
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.cms.index')}}" class="nav-link {{ request()->routeIs('admin.cms.index') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>List</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
