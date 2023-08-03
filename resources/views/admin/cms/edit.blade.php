@@ -1,18 +1,18 @@
 @extends('includes.layouts.admin')
 @section('page-title')
-    Add Accounting Software
+    Edit Cms
 @endsection
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1> Add Accounting Software</h1>
+                    <h1> Edit Accounting Software </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active"> Add Accounting Software </li>
+                        <li class="breadcrumb-item active">Edit Accounting Software </li>
                     </ol>
                 </div>
             </div>
@@ -25,43 +25,27 @@
 
                     <div class="card card-primary">
                         <div class="card-body">
-                            <form action="{{ route('admin.accounting.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.cms.update', $cmsDetails->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <x-Forms.Input type="text" mandate="*" label="Name" id="name"
-                                            name="name" value="{{ old('name') }}"
-                                            placeholder="Enter Account Software Name"
-                                            class="{{ $errors->has('name') ? 'is-invalid' : '' }}" />
+                                    <div class="col-sm-12">
+                                        <x-Forms.Input type="text" readonly label="Title" value="{{ $cmsDetails->title }}"/>
                                     </div>
-
-                                    <div class="col-sm-6">
-                                        <x-Forms.Input type="text" mandate="*" label="Short Description" id="short_desc"
-                                            name="short_desc" value="{{ old('short_desc') }}"
-                                            class="{{ $errors->has('short_desc') ? 'is-invalid' : '' }}"  />
-                                    </div>
-
                                 </div>
 
 
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Description <span class="mandetory">*</span></label>
-                                        <textarea class="ckeditor form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description">{{{ old('description') }}}</textarea>
+                                        <textarea class="ckeditor form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description">
+                                            {!! $cmsDetails->description !!}
+                                        </textarea>
                                         <span class="error invalid-feedback">{{ $errors->first('description') }}</span>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <div class="upload-img">    
-                                            <img id="preview-image-before-upload"  alt="preview image" style="display:none; max-height: 50px; max-width: 50px;">
-                                                
-                                            <x-Forms.Input type="file" mandate="*" label="Image" name="image" id="image" class="{{ $errors->has('image') ? 'is-invalid' : '' }}" />
-                                        </div>
-                                    </div>
-                                </div>
-
+                               
+                                
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit"
                                     onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';"> &nbsp;&nbsp; Save &nbsp;&nbsp;
                                 </button>
@@ -77,12 +61,6 @@
 @section('scripts')
 
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-       $('.ckeditor').ckeditor();
-
-    });
-</script>
 
 <script type="text/javascript">
       
@@ -94,7 +72,7 @@ $(document).ready(function(){
  
     reader.onload = (e) => { 
       $('#preview-image-before-upload').attr('src', e.target.result); 
-      $('#preview-image-before-upload').attr("style", "display:block;max-height: 50px; max-width: 50px;"); 
+      //$('#has_image').value(1); 
     }
  
     reader.readAsDataURL(this.files[0]); 
@@ -104,6 +82,7 @@ $(document).ready(function(){
 });
  
 </script>
+
 
 
 @endsection

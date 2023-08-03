@@ -75,10 +75,11 @@ class AccountingService
 
     public function destroy($id){
         $accountingDetails = Accounting::where("id",$id)->first();
-        $accounting = Accounting::FindOrFail($id)->delete();
-        if(file_exists(public_path('images/'.$accountingDetails['image'].''))){
-            unlink(public_path('images/'.$accountingDetails['image'].''));
+        $accountingImage  = $accountingDetails->getFirstMedia('accounting_software_images');
+        if ($accountingImage) {
+            $accountingImage->delete();
         }
+        $accounting = Accounting::FindOrFail($id)->delete();
         return $accounting;
     }
 }

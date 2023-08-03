@@ -52,7 +52,16 @@ class AccountingController extends Controller
             return back()->withErrors($validate->errors())->withInput();
         }else{
 
-            $accountserviceId = $this->accountingService->store($input);
+            //$accountserviceId = $this->accountingService->store($input);
+            $temp =[];
+            $temp['accounting_software_name'] = $request->name;
+            $temp['short_desc'] = $request->short_desc;
+            $temp['long_desc'] = $request->description;
+            $data = Accounting::create($temp);
+
+            if($request->hasFile('image') && $request->file('image')->isValid()){
+                $data->addMediaFromRequest('image')->toMediaCollection('accounting_software_images');
+            }
 
             //return redirect()->back()->with('message', 'Accounting software added successfully');
             return Redirect::to("admin/accounting")->withSuccess('Accounting Software Added Successfully');
@@ -86,10 +95,23 @@ class AccountingController extends Controller
         if($validate->fails()){
             return back()->withErrors($validate->errors())->withInput();
         }else{
-            $user = $this->accountingService->update($input,$id);
-            if($user){
-                return Redirect::to("admin/accounting")->withSuccess('Accounting Software updated');
+            //$user = $this->accountingService->update($input,$id);
+            $accounting = Accounting::findOrFail($id);
+            $accounting->accounting_software_name = $request['name'];
+            $accounting->short_desc = $request['short_desc'];
+            $accounting->long_desc = $request['description'];
+            $accounting->save();
+
+            if($request->hasFile('image') && $request->file('image')->isValid()){
+                // Delete existing image
+                $accountingImage  = $accounting->getFirstMedia('accounting_software_images');
+                if ($accountingImage) {
+                    $accountingImage->delete();
+                }
+                $accounting->addMediaFromRequest('image')->toMediaCollection('accounting_software_images');
             }
+
+            return redirect()->route('admin.accounting.index')->withSuccess('Accounting updated successfully');
 
         }
     }
@@ -98,7 +120,6 @@ class AccountingController extends Controller
     {
         $accounting = $this->accountingService->destroy($id);
         if($accounting) {
-            sleep(2);
             return 1;
         } else {
             return 0;
