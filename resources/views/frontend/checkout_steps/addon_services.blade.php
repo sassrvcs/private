@@ -38,7 +38,7 @@
                     <p>“{{ end($sessionCart)['package_name'] ?? '' }}” has been added to your cart.</p> <a href="#" tabindex="1" class="theme-btn-primary con-shopping-btn">Continue shopping</a> 
                  </div>
               </div>
-              @dump($sessionCart)
+              {{-- @dump($sessionCart) --}}
               <div class="package-steps text-center mb-4">
                  <ol class="list-inline">
                     <li class="list-inline-item active">1. Name Check</li>
@@ -57,7 +57,7 @@
                               <h3>Customers also bought:</h3>
                            </div>
                            <div class="card-body">
-                              @foreach($addonServices as $key => $addonService)   
+                              @foreach($addonServices as $key => $addonService)
                                  <div class="row align-items-center mb-3 pb-2 addons">
                                     <div class="col-md-8 mb-2 mb-md-0">
                                        <h6 class="mt-0">{{ $addonService->service_name }}</h6>
@@ -65,7 +65,11 @@
                                     </div>
                                     <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $addonService->price }}</bdi></span></div>
                                     <div class="col-md-2 col-6 text-md-end">
-                                       <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv" data-url="{{ route('update-cart', ['id' => $addonService->id ]) }}" data-item="{{ $addonService->id }}">Add</a>
+                                       {{-- @if( isset(end($sessionCart)['addon_service']) && in_array($addonService->id, end($sessionCart)['addon_service']) )
+                                          <a href="javascript:void(0);" class="btn btn-secondary btn-sm addserv addon_{{$addonService->id}}" data-url="{{ route('update-cart', ['id' => $addonService->id ]) }}" data-item="{{ $addonService->id }}">Add</a>
+                                       @else --}}
+                                       <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv addon_{{$addonService->id}}" data-url="{{ route('update-cart', ['id' => $addonService->id ]) }}" data-item="{{ $addonService->id }}">Add</a>
+                                       {{-- @endif --}}
                                     </div>
                                  </div>
                               @endforeach
@@ -115,33 +119,37 @@
                                                 @php $i++ @endphp
                                              @endforeach
                                           @endif
-
-                                          {{-- <tr class="cart-subtotal text-end">
+                                       </tbody>
+                                       <tbody id="tax-tbody">
+                                          <tr class="cart-subtotal text-end">
                                              <td colspan="3"></td>
                                              <th class="text-end">Net:</th>
-                                             <td><span class="amount"><bdi><span class="Price-currencySymbol">£</span>17.98</bdi></span></td>
+                                             <td><span class="amount net"><bdi><span class="Price-currencySymbol">£</span>17.98</bdi></span></td>
                                           </tr>
                                           <tr class="tax-rate tax-rate-vat-1 text-end">
                                              <td colspan="3"></td>
                                              <th class="text-end">VAT:</th>
-                                             <td><span class="amount"><span class="Price-currencySymbol">£</span>3.60</span></td>
+                                             <td><span class="amount vat"><span class="Price-currencySymbol">£</span>3.60</span></td>
                                           </tr>
+
                                           <tr class="order-total text-end">
                                              <td colspan="3"></td>
                                              <th class="text-end">Total:</th>
-                                             <td><strong><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ number_format((end($sessionCart)['price'] ?? 0 + 17.98 + 4.99 + 3.60), 2) }}</bdi></span></strong> </td>
-                                          </tr> --}}
+                                             <td><strong><span class="amount"><bdi><span class="Price-currencySymbol">£</span></bdi></span></strong> </td>
+                                          </tr>
                                        </tbody>
                                     </table>
                                  </div>
                                  <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="agree" value="1" id="flexCheckChecked">
                                     <label class="form-check-label" for="flexCheckChecked">
-                                    I agree to the <a href="#" class="link-primary">Terms and Conditions</a> &amp; <a href="#" class="link-primary">Privacy Policy</a>
+                                       I agree to the <a href="#" class="link-primary">Terms and Conditions</a> &amp; <a href="#" class="link-primary">Privacy Policy</a>
                                     </label>
+                                    <br>
+                                    <span id="error-span" style="display: none; color: red;"> You must agree to the terms and conditions. </span>
                                  </div>
                                  <div class="clearfix"></div>
-                                 <a href="javascript:void(0);" onclick="steptoChckout('checkout_step');" class="btn btn-primary mt-3">Checkout</a>
+                                 <a href="#" class="btn btn-primary mt-3 checkout" id="checkout-final">Checkout</a>
                               </div>
                            </div>
                         </div>
@@ -161,163 +169,104 @@
          const addButtons = document.querySelectorAll(".addserv");
          const removeButtons = document.querySelectorAll(".remove");
 
-         // Add a click event listener to each button
-         addButtons.forEach(function(button) {
-            button.addEventListener("click", function() {
-               // Get the item ID from the data-item attribute
-               const itemId = this.getAttribute('data-item');
-               const apiUrl = this.getAttribute('data-url');
-               console.log("Clicked item ID:", itemId);
+         $(document).on('click', '.addserv', function(e) {
+            // e.preventDefaault();
+            const itemId = this.getAttribute('data-item');
+            const apiUrl = this.getAttribute('data-url');
+            console.log("Clicked item ID:", itemId);
 
-               // Add the item to your cart using Axios (you can use your existing API endpoint here)
-               axios.patch(apiUrl, {
-                  type: 'service'
-               })
-               .then(function(response) {
-                  // Success: Handle the response (e.g., show a success message, update the cart UI)
-                  console.log("{{ $i }}");
+            // Add the item to your cart using Axios (you can use your existing API endpoint here)
+            axios.patch(apiUrl, {
+               type: 'service'
+            })
+            .then(function(response) {
+               // Success: Handle the response (e.g., show a success message, update the cart UI)
+               console.log("{{ $i }}");
 
-                  if (response.data.service_name) {
-                     // Get the table element by its ID
-                     var table = document.getElementById("item-tbody");
+               if (response.data.service_name) {
+                  // Get the table element by its ID
+                  var table = document.getElementById("item-tbody");
 
-                     // // Create a new table row
-                     var newRow = document.createElement("tr");
+                  // // Create a new table row
+                  var newRow = document.createElement("tr");
 
-                     // Set the class attribute of the row
-                     newRow.setAttribute("class", "fee row_{{ $i }}");
+                  // Set the class attribute of the row
+                  newRow.setAttribute("class", "fee row_{{ $i }}");
 
-                     // Set the HTML content of the row
-                     newRow.innerHTML = `<td colspan="3">${response.data.service_name}</td>
-                        <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $i] ) }}" dara-row="{{ $i }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
-                        <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>${response.data.price}</bdi></span></td>`;
+                  // Set the HTML content of the row
+                  newRow.innerHTML = `<td colspan="3">${response.data.service_name}</td>
+                     <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $i] ) }}" dara-row="{{ $i }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></button></td>
+                     <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>${response.data.price}</bdi></span></td>`;
 
-                     // Append the new row to the table
-                     table.appendChild(newRow);
-                  }
-               })
-               .catch(function(error) {
-                  // Error: Handle the error (e.g., show an error message)
-                  console.error(error);
-               });
+                  // Append the new row to the table
+                  table.appendChild(newRow);
+                  calculateTotal();
+               }
+            })
+            .catch(function(error) {
+               // Error: Handle the error (e.g., show an error message)
+               console.error(error);
             });
          });
 
-         $(document).ready(function() {
-            $('.remove').click(function() {
-               // const serviceId = this.getAttribute('data-service_id');
-               const rowData = this.getAttribute('dara-row');
-               const apiUrl = this.getAttribute('data-route');
-               alert('dkjsj');
-               console.log(`serviceId - ${serviceId}, rowData - ${rowData}, apiUrl - ${apiUrl}`);
+         $(document).on('click', '.remove', function() {
 
-               axios.delete(apiUrl)
-               .then(function(response) {
-                  // Success: Handle the response (e.g., show a success message, update the cart UI)
-                  console.log(response);
-                  console.log(rowData);
-                  
-                  $(`.row_${rowData}`).remove();
-               })
-               .catch(function(error) {
-                  // Error: Handle the error (e.g., show an error message)
-                  console.error(error);
-               });
+            const rowData = this.getAttribute('dara-row');
+            const apiUrl = this.getAttribute('data-route');
+            console.log(`rowData - ${rowData}, apiUrl - ${apiUrl}`);
+
+            axios.delete(apiUrl)
+            .then(function(response) {
+               // Success: Handle the response (e.g., show a success message, update the cart UI)
+               console.log(response);
+               console.log(rowData);
+               
+               $(`.row_${rowData}`).remove();
+               calculateTotal();
+            })
+            .catch(function(error) {
+               // Error: Handle the error (e.g., show an error message)
+               console.error(error);
             });
          });
 
-         // removeButtons.forEach(function(button) {
-         //    button.addEventListener("click", function() {
-         //       const serviceId = this.getAttribute('data-service_id');
-         //       // const row = this.getAttribute('data-row');
-         //       const apiUrl = this.getAttribute('data-route');
+         function calculateTotal() {
+            var total = 0;
 
-         //       // Add the item to your cart using Axios (you can use your existing API endpoint here)
-         //       axios.delete(apiUrl)
-         //       .then(function(response) {
-         //          // Success: Handle the response (e.g., show a success message, update the cart UI)
-         //          console.log(response);
-                  
-         //          // var row = element.parentNode.parentNode;
-         //          // row.parentNode.removeChild(row);
+            var net = $('.net').text();
+            var vat = $('.vat').text();
 
-         //          // location.reload();
+            let netWithoutSymbol = net.replace('£', '');
+            let vatWithoutSymbol = vat.replace('£', '');
 
-         //          // const closestTr = this.closest('tr');
-         //          // if (closestTr) {
-         //          //    closestTr.remove();
-         //          // }
+            // Loop through each row in the tbody
+            $('#item-tbody tr').each(function() {
+               // Extract the price from the row
+               var price = parseFloat($(this).find('.amount bdi').text().substring(1));
 
-         //          // const parentDiv = this.closest('tr');
-         //          // parentDiv.remove();
+               // Add the price to the total
+               total += price;
+            });
 
-         //          // const trElement = this.closest("tr");
-         //          // trElement.parentNode.removeChild(trElement);
-         //       })
-         //       .catch(function(error) {
-         //          // Error: Handle the error (e.g., show an error message)
-         //          console.error(error);
-         //       });
-         //    });
-         // })
+            
+            total = parseFloat(total) + parseFloat(netWithoutSymbol) + parseFloat(vatWithoutSymbol);
+
+            console.log(total, netWithoutSymbol, vatWithoutSymbol);
+            // Update the total amount in the HTML
+            $('.order-total .amount bdi').text('£' + total.toFixed(2));
+         }
+
+         calculateTotal();
+
+         $(document).on('click', '#checkout-final', function() {
+            // alert('sdfs');
+            if (!$('#flexCheckChecked').is(':checked')) {
+               $("#error-span").show();
+               return;
+            } else {
+               location.href = "{{ route('check-auth') }}";
+            }
+         });
       });
-
    </script>
-
-   {{-- <script>
-      function updateCartUI(cartItems) {
-         const cartItemsContainer = document.querySelector('.cart-items');
-         cartItemsContainer.innerHTML = '';
-
-         cartItems.forEach(function(item) {
-               const cartItemHTML = `
-                  <tr class="addon-item">
-                     <td class="product-name" colspan="3">
-                           ${item.service_name}
-                     </td>
-                     <td class="text-end">&nbsp;</td>
-                     <td class="product-total text-end">
-                           <span class="amount"><bdi><span class="Price-currencySymbol">£</span>${item.price.toFixed(2)}</bdi></span>                    
-                     </td>
-                  </tr>
-               `;
-            cartItemsContainer.innerHTML += cartItemHTML;
-         });
-      }
-
-      document.addEventListener("DOMContentLoaded", function() {
-         // Get all "Add" buttons with the class "addserv"
-         const addButtons = document.querySelectorAll(".addserv");
-   
-         // Add a click event listener to each button
-         addButtons.forEach(function(button) {
-            button.addEventListener("click", function() {
-               // Get the item data from the data attribute
-               const itemData = JSON.parse(this.dataset.item);
-
-               // Get the current cart from the session (assuming the cart data is stored in a "cart" variable)
-               let cart = JSON.parse(sessionStorage.getItem("cart") || "[]");
-
-               // Add the item data to the cart
-               cart.push(itemData);
-
-               // Save the updated cart back to the session
-               sessionStorage.setItem("cart", JSON.stringify(cart));
-
-               // Update the cart UI
-               updateCartUI(cart);
-
-               // Calculate the total price and update the UI (assuming you have elements with the IDs "netPrice", "vatPrice", and "totalPrice")
-               const netPrice = 17.98; // Replace with the actual net price
-               const vatPrice = 3.60; // Replace with the actual VAT price
-               const totalPrice = itemData.price + netPrice + vatPrice;
-
-               document.getElementById("netPrice").innerText = '£' + netPrice.toFixed(2);
-               document.getElementById("vatPrice").innerText = '£' + vatPrice.toFixed(2);
-               document.getElementById("totalPrice").innerText = '£' + totalPrice.toFixed(2);
-            });
-         });
-      });
-  </script> --}}
-  
 @endsection

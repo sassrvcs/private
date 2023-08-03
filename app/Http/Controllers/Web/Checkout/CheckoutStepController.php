@@ -28,7 +28,7 @@ class CheckoutStepController extends Controller
     }
 
     /**
-     * 
+     * @checkout step -> 3
      * @param CheckoutStepRequest $request
      */
     public function addOnServices(CheckoutStepRequest $request)
@@ -38,5 +38,25 @@ class CheckoutStepController extends Controller
         $addonServices  = $this->addonService->index();
         // dump($sessionCart);
         return view('frontend.checkout_steps.addon_services', compact('sessionCart', 'addonServices'));
+    }
+
+    /**
+     * Check user is authorised or not
+     * @Checkout step -> 4
+     */
+    public function validateAuthentication()
+    {
+        // dd('sadad');
+        if(auth()->check()) {
+            // continue
+        } else {
+            return redirect( route('frontend-login') )->with('hidden_param', 'checkout');
+        }
+    }
+
+    public function checkoutFinal()
+    {
+        $sessionCart    = $this->cartService->getCartViaSession();
+        dd($sessionCart);
     }
 }

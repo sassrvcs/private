@@ -35,8 +35,11 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 // });
 
 Route::get('/login', function () {
-    return view('frontend.login');
-});
+    $value = '';
+    $value = session('hidden_param');
+    // dd($value);
+    return view('frontend.login', compact('value'));
+})->name('frontend-login');
 
 Route::post('/login',[AuthController::class,'login'])->name('clientlogin');
 
@@ -65,6 +68,8 @@ Route::patch('/cart/{id}', [CartController::class, 'update'])->name('update-cart
 
 Route::get('review-company-package', [CheckoutStepController::class, 'reviewCompanyPackage'])->name('review-company-package');
 Route::match(['get', 'post'], 'addon-services', [CheckoutStepController::class, 'addOnServices'])->name('addon-services');
+Route::get('check-auth', [CheckoutStepController::class, 'validateAuthentication'])->name('check-auth');
+Route::get('checkout', [CheckoutStepController::class, 'checkoutFinal'])->name('checkout');
 
 Route::get('/search-companie', CompanieController::class);
 
