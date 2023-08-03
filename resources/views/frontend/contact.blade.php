@@ -37,57 +37,88 @@
             <div class="contactUs-container">
                 <div class="left-div">
                     <div class="section-title wow bounceInDown">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success">{{ session()->get('success') }}</div>
+                        @endif
+                        @if (session()->has('error'))
+                            <div class="alert alert-danger">{{ session()->get('error') }}</div>
+                        @endif
                         <h3>Get in<span style="color: #87cb28;"><strong> Touch</strong></span></h3>
                         <p>Having queries? Our executives are working 24X7 to address your requirements.</p>
                     </div>
                     <div class="whitebox contact_field mb-3">
-                        <div class="row align-items-center">
-                            <div class="group form-group col-md-4">
-                                <input type="text" placeholder="First Name *" class="form-control">
-                            </div>
-                            <div class="group form-group col-md-4">
-                                <input type="text" placeholder="Middle Name" class="form-control">
-                            </div>
-                            <div class="group form-group col-md-4">
-                                <input type="text" placeholder="Last Name *" class="form-control">
-                            </div>
-                            <div class="group form-group col-md-6">
-                                <input type="text" placeholder="Email *" class="form-control">
-                            </div>
-                            <div class="group form-group col-md-6">
-                                <input type="text" placeholder="Phone *" class="form-control">
-                            </div>
-                            <div class="group form-group col-md-12">
-                                <input type="text" placeholder="Address Line1 *" class="form-control">
-                            </div>
-                            <div class="group form-group col-md-12">
-                                <input type="text" placeholder="Address Line2 *" class="form-control">
-                            </div>
-                            <div class="group form-group col-md-6">
-                                <input type="text" placeholder="City" class="form-control">
-                            </div>
-                            <div class="group form-group col-md-6">
-                                <input type="text" placeholder="State / Province / Region" class="form-control">
-                            </div>
-                            <div class="group form-group col-md-6">
-                                <select class="form-control">
-                                    <option value="">United States</option>
-                                </select>
-                            </div>
-                            <div class="group form-group col-md-6">
-                                <input type="text" placeholder="ZIP/Postal Code" class="form-control">
-                            </div>
-                            <div class="text-group mb-3">
-                                <textarea class="form-control" placeholder="How can we help you? *"></textarea>
-                                <div class="txt_sm">
-                                    <p>0 of 150 max characters
-                                    </p>
+                        <form class="" action="{{ route('contact.store') }}" method="POST">
+                            @csrf
+                            <div class="row align-items-center">
+                                <div class="group form-group col-md-4">
+                                    <input type="text" placeholder="First Name *" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{old('first_name')}}">
+                                    @error('first_name')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="group form-group col-md-4">
+                                    <input type="text" placeholder="Middle Name" name="middle_name" class="form-control">
+                                </div>
+                                <div class="group form-group col-md-4">
+                                    <input type="text" placeholder="Last Name *" name="last_name" class="form-control @error('last_name') is-invalid @enderror">
+                                    @error('last_name')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="group form-group col-md-6">
+                                    <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" placeholder="Email *" value={{old('email')}}>
+                                    @error('email')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="group form-group col-md-6">
+                                    <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" placeholder="Phone *" value={{old('phone')}}>
+                                    @error('phone')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="group form-group col-md-12">
+                                    <input type="text" name="address_line1" placeholder="Address Line1 *" class="form-control @error('address_line1') is-invalid @enderror">
+                                    @error('address_line1')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="group form-group col-md-12">
+                                    <input type="text" name="address_line2" placeholder="Address Line2 " class="form-control">
+                                </div>
+                                <div class="group form-group col-md-6">
+                                    <input type="text" placeholder="City" name="city" class="form-control">
+                                </div>
+                                <div class="group form-group col-md-6">
+                                    <input type="text" name="state" placeholder="State / Province / Region" class="form-control">
+                                </div>
+                                <div class="group form-group col-md-6">
+                                    <select class="form-control" name="country">
+                                        <option value="">Select a country / region…</option>
+                                        <option value="72" selected>England</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{$country->id}}">{{$country->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="group form-group col-md-6">
+                                    <input type="text" name="zip" placeholder="ZIP/Postal Code" class="form-control">
+                                </div>
+                                <div class="text-group mb-3">
+                                    <textarea class="form-control @error('comment') is-invalid @enderror" name="comment" placeholder="How can we help you? *"></textarea>
+                                    @error('comment')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                    @enderror
+                                    <div class="txt_sm">
+                                        <p>0 of 150 max characters
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="wpcf7-submit custom-btn btn-primary wow zoomIn">Submit</button>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <button type="submit" class="wpcf7-submit custom-btn btn-primary wow zoomIn">Submit</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div class="right-div">

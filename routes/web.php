@@ -61,6 +61,7 @@ Route::get('/package', WebPackageController::class)->name('package');
 
 //contact us page
 Route::get('/contact-us',[ContactController::class,'view'])->name('contact.view');
+Route::post('/contact-us',[ContactController::class,'store'])->name('contact.store');
 
 Route::resource('/cart', CartController::class);
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('add-cart');
