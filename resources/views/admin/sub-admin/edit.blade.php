@@ -31,14 +31,14 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <label for="">First Name&nbsp;<span class="mandetory">* </span></label>
-                                        <input class="form-control @error('first_name') is-invalid @enderror" type="text" name="first_name" value="{{ $user->first_name}}">
+                                        <input class="form-control @error('first_name') is-invalid @enderror" type="text" name="first_name" value="{{ $user->forename}}">
                                         @error('first_name')
                                             <div class="error" style="color:red;">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-sm-4">
                                         <label for="">Last Name&nbsp;<span class="mandetory">* </span></label>
-                                        <input class="form-control @error('last_name') is-invalid @enderror" type="text" name="last_name" value="{{ $user->last_name}}">
+                                        <input class="form-control @error('last_name') is-invalid @enderror" type="text" name="last_name" value="{{ $user->surname}}">
                                         @error('last_name')
                                             <div class="error" style="color:red;">{{ $message }}</div>
                                         @enderror
@@ -47,7 +47,7 @@
                                     <div class="col-sm-4">
                                         <label>Email&nbsp;<span class="mandetory">* </span></label>
                                         <span class="input-wrapper ">
-                                            <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{ $user->email}}">
+                                            <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value="{{ $user->email}}" readonly>
                                             @error('email')
                                                 <div class="error" style="color:red;">{{ $message }}</div>
                                             @enderror

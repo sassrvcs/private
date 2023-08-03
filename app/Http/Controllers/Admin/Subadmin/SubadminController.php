@@ -58,4 +58,38 @@ class SubadminController extends Controller
         $user = User::findOrFail($id);
         return view('admin.sub-admin.edit', compact('user'));
     }
+    public function update(Request $request, string $id)
+    {
+        $validate = Validator::make($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required|numeric|digits_between:8,13',
+
+            ],[
+                'first_name.required' => 'First name is required.',
+                'last_name.required' => 'Last name is required.',
+                'phone.required' => 'Phone number is required.',
+                'phone.numeric' => 'Please enter valid phone number.',
+
+            ]);
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }else{
+            $user = User::findOrFail($id);
+            $user->forename = $request->first_name;
+            $user->surname = $request->last_name;
+            $user->phone_no = $request->phone;
+            $user->save();
+            return redirect()->route('admin.sub-admin.index')->withSuccess('Sub admin updated successfully');
+        }
+    }
+
+    public function destroy($id){
+        $data = User::FindOrFail($id)->delete();
+        if($data){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

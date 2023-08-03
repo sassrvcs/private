@@ -18,6 +18,7 @@ use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
 use App\Http\Controllers\Admin\BusinessBanking\BusinessBankingController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Subadmin\SubadminController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,9 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/package', WebPackageController::class)->name('package');
+
+//contact us page
+Route::get('/contact-us',[ContactController::class,'view'])->name('contact.view');
 
 Route::resource('/cart', CartController::class);
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('add-cart');

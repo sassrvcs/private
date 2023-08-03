@@ -106,7 +106,7 @@
                     <a href="#">Blogs</a>
                 </li>
                 <li>
-                    <a href="#">Contact Us</a>
+                    <a href="{{ route('contact.view')}}">Contact Us</a>
                 </li>
             </ul>
             <div class="cn-menu-lists-overlay"></div>

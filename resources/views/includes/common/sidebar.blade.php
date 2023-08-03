@@ -103,7 +103,7 @@
                 <a href="#" class="nav-link  {{ request()->routeIs('admin.business-banking.*') ? ' active' : '' }}">
                     <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
-                        Business banking
+                        Business Banking
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>

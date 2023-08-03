@@ -77,7 +77,7 @@ Sub Admin List
                                                         <i class="fas fa-edit"></i>
                                                     </a>
 
-                                                    <a href="javascript:{}" class="delete-user" data-id={{ $user->id }}  data-user="Business banking "
+                                                    <a href="javascript:{}" class="delete-user" data-id={{ $user->id }}  data-user="Sub admin "
                                                             data-route="{{ route('admin.sub-admin.destroy', $user->id) }}" style="color: #f30031">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
