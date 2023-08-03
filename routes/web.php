@@ -5,6 +5,7 @@ use App\Http\Controllers\Companies\CompanieController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\Addons\AddonController;
 use App\Http\Controllers\Admin\Package\PackageController;
 use App\Http\Controllers\Web\Cart\CartController;
@@ -68,6 +69,8 @@ Route::get('review-company-package', [CheckoutStepController::class, 'reviewComp
 Route::match(['get', 'post'], 'addon-services', [CheckoutStepController::class, 'addOnServices'])->name('addon-services');
 
 Route::get('/search-companie', CompanieController::class);
+Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
+//Route::get('refund-cancellation', [PageController::class, 'refundcancellation'])->name('page.refundcancellation');
 
 Route::prefix('admin')->middleware(['auth', 'auth.session'])
 ->group(function () {

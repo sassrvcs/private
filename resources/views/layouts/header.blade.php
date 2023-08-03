@@ -100,7 +100,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#">About Us</a>
+                    <a href="{{ route('page', ['slug' => 'about-us'] ) }}">About Us</a>
                 </li>
                 <li>
                     <a href="#">Blogs</a>

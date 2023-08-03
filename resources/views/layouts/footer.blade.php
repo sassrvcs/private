@@ -105,19 +105,19 @@
                     <h3>Legal</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a href="#">Refund and Cancellation Policy</a>
+                            <a href="{{ route('page', ['slug' => 'refund-cancellation'] ) }}">Refund and Cancellation Policy</a>
                         </li>
                         <li>
-                            <a href="#">Terms & Conditions</a>
+                            <a href="{{ route('page', ['slug' => 'terms-conditions'] ) }}">Terms & Conditions</a>
                         </li>
                         <li>
-                            <a href="#">Cookies Policy</a>
+                            <a href="{{ route('page', ['slug' => 'cookies-policy'] ) }}">Cookies Policy</a>
                         </li>
                         <li>
-                            <a href="#">ID requirements</a>
+                            <a href="{{ route('page', ['slug' => 'id-requirements'] ) }}">ID requirements</a>
                         </li>
                         <li>
-                            <a href="#">GDPR Privacy Policy</a>
+                            <a href="{{ route('page', ['slug' => 'gdpr-privacy-policy'] ) }}">GDPR Privacy Policy</a>
                         </li>
                     </ul>
                 </div>
@@ -127,13 +127,13 @@
                     <h3>Resources</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a href="#">Business Help</a>
+                            <a href="{{ route('page', ['slug' => 'business-help'] ) }}">Business Help</a>
                         </li>
                         <li>
-                            <a href="#">Share Business Ideas</a>
+                            <a href="{{ route('page', ['slug' => 'share-business-ideas'] ) }}">Share Business Ideas</a>
                         </li>
                         <li>
-                            <a href="#">Helping Startups</a>
+                            <a href="{{ route('page', ['slug' => 'helping-startups'] ) }}">Helping Startups</a> 
                         </li>
                     </ul>
                     <div class="bottom-logo">
