@@ -39,11 +39,14 @@ class AccountingController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
+            'description' => 'required',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif'
             ],[
                 'name.required' =>'This name field is required.',
                 'short_desc.required' => 'This short description field is required.',
-                'image.required' => 'This image field is required.'
+                'description.required' => 'This description field is required.',
+                'image.required' => 'This image field is required and only allows image files.',
+                'image.image' => 'This image field is required and only allows image files.'
             ]);
         if($validate->fails()){
             return back()->withErrors($validate->errors())->withInput();
@@ -73,10 +76,12 @@ class AccountingController extends Controller
         $input = $request->all();
         $validate = Validator::make($request->all(), [
             'name' => 'required',
-            'short_desc' => 'required'
+            'short_desc' => 'required',
+            'description' => 'required'
             ],[
                 'name.required' =>'This name field is required.',
-                'short_desc.required' => 'This short description field is required.'
+                'short_desc.required' => 'This short description field is required.',
+                'description.required' => 'This description field is required.'
             ]);
         if($validate->fails()){
             return back()->withErrors($validate->errors())->withInput();
@@ -93,6 +98,7 @@ class AccountingController extends Controller
     {
         $accounting = $this->accountingService->destroy($id);
         if($accounting) {
+            sleep(2);
             return 1;
         } else {
             return 0;

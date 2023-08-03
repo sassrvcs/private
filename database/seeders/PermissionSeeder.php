@@ -15,13 +15,18 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         // Create permissions
-        $permissions = Permission::create([
-            ['name' => 'Packages'],
-            ['name' => 'Add-on Services'],
-            ['name' => 'Business Banking'],
-            ['name' => 'Accounting Software'],
-
+         // Define permission names
+         $permissionNames = [
+            'Packages',
+            'Add-on Services',
+            'Business Banking',
+            'Accounting Software',
             // Add more permissions as needed
-        ]);
+        ];
+
+        // Create permissions
+        foreach ($permissionNames as $name) {
+            Permission::create(['name' => $name]);
+        }
     }
 }

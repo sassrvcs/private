@@ -11,6 +11,7 @@ use App\Http\Controllers\Web\Cart\CartController;
 use App\Http\Controllers\Web\Checkout\CheckoutStepController;
 // use App\Http\Controllers\Admin\AddonService\AddonServiceController;
 use App\Http\Controllers\Admin\Accounting\AccountingController;
+use App\Http\Controllers\Admin\Customer\CustomerController;
 
 use App\Http\Controllers\Web\Home\HomeController;
 use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
@@ -36,8 +37,11 @@ use App\Http\Controllers\ContactController;
 // });
 
 Route::get('/login', function () {
-    return view('frontend.login');
-});
+    $value = '';
+    $value = session('hidden_param');
+    // dd($value);
+    return view('frontend.login', compact('value'));
+})->name('frontend-login');
 
 Route::post('/login',[AuthController::class,'login'])->name('clientlogin');
 
@@ -70,6 +74,8 @@ Route::patch('/cart/{id}', [CartController::class, 'update'])->name('update-cart
 
 Route::get('review-company-package', [CheckoutStepController::class, 'reviewCompanyPackage'])->name('review-company-package');
 Route::match(['get', 'post'], 'addon-services', [CheckoutStepController::class, 'addOnServices'])->name('addon-services');
+Route::get('check-auth', [CheckoutStepController::class, 'validateAuthentication'])->name('check-auth');
+Route::get('checkout', [CheckoutStepController::class, 'checkoutFinal'])->name('checkout');
 
 Route::get('/search-companie', CompanieController::class);
 
@@ -89,6 +95,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
 
 
         Route::resource('sub-admin', SubadminController::class);
+        Route::resource('customer', CustomerController::class);
 
         // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
 

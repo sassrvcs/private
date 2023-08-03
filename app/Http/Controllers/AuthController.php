@@ -30,29 +30,34 @@ class AuthController extends Controller
             'email' => 'required|email|exists:users,email',
             'password' => 'required|min:8|string',
 
-            ],[
-                'email.required' => 'Email is required',
-                'password.required' => 'Password is required'
-            ]);
-            if($validate->fails()){
-                return back()->withErrors($validate->errors())->withInput();
-            }else{
-                    [$user, $token] = $this->userService->Checkauth($request->email, $request->password);
+        ],[
+            'email.required' => 'Email is required',
+            'password.required' => 'Password is required'
+        ]);
 
-                    if ($user == UserService::USER_NOT_FOUND) {
-                        return redirect()->back()->with('error','Your username and password are not correct. Please try again.');
-                    } elseif ($user == UserService::WRONG_PASSWORD) {
-                        return redirect()->back()->with('error','Your username and password are not correct. Please try again.');
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        } else {
+            [$user, $token] = $this->userService->Checkauth($request->email, $request->password);
+
+            if ($user == UserService::USER_NOT_FOUND) {
+                return redirect()->back()->with('error','Your username and password are not correct. Please try again.');
+            } elseif ($user == UserService::WRONG_PASSWORD) {
+                return redirect()->back()->with('error','Your username and password are not correct. Please try again.');
+            } else {
+
+                $credentials = $request->only('email', 'password');
+
+                if (Auth::attempt($credentials)) {
+                    // Authentication passed...
+                    if( isset($request->checkout) && !empty($request->checkout) ) {
+                        return redirect()->route('checkout');
                     } else {
-
-                        $credentials = $request->only('email', 'password');
-
-                        if (Auth::attempt($credentials)) {
-                            // Authentication passed...
-                            return redirect()->route('my-account');
-                        }
+                        return redirect()->route('my-account');
                     }
                 }
+            }
+        }
     }
 
     public function findAddress(Request $request){

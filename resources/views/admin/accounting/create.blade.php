@@ -28,36 +28,17 @@
                             <form action="{{ route('admin.accounting.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <x-Forms.Input type="text" mandate="*" label="Name" id="name"
                                             name="name" value="{{ old('name') }}"
-                                            placeholder="Enter Account software name"
+                                            placeholder="Enter Account Software Name"
                                             class="{{ $errors->has('name') ? 'is-invalid' : '' }}" />
                                     </div>
 
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <x-Forms.Input type="text" mandate="*" label="Short Description" id="short_desc"
                                             name="short_desc" value="{{ old('short_desc') }}"
                                             class="{{ $errors->has('short_desc') ? 'is-invalid' : '' }}"  />
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <!-- <x-Forms.Input type="number" mandate="*" label="Price" id="price"
-                                            name="price" value="{{ old('price') }}"
-                                            class="{{ $errors->has('price') ? 'is-invalid' : '' }}"  /> -->
-
-                                            <div class="col-md-12 mb-2">
-                                                <img id="preview-image-before-upload" src="<?= url("/images/noImage.jpg") ?>"
-                                                    alt="preview image" style="max-height: 50px; max-width: 50px;">
-                                            </div>    
-                                        <span class="sr-only">Choose File</span>
-                                        <input type="file" mandate="*" name="image" id="image"
-                                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-                                        @error('image')
-                                        <span class="text-red-600 text-sm">{{ $message }}</span>
-                                        @enderror  
-                                          
-
                                     </div>
 
                                 </div>
@@ -65,11 +46,22 @@
 
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <label for="">Description</label>
-                                        <textarea class="ckeditor form-control {{ $errors->has('long_desc') ? 'is-invalid' : '' }}" name="description"></textarea>
+                                        <label for="">Description <span class="mandetory">*</span></label>
+                                        <textarea class="ckeditor form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description">{{{ old('description') }}}</textarea>
+                                        <span class="error invalid-feedback">{{ $errors->first('description') }}</span>
                                     </div>
                                 </div>
-                                
+
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="upload-img">    
+                                            <img id="preview-image-before-upload"  alt="preview image" style="display:none; max-height: 50px; max-width: 50px;">
+                                                
+                                            <x-Forms.Input type="file" mandate="*" label="Image" name="image" id="image" class="{{ $errors->has('image') ? 'is-invalid' : '' }}" />
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit"
                                     onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';"> &nbsp;&nbsp; Save &nbsp;&nbsp;
                                 </button>
@@ -102,6 +94,7 @@ $(document).ready(function(){
  
     reader.onload = (e) => { 
       $('#preview-image-before-upload').attr('src', e.target.result); 
+      $('#preview-image-before-upload').attr("style", "display:block;max-height: 50px; max-width: 50px;"); 
     }
  
     reader.readAsDataURL(this.files[0]); 
