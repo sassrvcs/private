@@ -22,7 +22,7 @@ class ContactController extends Controller
             'phone' => 'required|numeric|digits_between:8,13',
             'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email',
             'address_line1' => 'required',
-            'comment' => 'required',
+            'comment' => 'required|string|min:1|max:150',
 
             ],[
                 'first_name.required' => 'First name is required.',
@@ -52,7 +52,7 @@ class ContactController extends Controller
             $contact->message = $request->comment;
             $contact->save();
 
-            return redirect()->route('contact.view')->withSuccess('Contact submitted successfully');
+            return redirect()->route('contact.view')->withSuccess('Contact details submitted successfully');
         }
     }
 }

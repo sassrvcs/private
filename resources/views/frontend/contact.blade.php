@@ -14,7 +14,7 @@
         </div>
         <div class="center-info">
             <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="{{ url('')}}">Home</a></li>
                 <li><a>Contact Us</a></li>
             </ul>
         </div>
@@ -60,7 +60,7 @@
                                     <input type="text" placeholder="Middle Name" name="middle_name" class="form-control">
                                 </div>
                                 <div class="group form-group col-md-4">
-                                    <input type="text" placeholder="Last Name *" name="last_name" class="form-control @error('last_name') is-invalid @enderror">
+                                    <input type="text" placeholder="Last Name *" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{old('last_name')}}">
                                     @error('last_name')
                                         <div class="error" style="color:red;">{{ $message }}</div>
                                     @enderror
@@ -78,19 +78,19 @@
                                     @enderror
                                 </div>
                                 <div class="group form-group col-md-12">
-                                    <input type="text" name="address_line1" placeholder="Address Line1 *" class="form-control @error('address_line1') is-invalid @enderror">
+                                    <input type="text" name="address_line1" placeholder="Address Line1 *" class="form-control @error('address_line1') is-invalid @enderror" value="{{ old('address_line1') }}">
                                     @error('address_line1')
                                         <div class="error" style="color:red;">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="group form-group col-md-12">
-                                    <input type="text" name="address_line2" placeholder="Address Line2 " class="form-control">
+                                    <input type="text" name="address_line2" placeholder="Address Line2 " class="form-control" value="{{old('address_line2')}}">
                                 </div>
                                 <div class="group form-group col-md-6">
-                                    <input type="text" placeholder="City" name="city" class="form-control">
+                                    <input type="text" placeholder="City" name="city" class="form-control" value="{{old('city')}}">
                                 </div>
                                 <div class="group form-group col-md-6">
-                                    <input type="text" name="state" placeholder="State / Province / Region" class="form-control">
+                                    <input type="text" name="state" placeholder="State / Province / Region" class="form-control" value="{{old('state')}}">
                                 </div>
                                 <div class="group form-group col-md-6">
                                     <select class="form-control" name="country">
@@ -102,10 +102,10 @@
                                     </select>
                                 </div>
                                 <div class="group form-group col-md-6">
-                                    <input type="text" name="zip" placeholder="ZIP/Postal Code" class="form-control">
+                                    <input type="text" name="zip" placeholder="ZIP/Postal Code" class="form-control" value="{{old('zip')}}">
                                 </div>
                                 <div class="text-group mb-3">
-                                    <textarea class="form-control @error('comment') is-invalid @enderror" name="comment" placeholder="How can we help you? *"></textarea>
+                                    <textarea class="form-control @error('comment') is-invalid @enderror" name="comment" placeholder="How can we help you? *">{{old('comment')}}</textarea>
                                     @error('comment')
                                         <div class="error" style="color:red;">{{ $message }}</div>
                                     @enderror

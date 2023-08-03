@@ -18,9 +18,9 @@ class ContactObserver
      */
     public function created(Contact $contact)
     {
-        $first_name = $contact->first_name;
-        $last_name = $contact->first_name;
-        $contact->notify(new ContactSendMail($first_name, $last_name));
+        // $first_name = $contact->first_name;
+        // $last_name = $contact->first_name;
+        // $contact->notify(new ContactSendMail($first_name, $last_name));
     }
 
     /**

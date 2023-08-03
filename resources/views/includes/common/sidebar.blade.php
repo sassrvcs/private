@@ -45,6 +45,7 @@
                 </a>
             </li>
 
+            @can('Packages')
             <li class="nav-item {{ request()->routeIs('admin.package.*') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link  {{ request()->routeIs('admin.package.*') ? ' active' : '' }}">
                     <i class="nav-icon fas fa-graduation-cap"></i>
@@ -71,7 +72,9 @@
                     </li>
                 </ul>
             </li>
+            @endcan
 
+            @can('Add-on Services')
             <li class="nav-item {{ request()->routeIs('admin.addonservice.*') ? 'menu-is-opening menu-open' : '' }}">
                 {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
                 <a href="#" class="nav-link {{ request()->routeIs('admin.addonservice.*') ? ' active' : '' }}"">
@@ -98,7 +101,9 @@
                     </li>
                 </ul>
             </li>
+            @endcan
 
+            @can('Business Banking')
             <li class="nav-item {{ request()->routeIs('admin.business-banking.*') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link  {{ request()->routeIs('admin.business-banking.*') ? ' active' : '' }}">
                     <i class="nav-icon fas fa-graduation-cap"></i>
@@ -125,7 +130,8 @@
                     </li>
                 </ul>
             </li>
-
+            @endcan
+            @can('Accounting Software')
             <li class="nav-item {{ request()->routeIs('admin.accounting.*') ? 'menu-is-opening menu-open' : '' }}">
                 {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
                 <a href="#" class="nav-link {{ request()->routeIs('admin.accounting.*') ? ' active' : '' }}">
@@ -152,7 +158,7 @@
                     </li>
                 </ul>
             </li>
-
+            @endcan
             @role('superadmin')
             <li class="nav-item {{ request()->routeIs('admin.sub-admin.*') ? 'menu-is-opening menu-open' : '' }}">
                 {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}

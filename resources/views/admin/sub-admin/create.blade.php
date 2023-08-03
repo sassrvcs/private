@@ -74,6 +74,16 @@
                                         </span>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="">Menu list</label>
+                                            <select class="form-select" name="menu[]" id="multiple-select-field" data-placeholder="Choose anything" multiple>
+                                                @foreach($menu_list as $key => $value)
+                                                <option value={{$value->id}}>{{$value->name}}</option>
+                                                @endforeach
+                                            </select>
+                                    </div>
+                                </div>
 
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit"
                                     onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';"> &nbsp;&nbsp; Save &nbsp;&nbsp;
@@ -88,6 +98,16 @@
 @endsection
 
 @section('scripts')
+<script>
+    $(document).ready(function(){
+     $( '#multiple-select-field' ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+            closeOnSelect: false,
+        } );
+    } );
+</script>
 
 @endsection
 

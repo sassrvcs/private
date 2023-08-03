@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Validator;
 use Redirect;
+use Spatie\Permission\Models\Permission;
 
 class SubadminController extends Controller
 {
@@ -17,11 +18,13 @@ class SubadminController extends Controller
 
     public function create()
     {
-        return view('admin.sub-admin.create');
+        $menu_list = Permission::get();
+        return view('admin.sub-admin.create',compact('menu_list'));
     }
 
     public function store(Request $request)
     {
+        //dd($request->all());
         $validate = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -49,6 +52,7 @@ class SubadminController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();
             $user->assignRole('subadmin');
+            $user->syncPermissions($request->menu);
             return redirect()->route('admin.sub-admin.index')->withSuccess('Sub admin added successfully');
         }
     }
