@@ -13,10 +13,17 @@ class BusinessBankingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = BusinessBanking::all();
-        return view('admin.business-banking.index',compact('data'));
+        $search = $request->search;
+        if(!empty($search)){
+            $businessdata = BusinessBanking::where('short_description', 'like', "%{$search}%")
+                            ->paginate(2);
+        }else{
+            $businessdata = BusinessBanking::paginate(2);
+        }
+
+        return view('admin.business-banking.index',compact('businessdata','search'));
     }
     /**
      * Show the form for creating a new resource.

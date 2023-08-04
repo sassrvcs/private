@@ -51,9 +51,9 @@ class CheckoutStepController extends Controller
     public function validateAuthentication()
     {
         $sessionCart    = $this->cartService->getCartViaSession();
-        $package        = $this->packageService->index(['name' => end($sessionCart)['package_name']]);
+        $package        = $this->packageService->index(end($sessionCart)['package_name']);
         $countries      = $this->countryService->countryList();
-        
+
         $package = $package[0] ?? '';
         return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries'));
     }

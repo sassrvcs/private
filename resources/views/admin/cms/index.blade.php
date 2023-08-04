@@ -1,18 +1,18 @@
 @extends('includes.layouts.admin')
 @section('page-title')
-    Package List
+    Cms List
 @endsection
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Package List</h1>
+                <h1>Cms List</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Package List</li>
+                    <li class="breadcrumb-item active">Cms List</li>
                 </ol>
             </div>
         </div>
@@ -29,18 +29,20 @@
                         <form action="">
                             <div class="input-group w-25 float-right">
 
-                                <input type="text" value="{{ $search }}" name="search" placeholder="Find by name" id="search"
-                                    class="form-control form-control-sm">
+                                {{-- <input type="text" value="" name="email" placeholder="Find by email" id="email"
+                                    class="form-control form-control-sm" pattern="^(0|[1-9][0-9]*)$"
+                                    oninvalid="setCustomValidity('Please enter valid email')"
+                                    onchange="try{setCustomValidity('')} catch(e){}" required> --}}
 
                                 {{-- <input type="text" name="agent_id" value="{{ $filter['agent_id'] }}" placeholder="Find by agent id" id="agent_id" class="form-control form-control-sm" required > --}}
 
-                                <div class="input-group-append">
+                                {{-- <div class="input-group-append">
                                     <button class="btn btn-sm btn_baseColor" type="submit">Search</button>
-                                </div>
-                                &nbsp;
+                                </div> --}}
+                                {{-- &nbsp; --}}
                                 <div class="input-group-append">
                                     {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
-                                    <a href="{{ route('admin.package.index') }}" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a>
+                                    {{-- <a href="#" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a> --}}
                                 </div>
                             </div>
                         </form>
@@ -54,31 +56,21 @@
                                 <thead>
                                     <tr>
                                         <th>Serial No</th>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Price</th>
+                                        <th>Title</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @forelse ($packages as $index => $package)
+                                    @forelse ($cmslist as $index => $cms)
                                         <tr>
                                             <td> {{ $index+1 }}</td>
-                                            <td> {{ $package->package_name}}</td>
-                                            <td> {{ $package->short_description }}</td>
-                                            <td> {{ $package->package_price }}</td>
+                                            <td> {{ $cms->title }}</td>
                                             <td>
                                                 <div class="form-group">
-                                                    <a href="{{ route('admin.package.edit', $package->id) }}" class="" style="color: #1c55ad; padding-right: 6px;">
+                                                    <a href="{{ route('admin.cms.edit', $cms->id) }}" class="" style="color: #1c55ad; padding-right: 6px;">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-
-                                                    <a href="javascript:{}" class="delete-user" data-id={{ $package->id }}  data-user="Package "
-                                                            data-route="{{ route('admin.package.destroy', $package->id) }}" style="color: #f30031">
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
-
                                                     {{-- <a href="#" class="btn btn_baseColor btn-sm"> View </a> --}}
                                                 </div>
                                             </td>
@@ -101,9 +93,6 @@
                                {{-- {{ $users->appends([
                                     'form' => $filter['form'],
                                 ])->links('pagination::bootstrap-5') }} --}}
-                                @if($packages)
-                                    {!! $packages->withQueryString()->links('pagination::bootstrap-4') !!}
-                                @endif
                             </nav>
                         </div>
                     {{-- @endif --}}

@@ -69,7 +69,8 @@
                                             <td> {{ $index+1 }}</td>
                                             <td> {{ $accounting->accounting_software_name}}</td>
                                             <td> {{ $accounting->short_desc }}</td>
-                                            <td> <?php $stored_image = $accounting->image ;?><img src="<?= url("/images/$stored_image") ?>" alt="Image" width="50" height="50"/></td>
+                                            {{-- <td> <?php $stored_image = $accounting->image ;?><img src="<?= url("/images/$stored_image") ?>" alt="Image" width="50" height="50"/></td> --}}
+                                            <td><img src="{{  $accounting->getFirstMediaUrl('accounting_software_images')}}"  width="100" height="100"></td>
                                             <td>
                                                 <div class="form-group">
                                                     <a href="{{ route('admin.accounting.edit', $accounting->id) }}" class="" style="color: #1c55ad; padding-right: 6px;">

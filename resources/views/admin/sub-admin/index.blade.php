@@ -1,24 +1,23 @@
 @extends('includes.layouts.admin')
 @section('page-title')
-    Package List
+Sub Admin List
 @endsection
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Package List</h1>
+                <h1>Sub Admin List</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Package List</li>
+                    <li class="breadcrumb-item active">Sub Admin List</li>
                 </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
-
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -29,7 +28,7 @@
                         <form action="">
                             <div class="input-group w-25 float-right">
 
-                                <input type="text" value="{{ $search }}" name="search" placeholder="Find by name" id="search"
+                                <input type="text" value="{{ $search }}" name="search" placeholder="Find by email or name or phone" id="search"
                                     class="form-control form-control-sm">
 
                                 {{-- <input type="text" name="agent_id" value="{{ $filter['agent_id'] }}" placeholder="Find by agent id" id="agent_id" class="form-control form-control-sm" required > --}}
@@ -40,7 +39,7 @@
                                 &nbsp;
                                 <div class="input-group-append">
                                     {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
-                                    <a href="{{ route('admin.package.index') }}" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a>
+                                    <a href="{{ route('admin.sub-admin.index') }}" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a>
                                 </div>
                             </div>
                         </form>
@@ -55,27 +54,29 @@
                                     <tr>
                                         <th>Serial No</th>
                                         <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Price</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    @forelse ($packages as $index => $package)
+                                    @forelse ($users as $index => $user)
                                         <tr>
+
                                             <td> {{ $index+1 }}</td>
-                                            <td> {{ $package->package_name}}</td>
-                                            <td> {{ $package->short_description }}</td>
-                                            <td> {{ $package->package_price }}</td>
+                                            <td>{{ $user->forename.' '.$user->surname}}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->phone_no}}</td>
+
                                             <td>
                                                 <div class="form-group">
-                                                    <a href="{{ route('admin.package.edit', $package->id) }}" class="" style="color: #1c55ad; padding-right: 6px;">
+                                                    <a href="{{ route('admin.sub-admin.edit', $user->id) }}" class="" style="color: #1c55ad; padding-right: 6px;">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
 
-                                                    <a href="javascript:{}" class="delete-user" data-id={{ $package->id }}  data-user="Package "
-                                                            data-route="{{ route('admin.package.destroy', $package->id) }}" style="color: #f30031">
+                                                    <a href="javascript:{}" class="delete-user" data-id={{ $user->id }}  data-user="Sub admin "
+                                                            data-route="{{ route('admin.sub-admin.destroy', $user->id) }}" style="color: #f30031">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
 
@@ -101,8 +102,8 @@
                                {{-- {{ $users->appends([
                                     'form' => $filter['form'],
                                 ])->links('pagination::bootstrap-5') }} --}}
-                                @if($packages)
-                                    {!! $packages->withQueryString()->links('pagination::bootstrap-4') !!}
+                                @if($users)
+                                    {!! $users->withQueryString()->links('pagination::bootstrap-4') !!}
                                 @endif
                             </nav>
                         </div>

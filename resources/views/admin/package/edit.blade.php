@@ -63,14 +63,14 @@
                                     <div class="col-sm-12">
                                         <label for="">Features</label>
                                         <div class="field_wrapper">
-                                            <div class="features-wrap">
+                                            <div class="features-wrap field-with-btn mb-2">
                                                 {{-- <input type="text" class="form-control" name="features[]" value=""/>
                                                 <a href="javascript:void(0);" class="btn btn-primary add_button" title="Add field">add</a> --}}
                                                 @if($package->features)
                                                     @foreach($package->features as $key => $value)
                                                         <input type="text" class="form-control" name="features[]" value="{{ $value->feature}}"/>
                                                     @endforeach
-                                                    <a href="javascript:void(0);" class="btn btn-primary add_button" title="Add field">add</a>
+                                                    <a href="javascript:void(0);" class="btn btn-success add_button" title="Add field"><i class="fa fa-plus"></i></a>
                                                 @endif
                                             </div>
                                         </div>
@@ -158,7 +158,7 @@
                 ++i;
                 var row = '<tr class="faqrow" id="row_' + i + '">';
                 row += '<td><input type="text" name="faq[' + i + '][question]" placeholder="Question" class="form-control" /></td>';
-                row += '<td><input type="text" name="faq[' + i + '][answer]" placeholder="Answer" class="form-control" /><a href="javascript:void(0);" class="btn btn-danger removefaq">remove</a></td>';
+                row += '<td><div class="field-with-btn"><input type="text" name="faq[' + i + '][answer]" placeholder="Answer" class="form-control" /><a href="javascript:void(0);" class="btn btn-danger removefaq"><i class="fa fa-minus"></i></a></div></td>';
                 row += '</tr>';
 
                 $("#example1").append(row);
@@ -176,7 +176,7 @@
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div class="field-with-btn mb-2"><input type="text" class="form-control" name="features[]" value=""/><a href="javascript:void(0);" class="btn btn-danger remove_button">remove</a></div>'; //New input field html
+        var fieldHTML = '<div class="field-with-btn mb-2"><input type="text" class="form-control" name="features[]" value=""/><a href="javascript:void(0);" class="btn btn-danger remove_button"><i class="fa fa-minus"></i></a></div>'; //New input field html
         var x = 1; //Initial field counter is 1
 
         //Once add button is clicked
@@ -199,7 +199,7 @@
 
         var faqaddButton = $('.faq_add'); //Add button selector
         var faqwrapper = $('.field_wrapper_faq'); //Input field wrapper
-        var faqfieldHTML = '<div><input type="text" class="form-control" name="faq[question][]" placeholder="question" value=""/><input type="text" class="form-control" name="faq[answer][]" placeholder="answer" value=""/><a href="javascript:void(0);" class="btn btn-danger faq_remove_button">remove</a></div>'; //New input field html
+        var faqfieldHTML = '<div><input type="text" class="form-control" name="faq[question][]" placeholder="question" value=""/><input type="text" class="form-control" name="faq[answer][]" placeholder="answer" value=""/><a href="javascript:void(0);" class="btn btn-danger faq_remove_button"><i class="fa fa-minus"></i></a></div>'; //New input field html
         var y = 1; //Initial field counter is 1
 
         //Once add button is clicked

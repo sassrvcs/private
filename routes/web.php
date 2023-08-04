@@ -5,6 +5,7 @@ use App\Http\Controllers\Companies\CompanieController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\Addons\AddonController;
 use App\Http\Controllers\Admin\Package\PackageController;
 use App\Http\Controllers\Web\Cart\CartController;
@@ -12,13 +13,16 @@ use App\Http\Controllers\Web\Checkout\CheckoutStepController;
 // use App\Http\Controllers\Admin\AddonService\AddonServiceController;
 use App\Http\Controllers\Admin\Accounting\AccountingController;
 use App\Http\Controllers\Admin\Customer\CustomerController;
+use App\Http\Controllers\Admin\Cms\CmsController;
 
 use App\Http\Controllers\Web\Home\HomeController;
 use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
-
 use App\Http\Controllers\Admin\BusinessBanking\BusinessBankingController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\Company\CompaniesListController;
+use App\Http\Controllers\Admin\Subadmin\SubadminController;
+use App\Http\Controllers\ContactController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +70,10 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/package', WebPackageController::class)->name('package');
 
+//contact us page
+Route::get('/contact-us',[ContactController::class,'view'])->name('contact.view');
+Route::post('/contact-us',[ContactController::class,'store'])->name('contact.store');
+
 Route::resource('/cart', CartController::class);
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('add-cart');
 Route::patch('/cart/{id}', [CartController::class, 'update'])->name('update-cart');
@@ -77,6 +85,8 @@ Route::get('checkout', [CheckoutStepController::class, 'validateAuthentication']
 Route::get('companies', CompaniesListController::class)->name('companies-list');
 
 Route::get('/search-companie', CompanieController::class);
+Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
+//Route::get('refund-cancellation', [PageController::class, 'refundcancellation'])->name('page.refundcancellation');
 
 Route::prefix('admin')->middleware(['auth', 'auth.session'])
 ->group(function () {
@@ -92,7 +102,10 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
         Route::resource('business-banking', BusinessBankingController::class);
         Route::resource('accounting', AccountingController::class);
 
+
+        Route::resource('sub-admin', SubadminController::class);
         Route::resource('customer', CustomerController::class);
+        Route::resource('cms', CmsController::class);
 
         // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
 

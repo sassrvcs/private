@@ -29,7 +29,7 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <label>Image &nbsp;<span class="required">*</span></label>
+                                        <label>Image &nbsp;<span class="mandetory">* </span></label>
                                         <div class="col-md-12 mb-2">
                                             <img id="preview-image-before-upload" src="<?= url("/images/noImage.jpg") ?>"
                                                 alt="preview image" style="max-height: 50px; max-width: 50px;">
@@ -41,7 +41,7 @@
                                     </div>
 
                                     <div class="col-sm-4">
-                                        <label>Short Description &nbsp;<span class="required">*</span></label>
+                                        <label>Short Description &nbsp;<span class="mandetory">* </span></label>
                                         <input type="text" mandate="*"
                                             name="short_desc" value="{{ old('short_desc') }}"
                                             class="form-control {{ $errors->has('short_desc') ? 'is-invalid' : '' }}"  />

@@ -100,13 +100,13 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#">About Us</a>
+                    <a href="{{ route('page', ['slug' => 'about-us'] ) }}">About Us</a>
                 </li>
                 <li>
                     <a href="#">Blogs</a>
                 </li>
                 <li>
-                    <a href="#">Contact Us</a>
+                    <a href="{{ route('contact.view')}}">Contact Us</a>
                 </li>
             </ul>
             <div class="cn-menu-lists-overlay"></div>

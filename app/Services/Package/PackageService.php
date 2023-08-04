@@ -19,15 +19,16 @@ class PackageService
     /**
      * Package listing
      */
-    public function index($filter = [])
+    public function index($search = "")
     {
         $packages = Package::with('features')->whereNull('deleted_at');
 
-        if ( isset($filter['name']) && !empty($filter['name'])) {
-            $packages->where('package_name', 'like', '%'. $filter['name']. '%');
+        if (!empty($search)) {
+            $packages = $packages->where('package_name', 'like', "%{$search}%");
         }
 
-        return $packages->get();
+        $packages = $packages->paginate(2);
+        return $packages;
     }
 
     public function store($request)

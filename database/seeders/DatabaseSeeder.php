@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(FhCompanyHouseSensitiveWordsTableSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(PermissionSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(CountrySeeder::class);
         $this->call(FecilitiesSeeder::class);

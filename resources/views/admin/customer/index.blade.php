@@ -1,18 +1,18 @@
 @extends('includes.layouts.admin')
 @section('page-title')
-    Custome List
+    Customer List
 @endsection
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Custome List</h1>
+                <h1>Customer List</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Custome List</li>
+                    <li class="breadcrumb-item active">Customer List</li>
                 </ol>
             </div>
         </div>
