@@ -97,9 +97,18 @@ class UserService
         });
     }
 
-    public function index()
+    public function index($search = "")
     {
-        $customers = User::with('address')->where('users.id', '!=', 1)->get();
+        //print_r($search);exit;
+        $customers = User::with('address')->where('users.id', '!=', 1);
+        if (!empty($search)) {
+            $customers = $customers->where('email', 'like', "%{$search}%")
+            ->orWhere('forename', 'like', "%{$search}%")
+            ->orWhere('surname', 'like', "%{$search}%")
+            ->orWhere(DB::raw('CONCAT_WS(" ", forename, surname)'), 'like', "%{$search}%");
+        }
+        $customers = $customers->paginate(5);
+        //print_r($customers);exit;
         return $customers;
     }
 

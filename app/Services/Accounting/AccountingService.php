@@ -19,9 +19,13 @@ class AccountingService
     /**
      * AccountingService listing
      */
-    public function index()
+    public function index($search = "")
     {
-        $accounts = Accounting::get();
+        $accounts = Accounting::select('*');
+        if (!empty($search)) {
+            $accounts = $accounts->where('accounting_software_name', 'like', "%{$search}%");
+        }
+        $accounts = $accounts->paginate(5);
         return $accounts;
     }
 

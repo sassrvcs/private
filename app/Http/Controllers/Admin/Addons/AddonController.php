@@ -25,10 +25,11 @@ class AddonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $addonservicelist = $this->addonService->index();
-        return view('admin.addonservice.index',compact('addonservicelist'));
+        $search     = ($request->search) ? $request->search : '';
+        $addonservicelist = $this->addonService->index($search);
+        return view('admin.addonservice.index',compact('addonservicelist','search'));
     }
 
     /**

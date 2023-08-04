@@ -18,9 +18,13 @@ class CmsService
     /**
      * AccountingService listing
      */
-    public function index()
+    public function index($search = "")
     {
-        $cms = Cms::get();
+        $cms = Cms::select('*');
+        if (!empty($search)) {
+            $cms = $cms->where('title', 'like', "%{$search}%");
+        }
+        $cms = $cms->paginate(5);
         return $cms;
     }
     
