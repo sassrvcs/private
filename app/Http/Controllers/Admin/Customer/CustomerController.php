@@ -19,11 +19,11 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customerlist = $this->userService->index();
-        //print_r($customerlist['address']);exit;
-        return view('admin.customer.index',compact('customerlist'));
+        $search     = ($request->search) ? $request->search : '';
+        $customerlist = $this->userService->index($search);
+        return view('admin.customer.index',compact('customerlist','search'));
     }
     
 

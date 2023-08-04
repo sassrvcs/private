@@ -29,20 +29,18 @@
                         <form action="">
                             <div class="input-group w-25 float-right">
 
-                                {{-- <input type="text" value="" name="email" placeholder="Find by email" id="email"
-                                    class="form-control form-control-sm" pattern="^(0|[1-9][0-9]*)$"
-                                    oninvalid="setCustomValidity('Please enter valid email')"
-                                    onchange="try{setCustomValidity('')} catch(e){}" required> --}}
+                                <input type="text" value="{{ $search }}" name="search" placeholder="Find by email or name" id="search"
+                                    class="form-control form-control-sm" required>
 
                                 {{-- <input type="text" name="agent_id" value="{{ $filter['agent_id'] }}" placeholder="Find by agent id" id="agent_id" class="form-control form-control-sm" required > --}}
 
-                                {{-- <div class="input-group-append">
-                                    <button class="btn btn-sm btn_baseColor" type="submit">Search</button>
-                                </div> --}}
-                                {{-- &nbsp; --}}
                                 <div class="input-group-append">
-                                    {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
-                                    {{-- <a href="#" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a> --}}
+                                    <button class="btn btn-sm btn_baseColor" type="submit">Search</button>
+                                </div>
+                                &nbsp;
+                                <div class="input-group-append">
+                                    {{--<button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button>--}}
+                                    <a href="{{ route('admin.customer.index') }}" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a> 
                                 </div>
                             </div>
                         </form>
@@ -102,16 +100,17 @@
                         </div>
                     </div>
 
-                    {{-- @if ($users->hasPages()) --}}
+                    {{-- @if ($customer->hasPages()) --}}
                     <!-- Card Footer -->
                         <div class="card-footer">
                             <nav aria-label="Contacts Page Navigation" class="pagenation-agent">
-                               {{-- {{ $users->appends([
-                                    'form' => $filter['form'],
+                            {{--{{ $customerlist->appends([
+                                    'form' => $filter['search'],
                                 ])->links('pagination::bootstrap-5') }} --}}
+                                {!! $customerlist->withQueryString()->links() !!}
                             </nav>
                         </div>
-                    {{-- @endif --}}
+                        {{-- @endif --}}
                     <!-- /Card Footer -->
                 </div>
                 <!-- /.card -->

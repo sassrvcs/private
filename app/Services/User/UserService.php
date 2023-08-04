@@ -60,9 +60,17 @@ class UserService
     //     return $userQuery;
     // }
 
-    public function index()
+    public function index($search = "")
     {
-        $customers = User::with('address')->where('users.id', '!=', 1)->get();
+        //print_r($search);exit;
+        $customers = User::with('address')->where('users.id', '!=', 1);
+        if (!empty($search)) {
+            $customers = $customers->where('email', 'like', "%{$search}%")
+            ->orWhere('forename', 'like', "%{$search}%")
+            ->orWhere('surname', 'like', "%{$search}%");
+        }
+        $customers = $customers->paginate(2);
+        //print_r($customers);exit;
         return $customers;
     }
 
