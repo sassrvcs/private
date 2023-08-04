@@ -28,20 +28,18 @@ Business Banking List
                         <form action="">
                             <div class="input-group w-25 float-right">
 
-                                {{-- <input type="text" value="" name="email" placeholder="Find by email" id="email"
-                                    class="form-control form-control-sm" pattern="^(0|[1-9][0-9]*)$"
-                                    oninvalid="setCustomValidity('Please enter valid email')"
-                                    onchange="try{setCustomValidity('')} catch(e){}" required> --}}
+                                <input type="text" value="{{ $search }}" name="search" placeholder="Find by name" id="search"
+                                    class="form-control form-control-sm">
 
                                 {{-- <input type="text" name="agent_id" value="{{ $filter['agent_id'] }}" placeholder="Find by agent id" id="agent_id" class="form-control form-control-sm" required > --}}
 
-                                {{-- <div class="input-group-append">
+                                <div class="input-group-append">
                                     <button class="btn btn-sm btn_baseColor" type="submit">Search</button>
-                                </div> --}}
-                                {{-- &nbsp; --}}
+                                </div>
+                                &nbsp;
                                 <div class="input-group-append">
                                     {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
-                                    {{-- <a href="#" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a> --}}
+                                    <a href="{{ route('admin.business-banking.index') }}" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a>
                                 </div>
                             </div>
                         </form>
@@ -62,7 +60,7 @@ Business Banking List
                                 </thead>
                                 <tbody>
 
-                                    @forelse ($data as $index => $data)
+                                    @forelse ($businessdata as $index => $data)
                                         <tr>
 
                                             <td> {{ $index+1 }}</td>
@@ -102,6 +100,10 @@ Business Banking List
                                {{-- {{ $users->appends([
                                     'form' => $filter['form'],
                                 ])->links('pagination::bootstrap-5') }} --}}
+
+                                @if($businessdata)
+                                    {!! $businessdata->withQueryString()->links('pagination::bootstrap-4') !!}
+                                @endif
                             </nav>
                         </div>
                     {{-- @endif --}}

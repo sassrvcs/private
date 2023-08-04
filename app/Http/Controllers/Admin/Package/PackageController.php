@@ -22,10 +22,11 @@ class PackageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $package = $this->packageService->index();
-        return view('admin.package.index',compact('package'));
+        $search     = ($request->search) ? $request->search : '';
+        $packages = $this->packageService->index($search);
+        return view('admin.package.index',compact('packages','search'));
 
     }
 

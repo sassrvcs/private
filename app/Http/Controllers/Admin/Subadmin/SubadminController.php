@@ -8,12 +8,23 @@ use App\Models\User;
 use Validator;
 use Redirect;
 use Spatie\Permission\Models\Permission;
+use DB;
 
 class SubadminController extends Controller
 {
-    public function index(){
-        $user = User::role('subadmin')->get();
-        return view('admin.sub-admin.index',compact('user'));
+    public function index(Request $request){
+        $search = $request->search;
+        if(!empty($search)){
+            $users = User::where('email', 'like', "%{$search}%")
+                            ->orWhere('forename', 'like', "%{$search}%")
+                            ->orWhere('surname', 'like', "%{$search}%")
+                            ->orWhere(DB::raw('CONCAT_WS(" ", forename, surname)'), 'like', "%{$search}%")
+                            ->orWhere('phone_no', 'like', "%{$search}%")
+                            ->paginate(2);
+        }else{
+            $users = User::role('subadmin')->paginate(2);
+        }
+        return view('admin.sub-admin.index',compact('users','search'));
     }
 
     public function create()
