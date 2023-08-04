@@ -19,10 +19,11 @@ class AccountingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $accountinglist = $this->accountingService->index();
-        return view('admin.accounting.index',compact('accountinglist'));
+        $search     = ($request->search) ? $request->search : '';
+        $accountinglist = $this->accountingService->index($search);
+        return view('admin.accounting.index',compact('accountinglist','search'));
     }
 
     /**

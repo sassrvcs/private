@@ -18,9 +18,13 @@ class AddonService
     /**
      * Addonservice listing
      */
-    public function index()
+    public function index($search = "")
     {
-        $addonservices = Addon::with('features')->get();
+        $addonservices = Addon::with('features');
+        if (!empty($search)) {
+            $addonservices = $addonservices->where('service_name', 'like', "%{$search}%");
+        }
+        $addonservices = $addonservices->paginate(5);
         return $addonservices;
     }
 

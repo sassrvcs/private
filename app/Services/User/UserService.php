@@ -70,7 +70,7 @@ class UserService
             ->orWhere('surname', 'like', "%{$search}%")
             ->orWhere(DB::raw('CONCAT_WS(" ", forename, surname)'), 'like', "%{$search}%");
         }
-        $customers = $customers->paginate(25);
+        $customers = $customers->paginate(5);
         //print_r($customers);exit;
         return $customers;
     }
