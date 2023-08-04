@@ -46,7 +46,8 @@
                                     <div class="col-sm-4">
                                         <label>Email&nbsp;<span class="mandetory">* </span></label>
                                         <span class="input-wrapper ">
-                                            <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value={{old('email')}}>
+                                            <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" id="email_id" value="{{old('email')}}">
+                                            <div class="email_err" style="color:red;"></div>
                                             @error('email')
                                                 <div class="error" style="color:red;">{{ $message }}</div>
                                             @enderror
@@ -58,7 +59,7 @@
                                     <div class="col-sm-4">
                                         <label>Phone Number&nbsp;<span class="mandetory">* </span></label>
                                         <span class="input-wrapper ">
-                                            <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" value={{old('phone')}}>
+                                            <input class="form-control @error('phone') is-invalid @enderror" type="number" name="phone" value={{old('phone')}}>
                                             @error('phone')
                                                 <div class="error" style="color:red;">{{ $message }}</div>
                                             @enderror
@@ -85,7 +86,7 @@
                                     </div>
                                 </div>
 
-                                <button class="btn btn_baseColor btn-sm mt-2" type="submit"
+                                <button class="btn btn_baseColor btn-sm mt-2" id="submit-btn" type="submit"
                                     onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';"> &nbsp;&nbsp; Save &nbsp;&nbsp;
                                 </button>
                             </form>
@@ -107,6 +108,26 @@
             closeOnSelect: false,
         } );
     } );
+</script>
+<script>
+    $("#email_id").blur(function() {
+            if ($('#email_id').val() != "") {
+                var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)+.[a-zA-Z]*$/;
+                if ($('#email_id').val().match(validRegex)) {
+                    $('#submit-btn').prop('disabled', false);
+                    $('.email_err').html('');
+                    //$(".submit-btn").css("background-color", "#001B69");
+                    return true;
+
+                } else {
+                    $('.email_err').html('Please enter a valid email address');
+                    $('.serverEmailerror').html('');
+                    $('#submit-btn').prop('disabled', true);
+                    // $(".submit-btn").css("background-color", "gray");
+                    return false;
+                }
+            }
+        });
 </script>
 
 @endsection
