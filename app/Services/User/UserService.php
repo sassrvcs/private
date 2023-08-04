@@ -67,9 +67,10 @@ class UserService
         if (!empty($search)) {
             $customers = $customers->where('email', 'like', "%{$search}%")
             ->orWhere('forename', 'like', "%{$search}%")
-            ->orWhere('surname', 'like', "%{$search}%");
+            ->orWhere('surname', 'like', "%{$search}%")
+            ->orWhere(DB::raw('CONCAT_WS(" ", forename, surname)'), 'like', "%{$search}%");
         }
-        $customers = $customers->paginate(2);
+        $customers = $customers->paginate(25);
         //print_r($customers);exit;
         return $customers;
     }

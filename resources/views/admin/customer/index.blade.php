@@ -68,7 +68,7 @@
                                     @forelse ($customerlist as $index => $customer)
                                         <tr>
                                             <td> {{ $index+1 }}</td>
-                                            <td> <?php echo($customer->title.". ".$customer->forename." ".$customer->surname); ?></td>
+                                            <td> <?php echo($customer->forename." ".$customer->surname); ?></td>
                                             <td> {{ $customer->email }}</td>
                                             <td> {{ $customer->phone_no }}</td>
                                             <td> <?php echo($customer['address']->house_number." ".$customer['address']->street." ".$customer['address']->town); ?></td>
