@@ -264,7 +264,7 @@
                $("#error-span").show();
                return;
             } else {
-               location.href = "{{ route('check-auth') }}";
+               location.href = "{{ route('checkout') }}";
             }
          });
       });

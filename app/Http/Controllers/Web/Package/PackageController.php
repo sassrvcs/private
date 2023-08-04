@@ -29,13 +29,7 @@ class PackageController extends Controller
         $facilityList = [];
         foreach ($packages as $package) {
             $facilityList[$package->id] = json_decode($package->facilities);
-        }
-
-        // dd($facilityList);
-        // dd($packages->facilities);
-        // Get all session data as an array
-        // $data = Session::get('cart');
-        // dd( json_decode($packages[0]->facilities) );
+        };
 
         return view('frontend.package.package',compact('packages', 'facilitys', 'facilityList'));
     }

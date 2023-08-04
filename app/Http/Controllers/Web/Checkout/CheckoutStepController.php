@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Checkout\CheckoutStepRequest;
 use App\Services\Addon\AddonService;
 use App\Services\Cart\CartService;
+use App\Services\Country\CountryService;
+use App\Services\Package\PackageService;
 // use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -13,7 +15,9 @@ class CheckoutStepController extends Controller
 {
     public function __construct(
         protected CartService $cartService,
-        protected AddonService $addonService
+        protected AddonService $addonService,
+        protected PackageService $packageService,
+        protected CountryService $countryService,
     ) { }
 
     /** 
@@ -46,17 +50,21 @@ class CheckoutStepController extends Controller
      */
     public function validateAuthentication()
     {
-        // dd('sadad');
-        if(auth()->check()) {
-            // continue
-        } else {
-            return redirect( route('frontend-login') )->with('hidden_param', 'checkout');
-        }
+        $sessionCart    = $this->cartService->getCartViaSession();
+        $package        = $this->packageService->index(['name' => end($sessionCart)['package_name']]);
+        $countries      = $this->countryService->countryList();
+        
+        $package = $package[0] ?? '';
+        return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries'));
     }
-
+    
+    /**
+     * Checks out final step
+     * @Checkout step -> 5
+     */
     public function checkoutFinal()
     {
-        $sessionCart    = $this->cartService->getCartViaSession();
-        dd($sessionCart);
+        // $sessionCart    = $this->cartService->getCartViaSession();
+        // dd($sessionCart);
     }
 }

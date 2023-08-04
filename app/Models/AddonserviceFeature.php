@@ -15,6 +15,7 @@ class AddonserviceFeature extends Model
 
     /**
      * Define the inverse of the one-to-many relationship with Package model
+     * @return belongsTo
      */
     public function package()
     {

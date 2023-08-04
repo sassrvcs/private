@@ -17,6 +17,14 @@ class Package extends Model implements HasMedia
         'features', 'faqs', 'notes'
     ];
 
+    /* 
+     *Add a method to retrieve the featured image media
+     */
+    public function getFeaturedImage()
+    {
+        return $this->getFirstMedia('featured_image');
+    }
+
     /**
      * Define the one-to-many relationship with Feature model
      */

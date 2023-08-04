@@ -7,11 +7,11 @@
             <figure data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <figcaption class="lg">Compare Company <span>Formation Packages</span></figcaption>
             </figure>
-           <div class="d-flex">
-            <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-            <li><a href="index.html">Home</a></li>
-            <li><a>Compare Package</a></li>
-        </ul>
+            <div class="d-flex">
+                <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a>Compare Package</a></li>
+                </ul>
            </div>
         </div>
         
@@ -77,7 +77,13 @@
                                 <div class="items-th-info">
                                     <div class="icon-container">
                                         <div class="inner-box">
-                                            <img src="{{ asset('frontend/assets/images/companyFormationPackages1.svg') }}">
+                                            {{-- <img src="{{ asset('frontend/assets/images/companyFormationPackages1.svg') }}"> --}}
+                                            @if ($package->getMedia('package_icon')->isNotEmpty())
+                                                <img src="{{ $package->getFirstMedia('package_icon')->getUrl() }}" alt="{{ $package->name }}">
+                                            @else
+                                                {{-- Default image if no media in the "package_icon" collection --}}
+                                                <img src="{{ asset('frontend/assets/images/companyFormationPackages1.svg')}}" alt="Default Image">
+                                            @endif
                                         </div>
                                     </div>
                                     <h4>{{ $package->package_name }}</h4>
@@ -102,10 +108,8 @@
                             <td>{{ $package->online_formation_within }}</td>
                         @endforeach
                     </tr>
-                    {{-- @php $isFirstLoop = true; @endphp --}}
-                    {{-- @dump($facilitys) --}}
-                    @foreach($facilitys as $key => $facility)
 
+                    @foreach($facilitys as $key => $facility)
                         <tr>
                             <td>
                                 <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
@@ -113,25 +117,17 @@
                                 </div>
                             </td>
 
-                            
-                            {{-- @foreach($facilityList as $key => $assignFacilitys) --}}
-
-                            @if(isset($packages[$key]))
-                                @dump( json_decode( $packages[$key]->facilities))
-                            @endif
-                            {{-- @if(in_array($facility->id, $assignFacilitys))
-                                <td>
-                                    <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                                </td>
-                            @endif --}}
-                            {{-- @endforeach --}}
-
-                            {{-- <td>
-                                <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                            </td>
-                            <td>
-                                <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                            </td> --}}
+                            @foreach($facilityList as $key => $assignFacilitys)
+                                @if(in_array($facility->id, $assignFacilitys))
+                                    <td>
+                                        <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                                    </td>
+                                @else
+                                    <td>
+                                        <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick2.svg') }}" alt=""></div>
+                                    </td>
+                                @endif
+                            @endforeach
                         </tr>
                     @endforeach
                 </tbody>
@@ -155,55 +151,6 @@
                                 </div>
                             </th>
                         @endforeach
-
-                        {{-- <th>
-                            <div class="items-th-info">
-
-                                <h4>Digital</h4>
-                                <h2>£12.99</h2>
-                                <div class="bottom-actions">
-                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                </div>
-                            </div>
-                        </th>
-                        <th>
-                            <div class="items-th-info">
-
-                                <h4>Privacy</h4>
-                                <h2>£19.99</h2>
-                                <div class="bottom-actions">
-                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                </div>
-                            </div>
-                        </th>
-                        <th>
-                            <div class="items-th-info">
-                                <h4>Professional</h4>
-                                <h2>£59.99</h2>
-                                <div class="bottom-actions">
-                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                </div>
-                            </div>
-                        </th>
-                        <th>
-                            <div class="items-th-info">
-                                <h4>Prestige</h4>
-                                <h2>£79.99</h2>
-                                <div class="bottom-actions">
-                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                </div>
-                            </div>
-                        </th>
-                        <th>
-                            <div class="items-th-info">
-
-                                <h4>All Inclusive</h4>
-                                <h2>£109.99</h2>
-                                <div class="bottom-actions">
-                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                </div>
-                            </div>
-                        </th> --}}
                     </tr>
                 </tfoot>
             </table>

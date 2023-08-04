@@ -10,7 +10,7 @@ class ShoppingCart extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'product_id', 'quantity', 'price', 'addon_services'
+        'user_id', 'package_id', 'quantity', 'price'
     ];
 
     public function user()
@@ -21,5 +21,14 @@ class ShoppingCart extends Model
     public function package()
     {
         return $this->belongsTo(Package::class);
+    }
+
+    /**
+     * Define the one-to-many relationship with AddonCartService model
+     * @return hasMany
+     */
+    public function addonCartServices()
+    {
+        return $this->hasMany(AddonCartService::class, 'cart_id', 'id');
     }
 }
