@@ -52,15 +52,17 @@ class SubadminController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();
             $user->assignRole('subadmin');
-            $user->syncPermissions($request->menu);
+            $user->givePermissionTo($request->menu);
             return redirect()->route('admin.sub-admin.index')->withSuccess('Sub admin added successfully');
         }
     }
 
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('admin.sub-admin.edit', compact('user'));
+        $user = User::with('roles')->findOrFail($id);
+        $permission_names = $user->getPermissionNames()->toArray();
+        $menu_list = Permission::get();
+        return view('admin.sub-admin.edit', compact('user','menu_list','permission_names'));
     }
     public function update(Request $request, string $id)
     {
@@ -84,6 +86,7 @@ class SubadminController extends Controller
             $user->surname = $request->last_name;
             $user->phone_no = $request->phone;
             $user->save();
+            $user->syncPermissions($request->menu);
             return redirect()->route('admin.sub-admin.index')->withSuccess('Sub admin updated successfully');
         }
     }

@@ -65,6 +65,14 @@
                                             @enderror
                                         </span>
                                     </div>
+                                    <div class="col-sm-4">
+                                        <label for="">Menu list</label>
+                                            <select class="form-select" name="menu[]" id="multiple-select-field" data-placeholder="Choose anything" multiple>
+                                                @foreach($menu_list as $key => $value)
+                                                <option value={{$value->id}} @if(in_array($value->name,$permission_names)) selected  @endif>{{$value->name}}</option>
+                                                @endforeach
+                                            </select>
+                                    </div>
                                 </div>
 
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit"
@@ -80,6 +88,16 @@
 @endsection
 
 @section('scripts')
+<script>
+    $(document).ready(function(){
+     $( '#multiple-select-field' ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+            closeOnSelect: false,
+        } );
+    } );
+</script>
 
 @endsection
 

@@ -28,5 +28,15 @@ class UserSeeder extends Seeder
 
         $admin->save();
         $admin->assignRole('superadmin');
+        $permissionNames = [
+            'Packages',
+            'Add-on Services',
+            'Business Banking',
+            'Accounting Software',
+            'Customer',
+            'CMS'
+            // Add more permissions as needed
+        ];
+        $admin->syncPermissions($permissionNames);
     }
 }

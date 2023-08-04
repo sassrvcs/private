@@ -187,6 +187,8 @@
                 </ul>
             </li>
             @endrole
+
+            @can('Customer')
             <li class="nav-item {{ request()->routeIs('admin.customer.*') ? 'menu-is-opening menu-open' : '' }}">
                 {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
                 <a href="#" class="nav-link {{ request()->routeIs('admin.customer.*') ? ' active' : '' }}">
@@ -206,6 +208,9 @@
                     </li>
                 </ul>
             </li>
+            @endcan
+
+            @can('CMS')
             <li class="nav-item {{ request()->routeIs('admin.cms.*') ? 'menu-is-opening menu-open' : '' }}">
                 {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
                 <a href="#" class="nav-link {{ request()->routeIs('admin.cms.*') ? ' active' : '' }}">
@@ -225,6 +230,7 @@
                     </li>
                 </ul>
             </li>
+            @endcan
         </ul>
     </nav>
     <!-- /.sidebar-menu -->

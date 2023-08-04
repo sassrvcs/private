@@ -66,7 +66,8 @@
                                     @enderror
                                 </div>
                                 <div class="group form-group col-md-6">
-                                    <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" placeholder="Email *" value={{old('email')}}>
+                                    <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" id="email_id" placeholder="Email *" value={{old('email')}}>
+                                    <div class="email_err" style="color:red;"></div>
                                     @error('email')
                                         <div class="error" style="color:red;">{{ $message }}</div>
                                     @enderror
@@ -115,7 +116,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" class="wpcf7-submit custom-btn btn-primary wow zoomIn">Submit</button>
+                                    <button type="submit" id="submit-btn" class="wpcf7-submit custom-btn btn-primary wow zoomIn">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -172,4 +173,26 @@
     </div>
 </div>
 <!-- ================ end: ontact Page ================ -->
+@endsection
+@section('script')
+<script>
+    $("#email_id").blur(function() {
+            if ($('#email_id').val() != "") {
+                var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)+.[a-zA-Z]*$/;
+                if ($('#email_id').val().match(validRegex)) {
+                    $('#submit-btn').prop('disabled', false);
+                    $('.email_err').html('');
+                    //$(".submit-btn").css("background-color", "#001B69");
+                    return true;
+
+                } else {
+                    $('.email_err').html('Please enter a valid email address');
+                    $('.serverEmailerror').html('');
+                    $('#submit-btn').prop('disabled', true);
+                    // $(".submit-btn").css("background-color", "gray");
+                    return false;
+                }
+            }
+        });
+</script>
 @endsection
