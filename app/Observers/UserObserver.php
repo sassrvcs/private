@@ -18,9 +18,9 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $first_name = $user->forename;
-        $last_name = $user->surname;
-        $user->notify(new SendMail($first_name, $last_name));
+        // $first_name = $user->forename;
+        // $last_name = $user->surname;
+        // $user->notify(new SendMail($first_name, $last_name));
     }
 
     /**

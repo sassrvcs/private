@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                         </th>
-                        @foreach($packages as $key => $package)    
+                        @foreach($packages as $key => $package)
                             <th>
                                 <div class="items-th-info">
                                     <div class="icon-container">
@@ -89,66 +89,6 @@
                                 </div>
                             </th>
                         @endforeach
-                        {{-- <th>
-                            <div class="items-th-info">
-                                <div class="icon-container">
-                                    <div class="inner-box">
-                                        <img src="{{ asset('frontend/assets/images/companyFormationPackages2.svg') }}">
-                                    </div>
-                                </div>
-                                <h4>Privacy</h4>
-                                <h2>£19.99</h2>
-                                <div class="bottom-actions">
-                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                    <a href="#" class="read-more-btn">Read More</a>
-                                </div>
-                            </div>
-                        </th> --}}
-                        {{-- <th>
-                            <div class="items-th-info">
-                                <div class="icon-container">
-                                    <div class="inner-box">
-                                        <img src="{{ asset('frontend/assets/images/companyFormationPackages3.svg') }}">
-                                    </div>
-                                </div>
-                                <h4>Professional</h4>
-                                <h2>£59.99</h2>
-                                <div class="bottom-actions">
-                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                    <a href="#" class="read-more-btn">Read More</a>
-                                </div>
-                            </div>
-                        </th> --}}
-                        {{-- <th>
-                            <div class="items-th-info">
-                                <div class="icon-container">
-                                    <div class="inner-box">
-                                        <img src="{{ asset('frontend/assets/images/companyFormationPackages4.svg') }}">
-                                    </div>
-                                </div>
-                                <h4>Prestige</h4>
-                                <h2>£79.99</h2>
-                                <div class="bottom-actions">
-                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                    <a href="#" class="read-more-btn">Read More</a>
-                                </div>
-                            </div>
-                        </th> --}}
-                        {{-- <th>
-                            <div class="items-th-info">
-                                <div class="icon-container">
-                                    <div class="inner-box">
-                                        <img src="{{ asset('frontend/assets/images/companyFormationPackages5.svg') }}">
-                                    </div>
-                                </div>
-                                <h4>All Inclusive</h4>
-                                <h2>£109.99</h2>
-                                <div class="bottom-actions">
-                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                    <a href="#" class="read-more-btn">Read More</a>
-                                </div>
-                            </div>
-                        </th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -158,232 +98,42 @@
                                 <p>Online formation within</p>
                             </div>
                         </td>
-                        <td>24-72 hrs</td>
-                        <td>24-48 hrs</td>
-                        {{-- <td>24 hrs</td>
-                        <td>6-12 hrs</td>
-                        <td>3-6 hrs</td> --}}
+                        @foreach($packages as $key => $package)
+                            <td>{{ $package->online_formation_within }}</td>
+                        @endforeach
                     </tr>
-                    <tr>
-                        <td>
-                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                <p>Email Copy of Certificate of Incorporation</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        {{-- <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td> --}}
-                    </tr>
-                    {{-- <tr>
-                        <td>
-                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                <p>Email Copy of Memorandum & Articles of Association</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                    </tr> --}}
-                    {{-- <tr>
-                        <td>
-                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                <p>Email Copy of Share Certificate(s)</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                    </tr> --}}
-                    {{-- <tr>
-                        <td>
-                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                <p>Compnay registration</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                    </tr> --}}
-                    {{-- <tr>
-                        <td>
-                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                <p>Free Online Company Manager to Maintain your Companies</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                    </tr> --}}
-                    {{-- <tr>
-                        <td>
-                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                <p>Companies House Filing Fee Paid By Us</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                    </tr> --}}
-                    {{-- <tr>
-                        <td>
-                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                <p>Free High Street business Bank Account</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                    </tr> --}}
-                    {{-- <tr>
-                        <td>
-                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                <p>Free Online Company Manager to Maintain your Companies</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                    </tr> --}}
-                    {{-- <tr>
-                        <td>
-                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                <p>Registered office address</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick2.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                    </tr> --}}
-                    {{-- <tr>
-                        <td>
-                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                <p>Free .com or .co.uk domain name</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick2.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
-                        </td>
-                    </tr> --}}
+                    {{-- @php $isFirstLoop = true; @endphp --}}
+                    {{-- @dump($facilitys) --}}
+                    @foreach($facilitys as $key => $facility)
+
+                        <tr>
+                            <td>
+                                <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                    <p>{{ $facility->name }}</p>
+                                </div>
+                            </td>
+
+                            
+                            {{-- @foreach($facilityList as $key => $assignFacilitys) --}}
+
+                            @if(isset($packages[$key]))
+                                @dump( json_decode( $packages[$key]->facilities))
+                            @endif
+                            {{-- @if(in_array($facility->id, $assignFacilitys))
+                                <td>
+                                    <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                                </td>
+                            @endif --}}
+                            {{-- @endforeach --}}
+
+                            {{-- <td>
+                                <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                            </td>
+                            <td>
+                                <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                            </td> --}}
+                        </tr>
+                    @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
