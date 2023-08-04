@@ -35,7 +35,10 @@ class CheckoutService
 
             // Create a new order in database with pending status
             if ($shoppingCart) {
-                Order::create([
+                Order::updateOrCreate([
+                    'user_id'       => $user->id,
+                    'company_name'  => $cart['company_name']
+                ],[
                     'user_id'       => $user->id,
                     'cart_id'       => $shoppingCart->id,
                     'order_id'      => $this->generateOrderId(), // create random order id

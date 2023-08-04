@@ -26,9 +26,10 @@ class PackageController extends Controller
         $packages  = $this->packageService->index();
         $facilitys = $this->facilityService->getFacilitys();
 
+        // dd($packages);
         $facilityList = [];
         foreach ($packages as $package) {
-            $facilityList[$package->id] = json_decode($package->facilities);
+            $facilityList[$package->id] = (!empty($package->facilities)) ? json_decode($package->facilities) : [];
         };
 
         return view('frontend.package.package',compact('packages', 'facilitys', 'facilityList'));

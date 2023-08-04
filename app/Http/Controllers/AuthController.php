@@ -21,20 +21,23 @@ class AuthController extends Controller
         protected CheckoutService $checkoutService
     ) { }
 
-    public function viewRegisterForm(){
+    public function viewRegisterForm()
+    {
         $countries = Country::all();
         return view('frontend.register', compact('countries'));
     }
-    public function myAccount(){
+
+    public function myAccount()
+    {
         $user = Auth::user();
         return view('frontend.my_account',compact('user'));
     }
-    public function login(Request $request){
 
+    public function login(Request $request)
+    {
         $validate = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
             'password' => 'required|min:8|string',
-
         ],[
             'email.required' => 'Email is required',
             'password.required' => 'Password is required'
@@ -121,7 +124,6 @@ class AuthController extends Controller
      */
     public function saveRegisterForm(Request $request)
     {
-        // dd($request->all());
         $validate = Validator::make($request->all(), [
             'title' => 'required',
             'forename' => 'required|alpha',
@@ -146,13 +148,13 @@ class AuthController extends Controller
             'phone.numeric'     => 'Please enter valid phone number.',
             'email.required'    => 'Email is required',
             'email.email'       => 'Please provide valid email',
-            'confirm_email.required'    => 'Confirm email is required',
+            'confirm_email.required'  => 'Confirm email is required',
             'password.required' => 'Password is required',
             'street.required'   =>'This field is required.',
             'town.required'     =>'This field is required.',
-            'post_code.required'        =>'This field is required.',
+            'post_code.required'=>'This field is required.',
             'house_no.required' =>'This field is required.',
-            'billing_country.required'  =>'This field is required.',
+            'billing_country.required' =>'This field is required.',
             'chek1.required'    =>'This field is required.',
             'chek2.required'    =>'This field is required.',
         ]);
@@ -180,14 +182,4 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('/login')->with(Auth::logout());
     }
-
-
-    /**
-     * Register a new customer from checkout
-     * @param Request $request
-     */
-    // public function registerCustomer(Request $request)
-    // {
-
-    // }
 }

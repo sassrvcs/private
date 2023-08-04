@@ -27,7 +27,7 @@ class PackageService
             $packages = $packages->where('package_name', 'like', "%{$search}%");
         }
 
-        $packages = $packages->paginate(2);
+        $packages = $packages->paginate(10);
         return $packages;
     }
 

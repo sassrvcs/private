@@ -53,7 +53,7 @@ Route::post('/register',[AuthController::class,'saveRegisterForm'])->name('save-
 Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-address');
 
 // Register for checkout 
-// Route::post('/checkout-register',[AuthController::class,'registerCustomer'])->name('register-checkout-customer');
+Route::post('/checkout-final',[CheckoutStepController::class,'checkoutCustomer'])->name('checkout-final');
 
 
 Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-account')->middleware('auth');

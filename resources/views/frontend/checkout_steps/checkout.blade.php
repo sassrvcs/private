@@ -45,6 +45,19 @@
                                                     class="woocommerce-Price-currencySymbol">£</span> {{ end($sessionCart)['price'] ?? '0' }} </bdi></span>
                                                 </td>
                                             </tr>
+                                        </tbody>
+                                        <tbody id="item-tbody" style="display:none;">
+                                            @if( isset(end($sessionCart)['addon_service']) )
+                                                @foreach( end($sessionCart)['addon_service'] as $key => $value)
+                                                    <tr class="fee" style="display:none;">
+                                                        <td colspan="3">{{ $value['service_name'] }}</td>
+                                                        <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                        <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                        <tbody>
                                             <tr class="tax-rate tax-rate-vat-1">
                                                 <th>Net</th>
                                                 <td class="text-end"><span class="woocommerce-Price-amount amount net">
@@ -99,7 +112,11 @@
                     @endguest
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="reistration" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <form action="{{ route('save-register-form')}}" method="POST">
+                            @if (auth()->check())
+                                <form action="{{ route('checkout-final')}}" method="POST">
+                            @else
+                                <form action="{{ route('save-register-form')}}" method="POST">
+                            @endif
                                 @csrf
                                 <div id="customer_details">
                                     @guest
@@ -145,7 +162,7 @@
                                             <div class="woocommerce-billing-fields__field-wrapper row p-3">
                                                 <div class="form-row form-group" id="billing_organization_field">
                                                     <label for="billing_organization" class="">Organisation (if applicable) </label>
-                                                    <input type="text" class="input-text form-control @error('organisation') is-invalid @enderror" value="{{old('organisation')}}" name="organisation" id="billing_organization" placeholder="" >
+                                                    <input type="text" class="input-text form-control @error('organisation') is-invalid @enderror" value="{{ $user->organisation ?? old('organisation')}}" name="organisation" id="billing_organization" placeholder="" >
                                                     @error('organisation')
                                                         <div class="error" style="color:red;">{{ $message }}</div>
                                                     @enderror
@@ -154,33 +171,32 @@
                                                     data-priority="20">
                                                     <label for="billing_title" class="">Title&nbsp;<abbr class="required" title="required">*</abbr></label>
                                                     <select id="billing_title" name="title" value="{{old('title')}}" class="select form-control @error('title') is-invalid @enderror">
-                                                        <option value="" selected="selected">Please select...
-                                                        </option>
-                                                        <option value="Mr">Mr</option>
-                                                        <option value="Mrs">Mrs</option>
-                                                        <option value="Miss">Miss</option>
-                                                        <option value="Sir">Sir</option>
-                                                        <option value="Ms">Ms</option>
-                                                        <option value="Dr">Dr</option>
-                                                        <option value="Madam">Madam</option>
-                                                        <option value="Ma'am">Ma'am</option>
-                                                        <option value="Lord">Lord</option>
-                                                        <option value="Lady">Lady</option>
+                                                        <option value="" selected="selected">Please select...</option>
+                                                        <option {{ ($user->title == 'Mr') ? 'selected' : '' }} value="Mr">Mr</option>
+                                                        <option {{ ($user->title == 'Mrs') ? 'selected' : '' }} value="Mrs">Mrs</option>
+                                                        <option {{ ($user->title == 'Miss') ? 'selected' : '' }} value="Miss">Miss</option>
+                                                        <option {{ ($user->title == 'Sir') ? 'selected' : '' }} value="Sir">Sir</option>
+                                                        <option {{ ($user->title == 'Ms') ? 'selected' : '' }} value="Ms">Ms</option>
+                                                        <option {{ ($user->title == 'Dr') ? 'selected' : '' }} value="Dr">Dr</option>
+                                                        <option {{ ($user->title == 'Madam') ? 'selected' : '' }} value="Madam">Madam</option>
+                                                        <option {{ ($user->title == 'Ma\'am') ? 'selected' : '' }} value="Ma'am">Ma'am</option>
+                                                        <option {{ ($user->title == 'Lord') ? 'selected' : '' }} value="Lord">Lord</option>
+                                                        <option {{ ($user->title == 'Lady') ? 'selected' : '' }} value="Lady">Lady</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-row col-md-12 form-group">
                                                     <label class="">First Name&nbsp;<abbr class="required">*</abbr></label>
                                                     <span class="woocommerce-input-wrapper">
-                                                        <input type="text" class="input-text form-control @error('forename') is-invalid @enderror" name="forename" value="{{old('forename')}}">
+                                                        <input type="text" class="input-text form-control @error('forename') is-invalid @enderror" name="forename" value="{{ ($user->forename) ?? old('forename')}}">
                                                     </span>
                                                 </div>
                                                 <div class="form-row col-md-12 form-group">
                                                     <label class="">Last Name&nbsp;<abbr class="required">*</abbr></label>
                                                     <span class="woocommerce-input-wrapper">
-                                                        <input type="text" class="input-text form-control @error('surname') is-invalid @enderror" type="text" name="surname" value="{{old('surname')}}">
+                                                        <input type="text" class="input-text form-control @error('surname') is-invalid @enderror" type="text" name="surname" value="{{ ($user->surname) ?? old('surname')}}">
                                                     </span>
                                                 </div>
-                                                
+
                                                 <input type="hidden" name="address_type" value="billing_address">
                                                 <input type="hidden" name="checkout" value='checkout'>
                                                 <input type="hidden" name="chek1" value='true'>
@@ -197,8 +213,8 @@
                                                 <div class="form-row col-md-12 form-group">
                                                     <label class="">Phone&nbsp;<abbr class="required">*</abbr></label>
                                                     <span class="woocommerce-input-wrapper">
-                                                        <input type="text" class="input-text form-control @error('phone') is-invalid @enderror" type="text" name="phone" value="{{old('phone')}}">
-                                                        @error('phone')
+                                                        <input type="text" class="input-text form-control @error('phone_no') is-invalid @enderror" type="text" name="phone_no" value="{{ ($user->phone_no) ?? old('phone_no')}}">
+                                                        @error('phone_no')
                                                             <div class="error" style="color:red;">{{ $message }}</div>
                                                         @enderror
                                                     </span>
@@ -220,7 +236,7 @@
                                                 <div class="form-row col-md-12 form-group">
                                                     <label class="">House Name / Number &nbsp;<abbr class="required">*</abbr></label>
                                                     <span class="woocommerce-input-wrapper">
-                                                        <input type="text" name="house_no" class="input-text form-control @error('house_no') is-invalid @enderror" value="{{old('house_no')}} "id="house_no">
+                                                        <input type="text" name="house_no" class="input-text form-control @error('house_no') is-invalid @enderror" value="{{ old('house_no') }} "id="house_no">
                                                         @error('house_no')
                                                             <div class="error" style="color:red;">{{ $message }}</div>
                                                         @enderror
@@ -298,13 +314,13 @@
                                                         value="epdq_checkout" data-order_button_text="">
                                                     <label for="payment_method_epdq_checkout">
                                                         AG ePDQ Checkout<br>
-                                                        <img class="ePDQ-card-icons" src="assets/images/mastercard.png" alt="mastercard">
-                                                        <img class="ePDQ-card-icons" src="assets/images/amex.png" alt="amex">
-                                                        <img class="ePDQ-card-icons" src="assets/images/maestro.png" alt="maestro">
-                                                        <img class="ePDQ-card-icons" src="assets/images/visa.png" alt="visa">
-                                                        <img class="ePDQ-card-icons" src="assets/images/jcb.png" alt="jcb">
-                                                        <img class="ePDQ-card-icons" src="assets/images/diners.png" alt="diners">
-                                                        <img class="ePDQ-card-icons" src="assets/images/discover.png" alt="discover">
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/mastercard.png') }}" alt="mastercard">
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/amex.png') }}" alt="amex">
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/maestro.png') }}" alt="maestro">
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/visa.png') }}" alt="visa">
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/jcb.png') }}" alt="jcb">
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/diners.png') }}" alt="diners">
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/discover.png') }}" alt="discover">
                                                     </label>
 
                                                     <div class="payment_box payment_method_epdq_checkout" style="display:none;">
@@ -413,7 +429,15 @@
                 var vatPrice = parseFloat($('.vat').text().replace('£', ''));
                 var packagePrice = parseFloat($('.package-price').text().replace('£', ''));
 
-                total = packagePrice + netPrice + vatPrice;
+                $('#item-tbody tr').each(function() {
+                    // Extract the price from the row
+                    var price = parseFloat($(this).find('.amount bdi').text().substring(1));
+
+                    // Add the price to the total
+                    total += price;
+                });
+                    
+                total = total + packagePrice + netPrice + vatPrice;
 
                 // console.log(netPrice, vatPrice, packagePrice, total);
 

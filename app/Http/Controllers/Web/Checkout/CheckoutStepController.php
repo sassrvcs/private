@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Checkout\CheckoutStepRequest;
 use App\Services\Addon\AddonService;
 use App\Services\Cart\CartService;
+use App\Services\Checkout\CheckoutService;
 use App\Services\Country\CountryService;
 use App\Services\Package\PackageService;
-// use Illuminate\Http\Request;
+use App\Services\User\UserService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class CheckoutStepController extends Controller
@@ -18,6 +20,8 @@ class CheckoutStepController extends Controller
         protected AddonService $addonService,
         protected PackageService $packageService,
         protected CountryService $countryService,
+        protected UserService $userService,
+        protected CheckoutService $checkoutService
     ) { }
 
     /** 
@@ -50,21 +54,34 @@ class CheckoutStepController extends Controller
      */
     public function validateAuthentication()
     {
+        $user = [];
         $sessionCart    = $this->cartService->getCartViaSession();
         $package        = $this->packageService->index(end($sessionCart)['package_name']);
         $countries      = $this->countryService->countryList();
-
+        
         $package = $package[0] ?? '';
-        return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries'));
+
+        if(auth()->user()) {
+            $user = $this->userService->show(auth()->user()->id);
+        }
+        // dd($user);
+
+        return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user'));
     }
     
     /**
-     * Checks out final step
-     * @Checkout step -> 5
+     * Register a new customer from checkout
+     * @param Request $request
      */
-    public function checkoutFinal()
+    public function checkoutCustomer(Request $request)
     {
-        // $sessionCart    = $this->cartService->getCartViaSession();
-        // dd($sessionCart);
+        // dd(auth()->user());
+        if (auth()->user()) {
+            $checkout = $this->checkoutService->doCheckoutFinalStep($request, auth()->user());
+            // dd($checkout);
+            if ($checkout) {
+                return redirect()->route('my-account');
+            }
+        }
     }
 }
