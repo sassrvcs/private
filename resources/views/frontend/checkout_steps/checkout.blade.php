@@ -172,16 +172,16 @@
                                                     <label for="billing_title" class="">Title&nbsp;<abbr class="required" title="required">*</abbr></label>
                                                     <select id="billing_title" name="title" value="{{old('title')}}" class="select form-control @error('title') is-invalid @enderror">
                                                         <option value="" selected="selected">Please select...</option>
-                                                        <option {{ ($user->title == 'Mr') ? 'selected' : '' }} value="Mr">Mr</option>
-                                                        <option {{ ($user->title == 'Mrs') ? 'selected' : '' }} value="Mrs">Mrs</option>
-                                                        <option {{ ($user->title == 'Miss') ? 'selected' : '' }} value="Miss">Miss</option>
-                                                        <option {{ ($user->title == 'Sir') ? 'selected' : '' }} value="Sir">Sir</option>
-                                                        <option {{ ($user->title == 'Ms') ? 'selected' : '' }} value="Ms">Ms</option>
-                                                        <option {{ ($user->title == 'Dr') ? 'selected' : '' }} value="Dr">Dr</option>
-                                                        <option {{ ($user->title == 'Madam') ? 'selected' : '' }} value="Madam">Madam</option>
-                                                        <option {{ ($user->title == 'Ma\'am') ? 'selected' : '' }} value="Ma'am">Ma'am</option>
-                                                        <option {{ ($user->title == 'Lord') ? 'selected' : '' }} value="Lord">Lord</option>
-                                                        <option {{ ($user->title == 'Lady') ? 'selected' : '' }} value="Lady">Lady</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Mr') ? 'selected' : '' }} value="Mr">Mr</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Mrs') ? 'selected' : '' }} value="Mrs">Mrs</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Miss') ? 'selected' : '' }} value="Miss">Miss</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Sir') ? 'selected' : '' }} value="Sir">Sir</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Ms') ? 'selected' : '' }} value="Ms">Ms</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Dr') ? 'selected' : '' }} value="Dr">Dr</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Madam') ? 'selected' : '' }} value="Madam">Madam</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Ma\'am') ? 'selected' : '' }} value="Ma'am">Ma'am</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Lord') ? 'selected' : '' }} value="Lord">Lord</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Lady') ? 'selected' : '' }} value="Lady">Lady</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-row col-md-12 form-group">
@@ -190,6 +190,7 @@
                                                         <input type="text" class="input-text form-control @error('forename') is-invalid @enderror" name="forename" value="{{ ($user->forename) ?? old('forename')}}">
                                                     </span>
                                                 </div>
+
                                                 <div class="form-row col-md-12 form-group">
                                                     <label class="">Last Name&nbsp;<abbr class="required">*</abbr></label>
                                                     <span class="woocommerce-input-wrapper">
@@ -244,7 +245,7 @@
                                                 </div>
 
                                                 <div class="form-row col-md-12 form-group">
-                                                    <label class="">County </label>
+                                                    <label class="">County &nbsp;<abbr class="required">*</abbr></label>
                                                     <span class="woocommerce-input-wrapper">
                                                         <input type="text" class="input-text form-control @error('county') is-invalid @enderror" value="{{ old('county')}}" name="county" id="county">
                                                         @error('county')
@@ -254,7 +255,7 @@
                                                 </div>
 
                                                 <div class="form-row col-md-12 form-group">
-                                                    <label class="">Street </label>
+                                                    <label class="">Street &nbsp;<abbr class="required">*</abbr></label>
                                                     <span class="woocommerce-input-wrapper">
                                                         <input type="text" class="input-text form-control @error('street') is-invalid @enderror" value="{{old('street')}}" name="street" id="street">
                                                         @error('street')
