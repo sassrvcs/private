@@ -22,6 +22,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\Company\CompaniesListController;
 use App\Http\Controllers\Admin\Subadmin\SubadminController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Web\Company\CompanyForm\CompanyFormController;
 
 
 /*
@@ -52,7 +53,7 @@ Route::get('/register', [AuthController::class, 'viewRegisterForm'])->name('regi
 Route::post('/register',[AuthController::class,'saveRegisterForm'])->name('save-register-form');
 Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-address');
 
-// Register for checkout 
+// Register for checkout
 Route::post('/checkout-final',[CheckoutStepController::class,'checkoutCustomer'])->name('checkout-final');
 
 
@@ -87,6 +88,9 @@ Route::get('companies', CompaniesListController::class)->name('companies-list');
 Route::get('/search-companie', CompanieController::class);
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
 //Route::get('refund-cancellation', [PageController::class, 'refundcancellation'])->name('page.refundcancellation');
+
+Route::get('registered-address', [CompanyFormController::class, 'registerAddress'])->middleware('auth');
+Route::get('edit-address', [CompanyFormController::class, 'editRegisterAddress'])->name('edit-address')->middleware('auth');
 
 Route::prefix('admin')->middleware(['auth', 'auth.session'])
 ->group(function () {

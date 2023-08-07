@@ -130,72 +130,12 @@
                             </div>
                             <div class="form-wrap">
                                 <div class="form-info-block">
-                                    <h4>Registered Address</h4>
-                                    <div class="desc mb-3">
-                                        <div class="icon">
-                                            <img src="{{ asset('frontend/assets/images/form-icon.png')}}" alt="">
-                                        </div>
-                                        <div class="text">
-                                            <h5>Registered Office (required)</h5>
-                                            <ul>
-                                                <li>All companies require having a registered office address located in the same country as they are registered.</li>
-                                                <li>It is the address to which all Companies House, HMRC and other official letters will be sent and must always be a physical address (e.g. not a PO Box or DX).</li>
-                                                <li><b>The address of the registered office must appear on all company correspondence and publications.</b></li>
-                                                <li><b>A company’s registered office address is available to view by the public free of charge.</b></li>
-                                                <li>If you purchase our registered office address service, we will forward all official mail to an address of your choosing.</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="own-address">
-                                    <div class="info">
-                                        <h3>Choose to use your own address</h3>
-                                        @foreach($recent_addr as $key => $val)
-                                            @foreach($val->address as $value)
-                                            <p>{{$value->house_number}}, {{$value->street}}, @if(!empty($value->locality)){{$value->locality}} @endif {{$value->town}} {{$value->county}} {{$value->post_code}} {{$value->billing_country}} </p>
-                                            @endforeach
-                                        @endforeach
+                                    <h4>Edit Address</h4>
 
                                     </div>
-                                    <div class="btn-box">
-                                        <a href="{{ route('edit-address') }}" type="submit" class="btn edit-btn">Edit Address</a>
-                                        <button type="submit" class="btn another-btn">Choose Another</button>
-                                    </div>
                                 </div>
-                                <div class="office-address">
-                                    <div class="top-block">
-                                        <h3>Registered Office - London</h3>
-                                        <div class="price-block">
-                                            <strong>$39.00</strong>
-                                            <p>Reserved annually at $39.00</p>
-                                        </div>
-                                    </div>
-                                    <div class="desc">
-                                        <div class="tham-img">
-                                            <img src="{{ asset('frontend/assets/images/address-img.png')}}" alt="">
-                                            <div class="tham-info">
-                                                <strong>London:</strong>
-                                                <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United Kingdom</p>
-                                            </div>
-                                        </div>
-                                        <div class="text-block">
-                                            <h3>Protect the privacy of your home address</h3>
-                                            <p>Mauris placerat ac lectus et bibendum. Aliquam tincidunt tristique vulputate quisque tincidunt nisl vel risus imperdiet feugiat.</p>
-                                            <div class="location-block">
-                                                <div class="addr">
-                                                    <strong>London: </strong>
-                                                </div>
-                                                <div class="info">
-                                                    <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United Kingdom</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="btn-block">
-                                        <button class="btn">Details</button>
-                                        <button class="btn buy-now-btn">Buy Now</button>
-                                    </div>
-                                </div>
+
+
                                 <div class="step-btn-wrap mt-4">
                                     <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png')}}" alt=""> Previous: Particulars</button>
                                     <button class="btn">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png')}}" alt=""></button>
