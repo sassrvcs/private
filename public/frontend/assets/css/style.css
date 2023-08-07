@@ -3258,11 +3258,13 @@ body .alert-info {
     text-align: right;
 }
 
-body.woocommerce-checkout .checkout-bill .woocommerce-input-wrapper.with-rg-btn {
+body.woocommerce-checkout .checkout-bill .woocommerce-input-wrapper.with-rg-btn,
+.checkout-bill .woocommerce-input-wrapper.with-rg-btn {
     position: relative;
 }
 
-body.woocommerce-checkout .checkout-bill .woocommerce-input-wrapper.with-rg-btn .btn {
+body.woocommerce-checkout .checkout-bill .woocommerce-input-wrapper.with-rg-btn .btn, 
+.checkout-bill .woocommerce-input-wrapper.with-rg-btn .btn {
     position: absolute;
     top: 0;
     right: 0;
@@ -6856,4 +6858,78 @@ span.optional {
 .companies-table-wrap table td span.status.incomplete{
     background: rgba(255, 15, 0, 0.1);
     color: #B70E0E;
+}
+.woocommerce form .form-row {
+    padding: 3px;
+    margin: 0 0 6px;
+}
+#payment ul.payment_methods {
+    text-align: left;
+    padding: 1em;
+    border-bottom: 1px solid #d3ced2;
+    margin: 0;
+    list-style: none outside;
+}
+#payment ul.payment_methods li {
+    line-height: 2;
+    text-align: left;
+    margin: 0;
+    font-weight: 400;
+}
+#payment ul.payment_methods li input {
+    margin: 0 1em 0 0;
+}
+#payment div.payment_box {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1em;
+    margin: 1em 0;
+    font-size: .92em;
+    border-radius: 2px;
+    line-height: 1.5;
+    background-color: #dfdcde;
+    color: #515151;
+}
+#payment div.payment_box::before {
+    content: "";
+    display: block;
+    border: 1em solid #dfdcde;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    position: absolute;
+    top: -0.75em;
+    left: 0;
+    margin: -1em 0 0 2em;
+}
+#payment div.form-row {
+    padding: 1em;
+}
+#payment ul.payment_methods li img+img {
+    margin-left: 2px;
+}
+.woocommerce-checkout .fa-li {
+    left: -36px;
+    top: 8px;
+}
+.woocommerce-checkout.sectiongap {
+    padding: 40px 0 55px;
+}
+
+form.woocommerce-form-login.login{
+    border: 1px solid #d3ced2;
+    padding: 20px;
+    margin: 2em 0;
+    text-align: left;
+    border-radius: 5px;
+}
+.checkout-bill .nav-tabs.checkouttab .nav-link.active {
+    background-color:#87CB28;
+    color: #fff;
+}
+.checkout-bill .nav-tabs.checkouttab .nav-link{
+    width: 50%;
+    text-align: center;
+    color: #46494d;
 }

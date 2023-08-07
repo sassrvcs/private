@@ -19,11 +19,12 @@ class CmsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cmslist = $this->cmsService->index();
+        $search     = ($request->search) ? $request->search : '';
+        $cmslist = $this->cmsService->index($search);
         //print_r($customerlist['address']);exit;
-        return view('admin.cms.index',compact('cmslist'));
+        return view('admin.cms.index',compact('cmslist','search'));
     }
     
 

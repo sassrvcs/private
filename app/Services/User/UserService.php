@@ -48,21 +48,67 @@ class UserService
         }
     }
 
+    /**
+     * Get user list with details
+     * @param string $id
+     * @return User
+     */
+    public function show($id)
+    {
+        $user = User::with('address','orders')->findOrFail($id);
+        return $user;
+    }
 
     /**
-     * User Details
-     * @param int $userId
+     * Create a new user
+     * @param object $request
      * @return Builder
      */
-    // public function show($userId)
-    // {
-    //     $userQuery = User::with('roles')->where('id', $userId);
-    //     return $userQuery;
-    // }
-
-    public function index()
+    public function store($request)
     {
-        $customers = User::with('address')->where('users.id', '!=', 1)->get();
+        return DB::transaction(function () use ($request) {
+            $user               = new User();
+            $user->organisation = $request->organisation;
+            $user->title        = $request->title;
+            $user->forename     = $request->forename;
+            $user->surname      = $request->surname;
+            $user->phone_no     = $request->phone;
+            $user->email        = $request->email;
+            $user->password     = bcrypt($request->password);
+
+            $user->save();            
+            $user->assignRole('customer');
+
+            if( $user ) {
+                $address            = new Address();
+                $address->user_id   = $user->id;
+                $address->address_type = $request->address_type ?? 'primary_address';
+                $address->house_number = $request->house_no;
+                $address->street    = $request->street;
+                $address->locality  = $request->locality;
+                $address->town      = $request->town;
+                $address->county    = $request->county;
+                $address->post_code = $request->post_code;
+                $address->billing_country = $request->billing_country;
+                $address->save();
+            }
+
+            return $user;
+        });
+    }
+
+    public function index($search = "")
+    {
+        //print_r($search);exit;
+        $customers = User::with('address')->where('users.id', '!=', 1);
+        if (!empty($search)) {
+            $customers = $customers->where('email', 'like', "%{$search}%")
+            ->orWhere('forename', 'like', "%{$search}%")
+            ->orWhere('surname', 'like', "%{$search}%")
+            ->orWhere(DB::raw('CONCAT_WS(" ", forename, surname)'), 'like', "%{$search}%");
+        }
+        $customers = $customers->paginate(5);
+        //print_r($customers);exit;
         return $customers;
     }
 
@@ -113,6 +159,4 @@ class UserService
         $customer = User::FindOrFail($id)->delete();
         return $customer;
     }
-
-
 }

@@ -17,11 +17,12 @@ use App\Http\Controllers\Admin\Cms\CmsController;
 
 use App\Http\Controllers\Web\Home\HomeController;
 use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
-
 use App\Http\Controllers\Admin\BusinessBanking\BusinessBankingController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Web\Company\CompaniesListController;
 use App\Http\Controllers\Admin\Subadmin\SubadminController;
 use App\Http\Controllers\ContactController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,10 @@ Route::get('/register', [AuthController::class, 'viewRegisterForm'])->name('regi
 Route::post('/register',[AuthController::class,'saveRegisterForm'])->name('save-register-form');
 Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-address');
 
+// Register for checkout 
+Route::post('/checkout-final',[CheckoutStepController::class,'checkoutCustomer'])->name('checkout-final');
+
+
 Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-account')->middleware('auth');
 Route::post('/logout', [AuthController::class, 'logout'])->name('clientlogout')->middleware('auth');
 Route::get('/my-details', [AccountController::class, 'details'])->name('my_details')->middleware('auth');
@@ -76,8 +81,8 @@ Route::patch('/cart/{id}', [CartController::class, 'update'])->name('update-cart
 
 Route::get('review-company-package', [CheckoutStepController::class, 'reviewCompanyPackage'])->name('review-company-package');
 Route::match(['get', 'post'], 'addon-services', [CheckoutStepController::class, 'addOnServices'])->name('addon-services');
-Route::get('check-auth', [CheckoutStepController::class, 'validateAuthentication'])->name('check-auth');
-Route::get('checkout', [CheckoutStepController::class, 'checkoutFinal'])->name('checkout');
+Route::get('checkout', [CheckoutStepController::class, 'validateAuthentication'])->name('checkout');
+Route::get('companies', CompaniesListController::class)->name('companies-list');
 
 Route::get('/search-companie', CompanieController::class);
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');

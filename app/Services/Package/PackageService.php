@@ -22,17 +22,17 @@ class PackageService
     public function index($search = "")
     {
         $packages = Package::with('features')->whereNull('deleted_at');
+
         if (!empty($search)) {
-            $packages = $packages->where('package_name', 'like', "%{$search}%")->paginate(2);
-        }else{
-            $packages = $packages->paginate(2);
+            $packages = $packages->where('package_name', 'like', "%{$search}%");
         }
+
+        $packages = $packages->paginate(10);
         return $packages;
     }
 
     public function store($request)
     {
-
         $package = new Package();
         $package->package_name = $request['name'];
         $package->package_price = $request['price'];

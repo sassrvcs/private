@@ -56,7 +56,7 @@
                             </a>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <a href="#">
+                            <a href="{{ route('companies-list') }}">
                                 <div class="card equalheight border">
                                     <div class="card-header p-2">
                                         <h3>My Companies<span class="float-end link-primary" style="font-size:13px;">view all<i class="fa-solid fa-arrow-right-long ms-2"></i></span></h3>
