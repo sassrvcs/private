@@ -3263,7 +3263,7 @@ body.woocommerce-checkout .checkout-bill .woocommerce-input-wrapper.with-rg-btn,
     position: relative;
 }
 
-body.woocommerce-checkout .checkout-bill .woocommerce-input-wrapper.with-rg-btn .btn, 
+body.woocommerce-checkout .checkout-bill .woocommerce-input-wrapper.with-rg-btn .btn,
 .checkout-bill .woocommerce-input-wrapper.with-rg-btn .btn {
     position: absolute;
     top: 0;
@@ -6668,8 +6668,8 @@ span.optional {
     width: 232px;
 }
 .custom-modal-s1 .modal-body .form-row .input-wrapper.with-rg-btn{
-    display: flex; 
-    column-gap: 10px;       
+    display: flex;
+    column-gap: 10px;
 }
 .custom-modal-s1 .modal-body .form-row .input-wrapper.with-rg-btn .btn{
     white-space: nowrap;
