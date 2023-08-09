@@ -55,6 +55,7 @@ Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-ad
 // Register for checkout 
 Route::post('/checkout-final',[CheckoutStepController::class,'checkoutCustomer'])->name('checkout-final');
 Route::get('companie-formation', [CompanieFormController::class, 'index'])->name('companie-formation');
+Route::post('companie-formation', [CompanieFormController::class, 'store'])->name('companie-formation.store');
 
 Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-account')->middleware('auth');
 Route::post('/logout', [AuthController::class, 'logout'])->name('clientlogout')->middleware('auth');

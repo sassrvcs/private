@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class SicCode extends Model
 {
     use HasFactory;
+    // protected $table ='sic_codes';
+    protected $fillable = [
+        'companie_id', 'name', 'code'
+    ];
 }
