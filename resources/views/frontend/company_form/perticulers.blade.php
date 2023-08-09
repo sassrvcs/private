@@ -148,14 +148,14 @@
                                                 <label>Company Name <span><img src="{{ asset('frontend/assets/images/in-icon.png') }}" alt=""></span></label>
                                                 <span class="nb-text">Your requested company name is displayed below. If you wish to change this, insert another name and click.</span>
                                                 <div class="check-another-name">
-                                                    <input type="text" class="form-control" name="companie_name" id="companie_name" value="{{ $orders[0]->company_name ?? '' }}">
-                                                    <button type="submit" class="btn">Check another name</button>
+                                                    <input type="text" class="form-control" name="companie_name" id="companie_name" value="{{ $orders->company_name ?? '' }}">
+                                                    <button type="submit" class="btn check-company">Check another name</button>
                                                 </div>
                                             </div>
 
                                             <div class="text-danger alert-custom-highlight-s1" id="srchfld-error" style="display: none">
                                                 <em id="srchfld-error" class="text-danger">
-                                                    <h4>Warning, <span id="companie-name"> </span> is available for registration.</h4>
+                                                    <h4 id="message-cls">Warning, <span id="companie-name"> </span> is available for registration.</h4>
                                                     <p> You need to put a valid Company ending: LTD, LIMITED, CYF, CYFYNGEDIG, LTD. etc. to proceed further.</p>
                                                 </em>
                                             </div>
@@ -183,7 +183,7 @@
 
                                         <input type="hidden" name="section_name" value="company_formation">
                                         <input type="hidden" name="step_name" value="particulars">
-                                        <input type="hidden" name="order_id" value="{{ $orders[0]->id ?? '' }}">
+                                        <input type="hidden" name="order_id" id="order_id" value="{{ $orders->id ?? '' }}">
 
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
@@ -208,7 +208,7 @@
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="btn-wrap">
-                                                <button type="submit" class="btn save-continue">Save & Continue <img src="assets/images/btn-right-arrow.png" alt=""></button>
+                                                <button type="submit" class="btn btn-success save-continue">Save & Continue <img src="assets/images/btn-right-arrow.png" alt=""></button>
                                             </div>
                                         </div>
                                     </div>
@@ -292,6 +292,66 @@
             width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
             placeholder: $( this ).data( 'placeholder' ),
             closeOnSelect: false,
+        });
+
+        $('.check-company').click(function(e) {
+            e.preventDefault();
+            var companyName = $('#companie_name').val();
+            var orderId = $('#order_id').val();
+
+            var searchButton = $(this);
+            searchButton.prop('disabled', true).text('Searching...');
+
+            // Make the GET request using Axios
+            axios.get('/search-companie', {
+                params: {
+                    'search': companyName
+                }
+            })
+            .then(function (response) {
+                // Handle the response data here
+                console.log(response.data);
+
+                if(response.data.message == 'This company name is available.') {
+                    // await axios.parch('/company-name-update', {
+                    //     queryparams: {
+                    //         'order': orderId
+                    //     }
+                    // })
+                    // .then(function (response) {
+                    //     console.log(response);
+                    // })
+                    // .catch(function (error) {
+                    //     console.error(error);
+                    // });
+
+                    $('#srchfld-error').show();
+                    // $("#message-cls").text('');
+                    // $("#message-cls").text('Congratulation!');
+                    $('#companie-name').text(companyName);
+
+                    if(response.data.is_sensitive == 1) {
+                        // $('#is_sensitive_word_row').show();
+                        // $('#is_sensitive_word').text(response.data.is_sensitive_word);
+                    } else {
+                        // $('#is_sensitive_word_row').hide();
+                        // $('#is_sensitive_word').text('');
+                    }
+                } else {
+                    $('#srchfld-error').show();
+                    // $("#message-cls").text('');
+                    // $("#message-cls").text('Error!');
+                    $('#companie-name').text(companyName);
+                }
+            })
+            .catch(function (error) {
+                // Handle any errors that occurred during the request
+                console.error(error);
+            })
+            .finally(function () {
+                // Re-enable the button and change the text back to "Search"
+                searchButton.prop('disabled', false).text('Search');
+            });
         });
     </script>
 @endsection

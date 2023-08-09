@@ -22,19 +22,26 @@ class CompanieFormController extends Controller
     public function index(CompanieFormAccessRequest $request)
     {
         $userID = auth()->user()->id;
-        $orders = Order::with('user')->where('user_id', $userID)->get();
-        $CompanyFormationStep =  Companie::where('companie_name', $orders[0]->company_name )->first();
+        $orders = Order::with('user')->where('order_id', $request->order)->first();
+        $CompanyFormationStep = Companie::where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
 
         if($CompanyFormationStep == null) {
-        
             $jurisdictions = Jurisdiction::get();
     
             $SICDetails = config('sic_code.sic_details');
             $SICCodes = config('sic_code.sic_code');
-    
+
             return view('frontend.company_form.perticulers', compact('orders', 'jurisdictions', 'SICDetails', 'SICCodes'));
-        } else {
-            // $CompanyFormationStep
+        } 
+        else {
+            if($CompanyFormationStep->step_name == 'particulars') {
+                return redirect(route('registered-address'));
+            } 
+            // else if($CompanyFormationStep->step_name == '') {
+            // } 
+            else {
+                dd('Work In Progress.....');
+            }
         }
 
     }
@@ -44,12 +51,19 @@ class CompanieFormController extends Controller
         // dd($request->validated());
         $companyForm = $this->companyFormService->companyFormStep1($request->validated());
 
-        dd($companyForm);
+        if($companyForm) {
+            return redirect(route('registered-address'));
+        }
 
         // $userID = auth()->user()->id;
         // $orders = Order::with('user')->where('user_id', $userID)->get();
         // $SICDetails = config('sic_code.sic_details');
         // $SICCodes = config('sic_code.sic_code');
         // return view('frontend.company_form.perticulers', compact('orders', 'SICDetails', 'SICCodes'));
+    }
+
+    public function updateCompanieName(CompanieFormAccessRequest $request)
+    {
+        dd($request->validated());
     }
 }

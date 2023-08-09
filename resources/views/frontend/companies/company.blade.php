@@ -77,7 +77,7 @@
                                             <td>{{ $order->auth_code ?? "-" }}</td>
                                             {{-- <td><span class="status accepted">Accepted</span></td> --}}
                                             <td><span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">{{ ($order->order_status == 'pending') ? 'Incomplete' : 'Accepted' }}</span></td>
-                                            <td><a href="{{ route('companie-formation') }}" class="view-btn">View <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt=""></a></td>
+                                            <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => 'Company_formaction', 'step' => 'particulars' ]) }}" class="view-btn">View <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt=""></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

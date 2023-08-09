@@ -24,6 +24,7 @@ class CompanieFormAccessRequest extends FormRequest
     public function rules()
     {
         return [
+            'order'     => ['required'],
             'section'   => ['sometimes'],
             'step'      => ['sometimes']
         ];

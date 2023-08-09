@@ -40,4 +40,16 @@ class CompanyFormService
             return $company;
         });
     }
+    
+    public function updateOrder($request)
+    {
+        return DB::transaction(function () {
+            $company = Companie::where('user_id', auth()->user()->id)->first();
+            $company->update([
+                'order' => $company->order + 1,
+            ]);
+
+            return $company;
+        });
+    }
 }

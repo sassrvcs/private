@@ -58,8 +58,10 @@ Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-ad
 
 // Register for checkout 
 Route::post('/checkout-final',[CheckoutStepController::class,'checkoutCustomer'])->name('checkout-final');
+
 Route::get('companie-formation', [CompanieFormController::class, 'index'])->name('companie-formation');
 Route::post('companie-formation', [CompanieFormController::class, 'store'])->name('companie-formation.store');
+Route::patch('company-name-update', [CompanieFormController::class, 'updateCompanieName'])->name('companyname.update');
 
 Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-account')->middleware('auth');
 Route::post('/logout', [AuthController::class, 'logout'])->name('clientlogout')->middleware('auth');
@@ -102,8 +104,6 @@ Route::get('choose-address-business', [CompanyFormController::class, 'chooseBusi
 Route::get('update-address', [CompanyFormController::class, 'updateRegisterAddress'])->name('update-address')->middleware('auth');
 
 Route::get('update-forwarding-registered-office-address', [CompanyFormController::class, 'updateForwardingRegisterAddress'])->name('update-forwarding-registered-office-address')->middleware('auth');
-
-
 
 Route::prefix('admin')->middleware(['auth', 'auth.session'])
 ->group(function () {
