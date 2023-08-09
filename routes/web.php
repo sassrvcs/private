@@ -22,7 +22,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\Company\CompaniesListController;
 use App\Http\Controllers\Admin\Subadmin\SubadminController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\Web\Company\CompanieFormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-ad
 
 // Register for checkout 
 Route::post('/checkout-final',[CheckoutStepController::class,'checkoutCustomer'])->name('checkout-final');
-
+Route::get('companie-formation', [CompanieFormController::class, 'index'])->name('companie-formation');
 
 Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-account')->middleware('auth');
 Route::post('/logout', [AuthController::class, 'logout'])->name('clientlogout')->middleware('auth');

@@ -67,16 +67,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($companies->orders as $key => $order)    
+                                    @foreach($companies->orders as $key => $order)
+                                        {{-- @dump($order) --}}
                                         <tr>
                                             <td>{{ $order->order_id }}</td>
-                                            <td>{{ $order->order_id }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
                                             <td>{{ $order->company_name ?? "-" }}</td>
                                             <td>{{ $order->company_number ?? "-" }}</td>
                                             <td>{{ $order->auth_code ?? "-" }}</td>
                                             {{-- <td><span class="status accepted">Accepted</span></td> --}}
                                             <td><span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">{{ ($order->order_status == 'pending') ? 'Incomplete' : 'Accepted' }}</span></td>
-                                            <td><button class="view-btn">View <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt=""></button></td>
+                                            <td><a href="{{ route('companie-formation') }}" class="view-btn">View <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt=""></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -89,3 +90,4 @@
     </div>
 </section>
 @endsection
+

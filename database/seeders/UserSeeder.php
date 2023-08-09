@@ -38,5 +38,19 @@ class UserSeeder extends Seeder
             // Add more permissions as needed
         ];
         $admin->syncPermissions($permissionNames);
+
+        $customer = new User([
+            'title'             => 'Mr',
+            'forename'          => 'Customer',
+            'surname'           => 'Data',
+            'email'             => 'customer@yopmail.com',
+            'phone_no'          => fake()->phoneNumber(),
+            'email_verified_at' => now(),
+            'password'          => Hash::make('password'),
+            'remember_token'    => Str::random(10),
+        ]);
+
+        $customer->save();
+        $customer->assignRole('customer');
     }
 }

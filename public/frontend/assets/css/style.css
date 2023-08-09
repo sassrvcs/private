@@ -6933,3 +6933,193 @@ form.woocommerce-form-login.login{
     text-align: center;
     color: #46494d;
 }
+
+/*============04-08-2023========*/
+.particulars-form-wrap{
+    padding: 40px 0;
+}
+.particulars-top-step{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
+}
+.particulars-top-step .top-step-items{
+    background: #F3F3F3;
+    padding: 20px 30px;
+}
+.particulars-top-step .top-step-items strong{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height:1.2;
+    color: #353A40;
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+.particulars-top-step .top-step-items span{
+    font-family: 'Poppins', sans-serif;
+    color: #353A40;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.2;
+    padding: 0 0 0 10px;
+    margin: 0;
+    display: block;
+}
+.particulars-top-step .top-step-items.active{
+    background: #87CB28;
+}
+.particulars-top-step .top-step-items.active strong,
+.particulars-top-step .top-step-items.active span{
+    color: #fff;
+}
+
+.particulars-bottom-step{
+    background: #87CB28;
+    padding: 15px;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+.particulars-bottom-step .bottom-step-items{
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+.particulars-bottom-step .bottom-step-items p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #EBFFCF;
+    padding: 0 0 0 10px;
+    margin: 0;
+}
+
+.particulars-bottom-step .bottom-step-items.active p{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #fff;
+}
+
+.particulars-form-wrap .form-wrap{
+    padding: 60px 0 60px;
+    margin: 0;
+}
+.particulars-form-wrap .form-wrap .form-info-block{
+    padding:0;
+    margin: 0;
+}
+.particulars-form-wrap .form-wrap .form-info-block h4{
+    font-family: 'Poppins', sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    line-height:1.2;
+    color: #353A40;
+    padding: 0 0 15px;
+    margin: 0 0 15px;
+    border-bottom: 1px solid #CECECE
+}
+.particulars-form-wrap .form-wrap .form-info-block .desc{
+    display: flex;
+    background: #E7F2FC;
+    padding: 15px 20px;
+    margin: 0 0 40px;
+}
+.particulars-form-wrap .form-wrap .form-info-block .desc .icon{
+    width: 56px;
+    height: 56px;
+    border: 2px solid #3B566F;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.particulars-form-wrap .form-wrap .form-info-block .desc .text{
+    width: calc(100% - 56px);
+    padding: 0 0 0 15px;
+    margin: 0;
+}
+.particulars-form-wrap .form-wrap .form-info-block .desc .text h5{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height:1.2;
+    padding: 0;
+    margin: 0;
+}
+.particulars-form-wrap .form-wrap .form-info-block .desc .text p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #353A40;
+    padding: 0;
+    margin: 0;
+}
+
+.particulars-form-wrap .form-wrap .form-block .form-group .nb-text{
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.2;
+    padding: 0 0 10px;
+    margin: 0;
+
+}
+.particulars-form-wrap .form-wrap .form-block .form-group{
+    margin-bottom: 40px;
+}
+.particulars-form-wrap .form-wrap .form-block .form-group label{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    color:#292828;
+    padding: 0 0 10px;
+    margin: 0;
+}
+.particulars-form-wrap .form-wrap .form-block .form-group .check-another-name{
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+.particulars-form-wrap .form-wrap .form-block .form-group .check-another-name .form-control{
+    padding-right: 260px;
+}
+.particulars-form-wrap .form-wrap .form-block .form-group .form-control{
+    height: 44px;
+    border-radius: 8px;
+}
+.particulars-form-wrap .form-wrap .form-block .form-group .check-another-name .btn {
+    background: #EE7607;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding:11px 50px;
+    border-radius: 0 8px 8px 0;
+    color: #fff;
+}
+.particulars-form-wrap .form-wrap .form-block .btn-wrap{
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+.particulars-form-wrap .form-wrap .form-block .btn-wrap .btn{
+    font-size: 16px;
+    font-weight: 600;
+    line-height:1.2;
+    background: #87CB28;
+    padding:8px 16px 8px 16px;
+    color: #fff;
+    border-radius: 10px;
+}
