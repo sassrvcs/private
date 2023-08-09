@@ -19,6 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('jurisdiction_id')->index()->nullable();
             $table->unsignedBigInteger('office_address')->index()->nullable();
             $table->unsignedBigInteger('business_address')->nullable();
+            $table->unsignedBigInteger('forwarding_office_address')->nullable();
+            $table->unsignedBigInteger('forwarding_business_address')->nullable();
 
             $table->string('companie_name')->index()->nullable();
             $table->string('companie_type')->nullable();
