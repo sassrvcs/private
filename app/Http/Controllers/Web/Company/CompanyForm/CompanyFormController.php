@@ -156,6 +156,9 @@ class CompanyFormController extends Controller
     }
     
 
-    
+    public function appointments_open() {
+
+        return view('frontend.company_form.appointments');
+    }
 
 }

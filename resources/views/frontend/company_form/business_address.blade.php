@@ -504,14 +504,10 @@
                 shoppingCartId_id
             },
             success: function(response) {
-                // window.location.href = "{{ route('choose-address-business')}}"
+                window.location.href = "{{ route('appointments')}}"
             },
         });
 
-    };
-
-    function gotoBusinessAddressChoosePage() {
-        window.location.href = "{{ route('choose-address-business')}}"
     };
 
     function selectedForwardAdd(id) {
