@@ -76,21 +76,28 @@ class UserService
             $user->email        = $request->email;
             $user->password     = bcrypt($request->password);
 
-            $user->save();            
+            $user->save();
             $user->assignRole('customer');
 
-            if( $user ) {
-                $address            = new Address();
-                $address->user_id   = $user->id;
-                $address->address_type = $request->address_type ?? 'primary_address';
-                $address->house_number = $request->house_no;
-                $address->street    = $request->street;
-                $address->locality  = $request->locality;
-                $address->town      = $request->town;
-                $address->county    = $request->county;
-                $address->post_code = $request->post_code;
-                $address->billing_country = $request->billing_country;
-                $address->save();
+            if($user) {
+                Address::where('user_id',$user->id)->update(['is_selected'=>0]);
+                $addressArr = ['primary_address','billing_address'];
+                foreach($addressArr as $eachAddress){
+                    $address            = new Address();
+                    $address->user_id   = $user->id;
+                    $address->address_type = $eachAddress;
+                    $address->house_number = $request->house_no;
+                    $address->street    = $request->street;
+                    $address->locality  = $request->locality;
+                    $address->town      = $request->town;
+                    $address->county    = $request->county;
+                    $address->post_code = $request->post_code;
+                    $address->billing_country = $request->billing_country;
+                    $address->is_selected = 1 ;
+                    $address->save();
+
+                }
+
             }
 
             return $user;
@@ -129,24 +136,24 @@ class UserService
         $customer->save();
 
         $address = Address::where('user_id',$id)->first();
-        
+
         if(!empty($request['house_number'])) {
-            $address->house_number = $request['house_number']; 
+            $address->house_number = $request['house_number'];
         }
         if(!empty($request['street'])) {
-            $address->street = $request['street']; 
+            $address->street = $request['street'];
         }
         if(!empty($request['locality'])) {
-            $address->locality = $request['locality']; 
+            $address->locality = $request['locality'];
         }
         if(!empty($request['town'])) {
-            $address->town = $request['town']; 
+            $address->town = $request['town'];
         }
         if(!empty($request['country'])) {
-            $address->country = $request['country']; 
+            $address->country = $request['country'];
         }
         if(!empty($request['postcode'])) {
-            $address->post_code = $request['postcode']; 
+            $address->post_code = $request['postcode'];
         }
         $address->save();
 

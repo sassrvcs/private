@@ -115,7 +115,8 @@
             @if(empty(Auth::user()))
                 <a href="{{ url('/login') }}" class="theme-btn-primary login-btn"><img src="{{ asset('frontend/assets/images/mdi_account.svg')}}">Client Login</a>
             @else
-            <a href="{{ route('clientlogout')}}" class="theme-btn-primary login-btn" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+            <a href="{{ route('my-account')}}" class="theme-btn-primary login-btn"><img src="{{ asset('frontend/assets/images/mdi_account.svg')}}">My Account</a>
+            <a href="{{ route('clientlogout')}}" class="theme-btn-primary login-btn" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><img src="{{ asset('frontend/assets/images/mdi_account.svg')}}">Logout</a>
             <form id="logout-form" action="{{ route('clientlogout') }}" method="POST" style="display: none;">
                 @csrf
             </form>

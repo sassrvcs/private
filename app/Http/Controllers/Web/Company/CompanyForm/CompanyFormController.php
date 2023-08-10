@@ -86,6 +86,6 @@ class CompanyFormController extends Controller
 
         return $addData ;
     }
-    
+
 
 }
