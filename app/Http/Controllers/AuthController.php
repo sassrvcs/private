@@ -128,7 +128,8 @@ class AuthController extends Controller
             'title' => 'required',
             'forename' => 'required|alpha',
             'surname' => 'required|alpha',
-            'phone' => 'required|numeric|digits_between:8,13',
+            'phone' => 'nullable|numeric|digits_between:8,13',
+            // 'phone' => 'nullable',
             'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email|unique:users',
             'confirm_email' => 'sometimes|same:email',
             'password' => 'required|min:8|string',
@@ -160,6 +161,7 @@ class AuthController extends Controller
         ]);
 
         if($validate->fails()) {
+            // dd($validate->errors());
             return back()->withErrors($validate->errors())->withInput();
         } else {
             $response = $this->userService->store($request);

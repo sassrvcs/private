@@ -26,7 +26,8 @@ class CompanieFormAccessRequest extends FormRequest
         return [
             'order'     => ['required'],
             'section'   => ['sometimes'],
-            'step'      => ['sometimes']
+            'step'      => ['sometimes'],
+            'data'      => ['sometimes']
         ];
     }
 }

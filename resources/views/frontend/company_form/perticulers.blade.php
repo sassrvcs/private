@@ -13,7 +13,7 @@
         </div>
         <div class="center-info">
             <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Home</a></li>
                 <li><a>Digital Packages</a></li>
             </ul>
         </div>
@@ -181,6 +181,7 @@
                                             </div>
                                         </div>
 
+                                        {{-- <input type="hidden" name="phone" value=""> --}}
                                         <input type="hidden" name="section_name" value="company_formation">
                                         <input type="hidden" name="step_name" value="particulars">
                                         <input type="hidden" name="order_id" id="order_id" value="{{ $orders->id ?? '' }}">

@@ -7497,3 +7497,251 @@ form.woocommerce-form-login.login{
     height: 36px;
     margin: auto 0;
 }
+
+/*  Toggle Switch  */
+.toggleSwitch span span {
+    display: none;
+  }
+  
+  @media only screen {
+    .switch-slider-wrap{
+        line-height: 0;
+    }
+    .toggleSwitch {
+      display: inline-block;
+      height: 18px;
+      position: relative;
+      overflow: visible;
+      padding: 0;
+      margin-left: 0px;
+      cursor: pointer;
+      width: 40px
+    }
+    .toggleSwitch * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    .toggleSwitch label,
+    .toggleSwitch > span {
+      line-height: 20px;
+      height: 20px;
+      vertical-align: middle;
+    }
+    .toggleSwitch input:focus ~ a,
+    .toggleSwitch input:focus + label {
+      outline: none;
+    }
+    .toggleSwitch label {
+      position: relative;
+      z-index: 3;
+      display: block;
+      width: 100%;
+    }
+    .toggleSwitch input {
+      position: absolute;
+      opacity: 0;
+      z-index: 5;
+    }
+    .toggleSwitch > span {
+      position: absolute;
+      left: -50px;
+      width: 100%;
+      margin: 0;
+      padding-right: 50px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .toggleSwitch > span span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 5;
+      display: block;
+      width: 50%;
+      margin-left: 50px;
+      text-align: left;
+      font-size: 0.9em;
+      width: 100%;
+      left: 15%;
+      top: 1px;
+      opacity: 0;
+    }
+    .toggleSwitch a {
+      position: absolute;
+      right: 50%;
+      z-index: 4;
+      display: block;
+      height: 100%;
+      padding: 0;
+      left: 2px;
+      width: 18px;
+      background-color: #747672;
+      border: 1px solid #CCC;
+      border-radius: 100%;
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      transition: all 0.2s ease-out;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      top: 1px;
+    }
+    .toggleSwitch > span span:first-of-type {
+      color: #27301B;
+      opacity: 1;
+      left: 45%;
+    }
+    .toggleSwitch > span:before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 50px;
+      top: -2px;
+      background-color: #fff;
+      border: 1px solid #27301B;
+      border-radius: 30px;
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      transition: all 0.2s ease-out;
+    }
+    .toggleSwitch input:checked ~ a {
+      border-color: #fff;
+      left: 100%;
+      margin-left: -8px;
+    }
+    .toggleSwitch input:checked ~ span:before {
+      border-color: #4C8201;
+      /* box-shadow: inset 0 0 0 30px #0097D1; */
+    }
+    .toggleSwitch input:checked ~ span span:first-of-type {
+      opacity: 0;
+    }
+    .toggleSwitch input:checked ~ span span:last-of-type {
+      opacity: 1;
+      color:#4C8201;
+    }
+    /* Switch Sizes */
+    .toggleSwitch.large {
+      width: 108px;
+      height: 36px;
+    }
+    .toggleSwitch.large a {
+      width: 30px;
+      height: 30px;
+    }
+    .toggleSwitch.large > span {
+      height: 36px;
+      line-height: 28px;
+    }
+    .toggleSwitch.large input:checked ~ a {
+      left: 83px;
+      background: #6EB012;
+      border-color: #6EB012;
+    }
+    .toggleSwitch.large > span span {
+      font-size: 1.1em;
+    }
+    .toggleSwitch.large > span span:first-of-type {
+      left: 50%;
+    }
+    .toggleSwitch.xlarge {
+      width: 80px;
+      height: 36px;
+    }
+    .toggleSwitch.xlarge a {
+      width: 36px;
+    }
+    .toggleSwitch.xlarge > span {
+      height: 38px;
+      line-height: 37px;
+    }
+    .toggleSwitch.xlarge input:checked ~ a {
+      left: 52px;
+    }
+    .toggleSwitch.xlarge > span span {
+      font-size: 1.4em;
+    }
+    .toggleSwitch.xlarge > span span:first-of-type {
+      left: 50%;
+    }
+    .toggleSwitch.large input:checked span{
+        color: #4C8201;
+    }
+}
+  
+/*  End Toggle Switch  */
+.document-list-wrap{
+    padding: 0;
+    margin: 0;
+}
+.document-list-wrap .document-list{
+    padding: 20px 0;
+    border: 1px solid #6EB012;
+    background: #E6F9CC;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 15px;
+}
+.document-list-wrap .document-list .box{
+    width: 33.333333%;
+    padding: 0 15px;
+}
+
+.document-list-wrap .document-list .box p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 0;
+    margin: 0;
+    color: #3B566F;
+}
+
+.docu-info{
+    padding: 0;
+    margin: 0 0 30px;
+}
+.docu-info p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #353A40;
+    padding: 0;
+    margin: 0;
+}
+
+.byspoke-upload-file {
+    border: 1px solid #CECECE;
+    border-radius: 10px;
+    max-width: 600px;
+    padding: 25px 30px;
+}
+.byspoke-upload-file h3{
+    font-family: 'Poppins', sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #353A40;
+    padding: 0 0 15px;
+    margin: 0 0 15px;
+    border-bottom: 1px solid #CECECE;
+}
+.byspoke-upload-file .field-wrap .fiel{
+    border: 1px solid #CECECE;
+    padding: 6px;
+    border-radius: 5px;
+}
+.byspoke-upload-file .field-wrap .btn{
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    background: #87CB28;
+    padding: 8px 16px 8px 16px;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: none;
+    outline: none;
+}

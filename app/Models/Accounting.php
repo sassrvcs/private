@@ -14,7 +14,6 @@ class Accounting extends Model implements HasMedia
     protected $fillable = [
         'accounting_software_name', 'image',
         'short_desc', 'long_desc',
-        
     ];
     
 }

@@ -4,6 +4,7 @@ namespace App\Services\Company\CompanyFormSteps;
 
 use App\Models\Companie;
 use App\Models\Country;
+use App\Models\Order;
 use App\Models\SicCode;
 use Illuminate\Support\Facades\DB;
 
@@ -52,4 +53,39 @@ class CompanyFormService
             return $company;
         });
     }
+
+    /**
+     * Get company name from order ID
+     * @param int $order
+     */
+    public function getCompanieName($orderId)
+    {
+        $orders = Order::with('user')->where('order_id', $orderId)->first();
+        $CompanyFormationStep = Companie::where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
+
+        return $CompanyFormationStep;
+    }
+
+    /**
+     * Company form step 5 | Legal documents step
+     * @param array $request
+     */
+    // public function legalDocuments($request)
+    // {
+    //     // $sicCode = [];
+    //     return DB::transaction(function () use ($request) {
+
+    //         // Get the model instance where you want to attach the media
+    //         $model = Companie::find($request->input('model_id'));
+
+    //         // Attach the uploaded file to the model using Laravel Media Library
+    //         $model->addMediaFromRequest('document')->toMediaCollection('documents');
+
+    //         return response()->json([
+    //             'message' => 'File uploaded successfully.',
+    //         ]);
+
+    //         return $model;
+    //     });
+    // }
 }
