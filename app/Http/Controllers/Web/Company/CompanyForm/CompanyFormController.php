@@ -32,9 +32,35 @@ class CompanyFormController extends Controller
         return view('frontend.company_form.edit_address');
     }
     public function chooseAddress(){
-        $countries = Country::all();
+        $countries = Country::all()->toArray();
+
+        // dd($countries);
         $used_address = Address::where('user_id',Auth::user()->id)->get();
         return view('frontend.company_form.choose_address', compact('used_address','countries'));
+    }
+
+    public function chooseAddressAfterBuyNow(){
+        $countries = Country::all()->toArray();
+
+        $used_address = Address::where('user_id',Auth::user()->id)->get();
+
+        $forwardingAdd = Companie::where('user_id',Auth::user()->id)->first()->toArray();
+        $forwardingAddVal = $forwardingAdd['forwarding_registered_office_address'];
+
+        if($forwardingAddVal !== null){
+            $address = Address::where('id',$forwardingAddVal)->first()->toArray();
+        }else {
+            $address=[];
+        }
+
+        return view('frontend.company_form.choose_address_after_buy_now', compact('used_address','countries','forwardingAddVal','address'));
+    }
+
+    public function chooseBusinessAddress(){
+        $countries = Country::all()->toArray();
+
+        $used_address = Address::where('user_id',Auth::user()->id)->get();
+        return view('frontend.company_form.business_address', compact('used_address','countries'));
     }
     public function updateRegisterAddress(Request $request){
 
@@ -48,5 +74,18 @@ class CompanyFormController extends Controller
         );
         return 1 ;
     }
+
+    public function updateForwardingRegisterAddress(Request $request){
+
+        $id = $request->id;
+        $user_id = Auth::user()->id;
+
+        Companie::where('user_id',$user_id)->update(['forwarding_registered_office_address'=>$id]);
+
+        $addData = Address::where('id',$id)->first()->toArray();
+
+        return $addData ;
+    }
+
 
 }

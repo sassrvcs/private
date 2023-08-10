@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/slick/slick.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/font-awesome.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/aos.css')}}" type="text/css">
+
+    <!-- Select 2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css')}}" type="text/css">
 </head>

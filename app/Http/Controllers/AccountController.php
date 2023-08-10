@@ -29,6 +29,33 @@ class AccountController extends Controller
                                     ->toArray();
         return view('frontend.account.details', compact('user','primary_address','billing_address','countries'));
     }
+
+    public function saveSelectedAddress(Request $request){
+
+        $temp = [];
+        $id=$request->input('id');
+        // dd($id);
+        $temp['house_number'] =$request->input('number');
+        $temp['street'] = $request->input('steet');
+        $temp['locality'] =  $request->input('locality');
+        $temp['town'] = $request->input('town');
+        $temp['county'] =  $request->input('county')??null;
+        $temp['post_code'] = $request->input('postcode');
+        $temp['billing_country'] = $request->input('contry');
+
+        Address::where('id',$id)->update([
+            'house_number'     => $request->input('number'),
+            'street'            => $request->input('steet'),
+            'locality'          => $request->input('locality'),
+            'town'              => $request->input('town'),
+            'county'            => $request->input('county')??null,
+            'post_code'         => $request->input('postcode'),
+            'billing_country'   => $request->input('contry'),
+        ]);
+
+        return 1;
+    }
+
     public function savePrimaryAddress(Request $request){
         $temp = [];
         $temp['house_number'] =$request->input('number');

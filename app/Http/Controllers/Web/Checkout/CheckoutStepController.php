@@ -80,9 +80,8 @@ class CheckoutStepController extends Controller
             'title'             => 'required',
             'forename'          => 'required|alpha',
             'surname'           => 'required|alpha',
-            'phone'             => 'required|numeric|digits_between:8,13',
-            'email'             => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email|unique:users',
-            'password'          => 'required|min:8|string',
+            // 'phone'             => 'required|numeric|digits_between:8,13',
+            // 'email'             => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email|unique:users',
             'post_code'         => 'required',
             'county'            => 'required',
             'house_no'          => 'required',
@@ -93,12 +92,9 @@ class CheckoutStepController extends Controller
             'title.required'    => 'Title is required.',
             'forename.required' => 'Forename is required.',
             'surname.required'  => 'Surname is required.',
-            'phone.required'    => 'Phone number is required.',
-            'phone.required'    => 'Phone number is required.',
+            // 'phone.required'    => 'Phone number is required.',
+            // 'phone.required'    => 'Phone number is required.',
             'phone.numeric'     => 'Please enter valid phone number.',
-            'email.required'    => 'Email is required',
-            'email.email'       => 'Please provide valid email',
-            'password.required' => 'Password is required',
             'county.required'   =>'This field is required.',
             'street.required'   =>'This field is required.',
             'town.required'     =>'This field is required.',
@@ -115,7 +111,7 @@ class CheckoutStepController extends Controller
             $checkout = $this->checkoutService->doCheckoutFinalStep($request, auth()->user());
             // dd($checkout);
             if ($checkout) {
-                return redirect()->route('my-account');
+                return redirect()->route('my-account')->with('success','Company has been registerd successfully');
             }
         }
     }

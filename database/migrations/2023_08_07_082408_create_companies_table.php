@@ -19,6 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('jurisdiction_id')->index()->nullable();
             $table->unsignedBigInteger('office_address')->index()->nullable();
             $table->unsignedBigInteger('business_address')->nullable();
+            $table->unsignedBigInteger('forwarding_office_address')->nullable();
+            $table->unsignedBigInteger('forwarding_business_address')->nullable();
 
             $table->string('companie_name')->index()->nullable();
             $table->string('companie_type')->nullable();
@@ -26,9 +28,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('jurisdiction_id')->references('id')->on('jurisdictions')->onDelete('set null');
             $table->foreign('office_address')->references('id')->on('addresses')->onDelete('set null');
-
         });
     }
 

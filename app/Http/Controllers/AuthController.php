@@ -177,6 +177,42 @@ class AuthController extends Controller
         }
     }
 
+    public function registerNewAddess(Request $request) {
+
+        $validate = Validator::make($request->all(), [
+            'house_noNew' => 'required',
+            'post_codeNew' => 'required',
+            'streetNew' => 'required',
+            'townNew' => 'required',
+            'billing_countryNew' => 'required',
+        ],[
+            'house_noNew.required' =>'This field is required.',
+            'streetNew.required'   =>'This field is required.',
+            'townNew.required'     =>'This field is required.',
+            'post_codeNew.required'=>'This field is required.',
+            'billing_countryNew.required' =>'This field is required.',
+        ]);
+
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }else{
+            $address = new Address();
+            $address->user_id  = Auth::user()->id;
+            $address->address_type  = 'office_address';
+            $address->house_number = $request->house_noNew;
+            $address->street = $request->streetNew;
+            $address->locality = $request->localityNew;
+            $address->town = $request->townNew;
+            $address->county = $request->countyNew;
+            $address->post_code = $request->post_codeNew;
+            $address->billing_country = $request->billing_countryNew;
+            $address->save();
+
+            return redirect()->route('choose-address')->withSuccess('Address added successfully');
+        }
+
+    }
+
     public function logout(Request $request) {
         Session::flush();
         Auth::logout();

@@ -193,6 +193,10 @@
 <script src="{{ asset('frontend/assets/js/popper.min.1.16.0.js')}}"></script>
 <script src="{{ asset('frontend/assets/js/bootstrap.min.4.5.2.js')}}"></script>
 <script src="{{ asset('frontend/assets/slick/slick.min.js')}}"></script>
+
+<!-- Select 2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+
 <script src="{{ asset('frontend/assets/js/aos.js')}}"></script>
 <script src="{{ asset('frontend/assets/js/scripts.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

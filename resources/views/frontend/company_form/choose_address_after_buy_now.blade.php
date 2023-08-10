@@ -136,14 +136,14 @@
                                 <h3>Edit Address</h3>
 
                                 <form>
-                                    <input type="hidden" id="add_id" class="add_id" name="add_id">
+                                    <input type="hidden" id="add_id" class="add_id" name="add_id" value="{{$address['id'] !== '' ? $address['id']: ''}}">
 
                                     <div class="form-row form-group ">
                                         <label>Name / Number:&nbsp;
                                             </span>
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no">
+                                            <input type="text" id="house_no1" name="house_no"  value="{{$address['house_number'] !== '' ? $address['house_number']: ''}}" class="input-text form-control house_no">
 
                                         </span>
                                     </div>
@@ -151,7 +151,7 @@
                                         <label for="billing_title">Street:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="street" id="street1" class="input-text form-control steet_no">
+                                            <input type="text" value="{{$address['street'] !== '' ? $address['street']: ''}}" name="street" id="street1" class="input-text form-control steet_no">
                                         </span>
 
                                     </div>
@@ -159,7 +159,7 @@
                                         <label for="locality">Locality:
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="locality" id="locality1" class="input-text form-control locality">
+                                            <input type="text" value="{{$address['locality'] !== '' ? $address['locality']: ''}}" name="street" name="locality" id="locality1" class="input-text form-control locality">
                                         </span>
 
                                     </div>
@@ -167,7 +167,7 @@
                                         <label for="town">Town:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="town" id="town1" class="input-text form-control town">
+                                            <input type="text" name="town" value="{{$address['town'] !== '' ? $address['town']: ''}}" id="town1" class="input-text form-control town">
                                         </span>
 
                                     </div>
@@ -175,7 +175,7 @@
                                         <label for="county">County:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="county" id="county1" class="input-text form-control county">
+                                            <input type="text" name="county" value="{{$address['county'] !== '' ? $address['county']: ''}}" id="county1" class="input-text form-control county">
                                         </span>
 
                                     </div>
@@ -183,7 +183,7 @@
                                         <label for="postcode">Post Code:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" id="post_code" name="post_code" class="input-text form-control zip">
+                                            <input type="text" id="post_code" value="{{$address['post_code'] !== '' ? $address['post_code']: ''}}" name="post_code" class="input-text form-control zip">
                                         </span>
                                     </div>
                                     <div class="form-row update_totals_on_change form-group">
@@ -192,7 +192,7 @@
                                             <select name="billing_country" id="billing_country" name="billing_country" class="contry country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
                                                 <option value="">Select a country / region…</option>
                                                 @foreach ($countries as $country)
-                                                <option value="{{$country['id']}}">{{$country['name']}}</option>
+                                                <option value="{{$country['id']}}" {{ ( $country['id'] == $address['billing_country']) ? 'selected' : '' }}>{{$country['name']}}</option>
                                                 @endforeach
 
                                             </select>
@@ -203,15 +203,20 @@
                                     <div class="step-btn-wrap mt-4">
                                         <button type="button" class="btn saveAddress">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png')}}" alt=""></button>
                                     </div>
-                                    </form>
+                                </form>
                             </div>
                         </div>
                         {{--End Edit  form div--}}
 
-                        <div class="form-wrap hideEdit">
+                        <div class="form-wrap hideEdit {{$forwardingAddVal !== null ? 'd-none' : ''}}">
                             <div class="form-info-block">
                                 <h4>Registered Address</h4>
                             </div>
+                            <div class="choose-own-address mb-2">
+                                <h3>Forwarding Address</h3>
+                                <h5>Tell us where to forward your mail to you, by entering your address below.</h5>
+                            </div>
+
                             <div class="choose-own-address">
                                 <h3>Choose to use your own address</h3>
                                 <div class="src-are">
@@ -239,7 +244,7 @@
                                                 <input type="hidden" class="{{$value->id}}_address_post_code" value="{{ $value->post_code}}">
                                                 <input type="hidden" class="{{$value->id}}_address_billing_country" value="{{ $value->billing_country}}">
 
-                                                <button type="button" class="btn select-btn selc-addr" onclick="setAddress({{$value->user_id}},{{$value->id}})">Select</button>
+                                                <button type="button" class="btn select-btn selc-addr" onclick="selectedForwardAdd('{{$value->id}}')">Select</button>
                                             </div>
                                         </div>
                                     </div>
@@ -259,6 +264,7 @@
                             </div>
                         </div>
 
+                        <!-- ///////////////////////////////////////////////////d-none/////////////////////////////////////////////////////////// -->
                         <div class="sectiongap customer-signup-s1 addAddressForm d-none">
                             <div class="container">
                                 <div class="sec-common-title-s2">
@@ -363,6 +369,97 @@
                                 </form>
                             </div>
                         </div>
+
+                        <!-- ////////////////////////////////////////////d-none////////////////////////////////////////////////////////////////////// -->
+                        {{--End Edit  form div--}}
+                        <div class="form-wrap buyNowAfterSelectingAdd {{$forwardingAddVal !== null ? '' : 'd-none'}}">
+                            <div class="form-info-block">
+                                <h4>Registered Address</h4>
+                                <div class="loader" style="display:none"></div>
+                                <div class="desc mb-3 ">
+                                    <div class="icon">
+                                        <img src="{{ asset('frontend/assets/images/form-icon.png')}}" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <h5>Registered Office (required)</h5>
+                                        <ul>
+                                            <li>All companies require having a registered office address located in the same country as they are registered.</li>
+                                            <li>It is the address to which all Companies House, HMRC and other official letters will be sent and must always be a physical address (e.g. not a PO Box or DX).</li>
+                                            <li><b>The address of the registered office must appear on all company correspondence and publications.</b></li>
+                                            <li><b>A company’s registered office address is available to view by the public free of charge.</b></li>
+                                            <li>If you purchase our registered office address service, we will forward all official mail to an address of your choosing.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="own-address ">
+                                <div class="info">
+                                    <h3>Forwarding Address</h3>
+
+                                    <?php
+                                    if($forwardingAddVal !== null){
+                                        ?>
+                                        <p>{{$address['house_number']}},{{$address['street']}},{{$address['locality']}},{{$address['town']}},{{$address['county']}},{{$address['post_code']}}</p>
+                                        <?php
+                                    }
+                                    ?>
+                                    
+                                    <!-- <p><span id="forwarding_house_number"></span>, <span id="forwading_street"></span>, <span id="forwading_locality"></span>, <span id="forwading_town"></span>, <span id="forwading_county"></span>, <span id="forwading_post_code"></span></p> -->
+
+                                    <input type="hidden" id="forwading_add_id">
+                                    <input type="hidden" id="forwading_house_no1">
+                                    <input type="hidden" id="forwading_street1">
+                                    <input type="hidden" id="forwading_locality1">
+                                    <input type="hidden" id="forwading_town1">
+                                    <input type="hidden" id="forwading_county1">
+                                    <input type="hidden" id="forwading_post_code">
+                                    <input type="hidden" id="forwading_billing_country">
+                                </div>
+                                <div class="btn-box">
+                                    <a href="javascript:void(0)" type="button" class="btn edit-btn edit-addr">Edit Address</a>
+                                    <!-- <a href="{{ route('choose-address-after-buy-now')}}" type="button" class="btn another-btn">Choose Another</a> -->
+                                    <a type="button" class="btn another-btn" onclick="anotherForwardingAdd()">Choose Another</a>
+                                </div>
+                            </div>
+                            <div class="office-address ">
+                                <div class="top-block">
+                                    <h3>Registered Office - London</h3>
+                                    <div class="price-block">
+                                        <strong>$39.00</strong>
+                                        <p>Reserved annually at $39.00</p>
+                                    </div>
+                                </div>
+                                <div class="desc">
+                                    <div class="tham-img">
+                                        <img src="{{ asset('frontend/assets/images/address-img.png')}}" alt="">
+                                        <div class="tham-info">
+                                            <strong>London:</strong>
+                                            <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United Kingdom</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-block">
+                                        <h3>Protect the privacy of your home address</h3>
+                                        <p>Mauris placerat ac lectus et bibendum. Aliquam tincidunt tristique vulputate quisque tincidunt nisl vel risus imperdiet feugiat.</p>
+                                        <div class="location-block">
+                                            <div class="addr">
+                                                <strong>London: </strong>
+                                            </div>
+                                            <div class="info">
+                                                <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United Kingdom</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-block">
+                                    <button class="btn">Details</button>
+                                    <button class="btn buy-now-btn" onclick="gotoPage()">Remove</button>
+                                </div>
+                            </div>
+                            <div class="step-btn-wrap mt-4">
+                                <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png')}}" alt=""> Previous: Particulars</button>
+                                <button class="btn" onclick="gotoBusinessAddressChoosePage()">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png')}}" alt=""></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -375,8 +472,80 @@
 @section('script')
 
 <script>
+    function anotherForwardingAdd(){
+        $(".buyNowAfterSelectingAdd").hide();
+        $('.hideEdit').removeClass('d-none');
+    }
+    function gotoPage() {
+        window.location.href = "{{ route('registered-address')}}"
+    };
+
+    function gotoBusinessAddressChoosePage() {
+        window.location.href = "{{ route('choose-address-business')}}"
+    };
+
+    function selectedForwardAdd(id) {
+
+        $.ajax({
+            url: "{!! route('update-forwarding-registered-office-address') !!}",
+            type: 'get',
+            data: {
+                id
+            },
+            success: function(result) {
+                console.log(result);
+                setTimeout(function() {
+                    $('.selc-addr').text('Select');
+                }, 2000);
+                window.location.reload()
+            }
+        });
+
+        // $(".hideEdit").hide();
+        // $('.buyNowAfterSelectingAdd').removeClass('d-none');
+
+        // const house_number = $(`.${id}_add_house_number`).val();
+        // const add_street = $(`.${id}_add_street`).val();
+        // const add_locality = $(`.${id}_add_locality`).val();
+        // const add_town = $(`.${id}_add_town`).val();
+        // const user_county = $(`.${id}_user_county`).val();
+        // const address_post_code = $(`.${id}_address_post_code`).val();
+        // const address_billing_country = $(`.${id}_address_billing_country`).val();
+
+        // document.getElementById("forwarding_house_number").textContent = `${house_number}`;
+        // document.getElementById("forwading_street").textContent = `${add_street}`;
+        // document.getElementById("forwading_locality").textContent = `${add_locality}`;
+        // document.getElementById("forwading_town").textContent = `${add_town}`;
+        // document.getElementById("forwading_county").textContent = `${user_county}`;
+        // document.getElementById("forwading_post_code").textContent = `${address_post_code}`;
+        // // document.getElementById("forwading_billing_country").textContent = `${address_billing_country}`;
+
+        // $(`#forwading_add_id`).val(id);
+        // $(`#forwading_house_no1`).val(house_number);
+        // $(`#forwading_street1`).val(add_street);
+        // $(`#forwading_locality1`).val(add_locality);
+        // $(`#forwading_town1`).val(add_town);
+        // $(`#forwading_county1`).val(user_county);
+        // $(`#forwading_post_code`).val(address_post_code);
+        // $(`#forwading_billing_country`).val(address_billing_country);
+
+        // $(`#add_id`).val(id);
+        // $(`#house_no1`).val(house_number);
+        // $(`#street1`).val(add_street);
+        // $(`#locality1`).val(add_locality);
+        // $(`#town1`).val(add_town);
+        // $(`#county1`).val(user_county);
+        // $(`#post_code`).val(address_post_code);
+
+        // document.getElementById("billing_country").value = `${address_billing_country}`;
+    }
+
+    $('.edit-addr').click(function() {
+        $(".buyNowAfterSelectingAdd").hide();
+        $('.edit_from').removeClass('d-none');
+    });
+
     function editAddress(id) {
-        console.log(id);
         $(".hideEdit").hide();
         $('.edit_from').removeClass('d-none');
 
@@ -433,6 +602,7 @@
     }
 
     $('.saveAddress').click(function() {
+
         var id = $('#add_id').val();
         var number = $('#house_no1').val();
         var steet = $('#street1').val();

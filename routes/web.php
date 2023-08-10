@@ -22,8 +22,8 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\Company\CompaniesListController;
 use App\Http\Controllers\Admin\Subadmin\SubadminController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Web\Company\CompanieFormController;
 use App\Http\Controllers\Web\Company\CompanyForm\CompanyFormController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -51,16 +51,23 @@ Route::post('/login',[AuthController::class,'login'])->name('clientlogin');
 
 Route::get('/register', [AuthController::class, 'viewRegisterForm'])->name('register-form');
 Route::post('/register',[AuthController::class,'saveRegisterForm'])->name('save-register-form');
+
+Route::post('/registerNewAddess',[AuthController::class,'registerNewAddess'])->name('register-new-address');
+
 Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-address');
 
 // Register for checkout
 Route::post('/checkout-final',[CheckoutStepController::class,'checkoutCustomer'])->name('checkout-final');
 
+Route::get('companie-formation', [CompanieFormController::class, 'index'])->name('companie-formation');
+Route::post('companie-formation', [CompanieFormController::class, 'store'])->name('companie-formation.store');
+Route::patch('company-name-update', [CompanieFormController::class, 'updateCompanieName'])->name('companyname.update');
 
 Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-account')->middleware('auth');
 Route::post('/logout', [AuthController::class, 'logout'])->name('clientlogout')->middleware('auth');
 Route::get('/my-details', [AccountController::class, 'details'])->name('my_details')->middleware('auth');
 Route::post('/primary-address-save',[AccountController::class,'savePrimaryAddress'])->name('primary-address-save');
+Route::post('/selected-address-save',[AccountController::class,'saveSelectedAddress'])->name('selected-address-save');
 Route::post('/my-details-save',[AccountController::class,'saveMyDetails'])->name('my-details-save');
 
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
@@ -92,9 +99,11 @@ Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
 Route::get('registered-address', [CompanyFormController::class, 'registerAddress'])->middleware('auth')->name('registered-address');
 Route::get('edit-address', [CompanyFormController::class, 'editRegisterAddress'])->name('edit-address')->middleware('auth');
 Route::get('choose-address', [CompanyFormController::class, 'chooseAddress'])->name('choose-address')->middleware('auth');
+Route::get('choose-address-after-buy-now', [CompanyFormController::class, 'chooseAddressAfterBuyNow'])->name('choose-address-after-buy-now')->middleware('auth');
+Route::get('choose-address-business', [CompanyFormController::class, 'chooseBusinessAddress'])->name('choose-address-business')->middleware('auth');
 Route::get('update-address', [CompanyFormController::class, 'updateRegisterAddress'])->name('update-address')->middleware('auth');
 
-
+Route::get('update-forwarding-registered-office-address', [CompanyFormController::class, 'updateForwardingRegisterAddress'])->name('update-forwarding-registered-office-address')->middleware('auth');
 
 Route::prefix('admin')->middleware(['auth', 'auth.session'])
 ->group(function () {
