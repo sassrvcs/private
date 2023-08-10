@@ -250,8 +250,8 @@
                             <div class="new-address-block">
                                 <h3>Or enter a new Address</h3>
                                 <div class="new-address-field">
-                                    <input type="text" placeholder="Address Search...." class="form-control">
-                                    <button type="submit" class="btn" onclick="addAddress()">Select</button>
+                                    <!-- <input type="text" placeholder="Address Search...." class="form-control"> -->
+                                    <button type="submit" class="btn" onclick="addAddress()">Add New Address</button>
                                 </div>
                             </div>
                             <div class="step-btn-wrap mt-4">

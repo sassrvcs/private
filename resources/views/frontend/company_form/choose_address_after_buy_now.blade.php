@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <!-- ================ start: common-inner-page-banner ================ -->
+<!-- <meta name="csrf-token" content="{{ csrf_token() }}" /> -->
 <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png')}})">
     <div class="custom-container">
         <div class="left-info">
@@ -136,14 +137,14 @@
                                 <h3>Edit Address</h3>
 
                                 <form>
-                                    <input type="hidden" id="add_id" class="add_id" name="add_id" value="{{$address['id'] !== '' ? $address['id']: ''}}">
+                                    <input type="hidden" id="add_id" class="add_id" name="add_id" value="{{!empty($address) && $address['id'] !== ''}}">
 
                                     <div class="form-row form-group ">
                                         <label>Name / Number:&nbsp;
                                             </span>
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" id="house_no1" name="house_no"  value="{{$address['house_number'] !== '' ? $address['house_number']: ''}}" class="input-text form-control house_no">
+                                            <input type="text" id="house_no1" name="house_no" value="{{!empty($address) && $address['house_number'] !== '' ? $address['house_number']: ''}}" class="input-text form-control house_no">
 
                                         </span>
                                     </div>
@@ -151,7 +152,7 @@
                                         <label for="billing_title">Street:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" value="{{$address['street'] !== '' ? $address['street']: ''}}" name="street" id="street1" class="input-text form-control steet_no">
+                                            <input type="text" value="{{!empty($address) && $address['street'] !== '' ? $address['street']: ''}}" name="street" id="street1" class="input-text form-control steet_no">
                                         </span>
 
                                     </div>
@@ -159,7 +160,7 @@
                                         <label for="locality">Locality:
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" value="{{$address['locality'] !== '' ? $address['locality']: ''}}" name="street" name="locality" id="locality1" class="input-text form-control locality">
+                                            <input type="text" value="{{!empty($address) && $address['locality'] !== '' ? $address['locality']: ''}}" name="street" name="locality" id="locality1" class="input-text form-control locality">
                                         </span>
 
                                     </div>
@@ -167,7 +168,7 @@
                                         <label for="town">Town:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="town" value="{{$address['town'] !== '' ? $address['town']: ''}}" id="town1" class="input-text form-control town">
+                                            <input type="text" name="town" value="{{!empty($address) && $address['town'] !== '' ? $address['town']: ''}}" id="town1" class="input-text form-control town">
                                         </span>
 
                                     </div>
@@ -175,7 +176,7 @@
                                         <label for="county">County:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="county" value="{{$address['county'] !== '' ? $address['county']: ''}}" id="county1" class="input-text form-control county">
+                                            <input type="text" name="county" value="{{!empty($address) && $address['county'] !== '' ? $address['county']: ''}}" id="county1" class="input-text form-control county">
                                         </span>
 
                                     </div>
@@ -183,7 +184,7 @@
                                         <label for="postcode">Post Code:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" id="post_code" value="{{$address['post_code'] !== '' ? $address['post_code']: ''}}" name="post_code" class="input-text form-control zip">
+                                            <input type="text" id="post_code" value="{{!empty($address) && $address['post_code'] !== '' ? $address['post_code']: ''}}" name="post_code" class="input-text form-control zip">
                                         </span>
                                     </div>
                                     <div class="form-row update_totals_on_change form-group">
@@ -192,7 +193,7 @@
                                             <select name="billing_country" id="billing_country" name="billing_country" class="contry country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
                                                 <option value="">Select a country / region…</option>
                                                 @foreach ($countries as $country)
-                                                <option value="{{$country['id']}}" {{ ( $country['id'] == $address['billing_country']) ? 'selected' : '' }}>{{$country['name']}}</option>
+                                                <option value="{{$country['id']}}" {{!empty($address) && $country['id'] == $address['billing_country'] ? 'selected' : '' }}>{{$country['name']}}</option>
                                                 @endforeach
 
                                             </select>
@@ -255,8 +256,9 @@
                             <div class="new-address-block">
                                 <h3>Or enter a new Address</h3>
                                 <div class="new-address-field">
-                                    <input type="text" placeholder="Address Search...." class="form-control">
-                                    <button type="submit" class="btn" onclick="addAddress()">Select</button>
+                                    <!-- <input type="text" placeholder="Address Search...." class="form-control"> -->
+                                    <!-- <button type="submit" class="btn" onclick="addAddress()">Select</button> -->
+                                    <button type="submit" class="btn" onclick="addAddress()">Add New Address</button>
                                 </div>
                             </div>
                             <div class="step-btn-wrap mt-4">
@@ -397,13 +399,13 @@
                                     <h3>Forwarding Address</h3>
 
                                     <?php
-                                    if($forwardingAddVal !== null){
-                                        ?>
+                                    if ($forwardingAddVal !== null) {
+                                    ?>
                                         <p>{{$address['house_number']}},{{$address['street']}},{{$address['locality']}},{{$address['town']}},{{$address['county']}},{{$address['post_code']}}</p>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
-                                    
+
                                     <!-- <p><span id="forwarding_house_number"></span>, <span id="forwading_street"></span>, <span id="forwading_locality"></span>, <span id="forwading_town"></span>, <span id="forwading_county"></span>, <span id="forwading_post_code"></span></p> -->
 
                                     <input type="hidden" id="forwading_add_id">
@@ -427,6 +429,7 @@
                                     <div class="price-block">
                                         <strong>$39.00</strong>
                                         <p>Reserved annually at $39.00</p>
+                                        <input type="hidden" value="39" id="registered_office_price">
                                     </div>
                                 </div>
                                 <div class="desc">
@@ -472,16 +475,39 @@
 @section('script')
 
 <script>
-    function anotherForwardingAdd(){
+    function anotherForwardingAdd() {
         $(".buyNowAfterSelectingAdd").hide();
         $('.hideEdit').removeClass('d-none');
     }
+
     function gotoPage() {
-        window.location.href = "{{ route('registered-address')}}"
+        $.ajax({
+            url: "{!! route('remove-forwarding-address-section') !!}",
+            type: 'get',
+            success: function(result) {
+                setTimeout(function() {
+                    $('.selc-addr').text('Select');
+                }, 2000);
+                window.location.href = "{{ route('registered-address')}}"
+            }
+        });
     };
 
     function gotoBusinessAddressChoosePage() {
-        window.location.href = "{{ route('choose-address-business')}}"
+        const price = $('#registered_office_price').val();
+        console.log(price);
+        $.ajax({
+            url: "{!! route('save_company_in_shopping_cart') !!}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                price
+            },
+            success: function(response) {
+                window.location.href = "{{ route('choose-address-business')}}"
+            },
+        });
+
     };
 
     function selectedForwardAdd(id) {

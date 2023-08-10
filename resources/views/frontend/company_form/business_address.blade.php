@@ -136,14 +136,14 @@
                                 <h3>Edit Address</h3>
 
                                 <form>
-                                    <input type="hidden" id="add_id" class="add_id" name="add_id">
+                                    <input type="hidden" id="add_id" class="add_id" name="add_id" value="{{!empty($address) && $address['id'] !== '' ? $address['id']: ''}}">
 
                                     <div class="form-row form-group ">
                                         <label>Name / Number:&nbsp;
                                             </span>
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no">
+                                            <input type="text" id="house_no1" name="house_no"  value="{{!empty($address) && $address['house_number'] !== '' ? $address['house_number']: ''}}" class="input-text form-control house_no">
 
                                         </span>
                                     </div>
@@ -151,7 +151,7 @@
                                         <label for="billing_title">Street:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="street" id="street1" class="input-text form-control steet_no">
+                                            <input type="text" value="{{!empty($address) && $address['street'] !== '' ? $address['street']: ''}}" name="street" id="street1" class="input-text form-control steet_no">
                                         </span>
 
                                     </div>
@@ -159,7 +159,7 @@
                                         <label for="locality">Locality:
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="locality" id="locality1" class="input-text form-control locality">
+                                            <input type="text" value="{{!empty($address) && $address['locality'] !== '' ? $address['locality']: ''}}" name="street" name="locality" id="locality1" class="input-text form-control locality">
                                         </span>
 
                                     </div>
@@ -167,7 +167,7 @@
                                         <label for="town">Town:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="town" id="town1" class="input-text form-control town">
+                                            <input type="text" name="town" value="{{!empty($address) && $address['town'] !== '' ? $address['town']: ''}}" id="town1" class="input-text form-control town">
                                         </span>
 
                                     </div>
@@ -175,7 +175,7 @@
                                         <label for="county">County:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="county" id="county1" class="input-text form-control county">
+                                            <input type="text" name="county" value="{{!empty($address) && $address['county'] !== '' ? $address['county']: ''}}" id="county1" class="input-text form-control county">
                                         </span>
 
                                     </div>
@@ -183,7 +183,7 @@
                                         <label for="postcode">Post Code:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" id="post_code" name="post_code" class="input-text form-control zip">
+                                            <input type="text" id="post_code" value="{{!empty($address) && $address['post_code'] !== '' ? $address['post_code']: ''}}" name="post_code" class="input-text form-control zip">
                                         </span>
                                     </div>
                                     <div class="form-row update_totals_on_change form-group">
@@ -192,7 +192,7 @@
                                             <select name="billing_country" id="billing_country" name="billing_country" class="contry country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
                                                 <option value="">Select a country / region…</option>
                                                 @foreach ($countries as $country)
-                                                <option value="{{$country['id']}}">{{$country['name']}}</option>
+                                                <option value="{{$country['id']}}" {{!empty($address) && $country['id'] == $address['billing_country'] ? 'selected' : '' }}>{{$country['name']}}</option>
                                                 @endforeach
 
                                             </select>
@@ -208,7 +208,7 @@
                         </div>
                         {{--End Edit  form div--}}
 
-                        <div class="form-wrap hideEdit">
+                        <div class="form-wrap hideEdit {{$forwardingAddVal !== null ? 'd-none' : ''}}">
                             <div class="form-info-block">
                                 <h4>Business Address</h4>
                             </div>
@@ -255,8 +255,9 @@
                             <div class="new-address-block">
                                 <h3>Or enter a new Address</h3>
                                 <div class="new-address-field">
-                                    <input type="text" placeholder="Address Search...." class="form-control">
-                                    <button type="submit" class="btn" onclick="addAddress()">Select</button>
+                                    <!-- <input type="text" placeholder="Address Search...." class="form-control"> -->
+                                    <!-- <button type="submit" class="btn" onclick="addAddress()">Select</button> -->
+                                    <button type="submit" class="btn" onclick="addAddress()">Add New Address</button>
                                 </div>
                             </div>
                             <div class="step-btn-wrap mt-4">
@@ -264,6 +265,7 @@
                             </div>
                         </div>
 
+                        <!-- ///////////////////////////////////////////////////d-none/////////////////////////////////////////////////////////// -->
                         <div class="sectiongap customer-signup-s1 addAddressForm d-none">
                             <div class="container">
                                 <div class="sec-common-title-s2">
@@ -369,8 +371,9 @@
                             </div>
                         </div>
 
+                        <!-- ////////////////////////////////////////////d-none////////////////////////////////////////////////////////////////////// -->
                         {{--End Edit  form div--}}
-                        <div class="form-wrap buyNowAfterSelectingAdd d-none">
+                        <div class="form-wrap buyNowAfterSelectingAdd {{$forwardingAddVal !== null ? '' : 'd-none'}}">
                             <div class="form-info-block">
                                 <h4>Business Address</h4>
                                 <div class="loader" style="display:none"></div>
@@ -393,7 +396,16 @@
                             <div class="own-address ">
                                 <div class="info">
                                     <h3>Forwarding Address</h3>
-                                    <p><span id="forwarding_house_number"></span>, <span id="forwading_street"></span>, <span id="forwading_locality"></span>, <span id="forwading_town"></span>, <span id="forwading_county"></span>, <span id="forwading_post_code"></span></p>
+
+                                    <?php
+                                    if($forwardingAddVal !== null){
+                                        ?>
+                                        <p>{{$address['house_number']}},{{$address['street']}},{{$address['locality']}},{{$address['town']}},{{$address['county']}},{{$address['post_code']}}</p>
+                                        <?php
+                                    }
+                                    ?>
+                                    
+                                    <!-- <p><span id="forwarding_house_number"></span>, <span id="forwading_street"></span>, <span id="forwading_locality"></span>, <span id="forwading_town"></span>, <span id="forwading_county"></span>, <span id="forwading_post_code"></span></p> -->
 
                                     <input type="hidden" id="forwading_add_id">
                                     <input type="hidden" id="forwading_house_no1">
@@ -406,7 +418,8 @@
                                 </div>
                                 <div class="btn-box">
                                     <a href="javascript:void(0)" type="button" class="btn edit-btn edit-addr">Edit Address</a>
-                                    <a href="{{ route('choose-address-after-buy-now')}}" type="button" class="btn another-btn">Choose Another</a>
+                                    <!-- <a href="{{ route('choose-address-after-buy-now')}}" type="button" class="btn another-btn">Choose Another</a> -->
+                                    <a type="button" class="btn another-btn" onclick="anotherForwardingAdd()">Choose Another</a>
                                 </div>
                             </div>
                             <div class="office-address ">
@@ -415,6 +428,7 @@
                                     <div class="price-block">
                                         <strong>$96.00</strong>
                                         <p>Reserved annually at $96.00</p>
+                                        <input type="hidden" value="96" id="business_office_price">
                                     </div>
                                 </div>
                                 <div class="desc">
@@ -445,7 +459,7 @@
                             </div>
                             <div class="step-btn-wrap mt-4">
                                 <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png')}}" alt=""> Previous: Particulars</button>
-                                <button class="btn" >Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png')}}" alt=""></button>
+                                <button class="btn" onclick="go_to_the_next_page()" >Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png')}}" alt=""></button>
                             </div>
                         </div>
                     </div>
@@ -453,6 +467,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" name="shoppingCartId" value="{{$cartInfoId}}" id="shoppingCartId_id">
 </section>
 <!-- ================ end: Particulars sec ================ -->
 @endsection
@@ -460,49 +475,95 @@
 @section('script')
 
 <script>
-     function gotoPage(){
-        window.location.href = "{{ route('registered-address')}}"
+    function anotherForwardingAdd(){
+        $(".buyNowAfterSelectingAdd").hide();
+        $('.hideEdit').removeClass('d-none');
+    }
+    function gotoPage() {
+        $.ajax({
+            url: "{!! route('remove-forwarding-business-address-section') !!}",
+            type: 'get',
+            success: function(result) {
+                setTimeout(function() {
+                    $('.selc-addr').text('Select');
+                }, 2000);
+                window.location.href = "{{ route('choose-address-after-buy-now')}}"
+            }
+        });
     };
-    
+
+    function go_to_the_next_page() {
+        const price = $('#business_office_price').val();
+        const shoppingCartId_id = $('#shoppingCartId_id').val();
+        $.ajax({
+            url: "{!! route('save_company_in_shopping_cart_business') !!}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                price,
+                shoppingCartId_id
+            },
+            success: function(response) {
+                window.location.href = "{{ route('appointments')}}"
+            },
+        });
+
+    };
 
     function selectedForwardAdd(id) {
-        $(".hideEdit").hide();
-        $('.buyNowAfterSelectingAdd').removeClass('d-none');
 
-        const house_number = $(`.${id}_add_house_number`).val();
-        const add_street = $(`.${id}_add_street`).val();
-        const add_locality = $(`.${id}_add_locality`).val();
-        const add_town = $(`.${id}_add_town`).val();
-        const user_county = $(`.${id}_user_county`).val();
-        const address_post_code = $(`.${id}_address_post_code`).val();
-        const address_billing_country = $(`.${id}_address_billing_country`).val();
+        $.ajax({
+            url: "{!! route('update-forwarding-business-office-address') !!}",
+            type: 'get',
+            data: {
+                id
+            },
+            success: function(result) {
+                console.log(result);
+                setTimeout(function() {
+                    $('.selc-addr').text('Select');
+                }, 2000);
+                window.location.reload()
+            }
+        });
 
-        document.getElementById("forwarding_house_number").textContent = `${house_number}`;
-        document.getElementById("forwading_street").textContent = `${add_street}`;
-        document.getElementById("forwading_locality").textContent = `${add_locality}`;
-        document.getElementById("forwading_town").textContent = `${add_town}`;
-        document.getElementById("forwading_county").textContent = `${user_county}`;
-        document.getElementById("forwading_post_code").textContent = `${address_post_code}`;
-        // document.getElementById("forwading_billing_country").textContent = `${address_billing_country}`;
+        // $(".hideEdit").hide();
+        // $('.buyNowAfterSelectingAdd').removeClass('d-none');
 
-        $(`#forwading_add_id`).val(id);
-        $(`#forwading_house_no1`).val(house_number);
-        $(`#forwading_street1`).val(add_street);
-        $(`#forwading_locality1`).val(add_locality);
-        $(`#forwading_town1`).val(add_town);
-        $(`#forwading_county1`).val(user_county);
-        $(`#forwading_post_code`).val(address_post_code);
-        $(`#forwading_billing_country`).val(address_billing_country);
+        // const house_number = $(`.${id}_add_house_number`).val();
+        // const add_street = $(`.${id}_add_street`).val();
+        // const add_locality = $(`.${id}_add_locality`).val();
+        // const add_town = $(`.${id}_add_town`).val();
+        // const user_county = $(`.${id}_user_county`).val();
+        // const address_post_code = $(`.${id}_address_post_code`).val();
+        // const address_billing_country = $(`.${id}_address_billing_country`).val();
 
-        $(`#add_id`).val(id);
-        $(`#house_no1`).val(house_number);
-        $(`#street1`).val(add_street);
-        $(`#locality1`).val(add_locality);
-        $(`#town1`).val(add_town);
-        $(`#county1`).val(user_county);
-        $(`#post_code`).val(address_post_code);
+        // document.getElementById("forwarding_house_number").textContent = `${house_number}`;
+        // document.getElementById("forwading_street").textContent = `${add_street}`;
+        // document.getElementById("forwading_locality").textContent = `${add_locality}`;
+        // document.getElementById("forwading_town").textContent = `${add_town}`;
+        // document.getElementById("forwading_county").textContent = `${user_county}`;
+        // document.getElementById("forwading_post_code").textContent = `${address_post_code}`;
+        // // document.getElementById("forwading_billing_country").textContent = `${address_billing_country}`;
 
-        document.getElementById("billing_country").value = `${address_billing_country}`;
+        // $(`#forwading_add_id`).val(id);
+        // $(`#forwading_house_no1`).val(house_number);
+        // $(`#forwading_street1`).val(add_street);
+        // $(`#forwading_locality1`).val(add_locality);
+        // $(`#forwading_town1`).val(add_town);
+        // $(`#forwading_county1`).val(user_county);
+        // $(`#forwading_post_code`).val(address_post_code);
+        // $(`#forwading_billing_country`).val(address_billing_country);
+
+        // $(`#add_id`).val(id);
+        // $(`#house_no1`).val(house_number);
+        // $(`#street1`).val(add_street);
+        // $(`#locality1`).val(add_locality);
+        // $(`#town1`).val(add_town);
+        // $(`#county1`).val(user_county);
+        // $(`#post_code`).val(address_post_code);
+
+        // document.getElementById("billing_country").value = `${address_billing_country}`;
     }
 
     $('.edit-addr').click(function() {
@@ -544,7 +605,6 @@
 
     function setAddress(userId, addressId) {
         var url = "{{ route('registered-address') }}";
-
 
 
         $(this).text('please wait..');

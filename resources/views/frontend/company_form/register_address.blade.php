@@ -137,15 +137,15 @@
                                 <h3>Edit Address</h3>
 
                                 <form>
-                                    <input type="hidden" class="user_id" name="user_id" value="{{ $recent_addr->user_id}}">
-                                    <input type="hidden" class="address_type" name="address_type" value="{{ $recent_addr->address_type}}">
+                                    <input type="hidden" class="user_id" name="user_id" value="{{!empty($recent_addr) && $recent_addr['user_id'] !== '' ? $recent_addr['user_id']: ''}}">
+                                    <input type="hidden" class="address_type" name="address_type" value="{{!empty($recent_addr) && $recent_addr['address_type'] !== '' ? $recent_addr['address_type']: ''}}">
 
                                     <div class="form-row form-group ">
                                         <label>Name / Number:&nbsp;
                                             </span>
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no" value="{{$recent_addr->house_number}}">
+                                            <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no" value="{{!empty($recent_addr) && $recent_addr['house_number'] !== '' ? $recent_addr['house_number']: ''}}">
 
                                         </span>
                                     </div>
@@ -153,7 +153,7 @@
                                         <label for="billing_title">Street:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="street" id="street1" class="input-text form-control steet_no" value="{{$recent_addr->street}}">
+                                            <input type="text" name="street" id="street1" class="input-text form-control steet_no" value="{{!empty($recent_addr) && $recent_addr['street'] !== '' ? $recent_addr['street']: ''}}">
                                         </span>
 
                                     </div>
@@ -161,7 +161,7 @@
                                         <label for="locality">Locality:
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="locality" id="locality1" class="input-text form-control locality" value="{{$recent_addr->locality}}">
+                                            <input type="text" name="locality" id="locality1" class="input-text form-control locality" value="{{!empty($recent_addr) && $recent_addr['locality'] !== '' ? $recent_addr['locality']: ''}}">
                                         </span>
 
                                     </div>
@@ -169,7 +169,7 @@
                                         <label for="town">Town:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="town" id="town1" class="input-text form-control town" value="{{$recent_addr->town}}">
+                                            <input type="text" name="town" id="town1" class="input-text form-control town" value="{{!empty($recent_addr) && $recent_addr['town'] !== '' ? $recent_addr['town']: ''}}">
                                         </span>
 
                                     </div>
@@ -177,7 +177,7 @@
                                         <label for="county">County:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="county" id="county1" class="input-text form-control county" value="{{$recent_addr->county}}">
+                                            <input type="text" name="county" id="county1" class="input-text form-control county" value="{{!empty($recent_addr) && $recent_addr['county'] !== '' ? $recent_addr['county']: ''}}">
                                         </span>
 
                                     </div>
@@ -185,7 +185,7 @@
                                         <label for="postcode">Post Code:&nbsp;
                                         </label>
                                         <span class="input-wrapper">
-                                            <input type="text" id="post_code" name="post_code" class="input-text form-control zip" value="{{$recent_addr->post_code}}">
+                                            <input type="text" id="post_code" name="post_code" class="input-text form-control zip" value="{{!empty($recent_addr) && $recent_addr['post_code'] !== '' ? $recent_addr['post_code']: ''}}">
                                         </span>
                                     </div>
                                     <div class="form-row update_totals_on_change form-group">
@@ -195,7 +195,7 @@
                                                 <option value="">Select a country / region…</option>
 
                                                 @foreach ($countries as $country)
-                                                <option value="{{$country->id}}" {{ ( $country->id == $recent_addr->billing_country) ? 'selected' : '' }}>{{$country->name}}</option>
+                                                <option value="{{$country->id}}" {{ !empty($recent_addr) && $country->id == $recent_addr->billing_country ? 'selected' : '' }}>{{$country->name}}</option>
                                                 @endforeach
                                             </select>
                                         </span>
@@ -233,7 +233,7 @@
                                 <div class="info">
                                     @if(!empty($recent_addr))
                                     <h3>Choose to use your own address</h3>
-                                    <p>{{$recent_addr->house_number}}, {{$recent_addr->street}}, @if(!empty($recent_addr->locality)){{$recent_addr->locality}}, @endif {{$recent_addr->town}}, {{$recent_addr->county}}, {{$recent_addr->post_code}}, {{$recent_addr->billing_country}} </p>
+                                    <p>{{isset($recent_addr->house_number) ? $recent_addr->house_number:''}}, {{ isset($recent_addr->street) ? $recent_addr->street:''}}, @if(!empty($recent_addr->locality)){{$recent_addr->locality}}, @endif {{isset($recent_addr->town) ? $recent_addr->town:''}}, {{isset($recent_addr->county) ? $recent_addr->county : ''}}, {{isset($recent_addr->post_code) ? $recent_addr->post_code:''}}, {{isset($recent_addr->billing_country) ? $recent_addr->billing_country : ''}} </p>
                                     @else
                                     <h3>Forwarding Address</h3>
 
