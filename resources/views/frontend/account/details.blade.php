@@ -281,7 +281,7 @@
                     <div class="current_address_grp">
                         @foreach($primary_address_list as $key => $value)
                         <div class="addr_wrap">
-                            <p>{{ $value['house_number']}}, {{$value['street']}},{{$value['locality']}},{{ $value['town']}}, {{ $value['county']}}</p>
+                            <p>@if($value['house_number']) {{ $value['house_number']}},@endif @if($value['street']) {{$value['street']}}, @endif @if($value['locality']) {{$value['locality']}}, @endif @if($value['town']) {{ $value['town']}}, @endif {{ $value['county']}}</p>
                             <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
                         </div>
                         <div class="button_select">
@@ -306,13 +306,17 @@
                 <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <div>
+                <div class="choose_addr">
                     <h3>Recently Used Addresses</h3>
-                    <div>
+                    <div class="current_address_grp">
                         @foreach($billing_address_list as $key => $value)
-                            <p>{{ $value['house_number']}}, {{$value['street']}},{{$value['locality']}},{{ $value['town']}}, {{ $value['county']}}</p>
+                        <div class="addr_wrap">
+                            <p>@if($value['house_number']) {{ $value['house_number']}}, @endif @if($value['street']) {{$value['street']}}, @endif @if($value['locality']) {{$value['locality']}}, @endif @if($value['town']) {{ $value['town']}}, @endif {{ $value['county']}}</p>
                             <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
+                        </div>
+                        <div class="button_select">
                             <button class="btn btn-primary" data-dismiss="modal" onclick="setAddress({{$value['user_id']}},{{$value['id']}},'billing_address')" type="button">Select</button>
+                        </div>
                         @endforeach
                     </div>
                 </div>
@@ -337,6 +341,7 @@
                     <h3>Recently Used Addresses</h3>
                     <div>
                         @foreach($billing_address as $key => $value)
+
                             <p>{{$value['house_number'] }}, {{$value['street']}},{{$value['locality']}},{{ $value['town']}}, {{ $value['county']}}</p>
                             <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
                             <button class="btn btn-primary" data-dismiss="modal" type="button">Select</button>

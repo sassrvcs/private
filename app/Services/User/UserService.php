@@ -80,6 +80,7 @@ class UserService
             $user->assignRole('customer');
 
             if($user) {
+                Address::where('user_id',$user->id)->update(['is_selected'=>0]);
                 $addressArr = ['primary_address','billing_address'];
                 foreach($addressArr as $eachAddress){
                     $address            = new Address();
@@ -92,6 +93,7 @@ class UserService
                     $address->county    = $request->county;
                     $address->post_code = $request->post_code;
                     $address->billing_country = $request->billing_country;
+                    $address->is_selected = 1 ;
                     $address->save();
 
                 }

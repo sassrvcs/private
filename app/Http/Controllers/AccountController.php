@@ -92,6 +92,7 @@ class AccountController extends Controller
         //         'billing_country'   => $request->input('contry'),
         //     ],
         // );
+        Address::where('user_id',$request->input('user_id'))->where('address_type',$request->input('address_type'))->update(['is_selected'=>0]);
 
         $address            = new Address();
         $address->user_id   = $request->input('user_id');
@@ -103,6 +104,7 @@ class AccountController extends Controller
         $address->county    = $request->input('county')??null;
         $address->post_code = $request->input('postcode');
         $address->billing_country = $request->input('contry');
+        $address->is_selected = 1 ;
         $address->save();
         return 1;
     }
