@@ -364,6 +364,7 @@
 
             var companyName = $('#companie_name').val();
             var orderId = $('#order_id').val();
+            $('.save-continue').prop('disabled', true);
 
             var searchButton = $(this);
             searchButton.prop('disabled', true).text('Searching...');
@@ -386,11 +387,14 @@
                         $('#is_sensetibe').val('true');
                         $('#is_sensitive_word').text(response.data.is_sensitive_word);
                         $('#c_availablity').val('available');
+                        $('.save-continue').prop('disabled', false);
                     } else {
                         $('.sensitive-word-chk').hide();
                         $('#srchfld-error').show();
                         $('#c-availablity').text('');
                         $('#c_availablity').val('available');
+                        $('.save-continue').prop('disabled', false);
+
                         // $("#message-cls").text('');
                         // $("#message-cls").text('Congratulation!');
                         $('#companie-name').text(companyName);
@@ -403,6 +407,7 @@
                     $('#companie-name').text(companyName);
                     $('#c-availablity').text('not');
                     $('#c_availablity').val('not_available');
+                    $('.save-continue').prop('disabled', true);
                 }
             })
             .catch(function (error) {

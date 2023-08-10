@@ -83,12 +83,14 @@ class CompanieFormController extends Controller
 
             if($company['message'] === CompanieSearchService::COMPANY_NOT_AVAILABLE) {
                 return back()->with('error', "This company is not available");
-            } else if($company['is_sensitive'] === 1) {
-                return back()->with('error', 'This '.strtoupper($request->companie_name).' company is case sensitive');
             }
+            // else if($company['is_sensitive'] === 1) {
+            //     return back()->with('error', 'This '.strtoupper($request->companie_name).' company is case sensitive');
+            // @todo Need to check if company document is available or not
+            // }
+            // FORMATIONSHUNT LTD 
         }
 
-        //FORMATIONSHUNT LTD 
         try {
             $companyForm = $this->companyFormService->companyFormStep1($request->validated());
         
