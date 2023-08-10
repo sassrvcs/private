@@ -142,18 +142,19 @@ class CompanyFormController extends Controller
         }
     }
 
-    public function saveCompanyInShoppingCart_Business(Request $request){
-        $price = $request->price;
-        $shoppingCartId = $request->shoppingCartId_id;
+    // public function saveCompanyInShoppingCart_Business(Request $request){
+    //     $price = $request->price;
+    //     $shoppingCartId = $request->shoppingCartId_id;
 
-        $cartInfo = ShoppingCart::where(['id' => $shoppingCartId])->get()->first();
+    //     $cartInfo = ShoppingCart::where(['id' => $shoppingCartId])->get()->first();
 
-        $lastPrice = $cartInfo['price'];
+    //     $lastPrice = $cartInfo['price'];
 
-        $finalPrice = $lastPrice + $price;
+    //     $finalPrice = $lastPrice + $price;
 
-        $inserted = ShoppingCart::where('id',$shoppingCartId)->update(['price'=>$finalPrice]);
-    }
+    //     $inserted = ShoppingCart::where('id',$shoppingCartId)->update(['price'=>$finalPrice]);
+
+    // }
     
 
     
