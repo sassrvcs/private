@@ -24,25 +24,25 @@ class CompanieFormController extends Controller
     {
         $userID = auth()->user()->id;
         $orders = Order::with('user')->where('order_id', $request->order)->first();
-        $CompanyFormationStep = Companie::where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
+        $companyFormationStep = Companie::where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
 
-        // dd($CompanyFormationStep);
+        dd($companyFormationStep);
         $jurisdictions = Jurisdiction::get();
 
         $SICDetails = config('sic_code.sic_details');
         $SICCodes = config('sic_code.sic_code');
 
-        if($CompanyFormationStep == null) {
+        if($companyFormationStep == null) {
 
-            return view('frontend.company_form.perticulers', compact('orders', 'jurisdictions', 'SICDetails', 'SICCodes'));
+            return view('frontend.company_form.perticulers', compact('orders', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
         } 
         else {
             if( isset($request->data) && $request->data == 'previous') {
                 // dd($request->data);
-                return view('frontend.company_form.perticulers', compact('orders', 'jurisdictions', 'SICDetails', 'SICCodes'));
+                return view('frontend.company_form.perticulers', compact('orders', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
             }
 
-            if($CompanyFormationStep->step_name == 'particulars') {
+            if($companyFormationStep->step_name == 'particulars') {
                 // return redirect(route('registered-address'));
                 // return redirect(route('companyname.document', ['order' => ]));
             } 

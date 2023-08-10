@@ -24,4 +24,9 @@ class Companie extends Model implements HasMedia
     //         ->singleFile();
     //     // Add more collections if needed
     // }
+
+    public function sicCodes()
+    {
+        return $this->hasMany(SicCode::class, 'company_id', 'id');
+    }
 }

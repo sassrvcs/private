@@ -169,19 +169,23 @@
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label for="jurisdiction_id">Jurisdiction <span><img src="assets/images/in-icon.png" alt=""></span></label>
                                                 <select class="form-control" name="jurisdiction_id">
                                                     <option value="">Select one</option>
                                                     @foreach ($jurisdictions as $jurisdiction)
-                                                        <option value="{{ $jurisdiction->id }}">{{ $jurisdiction->name }}</option>
+                                                        @if( isset($companyFormationStep->jurisdiction_id) && $companyFormationStep->jurisdiction_id == $jurisdiction->id)
+                                                            <option selected value="{{ $jurisdiction->id }}">{{ $jurisdiction->name }}</option>
+                                                        @else
+                                                            <option value="{{ $jurisdiction->id }}">{{ $jurisdiction->name }}</option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
 
-                                        {{-- <input type="hidden" name="phone" value=""> --}}
                                         <input type="hidden" name="section_name" value="company_formation">
                                         <input type="hidden" name="step_name" value="particulars">
                                         <input type="hidden" name="order_id" id="order_id" value="{{ $orders->id ?? '' }}">
@@ -198,6 +202,9 @@
                                             </div>
                                         </div>
 
+                                        {{--  @foreach($facility as $key => $value)
+                                            <option value={{$value->id}} @if(!empty(json_decode($package->facilities)) && in_array($value->id,json_decode($package->facilities))) selected  @endif>{{$value->name}}</option>
+                                        @endforeach --}}
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label for="">Selected SIC Codes</label>
