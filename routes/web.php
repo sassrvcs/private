@@ -92,7 +92,7 @@ Route::get('companies', CompaniesListController::class)->name('companies-list');
 
 Route::get('/search-companie', CompanieController::class);
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
-//Route::get('refund-cancellation', [PageController::class, 'refundcancellation'])->name('page.refundcancellation');
+// Route::get('refund-cancellation', [PageController::class, 'refundcancellation'])->name('page.refundcancellation');
 
 Route::get('registered-address', [CompanyFormController::class, 'registerAddress'])->middleware('auth')->name('registered-address');
 Route::get('edit-address', [CompanyFormController::class, 'editRegisterAddress'])->name('edit-address')->middleware('auth');
@@ -103,9 +103,9 @@ Route::get('update-address', [CompanyFormController::class, 'updateRegisterAddre
 Route::post('save_company_in_shopping_cart', [CompanyFormController::class, 'saveCompanyInShoppingCart'])->name('save_company_in_shopping_cart')->middleware('auth');
 Route::post('save_company_in_shopping_cart_business', [CompanyFormController::class, 'saveCompanyInShoppingCart_Business'])->name('save_company_in_shopping_cart_business')->middleware('auth');
 
-
-
 Route::get('companie-formation', [CompanieFormController::class, 'index'])->name('companie-formation')->middleware('auth');
+Route::post('upload-sensetive-doc', [CompanieFormController::class, 'storeImage'])->name('upload-sensetive-doc')->middleware('auth');
+
 Route::post('companie-formation', [CompanieFormController::class, 'store'])->name('companie-formation.store')->middleware('auth');
 Route::patch('company-name-update', [CompanieFormController::class, 'updateCompanieName'])->name('companyname.update')->middleware('auth');
 Route::get('company-document', [CompanieFormController::class, 'companyDocuments'])->name('companyname.document')->middleware('auth');

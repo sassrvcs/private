@@ -26,12 +26,15 @@ class CompanieStoreRequest extends FormRequest
         return [
             'companie_name' => ['required'],
             'companie_type' => ['required'],
-            'sic_name'      => ['required'],
+            'sic_name'      => ['sometimes'],
             'sic_code'      => ['required'],
             'section_name'  => ['required'],
             'step_name'     => ['required'],
             'order_id'      => ['required'],
-            'jurisdiction_id'=> ['required']
+            'order'         => ['required'],
+            'jurisdiction_id'=> ['required'],
+            'is_sensetibe'  => ['sometimes'],
+            'c_availablity' => ['required'],
         ];
     }
 }

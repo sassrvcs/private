@@ -148,16 +148,51 @@
                                                 <label>Company Name <span><img src="{{ asset('frontend/assets/images/in-icon.png') }}" alt=""></span></label>
                                                 <span class="nb-text">Your requested company name is displayed below. If you wish to change this, insert another name and click.</span>
                                                 <div class="check-another-name">
-                                                    <input type="text" class="form-control" name="companie_name" id="companie_name" value="{{ $orders->company_name ?? '' }}">
+                                                    <input type="text" class="form-control" name="companie_name" id="companie_name" value="{{ (isset($companyFormationStep->companie_name) && !empty($companyFormationStep->companie_name)) ? strtoupper($companyFormationStep->companie_name) : strtoupper($orders->company_name ?? '' ) }}" oninput="this.value = this.value.toUpperCase();">
                                                     <button type="submit" class="btn check-company">Check another name</button>
                                                 </div>
                                             </div>
 
+                                            @if(session('error'))
+                                                <div class="text-danger alert-custom-highlight-s1 bg-free">
+                                                    <em class="text-danger">
+                                                        <h4 id="message-cls"> <i class="fa fa-times-circle-o"></i> Error, company already redisterd.</h4>
+                                                    </em>
+                                                </div>
+                                            @endif
+
                                             <div class="text-danger alert-custom-highlight-s1" id="srchfld-error" style="display: none">
                                                 <em id="srchfld-error" class="text-danger">
-                                                    <h4 id="message-cls">Warning, <span id="companie-name"> </span> is available for registration.</h4>
+                                                    <h4 id="message-cls">Warning, <span id="companie-name"> </span> is <span id="c-availablity"></span> available for registration.</h4>
                                                     <p> You need to put a valid Company ending: LTD, LIMITED, CYF, CYFYNGEDIG, LTD. etc. to proceed further.</p>
                                                 </em>
+                                            </div>
+
+                                            <div class="sensitive-word-chk" style="display: none">
+                                                <label for="field-10">Sensitive Words</label>
+                                                <div class="sensitive-guidance">
+                                                    <div class="sensitive-word">
+                                                        <h5 id="is_sensitive_word"> </h5>
+                                                        <div class="sensitive-word-guidance"> </div>
+                                                    </div> 
+                                                </div>
+                                                <div class="w-row ef-supporting-doc-attachment-wrapper" style="clear:both">
+                                                <h4>Supporting Document</h4>
+                                                    <div class="w-col w-col-8">
+                                                        <div>
+                                                            <input class="w-input file-upload" type="file" name="file-upload-sensitive" id="file-upload-sensitive" accept="application/pdf">
+                                                            <button type="button" id="sensitive-doc-attach" class="button">Attach</button>
+                                                            @if(!empty($mediaDoc['name']))
+                                                                <div class="w-col w-col-12 sensitive-col ef-upload-result">
+                                                                    <span class="attached-label-sensitive">Document Attached
+                                                                        <a class="button" href="{{ $mediaDoc['url'] }}" target="_blank">View</a>
+                                                                    </span>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-col w-col-12 sensitive-col ef-upload-result"> </div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -187,8 +222,13 @@
                                         </div>
 
                                         <input type="hidden" name="section_name" value="company_formation">
+                                        <input type="hidden" name="is_sensetibe" id="is_sensetibe" value="">
                                         <input type="hidden" name="step_name" value="particulars">
+                                        <input type="hidden" name="c_availablity" id="c_availablity" value="">
                                         <input type="hidden" name="order_id" id="order_id" value="{{ $orders->id ?? '' }}">
+                                        <input type="hidden" name="order" id="order" value="{{ $_GET['order'] ?? '' }}">
+
+                                        <input type="hidden" name="company_id" id="company_id" value="{{ $companyFormationStep->id ?? '' }}">
 
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
@@ -202,15 +242,18 @@
                                             </div>
                                         </div>
 
-                                        {{--  @foreach($facility as $key => $value)
-                                            <option value={{$value->id}} @if(!empty(json_decode($package->facilities)) && in_array($value->id,json_decode($package->facilities))) selected  @endif>{{$value->name}}</option>
-                                        @endforeach --}}
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label for="">Selected SIC Codes</label>
                                                 {{-- <select class="form-control" name="selected_sic" id="selected_sic"> --}}
                                                 <select class="form-select selected_sic" name="sic_code[]" id="multiple-select-field" data-placeholder="Choose anything" multiple>
-                                                    <option value="">None Selected</option>
+                                                    @if( isset($companyFormationStep->sicCodes) )
+                                                        @foreach($companyFormationStep->sicCodes as $key => $value)
+                                                            <option selected value="{{ $value->id }}">{{ $value->id }} - {{ $value->name }}</option>
+                                                        @endforeach
+                                                    @else
+                                                        <option value="">None Selected</option>
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>
@@ -248,6 +291,7 @@
 @endsection
 
 @section('script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             // Reference to the SICDetails and SICCodes arrays
@@ -286,6 +330,15 @@
 
             var companyName = $('#companie_name').val();
             if (companyName.indexOf('LTD') !== -1 || companyName.indexOf('LIMITED') !== -1) {
+                // if($('#is_sensetibe').val() == 'true') {
+                //     Swal.fire({
+                //         icon: 'error',
+                //         title: 'Oops...',
+                //         text: 'Please upload document',
+                //     })
+                //     return false;
+                // }
+
                 $('#srchfld-error').hide();
                 $("#perticulars").submit();
             } else {
@@ -304,6 +357,11 @@
 
         $('.check-company').click(function(e) {
             e.preventDefault();
+            checkCompanieAvailabality();
+        });
+
+        const checkCompanieAvailabality = () => {
+
             var companyName = $('#companie_name').val();
             var orderId = $('#order_id').val();
 
@@ -321,35 +379,30 @@
                 console.log(response.data);
 
                 if(response.data.message == 'This company name is available.') {
-                    // await axios.parch('/company-name-update', {
-                    //     queryparams: {
-                    //         'order': orderId
-                    //     }
-                    // })
-                    // .then(function (response) {
-                    //     console.log(response);
-                    // })
-                    // .catch(function (error) {
-                    //     console.error(error);
-                    // });
-
-                    $('#srchfld-error').show();
-                    // $("#message-cls").text('');
-                    // $("#message-cls").text('Congratulation!');
-                    $('#companie-name').text(companyName);
 
                     if(response.data.is_sensitive == 1) {
-                        // $('#is_sensitive_word_row').show();
-                        // $('#is_sensitive_word').text(response.data.is_sensitive_word);
+                        $('.sensitive-word-chk').show();
+                        $('.sensitive-word-guidance').prepend(response.data.sensitive_word_desc);
+                        $('#is_sensetibe').val('true');
+                        $('#is_sensitive_word').text(response.data.is_sensitive_word);
+                        $('#c_availablity').val('available');
                     } else {
-                        // $('#is_sensitive_word_row').hide();
-                        // $('#is_sensitive_word').text('');
+                        $('.sensitive-word-chk').hide();
+                        $('#srchfld-error').show();
+                        $('#c-availablity').text('');
+                        $('#c_availablity').val('available');
+                        // $("#message-cls").text('');
+                        // $("#message-cls").text('Congratulation!');
+                        $('#companie-name').text(companyName);
                     }
                 } else {
+                    $('.sensitive-word-chk').hide();
                     $('#srchfld-error').show();
                     // $("#message-cls").text('');
                     // $("#message-cls").text('Error!');
                     $('#companie-name').text(companyName);
+                    $('#c-availablity').text('not');
+                    $('#c_availablity').val('not_available');
                 }
             })
             .catch(function (error) {
@@ -360,6 +413,47 @@
                 // Re-enable the button and change the text back to "Search"
                 searchButton.prop('disabled', false).text('Search');
             });
+        }
+
+        $(document).ready(function() {
+            checkCompanieAvailabality();
         });
+
+        $("#sensitive-doc-attach").click(function() {
+
+            const fileInput = document.getElementById("file-upload-sensitive");
+            $('#sensitive-doc-attach').text('Attaching...');
+            
+            if (fileInput.files.length > 0) {
+                const formData = new FormData();
+                formData.append("document", fileInput.files[0]);
+                formData.append("model_id", $("#order_id").val());
+
+                axios.post("/upload-sensetive-doc", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+                .then(function(response) {
+                    console.log("File uploaded successfully:", response.data);
+                    $('#is_sensetibe').val('');
+                    Swal.fire(
+                        'Attached!',
+                        'Your file has been attached.',
+                        'success'
+                    )
+                })
+                .catch(function(error) {
+                    console.error("Error uploading file:", error);
+                })
+                .finally(function () {
+                    // Re-enable the button and change the text back to "Attach"
+                    $('#sensitive-doc-attach').prop('disabled', false).text('Attach');
+                });
+            } else {
+                console.log("No file selected.");
+            }
+        });
+
     </script>
 @endsection

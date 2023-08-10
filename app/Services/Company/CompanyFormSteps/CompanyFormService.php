@@ -18,24 +18,37 @@ class CompanyFormService
     {
         // $sicCode = [];
         return DB::transaction(function () use ($request) {
-            $company = Companie::create([
-                'user_id' => auth()->user()->id,
+            $company = Companie::updateOrCreate([
+                'companie_name'     => $request['companie_name'],
+                'user_id'           => auth()->user()->id,
+            ],[
+                'user_id'           => auth()->user()->id,
                 'jurisdiction_id'   => $request['jurisdiction_id'],
                 'companie_name'     => $request['companie_name'],
                 'companie_type'     => $request['companie_type'],
                 'section_name'      => $request['section_name'],
                 'step_name'         => $request['step_name'],
             ]);
-
+            // dd($request['sic_code']);
             if($company) {
                 foreach( $request['sic_code'] as $sicCode ) {
-                    list($sicCode, $sicName) = explode(" - ", $sicCode, 2);
-                    SicCode::create([
-                        'name'       => $sicName,
-                        'companie_id'=> $company->id,
-                        'code'       => $sicCode,
-                    ]);
+                    if (strpos($sicCode, " - ") !== false) {
+                        list($sicCode, $sicName) = explode(" - ", $sicCode, 2);
+                        SicCode::create([
+                            'name'       => $sicName,
+                            'companie_id'=> $company->id,
+                            'code'       => $sicCode,
+                        ]);
+                    }
                 }
+            }
+
+            $sourceMedia = Order::findOrFail($request['order_id']);
+            $media = $sourceMedia->getMedia('sensetive-document');
+
+            foreach ($media as $medium) {
+                // Copy the medium to the Order model's collection
+                $medium->copy($company, 'company-sensetive-document');
             }
 
             return $company;

@@ -12,4 +12,9 @@ class SicCode extends Model
     protected $fillable = [
         'companie_id', 'name', 'code'
     ];
+
+    public function companies()
+    {
+        return $this->hasMany(Companie::class, 'companie_id', 'id');
+    }
 }

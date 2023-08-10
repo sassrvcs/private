@@ -27,6 +27,6 @@ class Companie extends Model implements HasMedia
 
     public function sicCodes()
     {
-        return $this->hasMany(SicCode::class, 'company_id', 'id');
+        return $this->hasMany(SicCode::class, 'companie_id', 'id');
     }
 }

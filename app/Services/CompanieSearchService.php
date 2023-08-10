@@ -25,6 +25,7 @@ class CompanieSearchService
     {
         $is_sensitive = 0;
         $is_sensitive_word = '';
+        $sensitive_word_desc = '';
 
         $searchvalue = trim($searchText);
         if (stripos($searchvalue, 'ltd') !== false) {
@@ -52,19 +53,20 @@ class CompanieSearchService
                         if (stripos($searchText,$sensitiveWords) !== false) {
                             $is_sensitive = 1;
                             $is_sensitive_word = $words->name;
+                            $sensitive_word_desc = $words->description;
                         }
                     }
-                    return ['message' => CompanieSearchService::COMPANY_AVAILABLE, 'search_text' => $searchText, 'is_sensitive' => $is_sensitive, 'is_sensitive_word' => $is_sensitive_word];
+                    return ['message' => CompanieSearchService::COMPANY_AVAILABLE, 'search_text' => $searchText, 'is_sensitive' => $is_sensitive, 'is_sensitive_word' => $is_sensitive_word, 'sensitive_word_desc' => $sensitive_word_desc];
                 } else {
-                    return ['message' => CompanieSearchService::COMPANY_AVAILABLE, 'search_text' => $searchText, 'is_sensitive' => $is_sensitive, 'is_sensitive_word' => $is_sensitive_word];
+                    return ['message' => CompanieSearchService::COMPANY_AVAILABLE, 'search_text' => $searchText, 'is_sensitive' => $is_sensitive, 'is_sensitive_word' => $is_sensitive_word, 'sensitive_word_desc' => $sensitive_word_desc];
                 }
 
             } else {
-                return ['message' => CompanieSearchService::COMPANY_NOT_AVAILABLE, 'search_text' => $searchText, 'is_sensitive'=> $is_sensitive, 'is_sensitive_word' => $is_sensitive_word];
+                return ['message' => CompanieSearchService::COMPANY_NOT_AVAILABLE, 'search_text' => $searchText, 'is_sensitive'=> $is_sensitive, 'is_sensitive_word' => $is_sensitive_word, 'sensitive_word_desc' => $sensitive_word_desc];
                 // return CompanieSearchService::COMPANY_AVAILABLE;
             }
         } else {
-            return ['message' => CompanieSearchService::NO_RESPONSE, 'search_text' => $searchText, 'is_sensitive'=> $is_sensitive, 'is_sensitive_word' => $is_sensitive_word];
+            return ['message' => CompanieSearchService::NO_RESPONSE, 'search_text' => $searchText, 'is_sensitive'=> $is_sensitive, 'is_sensitive_word' => $is_sensitive_word, 'sensitive_word_desc' => $sensitive_word_desc];
         }
     }
 }
