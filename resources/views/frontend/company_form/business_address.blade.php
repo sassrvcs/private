@@ -255,8 +255,9 @@
                             <div class="new-address-block">
                                 <h3>Or enter a new Address</h3>
                                 <div class="new-address-field">
-                                    <input type="text" placeholder="Address Search...." class="form-control">
-                                    <button type="submit" class="btn" onclick="addAddress()">Select</button>
+                                    <!-- <input type="text" placeholder="Address Search...." class="form-control"> -->
+                                    <!-- <button type="submit" class="btn" onclick="addAddress()">Select</button> -->
+                                    <button type="submit" class="btn" onclick="addAddress()">Add New Address</button>
                                 </div>
                             </div>
                             <div class="step-btn-wrap mt-4">
@@ -478,36 +479,36 @@
         $(".buyNowAfterSelectingAdd").hide();
         $('.hideEdit').removeClass('d-none');
     }
-    // function gotoPage() {
-    //     $.ajax({
-    //         url: "{!! route('remove-forwarding-business-address-section') !!}",
-    //         type: 'get',
-    //         success: function(result) {
-    //             setTimeout(function() {
-    //                 $('.selc-addr').text('Select');
-    //             }, 2000);
-    //             window.location.href = "{{ route('choose-address-after-buy-now')}}"
-    //         }
-    //     });
-    // };
+    function gotoPage() {
+        $.ajax({
+            url: "{!! route('remove-forwarding-business-address-section') !!}",
+            type: 'get',
+            success: function(result) {
+                setTimeout(function() {
+                    $('.selc-addr').text('Select');
+                }, 2000);
+                window.location.href = "{{ route('choose-address-after-buy-now')}}"
+            }
+        });
+    };
 
-    // function go_to_the_next_page() {
-    //     const price = $('#business_office_price').val();
-    //     const shoppingCartId_id = $('#shoppingCartId_id').val();
-    //     $.ajax({
-    //         url: "{!! route('save_company_in_shopping_cart_business') !!}",
-    //         type: "POST",
-    //         data: {
-    //             "_token": "{{ csrf_token() }}",
-    //             price,
-    //             shoppingCartId_id
-    //         },
-    //         success: function(response) {
-    //             // window.location.href = "{{ route('choose-address-business')}}"
-    //         },
-    //     });
+    function go_to_the_next_page() {
+        const price = $('#business_office_price').val();
+        const shoppingCartId_id = $('#shoppingCartId_id').val();
+        $.ajax({
+            url: "{!! route('save_company_in_shopping_cart_business') !!}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                price,
+                shoppingCartId_id
+            },
+            success: function(response) {
+                // window.location.href = "{{ route('choose-address-business')}}"
+            },
+        });
 
-    // };
+    };
 
     function gotoBusinessAddressChoosePage() {
         window.location.href = "{{ route('choose-address-business')}}"

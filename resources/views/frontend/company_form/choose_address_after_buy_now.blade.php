@@ -137,7 +137,7 @@
                                 <h3>Edit Address</h3>
 
                                 <form>
-                                    <input type="hidden" id="add_id" class="add_id" name="add_id" value="{{!empty($address) && $address['id'] !== '' ? $address['id']: ''}}">
+                                    <input type="hidden" id="add_id" class="add_id" name="add_id" value="{{!empty($address) && $address['id'] !== ''}}">
 
                                     <div class="form-row form-group ">
                                         <label>Name / Number:&nbsp;
@@ -256,8 +256,9 @@
                             <div class="new-address-block">
                                 <h3>Or enter a new Address</h3>
                                 <div class="new-address-field">
-                                    <input type="text" placeholder="Address Search...." class="form-control">
-                                    <button type="submit" class="btn" onclick="addAddress()">Select</button>
+                                    <!-- <input type="text" placeholder="Address Search...." class="form-control"> -->
+                                    <!-- <button type="submit" class="btn" onclick="addAddress()">Select</button> -->
+                                    <button type="submit" class="btn" onclick="addAddress()">Add New Address</button>
                                 </div>
                             </div>
                             <div class="step-btn-wrap mt-4">
