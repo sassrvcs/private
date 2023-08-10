@@ -99,8 +99,13 @@ Route::get('choose-address', [CompanyFormController::class, 'chooseAddress'])->n
 Route::get('choose-address-after-buy-now', [CompanyFormController::class, 'chooseAddressAfterBuyNow'])->name('choose-address-after-buy-now')->middleware('auth');
 Route::get('choose-address-business', [CompanyFormController::class, 'chooseBusinessAddress'])->name('choose-address-business')->middleware('auth');
 Route::get('update-address', [CompanyFormController::class, 'updateRegisterAddress'])->name('update-address')->middleware('auth');
+Route::post('save_company_in_shopping_cart', [CompanyFormController::class, 'saveCompanyInShoppingCart'])->name('save_company_in_shopping_cart')->middleware('auth');
+Route::post('save_company_in_shopping_cart_business', [CompanyFormController::class, 'saveCompanyInShoppingCart_Business'])->name('save_company_in_shopping_cart_business')->middleware('auth');
 
 Route::get('update-forwarding-registered-office-address', [CompanyFormController::class, 'updateForwardingRegisterAddress'])->name('update-forwarding-registered-office-address')->middleware('auth');
+Route::get('update-forwarding-business-office-address', [CompanyFormController::class, 'updateForwardingBusinessAddress'])->name('update-forwarding-business-office-address')->middleware('auth');
+Route::get('remove-forwarding-address-section', [CompanyFormController::class, 'removeForwardingAddressSection'])->name('remove-forwarding-address-section')->middleware('auth');
+Route::get('remove-forwarding-business-address-section', [CompanyFormController::class, 'removeForwardingBusinessAddressSection'])->name('remove-forwarding-business-address-section')->middleware('auth');
 
 
 
