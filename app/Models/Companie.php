@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Companie extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = [
+        'user_id', 'jurisdiction_id',
+        'office_address', 'business_address',
+        'companie_name', 'companie_type',
+        'section_name', 'step_name'
+    ];
 }

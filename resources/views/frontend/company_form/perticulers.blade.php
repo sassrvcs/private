@@ -138,63 +138,82 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-block">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Company Name <span><img src="{{ asset('frontend/assets/images/in-icon.png') }}" alt=""></span></label>
-                                            <span class="nb-text">Your requested company name is displayed below. If you wish to change this, insert another name and click.</span>
-                                            <div class="check-another-name">
-                                                <input type="text" class="form-control" value="{{ $orders[0]->company_name ?? '' }}">
-                                                <button type="submit" class="btn">Check another name</button>
+                            
+                            <form id="perticulars" action="{{ route('companie-formation.store') }}" method="POST">
+                                @csrf
+                                <div class="form-block">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Company Name <span><img src="{{ asset('frontend/assets/images/in-icon.png') }}" alt=""></span></label>
+                                                <span class="nb-text">Your requested company name is displayed below. If you wish to change this, insert another name and click.</span>
+                                                <div class="check-another-name">
+                                                    <input type="text" class="form-control" name="companie_name" id="companie_name" value="{{ $orders->company_name ?? '' }}">
+                                                    <button type="submit" class="btn check-company">Check another name</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-danger alert-custom-highlight-s1" id="srchfld-error" style="display: none">
+                                                <em id="srchfld-error" class="text-danger">
+                                                    <h4 id="message-cls">Warning, <span id="companie-name"> </span> is available for registration.</h4>
+                                                    <p> You need to put a valid Company ending: LTD, LIMITED, CYF, CYFYNGEDIG, LTD. etc. to proceed further.</p>
+                                                </em>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="companie_type">Type of Company</label>
+                                                <select class="form-control" name="companie_type">
+                                                    <option value="Limited By Shares">Limited By Shares</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="jurisdiction_id">Jurisdiction <span><img src="assets/images/in-icon.png" alt=""></span></label>
+                                                <select class="form-control" name="jurisdiction_id">
+                                                    <option value="">Select one</option>
+                                                    @foreach ($jurisdictions as $jurisdiction)
+                                                        <option value="{{ $jurisdiction->id }}">{{ $jurisdiction->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" name="section_name" value="company_formation">
+                                        <input type="hidden" name="step_name" value="particulars">
+                                        <input type="hidden" name="order_id" id="order_id" value="{{ $orders->id ?? '' }}">
+
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="sic_name">What are yur business activities (SIC Codes) <span><img src="assets/images/in-icon.png" alt=""></span></label>
+                                                <select class="form-control" name="sic_name" id="sic_name">
+                                                    <option value="">Select Category</option>
+                                                    @foreach($SICDetails as $key => $value)
+                                                        <option value="{{ $value['id'] }}">{{ $value['name'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label for="">Selected SIC Codes</label>
+                                                {{-- <select class="form-control" name="selected_sic" id="selected_sic"> --}}
+                                                <select class="form-select selected_sic" name="sic_code[]" id="multiple-select-field" data-placeholder="Choose anything" multiple>
+                                                    <option value="">None Selected</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="btn-wrap">
+                                                <button type="submit" class="btn btn-success save-continue">Save & Continue <img src="assets/images/btn-right-arrow.png" alt=""></button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="">Type of Company</label>
-                                            <select class="form-control">
-                                                <option value="Limited By Shares">Limited By Shares</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="">Jurisdiction <span><img src="assets/images/in-icon.png" alt=""></span></label>
-                                            <select class="form-control">
-                                                <option value="">England & Wales</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="">What are yur business activities (SIC Codes) <span><img src="assets/images/in-icon.png" alt=""></span></label>
-                                            <select class="form-control" name="sic_name" id="sic_name">
-                                                <option value="">Select Category</option>
-                                                @foreach($SICDetails as $key => $value)
-                                                    <option value="{{ $value['id'] }}">{{ $value['name'] }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="">Selected SIC Codes</label>
-                                            {{-- <select class="form-control" name="selected_sic" id="selected_sic"> --}}
-                                            <select class="form-select" name="selected_sic[]" id="selected_sic" data-placeholder="Choose anything" multiple>
-                                                <option value="">None Selected</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <div class="btn-wrap">
-                                            <button class="btn">Save & Continue <img src="assets/images/btn-right-arrow.png" alt=""></button>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -221,9 +240,6 @@
 @endsection
 
 @section('script')
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script>
         $(document).ready(function() {
             // Reference to the SICDetails and SICCodes arrays
@@ -232,27 +248,23 @@
             
             // Reference to the two dropdowns
             var sicDetailsDropdown = $('#sic_name');
-            var selectedSICDropdown = $('#selected_sic');
+            var selectedSICDropdown = $('#multiple-select-field');
             
             // Event listener for SICDetails dropdown change
             sicDetailsDropdown.change(function() {
                 var selectedSICId = $(this).val();
-                selectedSICDropdown.empty(); // Clear the options
+                selectedSICDropdown.empty();
                 // console.log('Working....');
                 if (selectedSICId !== "") {
-
-                    // console.log('Working....');
-
                     var sicCategory = sicCodes[selectedSICId];
-
                     console.log(sicCodes);
 
                     if (sicCategory) {
                         $.each(sicCategory, function(categoryId, category) {
                             // console.log(categoryId, category);
                             selectedSICDropdown.append($('<option>', {
-                                value: category.id,
-                                text: category.name
+                                value: category.id +' - '+ category.name,
+                                text: category.id +' - '+ category.name
                             }));
                         });
                     }
@@ -260,12 +272,86 @@
             });
         });
 
-        // $('#selected_sic').select2({
-        //     theme: "bootstrap-5",
-        //     width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-        //     placeholder: $( this ).data( 'placeholder' ),
-        //     closeOnSelect: false,
-        // });
+        $('.save-continue').click(function(e) {
+            e.preventDefault();
+            // var companyType = $('#company_type').val();
+
+            var companyName = $('#companie_name').val();
+            if (companyName.indexOf('LTD') !== -1 || companyName.indexOf('LIMITED') !== -1) {
+                $('#srchfld-error').hide();
+                $("#perticulars").submit();
+            } else {
+                $('#srchfld-error').show();
+                $('#companie-name').text(companyName);
+                return;
+            }
+        });
+
+        $('#multiple-select-field').select2({
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+            closeOnSelect: false,
+        });
+
+        $('.check-company').click(function(e) {
+            e.preventDefault();
+            var companyName = $('#companie_name').val();
+            var orderId = $('#order_id').val();
+
+            var searchButton = $(this);
+            searchButton.prop('disabled', true).text('Searching...');
+
+            // Make the GET request using Axios
+            axios.get('/search-companie', {
+                params: {
+                    'search': companyName
+                }
+            })
+            .then(function (response) {
+                // Handle the response data here
+                console.log(response.data);
+
+                if(response.data.message == 'This company name is available.') {
+                    // await axios.parch('/company-name-update', {
+                    //     queryparams: {
+                    //         'order': orderId
+                    //     }
+                    // })
+                    // .then(function (response) {
+                    //     console.log(response);
+                    // })
+                    // .catch(function (error) {
+                    //     console.error(error);
+                    // });
+
+                    $('#srchfld-error').show();
+                    // $("#message-cls").text('');
+                    // $("#message-cls").text('Congratulation!');
+                    $('#companie-name').text(companyName);
+
+                    if(response.data.is_sensitive == 1) {
+                        // $('#is_sensitive_word_row').show();
+                        // $('#is_sensitive_word').text(response.data.is_sensitive_word);
+                    } else {
+                        // $('#is_sensitive_word_row').hide();
+                        // $('#is_sensitive_word').text('');
+                    }
+                } else {
+                    $('#srchfld-error').show();
+                    // $("#message-cls").text('');
+                    // $("#message-cls").text('Error!');
+                    $('#companie-name').text(companyName);
+                }
+            })
+            .catch(function (error) {
+                // Handle any errors that occurred during the request
+                console.error(error);
+            })
+            .finally(function () {
+                // Re-enable the button and change the text back to "Search"
+                searchButton.prop('disabled', false).text('Search');
+            });
+        });
     </script>
-    
 @endsection
