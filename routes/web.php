@@ -66,9 +66,10 @@ Route::patch('company-name-update', [CompanieFormController::class, 'updateCompa
 Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-account')->middleware('auth');
 Route::post('/logout', [AuthController::class, 'logout'])->name('clientlogout')->middleware('auth');
 Route::get('/my-details', [AccountController::class, 'details'])->name('my_details')->middleware('auth');
-Route::post('/primary-address-save',[AccountController::class,'savePrimaryAddress'])->name('primary-address-save');
-Route::post('/selected-address-save',[AccountController::class,'saveSelectedAddress'])->name('selected-address-save');
-Route::post('/my-details-save',[AccountController::class,'saveMyDetails'])->name('my-details-save');
+Route::post('/primary-address-save',[AccountController::class,'savePrimaryAddress'])->name('primary-address-save')->middleware('auth');
+Route::post('/selected-address-save',[AccountController::class,'saveSelectedAddress'])->name('selected-address-save')->middleware('auth');
+Route::post('/my-details-save',[AccountController::class,'saveMyDetails'])->name('my-details-save')->middleware('auth');
+Route::get('/update-selected-address', [AccountController::class, 'updateSelectedAddress'])->name('update-selected-address')->middleware('auth');
 
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');

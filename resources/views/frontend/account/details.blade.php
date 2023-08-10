@@ -148,6 +148,7 @@
 
                                                                 <p>@if($value['house_number']){{ $value['house_number']}},@endif @if($value['street']){{$value['street']}},@endif  @if($value['locality']){{$value['locality']}}, @endif @if($value['town']){{ $value['town']}}, @endif  @if($value['county']){{ $value['county']}} @endif</p>
                                                                 <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
+
                                                                 @endforeach
                                                             </span>
                                                             <div class="action-container">
@@ -169,6 +170,7 @@
 
                                                                 <p>@if($value['house_number']){{ $value['house_number']}},@endif @if($value['street']){{$value['street']}},@endif  @if($value['locality']){{$value['locality']}}, @endif @if($value['town']){{ $value['town']}}, @endif  @if($value['county']){{ $value['county']}} @endif</p>
                                                                 <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
+
                                                                 @endforeach
                                                             </span>
                                                             <div class="action-container">
@@ -206,7 +208,7 @@
                                 <div class="form-row form-group ">
                                     <label>Billing&nbsp;</label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control" type="email" name="billing_email" value={{$user->billing_email}}>
+                                        <input class="form-control" type="email" name="billing_email" value="{{$user->business_email}}">
                                     </span>
                                 </div>
 
@@ -216,7 +218,7 @@
                                 <div class="form-row form-group ">
                                     <label for="username">Primary&nbsp;</label>
                                     <span class="input-wrapper">
-                                        <input type="number" class="input-text form-control" name="phone" value={{ $user->phone_no}}>
+                                        <input type="number" class="input-text form-control" name="phone" value="{{ $user->phone_no}}">
                                     </span>
                                 </div>
 
@@ -224,7 +226,7 @@
                                 <div class="form-row form-group ">
                                     <label>Billing&nbsp;</label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control" type="number" class="input-text form-control" name="billing_phone" value={{ $user->billing_phone_no}}>
+                                        <input class="form-control" type="number" class="input-text form-control" name="billing_phone" value="{{ $user->business_phone}}">
                                     </span>
                                 </div>
 
@@ -237,18 +239,12 @@
                                         <b class="mr-2">Newsletter</b><input class="" id="chek1" name="chek1" type="checkbox">
                                         <label for="chek1"> I would like to sign up to the newsletter distribution list
                                         </label>
-                                        @error('chek1')
-                                            <div class="error" style="color:red;">{{ $message }}</div>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class=" px-0 col-md-12 col-12 mb-2">
                                     <div class="px-0 form-check">
                                         <b class="mr-2">Confirmation Statement</b> <input class="" id="chek2" name="chek2" type="checkbox">
                                         <label for="chek2"> I would like to receive updates on the confirmation statement</label>
-                                        @error('chek2')
-                                            <div class="error" style="color:red;">{{ $message }}</div>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class=" px-0 col-md-12 col-12">
@@ -256,9 +252,6 @@
                                         <b class="mr-2">Accounts</b> <input class="" id="chek3" name="chek3" type="checkbox">
                                         <label for="chek3"> I would like to receive updates on my accounts
                                         </label>
-                                        @error('chek3')
-                                            <div class="error" style="color:red;">{{ $message }}</div>
-                                        @enderror
                                     </div>
                                 </div>
                             </fieldset>
@@ -286,13 +279,13 @@
                 <div class="choose_addr">
                     <h3>Recently Used Addresses</h3>
                     <div class="current_address_grp">
-                        @foreach($primary_address as $key => $value)
+                        @foreach($primary_address_list as $key => $value)
                         <div class="addr_wrap">
                             <p>{{ $value['house_number']}}, {{$value['street']}},{{$value['locality']}},{{ $value['town']}}, {{ $value['county']}}</p>
                             <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
                         </div>
                         <div class="button_select">
-                            <button class="btn btn-primary" data-dismiss="modal" type="button">Select</button>
+                            <button class="btn btn-primary" data-dismiss="modal" onclick="setAddress({{$value['user_id']}},{{$value['id']}},'primary_address')" type="button">Select</button>
                         </div>
                         @endforeach
                     </div>
@@ -316,10 +309,10 @@
                 <div>
                     <h3>Recently Used Addresses</h3>
                     <div>
-                        @foreach($billing_address as $key => $value)
+                        @foreach($billing_address_list as $key => $value)
                             <p>{{ $value['house_number']}}, {{$value['street']}},{{$value['locality']}},{{ $value['town']}}, {{ $value['county']}}</p>
                             <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
-                            <button class="btn btn-primary" data-dismiss="modal" type="button">Select</button>
+                            <button class="btn btn-primary" data-dismiss="modal" onclick="setAddress({{$value['user_id']}},{{$value['id']}},'billing_address')" type="button">Select</button>
                         @endforeach
                     </div>
                 </div>
@@ -887,6 +880,24 @@
         $("#locality").val(value[2]);
         $("#town").val(value[3]);
         $("#exampleModalCenterAddress").hide();
+    }
+
+    function setAddress(userId, addressId,addressType) {
+        var url = "{{ route('my_details') }}";
+        // $(this).text('please wait..');
+        $.ajax({
+            url: "{!! route('update-selected-address') !!}",
+            type: 'GET',
+            data: {
+                user_id: userId,
+                address_id: addressId,
+                address_type:addressType
+            },
+            success: function(result) {
+                location.href = url;
+            }
+        });
+
     }
 
 </script>
