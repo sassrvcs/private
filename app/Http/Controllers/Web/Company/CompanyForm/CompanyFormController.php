@@ -9,6 +9,7 @@ use App\Models\Companie;
 use App\Models\Country;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Address;
+use App\Models\PersonOfficer;
 use App\Models\ShoppingCart;
 
 class CompanyFormController extends Controller
@@ -22,7 +23,7 @@ class CompanyFormController extends Controller
         $office_address = Companie::where('user_id',Auth::user()->id)->pluck('office_address')->first();
 
         $recent_addr  = $this->regAddrService->getRecentAddress($office_address);
-
+// dd($recent_addr);
         $countries = Country::all();
 
         return view('frontend.company_form.register_address', compact('recent_addr','countries'));
@@ -43,15 +44,17 @@ class CompanyFormController extends Controller
         $countries = Country::all()->toArray();
 
         $used_address = Address::where('user_id',Auth::user()->id)->get();
-
+        
         $forwardingAdd = Companie::where('user_id',Auth::user()->id)->first()->toArray();
         $forwardingAddVal = $forwardingAdd['forwarding_registered_office_address'];
-
+        
         if($forwardingAddVal !== null){
             $address = Address::where('id',$forwardingAddVal)->first()->toArray();
         }else {
             $address=[];
         }
+        // dd($address['id']);
+        // dd($forwardingAddVal);
 
         return view('frontend.company_form.choose_address_after_buy_now', compact('used_address','countries','forwardingAddVal','address'));
     }
@@ -146,18 +149,66 @@ class CompanyFormController extends Controller
         $price = $request->price;
         $shoppingCartId = $request->shoppingCartId_id;
 
+        
         $cartInfo = ShoppingCart::where(['id' => $shoppingCartId])->get()->first();
-
+        
         $lastPrice = $cartInfo['price'];
-
+        
         $finalPrice = $lastPrice + $price;
 
         $inserted = ShoppingCart::where('id',$shoppingCartId)->update(['price'=>$finalPrice]);
+
+        if($inserted){
+            return 1 ;
+        }
     }
 
-    public function appointments_open() {
+    // Appointment Section
 
-        return view('frontend.company_form.appointments');
+    public function appointments_open() {
+        $cartInfo = ShoppingCart::where(['user_id' => Auth::user()->id])->get()->first();
+
+        if(!empty($cartInfo)){
+            if(!empty($cartInfo['id'])) {
+                $shoppingCartId = $cartInfo['id'];
+            }else {
+                $shoppingCartId = '';
+            }
+        }
+
+        $used_address = Address::where('user_id',Auth::user()->id)->get();
+        $countries = Country::all()->toArray();
+
+        // PERSON SECTION DATAS
+
+
+        return view('frontend.company_form.appointments', compact('used_address','countries','shoppingCartId'));
+    }
+
+    public function savePersonOfficer(Request $request){
+
+        $inserted = PersonOfficer::create([
+            'shopping_cart_id' => $request->shoppingCartId,
+            'title' => $request->person_tittle,
+            'dob_day' => $request->person_bday,
+            'dob_month' => $request->person_bmon,
+            'dob_year' => $request->person_byear,
+            'first_name' => $request->person_fname,
+            'nationality' => $request->person_national,
+            'last_name' => $request->person_lname,
+            'occupation' => $request->person_occupation,
+            'add_id' => $request->add_id_val,
+            'authenticate_one' => $request->person_aqone,
+            'authenticate_one_ans' => $request->person_aqone_ans,
+            'authenticate_two' => $request->person_aqtwo,
+            'authenticate_two_ans' => $request->person_aqtwo_ans,
+            'authenticate_three' => $request->person_aqthree,
+            'authenticate_three_ans' => $request->person_aqthree_ans,
+        ]);
+
+        if($inserted) {
+            return $inserted;
+        }
     }
 
 }

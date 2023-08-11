@@ -151,7 +151,7 @@
                                 <div class="add-an-offer">
                                     <p>Click on one of the buttons below to add an officer to your company.</p>
                                     <div class="btn-wrap">
-                                        <button type="submit" class="btn" onclick="showPersonSection()"><img src="{{ asset('frontend/assets/images/person-icon.svg')}}" alt=""> Person</button>
+                                        <button type="submit" class="btn" onclick="showPersonSection(),currentTab('position')"><img src="{{ asset('frontend/assets/images/person-icon.svg')}}" alt=""> Person</button>
                                         <button type="submit" class="btn"><img src="{{ asset('frontend/assets/images/corporate-icon.svg')}}" alt=""> Corporate</button>
                                         <button type="submit" class="btn other-legal-btn"><img src="{{ asset('frontend/assets/images/other-legal-entity-icon.svg')}}" alt=""> Other Legal Entity</button>
                                     </div>
@@ -170,22 +170,22 @@
                             <div class="appointment-tab">
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="position-tab" data-toggle="tab" href="#position" role="tab" aria-controls="position" aria-selected="true">Position</a>
+                                        <a class="nav-link active" onclick="currentTab('position')" id="position-tab" onclick="currentTab('position')" data-toggle="tab" href="#position" role="tab" aria-controls="position" aria-selected="true">Position</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="officer-tab" data-toggle="tab" href="#officer" role="tab" aria-controls="officer" aria-selected="false">Officer</a>
+                                        <a class="nav-link" onclick="currentTab('officer')" id="officer-tab" data-toggle="tab" href="#officer" role="tab" aria-controls="officer" aria-selected="false">Officer</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Details</a>
+                                        <a class="nav-link" onclick="currentTab('details')" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Details</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="addressing-tab" data-toggle="tab" href="#addressing" role="tab" aria-controls="addressing" aria-selected="false">Addressing</a>
+                                        <a class="nav-link" onclick="currentTab('addressing')" id="addressing-tab" data-toggle="tab" href="#addressing" role="tab" aria-controls="addressing" aria-selected="false">Addressing</a>
                                     </li>
                                     <li class="nav-item nocLinkCls d-none">
-                                        <a class="nav-link" id="nature-control-tab" data-toggle="tab" href="#nature-control" role="tab" aria-controls="nature-control" aria-selected="false">Nature of Control</a>
+                                        <a class="nav-link" onclick="currentTab('nature-control')" id="nature-control-tab" data-toggle="tab" href="#nature-control" role="tab" aria-controls="nature-control" aria-selected="false">Nature of Control</a>
                                     </li>
                                     <li class="nav-item shareholderLinksCls d-none">
-                                        <a class="nav-link" id="share-holder-tab" data-toggle="tab" href="#share-holder" role="tab" aria-controls="share-holder" aria-selected="false">Share Holder</a>
+                                        <a class="nav-link" onclick="currentTab('share-holder')" id="share-holder-tab" data-toggle="tab" href="#share-holder" role="tab" aria-controls="share-holder" aria-selected="false">Share Holder</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
@@ -228,19 +228,19 @@
                                                 <div class="choose-possition-option">
                                                     <ul>
                                                         <li>
-                                                            <input type="checkbox" id="director" onclick="consentSection()">
+                                                            <input type="checkbox" class="checkBoxPos" id="director" onclick="consentSection()">
                                                             <label for="director">Director <span><img src="{{ asset('frontend/assets/images/in-icon.png')}}" alt=""></span></label>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" id="shareholder" onclick="shareholderTab()">
+                                                            <input type="checkbox" class="checkBoxPos" id="shareholder" onclick="shareholderTab()">
                                                             <label for="shareholder">Shareholderss <span><img src="{{ asset('frontend/assets/images/in-icon.png')}}" alt=""></span></label>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" id="secretary" onclick="consentSection()">
+                                                            <input type="checkbox" class="checkBoxPos" id="secretary" onclick="consentSection()">
                                                             <label for="secretary">secretary <span><img src="{{ asset('frontend/assets/images/in-icon.png')}}" alt=""></span></label>
                                                         </li>
                                                         <li>
-                                                            <input type="checkbox" id="psc" onclick="pscTab()">
+                                                            <input type="checkbox" class="checkBoxPos" id="psc" onclick="pscTab()">
                                                             <label for="psc">Person with Significant Control (PSC) <span><img src="{{ asset('frontend/assets/images/in-icon.png')}}" alt=""></span></label>
                                                         </li>
 
@@ -265,7 +265,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="recently-used-addresses mb-3">
-                                                    <h4>Recently used Addresses</h4>
+                                                    <h4>Recent Officers</h4>
+
                                                     <div class="row">
                                                         <div class="col-md-12 col-sm-12">
                                                             <div class="used-addresses-panel">
@@ -273,47 +274,7 @@
                                                                     <p>Prime Minister &amp; First Load Of The Treasury, 10, Downing Street...</p>
                                                                 </div>
                                                                 <div class="btn-wrap">
-                                                                    <button type="submit" class="btn select-btn">Choose</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12 col-sm-12">
-                                                            <div class="used-addresses-panel">
-                                                                <div class="text">
-                                                                    <p>1 Ragian Court, Empire Way, WEMBLEY, Middlesex, HA9 0RE, UNITED...</p>
-                                                                </div>
-                                                                <div class="btn-wrap">
-                                                                    <button type="submit" class="btn select-btn">Choose</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12 col-sm-12">
-                                                            <div class="used-addresses-panel">
-                                                                <div class="text">
-                                                                    <p>52 Danes Court, North End Road, Wembley, Middlesex, HA9 0AE, UNI... </p>
-                                                                </div>
-                                                                <div class="btn-wrap">
-                                                                    <button type="submit" class="btn select-btn">Choose</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12 col-sm-12">
-                                                            <div class="used-addresses-panel">
-                                                                <div class="text">
-                                                                    <p>7, Thurlow Gardens, Wembley, Wembley, Middlesex, HA0 2AH, UNITED...</p>
-                                                                </div>
-                                                                <div class="btn-wrap">
-                                                                    <button type="submit" class="btn select-btn">Choose</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12 col-sm-12">
-                                                            <div class="used-addresses-panel">
-                                                                <div class="text">
-                                                                    <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
-                                                                </div>
-                                                                <div class="btn-wrap">
-                                                                    <button type="submit" class="btn select-btn">Choose</button>
+                                                                    <button type="submit" onclick="choosingOfficerToDetails()" class="btn select-btn">Choose</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -324,11 +285,12 @@
                                                     <div class="row">
                                                         <div class="col-md-12 col-sm-12">
                                                             <div class="used-addresses-panel">
-                                                                <div class="text">
+                                                                <!-- <div class="text">
                                                                     <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
-                                                                </div>
+                                                                </div> -->
                                                                 <div class="btn-wrap">
-                                                                    <button type="submit" class="btn select-btn">Select</button>
+                                                                    <!-- <button type="submit" class="btn select-btn">Select</button> -->
+                                                                    <button type="submit" class="btn" onclick="addNewOfficer(),currentTab('details')">Add New Officer</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -337,6 +299,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- DETAILS PAGE SECTION -->
                                     <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
                                         <div class="form-info-block">
                                             <div class="desc">
@@ -348,14 +312,14 @@
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus scelerisque porta enim ut interdum. Aliquam mollis enim non purus laoreet, ut pretium lorem porta.</p>
                                                 </div>
                                             </div>
-                                            <h4>bnnnb bnnnb</h4>
+                                            <h4>Officer Details</h4>
                                         </div>
                                         <div class="form-block">
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="form-group">
                                                         <label for="">Title</label>
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" class="form-control" id="person_tittle_id" name="person_tittle">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
@@ -363,24 +327,28 @@
                                                         <label for="">Date of Birth</label>
                                                         <div class="row">
                                                             <div class="col-md-4 col-sm-12">
-                                                                <select class="form-control">
-                                                                    <option value="">01</option>
-                                                                    <option value="">02</option>
-                                                                    <option value="">03</option>
+                                                                <select class="form-control" id="person_bday_id" name="person_bday">
+                                                                    <option value="">dd</option>
+                                                                    <option value="01">01</option>
+                                                                    <option value="02">02</option>
+                                                                    <option value="03">03</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-4 col-sm-12">
-                                                                <select class="form-control">
-                                                                    <option value="">01</option>
-                                                                    <option value="">02</option>
-                                                                    <option value="">03</option>
+                                                                <select class="form-control" id="person_bmon_id" name="person_bmon">
+                                                                    <option value="">mm</option>
+                                                                    <option value="01">01</option>
+                                                                    <option value="02">02</option>
+                                                                    <option value="03">03</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-4 col-sm-12">
-                                                                <select class="form-control">
-                                                                    <option value="">01</option>
-                                                                    <option value="">02</option>
-                                                                    <option value="">03</option>
+                                                                <select class="form-control" id="person_byear_id" name="person_byear">
+                                                                    <option value="">yyyy</option>
+                                                                    <option value="2020">2020</option>
+                                                                    <option value="2021">2021</option>
+                                                                    <option value="2022">2022</option>
+                                                                    <option value="2023">2023</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -389,31 +357,33 @@
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="form-group">
                                                         <label for="">First Name(s)</label>
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" name="person_fname" id="person_fname_id" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="form-group">
                                                         <label for="">Nationality - <small>of accepted nationalities </small> <span><img src="{{ asset('frontend/assets/images/in-icon.png')}}" alt=""></span></label>
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" class="form-control" id="person_national_id" name="person_national">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="form-group">
                                                         <label for="">Last Name</label>
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" class="form-control" id="person_lname_id" name="person_lname">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="form-group">
                                                         <label for="">Occupation</label>
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" class="form-control" id="person_occupation_id" name="person_occupation">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="rsidential-address-info mb-4">
                                             <h3>Residential Address</h3>
+
+                                            <input type="hidden" id="add_id" value="{{isset($add_id) ? $add_id :''}}" readonly>
                                             <p><strong>Please Note :</strong> <span>Consectetur adipiscing elit. Phasellus scelerisque porta enim ut interdum. Aliquam mollis enim non purus laoreet, ut pretium lorem porta. Integer eleifend velit ut aliquam convallis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus scelerisque porta enim ut interdum.</span></p>
                                             <p>52 Danes Court, North End Road, Wembley, HA9 0AE, UNITED KINGDOM</p>
                                             <div class="btn-block">
@@ -421,22 +391,22 @@
                                                 <button class="btn buy-now-btn">Choose Another</button>
                                             </div>
                                         </div>
-                                        <div class="form-info-block">
+                                        <div class="form-info-block d-none" id="authenticationSection">
                                             <h4 class="mb-5">Authentication Questions</h4>
                                             <div class="authe-qu-block">
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-12">
                                                         <div class="qu-block block">
                                                             <label for="">Select First 3 letters of</label>
-                                                            <select class="form-control">
-                                                                <option value="">Mother’s Maiden Name</option>
+                                                            <select class="form-control" id="person_aqone_id" name="person_aqone">
+                                                                <option value="Mother’s Maiden Name">Mother’s Maiden Name</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-sm-12">
                                                         <div class="ans-block block">
                                                             <label for="">Answer</label>
-                                                            <input type="text" class="form-control">
+                                                            <input type="text" class="form-control" id="person_aqone_ans_id" name="person_aqone_ans">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -444,15 +414,15 @@
                                                     <div class="col-md-6 col-sm-12">
                                                         <div class="qu-block block">
                                                             <label for="">Select First 3 letters of</label>
-                                                            <select class="form-control">
-                                                                <option value="">Father’s Maiden Name</option>
+                                                            <select class="form-control" id="person_aqtwo_id" name="person_aqtwo">
+                                                                <option value="Father’s Maiden Name">Father’s Maiden Name</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-sm-12">
                                                         <div class="ans-block block">
                                                             <label for="">Answer</label>
-                                                            <input type="text" class="form-control">
+                                                            <input type="text" class="form-control" id="person_aqtwo_ans_id" name="person_aqtwo_ans">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -460,15 +430,15 @@
                                                     <div class="col-md-6 col-sm-12">
                                                         <div class="qu-block block">
                                                             <label for="">Select First 3 letters of</label>
-                                                            <select class="form-control">
-                                                                <option value="">Town Of Birth</option>
+                                                            <select class="form-control" id="person_aqthree_id" name="person_aqthree">
+                                                                <option value="Town Of Birth">Town Of Birth</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-sm-12">
                                                         <div class="ans-block block">
                                                             <label for="">Answer</label>
-                                                            <input type="text" class="form-control">
+                                                            <input type="text" class="form-control" id="person_aqthree_ans_id" name="person_aqthree_ans">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -607,7 +577,12 @@
             </div>
         </div>
     </div>
+    <input type="text" id="appointmentType" value="" readonly>
+    <input type="text" id="shoppingCartId_id" value="{{$shoppingCartId}}" readonly>
+    <input type="text" id="currentTab" value="" readonly>
 
+    <!-- PERSON SECTION DATAS -->
+    <input type="text" id="choosedPersonOfficerId" value="" readonly>
 </section>
 <!-- ================ end: Particulars sec ================ -->
 @endsection
@@ -615,6 +590,14 @@
 @section('script')
 
 <script>
+    const addNewOfficer = function() {
+        $('#officer-tab').toggleClass('active');
+        $('#officer').toggleClass('active show');
+
+        $('#details-tab').toggleClass('active');
+        $('#details').toggleClass('active show');
+    }
+
     const consentSection = function() {
         if ($('#director').is(":checked") || $('#secretary').is(":checked")) {
             $('.brCls').removeClass('d-none');
@@ -625,16 +608,107 @@
         }
     }
 
+    const choosingOfficerToDetails = function() {
+        $('#officer-tab').removeClass('active');
+        $('#officer').removeClass('active show');
+
+        $('#details-tab').addClass('active');
+        $('#details').addClass('active show');
+
+        $('#currentTab').val('details')
+    }
+
+    const currentTab = function(tabName) {
+        $('#currentTab').val(tabName)
+    }
+
     const checkConsentOrNot = function() {
 
-        if($('.occLinkCls').hasClass('d-none') === false && $('#occ').is(":checked") === false) {
-            alert('Please Check the Confirmation Of consent');
+        if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'details') {
+
+            const shoppingCartId = $('#shoppingCartId_id').val();
+            const person_tittle = $('#person_tittle_id').val();
+            const person_bday = $('#person_bday_id').val();
+            const person_bmon = $('#person_bmon_id').val();
+            const person_byear = $('#person_byear_id').val();
+            const person_fname = $('#person_fname_id').val();
+            const person_national = $('#person_national_id').val();
+            const person_lname = $('#person_lname_id').val();
+            const person_occupation = $('#person_occupation_id').val();
+
+            const add_id_val = $('#add_id').val();
+            const person_aqone = $('#person_aqone_id').val();
+            const person_aqone_ans = $('#person_aqone_ans_id').val();
+            const person_aqtwo = $('#person_aqtwo_id').val();
+            const person_aqtwo_ans = $('#person_aqtwo_ans_id').val();
+            const person_aqthree = $('#person_aqthree_id').val();
+            const person_aqthree_ans = $('#person_aqthree_ans_id').val();
+
+            $.ajax({
+                url: "{!! route('save-person-officer') !!}",
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    shoppingCartId,
+                    person_tittle,
+                    person_bday,
+                    person_bmon,
+                    person_byear,
+                    person_fname,
+                    person_national,
+                    person_lname,
+                    person_occupation,
+                    add_id_val,
+                    person_aqone,
+                    person_aqone_ans,
+                    person_aqtwo,
+                    person_aqtwo_ans,
+                    person_aqthree,
+                    person_aqthree_ans
+                },
+                success: function(response) {
+                    console.log(response['id']);
+                    $('#choosedPersonOfficerId').val(response['id'])
+                },
+            });
+
+            return false
         }
+
+        if ($('#currentTab').val() === 'officer') {
+            $('#officer-tab').removeClass('active');
+            $('#officer').removeClass('active show');
+
+            $('#details-tab').addClass('active');
+            $('#details').addClass('active show');
+
+            $('#currentTab').val('details')
+            return false;
+        }
+
+        if ($('.checkBoxPos').is(":checked") === false) {
+            alert('Please Choose a Position.');
+            return false
+        }
+
+        if ($('.occLinkCls').hasClass('d-none') === false && $('#occ').is(":checked") === false) {
+            alert('Please Check the Confirmation Of consent');
+        } else {
+            $('#position-tab').removeClass('active');
+            $('#position').removeClass('active show');
+
+            $('#officer-tab').addClass('active');
+            $('#officer').addClass('active show');
+
+            $('#currentTab').val('officer')
+        }
+
     }
 
 
     function shareholderTab() {
         $('.shareholderLinksCls').toggleClass('d-none');
+        $('#authenticationSection').toggleClass('d-none');
     }
 
     function pscTab() {
@@ -645,6 +719,8 @@
     const showPersonSection = function() {
         $(".main_section").hide();
         $('.person_section').removeClass('d-none');
+
+        $('#appointmentType').val('person');
     }
 
     function anotherForwardingAdd() {
@@ -703,44 +779,6 @@
                 window.location.reload()
             }
         });
-
-        // $(".hideEdit").hide();
-        // $('.buyNowAfterSelectingAdd').removeClass('d-none');
-
-        // const house_number = $(`.${id}_add_house_number`).val();
-        // const add_street = $(`.${id}_add_street`).val();
-        // const add_locality = $(`.${id}_add_locality`).val();
-        // const add_town = $(`.${id}_add_town`).val();
-        // const user_county = $(`.${id}_user_county`).val();
-        // const address_post_code = $(`.${id}_address_post_code`).val();
-        // const address_billing_country = $(`.${id}_address_billing_country`).val();
-
-        // document.getElementById("forwarding_house_number").textContent = `${house_number}`;
-        // document.getElementById("forwading_street").textContent = `${add_street}`;
-        // document.getElementById("forwading_locality").textContent = `${add_locality}`;
-        // document.getElementById("forwading_town").textContent = `${add_town}`;
-        // document.getElementById("forwading_county").textContent = `${user_county}`;
-        // document.getElementById("forwading_post_code").textContent = `${address_post_code}`;
-        // // document.getElementById("forwading_billing_country").textContent = `${address_billing_country}`;
-
-        // $(`#forwading_add_id`).val(id);
-        // $(`#forwading_house_no1`).val(house_number);
-        // $(`#forwading_street1`).val(add_street);
-        // $(`#forwading_locality1`).val(add_locality);
-        // $(`#forwading_town1`).val(add_town);
-        // $(`#forwading_county1`).val(user_county);
-        // $(`#forwading_post_code`).val(address_post_code);
-        // $(`#forwading_billing_country`).val(address_billing_country);
-
-        // $(`#add_id`).val(id);
-        // $(`#house_no1`).val(house_number);
-        // $(`#street1`).val(add_street);
-        // $(`#locality1`).val(add_locality);
-        // $(`#town1`).val(add_town);
-        // $(`#county1`).val(user_county);
-        // $(`#post_code`).val(address_post_code);
-
-        // document.getElementById("billing_country").value = `${address_billing_country}`;
     }
 
     $('.edit-addr').click(function() {
@@ -771,10 +809,10 @@
         document.getElementById("billing_country").value = `${address_billing_country}`;
     }
 
-    function addAddress() {
-        $(".hideEdit").hide();
-        $('.addAddressForm').removeClass('d-none');
-    }
+    // function addAddress() {
+    //     $(".hideEdit").hide();
+    //     $('.addAddressForm').removeClass('d-none');
+    // }
 
     function setAddress(a, b) {
         alert(a + '' + b);

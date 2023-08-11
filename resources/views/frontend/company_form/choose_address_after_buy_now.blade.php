@@ -131,343 +131,347 @@
                         </div>
 
                         {{-- Edit  form div--}}
-                        <div class="form-wrap edit_from d-none">
-                            <div class="form-info-block">
-                                <h4>Registered Address</h4>
-                                <h3>Edit Address</h3>
-
-                                <form>
-                                    <input type="hidden" id="add_id" class="add_id" name="add_id" value="{{!empty($address) && $address['id'] !== ''}}">
-
-                                    <div class="form-row form-group ">
-                                        <label>Name / Number:&nbsp;
-                                            </span>
-                                        </label>
-                                        <span class="input-wrapper">
-                                            <input type="text" id="house_no1" name="house_no" value="{{!empty($address) && $address['house_number'] !== '' ? $address['house_number']: ''}}" class="input-text form-control house_no">
-
-                                        </span>
-                                    </div>
-                                    <div class="form-row form-group ">
-                                        <label for="billing_title">Street:&nbsp;
-                                        </label>
-                                        <span class="input-wrapper">
-                                            <input type="text" value="{{!empty($address) && $address['street'] !== '' ? $address['street']: ''}}" name="street" id="street1" class="input-text form-control steet_no">
-                                        </span>
-
-                                    </div>
-                                    <div class="form-row form-group">
-                                        <label for="locality">Locality:
-                                        </label>
-                                        <span class="input-wrapper">
-                                            <input type="text" value="{{!empty($address) && $address['locality'] !== '' ? $address['locality']: ''}}" name="street" name="locality" id="locality1" class="input-text form-control locality">
-                                        </span>
-
-                                    </div>
-                                    <div class="form-row form-group">
-                                        <label for="town">Town:&nbsp;
-                                        </label>
-                                        <span class="input-wrapper">
-                                            <input type="text" name="town" value="{{!empty($address) && $address['town'] !== '' ? $address['town']: ''}}" id="town1" class="input-text form-control town">
-                                        </span>
-
-                                    </div>
-                                    <div class="form-row form-group">
-                                        <label for="county">County:&nbsp;
-                                        </label>
-                                        <span class="input-wrapper">
-                                            <input type="text" name="county" value="{{!empty($address) && $address['county'] !== '' ? $address['county']: ''}}" id="county1" class="input-text form-control county">
-                                        </span>
-
-                                    </div>
-                                    <div class="form-row form-group">
-                                        <label for="postcode">Post Code:&nbsp;
-                                        </label>
-                                        <span class="input-wrapper">
-                                            <input type="text" id="post_code" value="{{!empty($address) && $address['post_code'] !== '' ? $address['post_code']: ''}}" name="post_code" class="input-text form-control zip">
-                                        </span>
-                                    </div>
-                                    <div class="form-row update_totals_on_change form-group">
-                                        <label for="billing_country">Country&nbsp;</label>
-                                        <span class="input-wrapper">
-                                            <select name="billing_country" id="billing_country" name="billing_country" class="contry country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
-                                                <option value="">Select a country / region…</option>
-                                                @foreach ($countries as $country)
-                                                <option value="{{$country['id']}}" {{!empty($address) && $country['id'] == $address['billing_country'] ? 'selected' : '' }}>{{$country['name']}}</option>
-                                                @endforeach
-
-                                            </select>
-                                        </span>
-
-                                    </div>
-
-                                    <div class="step-btn-wrap mt-4">
-                                        <button type="button" class="btn saveAddress">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png')}}" alt=""></button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        {{--End Edit  form div--}}
-
-                        <div class="form-wrap hideEdit {{$forwardingAddVal !== null ? 'd-none' : ''}}">
-                            <div class="form-info-block">
-                                <h4>Registered Address</h4>
-                            </div>
-                            <div class="choose-own-address mb-2">
-                                <h3>Forwarding Address</h3>
-                                <h5>Tell us where to forward your mail to you, by entering your address below.</h5>
-                            </div>
-
-                            <div class="choose-own-address">
-                                <h3>Choose to use your own address</h3>
-                                <div class="src-are">
-                                    <input type="text" placeholder="Address Search...." class="form-control">
-                                </div>
-                            </div>
-                            <div class="recently-used-addresses">
-                                <h4>Recently used Addresses</h4>
-                                <div class="row">
-                                    @if(!empty($used_address))
-                                    @foreach($used_address as $key => $value)
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="used-addresses-panel">
-                                            <div class="text">
-                                                <p>{{$value->house_number}},{{$value->street}},{{$value->locality}},{{$value->town}},{{$value->county}},{{$value->post_code}},{{$value->billing_country}}</p>
-                                            </div>
-                                            <div class="btn-wrap">
-                                                <button type="submit" class="btn" onclick="editAddress('{{$value->id}}')">Edit</button>
-                                                <input type="hidden" class="{{$value->id}}_add_id" value="{{ $value->id}}">
-                                                <input type="hidden" class="{{$value->id}}_add_house_number" value="{{ $value->house_number}}">
-                                                <input type="hidden" class="{{$value->id}}_add_street" value="{{ $value->street}}">
-                                                <input type="hidden" class="{{$value->id}}_add_locality" value="{{ $value->locality}}">
-                                                <input type="hidden" class="{{$value->id}}_add_town" value="{{ $value->town}}">
-                                                <input type="hidden" class="{{$value->id}}_user_county" value="{{ $value->county}}">
-                                                <input type="hidden" class="{{$value->id}}_address_post_code" value="{{ $value->post_code}}">
-                                                <input type="hidden" class="{{$value->id}}_address_billing_country" value="{{ $value->billing_country}}">
-
-                                                <button type="button" class="btn select-btn selc-addr" onclick="selectedForwardAdd('{{$value->id}}')">Select</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="new-address-block">
-                                <h3>Or enter a new Address</h3>
-                                <div class="new-address-field">
-                                    <!-- <input type="text" placeholder="Address Search...." class="form-control"> -->
-                                    <!-- <button type="submit" class="btn" onclick="addAddress()">Select</button> -->
-                                    <button type="submit" class="btn" onclick="addAddress()">Add New Address</button>
-                                </div>
-                            </div>
-                            <div class="step-btn-wrap mt-4">
-                                <button class="btn prev-btn">Cancel</button>
-                            </div>
-                        </div>
-
-                        <!-- ///////////////////////////////////////////////////d-none/////////////////////////////////////////////////////////// -->
-                        <div class="sectiongap customer-signup-s1 addAddressForm d-none">
-                            <div class="container">
-                                <div class="sec-common-title-s2">
-                                    <h1>Add New Address
-                                    </h1>
-
-                                </div>
-                                <form action="{{ route('register-new-address')}}" method="POST" class="form-register register">
-                                    @csrf
-
-                                    <fieldset class="border p-3">
-                                        <div class="row p-3" style="padding-top: 0 !important;">
+                        <div class="customer-signup-s1">
+                            <div class="form-wrap edit_from d-none">
+                                <div class="form-info-block">
+                                    <h4>Registered Address</h4>
+                                    <h5 class="edit-add-ttl">Edit Address</h5>
+                                    <form class="form-register">
+                                        <fieldset class="border p-3">
+                                            <input type="text" id="add_id" class="add_id" name="add_id" value="{{!empty($address) && $address['id'] !== '' ? $address['id']:''}}" readonly>
 
                                             <div class="form-row form-group ">
-                                                <label>House Name / Number: &nbsp;<abbr class="required" title="required">*</abbr>
+                                                <label>Name / Number:&nbsp;
+                                                    </span>
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" id="house_noNew" name="house_noNew" class="input-text form-control @error('house_noNew') is-invalid @enderror">
-                                                    @error('house_noNew')
-                                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                                    @enderror
-                                                </span>
+                                                    <input type="text" id="house_no1" name="house_no" value="{{!empty($address) && $address['house_number'] !== '' ? $address['house_number']: ''}}" class="input-text form-control house_no">
 
+                                                </span>
                                             </div>
                                             <div class="form-row form-group ">
-                                                <label for="billing_title">Street:&nbsp;<abbr class="required" title="required">*</abbr>
+                                                <label for="billing_title">Street:&nbsp;
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" name="streetNew" id="streetNew" class="input-text form-control @error('streetNew') is-invalid @enderror">
-                                                    @error('streetNew')
-                                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                                    @enderror
+                                                    <input type="text" value="{{!empty($address) && $address['street'] !== '' ? $address['street']: ''}}" name="street" id="street1" class="input-text form-control steet_no">
                                                 </span>
 
                                             </div>
-
-                                            <div class="form-row col-md-12 form-group">
-                                                <label for="billing_first_name">Locality:
+                                            <div class="form-row form-group">
+                                                <label for="locality">Locality:
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" name="localityNew" id="localityNew" class="input-text form-control">
-
+                                                    <input type="text" value="{{!empty($address) && $address['locality'] !== '' ? $address['locality']: ''}}" name="street" name="locality" id="locality1" class="input-text form-control locality">
                                                 </span>
 
                                             </div>
-
-                                            <div class="form-row col-md-12 form-group">
-                                                <label for="billing_first_name">Town:&nbsp;<abbr class="required" title="required">*</abbr>
+                                            <div class="form-row form-group">
+                                                <label for="town">Town:&nbsp;
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" name="townNew" id="townNew" class="input-text form-control @error('townNew') is-invalid @enderror">
-                                                    @error('townNew')
-                                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                                    @enderror
+                                                    <input type="text" name="town" value="{{!empty($address) && $address['town'] !== '' ? $address['town']: ''}}" id="town1" class="input-text form-control town">
                                                 </span>
 
                                             </div>
-                                            <div class="form-row col-md-12 form-group">
-                                                <label for="billing_first_name">County:&nbsp;
+                                            <div class="form-row form-group">
+                                                <label for="county">County:&nbsp;
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" name="countyNew" id="countyNew" class="input-text form-control @error('countyNew') is-invalid @enderror">
+                                                    <input type="text" name="county" value="{{!empty($address) && $address['county'] !== '' ? $address['county']: ''}}" id="county1" class="input-text form-control county">
                                                 </span>
 
                                             </div>
-                                            <div class="form-row col-md-12 form-group">
-                                                <label for="billing_first_name">Post Code:&nbsp;<abbr class="required" title="required">*</abbr>
+                                            <div class="form-row form-group">
+                                                <label for="postcode">Post Code:&nbsp;
                                                 </label>
-
                                                 <span class="input-wrapper">
-                                                    <input type="text" name="post_codeNew" id="zip_code" class="input-text form-control @error('post_codeNew') is-invalid @enderror">
-                                                    @error('post_codeNew')
-                                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                                    @enderror
+                                                    <input type="text" id="post_code" value="{{!empty($address) && $address['post_code'] !== '' ? $address['post_code']: ''}}" name="post_code" class="input-text form-control zip">
                                                 </span>
-
                                             </div>
-                                            <div class="form-row update_totals_on_change col-md-12 col-12 form-group">
-                                                <label for="billing_country">Country&nbsp;<abbr class="required" title="required">*</abbr></label>
+                                            <div class="form-row update_totals_on_change form-group">
+                                                <label for="billing_country">Country&nbsp;</label>
                                                 <span class="input-wrapper">
-
-                                                    <select id="billing_countryNew" name="billing_countryNew" class="  @error('billing_countryNew') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
+                                                    <select name="billing_country" id="billing_country" name="billing_country" class="contry country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
                                                         <option value="">Select a country / region…</option>
-                                                        <option value="72" selected>England</option>
                                                         @foreach ($countries as $country)
-                                                        <option value="{{$country['id']}}">{{$country['name']}}</option>
+                                                        <option value="{{$country['id']}}" {{!empty($address) && $country['id'] == $address['billing_country'] ? 'selected' : '' }}>{{$country['name']}}</option>
                                                         @endforeach
+
                                                     </select>
-                                                    @error('billing_countryNew')
-                                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                                    @enderror
                                                 </span>
 
                                             </div>
 
-
-                                        </div>
-                                    </fieldset>
-                                    <div class="mb-3">
-                                        <button type="submit" onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';" class="btn btn-primary">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <!-- ////////////////////////////////////////////d-none////////////////////////////////////////////////////////////////////// -->
-                        {{--End Edit  form div--}}
-                        <div class="form-wrap buyNowAfterSelectingAdd {{$forwardingAddVal !== null ? '' : 'd-none'}}">
-                            <div class="form-info-block">
-                                <h4>Registered Address</h4>
-                                <div class="loader" style="display:none"></div>
-                                <div class="desc mb-3 ">
-                                    <div class="icon">
-                                        <img src="{{ asset('frontend/assets/images/form-icon.png')}}" alt="">
-                                    </div>
-                                    <div class="text">
-                                        <h5>Registered Office (required)</h5>
-                                        <ul>
-                                            <li>All companies require having a registered office address located in the same country as they are registered.</li>
-                                            <li>It is the address to which all Companies House, HMRC and other official letters will be sent and must always be a physical address (e.g. not a PO Box or DX).</li>
-                                            <li><b>The address of the registered office must appear on all company correspondence and publications.</b></li>
-                                            <li><b>A company’s registered office address is available to view by the public free of charge.</b></li>
-                                            <li>If you purchase our registered office address service, we will forward all official mail to an address of your choosing.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="own-address ">
-                                <div class="info">
-                                    <h3>Forwarding Address</h3>
-
-                                    <?php
-                                    if ($forwardingAddVal !== null) {
-                                    ?>
-                                        <p>{{$address['house_number']}},{{$address['street']}},{{$address['locality']}},{{$address['town']}},{{$address['county']}},{{$address['post_code']}}</p>
-                                    <?php
-                                    }
-                                    ?>
-
-                                    <!-- <p><span id="forwarding_house_number"></span>, <span id="forwading_street"></span>, <span id="forwading_locality"></span>, <span id="forwading_town"></span>, <span id="forwading_county"></span>, <span id="forwading_post_code"></span></p> -->
-
-                                    <input type="hidden" id="forwading_add_id">
-                                    <input type="hidden" id="forwading_house_no1">
-                                    <input type="hidden" id="forwading_street1">
-                                    <input type="hidden" id="forwading_locality1">
-                                    <input type="hidden" id="forwading_town1">
-                                    <input type="hidden" id="forwading_county1">
-                                    <input type="hidden" id="forwading_post_code">
-                                    <input type="hidden" id="forwading_billing_country">
-                                </div>
-                                <div class="btn-box">
-                                    <a href="javascript:void(0)" type="button" class="btn edit-btn edit-addr">Edit Address</a>
-                                    <!-- <a href="{{ route('choose-address-after-buy-now')}}" type="button" class="btn another-btn">Choose Another</a> -->
-                                    <a type="button" class="btn another-btn" onclick="anotherForwardingAdd()">Choose Another</a>
-                                </div>
-                            </div>
-                            <div class="office-address ">
-                                <div class="top-block">
-                                    <h3>Registered Office - London</h3>
-                                    <div class="price-block">
-                                        <strong>$39.00</strong>
-                                        <p>Reserved annually at $39.00</p>
-                                        <input type="hidden" value="39" id="registered_office_price">
-                                    </div>
-                                </div>
-                                <div class="desc">
-                                    <div class="tham-img">
-                                        <img src="{{ asset('frontend/assets/images/address-img.png')}}" alt="">
-                                        <div class="tham-info">
-                                            <strong>London:</strong>
-                                            <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United Kingdom</p>
-                                        </div>
-                                    </div>
-                                    <div class="text-block">
-                                        <h3>Protect the privacy of your home address</h3>
-                                        <p>Mauris placerat ac lectus et bibendum. Aliquam tincidunt tristique vulputate quisque tincidunt nisl vel risus imperdiet feugiat.</p>
-                                        <div class="location-block">
-                                            <div class="addr">
-                                                <strong>London: </strong>
+                                            <div class="step-btn-wrap mt-4">
+                                                <button type="button" class="btn saveAddress">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png')}}" alt=""></button>
                                             </div>
-                                            <div class="info">
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                            {{--End Edit  form div--}}
+
+                            <div class="form-wrap hideEdit {{$forwardingAddVal !== null ? 'd-none' : ''}}">
+                                <div class="form-info-block">
+                                    <h4>Registered Address</h4>
+                                </div>
+                                <div class="choose-own-address mb-2">
+                                    <h3>Forwarding Address</h3>
+                                    <h5>Tell us where to forward your mail to you, by entering your address below.</h5>
+                                </div>
+
+                                <div class="choose-own-address">
+                                    <h3>Choose to use your own address</h3>
+                                    <div class="src-are">
+                                        <input type="text" placeholder="Address Search...." class="form-control">
+                                    </div>
+                                </div>
+                                <div class="recently-used-addresses">
+                                    <h4>Recently used Addresses</h4>
+                                    <div class="row">
+                                        @if(!empty($used_address))
+                                        @foreach($used_address as $key => $value)
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="used-addresses-panel">
+                                                <div class="text">
+                                                    <p>{{$value->house_number}},{{$value->street}},{{$value->locality}},{{$value->town}},{{$value->county}},{{$value->post_code}},{{$value->billing_country}}</p>
+                                                </div>
+                                                <div class="btn-wrap">
+                                                    <button type="submit" class="btn" onclick="editAddress('{{$value->id}}')">Edit</button>
+                                                    <input type="hidden" class="{{$value->id}}_add_id" value="{{ $value->id}}">
+                                                    <input type="hidden" class="{{$value->id}}_add_house_number" value="{{ $value->house_number}}">
+                                                    <input type="hidden" class="{{$value->id}}_add_street" value="{{ $value->street}}">
+                                                    <input type="hidden" class="{{$value->id}}_add_locality" value="{{ $value->locality}}">
+                                                    <input type="hidden" class="{{$value->id}}_add_town" value="{{ $value->town}}">
+                                                    <input type="hidden" class="{{$value->id}}_user_county" value="{{ $value->county}}">
+                                                    <input type="hidden" class="{{$value->id}}_address_post_code" value="{{ $value->post_code}}">
+                                                    <input type="hidden" class="{{$value->id}}_address_billing_country" value="{{ $value->billing_country}}">
+
+                                                    <button type="button" class="btn select-btn selc-addr" onclick="selectedForwardAdd('{{$value->id}}')">Select</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="new-address-block">
+                                    <h3>Or enter a new Address</h3>
+                                    <div class="new-address-field">
+                                        <!-- <input type="text" placeholder="Address Search...." class="form-control"> -->
+                                        <!-- <button type="submit" class="btn" onclick="addAddress()">Select</button> -->
+                                        <button type="submit" class="btn" onclick="addAddress()">Add New Address</button>
+                                    </div>
+                                </div>
+                                <div class="step-btn-wrap mt-4">
+                                    <button class="btn prev-btn">Cancel</button>
+                                </div>
+                            </div>
+
+                            <!-- ///////////////////////////////////////////////////d-none/////////////////////////////////////////////////////////// -->
+                            <div class="sectiongap customer-signup-s1 addAddressForm d-none">
+                                <div class="container">
+                                    <div class="sec-common-title-s2">
+                                        <h1>Add New Address
+                                        </h1>
+
+                                    </div>
+                                    <form action="{{ route('register-new-address')}}" method="POST" class="form-register register">
+                                        @csrf
+
+                                        <fieldset class="border p-3">
+                                            <div class="row p-3" style="padding-top: 0 !important;">
+
+                                                <div class="form-row form-group ">
+                                                    <label>House Name / Number: &nbsp;<abbr class="required" title="required">*</abbr>
+                                                    </label>
+                                                    <span class="input-wrapper">
+                                                        <input type="hidden" id="cdabn" name="cdabn" value="cdabn">
+
+                                                        <input type="text" id="house_noNew" name="house_noNew" class="input-text form-control @error('house_noNew') is-invalid @enderror">
+                                                        @error('house_noNew')
+                                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                                        @enderror
+                                                    </span>
+
+                                                </div>
+                                                <div class="form-row form-group ">
+                                                    <label for="billing_title">Street:&nbsp;<abbr class="required" title="required">*</abbr>
+                                                    </label>
+                                                    <span class="input-wrapper">
+                                                        <input type="text" name="streetNew" id="streetNew" class="input-text form-control @error('streetNew') is-invalid @enderror">
+                                                        @error('streetNew')
+                                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                                        @enderror
+                                                    </span>
+
+                                                </div>
+
+                                                <div class="form-row col-md-12 form-group">
+                                                    <label for="billing_first_name">Locality:
+                                                    </label>
+                                                    <span class="input-wrapper">
+                                                        <input type="text" name="localityNew" id="localityNew" class="input-text form-control">
+
+                                                    </span>
+
+                                                </div>
+
+                                                <div class="form-row col-md-12 form-group">
+                                                    <label for="billing_first_name">Town:&nbsp;<abbr class="required" title="required">*</abbr>
+                                                    </label>
+                                                    <span class="input-wrapper">
+                                                        <input type="text" name="townNew" id="townNew" class="input-text form-control @error('townNew') is-invalid @enderror">
+                                                        @error('townNew')
+                                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                                        @enderror
+                                                    </span>
+
+                                                </div>
+                                                <div class="form-row col-md-12 form-group">
+                                                    <label for="billing_first_name">County:&nbsp;
+                                                    </label>
+                                                    <span class="input-wrapper">
+                                                        <input type="text" name="countyNew" id="countyNew" class="input-text form-control @error('countyNew') is-invalid @enderror">
+                                                    </span>
+
+                                                </div>
+                                                <div class="form-row col-md-12 form-group">
+                                                    <label for="billing_first_name">Post Code:&nbsp;<abbr class="required" title="required">*</abbr>
+                                                    </label>
+
+                                                    <span class="input-wrapper">
+                                                        <input type="text" name="post_codeNew" id="zip_code" class="input-text form-control @error('post_codeNew') is-invalid @enderror">
+                                                        @error('post_codeNew')
+                                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                                        @enderror
+                                                    </span>
+
+                                                </div>
+                                                <div class="form-row update_totals_on_change col-md-12 col-12 form-group">
+                                                    <label for="billing_country">Country&nbsp;<abbr class="required" title="required">*</abbr></label>
+                                                    <span class="input-wrapper">
+
+                                                        <select id="billing_countryNew" name="billing_countryNew" class="  @error('billing_countryNew') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
+                                                            <option value="">Select a country / region…</option>
+                                                            <option value="72" selected>England</option>
+                                                            @foreach ($countries as $country)
+                                                            <option value="{{$country['id']}}">{{$country['name']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('billing_countryNew')
+                                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                                        @enderror
+                                                    </span>
+
+                                                </div>
+
+
+                                            </div>
+                                        </fieldset>
+                                        <div class="mb-3">
+                                            <button type="submit" onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- ////////////////////////////////////////////d-none////////////////////////////////////////////////////////////////////// -->
+                            {{--End Edit  form div--}}
+                            <div class="form-wrap buyNowAfterSelectingAdd {{$forwardingAddVal !== null ? '' : 'd-none'}}">
+                                <div class="form-info-block">
+                                    <h4>Registered Address</h4>
+                                    <div class="loader" style="display:none"></div>
+                                    <div class="desc mb-3 ">
+                                        <div class="icon">
+                                            <img src="{{ asset('frontend/assets/images/form-icon.png')}}" alt="">
+                                        </div>
+                                        <div class="text">
+                                            <h5>Registered Office (required)</h5>
+                                            <ul>
+                                                <li>All companies require having a registered office address located in the same country as they are registered.</li>
+                                                <li>It is the address to which all Companies House, HMRC and other official letters will be sent and must always be a physical address (e.g. not a PO Box or DX).</li>
+                                                <li><b>The address of the registered office must appear on all company correspondence and publications.</b></li>
+                                                <li><b>A company’s registered office address is available to view by the public free of charge.</b></li>
+                                                <li>If you purchase our registered office address service, we will forward all official mail to an address of your choosing.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="own-address ">
+                                    <div class="info">
+                                        <h3>Forwarding Address</h3>
+
+                                        <?php
+                                        if ($forwardingAddVal !== null) {
+                                        ?>
+                                            <p>{{$address['house_number']}},{{$address['street']}},{{$address['locality']}},{{$address['town']}},{{$address['county']}},{{$address['post_code']}}</p>
+                                        <?php
+                                        }
+                                        ?>
+
+                                        <!-- <p><span id="forwarding_house_number"></span>, <span id="forwading_street"></span>, <span id="forwading_locality"></span>, <span id="forwading_town"></span>, <span id="forwading_county"></span>, <span id="forwading_post_code"></span></p> -->
+
+                                        <input type="hidden" id="forwading_add_id">
+                                        <input type="hidden" id="forwading_house_no1">
+                                        <input type="hidden" id="forwading_street1">
+                                        <input type="hidden" id="forwading_locality1">
+                                        <input type="hidden" id="forwading_town1">
+                                        <input type="hidden" id="forwading_county1">
+                                        <input type="hidden" id="forwading_post_code">
+                                        <input type="hidden" id="forwading_billing_country">
+                                    </div>
+                                    <div class="btn-box">
+                                        <a href="javascript:void(0)" type="button" class="btn edit-btn edit-addr">Edit Address</a>
+                                        <!-- <a href="{{ route('choose-address-after-buy-now')}}" type="button" class="btn another-btn">Choose Another</a> -->
+                                        <a type="button" class="btn another-btn" onclick="anotherForwardingAdd()">Choose Another</a>
+                                    </div>
+                                </div>
+                                <div class="office-address ">
+                                    <div class="top-block">
+                                        <h3>Registered Office - London</h3>
+                                        <div class="price-block">
+                                            <strong>$39.00</strong>
+                                            <p>Reserved annually at $39.00</p>
+                                            <input type="hidden" value="39" id="registered_office_price">
+                                        </div>
+                                    </div>
+                                    <div class="desc">
+                                        <div class="tham-img">
+                                            <img src="{{ asset('frontend/assets/images/address-img.png')}}" alt="">
+                                            <div class="tham-info">
+                                                <strong>London:</strong>
                                                 <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United Kingdom</p>
                                             </div>
                                         </div>
+                                        <div class="text-block">
+                                            <h3>Protect the privacy of your home address</h3>
+                                            <p>Mauris placerat ac lectus et bibendum. Aliquam tincidunt tristique vulputate quisque tincidunt nisl vel risus imperdiet feugiat.</p>
+                                            <div class="location-block">
+                                                <div class="addr">
+                                                    <strong>London: </strong>
+                                                </div>
+                                                <div class="info">
+                                                    <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United Kingdom</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-block">
+                                        <button class="btn">Details</button>
+                                        <button class="btn buy-now-btn" onclick="gotoPage()">Remove</button>
                                     </div>
                                 </div>
-                                <div class="btn-block">
-                                    <button class="btn">Details</button>
-                                    <button class="btn buy-now-btn" onclick="gotoPage()">Remove</button>
+                                <div class="step-btn-wrap mt-4">
+                                    <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png')}}" alt=""> Previous: Particulars</button>
+                                    <button class="btn" onclick="gotoBusinessAddressChoosePage()">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png')}}" alt=""></button>
                                 </div>
-                            </div>
-                            <div class="step-btn-wrap mt-4">
-                                <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png')}}" alt=""> Previous: Particulars</button>
-                                <button class="btn" onclick="gotoBusinessAddressChoosePage()">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png')}}" alt=""></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>
 <!-- ================ end: Particulars sec ================ -->
 @endsection
@@ -488,7 +492,7 @@
                 setTimeout(function() {
                     $('.selc-addr').text('Select');
                 }, 2000);
-                window.location.href = "{{ route('registered-address')}}"
+                window.location.href = "{{ route('choose-address-after-buy-now')}}"
             }
         });
     };
@@ -660,6 +664,8 @@
                 },
                 success: function(result) {
                     location.reload(true);
+                    // $(".hideEdit").show();
+                    // $('.edit_from').addClass('d-none');
                 }
             });
         }
