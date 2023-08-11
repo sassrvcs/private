@@ -115,9 +115,12 @@ class AccountController extends Controller
             'title' => 'required',
             'forename' => 'required',
             'surname' => 'required',
-            'phone' => 'required|numeric|digits_between:8,13',
+            'phone' => 'required|digits_between:8,13',
             'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email',
             'confirm_password' =>'same:password',
+            'billing_email' => 'required|email',
+            'primary_email' => 'required|email',
+
 
             ],[
 
@@ -129,6 +132,8 @@ class AccountController extends Controller
                 'phone.numeric' => 'Please enter valid phone number.',
                 'email.required' => 'Email is required',
                 'email.email' => 'Please provide valid email',
+                'billing_email.required' => 'Billing email is required',
+                'primary_email.required' => 'Primary email is required'
             ]);
         if($validate->fails()){
             return back()->withErrors($validate->errors())->withInput();
@@ -143,9 +148,13 @@ class AccountController extends Controller
             $temp['surname'] = $request->input('surname');
             $temp['email'] =  $request->input('email');
             $temp['password'] = bcrypt($request->input('password'));
+            $temp['primary_email'] = $request->input('primary_email');
             $temp['business_email'] = $request->input('billing_email');
             $temp['phone_no'] =  $request->input('phone');
             $temp['business_phone'] = $request->input('billing_phone');
+            $temp['newsletter'] = $request->input('newsletter')??0;
+            $temp['confirmation_statements'] = $request->input('confirmation_statements')??0;
+            $temp['accounts'] = $request->input('accounts')??0;
 
 
             User::where('id',$user)->update($temp);

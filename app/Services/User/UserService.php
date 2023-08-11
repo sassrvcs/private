@@ -74,6 +74,9 @@ class UserService
             $user->surname      = $request->surname;
             $user->phone_no     = $request->phone;
             $user->email        = $request->email;
+            $user->primary_email = $request->email;
+            $user->business_email = $request->email;
+            $user->business_phone = $request->phone;
             $user->password     = bcrypt($request->password);
 
             $user->save();

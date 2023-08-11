@@ -195,10 +195,11 @@
                                 <legend class="float-none w-auto p-2">Email Addresses
                                 </legend>
                                 <div class="form-row form-group ">
-                                    <label for="username">Primary&nbsp;</label>
+                                    <label for="username">Primary&nbsp;<abbr class="required" title="required">*</abbr></label>
                                     <span class="input-wrapper">
-                                        <input type="email" name="email" value={{$user->email}} class="input-text form-control" readonly>
-                                        @error('email')
+                                        <input type="email" name="primary_email" value="{{$user->primary_email}}" id="primary_email" class=" form-control @error('primary_email') is-invalid @enderror">
+                                        <div class="email_err1" style="color:red;"></div>
+                                        @error('primary_email')
                                             <div class="error" style="color:red;">{{ $message }}</div>
                                         @enderror
                                     </span>
@@ -206,9 +207,13 @@
 
 
                                 <div class="form-row form-group ">
-                                    <label>Billing&nbsp;</label>
+                                    <label>Billing&nbsp;<abbr class="required" title="required">*</abbr></label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control" type="email" name="billing_email" value="{{$user->business_email}}">
+                                        <input class="form-control @error('billing_email') is-invalid @enderror" type="email" id="email_id" name="billing_email" value="{{$user->business_email}}">
+                                        <div class="email_err" style="color:red;"></div>
+                                        @error('billing_email')
+                                            <div class="error" style="color:red;">{{ $message }}</div>
+                                        @enderror
                                     </span>
                                 </div>
 
@@ -218,7 +223,7 @@
                                 <div class="form-row form-group ">
                                     <label for="username">Primary&nbsp;</label>
                                     <span class="input-wrapper">
-                                        <input type="number" class="input-text form-control" name="phone" value="{{ $user->phone_no}}">
+                                        <input type="number" class="numberonly form-control" name="phone" value="{{ $user->phone_no}}">
                                     </span>
                                 </div>
 
@@ -226,7 +231,7 @@
                                 <div class="form-row form-group ">
                                     <label>Billing&nbsp;</label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control" type="number" class="input-text form-control" name="billing_phone" value="{{ $user->business_phone}}">
+                                        <input type="number" class="numberonly1 form-control" name="billing_phone" value="{{ $user->business_phone}}">
                                     </span>
                                 </div>
 
@@ -236,20 +241,20 @@
                                 </legend>
                                 <div class=" px-0 col-md-12 col-12 mb-2">
                                     <div class="px-0 form-check">
-                                        <b class="mr-2">Newsletter</b><input class="" id="chek1" name="chek1" type="checkbox">
+                                        <b class="mr-2">Newsletter</b><input class="" id="chek1" name="newsletter" type="checkbox" value="1" {{ $user->newsletter =="1" ? 'checked' : '' }}>
                                         <label for="chek1"> I would like to sign up to the newsletter distribution list
                                         </label>
                                     </div>
                                 </div>
                                 <div class=" px-0 col-md-12 col-12 mb-2">
                                     <div class="px-0 form-check">
-                                        <b class="mr-2">Confirmation Statement</b> <input class="" id="chek2" name="chek2" type="checkbox">
+                                        <b class="mr-2">Confirmation Statement</b> <input class="" id="chek2" name="confirmation_statements" value="1"  type="checkbox" {{ $user->confirmation_statements =="1" ? 'checked' : '' }}>
                                         <label for="chek2"> I would like to receive updates on the confirmation statement</label>
                                     </div>
                                 </div>
                                 <div class=" px-0 col-md-12 col-12">
                                     <div class="px-0 form-check">
-                                        <b class="mr-2">Accounts</b> <input class="" id="chek3" name="chek3" type="checkbox">
+                                        <b class="mr-2">Accounts</b> <input class="" id="chek3" name="accounts" type="checkbox" value="1" {{ $user->accounts =="1" ? 'checked' : '' }}>
                                         <label for="chek3"> I would like to receive updates on my accounts
                                         </label>
                                     </div>
@@ -258,7 +263,7 @@
 
 
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-primary">Update Details</button>
+                                <button type="submit" class="btn btn-primary update-btn">Update Details</button>
                             </div>
                         </form>
                     </div>
@@ -697,6 +702,17 @@
 @section('script')
 <script>
     $(document).ready(function () {
+        $('.numberonly').keypress(function (e) {
+            var charCode = (e.which) ? e.which : event.keyCode
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))
+                return false;
+        });
+        $('.numberonly1').keypress(function (e) {
+            var charCode = (e.which) ? e.which : event.keyCode
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))
+                return false;
+        });
+
         $('#editPrimaryAddress').click(function(){
             $('#primaryAddressModal').modal('show');
         });
@@ -906,4 +922,46 @@
     }
 
 </script>
+<script>
+    $("#email_id").blur(function() {
+            if ($('#email_id').val() != "") {
+                var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)+.[a-zA-Z]*$/;
+                if ($('#email_id').val().match(validRegex)) {
+                    $('.update-btn').prop('disabled', false);
+                    $('.email_err').html('');
+                    //$(".submit-btn").css("background-color", "#001B69");
+                    return true;
+
+                } else {
+                    $('.email_err').html('Please enter a valid email address');
+                    $('.serverEmailerror').html('');
+                    $('.update-btn').prop('disabled', true);
+                    // $(".submit-btn").css("background-color", "gray");
+                    return false;
+                }
+            }
+        });
+
+        $("#primary_email").blur(function() {
+            if ($('#primary_email').val() != "") {
+                var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)+.[a-zA-Z]*$/;
+                if ($('#primary_email').val().match(validRegex)) {
+                    $('.update-btn').prop('disabled', false);
+                    $('.email_err1').html('');
+                    //$(".submit-btn").css("background-color", "#001B69");
+                    return true;
+
+                } else {
+                    $('.email_err1').html('Please enter a valid email address');
+                    $('.serverEmailerror').html('');
+                    $('.update-btn').prop('disabled', true);
+                    // $(".submit-btn").css("background-color", "gray");
+                    return false;
+                }
+            }
+        });
+
+
+</script>
+
 @endsection
