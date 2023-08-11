@@ -27,14 +27,14 @@ class CompanieStoreRequest extends FormRequest
             'companie_name' => ['required'],
             'companie_type' => ['required'],
             'sic_name'      => ['sometimes'],
-            'sic_code'      => ['required'],
-            'section_name'  => ['required'],
-            'step_name'     => ['required'],
-            'order_id'      => ['required'],
-            'order'         => ['required'],
-            'jurisdiction_id'=> ['required'],
+            'sic_code'      => ['sometimes'],
+            'section_name'  => ['sometimes'],
+            'step_name'     => ['sometimes'],
+            'order_id'      => ['sometimes'],
+            'order'         => ['sometimes'],
+            'jurisdiction_id'=> ['sometimes'],
             'is_sensetibe'  => ['sometimes'],
-            'c_availablity' => ['required'],
+            'c_availablity' => ['sometimes'],
         ];
     }
 }

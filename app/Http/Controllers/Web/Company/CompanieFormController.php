@@ -12,6 +12,7 @@ use App\Services\CompanieSearchService;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use App\Services\MediaUploadService;
 use Exception;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class CompanieFormController extends Controller
@@ -37,8 +38,10 @@ class CompanieFormController extends Controller
         $SICDetails = config('sic_code.sic_details');
         $SICCodes = config('sic_code.sic_code');
 
-        $documentName   = $orders->getFirstMedia('sensetive-document')->file_name ?? '';
-        $documentUrl    = $orders->getFirstMedia('sensetive-document')->getUrl() ?? '';
+        $firstMedia = $orders->getFirstMedia('sensetive-document');
+
+        $documentName = $firstMedia ? $firstMedia->file_name : '';
+        $documentUrl = $firstMedia ? $firstMedia->getUrl() : '';
 
         $mediaDoc = [
             'name' => $documentName,
@@ -57,7 +60,7 @@ class CompanieFormController extends Controller
             }
 
             if($companyFormationStep->step_name == 'particulars') {
-                // return redirect(route('registered-address'));
+                return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
                 // return redirect(route('companyname.document', ['order' => ]));
             } 
             // else if($CompanyFormationStep->step_name == '') {
@@ -74,7 +77,17 @@ class CompanieFormController extends Controller
      */
     public function store(CompanieStoreRequest $request)
     {
+        $validate = Validator::make($request->all(), [
+            'companie_name' => 'required',
+            'companie_type' => 'required',
+            'sic_name'      => 'required',
+            'sic_code'      => 'required',
+        ]);
 
+        if($validate->fails()) {
+            return back()->withErrors($validate->errors())->withInput();
+        }
+        
         if($request->c_availablity == 'not_available') {
             // dd('dasdsadsa');
             return back()->with('error', 'This company is not available');
@@ -141,8 +154,19 @@ class CompanieFormController extends Controller
         $orderId        = $request->order ?? '';
         $companyId      = $companieName->id ?? '';
         $legalDocument  = $companieName->legal_document ?? '';
-        $documentName   = $companieName->getFirstMedia('documents')->file_name ?? '';
-        $documentUrl    = $companieName->getFirstMedia('documents')->getUrl() ?? '';
+
+        $document = $companieName->getFirstMedia('documents');
+
+        if ($document) {
+            $documentName = $document->file_name;
+            $documentUrl = $document->getUrl();
+        } else {
+            $documentName = '';
+            $documentUrl = '';
+        }
+
+        // $documentName   = $companieName->getFirstMedia('documents')->file_name ?? '';
+        // $documentUrl    = $companieName->getFirstMedia('documents')->getUrl() ?? '';
 
         $mediaDoc = [
             'name' => $documentName,
@@ -186,8 +210,11 @@ class CompanieFormController extends Controller
             }
         } else {
             $companyMedia = $company->getMedia('documents')->first();
-            // Delete the media
-            $companyMedia->delete();
+            
+            // Delete the media if exist
+            if ($companyMedia) {
+                $companyMedia->delete();
+            }
         }
 
         if(isset($request->step_name) && !empty($request->step_name)) {

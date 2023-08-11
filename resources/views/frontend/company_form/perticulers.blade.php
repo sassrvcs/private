@@ -106,11 +106,15 @@
                         <div class="particulars-bottom-step">
                             <div class="bottom-step-items active">
                                 <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
-                                <p>Particulars</p>
+                                <p>
+                                    <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" style="color: #ffffff;"> Particulars</a>
+                                </p>
                             </div>
                             <div class="bottom-step-items">
                                 <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                <p>Registered Address</p>
+                                <p>
+                                    <a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" style="color: #ffffff;"> Registered Address </a>
+                                </p>
                             </div>
                             <div class="bottom-step-items">
                                 <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
@@ -122,7 +126,9 @@
                             </div>
                             <div class="bottom-step-items">
                                 <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                <p>Document</p>
+                                <p>
+                                    <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" style="color: #ffffff;"> Document </a>
+                                </p>
                             </div>
                         </div>
                         <div class="form-wrap">
@@ -148,7 +154,10 @@
                                                 <label>Company Name <span><img src="{{ asset('frontend/assets/images/in-icon.png') }}" alt=""></span></label>
                                                 <span class="nb-text">Your requested company name is displayed below. If you wish to change this, insert another name and click.</span>
                                                 <div class="check-another-name">
-                                                    <input type="text" class="form-control" name="companie_name" id="companie_name" value="{{ (isset($companyFormationStep->companie_name) && !empty($companyFormationStep->companie_name)) ? strtoupper($companyFormationStep->companie_name) : strtoupper($orders->company_name ?? '' ) }}" oninput="this.value = this.value.toUpperCase();">
+                                                    {{-- <input type="text" class="form-control" name="companie_name" id="companie_name" value="{{ (isset($companyFormationStep->companie_name) && !empty($companyFormationStep->companie_name)) ? strtoupper($companyFormationStep->companie_name) : strtoupper($orders->company_name ?? '' ) }}" oninput="this.value = this.value.toUpperCase();"> --}}
+                                                    <input type="text" class="form-control" name="companie_name" id="companie_name"
+                                                        value="{{ old('companie_name', strtoupper($companyFormationStep->companie_name ?? ($orders->company_name ?? ''))) }}"
+                                                        oninput="this.value = this.value.toUpperCase();">
                                                     <button type="submit" class="btn check-company">Check another name</button>
                                                 </div>
                                             </div>
@@ -207,8 +216,8 @@
 
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
-                                                <label for="jurisdiction_id">Jurisdiction <span><img src="assets/images/in-icon.png" alt=""></span></label>
-                                                <select class="form-control" name="jurisdiction_id">
+                                                <label for="jurisdiction_id">Jurisdiction <span><img src="{{ asset('frontend/assets/images/in-icon.png') }}" alt=""></span></label>
+                                                {{-- <select class="form-control @error('jurisdiction_id') is-invalid @enderror" name="jurisdiction_id">
                                                     <option value="">Select one</option>
                                                     @foreach ($jurisdictions as $jurisdiction)
                                                         @if( isset($companyFormationStep->jurisdiction_id) && $companyFormationStep->jurisdiction_id == $jurisdiction->id)
@@ -217,7 +226,28 @@
                                                             <option value="{{ $jurisdiction->id }}">{{ $jurisdiction->name }}</option>
                                                         @endif
                                                     @endforeach
+                                                </select> --}}
+                                                {{-- <select class="form-control @error('jurisdiction_id') is-invalid @enderror" name="jurisdiction_id">
+                                                    <option value="">Select one</option>
+                                                    @foreach ($jurisdictions as $jurisdiction)
+                                                        <option {{ old('jurisdiction_id', (isset($companyFormationStep) && $companyFormationStep->jurisdiction_id == $jurisdiction->id) ? 'selected' : '') }} value="{{ $jurisdiction->id }}">{{ $jurisdiction->name }}</option>
+                                                    @endforeach
+                                                </select> --}}
+
+                                                <select class="form-control @error('jurisdiction_id') is-invalid @enderror" name="jurisdiction_id">
+                                                    <option value="">Select one</option>
+                                                    @foreach ($jurisdictions as $jurisdiction)
+                                                        @if($jurisdiction->name === 'England & Wales')
+                                                            <option value="{{ $jurisdiction->id }}" selected>{{ $jurisdiction->name }}</option>
+                                                        @else
+                                                            <option {{ (old('jurisdiction_id') == $jurisdiction->id || (isset($companyFormationStep) && old('jurisdiction_id', $companyFormationStep->jurisdiction_id) == $jurisdiction->id)) ? 'selected' : '' }} value="{{ $jurisdiction->id }}">{{ $jurisdiction->name }}</option>
+                                                        @endif
+                                                    @endforeach
                                                 </select>
+                                                
+                                                @error('jurisdiction_id')
+                                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -232,7 +262,7 @@
 
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
-                                                <label for="sic_name">What are yur business activities (SIC Codes) <span><img src="assets/images/in-icon.png" alt=""></span></label>
+                                                <label for="sic_name">What are yur business activities (SIC Codes) <span><img src="{{ asset('frontend/assets/images/in-icon.png') }}" alt=""></span></label>
                                                 <select class="form-control" name="sic_name" id="sic_name">
                                                     <option value="">Select Category</option>
                                                     @foreach($SICDetails as $key => $value)
@@ -246,7 +276,7 @@
                                             <div class="form-group">
                                                 <label for="">Selected SIC Codes</label>
                                                 {{-- <select class="form-control" name="selected_sic" id="selected_sic"> --}}
-                                                <select class="form-select selected_sic" name="sic_code[]" id="multiple-select-field" data-placeholder="Choose anything" multiple>
+                                                <select class="form-select selected_sic @error('sic_code') is-invalid @enderror" name="sic_code[]" id="multiple-select-field" data-placeholder="Choose anything" multiple>
                                                     @if( isset($companyFormationStep->sicCodes) )
                                                         @foreach($companyFormationStep->sicCodes as $key => $value)
                                                             <option selected value="{{ $value->id }}">{{ $value->id }} - {{ $value->name }}</option>
@@ -255,11 +285,14 @@
                                                         <option value="">None Selected</option>
                                                     @endif
                                                 </select>
+                                                @error('sic_code')
+                                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="btn-wrap">
-                                                <button type="submit" class="btn btn-success save-continue">Save & Continue <img src="assets/images/btn-right-arrow.png" alt=""></button>
+                                                <button type="submit" class="btn btn-success save-continue">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}" alt=""></button>
                                             </div>
                                         </div>
                                     </div>
@@ -357,14 +390,16 @@
 
         $('.check-company').click(function(e) {
             e.preventDefault();
+            // $('.check-company').prop('disabled', true).text('Checking...');
             checkCompanieAvailabality();
+            // $('.check-company').prop('disabled', false).text('Check another name');
         });
 
-        const checkCompanieAvailabality = () => {
+        const checkCompanieAvailabality = (sensetive = false) => {
 
             var companyName = $('#companie_name').val();
             var orderId = $('#order_id').val();
-            $('.save-continue').prop('disabled', true);
+            // $('.save-continue').prop('disabled', true);
 
             var searchButton = $(this);
             searchButton.prop('disabled', true).text('Searching...');
@@ -382,22 +417,25 @@
                 if(response.data.message == 'This company name is available.') {
 
                     if(response.data.is_sensitive == 1) {
+                        $('#srchfld-error').hide();
                         $('.sensitive-word-chk').show();
                         $('.sensitive-word-guidance').prepend(response.data.sensitive_word_desc);
                         $('#is_sensetibe').val('true');
                         $('#is_sensitive_word').text(response.data.is_sensitive_word);
                         $('#c_availablity').val('available');
-                        $('.save-continue').prop('disabled', false);
+                        // $('.save-continue').prop('disabled', false);
                     } else {
-                        $('.sensitive-word-chk').hide();
-                        $('#srchfld-error').show();
-                        $('#c-availablity').text('');
-                        $('#c_availablity').val('available');
-                        $('.save-continue').prop('disabled', false);
-
-                        // $("#message-cls").text('');
-                        // $("#message-cls").text('Congratulation!');
-                        $('#companie-name').text(companyName);
+                        if(sensetive === false) {
+                            $('.sensitive-word-chk').hide();
+                            $('#srchfld-error').show();
+                            $('#c-availablity').text('');
+                            $('#c_availablity').val('available');
+                            // $('.save-continue').prop('disabled', false);
+    
+                            // $("#message-cls").text('');
+                            // $("#message-cls").text('Congratulation!');
+                            $('#companie-name').text(companyName);
+                        }
                     }
                 } else {
                     $('.sensitive-word-chk').hide();
@@ -407,7 +445,7 @@
                     $('#companie-name').text(companyName);
                     $('#c-availablity').text('not');
                     $('#c_availablity').val('not_available');
-                    $('.save-continue').prop('disabled', true);
+                    // $('.save-continue').prop('disabled', true);
                 }
             })
             .catch(function (error) {
@@ -421,7 +459,7 @@
         }
 
         $(document).ready(function() {
-            checkCompanieAvailabality();
+            checkCompanieAvailabality(true);
         });
 
         $("#sensitive-doc-attach").click(function() {

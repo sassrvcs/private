@@ -109,7 +109,9 @@
                         <div class="particulars-bottom-step">
                             <div class="bottom-step-items">
                                 <img src="{{ asset('frontend/assets/images/inactive-tick.svg')}}" alt="">
-                                <p>Particulars</p>
+                                <p>
+                                <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address', 'data' => 'previous']) }}" style="color: #ffffff;"> Particulars</a>
+                                </p>
                             </div>
                             <div class="bottom-step-items active">
                                 <img src="{{ asset('frontend/assets/images/active-tick.svg')}}" alt="">
