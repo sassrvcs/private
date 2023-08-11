@@ -314,7 +314,7 @@
                 <div class="choose_addr">
                     <h3>Recently Used Addresses</h3>
                     <div class="current_address_grp">
-                        @foreach($primary_address_list as $key => $value)
+                        @foreach($billing_address_list as $key => $value)
                         <div class="addr_wrap">
                             <p>@if($value['house_number']) {{ $value['house_number']}}, @endif @if($value['street']) {{$value['street']}}, @endif @if($value['locality']) {{$value['locality']}}, @endif @if($value['town']) {{ $value['town']}}, @endif {{ $value['county']}}</p>
                             <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
@@ -574,7 +574,7 @@
                     @endforeach
                     <input type="hidden" class="address_type" name="address_type" value="primary_address">
                     <div class="modal-footer">
-                        <button type="button" id="primary_submit" class="btn btn-primary billingAddrSubmit" data-dismiss="modal">Submit Changes</button>
+                        <button type="button" id="primary_submit" class="btn btn-primary billingAddrSubmit" data-dismiss="modal" onclick="editPrimaryAddressfn({{$v['addrees_id']}})">Submit Changes</button>
                       </div>
                 </form>
 
@@ -796,28 +796,30 @@
             });
         });
 
-        $("#primary_submit").click(function() {
+
+
+        $("#saveAddr").click(function() {
             $(".loader").show();
             // Validation
-            $("#primeinputs").each(function() {
+            $(".formInputModal").each(function() {
                 var number   = $(this).find(".house_no").val();
                 var steet    = $(this).find(".steet_no").val();
                 var locality = $(this).find(".locality").val();
                 var town     = $(this).find(".town").val();
                 var county   = $(this).find(".county").val();
                 if(county==undefined){
-                    county = "";
+                    county ="";
                 }
+
                 var postcode = $(this).find(".zip").val();
                 var contry   = $(this).find(".contry").val();
                 var address_type = $(this).find(".address_type").val();
                 var user_id   = $(this).find(".user_id").val();
-
-
+                //alert(number+steet+locality+town+postcode+contry+address_type+user_id);
                 if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
                     //alert(number+"---"+address_type);
                     $.ajax({
-                        url: "{!! route('primary-address-save') !!}",
+                        url: "{!! route('new-address-save') !!}",
                         type: 'POST',
                         data: {
                             "_token": "{{ csrf_token() }}",
@@ -832,7 +834,7 @@
                             user_id:user_id
                         },
                         success: function(result) {
-                        $("#primaryAddressConfirmModal").modal('hide');
+                        $("#addNewAddressModal").modal('hide');
                         setTimeout(function () {
                             $(".loader").hide();
                             location.reload(true);
@@ -843,54 +845,6 @@
 
             });
         });
-
-        // $("#saveAddr").click(function() {
-        //     $(".loader").show();
-        //     // Validation
-        //     $(".formInputModal").each(function() {
-        //         var number   = $(this).find(".house_no").val();
-        //         var steet    = $(this).find(".steet_no").val();
-        //         var locality = $(this).find(".locality").val();
-        //         var town     = $(this).find(".town").val();
-        //         var county   = $(this).find(".county").val();
-        //         if(county==undefined){
-        //             county ="";
-        //         }
-
-        //         var postcode = $(this).find(".zip").val();
-        //         var contry   = $(this).find(".contry").val();
-        //         var address_type = $(this).find(".address_type").val();
-        //         var user_id   = $(this).find(".user_id").val();
-        //         //alert(number+steet+locality+town+postcode+contry+address_type+user_id);
-        //         if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
-        //             //alert(number+"---"+address_type);
-        //             $.ajax({
-        //                 url: "{!! route('primary-address-save') !!}",
-        //                 type: 'POST',
-        //                 data: {
-        //                     "_token": "{{ csrf_token() }}",
-        //                     number: number,
-        //                     steet:steet,
-        //                     locality:locality,
-        //                     town:town,
-        //                     county:county,
-        //                     postcode:postcode,
-        //                     contry:contry,
-        //                     address_type:address_type,
-        //                     user_id:user_id
-        //                 },
-        //                 success: function(result) {
-        //                 $("#addNewAddressModal").modal('hide');
-        //                 setTimeout(function () {
-        //                     $(".loader").hide();
-        //                     location.reload(true);
-        //                 }, 2500);
-        //                 }
-        //             });
-        //         }
-
-        //     });
-        // });
 
         $("#choosePrimaryAddress").click(function(){
             $('#choosePrimaryAddressModal').modal('show');
@@ -949,6 +903,54 @@
     });
 
 
+    function editPrimaryAddressfn(address_id){
+            $(".loader").show();
+            // Validation
+            $("#primeinputs").each(function() {
+                var number   = $(this).find(".house_no").val();
+                var steet    = $(this).find(".steet_no").val();
+                var locality = $(this).find(".locality").val();
+                var town     = $(this).find(".town").val();
+                var county   = $(this).find(".county").val();
+                if(county==undefined){
+                    county = "";
+                }
+                var postcode = $(this).find(".zip").val();
+                var contry   = $(this).find(".contry").val();
+                var address_type = $(this).find(".address_type").val();
+                var user_id   = $(this).find(".user_id").val();
+
+
+                if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
+                    //alert(number+"---"+address_type);
+                    $.ajax({
+                        url: "{!! route('primary-address-save') !!}",
+                        type: 'POST',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            number: number,
+                            steet:steet,
+                            locality:locality,
+                            town:town,
+                            county:county,
+                            postcode:postcode,
+                            contry:contry,
+                            address_type:address_type,
+                            user_id:user_id,
+                            address_id:address_id
+                        },
+                        success: function(result) {
+                        $("#primaryAddressConfirmModal").modal('hide');
+                        setTimeout(function () {
+                            $(".loader").hide();
+                            location.reload(true);
+                        }, 2500);
+                        }
+                    });
+                }
+
+            });
+    };
 
     function selectPostalAddrApp(val){
         var value = val.split(',');

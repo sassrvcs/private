@@ -71,6 +71,7 @@ Route::post('/billing-address-save',[AccountController::class,'saveBillingAddres
 Route::post('/selected-address-save',[AccountController::class,'saveSelectedAddress'])->name('selected-address-save')->middleware('auth');
 Route::post('/my-details-save',[AccountController::class,'saveMyDetails'])->name('my-details-save')->middleware('auth');
 Route::get('/update-selected-address', [AccountController::class, 'updateSelectedAddress'])->name('update-selected-address')->middleware('auth');
+Route::post('/new-address-save', [AccountController::class, 'saveNewAddress'])->name('new-address-save')->middleware('auth');
 
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
