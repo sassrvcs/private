@@ -31,20 +31,23 @@ class AccountController extends Controller
                                     //->orderBy('addresses.id', 'DESC')
                                     ->get()
                                     ->toArray();
+         if(empty($billing_address)){
+            $billing_address = $primary_address;
+         }
         $primary_address_list =   Address::join('countries','countries.id','=','addresses.billing_country')
                                     ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
                                     ->where('addresses.user_id',Auth::user()->id)
-                                    ->where('addresses.address_type','primary_address')
+                                    //->where('addresses.address_type','primary_address')
                                     ->get()
                                     ->toArray();
-        $billing_address_list = Address::join('countries','countries.id','=','addresses.billing_country')
-                                    ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
-                                    ->where('addresses.user_id',Auth::user()->id)
-                                    ->where('addresses.address_type','billing_address')
-                                    ->get()
-                                    ->toArray();
+        // $billing_address_list = Address::join('countries','countries.id','=','addresses.billing_country')
+        //                             ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+        //                             ->where('addresses.user_id',Auth::user()->id)
+        //                             ->where('addresses.address_type','billing_address')
+        //                             ->get()
+        //                             ->toArray();
 
-        return view('frontend.account.details', compact('user','primary_address','billing_address','countries','primary_address_list','billing_address_list'));
+        return view('frontend.account.details', compact('user','primary_address','billing_address','countries','primary_address_list'));
     }
 
     public function saveSelectedAddress(Request $request){
@@ -74,38 +77,60 @@ class AccountController extends Controller
     }
 
     public function savePrimaryAddress(Request $request){
+        Address::where('user_id',$request->input('user_id'))
+                ->where('address_type',$request->input('address_type'))
+                ->update(
+                    [
+                        'house_number'     =>  $request->input('number'),
+                        'street'            => $request->input('steet'),
+                        'locality'          => $request->input('locality'),
+                        'town'              => $request->input('town'),
+                        'county'            => $request->input('county')??null,
+                        'post_code'         => $request->input('postcode'),
+                        'billing_country'   => $request->input('contry'),
+                        'is_selected'       =>1 ,
+                    ]
+                );
 
+    }
+    public function saveBillingAddress(Request $request){
 
-        //Address::where('address_type',$request->input('address_type'))->where('user_id',$request->input('user_id'))->update($temp);
-        // Address::updateOrCreate(
-        //     [
-        //         'user_id'       => $request->input('user_id'),
-        //         'address_type'  => $request->input('address_type'),
-        //     ],
-        //     [
-        //         'house_number'     => $request->input('number'),
-        //         'street'            => $request->input('steet'),
-        //         'locality'          => $request->input('locality'),
-        //         'town'              => $request->input('town'),
-        //         'county'            => $request->input('county')??null,
-        //         'post_code'         => $request->input('postcode'),
-        //         'billing_country'   => $request->input('contry'),
-        //     ],
-        // );
         Address::where('user_id',$request->input('user_id'))->where('address_type',$request->input('address_type'))->update(['is_selected'=>0]);
+        Address::updateOrCreate(
+            [
+                'user_id'       => $request->input('user_id'),
+                'address_type'  => $request->input('address_type'),
+            ],
+            [
+                'house_number'     =>  $request->input('number'),
+                'street'            => $request->input('steet'),
+                'locality'          => $request->input('locality'),
+                'town'              => $request->input('town'),
+                'county'            => $request->input('county')??null,
+                'post_code'         => $request->input('postcode'),
+                'billing_country'   => $request->input('contry'),
+                'is_selected'       =>1 ,
+            ],
+        );
 
-        $address            = new Address();
-        $address->user_id   = $request->input('user_id');
-        $address->address_type = $request->input('address_type');
-        $address->house_number = $request->input('number');
-        $address->street    = $request->input('steet');
-        $address->locality  = $request->input('locality');
-        $address->town      = $request->input('town');
-        $address->county    = $request->input('county')??null;
-        $address->post_code = $request->input('postcode');
-        $address->billing_country = $request->input('contry');
-        $address->is_selected = 1 ;
-        $address->save();
+
+        // Address::where('user_id',$request->input('user_id'))->where('address_type',$request->input('address_type'))->update(['is_selected'=>0]);
+
+
+        // if(Address::where('user_id',$request->input('user_id'))->where('address_type',$request->input('address_type'))->count()==0){
+        //     $address            = new Address();
+        //     $address->user_id   = $request->input('user_id');
+        //     $address->address_type = $request->input('address_type');
+        //     $address->house_number = $request->input('number');
+        //     $address->street    = $request->input('steet');
+        //     $address->locality  = $request->input('locality');
+        //     $address->town      = $request->input('town');
+        //     $address->county    = $request->input('county')??null;
+        //     $address->post_code = $request->input('postcode');
+        //     $address->billing_country = $request->input('contry');
+        //     $address->is_selected = 1 ;
+        //     $address->save();
+        // }
         return 1;
     }
 
@@ -164,13 +189,32 @@ class AccountController extends Controller
 
     public function updateSelectedAddress(Request $request){
 
+
+
         $userId = $request->input('user_id');
         $addressId = $request->input('address_id');
         $addressType = $request->input('address_type');
-
-        //dd($request->all());
         Address::where('user_id',$userId)->where('address_type',$addressType)->update(['is_selected'=>0]);
-        Address::where('id',$addressId)->update(['is_selected'=>1]);
+
+        if($addressType !='billing_address'){
+            Address::where('id',$addressId)->update(['is_selected'=>1]);
+        }
+        else{
+             Address::updateOrCreate(
+                ['user_id' => $userId, 'address_type' => 'billing_address'],
+                [
+                    'house_number'     => $request->input('number'),
+                    'street'            => $request->input('steet'),
+                    'locality'          => $request->input('locality'),
+                    'town'              => $request->input('town'),
+                    'county'            => $request->input('county')??null,
+                    'post_code'         => $request->input('postcode'),
+                    'billing_country'   => $request->input('contry'),
+                    'is_selected'       => 1,
+                ]
+            );
+        }
+
         return 1;
 
     }

@@ -153,7 +153,7 @@
                                                             </span>
                                                             <div class="action-container">
                                                                 <button type="button" id="choosePrimaryAddress"  class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="openModalButton" role="button" aria-disabled="false" fdprocessedid="4xigk"><span class="ui-button-text"> Choose Another</span></button>
-                                                                <button type="button" id="editPrimaryAddress" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="edit-bill-addr" role="button" aria-disabled="false" fdprocessedid="ruzkzh"><span class="ui-button-text"> Edit</span></button>
+                                                                <button type="button" id="editPrimaryAddress" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force"  role="button" aria-disabled="false" fdprocessedid="ruzkzh"><span class="ui-button-text"> Edit</span></button>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -314,12 +314,20 @@
                 <div class="choose_addr">
                     <h3>Recently Used Addresses</h3>
                     <div class="current_address_grp">
-                        @foreach($billing_address_list as $key => $value)
+                        @foreach($primary_address_list as $key => $value)
                         <div class="addr_wrap">
                             <p>@if($value['house_number']) {{ $value['house_number']}}, @endif @if($value['street']) {{$value['street']}}, @endif @if($value['locality']) {{$value['locality']}}, @endif @if($value['town']) {{ $value['town']}}, @endif {{ $value['county']}}</p>
                             <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
                         </div>
                         <div class="button_select">
+                            <input type="hidden" id="bil_house_number" value="{{ $value['house_number']}}">
+                            <input type="hidden" id="bil_street" value="{{ $value['street']}}">
+                            <input type="hidden" id="bil_locality" value="{{ $value['locality']}}">
+                            <input type="hidden" id="bil_town" value="{{ $value['town']}}">
+                            <input type="hidden" id="bil_county" value="{{ $value['county']}}">
+                            <input type="hidden" id="bil_post_code" value="{{ $value['post_code']}}">
+                            <input type="hidden" id="bil_country_name" value="{{ $value['country_name']}}">
+
                             <button class="btn btn-primary" data-dismiss="modal" onclick="setAddress({{$value['user_id']}},{{$value['id']}},'billing_address')" type="button">Select</button>
                         </div>
                         @endforeach
@@ -392,7 +400,7 @@
                 <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <form class="billingAddrUpdateForm formInput" >
+                <form class="billingAddrUpdateForm formInput" id="frmBillId" >
                     <input type="hidden" name="user_id" class="user_id" value="{{ $user->id }}">
 
                     @foreach($billing_address as $key => $v)
@@ -498,7 +506,7 @@
                 <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <form class="primaryAddrUpdateForm formInput" id="inputs">
+                <form class="primaryAddrUpdateForm formInput" id="primeinputs">
                     <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
                     @foreach($primary_address as $key => $v)
 
@@ -720,30 +728,78 @@
         $('.confirmShow').click(function(){
             $('#primaryAddressConfirmModal').modal('show');
         });
-        $('.primaryAddrSubmit').click(function(){
+        // $('.primaryAddrSubmit').click(function(){
 
-            var formdata = $(".primaryAddrUpdateForm").serialize();
+        //     var formdata = $(".primaryAddrUpdateForm").serialize();
 
-            $.ajax({
-                url: "{!! route('primary-address-save') !!}",
-                type: 'POST',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    formdata: formdata
-                },
-                success: function(result) {
-                   $("#primaryAddressConfirmModal").modal('hide');
-                   $(window).load();
+        //     $.ajax({
+        //         url: "{!! route('primary-address-save') !!}",
+        //         type: 'POST',
+        //         data: {
+        //             "_token": "{{ csrf_token() }}",
+        //             formdata: formdata
+        //         },
+        //         success: function(result) {
+        //            $("#primaryAddressConfirmModal").modal('hide');
+        //            $(window).load();
 
-                }
-            });
-        });
+        //         }
+        //     });
+        // });
 
-        $("#primary_submit,#billing_submit").click(function() {
+        $("#billing_submit").click(function() {
 
             $(".loader").show();
             // Validation
-            $(".formInput").each(function() {
+            $("#frmBillId").each(function() {
+                var number   = $(this).find(".house_no").val();
+                var steet    = $(this).find(".steet_no").val();
+                var locality = $(this).find(".locality").val();
+                var town     = $(this).find(".town").val();
+                var county   = $(this).find(".county").val();
+                if(county==undefined){
+                    county = "";
+                }
+                var postcode = $(this).find(".zip").val();
+                var contry   = $(this).find(".contry").val();
+                var address_type = $(this).find(".address_type").val();
+                var user_id   = $(this).find(".user_id").val();
+
+
+                if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
+                    //alert(number+"---"+address_type);
+                    $.ajax({
+                        url: "{!! route('billing-address-save') !!}",
+                        type: 'POST',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            number: number,
+                            steet:steet,
+                            locality:locality,
+                            town:town,
+                            county:county,
+                            postcode:postcode,
+                            contry:contry,
+                            address_type:address_type,
+                            user_id:user_id
+                        },
+                        success: function(result) {
+                        $("#primaryAddressConfirmModal").modal('hide');
+                        setTimeout(function () {
+                            $(".loader").hide();
+                            location.reload(true);
+                        }, 2500);
+                        }
+                    });
+                }
+
+            });
+        });
+
+        $("#primary_submit").click(function() {
+            $(".loader").show();
+            // Validation
+            $("#primeinputs").each(function() {
                 var number   = $(this).find(".house_no").val();
                 var steet    = $(this).find(".steet_no").val();
                 var locality = $(this).find(".locality").val();
@@ -788,53 +844,53 @@
             });
         });
 
-        $("#saveAddr").click(function() {
-            $(".loader").show();
-            // Validation
-            $(".formInputModal").each(function() {
-                var number   = $(this).find(".house_no").val();
-                var steet    = $(this).find(".steet_no").val();
-                var locality = $(this).find(".locality").val();
-                var town     = $(this).find(".town").val();
-                var county   = $(this).find(".county").val();
-                if(county==undefined){
-                    county ="";
-                }
+        // $("#saveAddr").click(function() {
+        //     $(".loader").show();
+        //     // Validation
+        //     $(".formInputModal").each(function() {
+        //         var number   = $(this).find(".house_no").val();
+        //         var steet    = $(this).find(".steet_no").val();
+        //         var locality = $(this).find(".locality").val();
+        //         var town     = $(this).find(".town").val();
+        //         var county   = $(this).find(".county").val();
+        //         if(county==undefined){
+        //             county ="";
+        //         }
 
-                var postcode = $(this).find(".zip").val();
-                var contry   = $(this).find(".contry").val();
-                var address_type = $(this).find(".address_type").val();
-                var user_id   = $(this).find(".user_id").val();
-                //alert(number+steet+locality+town+postcode+contry+address_type+user_id);
-                if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
-                    //alert(number+"---"+address_type);
-                    $.ajax({
-                        url: "{!! route('primary-address-save') !!}",
-                        type: 'POST',
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            number: number,
-                            steet:steet,
-                            locality:locality,
-                            town:town,
-                            county:county,
-                            postcode:postcode,
-                            contry:contry,
-                            address_type:address_type,
-                            user_id:user_id
-                        },
-                        success: function(result) {
-                        $("#addNewAddressModal").modal('hide');
-                        setTimeout(function () {
-                            $(".loader").hide();
-                            location.reload(true);
-                        }, 2500);
-                        }
-                    });
-                }
+        //         var postcode = $(this).find(".zip").val();
+        //         var contry   = $(this).find(".contry").val();
+        //         var address_type = $(this).find(".address_type").val();
+        //         var user_id   = $(this).find(".user_id").val();
+        //         //alert(number+steet+locality+town+postcode+contry+address_type+user_id);
+        //         if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
+        //             //alert(number+"---"+address_type);
+        //             $.ajax({
+        //                 url: "{!! route('primary-address-save') !!}",
+        //                 type: 'POST',
+        //                 data: {
+        //                     "_token": "{{ csrf_token() }}",
+        //                     number: number,
+        //                     steet:steet,
+        //                     locality:locality,
+        //                     town:town,
+        //                     county:county,
+        //                     postcode:postcode,
+        //                     contry:contry,
+        //                     address_type:address_type,
+        //                     user_id:user_id
+        //                 },
+        //                 success: function(result) {
+        //                 $("#addNewAddressModal").modal('hide');
+        //                 setTimeout(function () {
+        //                     $(".loader").hide();
+        //                     location.reload(true);
+        //                 }, 2500);
+        //                 }
+        //             });
+        //         }
 
-            });
-        });
+        //     });
+        // });
 
         $("#choosePrimaryAddress").click(function(){
             $('#choosePrimaryAddressModal').modal('show');
@@ -906,13 +962,31 @@
     function setAddress(userId, addressId,addressType) {
         var url = "{{ route('my_details') }}";
         // $(this).text('please wait..');
+        var number   = $("#bil_house_number").val();
+        var steet    = $("#bil_street").val();
+        var locality = $("#bil_locality").val();
+        var town     = $("#bil_town").val();
+        var county   = $("#bil_county").val();
+        if(county==undefined){
+            county = "";
+        }
+        var postcode = $("#bil_post_code").val();
+        var contry   = $("#bil_country_name").val();
+
         $.ajax({
             url: "{!! route('update-selected-address') !!}",
             type: 'GET',
             data: {
                 user_id: userId,
                 address_id: addressId,
-                address_type:addressType
+                address_type:addressType,
+                number: number,
+                steet:steet,
+                locality:locality,
+                town:town,
+                county:county,
+                postcode:postcode,
+                contry:contry,
             },
             success: function(result) {
                 location.href = url;
