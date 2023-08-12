@@ -123,7 +123,10 @@ Route::get('update-forwarding-registered-office-address', [CompanyFormController
 Route::get('update-forwarding-business-office-address', [CompanyFormController::class, 'updateForwardingBusinessAddress'])->name('update-forwarding-business-office-address')->middleware('auth');
 Route::get('remove-forwarding-address-section', [CompanyFormController::class, 'removeForwardingAddressSection'])->name('remove-forwarding-address-section')->middleware('auth');
 Route::get('remove-forwarding-business-address-section', [CompanyFormController::class, 'removeForwardingBusinessAddressSection'])->name('remove-forwarding-business-address-section')->middleware('auth');
-Route::get('/appointments', [CompanyFormController::class, 'appointments_open'])->name('appointments')->middleware('auth');
+
+// Appointment Section
+Route::get('appointments', [CompanyFormController::class, 'appointments_open'])->name('appointments')->middleware('auth');
+Route::post('save-person-officer', [CompanyFormController::class, 'savePersonOfficer'])->name('save-person-officer')->middleware('auth');
 
 Route::prefix('admin')->middleware(['auth', 'auth.session'])
 ->group(function () {

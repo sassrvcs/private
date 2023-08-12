@@ -7422,10 +7422,14 @@ form.woocommerce-form-login.login{
     padding: 15px;
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap
     justify-content: space-between;
     margin: 0 0 15px;
 }
+.used-addresses-panel .text {
+    width: calc(100% - 205px);
+}
+
 .used-addresses-panel .text p{
     font-size: 13px;
     font-weight: 400;
@@ -7434,6 +7438,12 @@ form.woocommerce-form-login.login{
     color: #151414;
     padding: 0;
     margin: 0;
+    display: -webkit-box;
+    height: 18px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 .used-addresses-panel .btn-wrap{
     display: flex;
@@ -8299,10 +8309,12 @@ form.woocommerce-form-login.login{
     padding: 0;
     margin: 0 0 0px;
 }
+
 .business-ess-panel .bottom-panel p strong{
     font-weight: 700;
 }
-.business-ess-panel .bottom-panel .btn{
+
+.edit-add-ttl{
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 600;
@@ -8314,6 +8326,7 @@ form.woocommerce-form-login.login{
     box-shadow: none;
     outline: none;
 }
+
 .showmore-sec {
     display: flex;
     flex-wrap: wrap;
@@ -8322,12 +8335,12 @@ form.woocommerce-form-login.login{
     margin: 0;
 }
 .showmore-sec p{
-font-family: 'Poppins', sans-serif;
-font-size: 14px;
-font-weight: 400;
-line-height: 20px;
-padding: 0;
-margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    padding: 0;
+    margin: 0;
 }
 .showmore-sec p strong{
     font-size: 18px;
@@ -8339,6 +8352,10 @@ margin: 0;
     align-items: center;
     padding: 0;
 }
+
 .showmore-sec ul li{
     margin: 0 0 0 10px;
+    color: #292828;
+    padding: 0 0 15px;
+    margin: 0;
 }

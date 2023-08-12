@@ -52,6 +52,10 @@ class AccountController extends Controller
         $temp = [];
         $id=$request->input('id');
         // dd($id);
+        $gg = Address::where('id',$id)->get();
+
+        // dd($gg);
+        // dd($request->all());
         $temp['house_number'] =$request->input('number');
         $temp['street'] = $request->input('steet');
         $temp['locality'] =  $request->input('locality');
@@ -60,7 +64,7 @@ class AccountController extends Controller
         $temp['post_code'] = $request->input('postcode');
         $temp['billing_country'] = $request->input('contry');
 
-        Address::where('id',$id)->update([
+        $updated = Address::where('id',$id)->update([
             'house_number'     => $request->input('number'),
             'street'            => $request->input('steet'),
             'locality'          => $request->input('locality'),
@@ -70,7 +74,9 @@ class AccountController extends Controller
             'billing_country'   => $request->input('contry'),
         ]);
 
-        return 1;
+        // dd($updated);
+
+        return $updated;
     }
 
     public function savePrimaryAddress(Request $request){
@@ -92,20 +98,35 @@ class AccountController extends Controller
         //         'billing_country'   => $request->input('contry'),
         //     ],
         // );
-        Address::where('user_id',$request->input('user_id'))->where('address_type',$request->input('address_type'))->update(['is_selected'=>0]);
+        // Address::where('user_id',$request->input('user_id'))->where('address_type',$request->input('address_type'))->update(['is_selected'=>0]);
 
-        $address            = new Address();
-        $address->user_id   = $request->input('user_id');
-        $address->address_type = $request->input('address_type');
-        $address->house_number = $request->input('number');
-        $address->street    = $request->input('steet');
-        $address->locality  = $request->input('locality');
-        $address->town      = $request->input('town');
-        $address->county    = $request->input('county')??null;
-        $address->post_code = $request->input('postcode');
-        $address->billing_country = $request->input('contry');
-        $address->is_selected = 1 ;
-        $address->save();
+        // $address            = new Address();
+        // $address->user_id   = $request->input('user_id');
+        // $address->address_type = $request->input('address_type');
+        // $address->house_number = $request->input('number');
+        // $address->street    = $request->input('steet');
+        // $address->locality  = $request->input('locality');
+        // $address->town      = $request->input('town');
+        // $address->county    = $request->input('county')??null;
+        // $address->post_code = $request->input('postcode');
+        // $address->billing_country = $request->input('contry');
+        // $address->is_selected = 1 ;
+        // $address->save();
+
+        $temp = [];
+            $temp['user_id'] =$request->input('user_id');
+            $temp['address_type'] = $request->input('address_type');
+            $temp['house_number'] =  $request->input('number');
+            $temp['street'] = $request->input('steet');
+            $temp['locality'] =  $request->input('locality');
+            $temp['town'] = $request->input('town');
+            $temp['county'] = $request->input('county')??null;
+            $temp['post_code'] =  $request->input('postcode');
+            $temp['billing_country'] = $request->input('contry');
+            $temp['is_selected'] = 1;
+
+            Address::where('id',$request->input('recent_addr'))->update($temp);
+
         return 1;
     }
 

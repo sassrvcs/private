@@ -210,7 +210,14 @@ class AuthController extends Controller
             $address->billing_country = $request->billing_countryNew;
             $address->save();
 
-            return redirect()->route('choose-address')->withSuccess('Address added successfully');
+            if(isset($request->cdabn)){
+                return redirect()->route('choose-address-after-buy-now')->withSuccess('Address added successfully');
+            }if(isset($request->bsnad)){
+                return redirect()->route('choose-address-business')->withSuccess('Address added successfully');
+            }else{
+                return redirect()->route('choose-address')->withSuccess('Address added successfully');
+            }
+
         }
 
     }
