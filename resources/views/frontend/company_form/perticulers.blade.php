@@ -13,7 +13,7 @@
         </div>
         <div class="center-info">
             <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li><a href="#">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a>Digital Packages</a></li>
             </ul>
         </div>

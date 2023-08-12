@@ -44,6 +44,9 @@ class CompanyFormService
             }
 
             $sourceMedia = Order::findOrFail($request['order_id']);
+            $sourceMedia->company_name = $request['companie_name'];
+            $sourceMedia->save();
+
             $media = $sourceMedia->getMedia('sensetive-document');
 
             foreach ($media as $medium) {

@@ -30,6 +30,8 @@ class CompanieFormController extends Controller
     {
         $userID = auth()->user()->id;
         $orders = Order::with('user')->where('order_id', $request->order)->first();
+
+        // dd($orders);
         $companyFormationStep = Companie::with('sicCodes')->where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
 
         // dd($companyFormationStep);
@@ -48,25 +50,22 @@ class CompanieFormController extends Controller
             'url'  => $documentUrl,
         ];
 
-        // dd($mediaDoc);
+        // dd($companyFormationStep);
         if($companyFormationStep == null) {
-
             return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
-        } 
-        else {
+        } else {
             if( isset($request->data) && $request->data == 'previous') {
-                // dd($request->data);
                 return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
             }
 
             if($companyFormationStep->step_name == 'particulars') {
                 return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
-                // return redirect(route('companyname.document', ['order' => ]));
-            } 
-            // else if($CompanyFormationStep->step_name == '') {
-            // } 
-            else {
-                // dd('Work In Progress.....');
+            } else if($companyFormationStep->step_name == 'document') {
+                return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-banking']));
+            } else if($companyFormationStep->step_name == 'business-banking') {
+                return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-services']));
+            } else {
+                dd('Work In Progress..... URL not set now...');
             }
         }
     }
@@ -92,6 +91,7 @@ class CompanieFormController extends Controller
             // dd('dasdsadsa');
             return back()->with('error', 'This company is not available');
         } else {
+            // dd('dd else');
             $company = $this->companieSearchService->searchCompany($request->companie_name);
 
             if($company['message'] === CompanieSearchService::COMPANY_NOT_AVAILABLE) {
@@ -101,12 +101,13 @@ class CompanieFormController extends Controller
             //     return back()->with('error', 'This '.strtoupper($request->companie_name).' company is case sensitive');
             // @todo Need to check if company document is available or not
             // }
-            // FORMATIONSHUNT LTD 
+
+            // FORMATIONSHUNT LTD
         }
 
         try {
             $companyForm = $this->companyFormService->companyFormStep1($request->validated());
-        
+
             if($companyForm) {
                 return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'particulars']));
             }

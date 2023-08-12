@@ -10,6 +10,7 @@ use Spatie\MediaLibrary\HasMedia;
 class BusinessBanking extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
+
     protected $fillable = [
         'title', 'short_description',
         'long_description',

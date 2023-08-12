@@ -29,4 +29,12 @@ class Companie extends Model implements HasMedia
     {
         return $this->hasMany(SicCode::class, 'companie_id', 'id');
     }
+
+    /**
+     * @return hasMany
+     */
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

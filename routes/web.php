@@ -111,7 +111,12 @@ Route::patch('company-name-update', [CompanieFormController::class, 'updateCompa
 Route::get('company-document', [CompanieFormController::class, 'companyDocuments'])->name('companyname.document')->middleware('auth');
 Route::post('company-document', [CompanieFormController::class, 'uploadCompanyDocuments'])->name('companyname.document')->middleware('auth');
 
+// Business Essential Steps
 Route::get('business-essential', [BusinessEssentialsController::class, 'index'])->name('business-essential.index')->middleware('auth');
+Route::post('business-essential', [BusinessEssentialsController::class, 'store'])->name('business-essential.store')->middleware('auth');
+
+// Route::get('business-service', [BusinessEssentialsController::class, 'index'])->name('business-service.index')->middleware('auth');
+// Route::post('business-service', [BusinessEssentialsController::class, 'store'])->name('business-service.store')->middleware('auth');
 
 
 Route::get('update-forwarding-registered-office-address', [CompanyFormController::class, 'updateForwardingRegisterAddress'])->name('update-forwarding-registered-office-address')->middleware('auth');

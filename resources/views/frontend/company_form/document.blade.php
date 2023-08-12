@@ -14,7 +14,7 @@
             <div class="center-info">
                 <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
                     data-aos-once="true">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li><a>Digital Packages</a></li>
                 </ul>
             </div>
@@ -160,25 +160,25 @@
                             </div>
                             <div class="particulars-bottom-step">
                                 <div class="bottom-step-items">
-                                    <img src="assets/images/inactive-tick.svg" alt="">
+                                    <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                     <p>
                                         <a style="color: #fdfdfd;" href="{{ route('companie-formation', ['order' => $orderId, 'section' => 'CompanyFormation', 'step_name' => 'particulers', 'data' => 'previous' ]) }}">Particulars</a>
                                     </p>
                                 </div>
                                 <div class="bottom-step-items">
-                                    <img src="assets/images/inactive-tick.svg" alt="">
+                                    <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                     <p>Registered Address</p>
                                 </div>
                                 <div class="bottom-step-items">
-                                    <img src="assets/images/inactive-tick.svg" alt="">
+                                    <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                     <p>Business Address</p>
                                 </div>
                                 <div class="bottom-step-items active">
-                                    <img src="assets/images/inactive-tick.svg" alt="">
+                                    <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                     <p>Appointment</p>
                                 </div>
                                 <div class="bottom-step-items active">
-                                    <img src="assets/images/active-tick.svg" alt="">
+                                    <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
                                     <p>Document</p>
                                 </div>
                             </div>

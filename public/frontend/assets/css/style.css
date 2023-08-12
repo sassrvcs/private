@@ -8001,10 +8001,91 @@ form.woocommerce-form-login.login{
     color: #3B566F;
 }
 
+/* .docu-info{
+    padding: 0;
+    margin: 0 0 30px;
+}
+.docu-info p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #353A40;
+    padding: 0;
+    margin: 0;
+} */
+
+/* .byspoke-upload-file {
+    border: 1px solid #CECECE;
+    border-radius: 10px;
+    max-width: 600px;
+    padding: 25px 30px;
+} */
+
+/* .byspoke-upload-file h3{
+    font-family: 'Poppins', sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #353A40;
+    padding: 0 0 15px;
+    margin: 0 0 15px;
+    border-bottom: 1px solid #CECECE;
+} */
+
+/* .byspoke-upload-file .field-wrap .fiel{
+    border: 1px solid #CECECE;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.byspoke-upload-file .field-wrap .btn{
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    background: #87CB28;
+    padding: 8px 16px 8px 16px;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: none;
+    outline: none;
+} */
+
+.document-list-wrap{
+    padding: 0;
+    margin: 0;
+}
+
+.document-list-wrap .document-list{
+    padding: 20px 0;
+    border: 1px solid #6EB012;
+    background: #E6F9CC;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 15px;
+}
+
+.document-list-wrap .document-list .box{
+    width: 33.333333%;
+    padding: 0 15px;
+}
+
+.document-list-wrap .document-list .box p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 0;
+    margin: 0;
+    color: #3B566F;
+}
+
 .docu-info{
     padding: 0;
     margin: 0 0 30px;
 }
+
 .docu-info p{
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
@@ -8021,6 +8102,7 @@ form.woocommerce-form-login.login{
     max-width: 600px;
     padding: 25px 30px;
 }
+
 .byspoke-upload-file h3{
     font-family: 'Poppins', sans-serif;
     font-size: 21px;
@@ -8031,11 +8113,13 @@ form.woocommerce-form-login.login{
     margin: 0 0 15px;
     border-bottom: 1px solid #CECECE;
 }
+
 .byspoke-upload-file .field-wrap .fiel{
     border: 1px solid #CECECE;
     padding: 6px;
     border-radius: 5px;
 }
+
 .byspoke-upload-file .field-wrap .btn{
     font-size: 16px;
     font-weight: 600;
@@ -8046,4 +8130,215 @@ form.woocommerce-form-login.login{
     border-radius: 10px;
     box-shadow: none;
     outline: none;
+}
+
+.form-ttl{
+    font-family: 'Poppins', sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #353A40;
+    padding: 0 0 15px;
+    margin: 0 0 15px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.business-ess-sec{
+    padding: 0;
+    margin: 0;
+}
+
+.business-sidebar{
+    border: 1px solid #94BFE5;
+    background: #E7F2FC;
+    padding: 20px 15px;
+    border-radius: 5px;
+}
+
+.business-sidebar .ttl{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0 0 30px;
+}
+
+.business-sidebar .ttl h3{
+    width: calc(100% - 34px);
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #353A40;
+    line-height: 1.2;
+    padding: 0;
+    margin: 0;
+}
+
+.business-sidebar p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 25px;
+    color: #353A40;
+    padding: 0;
+    margin: 0 0 15px;
+}
+
+.business-ess-wrap{
+    padding: 0;
+    margin: 0;
+}
+
+.business-ess-wrap > small{
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 25px;
+    color: #353A40;
+    padding: 0;
+    margin: 0 0 10px;
+    display: block;
+}
+
+.business-ess-panel {
+    border: 1px solid #D9D9D9;
+    border-radius: 5px;
+    margin: 0 0 15px;
+}
+
+.business-ess-panel .business-ess-panel-top{
+    padding:30px;
+    margin: 0;
+}
+
+.business-ess-panel.with-img .business-ess-panel-top {
+    display: flex;
+}
+
+.business-ess-panel.with-img .business-ess-panel-top .main-img{
+    width: 270px;
+}
+
+.business-ess-panel.with-img .business-ess-panel-top .business-ess-panel-wrap{
+    width: calc(100% - 270px);
+    padding: 0 15px 0 0;
+}
+
+.business-ess-panel .business-ess-panel-top .img-text-box{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0;
+    margin: 0 0 30px;
+}
+
+.business-ess-panel .business-ess-panel-top .img-text-box .tham-icon{
+    max-width: 250px;
+}
+
+.business-ess-panel .business-ess-panel-top .img-text-box .tham-icon img{
+    max-width: 100%;
+}
+
+.business-ess-panel .business-ess-panel-top .desc{
+    padding: 0 0 0 15px;
+}
+
+.business-ess-panel .business-ess-panel-top .desc h3{
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #353A40;
+    padding: 0;
+    margin: 0 0 10px;
+}
+
+.business-ess-panel .business-ess-panel-top .desc p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    padding: 0;
+    margin: 0;
+    color: #353A40;
+}
+.business-ess-panel .business-ess-panel-top .desc p span{
+    color: #FD0000;
+}
+.business-ess-panel .business-ess-panel-wrap .info p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 25px;
+    color: #353A40;
+    padding: 0;
+    margin: 0 0 15px;
+}
+.business-ess-panel .business-ess-panel-wrap .info p:last-child{
+    margin-bottom: 0;
+}
+.business-ess-panel.with-img .business-ess-panel-top .main-img img{
+    max-width: 100%;
+}
+.business-ess-panel .bottom-panel{
+    border-top: 1px solid #D9D9D9;
+    border-radius: 0 0 5px 5px;
+    padding: 6px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #F8F8F8;
+}
+.business-ess-panel .bottom-panel p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 25px;
+    color: #353A40;
+    padding: 0;
+    margin: 0 0 0px;
+}
+.business-ess-panel .bottom-panel p strong{
+    font-weight: 700;
+}
+.business-ess-panel .bottom-panel .btn{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    background: #87CB28;
+    padding: 8px 16px 8px 16px;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: none;
+    outline: none;
+}
+.showmore-sec {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 20px 0 30px;
+    margin: 0;
+}
+.showmore-sec p{
+font-family: 'Poppins', sans-serif;
+font-size: 14px;
+font-weight: 400;
+line-height: 20px;
+padding: 0;
+margin: 0;
+}
+.showmore-sec p strong{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.showmore-sec ul{
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+.showmore-sec ul li{
+    margin: 0 0 0 10px;
 }

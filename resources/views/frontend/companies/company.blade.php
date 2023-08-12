@@ -67,16 +67,57 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    
+                                    {{-- @foreach ($companies as $key => $company)
+                                        <tr>
+                                            <td>
+                                                @if ($companies->pluck('companie_name')->contains($order->company_name))
+                                                    Company Name Present
+                                                @else
+                                                    Company Name Not Present
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach --}}
+                                    @php $companyNames = $companies->companies->pluck('companie_name')->unique(); @endphp
+                                    {{-- @dump($companies->companies) --}}
+                                    @php $companyNames = preg_replace('/\b(?:LTD|LIMITED)\b/i', '', strtoupper($companyNames)); @endphp
+                                    {{-- @dump(json_decode($companyNames)) --}}
+
                                     @foreach($companies->orders as $key => $order)
                                         {{-- @dump($order) --}}
                                         <tr>
                                             <td>{{ $order->order_id }}</td>
                                             <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
-                                            <td>{{ $order->company_name ?? "-" }}</td>
+                                            {{-- <td>{{ strtoupper($order->company_name) ?? "-" }}</td> --}}
+                                            {{-- {{ strtoupper($order->company_name) ?? "-" }}
+                                            @if ($companyNames->contains(strtoupper($order->company_name)))
+                                                Company Name Present
+                                            @else
+                                                Company Name Not Present
+                                            @endif --}}
+                                            <td>
+                                                {{ strtoupper($order->company_name) ?? "-" }}
+                                                {{-- @php $orderCompanyNameWithoutSuffix = preg_replace('/\b(?:LTD|LIMITED)\b/i', '', strtoupper($order->company_name)); @endphp --}}
+                                                {{-- @dump($orderCompanyNameWithoutSuffix) --}}
+                                                {{-- @if (in_array(strtoupper($order->company_name), json_decode($companyNames)))
+                                                    Company Name Present
+                                                @else
+                                                    Company Name Not Present
+                                                @endif --}}
+                                            </td>
+                                            {{-- <td>
+                                                {{ strtoupper($order->company_name) ?? "-" }}
+                                                @if ($companies->companies->pluck('companie_name')->contains(strtoupper($order->company_name)))
+                                                    Company Name Present
+                                                @else
+                                                    Company Name Not Present
+                                                @endif
+                                            </td> --}}
                                             <td>{{ $order->company_number ?? "-" }}</td>
                                             <td>{{ $order->auth_code ?? "-" }}</td>
                                             {{-- <td><span class="status accepted">Accepted</span></td> --}}
-                                            <td><span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">{{ ($order->order_status == 'pending') ? 'Incomplete' : 'Accepted' }}</span></td>
+                                            <td><span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">{{ ($order->order_status == 'pending') ? 'INCOMPLETE' : 'ACCEPTED' }}</span></td>
                                             <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => 'Company_formaction', 'step' => 'particulars' ]) }}" class="view-btn">View <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt=""></a></td>
                                         </tr>
                                     @endforeach

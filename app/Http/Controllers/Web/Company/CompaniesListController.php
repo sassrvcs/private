@@ -21,7 +21,7 @@ class CompaniesListController extends Controller
     {
         $authID = auth()->user()->id;
         $companies = $this->userService->show($authID);
-        // dd($user);
+        // dd($companies);
 
         return view('frontend.companies.company', compact('companies'));
     }
