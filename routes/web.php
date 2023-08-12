@@ -104,7 +104,7 @@ Route::post('save_company_in_shopping_cart', [CompanyFormController::class, 'sav
 Route::post('save_company_in_shopping_cart_business', [CompanyFormController::class, 'saveCompanyInShoppingCart_Business'])->name('save_company_in_shopping_cart_business')->middleware('auth');
 
 Route::get('companie-formation', [CompanieFormController::class, 'index'])->name('companie-formation')->middleware('auth');
-Route::post('upload-sensetive-doc', [CompanieFormController::class, 'storeImage'])->name('upload-sensetive-doc')->middleware('auth');
+Route::post('upload-company-doc', [CompanieFormController::class, 'storeImage'])->name('upload-company-doc')->middleware('auth');
 
 Route::post('companie-formation', [CompanieFormController::class, 'store'])->name('companie-formation.store')->middleware('auth');
 Route::patch('company-name-update', [CompanieFormController::class, 'updateCompanieName'])->name('companyname.update')->middleware('auth');

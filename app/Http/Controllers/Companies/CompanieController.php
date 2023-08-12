@@ -24,14 +24,18 @@ class CompanieController extends Controller
      */
     public function __invoke(SearchCompanyRequest $request)
     {
-        $searchText = $request->validated();
+        $requestParam = $request->validated();
 
-        $response = $this->companySearchService->searchCompany($searchText['search']);
+        if($requestParam['same_as'] === 'true') {
+            $response = $this->companySearchService->sameAsCompanyNameSearch($requestParam['search']);
+        } else {
+            $response = $this->companySearchService->searchCompany($requestParam['search']);
+        }
         // dd($response);
 
         if($response['message'] === CompanieSearchService::COMPANY_AVAILABLE) {
             // Add the item to the cart
-            $this->cartService->addCompany($searchText['search']);
+            $this->cartService->addCompany($requestParam['search']);
 
             // $cart = Session::get('cart', []);
             // $cartItem = [

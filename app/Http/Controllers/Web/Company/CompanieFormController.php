@@ -79,14 +79,15 @@ class CompanieFormController extends Controller
         $validate = Validator::make($request->all(), [
             'companie_name' => 'required',
             'companie_type' => 'required',
-            'sic_name'      => 'required',
+            'sic_name'      => 'nullable',
             'sic_code'      => 'required',
         ]);
 
         if($validate->fails()) {
+            // dd($validate->errors());
             return back()->withErrors($validate->errors())->withInput();
         }
-        
+
         if($request->c_availablity == 'not_available') {
             // dd('dasdsadsa');
             return back()->with('error', 'This company is not available');
@@ -116,6 +117,12 @@ class CompanieFormController extends Controller
         }
     }
 
+    /**
+     * Upload file for company | order
+     * @param Request $request
+     * @param Response $response
+     * @todo Need to check implementession and add view button if file exists
+     */
     public function storeImage(Request $request)
     {
         // dd($request->all());
@@ -125,14 +132,15 @@ class CompanieFormController extends Controller
 
         // Get the model instance where you want to attach the media
         $model = Order::find($request->input('model_id'));
-        
-        $prevProfileImage  = $model->getFirstMedia('sensetive-document');
+        $collectionName = $request->input('collection_name');
+
+        $prevProfileImage  = $model->getFirstMedia($collectionName);
         if ($prevProfileImage) {
             $prevProfileImage->delete();
         }
 
-        $model->addMediaFromRequest('document')->toMediaCollection('sensetive-document');
-        
+        $model->addMediaFromRequest('document')->toMediaCollection($collectionName);
+
         return response()->json([
             'message' => 'File uploaded successfully.',
         ]);

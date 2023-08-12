@@ -4409,10 +4409,8 @@ div#srchfld-error.msg-alerts2 #srchfld-error {
 
 
 /* end: privacy-policy-custom-ses-s1 */
-
-
-
-.sensitive-word-chk {
+.sensitive-word-chk,
+.same-as-name-word {
     padding: 24px 20px 32px !important;
     margin: 20px 0 !important;
     background-color: #EAEFF2 !important;
@@ -4422,7 +4420,9 @@ div#srchfld-error.msg-alerts2 #srchfld-error {
 }
 
 .sensitive-word-chk .sensitive-guidance p,
-.sensitive-word-chk .sensitive-guidance h4 {
+.sensitive-word-chk .sensitive-guidance h4
+.same-as-name-word .sensitive-guidance p,
+.same-as-name-word .sensitive-guidance h4 {
     margin: 8px 0;
     font-size: 14px;
     color: #717171;
@@ -4475,7 +4475,8 @@ div#srchfld-error.msg-alerts2 #srchfld-error {
     border-radius: 4px;
 }
 
-.ef-supporting-doc-attachment-wrapper #sensitive-doc-attach {
+.ef-supporting-doc-attachment-wrapper #sensitive-doc-attach,
+.ef-supporting-doc-attachment-wrapper #same-as-name-doc-attach {
     padding: 8px 20px;
     vertical-align: middle;
     background-color: #3F4042 !important;
@@ -4494,7 +4495,8 @@ div#srchfld-error.msg-alerts2 #srchfld-error {
 }
 
 .ef-supporting-doc-attachment-wrapper .attached-label-sensitive a:hover,
-.ef-supporting-doc-attachment-wrapper #sensitive-doc-attach:hover {
+.ef-supporting-doc-attachment-wrapper #sensitive-doc-attach:hover,
+.ef-supporting-doc-attachment-wrapper #same-as-name-doc-attach:hover {
     color: #fff;
     cursor: pointer;
 }

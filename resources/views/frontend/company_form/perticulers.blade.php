@@ -34,54 +34,7 @@
         <div class="companies-wrap">
             <div class="row woo-account">
                 <div class="col-md-12">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul id="menu-account-menu" class="navbar-nav me-auto mb-2 mb-md-0 ">
-                                <li id="menu-item-2336" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children dropdown nav-item nav-item-2336">
-                                    <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="_mi _before fa fa-user" aria-hidden="true"></i><span>My Account</span></a>
-                                    <ul class="dropdown-menu depth_0">
-                                        <li id="menu-item-2337" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-15 current_page_item nav-item nav-item-2337">
-                                            <a href="#" class="dropdown-item active"><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Overview</span></a>
-                                        </li>
-                                        <li id="menu-item-2338" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-2338"><a href="my-details.html" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>My Details</span></a></li>
-                                        <li id="menu-item-2339" class="menu-item menu-item-type-custom menu-item-object-custom nav-item nav-item-2339"><a href="#" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Logout</span></a></li>
-                                    </ul>
-                                </li>
-                                <li id="menu-item-2340" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children dropdown nav-item nav-item-2340">
-                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="_mi _before fa fa-book" aria-hidden="true"></i><span>Orders</span></a>
-                                    <ul class="dropdown-menu depth_0">
-                                        <li id="menu-item-4625" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-4625"><a href="#" class="dropdown-item ">View All Orders</a></li>
-                                        <li id="menu-item-4636" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-4636"><a href="#" class="dropdown-item ">Incomplete</a></li>
-                                        <li id="menu-item-4643" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-4643"><a href="#" class="dropdown-item ">In Progress</a></li>
-                                        <li id="menu-item-4639" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-4639"><a href="#" class="dropdown-item ">Completed</a></li>
-                                    </ul>
-                                </li>
-                                <li id="menu-item-2341" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children dropdown nav-item nav-item-2341">
-                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="_mi _before fa fa-industry" aria-hidden="true"></i><span>Companies</span></a>
-                                    <ul class="dropdown-menu depth_0">
-                                        <li id="menu-item-2371" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-2371"><a href="#" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>View All Companies</span></a></li>
-                                        <li id="menu-item-4655" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home nav-item nav-item-4655"><a href="#" class="dropdown-item ">Incorporate New Company</a></li>
-                                        <li id="menu-item-4656" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-4656"><a href="#" class="dropdown-item ">Import Company via Auth. Code</a></li>
-                                    </ul>
-                                </li>
-                                <li id="menu-item-2342" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children dropdown nav-item nav-item-2342">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="_mi _before fa fa-puzzle-piece" aria-hidden="true"></i><span>Services</span></a>
-                                    <ul class="dropdown-menu depth_0">
-                                        <li id="menu-item-3969" class="menu-item menu-item-type-custom menu-item-object-custom nav-item nav-item-3969"><a href="#" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>All Services</span></a></li>
-                                        <li id="menu-item-3968" class="menu-item menu-item-type-custom menu-item-object-custom nav-item nav-item-3968"><a href="#" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Services Expired</span></a></li>
-                                    </ul>
-                                </li>
-                                <li id="menu-item-2343" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children dropdown nav-item nav-item-2343">
-                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="_mi _before fas fa-chart-pie" aria-hidden="true"></i><span>Finances</span></a>
-                                    <ul class="dropdown-menu depth_0">
-                                        <li id="menu-item-5096" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-5096"><a href="#" class="dropdown-item ">Invoive History</a></li>
-                                        <li id="menu-item-5099" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-5099"><a href="#" class="dropdown-item ">Payment History</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
+                    @include('layouts.navbar')
                 </div>
                 <div class="col-md-12">
                     <div class="particulars-form-wrap">
@@ -91,8 +44,8 @@
                                 <span>Details about your company</span>
                             </div>
                             <div class="top-step-items">
-                                <strong>2.Company Formation</strong>
-                                <span>Details about your company</span>
+                                <strong>2.Business Essentials</strong>
+                                <span>Products & services</span>
                             </div>
                             <div class="top-step-items">
                                 <strong>3.Company Formation</strong>
@@ -131,6 +84,7 @@
                                 </p>
                             </div>
                         </div>
+
                         <div class="form-wrap">
                             <div class="form-info-block">
                                 <h4>Particulars</h4>
@@ -144,7 +98,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <form id="perticulars" action="{{ route('companie-formation.store') }}" method="POST">
                                 @csrf
                                 <div class="form-block">
@@ -173,10 +127,11 @@
                                             <div class="text-danger alert-custom-highlight-s1" id="srchfld-error" style="display: none">
                                                 <em id="srchfld-error" class="text-danger">
                                                     <h4 id="message-cls">Warning, <span id="companie-name"> </span> is <span id="c-availablity"></span> available for registration.</h4>
-                                                    <p> You need to put a valid Company ending: LTD, LIMITED, CYF, CYFYNGEDIG, LTD. etc. to proceed further.</p>
+                                                    <p id="paragraph"> You need to put a valid Company ending: LTD, LIMITED, CYF, CYFYNGEDIG, LTD. etc. to proceed further.</p>
                                                 </em>
                                             </div>
 
+                                            {{-- For sensitive word div --}}
                                             <div class="sensitive-word-chk" style="display: none">
                                                 <label for="field-10">Sensitive Words</label>
                                                 <div class="sensitive-guidance">
@@ -185,18 +140,54 @@
                                                         <div class="sensitive-word-guidance"> </div>
                                                     </div> 
                                                 </div>
+
                                                 <div class="w-row ef-supporting-doc-attachment-wrapper" style="clear:both">
                                                 <h4>Supporting Document</h4>
                                                     <div class="w-col w-col-8">
                                                         <div>
                                                             <input class="w-input file-upload" type="file" name="file-upload-sensitive" id="file-upload-sensitive" accept="application/pdf">
-                                                            <button type="button" id="sensitive-doc-attach" class="button">Attach</button>
+                                                            <button type="button" data-url="{{ route('upload-company-doc') }}" data-collection="sensetive-document" id="sensitive-doc-attach" class="button doc-attach">Attach</button>
                                                             @if(!empty($mediaDoc['name']))
+                                                                <input type="hidden" name="sesitive-documents" id="sesitive-documents" value="true">
                                                                 <div class="w-col w-col-12 sensitive-col ef-upload-result">
                                                                     <span class="attached-label-sensitive">Document Attached
                                                                         <a class="button" href="{{ $mediaDoc['url'] }}" target="_blank">View</a>
                                                                     </span>
                                                                 </div>
+                                                            @else
+                                                                <input type="hidden" name="sesitive-documents" id="sesitive-documents" value="false">
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-col w-col-12 sensitive-col ef-upload-result"> </div>
+                                                </div>
+                                            </div>
+
+                                            {{-- For same as name div --}}
+                                            <div class="same-as-name-word" style="display: none">
+                                                <h6 for="field-10">Name Authorisation</h6>
+                                                <div class="sensitive-guidance">
+                                                    <div class="sensitive-word">
+                                                        <p> You need permission from <strong class="company-name"></strong> to use this company name.</p>
+                                                        <p> Please obtain permission and upload file here.</p>
+                                                    </div> 
+                                                </div>
+                                                <input type="hidden" name="same_as_name" id='same_as_name' value="">
+                                                <div class="w-row ef-supporting-doc-attachment-wrapper" style="clear:both">
+                                                <h4>Supporting Document</h4>
+                                                    <div class="w-col w-col-8">
+                                                        <div>
+                                                            <input class="w-input file-upload" type="file" name="file-upload-same-as-name" id="file-upload-same-as-name" accept="application/pdf">
+                                                            <button type="button" data-url="{{ route('upload-company-doc') }}" data-collection="same-as-name-document" id="same-as-name-doc-attach" class="button doc-attach">Attach</button>
+                                                            @if(!empty($mediaDoc['name']))
+                                                                <input type="hidden" name="same-as-name-documents" id="same-as-name-documents" value="true">
+                                                                <div class="w-col w-col-12 sensitive-col ef-upload-result">
+                                                                    <span class="attached-label-sensitive">Document Attached
+                                                                        <a class="button" href="{{ $mediaDoc['url'] }}" target="_blank">View</a>
+                                                                    </span>
+                                                                </div>
+                                                            @else
+                                                                <input type="hidden" name="same-as-name-documents" id="same-as-name-documents" value="false">
                                                             @endif
                                                         </div>
                                                     </div>
@@ -217,27 +208,11 @@
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label for="jurisdiction_id">Jurisdiction <span><img src="{{ asset('frontend/assets/images/in-icon.png') }}" alt=""></span></label>
-                                                {{-- <select class="form-control @error('jurisdiction_id') is-invalid @enderror" name="jurisdiction_id">
-                                                    <option value="">Select one</option>
-                                                    @foreach ($jurisdictions as $jurisdiction)
-                                                        @if( isset($companyFormationStep->jurisdiction_id) && $companyFormationStep->jurisdiction_id == $jurisdiction->id)
-                                                            <option selected value="{{ $jurisdiction->id }}">{{ $jurisdiction->name }}</option>
-                                                        @else
-                                                            <option value="{{ $jurisdiction->id }}">{{ $jurisdiction->name }}</option>
-                                                        @endif
-                                                    @endforeach
-                                                </select> --}}
-                                                {{-- <select class="form-control @error('jurisdiction_id') is-invalid @enderror" name="jurisdiction_id">
-                                                    <option value="">Select one</option>
-                                                    @foreach ($jurisdictions as $jurisdiction)
-                                                        <option {{ old('jurisdiction_id', (isset($companyFormationStep) && $companyFormationStep->jurisdiction_id == $jurisdiction->id) ? 'selected' : '') }} value="{{ $jurisdiction->id }}">{{ $jurisdiction->name }}</option>
-                                                    @endforeach
-                                                </select> --}}
 
                                                 <select class="form-control @error('jurisdiction_id') is-invalid @enderror" name="jurisdiction_id">
                                                     <option value="">Select one</option>
                                                     @foreach ($jurisdictions as $jurisdiction)
-                                                        @if($jurisdiction->name === 'England & Wales')
+                                                        @if($jurisdiction->name === 'England & Wales' && (!isset($companyFormationStep) && old('jurisdiction_id')))
                                                             <option value="{{ $jurisdiction->id }}" selected>{{ $jurisdiction->name }}</option>
                                                         @else
                                                             <option {{ (old('jurisdiction_id') == $jurisdiction->id || (isset($companyFormationStep) && old('jurisdiction_id', $companyFormationStep->jurisdiction_id) == $jurisdiction->id)) ? 'selected' : '' }} value="{{ $jurisdiction->id }}">{{ $jurisdiction->name }}</option>
@@ -325,6 +300,7 @@
 
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         $(document).ready(function() {
             // Reference to the SICDetails and SICCodes arrays
@@ -363,14 +339,23 @@
 
             var companyName = $('#companie_name').val();
             if (companyName.indexOf('LTD') !== -1 || companyName.indexOf('LIMITED') !== -1) {
-                // if($('#is_sensetibe').val() == 'true') {
-                //     Swal.fire({
-                //         icon: 'error',
-                //         title: 'Oops...',
-                //         text: 'Please upload document',
-                //     })
-                //     return false;
-                // }
+                if($('#is_sensetibe').val() == 'true' && $("#sesitive-documents").val() == 'false') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please upload document',
+                    })
+                    return false;
+                }
+
+                if($('#same_as_name').val() == 'true' && $("#same-as-name-documents").val() == 'false') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please upload document',
+                    })
+                    return false;
+                }
 
                 $('#srchfld-error').hide();
                 $("#perticulars").submit();
@@ -390,62 +375,75 @@
 
         $('.check-company').click(function(e) {
             e.preventDefault();
-            // $('.check-company').prop('disabled', true).text('Checking...');
             checkCompanieAvailabality();
-            // $('.check-company').prop('disabled', false).text('Check another name');
         });
-
+        
         const checkCompanieAvailabality = (sensetive = false) => {
 
             var companyName = $('#companie_name').val();
             var orderId = $('#order_id').val();
-            // $('.save-continue').prop('disabled', true);
 
-            var searchButton = $(this);
-            searchButton.prop('disabled', true).text('Searching...');
+            var searchButton = $('.check-company');
+            searchButton.prop('disabled', true).text('Checking...');
 
             // Make the GET request using Axios
             axios.get('/search-companie', {
                 params: {
-                    'search': companyName
+                    'search': companyName,
+                    'same_as': 'true',
                 }
             })
             .then(function (response) {
                 // Handle the response data here
-                console.log(response.data);
+                console.log(response.data.items[0]);
 
                 if(response.data.message == 'This company name is available.') {
 
                     if(response.data.is_sensitive == 1) {
                         $('#srchfld-error').hide();
+                        $('.same-as-name-word').hide();
+                        $('#same_as_name').val('false');
+
                         $('.sensitive-word-chk').show();
                         $('.sensitive-word-guidance').prepend(response.data.sensitive_word_desc);
                         $('#is_sensetibe').val('true');
                         $('#is_sensitive_word').text(response.data.is_sensitive_word);
                         $('#c_availablity').val('available');
-                        // $('.save-continue').prop('disabled', false);
                     } else {
                         if(sensetive === false) {
                             $('.sensitive-word-chk').hide();
+                            $('.same-as-name-word').hide();
+                            $('#same_as_name').val('false');
+
                             $('#srchfld-error').show();
                             $('#c-availablity').text('');
                             $('#c_availablity').val('available');
-                            // $('.save-continue').prop('disabled', false);
-    
-                            // $("#message-cls").text('');
-                            // $("#message-cls").text('Congratulation!');
                             $('#companie-name').text(companyName);
                         }
                     }
                 } else {
-                    $('.sensitive-word-chk').hide();
-                    $('#srchfld-error').show();
-                    // $("#message-cls").text('');
-                    // $("#message-cls").text('Error!');
-                    $('#companie-name').text(companyName);
-                    $('#c-availablity').text('not');
-                    $('#c_availablity').val('not_available');
-                    // $('.save-continue').prop('disabled', true);
+                    if(companyName === response.data.items[0].title) {
+                        // alert('Please select a company');
+                        $('.sensitive-word-chk').hide();
+                        $('.same-as-name-word').hide();
+
+                        $('#srchfld-error').show();
+                        $('#companie-name').text(companyName);
+                        $('#c-availablity').text('not');
+                        $('#same_as_name').val('false');
+                        $('#c_availablity').val('not_available');
+                    } else {
+                        $('.sensitive-word-chk').hide();
+
+                        $('.same-as-name-word').show();
+                        $('#srchfld-error').show();
+                        $('#c-availablity').text('');
+                        $('#c_availablity').val('available');
+                        $('#same_as_name').val('true');
+                        $('#companie-name').text(companyName);
+                        $('.company-name').text(response.data.items[0].title);
+                        $('#paragraph').html(`Name authorisation from <strong> ${response.data.items[0].title} </strong>`);
+                    }
                 }
             })
             .catch(function (error) {
@@ -453,8 +451,8 @@
                 console.error(error);
             })
             .finally(function () {
-                // Re-enable the button and change the text back to "Search"
-                searchButton.prop('disabled', false).text('Search');
+                // Re-enable the button and change the text back to "Check another name"
+                searchButton.prop('disabled', false).text('Check another name');
             });
         }
 
@@ -462,17 +460,28 @@
             checkCompanieAvailabality(true);
         });
 
-        $("#sensitive-doc-attach").click(function() {
-
-            const fileInput = document.getElementById("file-upload-sensitive");
-            $('#sensitive-doc-attach').text('Attaching...');
+        // @todo Need to check implementession and add view button if file exists
+        $(".doc-attach").click(function() {
             
-            if (fileInput.files.length > 0) {
-                const formData = new FormData();
-                formData.append("document", fileInput.files[0]);
-                formData.append("model_id", $("#order_id").val());
+            const fileInput = document.getElementById("file-upload-sensitive");
+            const fileInputSameAs = document.getElementById("file-upload-same-as-name");
 
-                axios.post("/upload-sensetive-doc", formData, {
+            $('.doc-attach').text('Attaching...');
+
+            if (fileInput.files.length > 0 || fileInputSameAs.files.length > 0) {
+                console.log('Uploading...');
+                const formData = new FormData();
+
+                if(fileInput.files.length > 0 ) {
+                    formData.append("document", fileInput.files[0]);
+                } else if (fileInputSameAs.files.length > 0) {
+                    formData.append("document", fileInputSameAs.files[0]);
+                }
+
+                formData.append("model_id", $("#order_id").val());
+                formData.append("collection_name", $(this).data('collection'));
+
+                axios.post($(this).data('url'), formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
@@ -491,12 +500,51 @@
                 })
                 .finally(function () {
                     // Re-enable the button and change the text back to "Attach"
-                    $('#sensitive-doc-attach').prop('disabled', false).text('Attach');
+                    $('.doc-attach').prop('disabled', false).text('Attach');
                 });
             } else {
                 console.log("No file selected.");
+                $('.doc-attach').prop('disabled', false).text('Attach');
             }
         });
+        
+        // $(".doc-attach").click(function() {
+        //     const fileInput = $(".file-upload")[0];
+        //     $('.doc-attach').text('Attaching...');
+
+        //     // Check if a file is selected
+        //     if (fileInput && fileInput.files && fileInput.files.length > 0) {
+        //         const selectedFile = fileInput.files[0];
+        //         const formData = new FormData();
+        //         formData.append("document", selectedFile);
+        //         formData.append("model_id", $("#order_id").val());
+        //         formData.append("collection_name", $(this).data('collection'));
+
+        //         axios.post($(this).data('url'), formData, {
+        //             headers: {
+        //                 "Content-Type": "multipart/form-data"
+        //             }
+        //         })
+        //         .then(function(response) {
+        //             console.log("File uploaded successfully:", response.data);
+        //             $('#is_sensetibe').val('');
+        //             Swal.fire(
+        //                 'Attached!',
+        //                 'Your file has been attached.',
+        //                 'success'
+        //             )
+        //         })
+        //         .catch(function(error) {
+        //             console.error("Error uploading file:", error);
+        //         })
+        //         .finally(function () {
+        //             // Re-enable the button and change the text back to "Attach"
+        //             $('.doc-attach').prop('disabled', false).text('Attach');
+        //         });
+        //     } else {
+        //         console.log("No file selected.");
+        //     }
+        // });
 
     </script>
 @endsection

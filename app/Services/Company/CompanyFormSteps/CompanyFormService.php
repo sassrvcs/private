@@ -29,13 +29,18 @@ class CompanyFormService
                 'section_name'      => $request['section_name'],
                 'step_name'         => $request['step_name'],
             ]);
-            // dd($request['sic_code']);
+
             if($company) {
+                // Delete previous data before insert data into database
+                SicCode::where('companie_id', $company->id)->delete();
+
                 foreach( $request['sic_code'] as $sicCode ) {
                     if (strpos($sicCode, " - ") !== false) {
                         list($sicCode, $sicName) = explode(" - ", $sicCode, 2);
-                        SicCode::create([
-                            'name'       => $sicName,
+
+                        // Insert new data after deleteing
+                        SicCode::insert([
+                            'name'       => $sicName,   
                             'companie_id'=> $company->id,
                             'code'       => $sicCode,
                         ]);
@@ -48,10 +53,17 @@ class CompanyFormService
             $sourceMedia->save();
 
             $media = $sourceMedia->getMedia('sensetive-document');
-
+            
             foreach ($media as $medium) {
                 // Copy the medium to the Order model's collection
                 $medium->copy($company, 'company-sensetive-document');
+            }
+
+            // If same as name exists, copy this to the Companie model
+            $sameAsNameMedia = $sourceMedia->getMedia('same-as-name-document');
+            foreach ($sameAsNameMedia as $medium) {
+                // Copy the medium to the Order model's collection
+                $medium->copy($company, 'company-same-as-name-document');
             }
 
             return $company;
