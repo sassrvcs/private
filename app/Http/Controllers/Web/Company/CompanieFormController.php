@@ -41,6 +41,7 @@ class CompanieFormController extends Controller
         $SICCodes = config('sic_code.sic_code');
 
         $firstMedia = $orders->getFirstMedia('sensetive-document');
+        $firstMedia = $orders->getFirstMedia('same-as-name-document');
 
         $documentName = $firstMedia ? $firstMedia->file_name : '';
         $documentUrl = $firstMedia ? $firstMedia->getUrl() : '';
@@ -65,7 +66,8 @@ class CompanieFormController extends Controller
             } else if($companyFormationStep->step_name == 'business-banking') {
                 return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-services']));
             } else {
-                dd('Work In Progress..... URL not set now...');
+                // dd('Work In Progress..... URL not set now...');
+                return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
             }
         }
     }
@@ -84,31 +86,23 @@ class CompanieFormController extends Controller
         ]);
 
         if($validate->fails()) {
-            // dd($validate->errors());
             return back()->withErrors($validate->errors())->withInput();
         }
 
         if($request->c_availablity == 'not_available') {
-            // dd('dasdsadsa');
             return back()->with('error', 'This company is not available');
         } else {
-            // dd('dd else');
-            $company = $this->companieSearchService->searchCompany($request->companie_name);
-
-            if($company['message'] === CompanieSearchService::COMPANY_NOT_AVAILABLE) {
-                return back()->with('error', "This company is not available");
+            // Recheck companie name available or not available when company submitted
+            $company = $this->companieSearchService->sameAsCompanyNameSearch($request->companie_name);
+            if($company['message'] === CompanieSearchService::COMPANY_NOT_AVAILABLE && $request->same_as_name_documents == 'false') {
+                return back();
+            } else if($company['is_sensitive'] === 1 && $request->sesitive_documents == 'false') {
+                return back();
             }
-            // else if($company['is_sensitive'] === 1) {
-            //     return back()->with('error', 'This '.strtoupper($request->companie_name).' company is case sensitive');
-            // @todo Need to check if company document is available or not
-            // }
-
-            // FORMATIONSHUNT LTD
         }
 
         try {
             $companyForm = $this->companyFormService->companyFormStep1($request->validated());
-
             if($companyForm) {
                 return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'particulars']));
             }
@@ -116,7 +110,7 @@ class CompanieFormController extends Controller
             dd($e);
         }
     }
-
+    
     /**
      * Upload file for company | order
      * @param Request $request

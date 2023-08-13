@@ -32,9 +32,11 @@ class CompanieStoreRequest extends FormRequest
             'step_name'     => ['sometimes'],
             'order_id'      => ['sometimes'],
             'order'         => ['sometimes'],
-            'jurisdiction_id'=> ['sometimes'],
-            'is_sensetibe'  => ['sometimes'],
-            'c_availablity' => ['sometimes'],
+            'jurisdiction_id'       => ['sometimes'],
+            'is_sensetibe'          => ['sometimes'],
+            'c_availablity'         => ['sometimes'],
+            'sesitive_documents'    => ['sometimes'],
+            'same_as_name_documents'=> ['sometimes'],
         ];
     }
 }

@@ -14,4 +14,14 @@ class BusinessEssential extends Model
     protected $fillable = [
         'companie_id', 'business_banking_id', 'business_service_id',
     ];
+
+    public function businessBanking()
+    {
+        return $this->belongsTo(BusinessBanking::class, 'business_banking_id', 'id');
+    }
+
+    // public function companie()
+    // {
+    //     return $this->belongsTo(Companie::class, 'companie_id', 'id');
+    // }
 }

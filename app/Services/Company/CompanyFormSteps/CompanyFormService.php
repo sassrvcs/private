@@ -16,7 +16,6 @@ class CompanyFormService
      */
     public function companyFormStep1($request)
     {
-        // $sicCode = [];
         return DB::transaction(function () use ($request) {
             $company = Companie::updateOrCreate([
                 'companie_name'     => $request['companie_name'],
@@ -32,18 +31,33 @@ class CompanyFormService
 
             if($company) {
                 // Delete previous data before insert data into database
-                SicCode::where('companie_id', $company->id)->delete();
+                // if($request['sic_code']) {
+                //     SicCode::where('companie_id', $company->id)->delete();
+                // }
 
                 foreach( $request['sic_code'] as $sicCode ) {
                     if (strpos($sicCode, " - ") !== false) {
                         list($sicCode, $sicName) = explode(" - ", $sicCode, 2);
 
+                        $existingSic = SicCode::where('companie_id', $company->id)
+                            ->where('code', $sicCode)
+                            ->first();
+
+                        if ($existingSic) {
+                            // Update existing record
+                            $existingSic->update([
+                                'name' => $sicName,
+                            ]);
+                        } else {
+                            // Insert new record
+                            SicCode::insert([
+                                'name'       => $sicName,   
+                                'companie_id'=> $company->id,
+                                'code'       => $sicCode,
+                            ]);
+                        }
+
                         // Insert new data after deleteing
-                        SicCode::insert([
-                            'name'       => $sicName,   
-                            'companie_id'=> $company->id,
-                            'code'       => $sicCode,
-                        ]);
                     }
                 }
             }
@@ -53,7 +67,6 @@ class CompanyFormService
             $sourceMedia->save();
 
             $media = $sourceMedia->getMedia('sensetive-document');
-            
             foreach ($media as $medium) {
                 // Copy the medium to the Order model's collection
                 $medium->copy($company, 'company-sensetive-document');
@@ -89,7 +102,7 @@ class CompanyFormService
     public function getCompanieName($orderId)
     {
         $orders = Order::with('user')->where('order_id', $orderId)->first();
-        $CompanyFormationStep = Companie::where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
+        $CompanyFormationStep = Companie::with('businessBanking')->where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
 
         return $CompanyFormationStep;
     }

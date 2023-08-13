@@ -37,4 +37,9 @@ class Companie extends Model implements HasMedia
     {
         return $this->belongsTo(User::class);
     }
+
+    public function businessBanking()
+    {
+        return $this->hasOne(BusinessEssential::class, 'companie_id', 'id');
+    }
 }

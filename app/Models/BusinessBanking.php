@@ -13,6 +13,6 @@ class BusinessBanking extends Model implements HasMedia
 
     protected $fillable = [
         'title', 'short_description',
-        'long_description',
+        'long_description','terms_condition'
     ];
 }
