@@ -17,6 +17,7 @@ class Address extends Model
         'town',
         'county',
         'post_code',
-        'billing_country'
+        'billing_country',
+        'is_selected'
     ];
 }

@@ -153,7 +153,7 @@
                                                             </span>
                                                             <div class="action-container">
                                                                 <button type="button" id="choosePrimaryAddress"  class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="openModalButton" role="button" aria-disabled="false" fdprocessedid="4xigk"><span class="ui-button-text"> Choose Another</span></button>
-                                                                <button type="button" id="editPrimaryAddress" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="edit-bill-addr" role="button" aria-disabled="false" fdprocessedid="ruzkzh"><span class="ui-button-text"> Edit</span></button>
+                                                                <button type="button" id="editPrimaryAddress" class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force"  role="button" aria-disabled="false" fdprocessedid="ruzkzh"><span class="ui-button-text"> Edit</span></button>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -195,10 +195,11 @@
                                 <legend class="float-none w-auto p-2">Email Addresses
                                 </legend>
                                 <div class="form-row form-group ">
-                                    <label for="username">Primary&nbsp;</label>
+                                    <label for="username">Primary&nbsp;<abbr class="required" title="required">*</abbr></label>
                                     <span class="input-wrapper">
-                                        <input type="email" name="email" value={{$user->email}} class="input-text form-control" readonly>
-                                        @error('email')
+                                        <input type="email" name="primary_email" value="{{$user->primary_email}}" id="primary_email" class=" form-control @error('primary_email') is-invalid @enderror">
+                                        <div class="email_err1" style="color:red;"></div>
+                                        @error('primary_email')
                                             <div class="error" style="color:red;">{{ $message }}</div>
                                         @enderror
                                     </span>
@@ -206,9 +207,13 @@
 
 
                                 <div class="form-row form-group ">
-                                    <label>Billing&nbsp;</label>
+                                    <label>Billing&nbsp;<abbr class="required" title="required">*</abbr></label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control" type="email" name="billing_email" value="{{$user->business_email}}">
+                                        <input class="form-control @error('billing_email') is-invalid @enderror" type="email" id="email_id" name="billing_email" value="{{$user->business_email}}">
+                                        <div class="email_err" style="color:red;"></div>
+                                        @error('billing_email')
+                                            <div class="error" style="color:red;">{{ $message }}</div>
+                                        @enderror
                                     </span>
                                 </div>
 
@@ -218,7 +223,7 @@
                                 <div class="form-row form-group ">
                                     <label for="username">Primary&nbsp;</label>
                                     <span class="input-wrapper">
-                                        <input type="number" class="input-text form-control" name="phone" value="{{ $user->phone_no}}">
+                                        <input type="number" class="numberonly form-control" name="phone" value="{{ $user->phone_no}}">
                                     </span>
                                 </div>
 
@@ -226,7 +231,7 @@
                                 <div class="form-row form-group ">
                                     <label>Billing&nbsp;</label>
                                     <span class="input-wrapper ">
-                                        <input class="form-control" type="number" class="input-text form-control" name="billing_phone" value="{{ $user->business_phone}}">
+                                        <input type="number" class="numberonly1 form-control" name="billing_phone" value="{{ $user->business_phone}}">
                                     </span>
                                 </div>
 
@@ -236,20 +241,20 @@
                                 </legend>
                                 <div class=" px-0 col-md-12 col-12 mb-2">
                                     <div class="px-0 form-check">
-                                        <b class="mr-2">Newsletter</b><input class="" id="chek1" name="chek1" type="checkbox">
+                                        <b class="mr-2">Newsletter</b><input class="" id="chek1" name="newsletter" type="checkbox" value="1" {{ $user->newsletter =="1" ? 'checked' : '' }}>
                                         <label for="chek1"> I would like to sign up to the newsletter distribution list
                                         </label>
                                     </div>
                                 </div>
                                 <div class=" px-0 col-md-12 col-12 mb-2">
                                     <div class="px-0 form-check">
-                                        <b class="mr-2">Confirmation Statement</b> <input class="" id="chek2" name="chek2" type="checkbox">
+                                        <b class="mr-2">Confirmation Statement</b> <input class="" id="chek2" name="confirmation_statements" value="1"  type="checkbox" {{ $user->confirmation_statements =="1" ? 'checked' : '' }}>
                                         <label for="chek2"> I would like to receive updates on the confirmation statement</label>
                                     </div>
                                 </div>
                                 <div class=" px-0 col-md-12 col-12">
                                     <div class="px-0 form-check">
-                                        <b class="mr-2">Accounts</b> <input class="" id="chek3" name="chek3" type="checkbox">
+                                        <b class="mr-2">Accounts</b> <input class="" id="chek3" name="accounts" type="checkbox" value="1" {{ $user->accounts =="1" ? 'checked' : '' }}>
                                         <label for="chek3"> I would like to receive updates on my accounts
                                         </label>
                                     </div>
@@ -258,7 +263,7 @@
 
 
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-primary">Update Details</button>
+                                <button type="submit" class="btn btn-primary update-btn">Update Details</button>
                             </div>
                         </form>
                     </div>
@@ -315,6 +320,14 @@
                             <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
                         </div>
                         <div class="button_select">
+                            <input type="hidden" id="bil_house_number" value="{{ $value['house_number']}}">
+                            <input type="hidden" id="bil_street" value="{{ $value['street']}}">
+                            <input type="hidden" id="bil_locality" value="{{ $value['locality']}}">
+                            <input type="hidden" id="bil_town" value="{{ $value['town']}}">
+                            <input type="hidden" id="bil_county" value="{{ $value['county']}}">
+                            <input type="hidden" id="bil_post_code" value="{{ $value['post_code']}}">
+                            <input type="hidden" id="bil_country_name" value="{{ $value['country_name']}}">
+
                             <button class="btn btn-primary" data-dismiss="modal" onclick="setAddress({{$value['user_id']}},{{$value['id']}},'billing_address')" type="button">Select</button>
                         </div>
                         @endforeach
@@ -387,7 +400,7 @@
                 <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <form class="billingAddrUpdateForm formInput" >
+                <form class="billingAddrUpdateForm formInput" id="frmBillId" >
                     <input type="hidden" name="user_id" class="user_id" value="{{ $user->id }}">
 
                     @foreach($billing_address as $key => $v)
@@ -493,7 +506,7 @@
                 <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <form class="primaryAddrUpdateForm formInput" id="inputs">
+                <form class="primaryAddrUpdateForm formInput" id="primeinputs">
                     <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
                     @foreach($primary_address as $key => $v)
 
@@ -561,7 +574,7 @@
                     @endforeach
                     <input type="hidden" class="address_type" name="address_type" value="primary_address">
                     <div class="modal-footer">
-                        <button type="button" id="primary_submit" class="btn btn-primary billingAddrSubmit" data-dismiss="modal">Submit Changes</button>
+                        <button type="button" id="primary_submit" class="btn btn-primary billingAddrSubmit" data-dismiss="modal" onclick="editPrimaryAddressfn({{$v['addrees_id']}})">Submit Changes</button>
                       </div>
                 </form>
 
@@ -697,6 +710,17 @@
 @section('script')
 <script>
     $(document).ready(function () {
+        $('.numberonly').keypress(function (e) {
+            var charCode = (e.which) ? e.which : event.keyCode
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))
+                return false;
+        });
+        $('.numberonly1').keypress(function (e) {
+            var charCode = (e.which) ? e.which : event.keyCode
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))
+                return false;
+        });
+
         $('#editPrimaryAddress').click(function(){
             $('#primaryAddressModal').modal('show');
         });
@@ -704,30 +728,30 @@
         $('.confirmShow').click(function(){
             $('#primaryAddressConfirmModal').modal('show');
         });
-        $('.primaryAddrSubmit').click(function(){
+        // $('.primaryAddrSubmit').click(function(){
 
-            var formdata = $(".primaryAddrUpdateForm").serialize();
+        //     var formdata = $(".primaryAddrUpdateForm").serialize();
 
-            $.ajax({
-                url: "{!! route('primary-address-save') !!}",
-                type: 'POST',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    formdata: formdata
-                },
-                success: function(result) {
-                   $("#primaryAddressConfirmModal").modal('hide');
-                   $(window).load();
+        //     $.ajax({
+        //         url: "{!! route('primary-address-save') !!}",
+        //         type: 'POST',
+        //         data: {
+        //             "_token": "{{ csrf_token() }}",
+        //             formdata: formdata
+        //         },
+        //         success: function(result) {
+        //            $("#primaryAddressConfirmModal").modal('hide');
+        //            $(window).load();
 
-                }
-            });
-        });
+        //         }
+        //     });
+        // });
 
-        $("#primary_submit,#billing_submit").click(function() {
+        $("#billing_submit").click(function() {
 
             $(".loader").show();
             // Validation
-            $(".formInput").each(function() {
+            $("#frmBillId").each(function() {
                 var number   = $(this).find(".house_no").val();
                 var steet    = $(this).find(".steet_no").val();
                 var locality = $(this).find(".locality").val();
@@ -745,7 +769,7 @@
                 if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
                     //alert(number+"---"+address_type);
                     $.ajax({
-                        url: "{!! route('primary-address-save') !!}",
+                        url: "{!! route('billing-address-save') !!}",
                         type: 'POST',
                         data: {
                             "_token": "{{ csrf_token() }}",
@@ -772,6 +796,8 @@
             });
         });
 
+
+
         $("#saveAddr").click(function() {
             $(".loader").show();
             // Validation
@@ -793,7 +819,7 @@
                 if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
                     //alert(number+"---"+address_type);
                     $.ajax({
-                        url: "{!! route('primary-address-save') !!}",
+                        url: "{!! route('new-address-save') !!}",
                         type: 'POST',
                         data: {
                             "_token": "{{ csrf_token() }}",
@@ -877,6 +903,54 @@
     });
 
 
+    function editPrimaryAddressfn(address_id){
+            $(".loader").show();
+            // Validation
+            $("#primeinputs").each(function() {
+                var number   = $(this).find(".house_no").val();
+                var steet    = $(this).find(".steet_no").val();
+                var locality = $(this).find(".locality").val();
+                var town     = $(this).find(".town").val();
+                var county   = $(this).find(".county").val();
+                if(county==undefined){
+                    county = "";
+                }
+                var postcode = $(this).find(".zip").val();
+                var contry   = $(this).find(".contry").val();
+                var address_type = $(this).find(".address_type").val();
+                var user_id   = $(this).find(".user_id").val();
+
+
+                if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
+                    //alert(number+"---"+address_type);
+                    $.ajax({
+                        url: "{!! route('primary-address-save') !!}",
+                        type: 'POST',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            number: number,
+                            steet:steet,
+                            locality:locality,
+                            town:town,
+                            county:county,
+                            postcode:postcode,
+                            contry:contry,
+                            address_type:address_type,
+                            user_id:user_id,
+                            address_id:address_id
+                        },
+                        success: function(result) {
+                        $("#primaryAddressConfirmModal").modal('hide');
+                        setTimeout(function () {
+                            $(".loader").hide();
+                            location.reload(true);
+                        }, 2500);
+                        }
+                    });
+                }
+
+            });
+    };
 
     function selectPostalAddrApp(val){
         var value = val.split(',');
@@ -890,13 +964,31 @@
     function setAddress(userId, addressId,addressType) {
         var url = "{{ route('my_details') }}";
         // $(this).text('please wait..');
+        var number   = $("#bil_house_number").val();
+        var steet    = $("#bil_street").val();
+        var locality = $("#bil_locality").val();
+        var town     = $("#bil_town").val();
+        var county   = $("#bil_county").val();
+        if(county==undefined){
+            county = "";
+        }
+        var postcode = $("#bil_post_code").val();
+        var contry   = $("#bil_country_name").val();
+
         $.ajax({
             url: "{!! route('update-selected-address') !!}",
             type: 'GET',
             data: {
                 user_id: userId,
                 address_id: addressId,
-                address_type:addressType
+                address_type:addressType,
+                number: number,
+                steet:steet,
+                locality:locality,
+                town:town,
+                county:county,
+                postcode:postcode,
+                contry:contry,
             },
             success: function(result) {
                 location.href = url;
@@ -906,4 +998,46 @@
     }
 
 </script>
+<script>
+    $("#email_id").blur(function() {
+            if ($('#email_id').val() != "") {
+                var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)+.[a-zA-Z]*$/;
+                if ($('#email_id').val().match(validRegex)) {
+                    $('.update-btn').prop('disabled', false);
+                    $('.email_err').html('');
+                    //$(".submit-btn").css("background-color", "#001B69");
+                    return true;
+
+                } else {
+                    $('.email_err').html('Please enter a valid email address');
+                    $('.serverEmailerror').html('');
+                    $('.update-btn').prop('disabled', true);
+                    // $(".submit-btn").css("background-color", "gray");
+                    return false;
+                }
+            }
+        });
+
+        $("#primary_email").blur(function() {
+            if ($('#primary_email').val() != "") {
+                var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z]+(?:\.[a-zA-Z]+)+.[a-zA-Z]*$/;
+                if ($('#primary_email').val().match(validRegex)) {
+                    $('.update-btn').prop('disabled', false);
+                    $('.email_err1').html('');
+                    //$(".submit-btn").css("background-color", "#001B69");
+                    return true;
+
+                } else {
+                    $('.email_err1').html('Please enter a valid email address');
+                    $('.serverEmailerror').html('');
+                    $('.update-btn').prop('disabled', true);
+                    // $(".submit-btn").css("background-color", "gray");
+                    return false;
+                }
+            }
+        });
+
+
+</script>
+
 @endsection
