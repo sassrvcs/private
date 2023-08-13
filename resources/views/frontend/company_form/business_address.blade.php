@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('content')
 <!-- ================ start: common-inner-page-banner ================ -->
+<style>
+    .validation {
+        border: 2px solid red
+    }
+</style>
 <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png')}})">
     <div class="custom-container">
         <div class="left-info">
@@ -141,19 +146,19 @@
                                             <input type="hidden" id="add_id" class="add_id" name="add_id" value="{{!empty($address) && $address['id'] !== '' ? $address['id']: ''}}">
 
                                             <div class="form-row form-group ">
-                                                <label>Name / Number:&nbsp;
+                                                <label>Name / Number *:&nbsp;
                                                     </span>
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" id="house_no1" name="house_no" value="{{!empty($address) && $address['house_number'] !== '' ? $address['house_number']: ''}}" class="input-text form-control house_no">
+                                                    <input type="text" id="house_no1" name="house_no" value="{{!empty($address) && $address['house_number'] !== '' ? $address['house_number']: ''}}" class="input-text form-control house_no blankCheck">
 
                                                 </span>
                                             </div>
                                             <div class="form-row form-group ">
-                                                <label for="billing_title">Street:&nbsp;
+                                                <label for="billing_title">Street *:&nbsp;
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" value="{{!empty($address) && $address['street'] !== '' ? $address['street']: ''}}" name="street" id="street1" class="input-text form-control steet_no">
+                                                    <input type="text" value="{{!empty($address) && $address['street'] !== '' ? $address['street']: ''}}" name="street" id="street1" class="input-text form-control steet_no blankCheck">
                                                 </span>
 
                                             </div>
@@ -166,10 +171,10 @@
 
                                             </div>
                                             <div class="form-row form-group">
-                                                <label for="town">Town:&nbsp;
+                                                <label for="town">Town *:&nbsp;
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" name="town" value="{{!empty($address) && $address['town'] !== '' ? $address['town']: ''}}" id="town1" class="input-text form-control town">
+                                                    <input type="text" name="town" value="{{!empty($address) && $address['town'] !== '' ? $address['town']: ''}}" id="town1" class="input-text form-control town blankCheck">
                                                 </span>
 
                                             </div>
@@ -182,10 +187,10 @@
 
                                             </div>
                                             <div class="form-row form-group">
-                                                <label for="postcode">Post Code:&nbsp;
+                                                <label for="postcode">Post Code *:&nbsp;
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" id="post_code" value="{{!empty($address) && $address['post_code'] !== '' ? $address['post_code']: ''}}" name="post_code" class="input-text form-control zip">
+                                                    <input type="text" id="post_code" value="{{!empty($address) && $address['post_code'] !== '' ? $address['post_code']: ''}}" name="post_code" class="input-text form-control zip blankCheck">
                                                 </span>
                                             </div>
                                             <div class="form-row update_totals_on_change form-group">
@@ -223,7 +228,12 @@
                                 <div class="choose-own-address">
                                     <h3>Choose to use your own address</h3>
                                     <div class="src-are">
-                                        <input type="text" placeholder="Address Search...." class="form-control">
+                                        <input type="text" placeholder="Address Search...." onkeyup="searchBar()" id="searchBar_id" class="form-control">
+                                        @if(!empty($used_address))
+                                        @foreach($used_address as $key => $value)
+                                        <input type="text" class="form-control d-none addressSelect" data-search="{{ $value->house_number}},{{ $value->street}},{{ $value->locality}},{{ $value->town}},{{ $value->county}},{{ $value->post_code}},{{ $value->billing_country}}" data-id="{{ $value->id }}" value="{{ $value->house_number}},{{ $value->street}},{{ $value->locality}},{{ $value->town}},{{ $value->county}},{{ $value->post_code}},{{ $value->billing_country}}" onclick="selectedForwardAdd({{$value->id}})" readonly>
+                                        @endforeach
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="recently-used-addresses">
@@ -264,7 +274,7 @@
                                     </div>
                                 </div>
                                 <div class="step-btn-wrap mt-4">
-                                    <button class="btn prev-btn">Cancel</button>
+                                    <button class="btn prev-btn" onclick="cancelPage()">Cancel</button>
                                 </div>
                             </div>
 
@@ -286,7 +296,7 @@
                                                     <label>House Name / Number: &nbsp;<abbr class="required" title="required">*</abbr>
                                                     </label>
                                                     <span class="input-wrapper">
-                                                        <input type="text" id="house_noNew" name="house_noNew" class="input-text form-control @error('house_noNew') is-invalid @enderror">
+                                                        <input type="text" id="house_noNew" name="house_noNew" class="input-text form-control @error('house_noNew') is-invalid @enderror blankCheckForNewEntry">
                                                         @error('house_noNew')
                                                         <div class="error" style="color:red;">{{ $message }}</div>
                                                         @enderror
@@ -297,7 +307,7 @@
                                                     <label for="billing_title">Street:&nbsp;<abbr class="required" title="required">*</abbr>
                                                     </label>
                                                     <span class="input-wrapper">
-                                                        <input type="text" name="streetNew" id="streetNew" class="input-text form-control @error('streetNew') is-invalid @enderror">
+                                                        <input type="text" name="streetNew" id="streetNew" class="input-text form-control @error('streetNew') is-invalid @enderror blankCheckForNewEntry">
                                                         @error('streetNew')
                                                         <div class="error" style="color:red;">{{ $message }}</div>
                                                         @enderror
@@ -319,7 +329,7 @@
                                                     <label for="billing_first_name">Town:&nbsp;<abbr class="required" title="required">*</abbr>
                                                     </label>
                                                     <span class="input-wrapper">
-                                                        <input type="text" name="townNew" id="townNew" class="input-text form-control @error('townNew') is-invalid @enderror">
+                                                        <input type="text" name="townNew" id="townNew" class="input-text form-control @error('townNew') is-invalid @enderror blankCheckForNewEntry">
                                                         @error('townNew')
                                                         <div class="error" style="color:red;">{{ $message }}</div>
                                                         @enderror
@@ -339,7 +349,7 @@
                                                     </label>
 
                                                     <span class="input-wrapper">
-                                                        <input type="text" name="post_codeNew" id="zip_code" class="input-text form-control @error('post_codeNew') is-invalid @enderror">
+                                                        <input type="text" name="post_codeNew" id="zip_code" class="input-text form-control @error('post_codeNew') is-invalid @enderror blankCheckForNewEntry">
                                                         @error('post_codeNew')
                                                         <div class="error" style="color:red;">{{ $message }}</div>
                                                         @enderror
@@ -368,7 +378,8 @@
                                             </div>
                                         </fieldset>
                                         <div class="mb-3">
-                                            <button type="submit" onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';" class="btn btn-primary">Submit</button>
+                                            <button type="button" onClick="AddMoreAddSave(this)" class="btn btn-primary">Submit</button>
+                                            <!-- <button type="submit" onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';" class="btn btn-primary">Submit</button> -->
                                         </div>
                                     </form>
                                 </div>
@@ -478,6 +489,56 @@
 @section('script')
 
 <script>
+    const searchBar = function() {
+        const searchBarVal = $('#searchBar_id').val();
+
+        const addVals = document.querySelectorAll('.addressSelect')
+        const addValsArr = [...addVals];
+
+        addValsArr.forEach(el => {
+            addData = el.dataset.search;
+
+            if (addData.startsWith(searchBarVal)) {
+                el.classList.remove('d-none');
+            } else {
+                el.classList.add('d-none');
+            }
+        })
+
+        if (searchBarVal === '') {
+            addValsArr.forEach(el => {
+                el.classList.add('d-none');
+            })
+        }
+    }
+    
+    const cancelPage = function() {
+        window.location.reload()
+    }
+
+    const AddMoreAddSave = function(ths) {
+        const requiredFields = document.querySelectorAll('.blankCheckForNewEntry');
+        const requiredFieldsArr = [...requiredFields];
+
+        let validation = 0;
+        requiredFieldsArr.forEach(el => {
+            if (el.value === '') {
+                el.classList.add('validation');
+
+                return validation++;
+            } else {
+                el.classList.remove('validation');
+            }
+        });
+
+
+        if (validation === 0) {
+            ths.form.submit();
+            ths.disabled = true;
+            ths.innerText = 'Hold on...';
+        }
+    }
+
     function anotherForwardingAdd() {
         $(".buyNowAfterSelectingAdd").hide();
         $('.hideEdit').removeClass('d-none');
@@ -644,8 +705,21 @@
             county = "";
         }
 
-        if (number != undefined && steet != undefined && locality != undefined && town != undefined && postcode != undefined && contry != undefined) {
-            //
+        const requiredFields = document.querySelectorAll('.blankCheck');
+        const requiredFieldsArr = [...requiredFields];
+
+        let validation = 0;
+        requiredFieldsArr.forEach(el => {
+            if (el.value === '') {
+                el.classList.add('validation');
+
+                return validation++;
+            } else {
+                el.classList.remove('validation');
+            }
+        });
+
+        if (validation === 0) {
             $.ajax({
                 url: "{!! route('selected-address-save') !!}",
                 type: 'POST',
@@ -665,6 +739,28 @@
                 }
             });
         }
+
+        // if (number != undefined && steet != undefined && locality != undefined && town != undefined && postcode != undefined && contry != undefined) {
+        //     //
+        //     $.ajax({
+        //         url: "{!! route('selected-address-save') !!}",
+        //         type: 'POST',
+        //         data: {
+        //             "_token": "{{ csrf_token() }}",
+        //             id,
+        //             number,
+        //             steet,
+        //             locality,
+        //             town,
+        //             county,
+        //             postcode,
+        //             contry,
+        //         },
+        //         success: function(result) {
+        //             location.reload(true);
+        //         }
+        //     });
+        // }
     })
 
     $('#findAddress').click(function() {

@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('content')
 <!-- ================ start: common-inner-page-banner ================ -->
+<style>
+    .validation {
+        border: 2px solid red
+    }
+</style>
 <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png')}})">
     <div class="custom-container">
         <div class="left-info">
@@ -145,19 +150,19 @@
                                         <input type="hidden" class="recent_addr_id" value="{{!empty($recent_addr) && $recent_addr['id'] !== '' ? $recent_addr['id']: ''}}" readonly>
                                         <fieldset class="border p-3">
                                             <div class="form-row form-group ">
-                                                <label>Name / Number:&nbsp;
+                                                <label>Name / Number *:&nbsp;
                                                     </span>
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no" value="{{!empty($recent_addr) && $recent_addr['house_number'] !== '' ? $recent_addr['house_number']: ''}}">
+                                                    <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no blankCheck" value="{{!empty($recent_addr) && $recent_addr['house_number'] !== '' ? $recent_addr['house_number']: ''}}">
 
                                                 </span>
                                             </div>
                                             <div class="form-row form-group ">
-                                                <label for="billing_title">Street:&nbsp;
+                                                <label for="billing_title">Street *:&nbsp;
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" name="street" id="street1" class="input-text form-control steet_no" value="{{!empty($recent_addr) && $recent_addr['street'] !== '' ? $recent_addr['street']: ''}}">
+                                                    <input type="text" name="street" id="street1" class="input-text form-control steet_no blankCheck" value="{{!empty($recent_addr) && $recent_addr['street'] !== '' ? $recent_addr['street']: ''}}">
                                                 </span>
 
                                             </div>
@@ -170,10 +175,10 @@
 
                                             </div>
                                             <div class="form-row form-group">
-                                                <label for="town">Town:&nbsp;
+                                                <label for="town">Town *:&nbsp;
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" name="town" id="town1" class="input-text form-control town" value="{{!empty($recent_addr) && $recent_addr['town'] !== '' ? $recent_addr['town']: ''}}">
+                                                    <input type="text" name="town" id="town1" class="input-text form-control town blankCheck" value="{{!empty($recent_addr) && $recent_addr['town'] !== '' ? $recent_addr['town']: ''}}">
                                                 </span>
 
                                             </div>
@@ -186,14 +191,14 @@
 
                                             </div>
                                             <div class="form-row form-group">
-                                                <label for="postcode">Post Code:&nbsp;
+                                                <label for="postcode">Post Code *:&nbsp;
                                                 </label>
                                                 <span class="input-wrapper">
-                                                    <input type="text" id="post_code" name="post_code" class="input-text form-control zip" value="{{!empty($recent_addr) && $recent_addr['post_code'] !== '' ? $recent_addr['post_code']: ''}}">
+                                                    <input type="text" id="post_code" name="post_code" class="input-text form-control zip blankCheck" value="{{!empty($recent_addr) && $recent_addr['post_code'] !== '' ? $recent_addr['post_code']: ''}}">
                                                 </span>
                                             </div>
                                             <div class="form-row update_totals_on_change form-group">
-                                                <label for="billing_country">Country&nbsp;</label>
+                                                <label for="billing_country">Country *:&nbsp;</label>
                                                 <span class="input-wrapper">
                                                     <select name="billing_country" id="billing_country" name="billing_country" class="contry country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
                                                         <option value="">Select a country / region…</option>
@@ -337,9 +342,22 @@
             county = "";
         }
 
+        const requiredFields = document.querySelectorAll('.blankCheck');
+        const requiredFieldsArr = [...requiredFields];
 
-        if (number != undefined && steet != undefined && locality != undefined && town != undefined && postcode != undefined && contry != undefined && address_type != undefined && user_id != undefined) {
-            //
+        let validation = 0;
+        requiredFieldsArr.forEach(el => {
+            if (el.value === '') {
+                el.classList.add('validation');
+
+                return validation++;
+            } else {
+                el.classList.remove('validation');
+            }
+        });
+
+        
+        if (validation === 0){
             $.ajax({
                 url: "{!! route('primary-address-save') !!}",
                 type: 'POST',
@@ -361,6 +379,30 @@
                 }
             });
         }
+
+        // if (number != undefined && steet != undefined && locality != undefined && town != undefined && postcode != undefined && contry != undefined && address_type != undefined && user_id != undefined) {
+        //
+        // $.ajax({
+        //     url: "{!! route('primary-address-save') !!}",
+        //     type: 'POST',
+        //     data: {
+        //         "_token": "{{ csrf_token() }}",
+        //         recent_addr,
+        //         number: number,
+        //         steet: steet,
+        //         locality: locality,
+        //         town: town,
+        //         county: county,
+        //         postcode: postcode,
+        //         contry: contry,
+        //         address_type: address_type,
+        //         user_id: user_id
+        //     },
+        //     success: function(result) {
+        //         location.reload(true);
+        //     }
+        // });
+        // }
     })
 </script>
 @endsection
