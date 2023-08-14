@@ -1,6 +1,57 @@
 @extends('layouts.app')
 @section('content')
     <!-- ================ start: common-inner-page-banner ================ -->
+    <style>
+        .director_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+        .shareholder_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+        .secretary_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+        .psc_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .own_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+        .vot_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+        .appo_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+        .other_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+    </style>
     <section class="common-inner-page-banner"
         style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png') }})">
         <div class="custom-container">
@@ -359,21 +410,26 @@
                                                                     onclick="consentSection()">
                                                                 <label for="director">Director <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                            alt=""></span></label>
+                                                                            alt="" id="director_i"></span></label>
+                                                                            <span class="director_i_tooltip">A private limited company must have at least one director, being a natural person aged 16 years or over. A director is responsible for the day-to-day management of the business.</span>
                                                             </li>
                                                             <li>
                                                                 <input type="checkbox" class="checkBoxPos"
                                                                     id="shareholder" onclick="shareholderTab()">
                                                                 <label for="shareholder">Shareholderss <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                            alt=""></span></label>
+                                                                            alt="" id="shareholder_i"></span></label>
+                                                                            <span class="shareholder_i_tooltip">Shareholders are the owners of the company and are generally entitled to a share of company profits. You must appoint at least one shareholder.</span>
                                                             </li>
                                                             <li>
                                                                 <input type="checkbox" class="checkBoxPos" id="secretary"
                                                                     onclick="consentSection()">
                                                                 <label for="secretary">secretary <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                            alt=""></span></label>
+                                                                            alt="" id="secretary_i"></span></label>
+                                                                            <span class="secretary_i_tooltip">There is no legal requirement to appoint a company secretary, however, you may choose to appoint one if you wish.
+
+                                                                                The company secretary is responsible for advising the directors and shareholders on running the business in accordance with and in compliance with the Companies Act, and keeps the statutory records up to date.</span>
                                                             </li>
                                                             <li>
                                                                 <input type="checkbox" class="checkBoxPos" id="psc"
@@ -381,7 +437,10 @@
                                                                 <label for="psc">Person with Significant Control (PSC)
                                                                     <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                            alt=""></span></label>
+                                                                            alt="" id="psc_i"></span></label>
+                                                                            <span class="psc_i_tooltip">A Person with Significant Control (PSC) is any person that ultimately controls more than 25% of the company. An individual, a UK registered company and certain other legal entities may be listed as PSCs.
+
+                                                                                It is now a legal requirement to identify the PSCs of a company. Please tick the Person with Significant Control (PSC) box if you qualify as a PSC of this company.</span>
                                                             </li>
 
                                                             <br class="brCls d-none">
@@ -389,9 +448,7 @@
                                                             <li class="occLinkCls d-none">
                                                                 <input type="checkbox" id="occ">
                                                                 <label for="occ">The officers confirm they have
-                                                                    consented to act as a Director or Secretary <span><img
-                                                                            src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                            alt=""></span></label>
+                                                                    consented to act as a Director or Secretary</label>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -504,8 +561,8 @@
                                                             <div class="col-md-12 col-sm-12">
                                                                 <div class="used-addresses-panel">
                                                                     <!-- <div class="text">
-                                                                                                        <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
-                                                                                                    </div> -->
+                                                                                                            <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
+                                                                                                        </div> -->
                                                                     <div class="btn-wrap">
                                                                         <!-- <button type="submit" class="btn select-btn">Select</button> -->
                                                                         <button type="submit" class="btn"
@@ -643,7 +700,11 @@
                                                                 <select class="form-control" id="person_aqone_id"
                                                                     name="person_aqone">
                                                                     <option value="Mother’s Maiden Name">Mother’s Maiden
-                                                                        Name</option>
+                                                                    <option value="Father's Forename">Father's Forename
+                                                                    <option value="Town Of Birth">Town Of Birth
+                                                                    <option value="Telephone Number">Telephone Number
+                                                                    <option value="National insurance">National insurance
+                                                                    <option value="Passport Number">Passport Number</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -661,8 +722,12 @@
                                                                 <label for="">Select First 3 letters of</label>
                                                                 <select class="form-control" id="person_aqtwo_id"
                                                                     name="person_aqtwo">
-                                                                    <option value="Father’s Maiden Name">Father’s Maiden
-                                                                        Name</option>
+                                                                    <option value="Father's Forename">Father's Forename
+                                                                    <option value="Mother’s Maiden Name">Mother’s Maiden
+                                                                        <option value="Town Of Birth">Town Of Birth
+                                                                        <option value="Telephone Number">Telephone Number
+                                                                        <option value="National insurance">National insurance
+                                                                        <option value="Passport Number">Passport Number</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -680,7 +745,12 @@
                                                                 <label for="">Select First 3 letters of</label>
                                                                 <select class="form-control" id="person_aqthree_id"
                                                                     name="person_aqthree">
-                                                                    <option value="Town Of Birth">Town Of Birth</option>
+                                                                    <option value="Town Of Birth">Town Of Birth
+                                                                        <option value="Mother’s Maiden Name">Mother’s Maiden
+                                                                    <option value="Father's Forename">Father's Forename
+                                                                        <option value="Telephone Number">Telephone Number
+                                                                        <option value="National insurance">National insurance
+                                                                        <option value="Passport Number">Passport Number</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -750,12 +820,13 @@
                                                                     <label for="" class="d-flex"><span
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                                alt=""></span> <span
+                                                                                alt="" id="own_i"></span> <span
                                                                             class="text">Ownership of
                                                                             shares</span></label>
                                                                     <select class="form-control">
                                                                         <option value="">N/A</option>
                                                                     </select>
+                                                                    <span class="own_i_tooltip">If this person holds more than 25% of the issued shares, directly or indirectly, then they meet this nature of control condition. Please select their shareholding percentage range from the drop down menu.</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -768,11 +839,12 @@
                                                                     <label for="" class="d-flex"><span
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                                alt=""></span> <span
+                                                                                alt="" id="vot_i"></span> <span
                                                                             class="text">Voting Rights</span></label>
                                                                     <select class="form-control">
                                                                         <option value="">N/A</option>
                                                                     </select>
+                                                                    <span class="vot_i_tooltip">If this person holds more than 25% of the available voting rights, directly or indirectly, then they meet this nature of control condition. Please select their voting power percentage range from the drop down menu.</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -785,13 +857,14 @@
                                                                     <label for="" class="d-flex"><span
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                                alt=""></span> <span
+                                                                                alt="" id="appo_i"></span> <span
                                                                             class="text">Appoint or remove the majority
                                                                             of the board of directors</span></label>
                                                                     <select class="form-control">
                                                                         <option value="">No</option>
                                                                         <option value="">Yes</option>
                                                                     </select>
+                                                                    <span class="appo_i_tooltip">If this person is entitled, directly or indirectly, to appoint and remove a majority of the board of directors then they meet this nature of control condition. Any person that controls over 50% of the votes may appoint the directors by ordinary resolution, but a person could be given this explicit right in the Articles of Association or a Shareholders' Agreement.</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -803,13 +876,14 @@
                                                                     <label for="" class="d-flex"><span
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                                alt=""></span> <span
+                                                                                alt="" id="other_i"></span> <span
                                                                             class="text">Other Significant influences
                                                                             or control</span></label>
                                                                     <select class="form-control">
                                                                         <option value="">No</option>
                                                                         <option value="">Yes</option>
                                                                     </select>
+                                                                    <span class="other_i_tooltip">If this individual does not meet any of the preceding natures of control conditions, but still exerts, or has the right to exert, influence or control over the Company, then they meet this nature of control condition.</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -833,17 +907,15 @@
                                                     </ul>
                                                 </div>
                                                 <div class="qu-panel">
-                                                    <p>Does this officer have a controlling influence over a Trust(s) and/or
-                                                        the Trustees of that Trust(s), which also has a controlling
-                                                        influence in the company?</p>
+                                                    <p>Does this officer have a controlling influence over a trust(s) and/or the trustees of that trust(s), which has a controlling interest in this company?</p>
                                                     <ul>
                                                         <li>
-                                                            <input type="radio" id="no" name="com-qu2">
-                                                            <label for="no">No</label>
+                                                            <input type="radio" id="no2" name="com-qu2">
+                                                            <label for="no2">No</label>
                                                         </li>
                                                         <li>
-                                                            <input type="radio" id="yes" name="com-qu2">
-                                                            <label for="yes">yes</label>
+                                                            <input type="radio" id="yes2" name="com-qu2">
+                                                            <label for="yes2">yes</label>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -878,6 +950,121 @@
 
 @section('script')
     <script>
+        const director_i = document.getElementById("director_i");
+        director_i.addEventListener("mouseover", showTooltip);
+        director_i.addEventListener("mouseout", hideTooltip);
+
+        function showTooltip() {
+            const tooltip = document.querySelector(".director_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function hideTooltip() {
+            const tooltip = document.querySelector(".director_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+
+        const shareholder_i = document.getElementById("shareholder_i");
+        shareholder_i.addEventListener("mouseover", ShareshowTooltip);
+        shareholder_i.addEventListener("mouseout", SharehideTooltip);
+
+        function ShareshowTooltip() {
+            const tooltip = document.querySelector(".shareholder_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function SharehideTooltip() {
+            const tooltip = document.querySelector(".shareholder_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+
+        const secretary_i = document.getElementById("secretary_i");
+        secretary_i.addEventListener("mouseover", SecshowTooltip);
+        secretary_i.addEventListener("mouseout", SechideTooltip);
+
+        function SecshowTooltip() {
+            const tooltip = document.querySelector(".secretary_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function SechideTooltip() {
+            const tooltip = document.querySelector(".secretary_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+
+        const psc_i = document.getElementById("psc_i");
+        psc_i.addEventListener("mouseover", PSCshowTooltip);
+        psc_i.addEventListener("mouseout", PSChideTooltip);
+
+        function PSCshowTooltip() {
+            const tooltip = document.querySelector(".psc_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function PSChideTooltip() {
+            const tooltip = document.querySelector(".psc_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const own_i = document.getElementById("own_i");
+        own_i.addEventListener("mouseover", OWNshowTooltip);
+        own_i.addEventListener("mouseout", OWNhideTooltip);
+
+        function OWNshowTooltip() {
+            const tooltip = document.querySelector(".own_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function OWNhideTooltip() {
+            const tooltip = document.querySelector(".own_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const vot_i = document.getElementById("vot_i");
+        vot_i.addEventListener("mouseover", VOTshowTooltip);
+        vot_i.addEventListener("mouseout", VOThideTooltip);
+
+        function VOTshowTooltip() {
+            const tooltip = document.querySelector(".vot_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function VOThideTooltip() {
+            const tooltip = document.querySelector(".vot_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const appo_i = document.getElementById("appo_i");
+        appo_i.addEventListener("mouseover", APOshowTooltip);
+        appo_i.addEventListener("mouseout", APOhideTooltip);
+
+        function APOshowTooltip() {
+            const tooltip = document.querySelector(".appo_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function APOhideTooltip() {
+            const tooltip = document.querySelector(".appo_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const other_i = document.getElementById("other_i");
+        other_i.addEventListener("mouseover", OTHshowTooltip);
+        other_i.addEventListener("mouseout", OTHhideTooltip);
+
+        function OTHshowTooltip() {
+            const tooltip = document.querySelector(".other_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function OTHhideTooltip() {
+            const tooltip = document.querySelector(".other_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
         const choosedOfficer = function(id) {
             const offValId = $(`.offValId_${id}`).val();
             const offValtitle = $(`.offValtitle_${id}`).val();

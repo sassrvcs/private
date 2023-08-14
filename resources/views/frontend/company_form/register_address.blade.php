@@ -293,7 +293,8 @@
                                 </div>
                             </div>
                             <div class="step-btn-wrap mt-4">
-                                <button class="btn prev-btn" onclick="previousParticulars()"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png')}}" alt=""> Previous: Particulars</button>
+                                <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'particulars', 'data' => 'previous']) }}">
+                                <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png')}}" alt=""> Previous: Particulars</button></a>
                                 <button class="btn">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png')}}" alt=""></button>
                             </div>
                         </div>
