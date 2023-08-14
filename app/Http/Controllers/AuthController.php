@@ -124,6 +124,7 @@ class AuthController extends Controller
      */
     public function saveRegisterForm(Request $request)
     {
+
         $validate = Validator::make($request->all(), [
             'title' => 'required',
             'forename' => 'required|alpha',
@@ -158,6 +159,43 @@ class AuthController extends Controller
             'chek1.required'    =>'This field is required.',
             'chek2.required'    =>'This field is required.',
         ]);
+
+        if(null !==($request->input('register_form')) && $request->input('register_form')=='registration'){
+            $validate = Validator::make($request->all(), [
+                'title' => 'required',
+                'forename' => 'required|alpha',
+                'surname' => 'required|alpha',
+                'phone' => 'required|numeric|digits_between:8,13',
+                'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email|unique:users',
+                'confirm_email' => 'sometimes|same:email',
+                'password' => 'required|min:8|string',
+                'post_code' => 'required',
+                'house_no' => 'required',
+                'street' => 'required',
+                'town' => 'required',
+                'billing_country' => 'required',
+                'chek1' => 'required',
+                'chek2' => 'required'
+            ],[
+                'title.required'    => 'Title is required.',
+                'forename.required' => 'Forename is required.',
+                'surname.required'  => 'Surname is required.',
+                'phone.required'    => 'Phone number is required.',
+                'phone.required'    => 'Phone number is required.',
+                'phone.numeric'     => 'Please enter valid phone number.',
+                'email.required'    => 'Email is required',
+                'email.email'       => 'Please provide valid email',
+                'confirm_email.required'  => 'Confirm email is required',
+                'password.required' => 'Password is required',
+                'street.required'   =>'This field is required.',
+                'town.required'     =>'This field is required.',
+                'post_code.required'=>'This field is required.',
+                'house_no.required' =>'This field is required.',
+                'billing_country.required' =>'This field is required.',
+                'chek1.required'    =>'This field is required.',
+                'chek2.required'    =>'This field is required.',
+            ]);
+        }
 
         if($validate->fails()) {
             return back()->withErrors($validate->errors())->withInput();
