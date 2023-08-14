@@ -37,7 +37,7 @@
             </h1>
             <p>Please complete the details below to register with us. All fields marked with * are mandatory.</p>
         </div>
-        <form action="{{ route('save-register-form')}}" method="POST" class="form-register register">
+        <form action="{{ route('save-register-form')}}" method="POST" class="form-register register" id="registerForm">
             @csrf
             <fieldset class="border p-3">
                 <legend class="float-none w-auto p-2">Account Holder</legend>
@@ -97,10 +97,8 @@
                 <div class="form-row form-group ">
                     <label>Phone Number:&nbsp;<abbr class="required" title="required">*</abbr></label>
                     <span class="input-wrapper ">
-                        <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" value={{old('phone')}}>
-                        @error('phone')
-                            <div class="error" style="color:red;">{{ $message }}</div>
-                        @enderror
+                        <input type="number" class="form-control  @error('phone') is-invalid @enderror"  name="phone" id="phoneNo" value={{old('phone')}}>
+                        <div class="pherror" style="color:red;"></div>
                     </span>
                 </div>
 
@@ -248,7 +246,7 @@
                     </div>
                     <div class=" px-0 col-md-12 col-12 mb-2">
                         <div class="px-0 form-check">
-                            <input class="" id="chek1" type="checkbox" name="chek1">
+                            <input class="" id="chek1" type="checkbox" name="chek1" value="1" {{ old('chek1') =="1" ? 'checked' : '' }}>
                             <label for="chek1">I would like to receive updates from Formations Hunt</label>
                         </div>
                         @error('chek1')
@@ -257,7 +255,7 @@
                     </div>
                     <div class=" px-0 col-md-12 col-12">
                         <div class="px-0 form-check">
-                            <input class="" id="chek2" type="checkbox" name="chek2">
+                            <input class="" id="chek2" type="checkbox" name="chek2" value="1" {{ old('chek2') =="1" ? 'checked' : '' }}>
                             <label for="chek2"> I agree to the <a href="#">Terms and Conditions</a>  & <a href="#">Privacy Policy</a></label>
                         </div>
                         @error('chek2')
@@ -267,7 +265,7 @@
                 </div>
             </fieldset>
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" id="submit-form" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
@@ -352,5 +350,19 @@
         $("#exampleModalCenterAddress").hide();
     }
 
+</script>
+<script>
+    $(document).ready(function(){
+        $('#submit-form').click(function(){
+            var phone = $('#phoneNo').val();
+            if(phone == ''){
+                $('.pherror').html("Phone number is required.");
+                $('#phoneNo').css('border','1px solid red');
+            }else{
+                $('.pherror').html("");
+                $('#registerForm').submit();
+            }
+        });
+});
 </script>
 @endsection

@@ -74,6 +74,9 @@ class UserService
             $user->surname      = $request->surname;
             $user->phone_no     = $request->phone;
             $user->email        = $request->email;
+            $user->primary_email = $request->email;
+            $user->business_email = $request->email;
+            $user->business_phone = $request->phone;
             $user->password     = bcrypt($request->password);
 
             $user->save();
@@ -81,22 +84,19 @@ class UserService
 
             if($user) {
                 Address::where('user_id',$user->id)->update(['is_selected'=>0]);
-                $addressArr = ['primary_address','billing_address'];
-                foreach($addressArr as $eachAddress){
-                    $address            = new Address();
-                    $address->user_id   = $user->id;
-                    $address->address_type = $eachAddress;
-                    $address->house_number = $request->house_no;
-                    $address->street    = $request->street;
-                    $address->locality  = $request->locality;
-                    $address->town      = $request->town;
-                    $address->county    = $request->county;
-                    $address->post_code = $request->post_code;
-                    $address->billing_country = $request->billing_country;
-                    $address->is_selected = 1 ;
-                    $address->save();
 
-                }
+                $address            = new Address();
+                $address->user_id   = $user->id;
+                $address->address_type = 'primary_address';
+                $address->house_number = $request->house_no;
+                $address->street    = $request->street;
+                $address->locality  = $request->locality;
+                $address->town      = $request->town;
+                $address->county    = $request->county;
+                $address->post_code = $request->post_code;
+                $address->billing_country = $request->billing_country;
+                $address->is_selected = 1 ;
+                $address->save();
 
             }
 

@@ -64,9 +64,11 @@ Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-accoun
 Route::post('/logout', [AuthController::class, 'logout'])->name('clientlogout')->middleware('auth');
 Route::get('/my-details', [AccountController::class, 'details'])->name('my_details')->middleware('auth');
 Route::post('/primary-address-save',[AccountController::class,'savePrimaryAddress'])->name('primary-address-save')->middleware('auth');
+Route::post('/billing-address-save',[AccountController::class,'saveBillingAddress'])->name('billing-address-save')->middleware('auth');
 Route::post('/selected-address-save',[AccountController::class,'saveSelectedAddress'])->name('selected-address-save')->middleware('auth');
 Route::post('/my-details-save',[AccountController::class,'saveMyDetails'])->name('my-details-save')->middleware('auth');
 Route::get('/update-selected-address', [AccountController::class, 'updateSelectedAddress'])->name('update-selected-address')->middleware('auth');
+Route::post('/new-address-save', [AccountController::class, 'saveNewAddress'])->name('new-address-save')->middleware('auth');
 
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
@@ -114,6 +116,7 @@ Route::post('company-document', [CompanieFormController::class, 'uploadCompanyDo
 // Business Essential Steps
 Route::get('business-essential', [BusinessEssentialsController::class, 'index'])->name('business-essential.index')->middleware('auth');
 Route::post('business-essential', [BusinessEssentialsController::class, 'store'])->name('business-essential.store')->middleware('auth');
+Route::get('business-bank/terms-condition/{id}', [BusinessEssentialsController::class, 'termsAndCondition'])->name('business-bank-terms-conditions')->middleware('auth');
 
 // Route::get('business-service', [BusinessEssentialsController::class, 'index'])->name('business-service.index')->middleware('auth');
 // Route::post('business-service', [BusinessEssentialsController::class, 'store'])->name('business-service.store')->middleware('auth');

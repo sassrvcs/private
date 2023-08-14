@@ -33,8 +33,10 @@ ul.ef-16-benefits-list {
                     <div class="particulars-form-wrap">
                         <div class="particulars-top-step">
                             <div class="top-step-items">
-                                <strong>1.Company Formation</strong>
-                                <span>Details about your company</span>
+                                <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}" >
+                                    <strong>1.Company Formation</strong>
+                                    <span>Details about your company</span>
+                                </a>
                             </div>
                             <div class="top-step-items active">
                                 <strong>2.Business Essentials</strong>
@@ -83,7 +85,12 @@ ul.ef-16-benefits-list {
                                     <div class="business-ess-wrap">
                                         <small>The following banks have expressed an interest to support you and your new company :</small>
                                         @foreach($businessBanks as $key => $businessBank)
-                                            <div class="business-ess-panel with-img div-{{ $businessBank->id }}">
+                                            <div class="business-ess-panel with-img div-{{ $businessBank->id }}" 
+                                                @if(!empty($selectedBusinessBanking) && $selectedBusinessBanking == $businessBank->id) style="border:3px solid #01ff7e"  @endif>
+                                                <input 
+                                                    type="radio" name="business_banking" value="{{ $businessBank->id }}" class="radio-{{ $businessBank->id }}" 
+                                                    @if(!empty($selectedBusinessBanking) && $selectedBusinessBanking == $businessBank->id) {{ 'checked' }}  @endif
+                                                >
                                                 <div class="business-ess-panel-top">
                                                     <div class="business-ess-panel-wrap">
                                                         <div class="img-text-box">
@@ -110,10 +117,15 @@ ul.ef-16-benefits-list {
                                                 </div>
                                                 <div class="bottom-panel">
                                                     <div class="text-box">
-                                                        <p><strong>Terms and Conditions</strong></p>
+                                                        <p>
+                                                            {{-- <a href="{{ route('business-bank-terms-conditions', ['id' => $businessBank->id])}}"> --}}
+                                                            <a href="{{ route('business-bank-terms-conditions', ['id' => $businessBank->id]) }}">
+                                                                <strong>Terms and Conditions</strong>
+                                                            </a>
+                                                        </p>
                                                     </div>
                                                     <div class="btn-wrap">
-                                                        <button type="submit" data-id={{ $businessBank->id }} class="btn select-service">Choose CardOneMoney</button>
+                                                        <button type="submit" data-id={{ $businessBank->id }} class="btn select-service">Choose</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -128,13 +140,17 @@ ul.ef-16-benefits-list {
                                     </div>
                                     <form action="{{ route('business-essential.store') }}" method="post" id="business-essential-store">
                                         @csrf
-                                        <input type="hidden" name="business_bank_id" id="business_bank_id" value="">
+                                        @if(!empty($selectedBusinessBanking))
+                                            <input type="hidden" name="business_bank_id" id="business_bank_id" value="{{$selectedBusinessBanking}}">
+                                        @else
+                                            <input type="hidden" name="business_bank_id" id="business_bank_id" value="">
+                                        @endif
                                         <input type="hidden" name="order" id="business_bank_id" value="{{ $_GET['order'] ?? '' }}">
                                         <input type="hidden" name="step" value="business-banking">
                                         <input type="hidden" name="section" value="BusinessEssential">
                                     </form>
                                     <div class="step-btn-wrap mt-4">
-                                        <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt=""> Previous : Documents</button>
+                                        <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'document']) }}" class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt=""> Previous : Documents</a>
                                         <button class="btn save-continue">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}" alt=""></button>
                                     </div>
                                 </div>
@@ -170,7 +186,7 @@ ul.ef-16-benefits-list {
 
         <div class="modal-footer">
             <div class="btn-group">
-                <button type="button" onclick="redirectToURL();" class="btn btn-danger">I don't need a bank account</button>
+                <button type="button" id="submit-frm"  class="btn btn-danger">I don't need a bank account</button>
             </div>
             <div class="btn-group ml-auto">
                 <button type="button" class="btn btn-success" data-dismiss="modal">Let's take a look</button>
@@ -181,7 +197,6 @@ ul.ef-16-benefits-list {
 @endsection
 
 @section('script')
-{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 <script>
     $(document).ready(function () {
         $('.select-service').click(function () {
@@ -190,20 +205,38 @@ ul.ef-16-benefits-list {
 
             var businessBankId = $(this).data('id');
             var divSelector = ".business-ess-panel.with-img.div-" + businessBankId;
-            $('#business_bank_id').val(businessBankId);
+            // $('#business_bank_id').val(businessBankId);
 
             // Add CSS styles to the selected div
-            $(divSelector).css("border", "3px solid #01ff7e");
+            // $(divSelector).css("border", "3px solid #01ff7e");
+
+            var isRadioChecked = $(`.radio-${businessBankId}`).is(":checked");
+
+            if (isRadioChecked) {
+                $(`.radio-${businessBankId}`).prop("checked", false);
+                $('#business_bank_id').val('');
+                // Add CSS styles to the selected div
+                $(divSelector).css("border", "1px solid #D9D9D9");
+            } else {
+                $(`.radio-${businessBankId}`).prop("checked", true);
+                $('#business_bank_id').val(businessBankId);
+                // Add CSS styles to the selected div
+                $(divSelector).css("border", "3px solid #01ff7e");
+            }
         });
 
         $(".save-continue").click(function () {
             var businessBankId = $('#business_bank_id').val();
             if (businessBankId == '') {
                 $('.modal').modal('show');
-                return false;
+                // return false;
             } else {
                 $('#business-essential-store').submit();
             }
+        });
+
+        $('#submit-frm').click(function () {
+            alert('Please enter');
         });
 
         const redirectToURL = () => {

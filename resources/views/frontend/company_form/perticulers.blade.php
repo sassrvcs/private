@@ -116,14 +116,6 @@
                                                 </div>
                                             </div>
 
-                                            @if(session('error'))
-                                                <div class="text-danger alert-custom-highlight-s1 bg-free">
-                                                    <em class="text-danger">
-                                                        <h4 id="message-cls"> <i class="fa fa-times-circle-o"></i> Error, company already redisterd.</h4>
-                                                    </em>
-                                                </div>
-                                            @endif
-
                                             <div class="text-danger alert-custom-highlight-s1" id="srchfld-error" style="display: none">
                                                 <em id="srchfld-error" class="text-danger">
                                                     <h4 id="message-cls">Warning, <span id="companie-name"> </span> is <span id="c-availablity"></span> available for registration.</h4>
@@ -148,14 +140,14 @@
                                                             <input class="w-input file-upload" type="file" name="file-upload-sensitive" id="file-upload-sensitive" accept="application/pdf">
                                                             <button type="button" data-url="{{ route('upload-company-doc') }}" data-collection="sensetive-document" id="sensitive-doc-attach" class="button doc-attach">Attach</button>
                                                             @if(!empty($mediaDoc['name']))
-                                                                <input type="hidden" name="sesitive-documents" id="sesitive-documents" value="true">
+                                                                <input type="hidden" name="sesitive_documents" id="sesitive-documents" value="true">
                                                                 <div class="w-col w-col-12 sensitive-col ef-upload-result">
                                                                     <span class="attached-label-sensitive">Document Attached
                                                                         <a class="button" href="{{ $mediaDoc['url'] }}" target="_blank">View</a>
                                                                     </span>
                                                                 </div>
                                                             @else
-                                                                <input type="hidden" name="sesitive-documents" id="sesitive-documents" value="false">
+                                                                <input type="hidden" name="sesitive_documents" id="sesitive-documents" value="false">
                                                             @endif
                                                         </div>
                                                     </div>
@@ -180,14 +172,14 @@
                                                             <input class="w-input file-upload" type="file" name="file-upload-same-as-name" id="file-upload-same-as-name" accept="application/pdf">
                                                             <button type="button" data-url="{{ route('upload-company-doc') }}" data-collection="same-as-name-document" id="same-as-name-doc-attach" class="button doc-attach">Attach</button>
                                                             @if(!empty($mediaDoc['name']))
-                                                                <input type="hidden" name="same-as-name-documents" id="same-as-name-documents" value="true">
+                                                                <input type="hidden" name="same_as_name_documents" id="same-as-name-documents" value="true">
                                                                 <div class="w-col w-col-12 sensitive-col ef-upload-result">
                                                                     <span class="attached-label-sensitive">Document Attached
                                                                         <a class="button" href="{{ $mediaDoc['url'] }}" target="_blank">View</a>
                                                                     </span>
                                                                 </div>
                                                             @else
-                                                                <input type="hidden" name="same-as-name-documents" id="same-as-name-documents" value="false">
+                                                                <input type="hidden" name="same_as_name_documents" id="same-as-name-documents" value="false">
                                                             @endif
                                                         </div>
                                                     </div>
@@ -378,7 +370,7 @@
             checkCompanieAvailabality();
         });
         
-        const checkCompanieAvailabality = (sensetive = false) => {
+        const checkCompanieAvailabality = async (sensetive = false) => {
 
             var companyName = $('#companie_name').val();
             var orderId = $('#order_id').val();
@@ -387,7 +379,7 @@
             searchButton.prop('disabled', true).text('Checking...');
 
             // Make the GET request using Axios
-            axios.get('/search-companie', {
+            await axios.get('/search-companie', {
                 params: {
                     'search': companyName,
                     'same_as': 'true',

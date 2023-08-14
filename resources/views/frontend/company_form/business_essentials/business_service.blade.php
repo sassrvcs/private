@@ -53,7 +53,7 @@ ul.ef-16-benefits-list {
                             <div class="bottom-step-items">
                                 <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
                                 <p>
-                                    <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'register-address']) }}" style="color: #ffffff;"> Business Banking</a>
+                                    <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" style="color: #ffffff;"> Business Banking</a>
                                 </p>
                             </div>
                             <div class="bottom-step-items active">
@@ -86,8 +86,12 @@ ul.ef-16-benefits-list {
                                         <small>The following banks have expressed an interest to support you and your new company :</small>
                                         {{-- @dd($businessServices) --}}
                                         @foreach($businessServices as $key => $businessService)
-                                            <div class="business-ess-panel with-img div-{{ $businessService->id }}">
-                                                <input type="radio" name="business_service" value="{{ $businessService->id }}" class="radio-{{ $businessService->id }}">
+                                            <div class="business-ess-panel with-img div-{{ $businessService->id }}" 
+                                                @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) style="border:3px solid #01ff7e"  @endif >
+                                                <input 
+                                                    type="radio" name="business_service" value="{{ $businessService->id }}" class="radio-{{ $businessService->id }}"
+                                                    @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) {{ 'checked' }}  @endif
+                                                >
                                                 <div class="business-ess-panel-top">
                                                     <div class="business-ess-panel-wrap">
                                                         <div class="img-text-box">
@@ -114,7 +118,7 @@ ul.ef-16-benefits-list {
                                                         {{-- <p><strong>Terms and Conditions</strong></p> --}}
                                                     </div>
                                                     <div class="btn-wrap">
-                                                        <button type="submit" data-id={{ $businessService->id }} class="btn select-service">Choose CardOneMoney</button>
+                                                        <button type="submit" data-id={{ $businessService->id }} class="btn select-service">Choose</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,13 +133,17 @@ ul.ef-16-benefits-list {
                                     </div>
                                     <form action="{{ route('business-essential.store') }}" method="post" id="business-essential-store">
                                         @csrf
-                                        <input type="hidden" name="business_service_id" id="business_service_id" value="">
+                                        @if(!empty($selectedBusinessService))
+                                            <input type="hidden" name="business_service_id" id="business_service_id" value="{{$selectedBusinessService}}">
+                                        @else
+                                            <input type="hidden" name="business_service_id" id="business_service_id" value="">
+                                        @endif
                                         <input type="hidden" name="order" value="{{ $_GET['order'] ?? '' }}">
                                         <input type="hidden" name="step" value="business-service">
                                         <input type="hidden" name="section" value="BusinessEssential">
                                     </form>
                                     <div class="step-btn-wrap mt-4">
-                                        <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt=""> Previous : Business Banking</button>
+                                        <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt=""> Previous : Business Banking</a>
                                         <button class="btn save-continue">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}" alt=""></button>
                                     </div>
                                 </div>

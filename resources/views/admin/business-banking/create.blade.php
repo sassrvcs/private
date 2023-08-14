@@ -28,36 +28,54 @@
                             <form action="{{ route('admin.business-banking.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-sm-4">
-                                        <label>Image &nbsp;<span class="mandetory">* </span></label>
-                                        <div class="col-md-12 mb-2">
-                                            <img id="preview-image-before-upload" src="<?= url("/images/noImage.jpg") ?>"
-                                                alt="preview image" style="max-height: 50px; max-width: 50px;">
-                                        </div>
-                                        <input type="file" mandate="*" name="image" id="image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                                        @error('image')
+                                    <div class="col-sm-6">
+                                        <label>Title &nbsp;<span class="mandetory">* </span></label>
+                                        <input type="text" mandate="*"
+                                            name="title" value="{{ old('title') }}"
+                                            class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"  
+                                        />
+                                        @error('title')
                                             <div class="error" style="color:red;">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <label>Short Description &nbsp;<span class="mandetory">* </span></label>
                                         <input type="text" mandate="*"
                                             name="short_desc" value="{{ old('short_desc') }}"
-                                            class="form-control {{ $errors->has('short_desc') ? 'is-invalid' : '' }}"  />
-                                            @error('short_desc')
-                                                <div class="error" style="color:red;">{{ $message }}</div>
-                                            @enderror
+                                            class="form-control {{ $errors->has('short_desc') ? 'is-invalid' : '' }}"
+                                        />
+                                        @error('short_desc')
+                                            <div class="error" style="color:red;">{{ $message }}</div>
+                                        @enderror
                                     </div>
-
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <x-Forms.Text type="text" mandate="*" label="Description" id="description"
+                                            name="description" placeholder="Enter email id" value="{{ old('description') }}"
+                                            class="{{ $errors->has('description') ? 'is-invalid' : '' }}" />
+                                    </div>
+                                </div>
 
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Terms and conditions</label>
                                         <textarea class="ckeditor form-control {{ $errors->has('terms') ? 'is-invalid' : '' }}" name="terms"></textarea>
                                     </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label>Image &nbsp;<span class="mandetory">* </span></label>
+                                    <div class="col-md-12 mb-2">
+                                        <img id="preview-image-before-upload" src="<?= url("/images/noImage.jpg") ?>"
+                                            alt="preview image" style="max-height: 50px; max-width: 50px;">
+                                    </div>
+                                    <input type="file" mandate="*" name="image" id="image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                    @error('image')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit"

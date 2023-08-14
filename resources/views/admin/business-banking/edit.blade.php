@@ -29,6 +29,48 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
+                                    <div class="col-sm-6">
+                                        <label>Title&nbsp;<span class="mandetory">* </span></label>
+                                        <input type="text" mandate="*"
+                                            name="title" value="{{ $data->title }}"
+                                            class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"
+                                        />
+                                        @error('title')
+                                            <div class="error" style="color:red;">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>Short Description&nbsp;<span class="mandetory">* </span></label>
+                                        <input type="text" mandate="*"
+                                            name="short_desc" value="{{ $data->short_description }}"
+                                            class="form-control {{ $errors->has('short_desc') ? 'is-invalid' : '' }}"
+                                        />
+                                        @error('short_desc')
+                                            <div class="error" style="color:red;">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <x-Forms.Text type="text" mandate="*" label="Description" id="description"
+                                            name="description" value="{{ $data->long_description }}"
+                                            class="{{ $errors->has('description') ? 'is-invalid' : '' }}" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">Terms and conditions</label>
+                                        <textarea class="ckeditor form-control {{ $errors->has('terms') ? 'is-invalid' : '' }}" name="terms">
+                                            {!! $data->terms_condition !!}
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="row">
                                     <div class="col-sm-4">
                                         <div class="col-md-12 mb-2">
                                             <img id="preview-image-before-upload" src="<?= url("/images/noImage.jpg") ?>"
@@ -45,27 +87,6 @@
                                             <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}"  width="120px">
                                         </div>
                                     @endif
-
-                                    <div class="col-sm-5">
-                                        <label>Short Description&nbsp;<span class="mandetory">* </span></label>
-                                        <input type="text" mandate="*"
-                                            name="short_desc" value="{{ $data->short_description }}"
-                                            class="form-control {{ $errors->has('short_desc') ? 'is-invalid' : '' }}"  />
-                                            @error('short_desc')
-                                                <div class="error" style="color:red;">{{ $message }}</div>
-                                            @enderror
-                                    </div>
-
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <label for="">Terms and conditions</label>
-                                        <textarea class="ckeditor form-control {{ $errors->has('long_description') ? 'is-invalid' : '' }}" name="terms">
-                                            {!! $data->long_description !!}
-                                        </textarea>
-                                    </div>
                                 </div>
 
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit"

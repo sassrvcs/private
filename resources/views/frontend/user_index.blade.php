@@ -523,7 +523,8 @@
                 // Make the GET request using Axios
                 axios.get('/search-companie', {
                     params: {
-                        'search': companyName
+                        'search': companyName,
+                        'same_as': 'true',
                     }
                 })
                 .then(function (response) {

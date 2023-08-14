@@ -58,12 +58,10 @@ class BusinessEssentialsService
                 $businessBanking = '';
             }
 
-            if($businessBanking) {
-                $company->section_name  = $request['section_name'];
-                $company->step_name     = $request['step_name'];
+            $company->section_name  = $request->section;
+            $company->step_name     = $request->step;
 
-                $company->save();
-            }
+            // $company->save();
 
             return ['information' => $businessBanking, 'step' => $step];
         });
@@ -78,4 +76,13 @@ class BusinessEssentialsService
         return $businessAccountings;
     }
 
+    /**
+     * Show business banking and service information as per business_bank_id
+     * @param string $id
+     */
+    public function showBusinessBankInfo($id)
+    {
+        $businessBanking = BusinessBanking::findOrFail($id);
+        return $businessBanking;
+    }
 }

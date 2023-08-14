@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin\BusinessBanking;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use App\Models\BusinessBanking;
-use Redirect;
 
 class BusinessBankingController extends Controller
 {
@@ -17,8 +16,7 @@ class BusinessBankingController extends Controller
     {
         $search = $request->search;
         if(!empty($search)){
-            $businessdata = BusinessBanking::where('short_description', 'like', "%{$search}%")
-                            ->paginate(2);
+            $businessdata = BusinessBanking::where('short_description', 'like', "%{$search}%")->paginate(2);
         }else{
             $businessdata = BusinessBanking::paginate(2);
         }
@@ -36,29 +34,34 @@ class BusinessBankingController extends Controller
     public function store(Request $request){
 
         $validate = Validator::make($request->all(), [
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif',
-            'short_desc' => 'required',
+            'image'         => 'required|image|mimes:jpg,png,jpeg,gif',
+            'title'         => 'required',
+            'short_desc'    => 'required',
+            'description'   => 'required',
+        ],[
+            'image.required' =>'Image is required.',
+            'title.required' => 'Title is required.',
+            'short_desc.required' => 'Short description is required.',
+            'description.required' => 'Description is required.',
+        ]);
 
-
-            ],[
-                'image.required' =>'Image field is required.',
-                'short_desc.required' => 'Short description field is required.',
-
-
-            ]);
         if($validate->fails()){
             return back()->withErrors($validate->errors())->withInput();
-        }else{
+        } else {
             $temp =[];
-            $temp['short_description'] = $request->short_desc;
-            $temp['long_description'] = $request->terms;
+            $temp['title']              = $request->title;
+            $temp['short_description']  = $request->short_desc;
+            $temp['long_description']   = $request->description;
+            $temp['terms_condition']    = $request->terms;
+            
+            // Insert data into temp array to database
             $data = BusinessBanking::create($temp);
 
-        if($request->hasFile('image') && $request->file('image')->isValid()){
-            $data->addMediaFromRequest('image')->toMediaCollection('business_banking_images');
-        }
+            if($request->hasFile('image') && $request->file('image')->isValid()) {
+                $data->addMediaFromRequest('image')->toMediaCollection('business_banking_images');
+            }
 
-        return redirect()->route('admin.business-banking.index')->withSuccess('Business banking added successfully');
+            return redirect()->route('admin.business-banking.index')->withSuccess('Business banking added successfully');
         }
     }
 
@@ -70,24 +73,26 @@ class BusinessBankingController extends Controller
     public function update(Request $request, string $id)
     {
         $validate = Validator::make($request->all(), [
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif',
-            'short_desc' => 'required',
+            'image'         => 'nullable|image|mimes:jpg,png,jpeg,gif',
+            'title'         => 'required',
+            'short_desc'    => 'required',
+            'description'   => 'required',
+        ],[
+            'image.required' =>'Image is required.',
+            'title.required' => 'Title is required.',
+            'short_desc.required' => 'Short description is required.',
+            'description.required' => 'Description is required.',
+        ]);
 
-
-            ],[
-                'image.required' =>'Image field is required.',
-                'short_desc.required' => 'Short description field is required.',
-
-
-            ]);
-        if($validate->fails()){
+        if($validate->fails()) {
             return back()->withErrors($validate->errors())->withInput();
-        }else{
+        } else {
             $bankingdata = BusinessBanking::findOrFail($id);
+            $bankingdata->title             = $request->title;
             $bankingdata->short_description = $request->short_desc;
-            $bankingdata->long_description = $request->terms;
+            $bankingdata->long_description  = $request->description;
+            $bankingdata->terms_condition   = $request->terms;
             $bankingdata->save();
-
 
             if($request->hasFile('image') && $request->file('image')->isValid()){
                 // Delete existing image
