@@ -9,18 +9,22 @@ use App\Models\Address;
 use Illuminate\Support\Arr;
 use Validator;
 use App\Models\Country;
+use Illuminate\Support\Facades\Session;
+use DB ;
+use Illuminate\Support\Collection;
 
 class AccountController extends Controller
 {
+
     public function details(){
         $user = Auth::user();
         $countries = Country::all();
+
         $primary_address = Address::join('countries','countries.id','=','addresses.billing_country')
                                     ->select('countries.name as country_name','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country','addresses.id as addrees_id')
                                     ->where('addresses.user_id',Auth::user()->id)
                                     ->where('addresses.address_type','primary_address')
                                     ->where('addresses.is_selected',1)
-                                    //->orderBy('addresses.id', 'DESC')
                                     ->get()
                                     ->toArray();
         $billing_address = Address::join('countries','countries.id','=','addresses.billing_country')
@@ -28,24 +32,66 @@ class AccountController extends Controller
                                     ->where('addresses.user_id',Auth::user()->id)
                                     ->where('addresses.address_type','billing_address')
                                     ->where('addresses.is_selected',1)
-                                    //->orderBy('addresses.id', 'DESC')
                                     ->get()
                                     ->toArray();
          if(empty($billing_address)){
-            $billing_address = $primary_address;
+
+            $edit = false ;
+            if(Session::has('billing_session')){
+               $edit=true ;
+            }
+
+            if($edit==false){
+                Session::forget('billing_session');
+                Session::push('billing_session',$primary_address);
+
+            }
+            $billing_address = Session::get('billing_session')[0] ;
          }
-        $primary_address_list =   Address::join('countries','countries.id','=','addresses.billing_country')
-                                    ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+         $billing_address_list = $primary_address_list = Address::join('countries','countries.id','=','addresses.billing_country')
+                                    ->select('addresses.house_number','countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
                                     ->where('addresses.user_id',Auth::user()->id)
-                                    ->where('addresses.address_type','primary_address')
+                                    ->orderBy('addresses.id','DESC')
+                                    ->distinct()
                                     ->get()
                                     ->toArray();
-        $billing_address_list = Address::join('countries','countries.id','=','addresses.billing_country')
-                                    ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
-                                    ->where('addresses.user_id',Auth::user()->id)
-                                    ->where('addresses.address_type','billing_address')
-                                    ->get()
-                                    ->toArray();
+
+
+
+
+
+
+
+                                    // ->groupBy(function($data) {
+                                    //     return $data->house_number;
+                                    // })->toArray();
+
+                // $billing_address_list = Address::join('countries','countries.id','=','addresses.billing_country')
+                //     ->select('addresses.house_number','countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+                //     ->where('addresses.address_type','billing_address')
+                //     ->where('addresses.user_id',Auth::user()->id)
+                //     ->orderBy('addresses.id','DESC')
+                //     ->distinct()
+                //     ->get()
+                //     ->toArray();
+
+           // dd($billing_address_list);
+        //    foreach($billing_address_list as $billing_address_list){
+        //       dump(in_array($billing_address_list['house_number'],$primary_address_list));
+
+        //    }
+
+
+      //   $primary_address_list = array_values($primary_address_list);
+
+
+
+        // $billing_address_list = Address::join('countries','countries.id','=','addresses.billing_country')
+        //                             ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+        //                             ->where('addresses.user_id',Auth::user()->id)
+        //                             ->where('addresses.address_type','billing_address')
+        //                             ->get()
+        //                             ->toArray();
 
 
         if(empty($billing_address_list)){
@@ -219,8 +265,47 @@ class AccountController extends Controller
         $addressId = $request->input('address_id');
         $addressType = $request->input('address_type');
 
+        $billing_contry_id=Country::where('name',$request->input('contry'))->first()->id ;
         Address::where('user_id',$userId)->where('address_type',$addressType)->update(['is_selected'=>0]);
-        Address::where('id',$addressId)->update(['is_selected'=>1]);
+
+        if(Address::where('user_id',$userId)->where('address_type',$addressType)->count()==0){
+
+
+            $address            = new Address();
+            $address->user_id   = $request->input('user_id');
+            $address->address_type = $request->input('address_type');
+            $address->house_number = $request->input('number');
+            $address->street    = $request->input('steet');
+            $address->locality  = $request->input('locality');
+            $address->town      = $request->input('town');
+            $address->county    = $request->input('county')??null;
+            $address->post_code = $request->input('postcode');
+            $address->billing_country =  $billing_contry_id;
+            $address->is_selected = 1 ;
+            $address->save();
+        }elseif( Address::where('id',$addressId)->first()->address_type !=$addressType){
+
+            $addressData = Address::where('id',$addressId)->first() ;
+
+            $address            = new Address();
+            $address->user_id   = $addressData->user_id;
+            $address->address_type =  $addressType;
+            $address->house_number =$addressData->house_number;
+            $address->street    = $addressData->street;
+            $address->locality  =$addressData->locality;
+            $address->town      = $addressData->town;
+            $address->county    = $addressData->county??null;
+            $address->post_code = $addressData->post_code;
+            $address->billing_country =  $addressData->billing_country;
+            $address->is_selected = 1 ;
+            $address->save();
+
+        }else{
+
+            Address::where('id',$addressId)->update(['is_selected'=>1]);
+        }
+
+
         return 1;
 
     }

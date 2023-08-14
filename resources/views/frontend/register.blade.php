@@ -105,9 +105,10 @@
                 <div class="form-row form-group ">
                     <label>Email:&nbsp;<abbr class="required" title="required">*</abbr></label>
                     <span class="input-wrapper ">
-                        <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value={{old('email')}}>
+                        <input class="form-control @error('email') is-invalid @enderror" id="email_err" type="email" name="email" value={{old('email')}}>
                         @error('email')
-                            <div class="error" style="color:red;">{{ $message }}</div>
+
+                            <div class="error"  style="color:red;">{{ $message }}</div>
                         @enderror
                     </span>
                 </div>
@@ -218,7 +219,7 @@
                         <span class="input-wrapper">
                             <input type="text" name="post_code" id="zip_code" class="input-text form-control @error('post_code') is-invalid @enderror" value={{old('post_code')}}>
                             @error('post_code')
-                                <div class="error" style="color:red;">{{ $message }}</div>
+                                <div class="error" id="post_err" style="color:red;">{{ $message }}</div>
                             @enderror
                         </span>
 
@@ -353,12 +354,31 @@
 </script>
 <script>
     $(document).ready(function(){
-        $('#submit-form').click(function(){
-            var phone = $('#phoneNo').val();
+        var phone = $('#phoneNo').val();
+        var postErr = $('.error').text();
+        // alert(postErr);
+        if(postErr !=''){
             if(phone == ''){
                 $('.pherror').html("Phone number is required.");
                 $('#phoneNo').css('border','1px solid red');
+                $('#phoneNo').addClass("is-invalid");
             }else{
+                $('.pherror').html("");
+                $('#phoneNo').removeClass("is-invalid");
+
+            }
+        }
+
+        $('#submit-form').click(function(){
+            var phone = $('#phoneNo').val();
+
+            if(phone == ''){
+
+                $('#submit-form').prop('disabled', true);
+                $('.pherror').html("Phone number is required.");
+                $('#phoneNo').css('border','1px solid red');
+            }else{
+                $('#submit-form').prop('disabled', false);
                 $('.pherror').html("");
                 $('#registerForm').submit();
             }
