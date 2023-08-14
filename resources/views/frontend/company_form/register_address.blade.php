@@ -1,11 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <!-- ================ start: common-inner-page-banner ================ -->
-<style>
-    .validation {
-        border: 2px solid red
-    }
-</style>
+
 <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png')}})">
     <div class="custom-container">
         <div class="left-info">
@@ -115,7 +111,7 @@
                             <div class="bottom-step-items">
                                 <img src="{{ asset('frontend/assets/images/inactive-tick.svg')}}" alt="">
                                 <p>
-                                    <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address', 'data' => 'previous']) }}" style="color: #ffffff;"> Particulars</a>
+                                    <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'particulars', 'data' => 'previous']) }}" style="color: #ffffff;"> Particulars</a>
                                 </p>
                             </div>
                             <div class="bottom-step-items active">
@@ -297,7 +293,7 @@
                                 </div>
                             </div>
                             <div class="step-btn-wrap mt-4">
-                                <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png')}}" alt=""> Previous: Particulars</button>
+                                <button class="btn prev-btn" onclick="previousParticulars()"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png')}}" alt=""> Previous: Particulars</button>
                                 <button class="btn">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png')}}" alt=""></button>
                             </div>
                         </div>
@@ -313,6 +309,10 @@
 @section('script')
 
 <script>
+    function previousParticulars() {
+        window.location.href = "{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'particulars', 'data' => 'previous']) }}"
+    }
+
     function gotoPage() {
         window.location.href = "{{ route('choose-address-after-buy-now')}}"
     };
