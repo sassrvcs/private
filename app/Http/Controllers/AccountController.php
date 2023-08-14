@@ -77,11 +77,7 @@ class AccountController extends Controller
 
         $temp = [];
         $id=$request->input('id');
-        // dd($id);
-        $gg = Address::where('id',$id)->get();
 
-        // dd($gg);
-        // dd($request->all());
         $temp['house_number'] =$request->input('number');
         $temp['street'] = $request->input('steet');
         $temp['locality'] =  $request->input('locality');
@@ -99,8 +95,6 @@ class AccountController extends Controller
             'post_code'         => $request->input('postcode'),
             'billing_country'   => $request->input('contry'),
         ]);
-
-        // dd($updated);
 
         return $updated;
     }
