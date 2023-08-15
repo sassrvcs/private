@@ -80,7 +80,11 @@
                             <div class="bottom-step-items">
                                 <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                 <p>
-                                    <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" style="color: #ffffff;"> Document </a>
+                                    @if( !empty($companyFormationStep->step_name) && $companyFormationStep->step_name == 'particulars')
+                                        <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" style="color: #ffffff;"> Document </a>
+                                    @else
+                                        Document
+                                    @endif
                                 </p>
                             </div>
                         </div>
@@ -204,7 +208,7 @@
                                                 <select class="form-control @error('jurisdiction_id') is-invalid @enderror" name="jurisdiction_id">
                                                     <option value="">Select one</option>
                                                     @foreach ($jurisdictions as $jurisdiction)
-                                                        @if($jurisdiction->name === 'England & Wales' && (!isset($companyFormationStep) && old('jurisdiction_id')))
+                                                        @if($jurisdiction->name === 'England & Wales' && (!isset($companyFormationStep) || old('jurisdiction_id')))
                                                             <option value="{{ $jurisdiction->id }}" selected>{{ $jurisdiction->name }}</option>
                                                         @else
                                                             <option {{ (old('jurisdiction_id') == $jurisdiction->id || (isset($companyFormationStep) && old('jurisdiction_id', $companyFormationStep->jurisdiction_id) == $jurisdiction->id)) ? 'selected' : '' }} value="{{ $jurisdiction->id }}">{{ $jurisdiction->name }}</option>
@@ -457,43 +461,74 @@
             
             const fileInput = document.getElementById("file-upload-sensitive");
             const fileInputSameAs = document.getElementById("file-upload-same-as-name");
+            const allowedFileTypes = ['pdf'];
 
             $('.doc-attach').text('Attaching...');
 
             if (fileInput.files.length > 0 || fileInputSameAs.files.length > 0) {
                 console.log('Uploading...');
                 const formData = new FormData();
+                let selectedFile = null;
 
-                if(fileInput.files.length > 0 ) {
-                    formData.append("document", fileInput.files[0]);
+                if (fileInput.files.length > 0) {
+                    selectedFile = fileInput.files[0];
                 } else if (fileInputSameAs.files.length > 0) {
-                    formData.append("document", fileInputSameAs.files[0]);
+                    selectedFile = fileInputSameAs.files[0];
                 }
 
-                formData.append("model_id", $("#order_id").val());
-                formData.append("collection_name", $(this).data('collection'));
+                if (selectedFile) {
+                    // Check the file type
+                    const fileType = selectedFile.name.split('.').pop().toLowerCase();
+                    if (allowedFileTypes.includes(fileType)) {
 
-                axios.post($(this).data('url'), formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
+                        const maxFileSizeMB = 2;
+                        const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024;
+                        const fileSizeBytes = fileInput.files[0].size;
+
+                        if (fileSizeBytes <= maxFileSizeBytes) {
+                            formData.append("document", selectedFile);
+                            formData.append("model_id", $("#order_id").val());
+                            formData.append("collection_name", $(this).data('collection'));
+
+                            axios.post($(this).data('url'), formData, {
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
+                                }
+                            })
+                            .then(function(response) {
+                                console.log("File uploaded successfully:", response.data);
+                                $('#is_sensetibe').val('');
+                                Swal.fire(
+                                    'Attached!',
+                                    'Your file has been attached.',
+                                    'success'
+                                )
+                            })
+                            .catch(function(error) {
+                                console.error("Error uploading file:", error);
+                            })
+                            .finally(function() {
+                                // Re-enable the button and change the text back to "Attach"
+                                $('.doc-attach').prop('disabled', false).text('Attach');
+                            });
+                        } else {
+                            Swal.fire(
+                                'File too large',
+                                'File size exceeds 2MB.',
+                                'error'
+                            );
+                            $('.doc-attach').prop('disabled', false).text('Attach');
+                        }
+                    } else {
+                        // Alert if the file type is not allowed
+                        Swal.fire(
+                            'Invalid File Type',
+                            'Please select a PDF file.',
+                            'error'
+                        );
+                        $('.doc-attach').prop('disabled', false).text('Attach');
                     }
-                })
-                .then(function(response) {
-                    console.log("File uploaded successfully:", response.data);
-                    $('#is_sensetibe').val('');
-                    Swal.fire(
-                        'Attached!',
-                        'Your file has been attached.',
-                        'success'
-                    )
-                })
-                .catch(function(error) {
-                    console.error("Error uploading file:", error);
-                })
-                .finally(function () {
-                    // Re-enable the button and change the text back to "Attach"
-                    $('.doc-attach').prop('disabled', false).text('Attach');
-                });
+                }
             } else {
                 console.log("No file selected.");
                 $('.doc-attach').prop('disabled', false).text('Attach');

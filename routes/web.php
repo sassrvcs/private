@@ -85,6 +85,7 @@ Route::post('/contact-us',[ContactController::class,'store'])->name('contact.sto
 Route::resource('/cart', CartController::class);
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('add-cart');
 Route::patch('/cart/{id}', [CartController::class, 'update'])->name('update-cart');
+Route::post('/update-cart', [CartController::class, 'updateCart'])->name('update-cart-auth')->middleware('auth');
 // Route::delete('/cart/{id}', [CartController::class, 'update'])->name('delete-cart');
 
 Route::get('review-company-package', [CheckoutStepController::class, 'reviewCompanyPackage'])->name('review-company-package');
@@ -130,6 +131,8 @@ Route::get('remove-forwarding-business-address-section', [CompanyFormController:
 // Appointment Section
 Route::get('appointments', [CompanyFormController::class, 'appointments_open'])->name('appointments')->middleware('auth');
 Route::post('save-person-officer', [CompanyFormController::class, 'savePersonOfficer'])->name('save-person-officer')->middleware('auth');
+
+// Route::get('save-person-office', [CompanyFormController::class, 'savePersonOfficer'])->name('save-person-officer')->middleware('auth');
 
 Route::prefix('admin')->middleware(['auth', 'auth.session'])
 ->group(function () {

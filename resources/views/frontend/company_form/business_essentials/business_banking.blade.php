@@ -4,22 +4,6 @@
 @include('layouts.inner_header')
 {{-- Additional CSS for now --}}
 <style>
-.modal-header {
-    background: #000;
-}
-
-.modal-title {
-    color: #fff;
-}
-
-.modal-footer {
-    background: #000;
-}
-
-.modal-content {
-    padding: 15px;
-}
-
 ul.ef-16-benefits-list {
     list-style: inside;
 }
@@ -85,11 +69,16 @@ ul.ef-16-benefits-list {
                                     <div class="business-ess-wrap">
                                         <small>The following banks have expressed an interest to support you and your new company :</small>
                                         @foreach($businessBanks as $key => $businessBank)
-                                            <div class="business-ess-panel with-img div-{{ $businessBank->id }}" 
-                                                @if(!empty($selectedBusinessBanking) && $selectedBusinessBanking == $businessBank->id) style="border:3px solid #01ff7e"  @endif>
-                                                <input 
+                                            <div class="business-ess-panel div-{{ $businessBank->id }} 
+                                                @if(!empty($selectedBusinessBanking) && $selectedBusinessBanking == $businessBank->id) active @endif" 
+                                                @if(!empty($selectedBusinessBanking) && $selectedBusinessBanking == $businessBank->id) style="border:1px solid #87CB28" @endif>
+                                                <input style="display: none"
                                                     type="radio" name="business_banking" value="{{ $businessBank->id }}" class="radio-{{ $businessBank->id }}" 
                                                     @if(!empty($selectedBusinessBanking) && $selectedBusinessBanking == $businessBank->id) {{ 'checked' }}  @endif
+                                                >
+                                                <img class="active-icon checkbox-{{$businessBank->id}}" 
+                                                    @if(!empty($selectedBusinessBanking) && $selectedBusinessBanking == $businessBank->id) style="display:block"  @endif
+                                                    src="{{ asset('frontend/assets/images/td-tick.svg') }}" alt="tick image"
                                                 >
                                                 <div class="business-ess-panel-top">
                                                     <div class="business-ess-panel-wrap">
@@ -164,34 +153,33 @@ ul.ef-16-benefits-list {
 </section>
 
 {{-- Open modal if bank is not select --}}
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Choosing a Business Bank account</h5>
-            <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
-        </div>
+<div class="modal fade business-banking-modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <p>
-                Before you proceed, have you considered the <strong>Additional Benefits</strong>.
-            </p>
-            <ul class="ef-16-benefits-list">
-                <li><strong>Separate</strong> and track your personal and company finances</li>
-                <li><strong>Simplify</strong> your HMRC tax returns (including VAT registration)</li>
-                <li><strong>Apply</strong> for company loans and credit cards with greater ease</li>
-                <li><strong>Build</strong> your company’s credit history</li>
-                <li><strong>Gain</strong> professional representation when receiving and processing payments.</li>
-                <li><strong>Benefit</strong> from introductory offers and support to grow your business</li>
-            </ul>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Choosing a Business Bank account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Before you proceed, have you considered the <strong>Additional Benefits</strong>.
+                </p>
+                <ul class="ef-16-benefits-list">
+                    <li><strong>Separate</strong> and track your personal and company finances</li>
+                    <li><strong>Simplify</strong> your HMRC tax returns (including VAT registration)</li>
+                    <li><strong>Apply</strong> for company loans and credit cards with greater ease</li>
+                    <li><strong>Build</strong> your company’s credit history</li>
+                    <li><strong>Gain</strong> professional representation when receiving and processing payments.</li>
+                    <li><strong>Benefit</strong> from introductory offers and support to grow your business</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-don-need submit-frm">I don't need a bank account</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Let's take a look</button>
+            </div>
         </div>
-
-        <div class="modal-footer">
-            <div class="btn-group">
-                <button type="button" id="submit-frm"  class="btn btn-danger">I don't need a bank account</button>
-            </div>
-            <div class="btn-group ml-auto">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Let's take a look</button>
-            </div>
-        </div>        
     </div>
 </div>
 @endsection
@@ -201,27 +189,29 @@ ul.ef-16-benefits-list {
     $(document).ready(function () {
         $('.select-service').click(function () {
             // alert($(this).data('id'));
-            $(".business-ess-panel.with-img").css("border", "1px solid #D9D9D9");
+            $(".business-ess-panel").css("border", "1px solid #D9D9D9");
+            $('.active-icon').css("display", "none");
 
             var businessBankId = $(this).data('id');
-            var divSelector = ".business-ess-panel.with-img.div-" + businessBankId;
+            var divSelector = ".business-ess-panel.div-" + businessBankId;
             // $('#business_bank_id').val(businessBankId);
 
             // Add CSS styles to the selected div
             // $(divSelector).css("border", "3px solid #01ff7e");
 
             var isRadioChecked = $(`.radio-${businessBankId}`).is(":checked");
-
             if (isRadioChecked) {
                 $(`.radio-${businessBankId}`).prop("checked", false);
                 $('#business_bank_id').val('');
                 // Add CSS styles to the selected div
                 $(divSelector).css("border", "1px solid #D9D9D9");
+                $(`.checkbox-${businessBankId}`).css("display", "none");
             } else {
                 $(`.radio-${businessBankId}`).prop("checked", true);
                 $('#business_bank_id').val(businessBankId);
                 // Add CSS styles to the selected div
-                $(divSelector).css("border", "3px solid #01ff7e");
+                $(divSelector).css("border", "1px solid #87CB28");
+                $(`.checkbox-${businessBankId}`).css("display", "block");
             }
         });
 

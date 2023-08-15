@@ -24,4 +24,12 @@ class Order extends Model implements HasMedia
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * @return belongsTo
+     */
+    public function cart()
+    {
+        return $this->belongsTo(ShoppingCart::class);
+    }
 }

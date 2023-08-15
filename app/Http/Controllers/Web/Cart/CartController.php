@@ -36,17 +36,6 @@ class CartController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -78,6 +67,13 @@ class CartController extends Controller
         // dd($request->type);
         $response = $this->cartService->addToCartViaSession($id, $request->type);
         return $response;
+    }
+
+    public function updateCart(Request $request)
+    {
+        // dd($request->all());
+        $response = $this->cartService->updateCartTable($request);
+        return ['status' => 200, 'response' => $response];
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Company;
 
 use App\Http\Controllers\Controller;
+use App\Services\Addon\AddonService;
 use App\Services\Company\BusinessEssentialSteps\BusinessEssentialsService;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use Illuminate\Http\Request;
@@ -11,7 +12,8 @@ class BusinessEssentialsController extends Controller
 {
     public function __construct(
         protected BusinessEssentialsService $businessEssentialsService,
-        protected CompanyFormService $companyFormService
+        protected CompanyFormService $companyFormService,
+        protected AddonService $addonService
     ) { }
 
     /**
@@ -32,9 +34,20 @@ class BusinessEssentialsController extends Controller
             $businessServices = $this->businessEssentialsService->getBusinessService();
             return view('frontend.company_form.business_essentials.business_service', compact('businessServices', 'selectedBusinessService'));
         } else if($_GET['section'] == 'BusinessEssential' && $_GET['step'] == 'optional-extras') {
-            dd('Upcomming features.....!');
-            // $businessServices = $this->businessEssentialsService->getBusinessService();
-            // return view('frontend.company_form.business_essentials.business_service', compact('businessServices'));
+            
+            $addOnCart = [];
+            $addonServices = $this->addonService->index();
+            $orders = $this->businessEssentialsService->showOrder($_GET['order'])->toArray();
+
+            foreach ($orders['cart'] as $addonCarts) {
+                if(is_array($addonCarts)) {
+                    foreach ($addonCarts as $addonCart) {
+                        $addOnCart[] = $addonCart['service_id'];
+                    }
+                }
+            }
+
+            return view('frontend.company_form.business_essentials.others', compact('addonServices', 'addOnCart'));
         }
     }
 

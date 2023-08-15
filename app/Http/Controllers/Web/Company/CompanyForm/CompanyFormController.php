@@ -210,5 +210,4 @@ class CompanyFormController extends Controller
             return $inserted;
         }
     }
-
 }

@@ -149,17 +149,18 @@
                                             </div>
                                         </fieldset>
                                     @endguest
-                                    <div class="form-row col-md-12 form-group">
-                                        <label for="post_code" class="col-form-label">UK Postcode Lookup:</label>
-                                        <div class="woocommerce-input-wrapper with-rg-btn">
-                                            <input type="text" class="form-control" name="post_code" id="post_code" value="">
-                                            <button type="button" class="btn btn-primary" id="findAddress" style="padding:8px;">Find Address</button>
-                                        </div>
-                                    </div>
+                                    
                                     <fieldset class="border p-3">
                                         <legend class="float-none w-auto p-2">Billing Details</legend>
                                         <div class="woocommerce-billing-fields">
                                             <div class="woocommerce-billing-fields__field-wrapper row p-3">
+                                                <div class="form-row col-md-12 form-group">
+                                                    <label for="post_code" class="col-form-label">UK Postcode Lookup:</label>
+                                                    <div class="woocommerce-input-wrapper with-rg-btn">
+                                                        <input type="text" class="form-control" name="post_code" id="post_code" value="">
+                                                        <button type="button" class="btn btn-primary" id="findAddress" style="padding:8px;">Find Address</button>
+                                                    </div>
+                                                </div>
                                                 <div class="form-row form-group" id="billing_organization_field">
                                                     <label for="billing_organization" class="">Organisation (if applicable) </label>
                                                     <input type="text" class="input-text form-control @error('organisation') is-invalid @enderror" value="{{ $user->organisation ?? old('organisation')}}" name="organisation" id="billing_organization" placeholder="" >
@@ -298,7 +299,7 @@
                                         <fieldset class="border p-3">
                                             <legend class="float-none w-auto p-2">Payment Details</legend>
                                             <ul class="wc_payment_methods payment_methods methods">
-                                                <li class="wc_payment_method payment_method_cod">
+                                                {{-- <li class="wc_payment_method payment_method_cod">
                                                     <input id="payment_method_cod" type="radio" class="input-radio"
                                                         name="payment_method" value="cod" checked="checked"
                                                         data-order_button_text="">
@@ -308,11 +309,11 @@
                                                     <div class="payment_box payment_method_cod">
                                                         <p>Pay with cash upon delivery.</p>
                                                     </div>
-                                                </li>
+                                                </li> --}}
                                                 <li class="wc_payment_method payment_method_epdq_checkout">
                                                     <input id="payment_method_epdq_checkout" type="radio"
                                                         class="input-radio" name="payment_method"
-                                                        value="epdq_checkout" data-order_button_text="">
+                                                        value="epdq_checkout" checked="checked" data-order_button_text="">
                                                     <label for="payment_method_epdq_checkout">
                                                         AG ePDQ Checkout<br>
                                                         <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/mastercard.png') }}" alt="mastercard">

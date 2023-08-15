@@ -6,13 +6,15 @@ use App\Models\Accounting;
 use App\Models\BusinessBanking;
 use App\Models\BusinessEssential;
 use App\Models\Companie;
+use App\Models\Order;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use Illuminate\Support\Facades\DB;
 
 class BusinessEssentialsService
 {
-    public function __construct( protected CompanyFormService $companyFormService )
-    { }
+    public function __construct(
+        protected CompanyFormService $companyFormService
+    ) { }
 
     /**
      * Get all business bank listings
@@ -84,5 +86,15 @@ class BusinessEssentialsService
     {
         $businessBanking = BusinessBanking::findOrFail($id);
         return $businessBanking;
+    }
+
+    /**
+     * Show order data as per order id
+     * @param string $order_id
+     */
+    public function showOrder($order_id)
+    {
+        $order = Order::with('user', 'cart', 'cart.addonCartServices')->where('order_id', $order_id)->first();
+        return $order;
     }
 }
