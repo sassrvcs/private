@@ -85,12 +85,18 @@ ul.ef-16-benefits-list {
                                     <div class="business-ess-wrap">
                                         <small>The following banks have expressed an interest to support you and your new company :</small>
                                         {{-- @dd($businessServices) --}}
+                                        {{-- @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) style="border:3px solid #01ff7e"  @endif --}}
                                         @foreach($businessServices as $key => $businessService)
-                                            <div class="business-ess-panel with-img div-{{ $businessService->id }}" 
-                                                @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) style="border:3px solid #01ff7e"  @endif >
-                                                <input 
+                                            <div class="business-ess-panel div-{{ $businessService->id }}
+                                                @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) active @endif" 
+                                                @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) style="border:1px solid #87CB28" @endif >
+                                                <input style="display: none"
                                                     type="radio" name="business_service" value="{{ $businessService->id }}" class="radio-{{ $businessService->id }}"
                                                     @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) {{ 'checked' }}  @endif
+                                                >
+                                                <img class="active-icon checkbox-{{$businessService->id}}" 
+                                                    @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) style="display:block"  @endif
+                                                    src="{{ asset('frontend/assets/images/td-tick.svg') }}" alt="tick image"
                                                 >
                                                 <div class="business-ess-panel-top">
                                                     <div class="business-ess-panel-wrap">
@@ -162,12 +168,11 @@ ul.ef-16-benefits-list {
     $(document).ready(function () {
         $('.select-service').click(function () {
             // alert($(this).data('id'));
-            $(".business-ess-panel.with-img").css("border", "1px solid #D9D9D9");
-
+            $(".business-ess-panel").css("border", "1px solid #D9D9D9");
+            $('.active-icon').css("display", "none");
 
             var businessServiceId = $(this).data('id');
-            var divSelector = ".business-ess-panel.with-img.div-" + businessServiceId;
-
+            var divSelector = ".business-ess-panel.div-" + businessServiceId;
             var isRadioChecked = $(`.radio-${businessServiceId}`).is(":checked");
 
             if (isRadioChecked) {
@@ -175,13 +180,14 @@ ul.ef-16-benefits-list {
                 $('#business_service_id').val('');
                 // Add CSS styles to the selected div
                 $(divSelector).css("border", "1px solid #D9D9D9");
+                $(`.checkbox-${businessServiceId}`).css("display", "none");
             } else {
                 $(`.radio-${businessServiceId}`).prop("checked", true);
                 $('#business_service_id').val(businessServiceId);
                 // Add CSS styles to the selected div
-                $(divSelector).css("border", "3px solid #01ff7e");
+                $(divSelector).css("border", "1px solid #87CB28");
+                $(`.checkbox-${businessServiceId}`).css("display", "block");
             }
-
         });
 
         $(".save-continue").click(function () {

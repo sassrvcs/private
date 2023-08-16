@@ -56,16 +56,30 @@ class CheckoutStepController extends Controller
     public function validateAuthentication()
     {
         $user = [];
+        $request        = (object) [];
+        $totalPrice     = 0;
         $sessionCart    = $this->cartService->getCartViaSession();
         $package        = $this->packageService->index(end($sessionCart)['package_name']);
         $countries      = $this->countryService->countryList();
         
         $package = $package[0] ?? '';
+        if(count($sessionCart) > 1) {
+            foreach (end($sessionCart)['addon_service'] as $addonService) {
+                $totalPrice = $totalPrice + $addonService['price'];
+                // dump($addonService['price']);
+            }
+        } else {
+            foreach ($sessionCart[0]['addon_service'] as $addonService) {
+                $totalPrice = $totalPrice + $addonService['price'];
+            }
+        }
+
+        $request->total_amount = $totalPrice;
 
         if(auth()->user()) {
             $user = $this->userService->show(auth()->user()->id);
+            $checkout = $this->checkoutService->doCheckoutFinalStep($request, auth()->user());
         }
-        // dd($user);
 
         return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user'));
     }

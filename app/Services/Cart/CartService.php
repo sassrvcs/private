@@ -4,6 +4,8 @@ namespace App\Services\Cart;
 
 // use App\Models\Addonservice;
 
+use App\Models\AddonCartService;
+use App\Models\Order;
 use App\Services\Addon\AddonService;
 use App\Services\Package\PackageService;
 use Illuminate\Support\Facades\Http;
@@ -57,6 +59,37 @@ class CartService
         }
 
         Session::put('cart', $cart);
+    }
+
+    /**
+     * Update database cart as per order
+     * @param object $request
+     */
+    public function updateCartTable($request)
+    {
+        $order = Order::with('cart')->where('order_id', $request->order)->first();
+        $addonService = $this->addonService->edit($request->service_id);
+        if($request->action == 'remove') {
+            
+            $addons = AddonCartService::where('cart_id',$order->cart->id)->where('service_id', $request->service_id)->first();
+            // $addons = $order->cart->addonCartServices()->findOrFail($request->service_id);
+            $addons->delete();
+
+            $newTotalPrice = $order->cart->price - $addonService->price;
+            $order->cart->update(['price' => $newTotalPrice]);
+            $order->update(['payable_amount' => $newTotalPrice]);
+
+        } else  {
+            $order->cart->addonCartServices()->create([
+                'service_id' => $request->service_id,
+            ]);
+
+            $newTotalPrice = $order->cart->price + $addonService->price;
+            $order->cart->update(['price' => $newTotalPrice]);
+            $order->update(['payable_amount' => $newTotalPrice]);
+        }
+
+        return $order;
     }
 
     /**

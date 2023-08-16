@@ -250,12 +250,15 @@
                                             <button class="btn attach_file">Attach</button>
                                             @if(!empty($mediaDoc['name']))
                                                 <a href="{{ $mediaDoc['url'] }}" class="btn view_file" target="_blank">View</a>
+                                                <input type="hidden" name="document_type" id="document_type" value="true">
+                                            @else
+                                                <input type="hidden" name="document_type" id="document_type" value="false">
                                             @endif
                                         </div>
                                     </div>
                                     <div class="step-btn-wrap mt-4">
-                                        <button class="btn prev-btn"><img src="assets/images/btn-left-arrow.png" alt=""> Previous: Appointment</button>
-                                        <button class="btn save-next">Save &amp; Continue <img src="assets/images/btn-right-arrow.png" alt=""></button>
+                                        <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt=""> Previous: Appointment</button>
+                                        <button class="btn save-next">Save &amp; Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}" alt=""></button>
                                     </div>
                                 </div>
                             </div>
@@ -269,6 +272,7 @@
 
 @section('script')
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script> 
     $(document).ready(function() {
         // When the first toggle is clicked
@@ -286,7 +290,7 @@
             }
         });
 
-        // // When the second toggle is clicked
+        // When the second toggle is clicked
         $("#toggle2").click(function() {
             // If it's turned on, turn off the first toggle
             if ($(this).prop("checked") == false) {
@@ -302,38 +306,79 @@
 
         $(".attach_file").click(function() {
             const fileInput = document.getElementById("fileInput");
-
             $('.attach_file').prop('disabled', true).text('Attaching...');
-            if (fileInput.files.length > 0) {
-                const formData = new FormData();
-                formData.append("document", fileInput.files[0]);
-                formData.append("order_id", $('#order_id').val());
-                formData.append("model_id", $('#company_id').val());
-                formData.append("legal_document", $('#legal_document').val());
 
-                axios.post("/company-document", formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                })
-                .then(function(response) {
-                    console.log("File uploaded successfully:", response.data);
-                })
-                .catch(function(error) {
-                    console.error("Error uploading file:", error);
-                })
-                .finally(function () {
-                    // Re-enable the button and change the text back to "Attach"
+            // Validate file type
+            const allowedFileTypes = ['pdf', 'doc', 'docx'];
+            const fileName = fileInput.files[0]?.name.toLowerCase();
+            const fileType = fileName.split('.').pop();
+
+            if (fileInput.files.length > 0 && allowedFileTypes.includes(fileType)) {
+                const maxFileSizeMB = 2;
+                const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024;
+                const fileSizeBytes = fileInput.files[0].size;
+
+                if (fileSizeBytes <= maxFileSizeBytes) {
+                    const formData = new FormData();
+                    formData.append("document", fileInput.files[0]);
+                    formData.append("order_id", $('#order_id').val());
+                    formData.append("model_id", $('#company_id').val());
+                    formData.append("legal_document", $('#legal_document').val());
+
+                    axios.post("/company-document", formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data"
+                        }
+                    })
+                    .then(function(response) {
+                        // console.log("File uploaded successfully:", response.data);
+                        $('.attach_file').prop('disabled', false).text('Attach');
+                        Swal.fire({
+                            icon:'success',
+                            title: 'File uploaded successfully',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    })
+                    .catch(function(error) {
+                        console.error("Error uploading file:", error);
+                    })
+                    .finally(function () {
+                        // Re-enable the button and change the text back to "Attach"
+                        $('.attach_file').prop('disabled', false).text('Attach');
+                    });
+                } else {
+                    Swal.fire(
+                        'File too large',
+                        'File size exceeds 2MB.',
+                        'error'
+                    );
                     $('.attach_file').prop('disabled', false).text('Attach');
-                });
+                }
             } else {
-                console.log("No file selected.");
+                // Show error message for invalid file type
+                Swal.fire(
+                    'Invalid File Type',
+                    'Please select a PDF, DOC, or DOCX file.',
+                    'error'
+                );
+                $('.attach_file').prop('disabled', false).text('Attach');
             }
         });
 
+
         $(".save-next").click(function(e) {
             e.preventDefault();
-            $("#company-document").submit();
+            if($('#legal_document').val() == 'byspoke_article' && $('#document_type').val() == 'false') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please upload document',
+                })
+                return false;
+            } else {
+                $("#company-document").submit();
+            }
         });
     });
 </script>
