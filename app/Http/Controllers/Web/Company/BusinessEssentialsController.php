@@ -72,7 +72,6 @@ class BusinessEssentialsController extends Controller
     public function termsAndCondition($id)
     {
         $businessBanks = $this->businessEssentialsService->showBusinessBankInfo($id);
-        dd($businessBanks->terms_condition);
-        // return view('frontend.company_form.business_essentials.terms_and_condition');
+        return $businessBanks->terms_condition;
     }
 }

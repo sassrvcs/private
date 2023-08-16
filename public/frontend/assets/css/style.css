@@ -8156,7 +8156,7 @@ form.woocommerce-form-login.login{
 }
 
 .business-ess-sec{
-    padding: 0;
+    padding: 40px 0 0;
     margin: 0;
 }
 
@@ -8328,6 +8328,19 @@ form.woocommerce-form-login.login{
 
 .business-ess-panel .bottom-panel p strong{
     font-weight: 700;
+}
+
+.business-ess-panel .bottom-panel .btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    background: #87CB28;
+    padding: 8px 16px 8px 16px;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: none;
+    outline: none;
 }
 
 .edit-add-ttl{

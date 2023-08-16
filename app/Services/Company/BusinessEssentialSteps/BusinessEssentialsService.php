@@ -31,39 +31,53 @@ class BusinessEssentialsService
      */
     public function storeBusinessBankInfo($request)
     {
+        // dd($request->business_service_id);
         return DB::transaction(function () use ($request) {
 
             $company = $this->companyFormService->getCompanieName($request->order);
             
-            if ($request->filled('business_bank_id')) {
+            if ($request->business_bank_id) {
                 $step = 'business_bank';
                 $businessBanking = BusinessEssential::updateOrCreate(
                     [
                         'companie_id' => $company->id
                     ],[
                         'companie_id' => $company->id,
-                        'business_banking_id' => $request->business_bank_id,
+                        'business_banking_id' => ($request->business_bank_id != 0) ? $request->business_bank_id : '',
                     ]
                 );
-            } elseif ($request->filled('business_service_id')) {
+            } else if (isset($request->business_service_id)) {
+                // dd('Others page');
                 $step = 'business_service';
-                $businessBanking = BusinessEssential::updateOrCreate(
-                    [
-                        'companie_id' => $company->id
-                    ],[
-                        'companie_id' => $company->id,
-                        'business_service_id' => $request->business_service_id,
-                    ]
-                );
+                if($request->business_service_id != 0) {
+                    $businessBanking = BusinessEssential::updateOrCreate(
+                        [
+                            'companie_id' => $company->id
+                        ],[
+                            'companie_id' => $company->id,
+                            'business_service_id' => $request->business_service_id,
+                        ]
+                    );
+                } else {
+                    $businessBanking = BusinessEssential::updateOrCreate(
+                        [
+                            'companie_id' => $company->id
+                        ],[
+                            'companie_id' => $company->id,
+                            'business_service_id' => null,
+                        ]
+                    );
+                }
             } else {
                 $step = '';
                 $businessBanking = '';
             }
 
+            // dd('dsadasdas product');
             $company->section_name  = $request->section;
             $company->step_name     = $request->step;
 
-            // $company->save();
+            $company->save();
 
             return ['information' => $businessBanking, 'step' => $step];
         });

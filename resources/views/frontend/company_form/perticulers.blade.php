@@ -479,11 +479,13 @@
                 if (selectedFile) {
                     // Check the file type
                     const fileType = selectedFile.name.split('.').pop().toLowerCase();
+                    console.log(fileType);
+                    // return;
                     if (allowedFileTypes.includes(fileType)) {
 
                         const maxFileSizeMB = 2;
                         const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024;
-                        const fileSizeBytes = fileInput.files[0].size;
+                        const fileSizeBytes = selectedFile.size;
 
                         if (fileSizeBytes <= maxFileSizeBytes) {
                             formData.append("document", selectedFile);
@@ -503,6 +505,14 @@
                                     'Your file has been attached.',
                                     'success'
                                 )
+
+                                if(fileInput.files[0]) {
+                                    $('#sesitive-documents').val('true');
+                                }
+
+                                if(fileInputSameAs.files[0]) {
+                                    $('#same-as-name-documents').val('true');
+                                }
                             })
                             .catch(function(error) {
                                 console.error("Error uploading file:", error);
@@ -530,7 +540,11 @@
                     }
                 }
             } else {
-                console.log("No file selected.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please select a file'
+                })
                 $('.doc-attach').prop('disabled', false).text('Attach');
             }
         });
