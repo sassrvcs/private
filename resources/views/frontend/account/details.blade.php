@@ -146,6 +146,7 @@
 
                                                                 @foreach($primary_address as $key => $value)
 
+
                                                                 <p>@if($value['house_number']){{ $value['house_number']}},@endif @if($value['street']){{$value['street']}},@endif  @if($value['locality']){{$value['locality']}}, @endif @if($value['town']){{ $value['town']}}, @endif  @if($value['county']){{ $value['county']}} @endif</p>
                                                                 <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
 
@@ -158,6 +159,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+
                                                 @if($billing_address)
                                                 <tr>
                                                     <th style="vertical-align:top" class="th-label">
@@ -508,7 +510,10 @@
             <div class="modal-body">
                 <form class="primaryAddrUpdateForm formInput" id="primeinputs">
                     <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
+
+
                     @foreach($primary_address as $key => $v)
+
 
 
                         <div class="form-row form-group ">
