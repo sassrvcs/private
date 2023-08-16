@@ -7,6 +7,9 @@
 ul.ef-16-benefits-list {
     list-style: inside;
 }
+.terms-condition {
+    cursor: pointer;
+}
 </style>
 <section class="sectiongap legal rrr fix-container-width ">
     <div class="container">
@@ -106,11 +109,8 @@ ul.ef-16-benefits-list {
                                                 </div>
                                                 <div class="bottom-panel">
                                                     <div class="text-box">
-                                                        <p>
-                                                            {{-- <a href="{{ route('business-bank-terms-conditions', ['id' => $businessBank->id])}}"> --}}
-                                                            <a href="{{ route('business-bank-terms-conditions', ['id' => $businessBank->id]) }}">
-                                                                <strong>Terms and Conditions</strong>
-                                                            </a>
+                                                        <p class="terms-condition" data-url="{{ route('business-bank-terms-conditions', ['id' => $businessBank->id]) }}">
+                                                            <strong>Terms and Conditions</strong>
                                                         </p>
                                                     </div>
                                                     <div class="btn-wrap">
@@ -132,7 +132,7 @@ ul.ef-16-benefits-list {
                                         @if(!empty($selectedBusinessBanking))
                                             <input type="hidden" name="business_bank_id" id="business_bank_id" value="{{$selectedBusinessBanking}}">
                                         @else
-                                            <input type="hidden" name="business_bank_id" id="business_bank_id" value="">
+                                            <input type="hidden" name="business_bank_id" id="business_bank_id" value="0">
                                         @endif
                                         <input type="hidden" name="order" id="business_bank_id" value="{{ $_GET['order'] ?? '' }}">
                                         <input type="hidden" name="step" value="business-banking">
@@ -153,7 +153,7 @@ ul.ef-16-benefits-list {
 </section>
 
 {{-- Open modal if bank is not select --}}
-<div class="modal fade business-banking-modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal bank-not-select fade business-banking-modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -182,10 +182,41 @@ ul.ef-16-benefits-list {
         </div>
     </div>
 </div>
+
+{{-- Terms condition popup --}}
+<div class="modal fade business-banking-modal" id="termsCondition" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Terms Condition</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body terms-condition-body">
+                
+            </div>
+            <div class="modal-footer">
+                {{-- <button type="button" class="btn btn-primary btn-don-need submit-frm">I don't need a bank account</button> --}}
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dontNeedButton = document.querySelector('.btn-don-need');
+        if (dontNeedButton) {
+            dontNeedButton.addEventListener('click', function() {
+                // alert("You have indicated that you don't need a bank account.");
+                $('#business-essential-store').submit();
+            });
+        }
+    });
+
     $(document).ready(function () {
         $('.select-service').click(function () {
             // alert($(this).data('id'));
@@ -202,7 +233,7 @@ ul.ef-16-benefits-list {
             var isRadioChecked = $(`.radio-${businessBankId}`).is(":checked");
             if (isRadioChecked) {
                 $(`.radio-${businessBankId}`).prop("checked", false);
-                $('#business_bank_id').val('');
+                $('#business_bank_id').val('0');
                 // Add CSS styles to the selected div
                 $(divSelector).css("border", "1px solid #D9D9D9");
                 $(`.checkbox-${businessBankId}`).css("display", "none");
@@ -217,33 +248,32 @@ ul.ef-16-benefits-list {
 
         $(".save-continue").click(function () {
             var businessBankId = $('#business_bank_id').val();
-            if (businessBankId == '') {
-                $('.modal').modal('show');
+            if (businessBankId == '' || businessBankId == 0) {
+                $('.bank-not-select').modal('show');
                 // return false;
             } else {
                 $('#business-essential-store').submit();
             }
         });
 
-        $('#submit-frm').click(function () {
-            alert('Please enter');
+        $('.terms-condition').click( function () {
+            var baseUrl = $(this).data('url');
+            // terms-condition-body
+            // axios.get();
+            axios.get(baseUrl, {
+                '_token': "{{ csrf_token() }}",
+            })
+            .then(function (response) {
+                // Handle the response data here
+                console.log(response.data);
+                $('.terms-condition-body').html(response.data);
+                $('#termsCondition').modal('show');
+            })
+            .catch(function (error) {
+                // Handle any errors that occurred during the request
+                console.error(error);
+            });
         });
-
-        const redirectToURL = () => {
-            var orderParam = encodeURIComponent(getQueryParameter('order'));
-            var redirectURL = '/business-essential/?order=' + orderParam + '&section=BusinessEssentials&step=business-services';
-            window.location.href = redirectURL;
-        }
-
-        const getQueryParameter = (name) => {
-            var url = window.location.href;
-            name = name.replace(/[\[\]]/g, '\\$&');
-            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-            var results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
     });
 </script>
 @endsection

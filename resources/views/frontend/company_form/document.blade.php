@@ -310,6 +310,16 @@
 
             // Validate file type
             const allowedFileTypes = ['pdf', 'doc', 'docx'];
+
+            if(!fileInput.files[0]) {
+                $('.attach_file').prop('disabled', false).text('Attach');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please select a file'
+                })
+                return false;
+            }
             const fileName = fileInput.files[0]?.name.toLowerCase();
             const fileType = fileName.split('.').pop();
 
@@ -339,6 +349,9 @@
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1550);
                     })
                     .catch(function(error) {
                         console.error("Error uploading file:", error);

@@ -39,6 +39,7 @@
         </div>
         <form action="{{ route('save-register-form')}}" method="POST" class="form-register register" id="registerForm">
             @csrf
+            <input type = "hidden" value="registration" name="register_form" id="register_form" >
             <fieldset class="border p-3">
                 <legend class="float-none w-auto p-2">Account Holder</legend>
                 <div class="form-row form-group ">
@@ -99,15 +100,19 @@
                     <span class="input-wrapper ">
                         <input type="number" class="form-control  @error('phone') is-invalid @enderror"  name="phone" id="phoneNo" value={{old('phone')}}>
                         <div class="pherror" style="color:red;"></div>
+                        @error('phone')
+                        <div class="error" style="color:red;">{{ $message }}</div>
+                    @enderror
                     </span>
                 </div>
 
                 <div class="form-row form-group ">
                     <label>Email:&nbsp;<abbr class="required" title="required">*</abbr></label>
                     <span class="input-wrapper ">
-                        <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" value={{old('email')}}>
+                        <input class="form-control @error('email') is-invalid @enderror" id="email_field" type="email" name="email" value={{old('email')}}>
                         @error('email')
-                            <div class="error" style="color:red;">{{ $message }}</div>
+
+                            <div class="error"  style="color:red;">{{ $message }}</div>
                         @enderror
                     </span>
                 </div>
@@ -218,7 +223,7 @@
                         <span class="input-wrapper">
                             <input type="text" name="post_code" id="zip_code" class="input-text form-control @error('post_code') is-invalid @enderror" value={{old('post_code')}}>
                             @error('post_code')
-                                <div class="error" style="color:red;">{{ $message }}</div>
+                                <div class="error" id="post_err" style="color:red;">{{ $message }}</div>
                             @enderror
                         </span>
 
@@ -265,7 +270,7 @@
                 </div>
             </fieldset>
             <div class="mb-3">
-                <button type="button" id="submit-form" class="btn btn-primary">Submit</button>
+                <button type="submit" id="submit-form" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
@@ -351,18 +356,5 @@
     }
 
 </script>
-<script>
-    $(document).ready(function(){
-        $('#submit-form').click(function(){
-            var phone = $('#phoneNo').val();
-            if(phone == ''){
-                $('.pherror').html("Phone number is required.");
-                $('#phoneNo').css('border','1px solid red');
-            }else{
-                $('.pherror').html("");
-                $('#registerForm').submit();
-            }
-        });
-});
-</script>
+
 @endsection

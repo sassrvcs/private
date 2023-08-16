@@ -36,19 +36,19 @@ button.btn.btn-danger {
                         </div>
                         <div class="particulars-bottom-step">
                             <div class="bottom-step-items">
-                                <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
+                                <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                 <p>
                                     <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" style="color: #ffffff;"> Business Banking</a>
                                 </p>
                             </div>
-                            <div class="bottom-step-items active">
+                            <div class="bottom-step-items">
                                 <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                 <p>
                                     <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-services']) }}" style="color: #ffffff;"> Business Services </a>
                                 </p>
                             </div>
-                            <div class="bottom-step-items">
-                                <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
+                            <div class="bottom-step-items active">
+                                <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
                                 <p>Optional Extras</p>
                             </div>
                         </div>
@@ -77,10 +77,6 @@ button.btn.btn-danger {
                                         </div>
                                         @csrf
                                         <input type="hidden" name="order" id="order" value="{{ $_GET['order'] }}">
-                                        {{-- <div class="desc">
-                                            <p><strong>Lorem ipsum dolor sit amet</strong></p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida at metus et egestas. Curabitur nec magna sed sem lobortis mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                                        </div> --}}
                                     </div>
                                 @endforeach
                             </div>
@@ -98,6 +94,7 @@ button.btn.btn-danger {
 @endsection
 
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function () {
         $('.select-service').click(function () {
@@ -140,15 +137,24 @@ button.btn.btn-danger {
             .then(function (response) {
                 // Handle the response data here
                 console.log(response.data);
-                if(response.data.status === 200) {
-                    if(action == 'remove') {
-                        $(`.addon-service-btn-${service_id}`).removeClass('btn-danger');
-                        $(`.addon-service-btn-${service_id}`).text('Remove');
-                    } else {
-                        $(`.addon-service-btn-${service_id}`).text('Buy Now');
-                        $(`.addon-service-btn-${service_id}`).addClass('btn-danger');
-                    }
+                if(action == 'remove') {
+                    Swal.fire({
+                        icon:'success',
+                        title: 'Item has been removed to cart',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else {
+                    Swal.fire({
+                        icon:'success',
+                        title: 'Item has been added to cart',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 }
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1550);
             })
             .catch(function (error) {
                 // Handle any errors that occurred during the request

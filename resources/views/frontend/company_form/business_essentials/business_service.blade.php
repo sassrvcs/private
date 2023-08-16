@@ -51,13 +51,13 @@ ul.ef-16-benefits-list {
                         </div>
                         <div class="particulars-bottom-step">
                             <div class="bottom-step-items">
-                                <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
+                                <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                 <p>
                                     <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" style="color: #ffffff;"> Business Banking</a>
                                 </p>
                             </div>
                             <div class="bottom-step-items active">
-                                <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
+                                <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
                                 <p>
                                     <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-services']) }}" style="color: #ffffff;"> Business Services </a>
                                 </p>
@@ -142,7 +142,7 @@ ul.ef-16-benefits-list {
                                         @if(!empty($selectedBusinessService))
                                             <input type="hidden" name="business_service_id" id="business_service_id" value="{{$selectedBusinessService}}">
                                         @else
-                                            <input type="hidden" name="business_service_id" id="business_service_id" value="">
+                                            <input type="hidden" name="business_service_id" id="business_service_id" value="0">
                                         @endif
                                         <input type="hidden" name="order" value="{{ $_GET['order'] ?? '' }}">
                                         <input type="hidden" name="step" value="business-service">
@@ -177,7 +177,7 @@ ul.ef-16-benefits-list {
 
             if (isRadioChecked) {
                 $(`.radio-${businessServiceId}`).prop("checked", false);
-                $('#business_service_id').val('');
+                $('#business_service_id').val('0');
                 // Add CSS styles to the selected div
                 $(divSelector).css("border", "1px solid #D9D9D9");
                 $(`.checkbox-${businessServiceId}`).css("display", "none");

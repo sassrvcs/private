@@ -40,18 +40,23 @@ class CompanieFormController extends Controller
         $SICDetails = config('sic_code.sic_details');
         $SICCodes = config('sic_code.sic_code');
 
-        $firstMedia = $orders->getFirstMedia('sensetive-document');
-        $firstMedia = $orders->getFirstMedia('same-as-name-document');
-
-        $documentName = $firstMedia ? $firstMedia->file_name : '';
-        $documentUrl = $firstMedia ? $firstMedia->getUrl() : '';
+        $sensitiveFirstMedia = $orders->getFirstMedia('sensetive-document');
+        // dd($firstMedia);
+        $sameAsFirstMedia = $orders->getFirstMedia('same-as-name-document');
+        
+        if($sensitiveFirstMedia) {
+            $documentName = $sensitiveFirstMedia ? $sensitiveFirstMedia->file_name : '';
+            $documentUrl = $sensitiveFirstMedia ? $sensitiveFirstMedia->getUrl() : '';
+        } else {
+            $documentName = $sameAsFirstMedia ? $sameAsFirstMedia->file_name : '';
+            $documentUrl = $sameAsFirstMedia ? $sameAsFirstMedia->getUrl() : '';
+        }
 
         $mediaDoc = [
             'name' => $documentName,
             'url'  => $documentUrl,
         ];
 
-        // dd($companyFormationStep);
         if($companyFormationStep == null) {
             return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
         } else {
