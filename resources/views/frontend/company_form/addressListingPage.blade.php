@@ -67,3 +67,12 @@
         @endif
     </div>
 </div>
+
+<div class="new-address-block">
+    <h3>Or enter a new Address</h3>
+    <div class="new-address-field">
+        <button type="submit" class="btn" onclick="addAddress()">Add
+            New
+            Address</button>
+    </div>
+</div>

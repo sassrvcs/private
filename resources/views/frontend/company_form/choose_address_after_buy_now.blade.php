@@ -190,13 +190,13 @@
                                     <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
                                     <p>Registered Address</p>
                                 </div>
-                                <div class="bottom-step-items" onclick="gotToBusinessAddressPage()">
+                                <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Business Address</p>
+                                    <p><a href="{{route('choose-address-business')}}" style="color: #ffffff;">Business Address</a></p>
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Appointment</p>
+                                    <p><a href="{{ route('appointments') }}" style="color: #ffffff;">Appointment</a></p>
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
@@ -692,8 +692,7 @@
                                     <div class="step-btn-wrap mt-4">
                                         <button class="btn prev-btn"><img
                                                 src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
-                                                alt="" onclick="previousParticulars()"> Previous:
-                                            Particulars</button>
+                                                alt="" onclick="previousParticulars()"> Previous: Particulars</button>
                                         <button class="btn" onclick="gotoBusinessAddressChoosePage()">Save & Continue
                                             <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
                                                 alt=""></button>
@@ -727,9 +726,6 @@
 
 @section('script')
     <script>
-        function gotToBusinessAddressPage() {
-            window.location.href = "{{ route('choose-address-business') }}"
-        }
 
         function DetailsSection() {
             $('#DetailsSection_div').toggleClass('d-none')
@@ -739,7 +735,7 @@
             window.location.href =
                 "{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'particulars', 'data' => 'previous']) }}"
         }
-
+        
         const searchBar = function() {
             const searchBarVal = $('#searchBar_id').val();
 
@@ -845,44 +841,6 @@
                     window.location.reload()
                 }
             });
-
-            // $(".hideEdit").hide();
-            // $('.buyNowAfterSelectingAdd').removeClass('d-none');
-
-            // const house_number = $(`.${id}_add_house_number`).val();
-            // const add_street = $(`.${id}_add_street`).val();
-            // const add_locality = $(`.${id}_add_locality`).val();
-            // const add_town = $(`.${id}_add_town`).val();
-            // const user_county = $(`.${id}_user_county`).val();
-            // const address_post_code = $(`.${id}_address_post_code`).val();
-            // const address_billing_country = $(`.${id}_address_billing_country`).val();
-
-            // document.getElementById("forwarding_house_number").textContent = `${house_number}`;
-            // document.getElementById("forwading_street").textContent = `${add_street}`;
-            // document.getElementById("forwading_locality").textContent = `${add_locality}`;
-            // document.getElementById("forwading_town").textContent = `${add_town}`;
-            // document.getElementById("forwading_county").textContent = `${user_county}`;
-            // document.getElementById("forwading_post_code").textContent = `${address_post_code}`;
-            // // document.getElementById("forwading_billing_country").textContent = `${address_billing_country}`;
-
-            // $(`#forwading_add_id`).val(id);
-            // $(`#forwading_house_no1`).val(house_number);
-            // $(`#forwading_street1`).val(add_street);
-            // $(`#forwading_locality1`).val(add_locality);
-            // $(`#forwading_town1`).val(add_town);
-            // $(`#forwading_county1`).val(user_county);
-            // $(`#forwading_post_code`).val(address_post_code);
-            // $(`#forwading_billing_country`).val(address_billing_country);
-
-            // $(`#add_id`).val(id);
-            // $(`#house_no1`).val(house_number);
-            // $(`#street1`).val(add_street);
-            // $(`#locality1`).val(add_locality);
-            // $(`#town1`).val(add_town);
-            // $(`#county1`).val(user_county);
-            // $(`#post_code`).val(address_post_code);
-
-            // document.getElementById("billing_country").value = `${address_billing_country}`;
         }
 
         $('.edit-addr').click(function() {

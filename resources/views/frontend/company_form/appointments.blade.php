@@ -308,6 +308,7 @@
                                 </div>
                             </div>
 
+                            {{-- APPOINTMENTS SECTION STARTS --}}
                             <div class="form-wrap person_section d-none">
                                 <div class="form-info-block">
                                     <h4>Appointments</h4>
@@ -347,7 +348,15 @@
                                                 Holder</a>
                                         </li>
                                     </ul>
+
+                                    {{-- Add Listing Section Starts --}}
+                                    <div class="d-none" id="detailsTabAddList_id">
+
+                                    </div>
+                                    {{-- Add Listing Section Ends --}}
+
                                     <div class="tab-content" id="myTabContent">
+                                        {{-- POSITION TAB SECTION STARTS --}}
                                         <div class="tab-pane fade show active" id="position" role="tabpanel"
                                             aria-labelledby="position-tab">
                                             <div class="position-area">
@@ -473,14 +482,25 @@
 
                                                             <li class="occLinkCls d-none">
                                                                 <input type="checkbox" id="occ">
-                                                                <label for="occ">The officers confirm they have
+                                                                <label for="occ" id="consentText_id">The officers
+                                                                    confirm they have
                                                                     consented to act as a Director or Secretary</label>
                                                             </li>
+                                                            <div class="error d-none" id="consentSelectionDiv"
+                                                                style="color:red;">This officer must give their consent in
+                                                                order to be appointed on this company.</div>
                                                         </ul>
+                                                        <div class="error d-none" id="positionSelectionDiv"
+                                                            style="color:red;">You have to
+                                                            select a Position.</div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        {{-- POSITION TAB SECTION ENDS --}}
+
+                                        {{-- OFFICER TAB SECTION STARTS --}}
                                         <div class="tab-pane fade" id="officer" role="tabpanel"
                                             aria-labelledby="officer-tab">
                                             <div class="particulars-form-wrap pt-0 pb-">
@@ -587,8 +607,8 @@
                                                             <div class="col-md-12 col-sm-12">
                                                                 <div class="used-addresses-panel">
                                                                     <!-- <div class="text">
-                                                                                                                                                            <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
-                                                                                                                                                        </div> -->
+                                                                                                                                                                            <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
+                                                                                                                                                                        </div> -->
                                                                     <div class="btn-wrap">
                                                                         <!-- <button type="submit" class="btn select-btn">Select</button> -->
                                                                         <button type="submit" class="btn"
@@ -602,11 +622,13 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        {{-- OFFICER TAB SECTION ENDS --}}
 
-                                        <!-- DETAILS PAGE SECTION -->
+                                        <!-- DETAILS TAB SECTION STARTS-->
                                         <div class="tab-pane fade" id="details" role="tabpanel"
                                             aria-labelledby="details-tab">
 
+                                            {{-- DETAILSTAB LANDING PAGE STARTS --}}
                                             <div id="detailsTabLandingPage_id">
                                                 <div class="form-info-block">
                                                     <div class="desc">
@@ -678,11 +700,19 @@
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
                                                                 <label for="">Nationality - <small>of accepted
-                                                                        nationalities *: </small> <span><img
-                                                                            src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                            alt=""></span></label>
-                                                                <input type="text" class="form-control blankCheck"
-                                                                    id="person_national_id" name="person_national">
+                                                                        nationalities *: </small></label>
+                                                                <select name="person_national"
+                                                                    class="form-control" id="person_national_id">
+                                                                    @if (!empty($countries))
+                                                                        @foreach ($countries as $country)
+                                                                            <option value="{{ $country['id'] }}">
+                                                                                {{ $country['name'] }}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                    <option value=""></option>
+                                                                </select>
+                                                                {{-- <input type="text" class="form-control blankCheck"
+                                                                    id="person_national_id" name="person_national"> --}}
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
@@ -811,12 +841,11 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            {{-- DETAILSTAB LANDING PAGE ENDS --}}
 
-                                            <div class="d-none" id="detailsTabAddList_id">
+                                            
 
-                                            </div>
-
-                                            {{-- End Edit form div starts --}}
+                                            {{-- Details Edit form div starts --}}
                                             <div class="form-wrap edit_from_residential d-none">
                                                 <div class="form-info-block">
                                                     <h4>Service Address</h4>
@@ -824,16 +853,24 @@
                                                     <div id="editFormAjaxLoadResidentialSection">
 
                                                     </div>
+
                                                 </div>
                                             </div>
-                                            {{-- End Edit form div ends --}}
-                                        </div>
+                                            {{-- Details Edit form div ends --}}
 
-                                        {{-- ADDRESS TAB --}}
+                                            {{-- DETAILS TAB NEW ADDRESS FORM SECTION STARTS --}}
+                                            <div id="details_tab_new_address_form">
+
+                                            </div>
+                                            {{-- DETAILS TAB NEW ADDRESS FORM SECTION ENDS --}}
+                                        </div>
+                                        <!-- DETAILS TAB SECTION ENDS-->
+
+                                        {{-- ADDRESS TAB SECTION STARTS --}}
                                         <div class="tab-pane fade" id="addressing" role="tabpanel"
                                             aria-labelledby="addressing-tab">
 
-                                            {{-- Service Add Landing Page starts --}}
+                                            {{-- ADDRESS TAB Landing Page starts --}}
                                             <div id="serviceAddLandingSection">
 
                                                 <div class="form-info-block">
@@ -869,8 +906,6 @@
                                                         <p class="d-none" id="ChossenServiceAdd"></p>
                                                     </div>
                                                     <div class="btn-box">
-                                                        {{-- <a href="javascript:void(0)" type="button"
-                                                            class="btn edit-btn edit-addr d-none" id="ownAddEdit_id">Edit Address</a> --}}
                                                         <a type="button" class="btn another-btn choose_one_cl"
                                                             onclick="chooseAdd('service')">Choose One</a>
                                                         <a type="button" class="btn another-btn choose_another_cl d-none"
@@ -937,10 +972,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- Service Address Landing Page ends --}}
+                                            {{-- ADDRESS TAB Landing Page ends --}}
 
 
-                                            {{-- Choose Address Page starts --}}
+                                            {{-- ADDRESS TAB Choose Address Page starts --}}
                                             <div class="form-wrap hideEdit d-none">
                                                 <div class="form-info-block">
                                                     <h4>Service Address</h4>
@@ -956,145 +991,31 @@
 
                                                 </div>
 
-                                                <div class="new-address-block">
-                                                    <h3>Or enter a new Address</h3>
-                                                    <div class="new-address-field">
-                                                        <button type="submit" class="btn" onclick="addAddress()">Add
-                                                            New
-                                                            Address</button>
-                                                    </div>
-                                                </div>
-
                                             </div>
-                                            {{-- Choose Address Page ends --}}
+                                            {{-- ADDRESS TAB Choose Address Page ends --}}
 
-                                            {{-- End Edit form div starts --}}
+                                            {{-- ADDRESS TAB End Edit form div starts --}}
                                             <div class="form-wrap edit_from d-none">
                                                 <div class="form-info-block">
                                                     <h4>Service Address</h4>
 
                                                     <div id="editFormAjaxLoadAddressSection">
-                                                        {{-- <h5 class="edit-add-ttl">Edit Address</h5>
 
-                                                        <form class="form-register">
-                                                            <fieldset class="border p-3">
-                                                                <input type="hidden" id="add_id" class="add_id"
-                                                                    name="add_id"
-                                                                    value="{{ !empty($address) && $address['id'] !== '' ? $address['id'] : '' }}">
-
-                                                                <div class="form-row form-group ">
-                                                                    <label>Name / Number *:&nbsp;
-                                                                        </span>
-                                                                    </label>
-                                                                    <span class="input-wrapper">
-                                                                        <input type="text" id="house_no1"
-                                                                            name="house_no"
-                                                                            value="{{ !empty($address) && $address['house_number'] !== '' ? $address['house_number'] : '' }}"
-                                                                            class="input-text form-control house_no blankCheckAdd">
-                                                                        <div class="error d-none" style="color:red;">House
-                                                                            number is required.</div>
-                                                                    </span>
-                                                                </div>
-                                                                <div class="form-row form-group ">
-                                                                    <label for="billing_title">Street *:&nbsp;
-                                                                    </label>
-                                                                    <span class="input-wrapper">
-                                                                        <input type="text"
-                                                                            value="{{ !empty($address) && $address['street'] !== '' ? $address['street'] : '' }}"
-                                                                            name="street" id="street1"
-                                                                            class="input-text form-control steet_no blankCheckAdd">
-                                                                        <div class="error d-none" style="color:red;">
-                                                                            Street is
-                                                                            required.</div>
-                                                                    </span>
-
-                                                                </div>
-                                                                <div class="form-row form-group">
-                                                                    <label for="locality">Locality:
-                                                                    </label>
-                                                                    <span class="input-wrapper">
-                                                                        <input type="text"
-                                                                            value="{{ !empty($address) && $address['locality'] !== '' ? $address['locality'] : '' }}"
-                                                                            name="street" name="locality" id="locality1"
-                                                                            class="input-text form-control locality">
-                                                                    </span>
-
-                                                                </div>
-                                                                <div class="form-row form-group">
-                                                                    <label for="town">Town *:&nbsp;
-                                                                    </label>
-                                                                    <span class="input-wrapper">
-                                                                        <input type="text" name="town"
-                                                                            value="{{ !empty($address) && $address['town'] !== '' ? $address['town'] : '' }}"
-                                                                            id="town1"
-                                                                            class="input-text form-control town blankCheckAdd">
-                                                                        <div class="error d-none" style="color:red;">Town
-                                                                            is
-                                                                            required.</div>
-                                                                    </span>
-
-                                                                </div>
-                                                                <div class="form-row form-group">
-                                                                    <label for="county">County:&nbsp;
-                                                                    </label>
-                                                                    <span class="input-wrapper">
-                                                                        <input type="text" name="county"
-                                                                            value="{{ !empty($address) && $address['county'] !== '' ? $address['county'] : '' }}"
-                                                                            id="county1"
-                                                                            class="input-text form-control county">
-                                                                    </span>
-
-                                                                </div>
-                                                                <div class="form-row form-group">
-                                                                    <label for="postcode">Post Code *:&nbsp;
-                                                                    </label>
-                                                                    <span class="input-wrapper">
-                                                                        <input type="text" id="post_code"
-                                                                            value="{{ !empty($address) && $address['post_code'] !== '' ? $address['post_code'] : '' }}"
-                                                                            name="post_code"
-                                                                            class="input-text form-control zip blankCheckAdd">
-                                                                        <div class="error d-none" style="color:red;">Post
-                                                                            Code
-                                                                            is required.</div>
-                                                                    </span>
-                                                                </div>
-                                                                <div class="form-row update_totals_on_change form-group">
-                                                                    <label for="billing_country">Country&nbsp;</label>
-                                                                    <span class="input-wrapper">
-                                                                        <select name="billing_country"
-                                                                            id="billing_country" name="billing_country"
-                                                                            class="contry country_to_state country_select form-control"
-                                                                            data-label="Country" autocomplete="country"
-                                                                            data-placeholder="Select a country / region…">
-                                                                            <option value="">Select a country /
-                                                                                region…
-                                                                            </option>
-                                                                            @foreach ($countries as $country)
-                                                                                <option value="{{ $country['id'] }}"
-                                                                                    {{ !empty($address) && $country['id'] == $address['billing_country'] ? 'selected' : '' }}>
-                                                                                    {{ $country['name'] }}</option>
-                                                                            @endforeach
-
-                                                                        </select>
-                                                                    </span>
-
-                                                                </div>
-
-                                                                <div class="step-btn-wrap mt-4">
-                                                                    <button type="button" class="btn saveAddress">Save &
-                                                                        Continue <img
-                                                                            src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
-                                                                            alt=""></button>
-                                                                </div>
-                                                            </fieldset>
-                                                        </form> --}}
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- End Edit form div ends --}}
+                                            {{--  ADDRESS TAB End Edit form div ends --}}
+
+                                            {{-- ADDRESS TAB NEW ADDRESS FORM SECTION STARTS --}}
+                                            <div id="address_tab_new_address_form">
+
+                                            </div>
+                                            {{-- ADDRESS TAB NEW ADDRESS FORM SECTION ENDS --}}
 
                                         </div>
+                                        {{-- ADDRESS TAB SECTION ENDS --}}
 
+                                        {{-- NATURE TAB SECTION STARTS --}}
                                         <div class="tab-pane fade" id="nature-control" role="tabpanel"
                                             aria-labelledby="nature-control-tab">
                                             <div class="position-area">
@@ -1298,18 +1219,24 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        {{-- NATURE TAB SECTION ENDS --}}
+
+                                        {{-- SHAREHOLDER TAB SECTION STARTS --}}
                                         <div class="tab-pane fade" id="share-holder" role="tabpanel"
-                                            aria-labelledby="share-holder-tab"></div>
+                                            aria-labelledby="share-holder-tab">
+                                        </div>
+                                        {{-- SHAREHOLDER TAB SECTION ENDS --}}
+
                                     </div>
                                 </div>
                                 <div class="step-btn-wrap mt-4">
-                                    <button class="btn prev-btn">Cancel</button>
-                                    <button class="btn" onclick="checkConsentOrNot()">Next <img
+                                    <button class="btn prev-btn" onclick="theCancelButtonFunction()">Cancel</button>
+                                    <button class="btn" id="theNextBtn" onclick="checkConsentOrNot()">Next <img
                                             src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
                                             alt=""></button>
                                 </div>
                             </div>
-
+                            {{-- APPOINTMENTS SECTION ENDS --}}
                         </div>
                     </div>
                 </div>
@@ -1322,21 +1249,135 @@
         <!-- PERSON SECTION DATAS -->
         <input type="text" id="choosedPersonOfficerId" value="" readonly>
         <input type="text" id="addressTypeChoosed" value="" readonly>
+        <input type="text" id="actionType" value="" readonly>
     </section>
     <!-- ================ end: Particulars sec ================ -->
 @endsection
 
 @section('script')
     <script>
+        const AddMoreAddSave = function(ths) {
+
+            const where = $('#where').val();
+            const house_noNew = $('#house_noNew').val();
+            const streetNew = $('#streetNew').val();
+            const localityNew = $('#localityNew').val();
+            const townNew = $('#townNew').val();
+            const countyNew = $('#countyNew').val();
+            const zip_code = $('#zip_code').val();
+            const billing_countryNew = $('#billing_countryNew').val();
+
+            const requiredFields = document.querySelectorAll('.blankCheckForNewEntry');
+            const requiredFieldsArr = [...requiredFields];
+
+            let validation = 0;
+            requiredFieldsArr.forEach(el => {
+                if (el.value === '') {
+                    el.classList.add('validation');
+                    el.nextElementSibling.classList.remove('d-none');
+                    return validation++;
+                } else {
+                    el.classList.remove('validation');
+                    el.nextElementSibling.classList.add('d-none');
+                }
+            });
+
+
+            if (validation === 0) {
+                $.ajax({
+                    url: "{!! route('enter-new-address') !!}",
+                    type: 'POST',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        where,
+                        house_noNew,
+                        streetNew,
+                        localityNew,
+                        townNew,
+                        countyNew,
+                        zip_code,
+                        billing_countryNew,
+                    },
+                    success: function(result) {
+                        if(result === 'details_resi'){
+                            $("#details_tab_new_address_form").html('')
+                            addListing();
+                            $("#detailsTabAddList_id").removeClass('d-none');
+                            $("#actionType").val('');
+                            $("#theNextBtn").removeClass('d-none');
+                            $("#myTab").removeClass('d-none');
+                        }
+                    }
+                });
+            }
+        }
+
+        function addAddress() {
+            const currentTab = $('#currentTab').val()
+
+            $.ajax({
+                url: "{!! route('new-address-form') !!}",
+                type: "get",
+                data: {
+                    where: 'details_resi',
+                },
+                success: function(data) {
+                    if (currentTab === 'details') {
+                        $("#details_tab_new_address_form").html(data)
+                        $("#detailsTabAddList_id").addClass('d-none');
+                        $("#actionType").val('add');
+                    }
+                    if (currentTab === 'addressing') {
+                        $("#address_tab_new_address_form").html(data)
+                    }
+                }
+            });
+        }
+
+        // The cancel Button Work
+        function theCancelButtonFunction() {
+            const currentTab = $('#currentTab').val()
+            const addressTypeChoosed = $('#addressTypeChoosed').val()
+            const actionType = $('#actionType').val()
+
+            if (currentTab === 'details' && addressTypeChoosed === 'residential' && actionType === '') {
+                $("#detailsTabLandingPage_id").removeClass('d-none');
+                $("#theNextBtn").removeClass('d-none');
+                $("#detailsTabAddList_id").addClass('d-none');
+                
+                $('#myTab').removeClass('d-none')
+                $("#addressTypeChoosed").val('');
+            }
+            
+            if (currentTab === 'details' && addressTypeChoosed === 'residential' && actionType === 'add') {
+                $("#detailsTabLandingPage_id").addClass('d-none');
+                $('#myTab').addClass('d-none')
+                $("#details_tab_new_address_form").html('')
+                $("#detailsTabAddList_id").removeClass('d-none');
+                $("#theNextBtn").removeClass('d-none');
+            }
+        }
+
         function gotToBusinessAddressPage() {
             window.location.href = "{{ route('choose-address-business') }}"
         }
 
         function chooseAddRess(type) {
-            $("#detailsTabLandingPage_id").addClass('d-none');
             $("#detailsTabAddList_id").removeClass('d-none');
-
+            $("#myTab").addClass('d-none');
+            $("#detailsTabLandingPage_id").addClass('d-none');
+            $("#theNextBtn").addClass('d-none');
+            
             $("#addressTypeChoosed").val(type);
+        }
+        
+        function chooseAdd(type) {
+            $("#detailsTabAddList_id").removeClass('d-none');
+            $("#myTab").addClass('d-none');
+            $("#serviceAddLandingSection").hide();
+            $('.hideEdit').removeClass('d-none');
+
+            $("#addressTypeChoosed").val(type)
         }
 
         function addListing() {
@@ -1344,8 +1385,8 @@
                 url: "{!! route('address-listing') !!}",
                 type: "get",
                 success: function(data) {
-                    $("#addressListingPage_id").html(data);
                     $("#detailsTabAddList_id").html(data);
+                    // $("#addressListingPage_id").html(data);
                 }
             });
         }
@@ -1504,6 +1545,7 @@
             $('#person_aqthree_ans_id').val(offValIdauthenticate_three_ans);
 
             $('#choosedPersonOfficerId').val(offValId)
+            $('#currentTab').val('details')
 
             addNewOfficer('id');
         }
@@ -1697,13 +1739,17 @@
             }
 
             if ($('.checkBoxPos').is(":checked") === false) {
-                alert('Please Choose a Position.');
+                $("#positionSelectionDiv").removeClass('d-none')
                 return false
+            } else {
+                $("#positionSelectionDiv").addClass('d-none')
             }
 
             if ($('.occLinkCls').hasClass('d-none') === false && $('#occ').is(":checked") === false) {
-                alert('Please Check the Confirmation Of consent');
+                $("#consentSelectionDiv").toggleClass('d-none')
+                return false
             } else {
+                $("#consentSelectionDiv").addClass('d-none')
                 $('#position-tab').removeClass('active');
                 $('#position').removeClass('active show');
 
@@ -1731,13 +1777,6 @@
             $('.person_section').removeClass('d-none');
 
             $('#appointmentType').val('person');
-        }
-
-        function chooseAdd(type) {
-            $("#serviceAddLandingSection").hide();
-            $('.hideEdit').removeClass('d-none');
-
-            $("#addressTypeChoosed").val(type)
         }
 
         function gotoPage() {
@@ -1777,8 +1816,9 @@
 
         function selectedAdd(ths, id, type) {
             const addressTypeChoosed = $("#addressTypeChoosed").val();
+            $('#myTab').removeClass('d-none')
 
-            if (addressTypeChoosed === 'residential') {
+            if (addressTypeChoosed === 'residential') { 
                 if (type === 'listing') {
                     const house_number = $(`.${id}_add_house_number`).val();
                     const add_street = $(`.${id}_add_street`).val();

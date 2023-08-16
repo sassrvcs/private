@@ -108,6 +108,8 @@ Route::post('save_company_in_shopping_cart', [CompanyFormController::class, 'sav
 Route::post('save_company_in_shopping_cart_business', [CompanyFormController::class, 'saveCompanyInShoppingCart_Business'])->name('save_company_in_shopping_cart_business')->middleware('auth');
 Route::get('address-listing', [CompanyFormController::class, 'address_listing'])->name('address-listing')->middleware('auth');
 Route::post('address-edit-page', [CompanyFormController::class, 'address_edit_page'])->name('address-edit-page')->middleware('auth');
+Route::post('enter-new-address', [CompanyFormController::class, 'enter_new_address'])->name('enter-new-address')->middleware('auth');
+Route::get('new-address-form', [CompanyFormController::class, 'new_address_form'])->name('new-address-form')->middleware('auth');
 
 Route::get('companie-formation', [CompanieFormController::class, 'index'])->name('companie-formation')->middleware('auth');
 Route::post('upload-company-doc', [CompanieFormController::class, 'storeImage'])->name('upload-company-doc')->middleware('auth');

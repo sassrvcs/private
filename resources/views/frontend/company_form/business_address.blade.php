@@ -181,11 +181,12 @@
                             <div class="particulars-bottom-step">
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Particulars</p>
+                                    <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'particulars', 'data' => 'previous']) }}"
+                                        style="color: #ffffff;"> Particulars</a>
                                 </div>
-                                <div class="bottom-step-items" onclick="previousRegisterpage()">
+                                <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Registered Address</p>
+                                    <p><a href="{{ route('registered-address') }}" style="color: #ffffff;">Registered Address</a></p>
                                 </div>
                                 <div class="bottom-step-items active">
                                     <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
@@ -193,7 +194,7 @@
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Appointment</p>
+                                    <p><a href="{{ route('appointments') }}" style="color: #ffffff;">Appointment</a></p>
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">

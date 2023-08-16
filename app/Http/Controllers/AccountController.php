@@ -101,7 +101,7 @@ class AccountController extends Controller
 
     public function savePrimaryAddress(Request $request){
 
-       $id = $request->input('address_id');
+       $id = $request->input('recent_addr');
 
         Address::where('id',$id)
                 ->update(

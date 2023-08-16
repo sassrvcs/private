@@ -190,9 +190,9 @@
                                     <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
                                     <p>Registered Address</p>
                                 </div>
-                                <div class="bottom-step-items" onclick="gotToBusinessAddressPage()">
+                                <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Business Address</p>
+                                    <p><a href="{{route('choose-address-business')}}" style="color: #ffffff;">Business Address</a></p>
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
@@ -229,7 +229,8 @@
                                                         <input type="text" id="house_no1" name="house_no"
                                                             class="input-text form-control house_no blankCheck"
                                                             value="{{ !empty($recent_addr) && $recent_addr['house_number'] !== '' ? $recent_addr['house_number'] : '' }}">
-
+                                                            <div class="error d-none" style="color:red;">House number is
+                                                                required.</div>
                                                     </span>
                                                 </div>
                                                 <div class="form-row form-group ">
@@ -239,6 +240,8 @@
                                                         <input type="text" name="street" id="street1"
                                                             class="input-text form-control steet_no blankCheck"
                                                             value="{{ !empty($recent_addr) && $recent_addr['street'] !== '' ? $recent_addr['street'] : '' }}">
+                                                            <div class="error d-none" style="color:red;">Street is required.
+                                                            </div>
                                                     </span>
 
                                                 </div>
@@ -259,6 +262,8 @@
                                                         <input type="text" name="town" id="town1"
                                                             class="input-text form-control town blankCheck"
                                                             value="{{ !empty($recent_addr) && $recent_addr['town'] !== '' ? $recent_addr['town'] : '' }}">
+                                                            <div class="error d-none" style="color:red;">Town is required.
+                                                            </div>
                                                     </span>
 
                                                 </div>
@@ -279,6 +284,8 @@
                                                         <input type="text" id="post_code" name="post_code"
                                                             class="input-text form-control zip blankCheck"
                                                             value="{{ !empty($recent_addr) && $recent_addr['post_code'] !== '' ? $recent_addr['post_code'] : '' }}">
+                                                            <div class="error d-none" style="color:red;">Post Code is
+                                                                required.</div>
                                                     </span>
                                                 </div>
                                                 <div class="form-row update_totals_on_change form-group">
@@ -302,7 +309,7 @@
                                                 </div>
 
                                                 <div class="step-btn-wrap mt-4">
-                                                    <button type="button" class="btn saveAddress">Save & Continuess <img
+                                                    <button type="button" class="btn saveAddress">Save & Continue <img
                                                             src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
                                                             alt=""></button>
                                                 </div>
@@ -477,9 +484,6 @@
 
 @section('script')
     <script>
-        function gotToBusinessAddressPage() {
-            window.location.href = "{{ route('choose-address-business') }}"
-        }
 
         function DetailsSection() {
             $('#DetailsSection_div').toggleClass('d-none')
@@ -533,7 +537,7 @@
             requiredFieldsArr.forEach(el => {
                 if (el.value === '') {
                     el.classList.add('validation');
-
+                    el.nextElementSibling.classList.remove('d-none');
                     return validation++;
                 } else {
                     el.classList.remove('validation');
@@ -563,30 +567,6 @@
                     }
                 });
             }
-
-            // if (number != undefined && steet != undefined && locality != undefined && town != undefined && postcode != undefined && contry != undefined && address_type != undefined && user_id != undefined) {
-            //
-            // $.ajax({
-            //     url: "{!! route('primary-address-save') !!}",
-            //     type: 'POST',
-            //     data: {
-            //         "_token": "{{ csrf_token() }}",
-            //         recent_addr,
-            //         number: number,
-            //         steet: steet,
-            //         locality: locality,
-            //         town: town,
-            //         county: county,
-            //         postcode: postcode,
-            //         contry: contry,
-            //         address_type: address_type,
-            //         user_id: user_id
-            //     },
-            //     success: function(result) {
-            //         location.reload(true);
-            //     }
-            // });
-            // }
         })
     </script>
 @endsection
