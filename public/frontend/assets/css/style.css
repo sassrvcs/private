@@ -8474,3 +8474,7 @@ form.woocommerce-form-login.login{
     padding: 0;
     margin: 0;
 }
+
+.validation {
+    border: 1px solid red
+}
