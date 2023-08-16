@@ -70,7 +70,7 @@ button.btn.btn-danger {
                                                     @if( in_array($service->id, $addOnCart))
                                                         <button type="submit" id="cart-btn" class="btn btn-danger addon-service-btn-{{$service->id}}" data-id="{{$service->id}}" data-action="remove">Remove</button>
                                                     @else
-                                                        <button type="submit" id="cart-btn" class="btn addon-service-btn-{{$service->id}}" data-id="{{$service->id}}" data-action="add">Add</button>
+                                                        <button type="submit" id="cart-btn" class="btn addon-service-btn-{{$service->id}}" data-id="{{$service->id}}" data-action="add">Buy Now</button>
                                                     @endif
                                                 </div>
                                             </div>
@@ -145,7 +145,7 @@ button.btn.btn-danger {
                         $(`.addon-service-btn-${service_id}`).removeClass('btn-danger');
                         $(`.addon-service-btn-${service_id}`).text('Remove');
                     } else {
-                        $(`.addon-service-btn-${service_id}`).text('Add');
+                        $(`.addon-service-btn-${service_id}`).text('Buy Now');
                         $(`.addon-service-btn-${service_id}`).addClass('btn-danger');
                     }
                 }
