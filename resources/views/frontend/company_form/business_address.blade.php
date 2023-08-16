@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
     <!-- ================ start: common-inner-page-banner ================ -->
     <section class="common-inner-page-banner"
         style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png') }})">
@@ -182,7 +183,7 @@
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                     <p>Particulars</p>
                                 </div>
-                                <div class="bottom-step-items">
+                                <div class="bottom-step-items" onclick="previousRegisterpage()">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                     <p>Registered Address</p>
                                 </div>
@@ -220,7 +221,8 @@
                                                         <input type="text" id="house_no1" name="house_no"
                                                             value="{{ !empty($address) && $address['house_number'] !== '' ? $address['house_number'] : '' }}"
                                                             class="input-text form-control house_no blankCheck">
-                                                            <div class="error d-none" style="color:red;">House number is required.</div>
+                                                        <div class="error d-none" style="color:red;">House number is
+                                                            required.</div>
                                                     </span>
                                                 </div>
                                                 <div class="form-row form-group ">
@@ -231,7 +233,8 @@
                                                             value="{{ !empty($address) && $address['street'] !== '' ? $address['street'] : '' }}"
                                                             name="street" id="street1"
                                                             class="input-text form-control steet_no blankCheck">
-                                                            <div class="error d-none" style="color:red;">Street is required.</div>
+                                                        <div class="error d-none" style="color:red;">Street is required.
+                                                        </div>
                                                     </span>
 
                                                 </div>
@@ -254,7 +257,8 @@
                                                             value="{{ !empty($address) && $address['town'] !== '' ? $address['town'] : '' }}"
                                                             id="town1"
                                                             class="input-text form-control town blankCheck">
-                                                            <div class="error d-none" style="color:red;">Town is required.</div>
+                                                        <div class="error d-none" style="color:red;">Town is required.
+                                                        </div>
                                                     </span>
 
                                                 </div>
@@ -276,7 +280,8 @@
                                                             value="{{ !empty($address) && $address['post_code'] !== '' ? $address['post_code'] : '' }}"
                                                             name="post_code"
                                                             class="input-text form-control zip blankCheck">
-                                                            <div class="error d-none" style="color:red;">Post Code is required.</div>
+                                                        <div class="error d-none" style="color:red;">Post Code is
+                                                            required.</div>
                                                     </span>
                                                 </div>
                                                 <div class="form-row update_totals_on_change form-group">
@@ -432,7 +437,8 @@
                                                         <span class="input-wrapper">
                                                             <input type="text" id="house_noNew" name="house_noNew"
                                                                 class="input-text form-control @error('house_noNew') is-invalid @enderror blankCheckForNewEntry">
-                                                                <div class="error d-none" style="color:red;">House number is required.</div>
+                                                            <div class="error d-none" style="color:red;">House number is
+                                                                required.</div>
                                                         </span>
 
                                                     </div>
@@ -443,7 +449,8 @@
                                                         <span class="input-wrapper">
                                                             <input type="text" name="streetNew" id="streetNew"
                                                                 class="input-text form-control @error('streetNew') is-invalid @enderror blankCheckForNewEntry">
-                                                                <div class="error d-none" style="color:red;">Street is required.</div>
+                                                            <div class="error d-none" style="color:red;">Street is
+                                                                required.</div>
                                                         </span>
 
                                                     </div>
@@ -466,7 +473,8 @@
                                                         <span class="input-wrapper">
                                                             <input type="text" name="townNew" id="townNew"
                                                                 class="input-text form-control @error('townNew') is-invalid @enderror blankCheckForNewEntry">
-                                                                <div class="error d-none" style="color:red;">Town is required.</div>
+                                                            <div class="error d-none" style="color:red;">Town is required.
+                                                            </div>
                                                         </span>
 
                                                     </div>
@@ -487,7 +495,8 @@
                                                         <span class="input-wrapper">
                                                             <input type="text" name="post_codeNew" id="zip_code"
                                                                 class="input-text form-control @error('post_codeNew') is-invalid @enderror blankCheckForNewEntry">
-                                                                <div class="error d-none" style="color:red;">Post Code is required.</div>
+                                                            <div class="error d-none" style="color:red;">Post Code is
+                                                                required.</div>
                                                         </span>
 
                                                     </div>
@@ -541,35 +550,26 @@
                                                     alt="">
                                             </div>
                                             <div class="text">
-                                                <h5>Business Address (Post)</h5>
+                                                <h5>Business Address Service (optional)</h5>
                                                 <ul>
-                                                    <li>All companies require having a registered office address located in
-                                                        the same country as they are registered.</li>
-                                                    <li>It is the address to which all Companies House, HMRC and other
-                                                        official letters will be sent and must always be a physical address
-                                                        (e.g. not a PO Box or DX).</li>
-                                                    <li><b>The address of the registered office must appear on all company
-                                                            correspondence and publications.</b></li>
-                                                    <li><b>A company’s registered office address is available to view by the
-                                                            public free of charge.</b></li>
-                                                    <li>If you purchase our registered office address service, we will
-                                                        forward all official mail to an address of your choosing.</li>
+                                                    <li>A business address service provides a trading / business address for your company, and this is the address which is displayed at the top of your letterheads and stationery as your business location.</li>
+                                                    <li>If you choose to purchase this service, we will forward all business correspondence (non-government mail) to a forwarding address of your choosing.</li>
+                                                    <li>This service does not include a registered office service, which should be purchased separately.</li>
+                                                    <li><b>You are not required to provide a business address to form a company, however, you may wish to use our Covent Garden, WC2 address to enhance your corporate image and provide privacy for your home address.</b></li>
+                                                    
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
+                                    <?php
+                                        if ($forwardingAddVal !== null) {
+                                        ?>
                                     <div class="own-address ">
                                         <div class="info">
                                             <h3>Forwarding Address</h3>
 
-                                            <?php
-                                        if ($forwardingAddVal !== null) {
-                                        ?>
                                             <p>{{ $address['house_number'] }},{{ $address['street'] }},{{ $address['locality'] }},{{ $address['town'] }},{{ $address['county'] }},{{ $address['post_code'] }}
                                             </p>
-                                            <?php
-                                        }
-                                        ?>
 
                                             <!-- <p><span id="forwarding_house_number"></span>, <span id="forwading_street"></span>, <span id="forwading_locality"></span>, <span id="forwading_town"></span>, <span id="forwading_county"></span>, <span id="forwading_post_code"></span></p> -->
 
@@ -583,27 +583,20 @@
                                             <input type="hidden" id="forwading_billing_country">
                                         </div>
                                         <div class="btn-box">
-                                            <?php
-                                        if ($forwardingAddVal !== null) {
-                                        ?>
+
                                             <a href="javascript:void(0)" type="button"
                                                 class="btn edit-btn edit-addr">Edit Address</a>
                                             <a type="button" class="btn another-btn"
                                                 onclick="anotherForwardingAdd()">Choose Another</a>
-                                            <?php
-                                        }else {
-                                            ?>
-                                            <a type="button" class="btn another-btn"
-                                                onclick="anotherForwardingAdd()">Choose One</a>
 
-                                            <?php
-                                        }
-                                        ?>
                                         </div>
                                     </div>
+                                    <?php
+                                }
+                                ?>
                                     <div class="office-address ">
                                         <div class="top-block">
-                                            <h3>Registered Office - London</h3>
+                                            <h3>Business Address (Post)</h3>
                                             <div class="price-block">
                                                 <strong>$96.00</strong>
                                                 <p>Reserved annually at $96.00</p>
@@ -636,7 +629,7 @@
                                             </div>
                                         </div>
                                         <div class="btn-block">
-                                            <button class="btn">Details</button>
+                                            <button class="btn" onclick="DetailsSection()">Details</button>
                                             <?php
                                         if ($forwardingAddVal !== null) {
                                         ?>
@@ -652,11 +645,54 @@
                                         }
                                         ?>
                                         </div>
+                                        <div class="details-desc d-none" id="DetailsSection_div">
+                                            <h3>Why would I use your WC2 London Business Address Services?</h3>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="details-text">
+                                                        <h4>Improve your corporate image</h4>
+                                                        <p>A professional business address located in the heart of London
+                                                            can provide a number of benefits for your business - boosting
+                                                            your corporate image and extending your company’s presence.</p>
+                                                        <p>You can use our address as your company’s primary correspondence
+                                                            address, and we will forward all your business mail to an
+                                                            alternative address of your choosing, on a daily basis.</p>
+                                                        <p>This service is renewable on a 12 monthly basis at the cost of
+                                                            £96.00+vat</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="details-text">
+                                                        <h4>Benefits of our Business Address Services</h4>
+                                                        <ul>
+                                                            <li>Creates a professional, corporate image.</li>
+                                                            <li>Gives the impression of a large, established business.</li>
+                                                            <li>Provides an alternate contact address from your registered
+                                                                office or home address that is exclusively used for
+                                                                corresponding with clients, suppliers, investors and other
+                                                                third parties.</li>
+                                                            <li>Non-statutory general business mail is delivered to our
+                                                                London address and forwarded to an alternate address of your
+                                                                choice two times per week.</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="details-text">
+                                                        <p><strong>Please note:</strong> This service does not include a
+                                                            registered office service, which should be purchased separately.
+                                                            All general business mail will be handled by us and forwarded to
+                                                            your UK or overseas address at the cost of Royal Mail postal
+                                                            rates plus 15%.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="step-btn-wrap mt-4">
                                         <button class="btn prev-btn" onclick="previousRegisterpage()"><img
                                                 src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
-                                                alt="" > Previous: Registered Address</button>
+                                                alt=""> Previous: Registered Address</button>
                                         <button class="btn" onclick="go_to_the_next_page()">Save & Continue <img
                                                 src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
                                                 alt=""></button>
@@ -671,8 +707,8 @@
     </section>
     <!-- ================ end: Particulars sec ================ -->
 
-        <!--For Find Postal Code Address Api Modal Popup-->
-        <div class="modal" id="exampleModalCenterAddress" tabindex="-1" role="dialog"
+    <!--For Find Postal Code Address Api Modal Popup-->
+    <div class="modal" id="exampleModalCenterAddress" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content border-0">
@@ -691,9 +727,12 @@
 
 @section('script')
     <script>
+        function DetailsSection() {
+            $('#DetailsSection_div').toggleClass('d-none')
+        }
+
         function previousRegisterpage() {
-            alert();
-            window.location.href = "{{ route('choose-address-after-buy-now') }}"
+            window.location.href = "{{ route('registered-address') }}"
         }
 
         const searchBar = function() {

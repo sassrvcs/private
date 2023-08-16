@@ -190,7 +190,7 @@
                                     <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
                                     <p>Registered Address</p>
                                 </div>
-                                <div class="bottom-step-items">
+                                <div class="bottom-step-items" onclick="gotToBusinessAddressPage()">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                     <p>Business Address</p>
                                 </div>
@@ -642,14 +642,58 @@
                                             </div>
                                         </div>
                                         <div class="btn-block">
-                                            <button class="btn">Details</button>
+                                            <button class="btn" onclick="DetailsSection()">Details</button>
                                             <button class="btn buy-now-btn" onclick="gotoPage()">Remove</button>
+                                        </div>
+                                        <div class="details-desc d-none" id="DetailsSection_div">
+                                            <h3>Why would I use your WC2 London Business Address Services?</h3>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="details-text">
+                                                        <h4>Improve your corporate image</h4>
+                                                        <p>A professional business address located in the heart of London
+                                                            can provide a number of benefits for your business - boosting
+                                                            your corporate image and extending your company’s presence.</p>
+                                                        <p>You can use our address as your company’s primary correspondence
+                                                            address, and we will forward all your business mail to an
+                                                            alternative address of your choosing, on a daily basis.</p>
+                                                        <p>This service is renewable on a 12 monthly basis at the cost of
+                                                            £96.00+vat</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="details-text">
+                                                        <h4>Benefits of our Business Address Services</h4>
+                                                        <ul>
+                                                            <li>Creates a professional, corporate image.</li>
+                                                            <li>Gives the impression of a large, established business.</li>
+                                                            <li>Provides an alternate contact address from your registered
+                                                                office or home address that is exclusively used for
+                                                                corresponding with clients, suppliers, investors and other
+                                                                third parties.</li>
+                                                            <li>Non-statutory general business mail is delivered to our
+                                                                London address and forwarded to an alternate address of your
+                                                                choice two times per week.</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="details-text">
+                                                        <p><strong>Please note:</strong> This service does not include a
+                                                            registered office service, which should be purchased separately.
+                                                            All general business mail will be handled by us and forwarded to
+                                                            your UK or overseas address at the cost of Royal Mail postal
+                                                            rates plus 15%.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="step-btn-wrap mt-4">
                                         <button class="btn prev-btn"><img
                                                 src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
-                                                alt="" onclick="previousParticulars()"> Previous: Particulars</button>
+                                                alt="" onclick="previousParticulars()"> Previous:
+                                            Particulars</button>
                                         <button class="btn" onclick="gotoBusinessAddressChoosePage()">Save & Continue
                                             <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
                                                 alt=""></button>
@@ -683,11 +727,19 @@
 
 @section('script')
     <script>
+        function gotToBusinessAddressPage() {
+            window.location.href = "{{ route('choose-address-business') }}"
+        }
+
+        function DetailsSection() {
+            $('#DetailsSection_div').toggleClass('d-none')
+        }
+
         function previousParticulars() {
             window.location.href =
                 "{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'particulars', 'data' => 'previous']) }}"
         }
-        
+
         const searchBar = function() {
             const searchBarVal = $('#searchBar_id').val();
 

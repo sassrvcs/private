@@ -95,7 +95,7 @@ class AccountController extends Controller
             'post_code'         => $request->input('postcode'),
             'billing_country'   => $request->input('contry'),
         ]);
-
+        // dd($updated);
         return $updated;
     }
 
@@ -224,4 +224,17 @@ class AccountController extends Controller
         return 1;
 
     }
+
+    // public function save_registered_office_add(Request $request) {
+    //     $recent_address_id = $request->recent_address_id;
+
+    //     $update = $Company = Companie::updateOrCreate(
+    //         ['user_id' =>  Auth::user()->id],
+    //         ['registered_office_address' => $recent_address_id]
+    //     );
+
+    //     if($update){
+    //         return 1;
+    //     }
+    // }
 }

@@ -8,18 +8,21 @@
             color: black;
             position: absolute;
         }
+
         .shareholder_i_tooltip {
             display: none;
             background-color: white;
             color: black;
             position: absolute;
         }
+
         .secretary_i_tooltip {
             display: none;
             background-color: white;
             color: black;
             position: absolute;
         }
+
         .psc_i_tooltip {
             display: none;
             background-color: white;
@@ -33,18 +36,21 @@
             color: black;
             position: absolute;
         }
+
         .vot_i_tooltip {
             display: none;
             background-color: white;
             color: black;
             position: absolute;
         }
+
         .appo_i_tooltip {
             display: none;
             background-color: white;
             color: black;
             position: absolute;
         }
+
         .other_i_tooltip {
             display: none;
             background-color: white;
@@ -237,7 +243,7 @@
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                     <p>Registered Address</p>
                                 </div>
-                                <div class="bottom-step-items">
+                                <div class="bottom-step-items" onclick="gotToBusinessAddressPage()">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                     <p>Business Address</p>
                                 </div>
@@ -293,9 +299,9 @@
                                     </div>
                                 </div>
                                 <div class="step-btn-wrap mt-4">
-                                    <button class="btn prev-btn"><img
+                                    <button class="btn prev-btn" onclick="gotToBusinessAddressPage()"><img
                                             src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
-                                            alt=""> Previous: Particulars</button>
+                                            alt=""> Previous: Business Address</button>
                                     <button class="btn">Save & Continue <img
                                             src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
                                             alt=""></button>
@@ -411,25 +417,38 @@
                                                                 <label for="director">Director <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                             alt="" id="director_i"></span></label>
-                                                                            <span class="director_i_tooltip">A private limited company must have at least one director, being a natural person aged 16 years or over. A director is responsible for the day-to-day management of the business.</span>
+                                                                <span class="director_i_tooltip">A private limited company
+                                                                    must have at least one director, being a natural person
+                                                                    aged 16 years or over. A director is responsible for the
+                                                                    day-to-day management of the business.</span>
                                                             </li>
                                                             <li>
                                                                 <input type="checkbox" class="checkBoxPos"
                                                                     id="shareholder" onclick="shareholderTab()">
                                                                 <label for="shareholder">Shareholderss <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                            alt="" id="shareholder_i"></span></label>
-                                                                            <span class="shareholder_i_tooltip">Shareholders are the owners of the company and are generally entitled to a share of company profits. You must appoint at least one shareholder.</span>
+                                                                            alt=""
+                                                                            id="shareholder_i"></span></label>
+                                                                <span class="shareholder_i_tooltip">Shareholders are the
+                                                                    owners of the company and are generally entitled to a
+                                                                    share of company profits. You must appoint at least one
+                                                                    shareholder.</span>
                                                             </li>
                                                             <li>
                                                                 <input type="checkbox" class="checkBoxPos" id="secretary"
                                                                     onclick="consentSection()">
                                                                 <label for="secretary">secretary <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                            alt="" id="secretary_i"></span></label>
-                                                                            <span class="secretary_i_tooltip">There is no legal requirement to appoint a company secretary, however, you may choose to appoint one if you wish.
+                                                                            alt=""
+                                                                            id="secretary_i"></span></label>
+                                                                <span class="secretary_i_tooltip">There is no legal
+                                                                    requirement to appoint a company secretary, however, you
+                                                                    may choose to appoint one if you wish.
 
-                                                                                The company secretary is responsible for advising the directors and shareholders on running the business in accordance with and in compliance with the Companies Act, and keeps the statutory records up to date.</span>
+                                                                    The company secretary is responsible for advising the
+                                                                    directors and shareholders on running the business in
+                                                                    accordance with and in compliance with the Companies
+                                                                    Act, and keeps the statutory records up to date.</span>
                                                             </li>
                                                             <li>
                                                                 <input type="checkbox" class="checkBoxPos" id="psc"
@@ -438,9 +457,16 @@
                                                                     <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                             alt="" id="psc_i"></span></label>
-                                                                            <span class="psc_i_tooltip">A Person with Significant Control (PSC) is any person that ultimately controls more than 25% of the company. An individual, a UK registered company and certain other legal entities may be listed as PSCs.
+                                                                <span class="psc_i_tooltip">A Person with Significant
+                                                                    Control (PSC) is any person that ultimately controls
+                                                                    more than 25% of the company. An individual, a UK
+                                                                    registered company and certain other legal entities may
+                                                                    be listed as PSCs.
 
-                                                                                It is now a legal requirement to identify the PSCs of a company. Please tick the Person with Significant Control (PSC) box if you qualify as a PSC of this company.</span>
+                                                                    It is now a legal requirement to identify the PSCs of a
+                                                                    company. Please tick the Person with Significant Control
+                                                                    (PSC) box if you qualify as a PSC of this
+                                                                    company.</span>
                                                             </li>
 
                                                             <br class="brCls d-none">
@@ -561,8 +587,8 @@
                                                             <div class="col-md-12 col-sm-12">
                                                                 <div class="used-addresses-panel">
                                                                     <!-- <div class="text">
-                                                                                                            <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
-                                                                                                        </div> -->
+                                                                                                                                                            <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
+                                                                                                                                                        </div> -->
                                                                     <div class="btn-wrap">
                                                                         <!-- <button type="submit" class="btn select-btn">Select</button> -->
                                                                         <button type="submit" class="btn"
@@ -580,193 +606,495 @@
                                         <!-- DETAILS PAGE SECTION -->
                                         <div class="tab-pane fade" id="details" role="tabpanel"
                                             aria-labelledby="details-tab">
-                                            <div class="form-info-block">
-                                                <div class="desc">
-                                                    <div class="icon">
-                                                        <img src="{{ asset('frontend/assets/images/form-icon.png') }}"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="text">
-                                                        <h5>Personal Details</h5>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                            Phasellus scelerisque porta enim ut interdum. Aliquam mollis
-                                                            enim non purus laoreet, ut pretium lorem porta.</p>
-                                                    </div>
-                                                </div>
-                                                <h4>Officer Details</h4>
-                                            </div>
-                                            <div class="form-block">
-                                                <input type="hidden" id="personOfficerEditId" readonly>
-                                                <div class="row">
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="">Title *:</label>
-                                                            <input type="text" class="form-control blankCheck"
-                                                                id="person_tittle_id" name="person_tittle">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="">Date of Birth *:</label>
-                                                            <div class="row">
-                                                                <div class="col-md-4 col-sm-12">
-                                                                    <select class="form-control blankCheck"
-                                                                        id="person_bday_id" name="person_bday">
-                                                                        <option value="">dd</option>
-                                                                        <option value="01">01</option>
-                                                                        <option value="02">02</option>
-                                                                        <option value="03">03</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-md-4 col-sm-12">
-                                                                    <select class="form-control blankCheck"
-                                                                        id="person_bmon_id" name="person_bmon">
-                                                                        <option value="">mm</option>
-                                                                        <option value="01">01</option>
-                                                                        <option value="02">02</option>
-                                                                        <option value="03">03</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-md-4 col-sm-12">
-                                                                    <select class="form-control blankCheck"
-                                                                        id="person_byear_id" name="person_byear">
-                                                                        <option value="">yyyy</option>
-                                                                        <option value="2020">2020</option>
-                                                                        <option value="2021">2021</option>
-                                                                        <option value="2022">2022</option>
-                                                                        <option value="2023">2023</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="">First Name(s) *:</label>
-                                                            <input type="text" name="person_fname"
-                                                                id="person_fname_id" class="form-control blankCheck">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="">Nationality - <small>of accepted
-                                                                    nationalities *: </small> <span><img
-                                                                        src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                        alt=""></span></label>
-                                                            <input type="text" class="form-control blankCheck"
-                                                                id="person_national_id" name="person_national">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="">Last Name *:</label>
-                                                            <input type="text" class="form-control blankCheck"
-                                                                id="person_lname_id" name="person_lname">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="">Occupation</label>
-                                                            <input type="text" class="form-control"
-                                                                id="person_occupation_id" name="person_occupation">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="rsidential-address-info mb-4">
-                                                <h3>Residential Address</h3>
 
-                                                <input type="hidden" id="add_id"
-                                                    value="{{ isset($add_id) ? $add_id : '' }}" readonly>
-                                                <p><strong>Please Note :</strong> <span>Consectetur adipiscing elit.
-                                                        Phasellus scelerisque porta enim ut interdum. Aliquam mollis enim
-                                                        non purus laoreet, ut pretium lorem porta. Integer eleifend velit ut
-                                                        aliquam convallis. Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit. Phasellus scelerisque porta enim ut
-                                                        interdum.</span></p>
-                                                <p>52 Danes Court, North End Road, Wembley, HA9 0AE, UNITED KINGDOM</p>
-                                                <div class="btn-block">
-                                                    <button class="btn">Edit</button>
-                                                    <button class="btn buy-now-btn">Choose Another</button>
+                                            <div id="detailsTabLandingPage_id">
+                                                <div class="form-info-block">
+                                                    <div class="desc">
+                                                        <div class="icon">
+                                                            <img src="{{ asset('frontend/assets/images/form-icon.png') }}"
+                                                                alt="">
+                                                        </div>
+                                                        <div class="text">
+                                                            <h5>Personal Details</h5>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                                Phasellus scelerisque porta enim ut interdum. Aliquam mollis
+                                                                enim non purus laoreet, ut pretium lorem porta.</p>
+                                                        </div>
+                                                    </div>
+                                                    <h4>Officer Details</h4>
                                                 </div>
-                                            </div>
-                                            <div class="form-info-block d-none" id="authenticationSection">
-                                                <h4 class="mb-5">Authentication Questions</h4>
-                                                <div class="authe-qu-block">
+                                                <div class="form-block">
+                                                    <input type="hidden" id="personOfficerEditId" readonly>
                                                     <div class="row">
                                                         <div class="col-md-6 col-sm-12">
-                                                            <div class="qu-block block">
-                                                                <label for="">Select First 3 letters of</label>
-                                                                <select class="form-control" id="person_aqone_id"
-                                                                    name="person_aqone">
-                                                                    <option value="Mother’s Maiden Name">Mother’s Maiden
-                                                                    <option value="Father's Forename">Father's Forename
-                                                                    <option value="Town Of Birth">Town Of Birth
-                                                                    <option value="Telephone Number">Telephone Number
-                                                                    <option value="National insurance">National insurance
-                                                                    <option value="Passport Number">Passport Number</option>
-                                                                </select>
+                                                            <div class="form-group">
+                                                                <label for="">Title *:</label>
+                                                                <input type="text" class="form-control blankCheck"
+                                                                    id="person_tittle_id" name="person_tittle">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
-                                                            <div class="ans-block block">
-                                                                <label for="">Answer</label>
+                                                            <div class="form-group">
+                                                                <label for="">Date of Birth *:</label>
+                                                                <div class="row">
+                                                                    <div class="col-md-4 col-sm-12">
+                                                                        <select class="form-control blankCheck"
+                                                                            id="person_bday_id" name="person_bday">
+                                                                            <option value="">dd</option>
+                                                                            <option value="01">01</option>
+                                                                            <option value="02">02</option>
+                                                                            <option value="03">03</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-sm-12">
+                                                                        <select class="form-control blankCheck"
+                                                                            id="person_bmon_id" name="person_bmon">
+                                                                            <option value="">mm</option>
+                                                                            <option value="01">01</option>
+                                                                            <option value="02">02</option>
+                                                                            <option value="03">03</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-sm-12">
+                                                                        <select class="form-control blankCheck"
+                                                                            id="person_byear_id" name="person_byear">
+                                                                            <option value="">yyyy</option>
+                                                                            <option value="2020">2020</option>
+                                                                            <option value="2021">2021</option>
+                                                                            <option value="2022">2022</option>
+                                                                            <option value="2023">2023</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="">First Name(s) *:</label>
+                                                                <input type="text" name="person_fname"
+                                                                    id="person_fname_id" class="form-control blankCheck">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="">Nationality - <small>of accepted
+                                                                        nationalities *: </small> <span><img
+                                                                            src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                            alt=""></span></label>
+                                                                <input type="text" class="form-control blankCheck"
+                                                                    id="person_national_id" name="person_national">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="">Last Name *:</label>
+                                                                <input type="text" class="form-control blankCheck"
+                                                                    id="person_lname_id" name="person_lname">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <label for="">Occupation</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="person_aqone_ans_id" name="person_aqone_ans">
+                                                                    id="person_occupation_id" name="person_occupation">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6 col-sm-12">
-                                                            <div class="qu-block block">
-                                                                <label for="">Select First 3 letters of</label>
-                                                                <select class="form-control" id="person_aqtwo_id"
-                                                                    name="person_aqtwo">
-                                                                    <option value="Father's Forename">Father's Forename
-                                                                    <option value="Mother’s Maiden Name">Mother’s Maiden
+                                                </div>
+
+                                                {{-- Residential Address selection starts --}}
+                                                <div class="rsidential-address-info mb-4">
+                                                    <h3>Residential Address</h3>
+
+                                                    <input type="hidden" id="ChossenResAdd_id" readonly>
+                                                    <p><strong>Please Note :</strong> <span>It is a legal requirement to
+                                                            provide your actual residential address. Supplying an address
+                                                            which is not your actual residential address, will lead to the
+                                                            rejection of your new company registration.</span></p>
+                                                    <p class="d-none" id="ChossenResAdd"></p>
+
+                                                    <div class="btn-block">
+                                                        <button class="btn buy-now-btn res_choose_one_cl"
+                                                            onclick="chooseAddRess('residential')">Choose One</button>
+                                                        <button class="btn buy-now-btn res_choose_another_cl d-none"
+                                                            onclick="chooseAddRess('residential')">Choose Another</button>
+                                                    </div>
+                                                    <div class="btn-block residentialAddChosed_cl d-none">
+                                                        <button class="btn">Edit</button>
+                                                        <button class="btn buy-now-btn">Choose Another</button>
+                                                    </div>
+                                                </div>
+                                                {{-- Residential Address selection ends --}}
+
+                                                <div class="form-info-block d-none" id="authenticationSection">
+                                                    <h4 class="mb-5">Authentication Questions</h4>
+                                                    <div class="authe-qu-block">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="qu-block block">
+                                                                    <label for="">Select First 3 letters of</label>
+                                                                    <select class="form-control" id="person_aqone_id"
+                                                                        name="person_aqone">
+                                                                        <option value="Mother’s Maiden Name">Mother’s
+                                                                            Maiden
+                                                                        <option value="Father's Forename">Father's Forename
                                                                         <option value="Town Of Birth">Town Of Birth
                                                                         <option value="Telephone Number">Telephone Number
-                                                                        <option value="National insurance">National insurance
-                                                                        <option value="Passport Number">Passport Number</option>
-                                                                </select>
+                                                                        <option value="National insurance">National
+                                                                            insurance
+                                                                        <option value="Passport Number">Passport Number
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="ans-block block">
+                                                                    <label for="">Answer</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="person_aqone_ans_id" name="person_aqone_ans">
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 col-sm-12">
-                                                            <div class="ans-block block">
-                                                                <label for="">Answer</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="person_aqtwo_ans_id" name="person_aqtwo_ans">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6 col-sm-12">
-                                                            <div class="qu-block block">
-                                                                <label for="">Select First 3 letters of</label>
-                                                                <select class="form-control" id="person_aqthree_id"
-                                                                    name="person_aqthree">
-                                                                    <option value="Town Of Birth">Town Of Birth
-                                                                        <option value="Mother’s Maiden Name">Mother’s Maiden
-                                                                    <option value="Father's Forename">Father's Forename
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="qu-block block">
+                                                                    <label for="">Select First 3 letters of</label>
+                                                                    <select class="form-control" id="person_aqtwo_id"
+                                                                        name="person_aqtwo">
+                                                                        <option value="Father's Forename">Father's Forename
+                                                                        <option value="Mother’s Maiden Name">Mother’s
+                                                                            Maiden
+                                                                        <option value="Town Of Birth">Town Of Birth
                                                                         <option value="Telephone Number">Telephone Number
-                                                                        <option value="National insurance">National insurance
-                                                                        <option value="Passport Number">Passport Number</option>
-                                                                </select>
+                                                                        <option value="National insurance">National
+                                                                            insurance
+                                                                        <option value="Passport Number">Passport Number
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="ans-block block">
+                                                                    <label for="">Answer</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="person_aqtwo_ans_id" name="person_aqtwo_ans">
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 col-sm-12">
-                                                            <div class="ans-block block">
-                                                                <label for="">Answer</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="person_aqthree_ans_id" name="person_aqthree_ans">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="qu-block block">
+                                                                    <label for="">Select First 3 letters of</label>
+                                                                    <select class="form-control" id="person_aqthree_id"
+                                                                        name="person_aqthree">
+                                                                        <option value="Town Of Birth">Town Of Birth
+                                                                        <option value="Mother’s Maiden Name">Mother’s
+                                                                            Maiden
+                                                                        <option value="Father's Forename">Father's Forename
+                                                                        <option value="Telephone Number">Telephone Number
+                                                                        <option value="National insurance">National
+                                                                            insurance
+                                                                        <option value="Passport Number">Passport Number
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="ans-block block">
+                                                                    <label for="">Answer</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="person_aqthree_ans_id"
+                                                                        name="person_aqthree_ans">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="d-none" id="detailsTabAddList_id">
+
+                                            </div>
+
+                                            {{-- End Edit form div starts --}}
+                                            <div class="form-wrap edit_from_residential d-none">
+                                                <div class="form-info-block">
+                                                    <h4>Service Address</h4>
+
+                                                    <div id="editFormAjaxLoadResidentialSection">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- End Edit form div ends --}}
                                         </div>
+
+                                        {{-- ADDRESS TAB --}}
                                         <div class="tab-pane fade" id="addressing" role="tabpanel"
-                                            aria-labelledby="addressing-tab"></div>
+                                            aria-labelledby="addressing-tab">
+
+                                            {{-- Service Add Landing Page starts --}}
+                                            <div id="serviceAddLandingSection">
+
+                                                <div class="form-info-block">
+                                                    <h4>Service Address</h4>
+                                                    <div class="loader" style="display:none"></div>
+                                                    <div class="desc mb-3 ">
+                                                        <div class="icon">
+                                                            <img src="{{ asset('frontend/assets/images/form-icon.png') }}"
+                                                                alt="">
+                                                        </div>
+                                                        <div class="text">
+                                                            <h5>Service Address</h5>
+                                                            <p>Directors, subscribers (shareholders at the time of company
+                                                                incorporation), secretaries and PSCs (eg. shareholders who
+                                                                own more than 25% of the company's shares) are obliged to
+                                                                file a Service Address with the Registrar of Companies. The
+                                                                Service Address is made public.
+
+                                                                There is nothing to stop you from using your Residential
+                                                                Address as your Service Address, but if you would prefer to
+                                                                keep this information confidential and off the public
+                                                                register, then using our London address will provide this
+                                                                confidentiality. We will then forward all statutory mail
+                                                                with no additional postage charges.</p>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="own-address">
+                                                    <div class="info">
+                                                        <h3>Choose to use your own address</h3>
+                                                        <input type="hidden" id="ChossenServiceAdd_id" readonly>
+                                                        <p class="d-none" id="ChossenServiceAdd"></p>
+                                                    </div>
+                                                    <div class="btn-box">
+                                                        {{-- <a href="javascript:void(0)" type="button"
+                                                            class="btn edit-btn edit-addr d-none" id="ownAddEdit_id">Edit Address</a> --}}
+                                                        <a type="button" class="btn another-btn choose_one_cl"
+                                                            onclick="chooseAdd('service')">Choose One</a>
+                                                        <a type="button" class="btn another-btn choose_another_cl d-none"
+                                                            onclick="chooseAdd('service')">Choose Another</a>
+                                                    </div>
+                                                </div>
+                                                <div class="forwarding-address d-none">
+                                                    <div class="info">
+                                                        <h3>Forwarding Address</h3>
+                                                        <p><span id="house_number_FA"></span>,<span
+                                                                id="street_FA"></span>,<span
+                                                                id="locality_FA"></span>,<span
+                                                                id="town_FA"></span>,<span id="county_FA"></span>,<span
+                                                                id="post_code_FA"></span></p>
+                                                    </div>
+                                                    <div class="btn-box">
+                                                        <a href="javascript:void(0)" type="button"
+                                                            class="btn edit-btn edit-addr">Edit Address</a>
+                                                        <a type="button" class="btn another-btn"
+                                                            onclick="chooseAdd('forwading')">Choose Another</a>
+                                                    </div>
+                                                </div>
+                                                <div class="office-address ">
+                                                    <div class="top-block">
+                                                        <h3>Service Address - London</h3>
+                                                        <div class="price-block">
+                                                            <strong>$26.00</strong>
+                                                            <p>Reserved annually at $26.00</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="desc">
+                                                        <div class="tham-img">
+                                                            <img src="{{ asset('frontend/assets/images/address-img.png') }}"
+                                                                alt="">
+                                                            <div class="tham-info">
+                                                                <strong>London:</strong>
+                                                                <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ
+                                                                    OAE,
+                                                                    United Kingdom</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-block">
+                                                            <h3>Protect the privacy of your home address</h3>
+                                                            <p>Mauris placerat ac lectus et bibendum. Aliquam tincidunt
+                                                                tristique vulputate quisque tincidunt nisl vel risus
+                                                                imperdiet
+                                                                feugiat.</p>
+                                                            <div class="location-block">
+                                                                <div class="addr">
+                                                                    <strong>London: </strong>
+                                                                </div>
+                                                                <div class="info">
+                                                                    <p>52 Danes Court, North End Road, Wembley, Middlesex,
+                                                                        HAQ
+                                                                        OAE, United Kingdom</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="btn-block">
+                                                        <button class="btn">Details</button>
+                                                        <button class="btn buy-now-btn" onclick="gotoPage()">Buy
+                                                            Now</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- Service Address Landing Page ends --}}
+
+
+                                            {{-- Choose Address Page starts --}}
+                                            <div class="form-wrap hideEdit d-none">
+                                                <div class="form-info-block">
+                                                    <h4>Service Address</h4>
+                                                </div>
+
+                                                <div class="choose-own-address fdAdd_cl mb-2 d-none">
+                                                    <h3>Forwarding Address</h3>
+                                                    <h5>Tell us where to forward your mail to you, by entering your address
+                                                        below.</h5>
+                                                </div>
+
+                                                <div id="addressListingPage_id">
+
+                                                </div>
+
+                                                <div class="new-address-block">
+                                                    <h3>Or enter a new Address</h3>
+                                                    <div class="new-address-field">
+                                                        <button type="submit" class="btn" onclick="addAddress()">Add
+                                                            New
+                                                            Address</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            {{-- Choose Address Page ends --}}
+
+                                            {{-- End Edit form div starts --}}
+                                            <div class="form-wrap edit_from d-none">
+                                                <div class="form-info-block">
+                                                    <h4>Service Address</h4>
+
+                                                    <div id="editFormAjaxLoadAddressSection">
+                                                        {{-- <h5 class="edit-add-ttl">Edit Address</h5>
+
+                                                        <form class="form-register">
+                                                            <fieldset class="border p-3">
+                                                                <input type="hidden" id="add_id" class="add_id"
+                                                                    name="add_id"
+                                                                    value="{{ !empty($address) && $address['id'] !== '' ? $address['id'] : '' }}">
+
+                                                                <div class="form-row form-group ">
+                                                                    <label>Name / Number *:&nbsp;
+                                                                        </span>
+                                                                    </label>
+                                                                    <span class="input-wrapper">
+                                                                        <input type="text" id="house_no1"
+                                                                            name="house_no"
+                                                                            value="{{ !empty($address) && $address['house_number'] !== '' ? $address['house_number'] : '' }}"
+                                                                            class="input-text form-control house_no blankCheckAdd">
+                                                                        <div class="error d-none" style="color:red;">House
+                                                                            number is required.</div>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="form-row form-group ">
+                                                                    <label for="billing_title">Street *:&nbsp;
+                                                                    </label>
+                                                                    <span class="input-wrapper">
+                                                                        <input type="text"
+                                                                            value="{{ !empty($address) && $address['street'] !== '' ? $address['street'] : '' }}"
+                                                                            name="street" id="street1"
+                                                                            class="input-text form-control steet_no blankCheckAdd">
+                                                                        <div class="error d-none" style="color:red;">
+                                                                            Street is
+                                                                            required.</div>
+                                                                    </span>
+
+                                                                </div>
+                                                                <div class="form-row form-group">
+                                                                    <label for="locality">Locality:
+                                                                    </label>
+                                                                    <span class="input-wrapper">
+                                                                        <input type="text"
+                                                                            value="{{ !empty($address) && $address['locality'] !== '' ? $address['locality'] : '' }}"
+                                                                            name="street" name="locality" id="locality1"
+                                                                            class="input-text form-control locality">
+                                                                    </span>
+
+                                                                </div>
+                                                                <div class="form-row form-group">
+                                                                    <label for="town">Town *:&nbsp;
+                                                                    </label>
+                                                                    <span class="input-wrapper">
+                                                                        <input type="text" name="town"
+                                                                            value="{{ !empty($address) && $address['town'] !== '' ? $address['town'] : '' }}"
+                                                                            id="town1"
+                                                                            class="input-text form-control town blankCheckAdd">
+                                                                        <div class="error d-none" style="color:red;">Town
+                                                                            is
+                                                                            required.</div>
+                                                                    </span>
+
+                                                                </div>
+                                                                <div class="form-row form-group">
+                                                                    <label for="county">County:&nbsp;
+                                                                    </label>
+                                                                    <span class="input-wrapper">
+                                                                        <input type="text" name="county"
+                                                                            value="{{ !empty($address) && $address['county'] !== '' ? $address['county'] : '' }}"
+                                                                            id="county1"
+                                                                            class="input-text form-control county">
+                                                                    </span>
+
+                                                                </div>
+                                                                <div class="form-row form-group">
+                                                                    <label for="postcode">Post Code *:&nbsp;
+                                                                    </label>
+                                                                    <span class="input-wrapper">
+                                                                        <input type="text" id="post_code"
+                                                                            value="{{ !empty($address) && $address['post_code'] !== '' ? $address['post_code'] : '' }}"
+                                                                            name="post_code"
+                                                                            class="input-text form-control zip blankCheckAdd">
+                                                                        <div class="error d-none" style="color:red;">Post
+                                                                            Code
+                                                                            is required.</div>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="form-row update_totals_on_change form-group">
+                                                                    <label for="billing_country">Country&nbsp;</label>
+                                                                    <span class="input-wrapper">
+                                                                        <select name="billing_country"
+                                                                            id="billing_country" name="billing_country"
+                                                                            class="contry country_to_state country_select form-control"
+                                                                            data-label="Country" autocomplete="country"
+                                                                            data-placeholder="Select a country / region…">
+                                                                            <option value="">Select a country /
+                                                                                region…
+                                                                            </option>
+                                                                            @foreach ($countries as $country)
+                                                                                <option value="{{ $country['id'] }}"
+                                                                                    {{ !empty($address) && $country['id'] == $address['billing_country'] ? 'selected' : '' }}>
+                                                                                    {{ $country['name'] }}</option>
+                                                                            @endforeach
+
+                                                                        </select>
+                                                                    </span>
+
+                                                                </div>
+
+                                                                <div class="step-btn-wrap mt-4">
+                                                                    <button type="button" class="btn saveAddress">Save &
+                                                                        Continue <img
+                                                                            src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
+                                                                            alt=""></button>
+                                                                </div>
+                                                            </fieldset>
+                                                        </form> --}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- End Edit form div ends --}}
+
+                                        </div>
+
                                         <div class="tab-pane fade" id="nature-control" role="tabpanel"
                                             aria-labelledby="nature-control-tab">
                                             <div class="position-area">
@@ -779,32 +1107,41 @@
                                                         <div class="text">
                                                             <h5>Nature of Control</h5>
                                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                Phasellus scelerisque porta enim ut interdum. Aliquam mollis
+                                                                Phasellus scelerisque porta enim ut interdum. Aliquam
+                                                                mollis
                                                                 enim non purus laoreet, ut pretium :</p>
                                                             <ul class="mb-4">
-                                                                <li>Consectetur adipiscing elit phasellus scelerisque porta
+                                                                <li>Consectetur adipiscing elit phasellus scelerisque
+                                                                    porta
                                                                     enim ut interdum. </li>
-                                                                <li>Aliquam mollis enim non purus laoreet, ut pretium lorem
+                                                                <li>Aliquam mollis enim non purus laoreet, ut pretium
+                                                                    lorem
                                                                     porta. </li>
                                                                 <li>Integer eleifend velit ut aliquam convallis. </li>
-                                                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing
+                                                                    elit.
                                                                 </li>
                                                                 <li>Phasellus scelerisque porta enim ut interdum. </li>
                                                             </ul>
                                                             <h5>Guidance in completing this section</h5>
                                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                Phasellus scelerisque porta enim ut interdum. Aliquam mollis
+                                                                Phasellus scelerisque porta enim ut interdum. Aliquam
+                                                                mollis
                                                                 enim non purus laoreet, ut pretium :</p>
                                                             <ul>
-                                                                <li>Consectetur adipiscing elit phasellus scelerisque porta
+                                                                <li>Consectetur adipiscing elit phasellus scelerisque
+                                                                    porta
                                                                     enim ut interdum. </li>
-                                                                <li>Aliquam mollis enim non purus laoreet, ut pretium lorem
+                                                                <li>Aliquam mollis enim non purus laoreet, ut pretium
+                                                                    lorem
                                                                     porta. </li>
                                                                 <li>Integer eleifend velit ut aliquam convallis. </li>
-                                                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing
+                                                                    elit.
                                                                 </li>
                                                                 <li>Phasellus scelerisque porta enim ut interdum. </li>
-                                                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing
+                                                                    elit.
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -812,7 +1149,8 @@
                                                     <h4>Natural of Control</h4>
                                                 </div>
                                                 <div class="natural-of-control-block mb-4">
-                                                    <h5>Does this officer have a controlling interest in this company?</h5>
+                                                    <h5>Does this officer have a controlling interest in this company?
+                                                    </h5>
                                                     <div class="authe-qu-block">
                                                         <div class="row">
                                                             <div class="col-md-6 col-sm-12">
@@ -820,13 +1158,19 @@
                                                                     <label for="" class="d-flex"><span
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                                alt="" id="own_i"></span> <span
-                                                                            class="text">Ownership of
+                                                                                alt="" id="own_i"></span>
+                                                                        <span class="text">Ownership of
                                                                             shares</span></label>
                                                                     <select class="form-control">
                                                                         <option value="">N/A</option>
                                                                     </select>
-                                                                    <span class="own_i_tooltip">If this person holds more than 25% of the issued shares, directly or indirectly, then they meet this nature of control condition. Please select their shareholding percentage range from the drop down menu.</span>
+                                                                    <span class="own_i_tooltip">If this person holds
+                                                                        more
+                                                                        than 25% of the issued shares, directly or
+                                                                        indirectly, then they meet this nature of
+                                                                        control
+                                                                        condition. Please select their shareholding
+                                                                        percentage range from the drop down menu.</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -839,12 +1183,20 @@
                                                                     <label for="" class="d-flex"><span
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                                alt="" id="vot_i"></span> <span
-                                                                            class="text">Voting Rights</span></label>
+                                                                                alt="" id="vot_i"></span>
+                                                                        <span class="text">Voting
+                                                                            Rights</span></label>
                                                                     <select class="form-control">
                                                                         <option value="">N/A</option>
                                                                     </select>
-                                                                    <span class="vot_i_tooltip">If this person holds more than 25% of the available voting rights, directly or indirectly, then they meet this nature of control condition. Please select their voting power percentage range from the drop down menu.</span>
+                                                                    <span class="vot_i_tooltip">If this person holds
+                                                                        more
+                                                                        than 25% of the available voting rights,
+                                                                        directly or
+                                                                        indirectly, then they meet this nature of
+                                                                        control
+                                                                        condition. Please select their voting power
+                                                                        percentage range from the drop down menu.</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -857,14 +1209,24 @@
                                                                     <label for="" class="d-flex"><span
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                                alt="" id="appo_i"></span> <span
-                                                                            class="text">Appoint or remove the majority
+                                                                                alt="" id="appo_i"></span>
+                                                                        <span class="text">Appoint or remove the
+                                                                            majority
                                                                             of the board of directors</span></label>
                                                                     <select class="form-control">
                                                                         <option value="">No</option>
                                                                         <option value="">Yes</option>
                                                                     </select>
-                                                                    <span class="appo_i_tooltip">If this person is entitled, directly or indirectly, to appoint and remove a majority of the board of directors then they meet this nature of control condition. Any person that controls over 50% of the votes may appoint the directors by ordinary resolution, but a person could be given this explicit right in the Articles of Association or a Shareholders' Agreement.</span>
+                                                                    <span class="appo_i_tooltip">If this person is
+                                                                        entitled, directly or indirectly, to appoint and
+                                                                        remove a majority of the board of directors then
+                                                                        they meet this nature of control condition. Any
+                                                                        person that controls over 50% of the votes may
+                                                                        appoint the directors by ordinary resolution,
+                                                                        but a
+                                                                        person could be given this explicit right in the
+                                                                        Articles of Association or a Shareholders'
+                                                                        Agreement.</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -876,14 +1238,23 @@
                                                                     <label for="" class="d-flex"><span
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
-                                                                                alt="" id="other_i"></span> <span
-                                                                            class="text">Other Significant influences
+                                                                                alt="" id="other_i"></span>
+                                                                        <span class="text">Other Significant
+                                                                            influences
                                                                             or control</span></label>
                                                                     <select class="form-control">
                                                                         <option value="">No</option>
                                                                         <option value="">Yes</option>
                                                                     </select>
-                                                                    <span class="other_i_tooltip">If this individual does not meet any of the preceding natures of control conditions, but still exerts, or has the right to exert, influence or control over the Company, then they meet this nature of control condition.</span>
+                                                                    <span class="other_i_tooltip">If this individual
+                                                                        does
+                                                                        not meet any of the preceding natures of control
+                                                                        conditions, but still exerts, or has the right
+                                                                        to
+                                                                        exert, influence or control over the Company,
+                                                                        then
+                                                                        they meet this nature of control
+                                                                        condition.</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -892,8 +1263,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="qu-panel">
-                                                    <p>Does this officer have a controlling influence over a Firm(s) and/or
-                                                        the Members of that Firm(s), which also has a controlling influence
+                                                    <p>Does this officer have a controlling influence over a Firm(s)
+                                                        and/or
+                                                        the Members of that Firm(s), which also has a controlling
+                                                        influence
                                                         in the company?</p>
                                                     <ul>
                                                         <li>
@@ -907,7 +1280,11 @@
                                                     </ul>
                                                 </div>
                                                 <div class="qu-panel">
-                                                    <p>Does this officer have a controlling influence over a trust(s) and/or the trustees of that trust(s), which has a controlling interest in this company?</p>
+                                                    <p>Does this officer have a controlling influence over a trust(s)
+                                                        and/or
+                                                        the trustees of that trust(s), which has a controlling interest
+                                                        in
+                                                        this company?</p>
                                                     <ul>
                                                         <li>
                                                             <input type="radio" id="no2" name="com-qu2">
@@ -944,12 +1321,37 @@
 
         <!-- PERSON SECTION DATAS -->
         <input type="text" id="choosedPersonOfficerId" value="" readonly>
+        <input type="text" id="addressTypeChoosed" value="" readonly>
     </section>
     <!-- ================ end: Particulars sec ================ -->
 @endsection
 
 @section('script')
     <script>
+        function gotToBusinessAddressPage() {
+            window.location.href = "{{ route('choose-address-business') }}"
+        }
+
+        function chooseAddRess(type) {
+            $("#detailsTabLandingPage_id").addClass('d-none');
+            $("#detailsTabAddList_id").removeClass('d-none');
+
+            $("#addressTypeChoosed").val(type);
+        }
+
+        function addListing() {
+            $.ajax({
+                url: "{!! route('address-listing') !!}",
+                type: "get",
+                success: function(data) {
+                    $("#addressListingPage_id").html(data);
+                    $("#detailsTabAddList_id").html(data);
+                }
+            });
+        }
+
+        addListing();
+
         const director_i = document.getElementById("director_i");
         director_i.addEventListener("mouseover", showTooltip);
         director_i.addEventListener("mouseout", hideTooltip);
@@ -1110,6 +1512,29 @@
             const searchBarVal = $('#searchBar_id').val();
 
             const addVals = document.querySelectorAll('.officerSelect')
+            const addValsArr = [...addVals];
+
+            addValsArr.forEach(el => {
+                addData = el.dataset.search;
+
+                if (addData.startsWith(searchBarVal)) {
+                    el.classList.remove('d-none');
+                } else {
+                    el.classList.add('d-none');
+                }
+            })
+
+            if (searchBarVal === '') {
+                addValsArr.forEach(el => {
+                    el.classList.add('d-none');
+                })
+            }
+        }
+
+        const searchBarAdd = function() {
+            const searchBarVal = $('#searchBarAdd_id').val();
+
+            const addVals = document.querySelectorAll('.addressSelect')
             const addValsArr = [...addVals];
 
             addValsArr.forEach(el => {
@@ -1308,9 +1733,11 @@
             $('#appointmentType').val('person');
         }
 
-        function anotherForwardingAdd() {
-            $(".buyNowAfterSelectingAdd").hide();
+        function chooseAdd(type) {
+            $("#serviceAddLandingSection").hide();
             $('.hideEdit').removeClass('d-none');
+
+            $("#addressTypeChoosed").val(type)
         }
 
         function gotoPage() {
@@ -1348,33 +1775,118 @@
             window.location.href = "{{ route('choose-address-business') }}"
         };
 
-        function selectedForwardAdd(id) {
+        function selectedAdd(ths, id, type) {
+            const addressTypeChoosed = $("#addressTypeChoosed").val();
 
-            $.ajax({
-                url: "{!! route('update-forwarding-business-office-address') !!}",
-                type: 'get',
-                data: {
-                    id
-                },
-                success: function(result) {
-                    console.log(result);
-                    setTimeout(function() {
-                        $('.selc-addr').text('Select');
-                    }, 2000);
-                    window.location.reload()
+            if (addressTypeChoosed === 'residential') {
+                if (type === 'listing') {
+                    const house_number = $(`.${id}_add_house_number`).val();
+                    const add_street = $(`.${id}_add_street`).val();
+                    const add_locality = $(`.${id}_add_locality`).val();
+                    const add_town = $(`.${id}_add_town`).val();
+                    const user_county = $(`.${id}_user_county`).val();
+                    const address_post_code = $(`.${id}_address_post_code`).val();
+
+                    $('#ChossenResAdd').html(
+                        `${house_number},${add_street},${add_locality},${add_town},${user_county},${address_post_code}`)
+                } else {
+                    $('#ChossenResAdd').html(ths.value)
                 }
-            });
+
+                $('#ChossenResAdd_id').val(id)
+                $("#detailsTabAddList_id").addClass('d-none');
+                $('.res_choose_one_cl').addClass('d-none');
+                $('#ChossenResAdd').removeClass('d-none');
+                $("#detailsTabLandingPage_id").removeClass('d-none');
+                $('.res_choose_another_cl').removeClass('d-none');
+            }
+
+            if (addressTypeChoosed === 'service') {
+                if (type === 'listing') {
+                    const house_number = $(`.${id}_add_house_number`).val();
+                    const add_street = $(`.${id}_add_street`).val();
+                    const add_locality = $(`.${id}_add_locality`).val();
+                    const add_town = $(`.${id}_add_town`).val();
+                    const user_county = $(`.${id}_user_county`).val();
+                    const address_post_code = $(`.${id}_address_post_code`).val();
+
+                    $('#ChossenServiceAdd').html(
+                        `${house_number},${add_street},${add_locality},${add_town},${user_county},${address_post_code}`)
+                } else {
+                    $('#ChossenServiceAdd').html(ths.value)
+                }
+
+                $('#ChossenServiceAdd_id').val(id)
+                $('#ChossenServiceAdd').removeClass('d-none');
+                $("#serviceAddLandingSection").show();
+                $('.choose_one_cl').addClass('d-none');
+                $('.choose_another_cl').removeClass('d-none');
+            }
+
+            if (addressTypeChoosed === 'forwading') {
+                if (type === 'listing') {
+                    const house_number = $(`.${id}_add_house_number`).val();
+                    const add_street = $(`.${id}_add_street`).val();
+                    const add_locality = $(`.${id}_add_locality`).val();
+                    const add_town = $(`.${id}_add_town`).val();
+                    const user_county = $(`.${id}_user_county`).val();
+                    const address_post_code = $(`.${id}_address_post_code`).val();
+
+                    $('#ChossenForwadingAdd').html(
+                        `${house_number},${add_street},${add_locality},${add_town},${user_county},${address_post_code}`)
+                } else {
+                    $('#ChossenForwadingAdd').html(ths.value)
+                }
+            }
+
+            $('.hideEdit').addClass('d-none');
+            $("#addressTypeChoosed").val('')
+
+            // $('#ownAddEdit_id').removeClass('d-none');
         }
 
-        $('.edit-addr').click(function() {
+        $('.edit-addr').click(function(type) {
             $(".buyNowAfterSelectingAdd").hide();
             $('.edit_from').removeClass('d-none');
         });
 
         function editAddress(id) {
-            $(".hideEdit").hide();
+            $('.hideEdit').addClass('d-none');
             $('.edit_from').removeClass('d-none');
 
+            const currentTab = $("#currentTab").val();
+
+            $.ajax({
+                url: "{!! route('address-edit-page') !!}",
+                type: "post",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    id
+                },
+                success: function(data) {
+                    if (currentTab === 'details') {
+                        $('#editFormAjaxLoadResidentialSection').html(data)
+                        $('.edit_from_residential').removeClass('d-none');
+                        $('#detailsTabAddList_id').addClass('d-none');
+                    } else {
+                        $('#editFormAjaxLoadResidentialSection').html('')
+                        $('.edit_from_residential').addClass('d-none');
+                        $('#detailsTabAddList_id').removeClass('d-none');
+                    }
+                    if (currentTab === 'addressing') {
+                        $('#editFormAjaxLoadAddressSection').html(data)
+                        $('.edit_from').removeClass('d-none');
+                        $('#addressListingPage_id').addClass('d-none');
+                    } else {
+                        $('#editFormAjaxLoadAddressSection').html('')
+                        $('.edit_from').addClass('d-none');
+                        $('#addressListingPage_id').removeClass('d-none');
+                    }
+
+                }
+            });
+
+            return false
             const house_number = $(`.${id}_add_house_number`).val();
             const add_street = $(`.${id}_add_street`).val();
             const add_locality = $(`.${id}_add_locality`).val();
@@ -1393,11 +1905,6 @@
 
             document.getElementById("billing_country").value = `${address_billing_country}`;
         }
-
-        // function addAddress() {
-        //     $(".hideEdit").hide();
-        //     $('.addAddressForm').removeClass('d-none');
-        // }
 
         function setAddress(a, b) {
             alert(a + '' + b);
@@ -1426,43 +1933,59 @@
 
         }
 
-        $('.saveAddress').click(function() {
-            var id = $('#add_id').val();
-            var number = $('#house_no1').val();
-            var steet = $('#street1').val();
-            var locality = $('#locality1').val();
-            var town = $('#town1').val();
-            var county = $('#county1').val();
-            var postcode = $('#post_code').val();
-            var contry = $('#billing_country').val();
+        // $('.saveAddress').click(function() {
+        //     var id = $('#add_id').val();
+        //     var number = $('#house_no1').val();
+        //     var steet = $('#street1').val();
+        //     var locality = $('#locality1').val();
+        //     var town = $('#town1').val();
+        //     var county = $('#county1').val();
+        //     var postcode = $('#post_code').val();
+        //     var contry = $('#billing_country').val();
 
-            if (county == undefined) {
-                county = "";
-            }
+        //     if (county == undefined) {
+        //         county = "";
+        //     }
 
-            if (number != undefined && steet != undefined && locality != undefined && town != undefined &&
-                postcode != undefined && contry != undefined) {
-                //
-                $.ajax({
-                    url: "{!! route('selected-address-save') !!}",
-                    type: 'POST',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        id,
-                        number,
-                        steet,
-                        locality,
-                        town,
-                        county,
-                        postcode,
-                        contry,
-                    },
-                    success: function(result) {
-                        location.reload(true);
-                    }
-                });
-            }
-        })
+        //     const requiredFields = document.querySelectorAll('.blankCheckAdd');
+        //     const requiredFieldsArr = [...requiredFields];
+
+        //     console.log(requiredFieldsArr);
+        //     let validation = 0;
+        //     requiredFieldsArr.forEach(el => {
+        //         if (el.value === '') {
+        //             el.classList.add('validation');
+        //             el.nextElementSibling.classList.remove('d-none');
+        //             return validation++;
+        //         } else {
+        //             el.classList.remove('validation');
+        //             el.nextElementSibling.classList.add('d-none');
+        //         }
+        //     });
+
+        //     if (validation === 0) {
+        //         $.ajax({
+        //             url: "{!! route('selected-address-save') !!}",
+        //             type: 'POST',
+        //             data: {
+        //                 "_token": "{{ csrf_token() }}",
+        //                 id,
+        //                 number,
+        //                 steet,
+        //                 locality,
+        //                 town,
+        //                 county,
+        //                 postcode,
+        //                 contry,
+        //             },
+        //             success: function(result) {
+        //                 $('.hideEdit').removeClass('d-none');
+        //                 $('.edit_from').addClass('d-none');
+        //                 addListing();
+        //             }
+        //         });
+        //     }
+        // })
 
         $('#findAddress').click(function() {
             var post_code = $("#post_code").val();

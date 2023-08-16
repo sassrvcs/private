@@ -69,6 +69,7 @@ Route::post('/selected-address-save',[AccountController::class,'saveSelectedAddr
 Route::post('/my-details-save',[AccountController::class,'saveMyDetails'])->name('my-details-save')->middleware('auth');
 Route::get('/update-selected-address', [AccountController::class, 'updateSelectedAddress'])->name('update-selected-address')->middleware('auth');
 Route::post('/new-address-save', [AccountController::class, 'saveNewAddress'])->name('new-address-save')->middleware('auth');
+// Route::post('/save_registered_office_add', [AccountController::class, 'save_registered_office_add'])->name('save_registered_office_add')->middleware('auth');
 
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
@@ -104,6 +105,8 @@ Route::get('choose-address-business', [CompanyFormController::class, 'chooseBusi
 Route::get('update-address', [CompanyFormController::class, 'updateRegisterAddress'])->name('update-address')->middleware('auth');
 Route::post('save_company_in_shopping_cart', [CompanyFormController::class, 'saveCompanyInShoppingCart'])->name('save_company_in_shopping_cart')->middleware('auth');
 Route::post('save_company_in_shopping_cart_business', [CompanyFormController::class, 'saveCompanyInShoppingCart_Business'])->name('save_company_in_shopping_cart_business')->middleware('auth');
+Route::get('address-listing', [CompanyFormController::class, 'address_listing'])->name('address-listing')->middleware('auth');
+Route::post('address-edit-page', [CompanyFormController::class, 'address_edit_page'])->name('address-edit-page')->middleware('auth');
 
 Route::get('companie-formation', [CompanieFormController::class, 'index'])->name('companie-formation')->middleware('auth');
 Route::post('upload-company-doc', [CompanieFormController::class, 'storeImage'])->name('upload-company-doc')->middleware('auth');
