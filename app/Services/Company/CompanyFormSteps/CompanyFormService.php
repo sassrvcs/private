@@ -102,7 +102,7 @@ class CompanyFormService
     public function getCompanieName($orderId)
     {
         $orders = Order::with('user')->where('order_id', $orderId)->first();
-        $CompanyFormationStep = Companie::with('businessBanking')->where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
+        $CompanyFormationStep = Companie::with('businessBanking', 'businessBanking.businessBanking', 'businessBanking.accountingSoftware', 'sicCodes', 'jurisdiction')->where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
 
         return $CompanyFormationStep;
     }

@@ -16,6 +16,10 @@ return new class extends Migration
         Schema::table('business_bankings', function (Blueprint $table) {
             $table->longText('terms_condition')->nullable();
         });
+
+        Schema::table('companies', function (Blueprint $table) {
+            $table->foreign('jurisdiction_id')->references('id')->on('jurisdictions');
+        });
     }
 
     /**

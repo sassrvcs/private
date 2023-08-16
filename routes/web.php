@@ -25,6 +25,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Web\Company\BusinessEssentialsController;
 use App\Http\Controllers\Web\Company\CompanieFormController;
 use App\Http\Controllers\Web\Company\CompanyForm\CompanyFormController;
+use App\Http\Controllers\Web\Company\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -118,6 +119,8 @@ Route::post('company-document', [CompanieFormController::class, 'uploadCompanyDo
 Route::get('business-essential', [BusinessEssentialsController::class, 'index'])->name('business-essential.index')->middleware('auth');
 Route::post('business-essential', [BusinessEssentialsController::class, 'store'])->name('business-essential.store')->middleware('auth');
 Route::get('business-bank/terms-condition/{id}', [BusinessEssentialsController::class, 'termsAndCondition'])->name('business-bank-terms-conditions')->middleware('auth');
+
+Route::resource('review', ReviewController::class)->middleware('auth');
 
 // Route::get('business-service', [BusinessEssentialsController::class, 'index'])->name('business-service.index')->middleware('auth');
 // Route::post('business-service', [BusinessEssentialsController::class, 'store'])->name('business-service.store')->middleware('auth');

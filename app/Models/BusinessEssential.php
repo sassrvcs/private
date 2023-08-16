@@ -20,8 +20,8 @@ class BusinessEssential extends Model
         return $this->belongsTo(BusinessBanking::class, 'business_banking_id', 'id');
     }
 
-    // public function companie()
-    // {
-    //     return $this->belongsTo(Companie::class, 'companie_id', 'id');
-    // }
+    public function accountingSoftware()
+    {
+        return $this->belongsTo(Companie::class, 'business_service_id', 'id');
+    }
 }
