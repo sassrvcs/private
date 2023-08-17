@@ -18,9 +18,9 @@ class BusinessBankingController extends Controller
         $search = $request->search;
         if(!empty($search)){
             $businessdata = BusinessBanking::where('short_description', 'like', "%{$search}%")
-                            ->paginate(2);
+                            ->paginate(10);
         }else{
-            $businessdata = BusinessBanking::paginate(2);
+            $businessdata = BusinessBanking::paginate(10);
         }
 
         return view('admin.business-banking.index',compact('businessdata','search'));
