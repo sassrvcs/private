@@ -229,13 +229,11 @@ class CompanyFormController extends Controller
                 'shopping_cart_id' => $request->shoppingCartId,
                 'title' => $request->person_tittle,
                 'dob_day' => $request->person_bday,
-                'dob_month' => $request->person_bmon,
-                'dob_year' => $request->person_byear,
                 'first_name' => $request->person_fname,
                 'nationality' => $request->person_national,
                 'last_name' => $request->person_lname,
                 'occupation' => $request->person_occupation,
-                'add_id' => $request->add_id_val,
+                'add_id' => $request->ChossenResAdd_id,
                 'authenticate_one' => $request->person_aqone,
                 'authenticate_one_ans' => $request->person_aqone_ans,
                 'authenticate_two' => $request->person_aqtwo,
@@ -252,8 +250,6 @@ class CompanyFormController extends Controller
                 'shopping_cart_id' => $request->shoppingCartId,
                 'title' => $request->person_tittle,
                 'dob_day' => $request->person_bday,
-                'dob_month' => $request->person_bmon,
-                'dob_year' => $request->person_byear,
                 'first_name' => $request->person_fname,
                 'nationality' => $request->person_national,
                 'last_name' => $request->person_lname,
@@ -300,5 +296,22 @@ class CompanyFormController extends Controller
         if ($inserted) {
             return $request->where;
         }
+    }
+
+    public function selected_address(Request $request) {
+        $id = $request->get('offValadd_id');
+
+        $add = Address::where('id',$id)->get();
+
+        $house_number = $add[0]['house_number'];
+        $street = $add[0]['street'];
+        $locality = $add[0]['locality'];
+        $town = $add[0]['town']; 
+        $county = $add[0]['county']; 
+        $post_code = $add[0]['post_code']; 
+
+        $data = $house_number.",".$street.",".$locality.",".$town.",".$county.",".$post_code;
+
+        return $data;
     }
 }

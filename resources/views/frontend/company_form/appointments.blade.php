@@ -522,12 +522,12 @@
                                                                     <input type="hidden"
                                                                         class="offValdob_day_{{ $offVal['id'] }}"
                                                                         value="{{ $offVal['dob_day'] }}" readonly>
-                                                                    <input type="hidden"
+                                                                    {{-- <input type="hidden"
                                                                         class="offValdob_month_{{ $offVal['id'] }}"
                                                                         value="{{ $offVal['dob_month'] }}" readonly>
                                                                     <input type="hidden"
                                                                         class="offValdob_year_{{ $offVal['id'] }}"
-                                                                        value="{{ $offVal['dob_year'] }}" readonly>
+                                                                        value="{{ $offVal['dob_year'] }}" readonly> --}}
                                                                     <input type="hidden"
                                                                         class="offValfirst_name_{{ $offVal['id'] }}"
                                                                         value="{{ $offVal['first_name'] }}" readonly>
@@ -586,7 +586,7 @@
                                                                     <div class="col-md-12 col-sm-12">
                                                                         <div class="used-addresses-panel">
                                                                             <div class="text">
-                                                                                <p>{{ $offVal['title'] }},{{ $offVal['dob_day'] }}-{{ $offVal['dob_month'] }}-{{ $offVal['dob_year'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}
+                                                                                <p>{{ $offVal['title'] }},{{ $offVal['dob_day'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}
                                                                                 </p>
                                                                             </div>
                                                                             <div class="btn-wrap">
@@ -607,8 +607,8 @@
                                                             <div class="col-md-12 col-sm-12">
                                                                 <div class="used-addresses-panel">
                                                                     <!-- <div class="text">
-                                                                                                                                                                            <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
-                                                                                                                                                                        </div> -->
+                                                                                                                                                                                    <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
+                                                                                                                                                                                </div> -->
                                                                     <div class="btn-wrap">
                                                                         <!-- <button type="submit" class="btn select-btn">Select</button> -->
                                                                         <button type="submit" class="btn"
@@ -658,36 +658,8 @@
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
                                                                 <label for="">Date of Birth *:</label>
-                                                                <div class="row">
-                                                                    <div class="col-md-4 col-sm-12">
-                                                                        <select class="form-control blankCheck"
-                                                                            id="person_bday_id" name="person_bday">
-                                                                            <option value="">dd</option>
-                                                                            <option value="01">01</option>
-                                                                            <option value="02">02</option>
-                                                                            <option value="03">03</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-md-4 col-sm-12">
-                                                                        <select class="form-control blankCheck"
-                                                                            id="person_bmon_id" name="person_bmon">
-                                                                            <option value="">mm</option>
-                                                                            <option value="01">01</option>
-                                                                            <option value="02">02</option>
-                                                                            <option value="03">03</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-md-4 col-sm-12">
-                                                                        <select class="form-control blankCheck"
-                                                                            id="person_byear_id" name="person_byear">
-                                                                            <option value="">yyyy</option>
-                                                                            <option value="2020">2020</option>
-                                                                            <option value="2021">2021</option>
-                                                                            <option value="2022">2022</option>
-                                                                            <option value="2023">2023</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
+                                                                <input type="date" class="form-control blankCheck"
+                                                                    name="person_bday" id="person_bday_id">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
@@ -701,8 +673,8 @@
                                                             <div class="form-group">
                                                                 <label for="">Nationality - <small>of accepted
                                                                         nationalities *: </small></label>
-                                                                <select name="person_national"
-                                                                    class="form-control" id="person_national_id">
+                                                                <select name="person_national" class="form-control"
+                                                                    id="person_national_id">
                                                                     @if (!empty($countries))
                                                                         @foreach ($countries as $country)
                                                                             <option value="{{ $country['id'] }}">
@@ -745,9 +717,11 @@
 
                                                     <div class="btn-block">
                                                         <button class="btn buy-now-btn res_choose_one_cl"
-                                                            onclick="chooseAddRess('residential','select')">Choose One</button>
+                                                            onclick="chooseAddRess('residential','select')">Choose
+                                                            One</button>
                                                         <button class="btn buy-now-btn res_choose_another_cl d-none"
-                                                            onclick="chooseAddRess('residential','select')">Choose Another</button>
+                                                            onclick="chooseAddRess('residential','select')">Choose
+                                                            Another</button>
                                                     </div>
                                                     <div class="btn-block residentialAddChosed_cl d-none">
                                                         <button class="btn">Edit</button>
@@ -843,7 +817,7 @@
                                             </div>
                                             {{-- DETAILSTAB LANDING PAGE ENDS --}}
 
-                                            
+
 
                                             {{-- Details Edit form div starts --}}
                                             <div class="form-wrap edit_from_residential d-none">
@@ -1299,7 +1273,7 @@
                         billing_countryNew,
                     },
                     success: function(result) {
-                        if(result === 'details_resi'){
+                        if (result === 'details_resi') {
                             $("#details_tab_new_address_form").html('')
 
                             $("#detailsTabAddList_id").removeClass('d-none');
@@ -1344,24 +1318,25 @@
                 $("#detailsTabLandingPage_id").removeClass('d-none');
                 $("#theNextBtn").removeClass('d-none');
                 $("#detailsTabAddList_id").addClass('d-none');
-                
+
                 $('#myTab').removeClass('d-none')
                 $("#addressTypeChoosed").val('');
             }
-            
+
+            // DETAILS SECTION
             if (currentTab === 'details' && addressTypeChoosed === 'residential' && actionType === 'select') {
                 $("#detailsTabLandingPage_id").removeClass('d-none');
                 $('#myTab').removeClass('d-none')
                 $("#theNextBtn").removeClass('d-none');
 
                 $("#detailsTabAddList_id").addClass('d-none');
-                
+
                 $("#addressTypeChoosed").val('')
                 $("#actionType").val('')
             }
 
             if (currentTab === 'details' && addressTypeChoosed === 'residential' && actionType === 'edit') {
-                
+
                 $("#actionType").val('select')
 
                 $(".edit_from_residential").addClass('d-none')
@@ -1372,37 +1347,55 @@
 
             if (currentTab === 'details' && addressTypeChoosed === 'residential' && actionType === 'add') {
                 $("#actionType").val('select')
-                
+
                 $("#detailsTabLandingPage_id").addClass('d-none');
                 $('#myTab').addClass('d-none')
+                $('.hideEditmyTab').addClass('d-none')
 
                 $("#details_tab_new_address_form").html('')
 
                 $("#detailsTabAddList_id").removeClass('d-none');
             }
+
+            // ADDRESS SECTION
+            if (currentTab === 'addressing' && addressTypeChoosed === 'service' && actionType === 'select') {
+                $("#addressTypeChoosed").val('')
+                $("#actionType").val('')
+
+                $("#serviceAddLandingSection").removeClass('d-none');
+                $('#myTab').removeClass('d-none')
+                $("#theNextBtn").removeClass('d-none');
+
+                $("#detailsTabAddList_id").addClass('d-none');
+            }
+
         }
 
         function gotToBusinessAddressPage() {
             window.location.href = "{{ route('choose-address-business') }}"
         }
 
-        function chooseAddRess(type,action) {
+        function chooseAddRess(type, action) {
             $("#detailsTabAddList_id").removeClass('d-none');
+
             $("#myTab").addClass('d-none');
             $("#detailsTabLandingPage_id").addClass('d-none');
             $("#theNextBtn").addClass('d-none');
-            
+
             $("#addressTypeChoosed").val(type);
             $("#actionType").val(action);
         }
-        
+
         function chooseAdd(type) {
             $("#detailsTabAddList_id").removeClass('d-none');
+            $('.hideEdit').addClass('d-none');
+
+            $("#serviceAddLandingSection").addClass('d-none');
             $("#myTab").addClass('d-none');
-            $("#serviceAddLandingSection").hide();
-            $('.hideEdit').removeClass('d-none');
+            $("#theNextBtn").addClass('d-none');
 
             $("#addressTypeChoosed").val(type)
+            $("#actionType").val('select')
         }
 
         function addListing() {
@@ -1537,8 +1530,8 @@
             const offValId = $(`.offValId_${id}`).val();
             const offValtitle = $(`.offValtitle_${id}`).val();
             const offValdob_day = $(`.offValdob_day_${id}`).val();
-            const offValdob_month = $(`.offValdob_month_${id}`).val();
-            const offValdob_year = $(`.offValdob_year_${id}`).val();
+            // const offValdob_month = $(`.offValdob_month_${id}`).val();
+            // const offValdob_year = $(`.offValdob_year_${id}`).val();
             const offValfirst_name = $(`.offValfirst_name_${id}`).val();
             const offVallast_name = $(`.offVallast_name_${id}`).val();
             const offValnationality = $(`.offValnationality_${id}`).val();
@@ -1554,14 +1547,14 @@
             $('#personOfficerEditId').val(offValId);
             $('#person_tittle_id').val(offValtitle);
             $('#person_bday_id').val(offValdob_day);
-            $('#person_bmon_id').val(offValdob_month);
-            $('#person_byear_id').val(offValdob_year);
             $('#person_fname_id').val(offValfirst_name);
             $('#person_lname_id').val(offVallast_name);
             $('#person_national_id').val(offValnationality);
             $('#person_occupation_id').val(offValoccupation);
 
-            $('#add_id').val(offValadd_id);
+            $('#ChossenResAdd_id').val(offValadd_id);
+
+
             $('#person_aqone_id').val(offValauthenticate_one);
             $('#person_aqone_ans_id').val(offValauthenticate_one_ans);
             $('#person_aqtwo_id').val(offValIdauthenticate_two);
@@ -1571,6 +1564,24 @@
 
             $('#choosedPersonOfficerId').val(offValId)
             $('#currentTab').val('details')
+
+            console.log(offValadd_id);
+
+            if (offValadd_id == '') {
+                $("#ChossenResAdd").html('');
+            } else {
+                $.ajax({
+                    url: "{!! route('selected-address') !!}",
+                    type: "get",
+                    data: {
+                        offValadd_id,
+                    },
+                    success: function(data) {
+                        $("#ChossenResAdd").html(data);
+                        $("#ChossenResAdd").removeClass('d-none');
+                    }
+                });
+            }
 
             addNewOfficer('id');
         }
@@ -1640,14 +1651,12 @@
             $('#personOfficerEditId').val('');
             $('#person_tittle_id').val('');
             $('#person_bday_id').val('');
-            $('#person_bmon_id').val('');
-            $('#person_byear_id').val('');
             $('#person_fname_id').val('');
             $('#person_lname_id').val('');
             $('#person_national_id').val('');
             $('#person_occupation_id').val('');
 
-            $('#add_id').val('');
+            $('#ChossenResAdd_id').val('');
             $('#person_aqone_id').val('');
             $('#person_aqone_ans_id').val('');
             $('#person_aqtwo_id').val('');
@@ -1686,18 +1695,19 @@
 
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'details') {
 
+                const ChossenResAdd_id = $('#ChossenResAdd_id').val();
                 const shoppingCartId = $('#shoppingCartId_id').val();
                 const personOfficerEditId = $('#personOfficerEditId').val();
                 const person_tittle = $('#person_tittle_id').val();
                 const person_bday = $('#person_bday_id').val();
-                const person_bmon = $('#person_bmon_id').val();
-                const person_byear = $('#person_byear_id').val();
                 const person_fname = $('#person_fname_id').val();
                 const person_national = $('#person_national_id').val();
                 const person_lname = $('#person_lname_id').val();
                 const person_occupation = $('#person_occupation_id').val();
 
-                const add_id_val = $('#add_id').val();
+                // const add_id_val = $('#add_id').val();
+                // console.log(add_id_val);
+                // return false
                 const person_aqone = $('#person_aqone_id').val();
                 const person_aqone_ans = $('#person_aqone_ans_id').val();
                 const person_aqtwo = $('#person_aqtwo_id').val();
@@ -1729,13 +1739,11 @@
                             personOfficerEditId,
                             person_tittle,
                             person_bday,
-                            person_bmon,
-                            person_byear,
                             person_fname,
                             person_national,
                             person_lname,
                             person_occupation,
-                            add_id_val,
+                            ChossenResAdd_id,
                             person_aqone,
                             person_aqone_ans,
                             person_aqtwo,
@@ -1842,8 +1850,9 @@
         function selectedAdd(ths, id, type) {
             const addressTypeChoosed = $("#addressTypeChoosed").val();
             $('#myTab').removeClass('d-none')
+            $('#theNextBtn').removeClass('d-none')
 
-            if (addressTypeChoosed === 'residential') { 
+            if (addressTypeChoosed === 'residential') {
                 if (type === 'listing') {
                     const house_number = $(`.${id}_add_house_number`).val();
                     const add_street = $(`.${id}_add_street`).val();
@@ -1862,7 +1871,7 @@
                 $('#ChossenResAdd').removeClass('d-none');
                 $("#detailsTabLandingPage_id").removeClass('d-none');
                 $('.res_choose_another_cl').removeClass('d-none');
-                
+
                 $('.res_choose_one_cl').addClass('d-none');
                 $("#detailsTabAddList_id").addClass('d-none');
                 $("#actionType").val('')
@@ -1885,7 +1894,7 @@
 
                 $('#ChossenServiceAdd_id').val(id)
                 $('#ChossenServiceAdd').removeClass('d-none');
-                $("#serviceAddLandingSection").show();
+                $("#serviceAddLandingSection").removeClass('d-none')
                 $('.choose_one_cl').addClass('d-none');
                 $('.choose_another_cl').removeClass('d-none');
             }
@@ -1965,7 +1974,7 @@
             const address_post_code = $(`.${id}_address_post_code`).val();
             const address_billing_country = $(`.${id}_address_billing_country`).val();
 
-            $(`#add_id`).val(id);
+            $(`#ChossenResAdd_id`).val(id);
             $(`#house_no1`).val(house_number);
             $(`#street1`).val(add_street);
             $(`#locality1`).val(add_locality);
