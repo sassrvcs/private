@@ -114,6 +114,66 @@
     </div>
 </div>
 
+<!--For Find Postal Code Address Api Modal Popup-->
+<div class="modal" id="exampleModalCenterAddress" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Choose your address</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <div id="post_address_blk">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {{-- <div class="step-btn-wrap mt-4">
     <button class="btn prev-btn" onclick="theCancelButtonFunction()">Cancel</button>
 </div> --}}
+<script>
+       $('#findAddress').click(function() {
+            var error = false;
+            var post_code = $("#post_code_for_search").val();
+
+            if (post_code != "") {
+                $("#zip_code").val(post_code);
+                error = false;
+
+            } else {
+                alert('Please enter post code');
+                error = true;
+            }
+            if (error == false) {
+                $('#findAddress').html('Please Wait...');
+                $.ajax({
+                    url: "{!! route('find-address') !!}",
+                    type: 'GET',
+                    data: {
+                        post_code: post_code
+                    },
+                    success: function(result) {
+                        $('#findAddress').html('Find Address');
+                        $("#exampleModalCenterAddress").show();
+                        $("#post_address_blk").html(result);
+                    }
+                });
+            }
+        });
+
+        $(".btn-close").click(function() {
+            $("#exampleModalCenterAddress").hide();
+        })
+
+        function selectPostalAddrApp(val) {
+            var value = val.split(',');
+            $("#house_noNew").val(value[0]);
+            $("#streetNew").val(value[1]);
+            $("#townNew").val(value[2]);
+            $("#countyNew").val(value[3]);
+            $("#exampleModalCenterAddress").hide();
+        }
+</script>

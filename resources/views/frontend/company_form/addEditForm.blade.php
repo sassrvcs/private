@@ -151,8 +151,11 @@
                 success: function(result) {
                     if (currentTab === 'details') {
                         $('#editFormAjaxLoadResidentialSection').html('')
-                        $('.edit_from_residential').addClass('d-none');
+
                         $('#detailsTabAddList_id').removeClass('d-none');
+                        $('.edit_from_residential').addClass('d-none');
+
+                        $("#actionType").val('select')
                     }
                     if (currentTab === 'addressing') {
                         $('#editFormAjaxLoadAddressSection').html('')

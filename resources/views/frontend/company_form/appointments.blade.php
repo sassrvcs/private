@@ -745,9 +745,9 @@
 
                                                     <div class="btn-block">
                                                         <button class="btn buy-now-btn res_choose_one_cl"
-                                                            onclick="chooseAddRess('residential')">Choose One</button>
+                                                            onclick="chooseAddRess('residential','select')">Choose One</button>
                                                         <button class="btn buy-now-btn res_choose_another_cl d-none"
-                                                            onclick="chooseAddRess('residential')">Choose Another</button>
+                                                            onclick="chooseAddRess('residential','select')">Choose Another</button>
                                                     </div>
                                                     <div class="btn-block residentialAddChosed_cl d-none">
                                                         <button class="btn">Edit</button>
@@ -1301,11 +1301,11 @@
                     success: function(result) {
                         if(result === 'details_resi'){
                             $("#details_tab_new_address_form").html('')
-                            addListing();
+
                             $("#detailsTabAddList_id").removeClass('d-none');
-                            $("#actionType").val('');
-                            $("#theNextBtn").removeClass('d-none');
-                            $("#myTab").removeClass('d-none');
+                            addListing();
+
+                            $("#actionType").val('select');
                         }
                     }
                 });
@@ -1349,12 +1349,36 @@
                 $("#addressTypeChoosed").val('');
             }
             
+            if (currentTab === 'details' && addressTypeChoosed === 'residential' && actionType === 'select') {
+                $("#detailsTabLandingPage_id").removeClass('d-none');
+                $('#myTab').removeClass('d-none')
+                $("#theNextBtn").removeClass('d-none');
+
+                $("#detailsTabAddList_id").addClass('d-none');
+                
+                $("#addressTypeChoosed").val('')
+                $("#actionType").val('')
+            }
+
+            if (currentTab === 'details' && addressTypeChoosed === 'residential' && actionType === 'edit') {
+                
+                $("#actionType").val('select')
+
+                $(".edit_from_residential").addClass('d-none')
+                $("#editFormAjaxLoadResidentialSection").html('')
+
+                $("#detailsTabAddList_id").removeClass('d-none');
+            }
+
             if (currentTab === 'details' && addressTypeChoosed === 'residential' && actionType === 'add') {
+                $("#actionType").val('select')
+                
                 $("#detailsTabLandingPage_id").addClass('d-none');
                 $('#myTab').addClass('d-none')
+
                 $("#details_tab_new_address_form").html('')
+
                 $("#detailsTabAddList_id").removeClass('d-none');
-                $("#theNextBtn").removeClass('d-none');
             }
         }
 
@@ -1362,13 +1386,14 @@
             window.location.href = "{{ route('choose-address-business') }}"
         }
 
-        function chooseAddRess(type) {
+        function chooseAddRess(type,action) {
             $("#detailsTabAddList_id").removeClass('d-none');
             $("#myTab").addClass('d-none');
             $("#detailsTabLandingPage_id").addClass('d-none');
             $("#theNextBtn").addClass('d-none');
             
             $("#addressTypeChoosed").val(type);
+            $("#actionType").val(action);
         }
         
         function chooseAdd(type) {
@@ -1834,11 +1859,13 @@
                 }
 
                 $('#ChossenResAdd_id').val(id)
-                $("#detailsTabAddList_id").addClass('d-none');
-                $('.res_choose_one_cl').addClass('d-none');
                 $('#ChossenResAdd').removeClass('d-none');
                 $("#detailsTabLandingPage_id").removeClass('d-none');
                 $('.res_choose_another_cl').removeClass('d-none');
+                
+                $('.res_choose_one_cl').addClass('d-none');
+                $("#detailsTabAddList_id").addClass('d-none');
+                $("#actionType").val('')
             }
 
             if (addressTypeChoosed === 'service') {
@@ -1896,6 +1923,7 @@
 
             const currentTab = $("#currentTab").val();
 
+            $("#actionType").val('edit');
             $.ajax({
                 url: "{!! route('address-edit-page') !!}",
                 type: "post",
@@ -1906,7 +1934,9 @@
                 success: function(data) {
                     if (currentTab === 'details') {
                         $('#editFormAjaxLoadResidentialSection').html(data)
+
                         $('.edit_from_residential').removeClass('d-none');
+
                         $('#detailsTabAddList_id').addClass('d-none');
                     } else {
                         $('#editFormAjaxLoadResidentialSection').html('')
