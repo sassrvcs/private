@@ -42,4 +42,9 @@ class Companie extends Model implements HasMedia
     {
         return $this->hasOne(BusinessEssential::class, 'companie_id', 'id');
     }
+
+    public function jurisdiction()
+    {
+        return $this->belongsTo(Jurisdiction::class, 'jurisdiction_id','id');
+    }
 }
