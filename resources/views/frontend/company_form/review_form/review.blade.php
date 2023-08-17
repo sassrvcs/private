@@ -18,26 +18,6 @@ ul.ef-16-benefits-list {
                 @include('layouts.navbar')
                 <div class="col-md-12">
                     <div class="particulars-form-wrap">
-                        {{-- <div class="particulars-top-step">
-                            <div class="top-step-items">
-                                <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}" >
-                                    <strong>1.Company Formation</strong>
-                                    <span>Details about your company</span>
-                                </a>
-                            </div>
-                            <div class="top-step-items active">
-                                <strong>2.Business Essentials</strong>
-                                <span>Products & services</span>
-                            </div>
-                            <div class="top-step-items">
-                                <strong>3.Company Formation</strong>
-                                <span>Details about your company</span>
-                            </div>
-                            <div class="top-step-items">
-                                <strong>4.Company Formation</strong>
-                                <span>Details about your company</span>
-                            </div>
-                        </div> --}}
                         <div class="particulars-top-step">
                             <div class="top-step-items">
                                 <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}" >
@@ -77,19 +57,27 @@ ul.ef-16-benefits-list {
                             <div class="review-panel">
                                 <h3>Particulars</h3>
                                 <ul>
-                                    <li><strong>Company Name : </strong>FDFFDCF LTD</li>
-                                    <li><strong>Company Type : </strong>Limited By Shares</li>
-                                    <li><strong>Jurisdiction : </strong>Scotland</li>
-                                    <li><strong>SIC Codes : </strong>Building Societies</li>
+                                    <li><strong>Company Name : </strong>{{$review->companie_name}}</li>
+                                    <li><strong>Company Type : </strong>{{$review->companie_type}}</li>
+                                    <li><strong>Jurisdiction : </strong>{{$review->jurisdiction->name}}</li>
+                                    <li><strong>SIC Codes : </strong>
+                                        @if ($review->sicCodes->count() > 0)
+                                            {{ implode(', ', $review->sicCodes->pluck('name')->toArray()) }}
+                                        @else
+                                            {{-- No data present --}}
+                                        @endif
+                                        {{-- {{ implode(', ', $review->sicCodes->pluck('name')->toArray()) }} --}}
+                                        {{-- Building Societies --}}
+                                    </li>
                                 </ul>
-                                <button class="btn">Edit</button>
+                                <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}" class="btn">Edit</a>
                             </div>
                             <div class="review-panel">
                                 <h3>Registered Office</h3>
                                 <ul>
                                     <li><strong>Address : </strong>9 Raglan Court, Empire Way, WEMBLEY, HA9 0RE, SCOTLAND</li>
                                 </ul>
-                                <button class="btn">Edit</button>
+                                <a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" class="btn">Edit</a>
                             </div>
                             <div class="review-panel">
                                 <h3>Appointments</h3>
@@ -122,9 +110,12 @@ ul.ef-16-benefits-list {
                             <div class="review-panel">
                                 <h3>Documents</h3>
                                 <ul>
-                                    <li><strong>Memorandum and Articles : </strong>Generic Limited by Shares Articles</li>
+                                    {{-- Generic Limited by Shares Articles --}}
+                                    <li>
+                                        <strong>Memorandum and Articles : </strong> {{ ($review->legal_document == 'generic_article') ? 'Generic Limited by Share Articles' : 'Byspoke article of association' }}
+                                    </li>
                                 </ul>
-                                <button class="btn">Edit</button>
+                                <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'document']) }}" class="btn">Edit</a>
                             </div>
                             <hr class="mb-4">
                             <h6>Business Account</h6>

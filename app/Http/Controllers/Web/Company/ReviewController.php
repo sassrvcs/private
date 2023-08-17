@@ -19,8 +19,8 @@ class ReviewController extends Controller
     public function index()
     {
         $review = $this->companyFormService->getCompanieName($_GET['order']);
-        // dd($review);
-        return view('frontend.company_form.review_form.review');
+        dd($review);
+        return view('frontend.company_form.review_form.review', compact('review'));
     }
 
     /**

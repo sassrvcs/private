@@ -15,7 +15,10 @@ class Companie extends Model implements HasMedia
         'user_id', 'jurisdiction_id',
         'office_address', 'business_address',
         'companie_name', 'companie_type',
-        'section_name', 'step_name'
+        'section_name', 'step_name',
+        'forwarding_registered_office_address',
+        'forwarding_business_office_address',
+        'legal_document'
     ];
 
     // public function registerMediaCollections(): void
@@ -46,5 +49,15 @@ class Companie extends Model implements HasMedia
     public function jurisdiction()
     {
         return $this->belongsTo(Jurisdiction::class, 'jurisdiction_id','id');
+    }
+
+    public function officeAddressWithoutForwAddress()
+    {
+        return $this->belongsTo(Address::class, 'office_address','id');
+    }
+
+    public function officeAddressWithForwAddress()
+    {
+        return $this->belongsTo(Address::class, 'forwarding_registered_office_address','id');
     }
 }
