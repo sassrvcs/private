@@ -8492,6 +8492,65 @@ form.woocommerce-form-login.login{
     border: 1px solid red
 }
 
+.details-desc {
+    padding: 20px;
+    margin: 0;
+}
+
+.details-desc h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #353A40;
+    padding: 0 0 15px;
+    margin: 0 0 15px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.details-desc p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #353A40;
+    padding: 0;
+    margin: 0 0 15px;
+}
+
+.details-desc h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #3B566F;
+    line-height: 1.2;
+    padding: 0;
+    margin: 0 0 10px;
+}
+
+.details-desc ul li {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.2;
+    padding: 0 0 0 15px;
+    margin: 0 0 15px;
+    position: relative;
+}
+
+.details-desc ul li:after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3B566F;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+}
+
 .review-ttl-block{
     display: flex;
     justify-content: space-between;

@@ -498,7 +498,6 @@
                                         <div class="mb-3">
                                             <button type="button" onClick="AddMoreAddSave(this)"
                                                 class="btn btn-primary">Submit</button>
-                                            <!-- <button type="submit" onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';" class="btn btn-primary">Submit</button> -->
                                         </div>
                                     </form>
                                 </div>

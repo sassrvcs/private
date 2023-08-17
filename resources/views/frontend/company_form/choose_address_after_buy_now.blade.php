@@ -192,11 +192,11 @@
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Business Address</p>
+                                    <p><a href="{{route('choose-address-business')}}" style="color: #ffffff;">Business Address</a></p>
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Appointment</p>
+                                    <p><a href="{{ route('appointments') }}" style="color: #ffffff;">Appointment</a></p>
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
@@ -642,8 +642,51 @@
                                             </div>
                                         </div>
                                         <div class="btn-block">
-                                            <button class="btn">Details</button>
+                                            <button class="btn" onclick="DetailsSection()">Details</button>
                                             <button class="btn buy-now-btn" onclick="gotoPage()">Remove</button>
+                                        </div>
+                                        <div class="details-desc d-none" id="DetailsSection_div">
+                                            <h3>Why would I use your WC2 London Business Address Services?</h3>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="details-text">
+                                                        <h4>Improve your corporate image</h4>
+                                                        <p>A professional business address located in the heart of London
+                                                            can provide a number of benefits for your business - boosting
+                                                            your corporate image and extending your company’s presence.</p>
+                                                        <p>You can use our address as your company’s primary correspondence
+                                                            address, and we will forward all your business mail to an
+                                                            alternative address of your choosing, on a daily basis.</p>
+                                                        <p>This service is renewable on a 12 monthly basis at the cost of
+                                                            £96.00+vat</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="details-text">
+                                                        <h4>Benefits of our Business Address Services</h4>
+                                                        <ul>
+                                                            <li>Creates a professional, corporate image.</li>
+                                                            <li>Gives the impression of a large, established business.</li>
+                                                            <li>Provides an alternate contact address from your registered
+                                                                office or home address that is exclusively used for
+                                                                corresponding with clients, suppliers, investors and other
+                                                                third parties.</li>
+                                                            <li>Non-statutory general business mail is delivered to our
+                                                                London address and forwarded to an alternate address of your
+                                                                choice two times per week.</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="details-text">
+                                                        <p><strong>Please note:</strong> This service does not include a
+                                                            registered office service, which should be purchased separately.
+                                                            All general business mail will be handled by us and forwarded to
+                                                            your UK or overseas address at the cost of Royal Mail postal
+                                                            rates plus 15%.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="step-btn-wrap mt-4">
@@ -683,6 +726,11 @@
 
 @section('script')
     <script>
+
+        function DetailsSection() {
+            $('#DetailsSection_div').toggleClass('d-none')
+        }
+
         function previousParticulars() {
             window.location.href =
                 "{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'particulars', 'data' => 'previous']) }}"
@@ -793,44 +841,6 @@
                     window.location.reload()
                 }
             });
-
-            // $(".hideEdit").hide();
-            // $('.buyNowAfterSelectingAdd').removeClass('d-none');
-
-            // const house_number = $(`.${id}_add_house_number`).val();
-            // const add_street = $(`.${id}_add_street`).val();
-            // const add_locality = $(`.${id}_add_locality`).val();
-            // const add_town = $(`.${id}_add_town`).val();
-            // const user_county = $(`.${id}_user_county`).val();
-            // const address_post_code = $(`.${id}_address_post_code`).val();
-            // const address_billing_country = $(`.${id}_address_billing_country`).val();
-
-            // document.getElementById("forwarding_house_number").textContent = `${house_number}`;
-            // document.getElementById("forwading_street").textContent = `${add_street}`;
-            // document.getElementById("forwading_locality").textContent = `${add_locality}`;
-            // document.getElementById("forwading_town").textContent = `${add_town}`;
-            // document.getElementById("forwading_county").textContent = `${user_county}`;
-            // document.getElementById("forwading_post_code").textContent = `${address_post_code}`;
-            // // document.getElementById("forwading_billing_country").textContent = `${address_billing_country}`;
-
-            // $(`#forwading_add_id`).val(id);
-            // $(`#forwading_house_no1`).val(house_number);
-            // $(`#forwading_street1`).val(add_street);
-            // $(`#forwading_locality1`).val(add_locality);
-            // $(`#forwading_town1`).val(add_town);
-            // $(`#forwading_county1`).val(user_county);
-            // $(`#forwading_post_code`).val(address_post_code);
-            // $(`#forwading_billing_country`).val(address_billing_country);
-
-            // $(`#add_id`).val(id);
-            // $(`#house_no1`).val(house_number);
-            // $(`#street1`).val(add_street);
-            // $(`#locality1`).val(add_locality);
-            // $(`#town1`).val(add_town);
-            // $(`#county1`).val(user_county);
-            // $(`#post_code`).val(address_post_code);
-
-            // document.getElementById("billing_country").value = `${address_billing_country}`;
         }
 
         $('.edit-addr').click(function() {

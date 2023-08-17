@@ -179,6 +179,7 @@ class CompanyFormController extends Controller
     {
         $cartInfo = ShoppingCart::where(['user_id' => Auth::user()->id])->get()->first();
 
+        $shoppingCartId = '';
         if (!empty($cartInfo)) {
             if (!empty($cartInfo['id'])) {
                 $shoppingCartId = $cartInfo['id'];
@@ -190,12 +191,31 @@ class CompanyFormController extends Controller
         $used_address = Address::where('user_id', Auth::user()->id)->get();
         $countries = Country::all()->toArray();
 
-        // PERSON SECTION DATAS
-
         $person_officers = PersonOfficer::get()->toArray();
 
 
         return view('frontend.company_form.appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers'));
+    }
+
+    public function address_listing(Request $request)
+    {
+        $used_address = Address::where('user_id', Auth::user()->id)->get();
+
+        return view('frontend.company_form.addressListingPage', compact('used_address'));
+    }
+
+    public function address_edit_page(Request $request)
+    {
+        $addressFetched = Address::where('id', $request->id)->get()->toArray();
+
+        if (!empty($addressFetched)) {
+            $address = $addressFetched[0];
+        } else {
+            $address = [];
+        }
+
+        $countries = Country::all()->toArray();
+        return view('frontend.company_form.addEditForm', compact('address', 'countries'));
     }
 
     public function savePersonOfficer(Request $request)
@@ -250,6 +270,35 @@ class CompanyFormController extends Controller
             if ($updated) {
                 return $updated;
             }
+        }
+    }
+
+    public function new_address_form(Request $request)
+    {
+        $where = $request->get('where') !== '' ? $request->get('where') : '';
+
+        $countries = Country::all()->toArray();
+
+        return view('frontend.company_form.addAddressForm', compact('countries', 'where'));
+    }
+
+    public function enter_new_address(Request $request)
+    {
+
+        $inserted = Address::create([
+            'user_id' => Auth::user()->id,
+            'address_type' => 'office_address',
+            'house_number' => $request->house_noNew,
+            'street' => $request->streetNew,
+            'locality' => $request->localityNew,
+            'town' => $request->townNew,
+            'county' => $request->countyNew,
+            'post_code' => $request->zip_code,
+            'billing_country' => $request->billing_countryNew,
+        ]);
+
+        if ($inserted) {
+            return $request->where;
         }
     }
 }
