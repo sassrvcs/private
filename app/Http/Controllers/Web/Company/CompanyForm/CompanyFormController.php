@@ -9,6 +9,7 @@ use App\Models\Companie;
 use App\Models\Country;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Address;
+use App\Models\Person_appointment;
 use App\Models\PersonOfficer;
 use App\Models\ShoppingCart;
 
@@ -316,7 +317,38 @@ class CompanyFormController extends Controller
         return $data;
     }
 
-    public function person_appointment_save() {
+    public function person_appointment_save(Request $request) {
+       $inserted = Person_appointment::create([
+        'order_id' => $request->order_id,
+        'user_id' => Auth::user()->id,
+        'cart_id' => $request->cart_id,
+        'person_officer_id' => $request->person_officer_id,
+        'own_address_id' => $request->own_address_id,
+        'forwarding_address_id' => $request->forwarding_address_id,
+        'company_id' => $request->company_id,
+        'position' => $request->position,
+        'noc_os' => $request->noc_os,
+        'noc_vr' => $request->noc_vr,
+        'noc_appoint' => $request->noc_appoint,
+        'noc_others' => $request->noc_others,
+        'fci' => $request->fci,
+        'fci_os' => $request->fci_os,
+        'fci_vr' => $request->fci_vr,
+        'fci_appoint' => $request->fci_appoint,
+        'fci_others' => $request->fci_others,
+        'tci' => $request->tci,
+        'tci_os' => $request->tci_os,
+        'tci_vr' => $request->tci_vr,
+        'tci_appoint' => $request->tci_appoint,
+        'tci_others' => $request->tci_others,
+        'sh_quantity' => $request->sh_quantity,
+        'sh_currency' => $request->sh_currency,
+        'sh_pps' => $request->sh_pps,
+        'perticularsTextArea' => $request->perticularsTextArea,
+        ]) ;
         
+        if($inserted){
+            return 1;
+       }
     }
 }

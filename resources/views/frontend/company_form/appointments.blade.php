@@ -348,6 +348,13 @@
                                         </li>
                                     </ul>
 
+                                    {{-- VALIDATION DIV STARTS --}}
+                                    <div class="own-address mt-3 d-none" style="color:red;" id="validationErrorShow">
+
+
+                                    </div>
+                                    {{-- VALIDATION DIV ENDS --}}
+
                                     {{-- Add Listing Section Starts --}}
                                     <div class="d-none" id="detailsTabAddList_id">
 
@@ -1681,48 +1688,69 @@
             const order_id = '';
             const cart_id = $("#shoppingCartId_id").val();
             const person_officer_id = $("#choosedPersonOfficerId").val();
+            
+            const ChossenResAdd_id = $("#ChossenResAdd_id").val();
+
             const own_address_id = $("#ChossenServiceAdd_id").val();
             const forwarding_address_id = $("#ChossenForwarding_Add_id").val();
             const company_id = '';
             const position = $("#positionSelected").val();
             // noc section value
-            const noc_os = $("#F_ownership").val();
-            const noc_vr = $("#F_voting").val();
-            const noc_appoint = $("#F_appoint").val();
-            const noc_others = $("#F_other_sig_select_id").val();
-            const fci = $("#f_radio_check_id").val();
-            const fci_os = $("#s_ownership").val();
-            const fci_vr = $("#s_voting").val();
-            const fci_appoint = $("#s_appoint").val();
-            const fci_others = $("#s_other_sig_select_id").val();
-            const tci = $("#s_radio_check_id").val();
-            const tci_os = $("#t_ownership").val();
-            const tci_vr = $("#t_voting").val();
-            const tci_appoint = $("#t_appoint").val();
-            const tci_others = $("#t_other_sig_select_id").val();
-            // shareholder section value
-            const sh_quantity = $("#sh_quantity").val();
-            const sh_currency = $("#sh_currency").val();
-            const sh_pps = $("#sh_pps").val();
+            const noc_os = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#F_ownership").val() :'';
+            const noc_vr = $("#nature-control-tab").closest('li').hasClass('d-none') === false ?  $("#F_voting").val() : '';
+            const noc_appoint = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#F_appoint").val() : '';
+            const noc_others =  $("#nature-control-tab").closest('li').hasClass('d-none') === false && $("#F_other_sig").hasClass('d-none') === false ? $("#F_other_sig_select_id").val() :'No';
 
-            const currentTab = $('#currentTab').val()
+            const fci = $("#nature-control-tab").closest('li').hasClass('d-none') === false ?  $("#f_radio_check_id").val() : '';
+            const fci_os = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#s_ownership").val() : '';
+            const fci_vr = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#s_voting").val() : '';
+            const fci_appoint = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#s_appoint").val() : '';
+            const fci_others = $("#nature-control-tab").closest('li').hasClass('d-none') === false && $("#s_other_sig").hasClass('d-none') === false ? $("#s_other_sig_select_id").val() : 'No';
+
+            const tci = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#s_radio_check_id").val() : '';
+            const tci_os = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#t_ownership").val() : '';
+            const tci_vr = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#t_voting").val() : '';
+            const tci_appoint = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#t_appoint").val() : '';
+            const tci_others = $("#nature-control-tab").closest('li').hasClass('d-none') === false && $("#t_other_sig").hasClass('d-none') === false ? $("#t_other_sig_select_id").val() : 'No';
+            // shareholder section value
+            const sh_quantity = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#sh_quantity").val() : '';
+            const sh_currency = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#sh_currency").val() :'';
+            const sh_pps = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#sh_pps").val() :'';
+            const perticularsTextArea = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#perticularsTextArea").val() :'';
 
             const requiredFields = document.querySelectorAll('.blankCheckFinalSubmit');
             const requiredFieldsArr = [...requiredFields];
 
             let validation = 0;
-            requiredFieldsArr.forEach(el => {
-                if (el.value === '') {
-                    el.classList.add('validation');
-                    el.nextElementSibling.classList.remove('d-none');
-                    return validation++;
-                } else {
-                    el.classList.remove('validation');
-                    el.nextElementSibling.classList.add('d-none');
-                }
-            });
+            if(person_officer_id === ''){
+                $("#validationErrorShow").removeClass('d-none')
+                $("#validationErrorShow").html('You have to choose an Officer!')
+                return validation++;
+            }
+            if(ChossenResAdd_id === ''){
+                $("#validationErrorShow").removeClass('d-none')
+                $("#validationErrorShow").html('You have to choose an Address for the Officer!')
+                return validation++;
+            }
 
-            console.log(validation);
+            if($("#service_add_choosed").hasClass('d-none') === false && own_address_id === ''){
+                $("#validationErrorShow").removeClass('d-none')
+                $("#validationErrorShow").html('You have to choose an Address!')
+                return validation++;
+            }
+
+            if(position === ''){
+                $("#validationErrorShow").removeClass('d-none')
+                $("#validationErrorShow").html('You have to choose a Position!')
+                return validation++;
+            }
+
+            if($(".forwarding_add_after_buy_now_select").hasClass('d-none') === false && forwarding_address_id===''){
+                $("#validationErrorShow").removeClass('d-none')
+                $("#validationErrorShow").html('You have to choose a Forwarding Address!')
+                return validation++;
+            }
+
             if (validation === 0) {
                 console.log('gg');
                 $.ajax({
@@ -1754,6 +1782,7 @@
                         sh_quantity,
                         sh_currency,
                         sh_pps,
+                        perticularsTextArea,
                     },
                     success: function(result) {
                         if (result) {
@@ -2251,6 +2280,7 @@
             const offValIdauthenticate_three_ans = $(`.offValIdauthenticate_three_ans_${id}`).val();
 
             $('#personOfficerEditId').val(offValId);
+            $('#choosedPersonOfficerId').val(offValId);
             $('#person_tittle_id').val(offValtitle);
             $('#person_bday_id').val(offValdob_day);
             $('#person_fname_id').val(offValfirst_name);
@@ -2472,8 +2502,6 @@
                             person_aqthree_ans
                         },
                         success: function(response) {
-                            $('#choosedPersonOfficerId').val(response['id'])
-
                             $('#details-tab').removeClass('active');
                             $('#details').removeClass('active show');
 
@@ -2491,7 +2519,7 @@
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'addressing') {
                 if ($("#nature-control-tab").closest('li').hasClass('d-none') && $("#share-holder-tab").closest('li')
                     .hasClass('d-none')) {
-                    console.log('DS1');
+                    databaseEntry();
                     return false
                 }
                 if ($("#nature-control-tab").closest('li').hasClass('d-none') === false) {
@@ -2520,7 +2548,7 @@
             // CHECKING THE LAST SECTION BEFORE DATABASE ENTRY FROM nature-control
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'nature-control') {
                 if ($("#share-holder-tab").closest('li').hasClass('d-none')) {
-                    console.log('DS1');
+                    databaseEntry();
                     return false
                 }
 
@@ -2539,8 +2567,7 @@
 
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'share-holder') {
                 if ($("#shareholderLandingPage").hasClass('d-none')) {
-                    console.log('DS');
-
+                    databaseEntry();
                     return false
                 }
 
@@ -2593,8 +2620,9 @@
                     if (el.checked === true) {
                         if (i == checkBoxArr.length - 1) {
                             posiArr.push(el.value)
+                        }else {
+                            posiArr.push(el.value, )
                         }
-                        posiArr.push(el.value, )
                     }
                 })
                 $("#positionSelected").val(posiArr.join(', '))

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('person_appointments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('cart_id')->nullable();
             $table->unsignedBigInteger('person_officer_id')->nullable();
             $table->unsignedBigInteger('own_address_id')->nullable();
@@ -39,6 +40,7 @@ return new class extends Migration
             $table->string('sh_quantity')->nullable();
             $table->string('sh_currency')->nullable();
             $table->string('sh_pps')->nullable();
+            $table->string('perticularsTextArea')->nullable();
 
             $table->timestamps();
 
