@@ -130,13 +130,13 @@ ul.ef-16-benefits-list {
                                             </div>
                                         @endforeach
                                     </div>
-                                    <div class="showmore-sec">
+                                    {{-- <div class="showmore-sec">
                                         <p><strong>Show More Options</strong> Including :</p>
                                         <ul>
                                             <li><img src="{{ asset('frontend/assets/images/barclays-sm-logo.png') }}" alt=""></li>
                                             <li><img src="{{ asset('frontend/assets/images/netwest-logo.png') }}" alt=""></li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                     <form action="{{ route('business-essential.store') }}" method="post" id="business-essential-store">
                                         @csrf
                                         @if(!empty($selectedBusinessService))
