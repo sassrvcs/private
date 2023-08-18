@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Company;
 use App\Http\Controllers\Controller;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use Illuminate\Http\Request;
+use PDF;
 
 class ReviewController extends Controller
 {
@@ -20,7 +21,7 @@ class ReviewController extends Controller
     {
         $review = $this->companyFormService->getCompanieName($_GET['order']);
         // dd($review);
-        return view('frontend.company_form.review_form.review');
+        return view('frontend.company_form.review_form.review', compact('review'));
     }
 
     /**
@@ -28,64 +29,27 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function create()
+    // {
+    //     $review = $this->companyFormService->getCompanieName($_GET['order']);
+    //     $pdf = PDF::loadView('frontend.company_form.review_form.review', $review);
+    //     return $pdf->download('review.pdf');
+
+    //     // return view('frontend.company_form.review_form.review', compact('review'));
+    // }
+
     public function create()
     {
-        //
+        $review = $this->companyFormService->getCompanieName($_GET['order']);
+        $data = ['review' => $review]; // Convert the model to an array
+
+        // view()->share('review',$data);
+        // $pdf = PDF::loadView('frontend.company_form.review_form.review', $data);
+        // // download PDF file with download method
+        // return $pdf->download('pdf_file.pdf');
+
+        $pdf = PDF::loadView('frontend.company_form.review_form.review', $data);
+        return $pdf->download('review.pdf');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

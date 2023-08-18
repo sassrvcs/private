@@ -95,12 +95,12 @@ ul.ef-16-benefits-list {
                                                                 @endif
                                                             </div>
                                                             <div class="desc">
-                                                                <h3>{{ $businessBank->title ?? " Lorem Ipsam" }}</h3>
+                                                                <h3>{{ $businessBank->title ?? "" }}</h3>
                                                                 <p><span>{{ $businessBank->short_description }}</span></p>
                                                             </div>
                                                         </div>
                                                         <div class="info">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec odio fringilla, finibus leo a, elementum neque. Praesent et dapibus neque, et aliquam dolor. Nulla in dolor et lectus accumsan tristique sed nec erat. Donec dignissim, neque sit amet viverra sollicitudin, enim tellus accumsan sapien, eu vulputate lectus odio non sem. Nam sit amet erat mattis, pharetra sem sit amet, molestie odio.</p>
+                                                            <p>{{ $businessBank->long_description }}</p>
                                                         </div>
                                                     </div>
                                                     {{-- <div class="main-img">
@@ -120,13 +120,13 @@ ul.ef-16-benefits-list {
                                             </div>
                                         @endforeach
                                     </div>
-                                    <div class="showmore-sec">
+                                    {{-- <div class="showmore-sec">
                                         <p><strong>Show More Options</strong> Including :</p>
                                         <ul>
                                             <li><img src="{{ asset('frontend/assets/images/barclays-sm-logo.png') }}" alt=""></li>
                                             <li><img src="{{ asset('frontend/assets/images/netwest-logo.png') }}" alt=""></li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                     <form action="{{ route('business-essential.store') }}" method="post" id="business-essential-store">
                                         @csrf
                                         @if(!empty($selectedBusinessBanking))

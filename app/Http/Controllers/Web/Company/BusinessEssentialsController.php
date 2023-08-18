@@ -61,6 +61,8 @@ class BusinessEssentialsController extends Controller
 
         if($response['step'] === 'business_service') {
             return redirect( route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'optional-extras']) );
+        } else if($request->step == 'other-extras') {
+            return redirect( route('review.index', ['order' => $request->order, 'section' => 'Review', 'step' => 'review']) );
         }
 
         return redirect( route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-services']) );

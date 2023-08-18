@@ -69,7 +69,7 @@ class BusinessEssentialsService
                     );
                 }
             } else {
-                $step = '';
+                $step = 'others-extras';
                 $businessBanking = '';
             }
 

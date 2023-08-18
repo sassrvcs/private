@@ -80,8 +80,8 @@
                             <div class="bottom-step-items">
                                 <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                 <p>
-                                    @if( !empty($companyFormationStep->step_name) && $companyFormationStep->step_name == 'particulars')
-                                        <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" style="color: #ffffff;"> Document </a>
+                                    @if( !empty($companyFormationStep->step_name) )
+                                        <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'document']) }}" style="color: #ffffff;"> Document </a>
                                     @else
                                         Document
                                     @endif
@@ -352,6 +352,18 @@
                     })
                     return false;
                 }
+
+                // const selectElement = document.querySelector('.selected_sic');
+                // // Check if there are selected options
+                // if (selectElement && selectElement.options.length > 0) {
+                //     // There are selected options
+                //     console.log('Selected options exist');
+                //     return;
+                // } else {
+                //     // No selected options
+                //     console.log('No selected options');
+                //     return;
+                // }
 
                 $('#srchfld-error').hide();
                 $("#perticulars").submit();

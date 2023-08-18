@@ -75,14 +75,26 @@ button.btn.btn-danger {
                                                 </div>
                                             </div>
                                         </div>
-                                        @csrf
-                                        <input type="hidden" name="order" id="order" value="{{ $_GET['order'] }}">
+                                        <div class="desc">
+                                            <p><strong>{{$service->short_desc}}</strong></p>
+                                            <p>{!!$service->long_desc!!}</p>
+                                        </div>
+                                        {{-- <input type="hidden" name="order" id="order" value="{{ $_GET['order'] }}"> --}}
                                     </div>
                                 @endforeach
                             </div>
+
+                            <form action="{{ route('business-essential.store') }}" method="post" id="others-extras-store">
+                                @csrf
+                                <input type="hidden" name="order" id="order" value="{{ $_GET['order'] ?? '' }}">
+                                <input type="hidden" name="step" value="other-extras">
+                                <input type="hidden" name="section" value="BusinessEssential">
+                            </form>
                             <div class="step-btn-wrap mt-4">
-                                <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt=""> Previous: Business Service</button>
-                                <button class="btn">Save &amp; Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}" alt=""></button>
+                                <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-services']) }}" class="btn prev-btn">
+                                    <img src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt=""> Previous: Business Service
+                                </a>
+                                <button class="btn save-continue">Save &amp; Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}" alt=""></button>
                             </div>
                         </div>
                     </div>
@@ -167,7 +179,7 @@ button.btn.btn-danger {
         });
 
         $(".save-continue").click(function () {
-            $('#business-essential-store').submit();
+            $('#others-extras-store').submit();
         });
     });
 </script>

@@ -18,26 +18,6 @@ ul.ef-16-benefits-list {
                 @include('layouts.navbar')
                 <div class="col-md-12">
                     <div class="particulars-form-wrap">
-                        {{-- <div class="particulars-top-step">
-                            <div class="top-step-items">
-                                <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}" >
-                                    <strong>1.Company Formation</strong>
-                                    <span>Details about your company</span>
-                                </a>
-                            </div>
-                            <div class="top-step-items active">
-                                <strong>2.Business Essentials</strong>
-                                <span>Products & services</span>
-                            </div>
-                            <div class="top-step-items">
-                                <strong>3.Company Formation</strong>
-                                <span>Details about your company</span>
-                            </div>
-                            <div class="top-step-items">
-                                <strong>4.Company Formation</strong>
-                                <span>Details about your company</span>
-                            </div>
-                        </div> --}}
                         <div class="particulars-top-step">
                             <div class="top-step-items">
                                 <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}" >
@@ -70,26 +50,67 @@ ul.ef-16-benefits-list {
                             <div class="review-ttl-block">
                                 <h5>Company Formation</h5>
                                 <div class="rt-side">
-                                    <span>Download Summary</span>
+                                    <span>
+                                        <a href="{{ route('review.create', ['order' => $_GET['order'] ?? '', 'section' => 'Review', 'step' => 'download']) }}">Download Summary </a>
+                                    </span>
                                     <button class="btn">Save & Continue</button>
                                 </div>
                             </div>
                             <div class="review-panel">
                                 <h3>Particulars</h3>
                                 <ul>
-                                    <li><strong>Company Name : </strong>FDFFDCF LTD</li>
-                                    <li><strong>Company Type : </strong>Limited By Shares</li>
-                                    <li><strong>Jurisdiction : </strong>Scotland</li>
-                                    <li><strong>SIC Codes : </strong>Building Societies</li>
+                                    <li><strong>Company Name : </strong>{{$review->companie_name}}</li>
+                                    <li><strong>Company Type : </strong>{{$review->companie_type}}</li>
+                                    <li><strong>Jurisdiction : </strong>{{$review->jurisdiction->name}}</li>
+                                    <li><strong>SIC Codes : </strong>
+                                        @if ($review->sicCodes->count() > 0)
+                                            {{ implode(', ', $review->sicCodes->pluck('name')->toArray()) }}
+                                        @else
+                                            {{-- No data present --}}
+                                        @endif
+                                        {{-- {{ implode(', ', $review->sicCodes->pluck('name')->toArray()) }} --}}
+                                        {{-- Building Societies --}}
+                                    </li>
                                 </ul>
-                                <button class="btn">Edit</button>
+                                <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}" class="btn">Edit</a>
                             </div>
                             <div class="review-panel">
-                                <h3>Registered Office</h3>
-                                <ul>
-                                    <li><strong>Address : </strong>9 Raglan Court, Empire Way, WEMBLEY, HA9 0RE, SCOTLAND</li>
-                                </ul>
-                                <button class="btn">Edit</button>
+                                @if(!empty($review->forwarding_registered_office_address))
+                                    <h3>Registered Office</h3>
+                                    <ul>
+                                        <li>
+                                            <strong>Address : </strong> London: 52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United Kingdom
+                                        </li>
+                                    </ul>
+                                    <h3>Forwarding Address</h3>
+                                    <ul>
+                                        <li>
+                                            <strong>Address : </strong> 
+                                            {{ $review->officeAddressWithForwAddress->house_number ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->street ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->locality ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->town ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->post_code ?? '' }},
+                                        </li>
+                                    </ul>
+                                @else
+                                    {{-- <h3>Registered Office</h3>
+                                    <ul>
+                                        <li><strong>Address : </strong>9 Raglan Court, Empire Way, WEMBLEY, HA9 0RE, SCOTLAND</li>
+                                    </ul> --}}
+                                    <h3>Registered Office</h3>
+                                    <ul>
+                                        <li>
+                                            <strong>Address : </strong> 
+                                            {{ $review->officeAddressWithForwAddress->house_number ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->street ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->locality ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->town ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->post_code ?? '' }}
+                                        </li>
+                                    </ul>
+                                @endif
+                                <a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" class="btn">Edit</a>
                             </div>
                             <div class="review-panel">
                                 <h3>Appointments</h3>
@@ -122,15 +143,18 @@ ul.ef-16-benefits-list {
                             <div class="review-panel">
                                 <h3>Documents</h3>
                                 <ul>
-                                    <li><strong>Memorandum and Articles : </strong>Generic Limited by Shares Articles</li>
+                                    {{-- Generic Limited by Shares Articles --}}
+                                    <li>
+                                        <strong>Memorandum and Articles : </strong> {{ ($review->legal_document == 'generic_article') ? 'Generic Limited by Share Articles' : 'Byspoke article of association' }}
+                                    </li>
                                 </ul>
-                                <button class="btn">Edit</button>
+                                <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'document']) }}" class="btn">Edit</a>
                             </div>
                             <hr class="mb-4">
                             <h6>Business Account</h6>
                             <div class="review-panel">
-                                <p>No Merchant Account Selected</p>
-                                <button class="btn">Edit</button>
+                                <p>{{ $review->businessBanking->businessBanking->title ?? 'No Merchant Account Selected' }}</p>
+                                <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" class="btn">Edit</a>
                             </div>
                             <h6>Merchant Account</h6>
                             <div class="review-panel">
@@ -139,8 +163,8 @@ ul.ef-16-benefits-list {
                             </div>
                             <h6>Accounting Software</h6>
                             <div class="review-panel">
-                                <p>No Accounting Software Product Selected</p>
-                                <button class="btn">Edit</button>
+                                <p>{{ $review->businessBanking->accountingSoftware->accounting_software_name ?? 'No Accounting Software Product Selected' }}</p>
+                                <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-services']) }}" class="btn">Edit</a>
                             </div>
                             <h6>Insurance</h6>
                             <div class="review-panel">
