@@ -179,7 +179,7 @@ button.btn.btn-danger {
         });
 
         $(".save-continue").click(function () {
-            // $('#others-extras-store').submit();
+            $('#others-extras-store').submit();
         });
     });
 </script>

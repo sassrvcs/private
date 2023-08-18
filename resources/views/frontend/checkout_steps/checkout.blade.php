@@ -342,7 +342,7 @@
                                                 <div class="woocommerce-terms-and-conditions-wrapper">
                                                     <div class="woocommerce-privacy-policy-text"></div>
                                                 </div>
-                                                <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Place order" data-value="Place order">Place order</button>
+                                                <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Place order" data-value="Place order">Pay Now</button>
                                                 <input type="hidden" id="woocommerce-process-checkout-nonce" name="woocommerce-process-checkout-nonce" value="800f687a3e">
                                                 <input type="hidden" name="_wp_http_referer" value="/?wc-ajax=update_order_review">
                                             </div>

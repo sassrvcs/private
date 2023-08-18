@@ -50,7 +50,9 @@ ul.ef-16-benefits-list {
                             <div class="review-ttl-block">
                                 <h5>Company Formation</h5>
                                 <div class="rt-side">
-                                    <span>Download Summary</span>
+                                    <span>
+                                        <a href="{{ route('review.create', ['order' => $_GET['order'] ?? '', 'section' => 'Review', 'step' => 'download']) }}">Download Summary </a>
+                                    </span>
                                     <button class="btn">Save & Continue</button>
                                 </div>
                             </div>
@@ -73,10 +75,41 @@ ul.ef-16-benefits-list {
                                 <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}" class="btn">Edit</a>
                             </div>
                             <div class="review-panel">
-                                <h3>Registered Office</h3>
-                                <ul>
-                                    <li><strong>Address : </strong>9 Raglan Court, Empire Way, WEMBLEY, HA9 0RE, SCOTLAND</li>
-                                </ul>
+                                @if(!empty($review->forwarding_registered_office_address))
+                                    <h3>Registered Office</h3>
+                                    <ul>
+                                        <li>
+                                            <strong>Address : </strong> London: 52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United Kingdom
+                                        </li>
+                                    </ul>
+                                    <h3>Forwarding Address</h3>
+                                    <ul>
+                                        <li>
+                                            <strong>Address : </strong> 
+                                            {{ $review->officeAddressWithForwAddress->house_number ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->street ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->locality ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->town ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->post_code ?? '' }},
+                                        </li>
+                                    </ul>
+                                @else
+                                    {{-- <h3>Registered Office</h3>
+                                    <ul>
+                                        <li><strong>Address : </strong>9 Raglan Court, Empire Way, WEMBLEY, HA9 0RE, SCOTLAND</li>
+                                    </ul> --}}
+                                    <h3>Registered Office</h3>
+                                    <ul>
+                                        <li>
+                                            <strong>Address : </strong> 
+                                            {{ $review->officeAddressWithForwAddress->house_number ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->street ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->locality ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->town ?? '' }},
+                                            {{ $review->officeAddressWithForwAddress->post_code ?? '' }}
+                                        </li>
+                                    </ul>
+                                @endif
                                 <a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" class="btn">Edit</a>
                             </div>
                             <div class="review-panel">
@@ -120,8 +153,8 @@ ul.ef-16-benefits-list {
                             <hr class="mb-4">
                             <h6>Business Account</h6>
                             <div class="review-panel">
-                                <p>No Merchant Account Selected</p>
-                                <button class="btn">Edit</button>
+                                <p>{{ $review->businessBanking->businessBanking->title ?? 'No Merchant Account Selected' }}</p>
+                                <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" class="btn">Edit</a>
                             </div>
                             <h6>Merchant Account</h6>
                             <div class="review-panel">
@@ -130,8 +163,8 @@ ul.ef-16-benefits-list {
                             </div>
                             <h6>Accounting Software</h6>
                             <div class="review-panel">
-                                <p>No Accounting Software Product Selected</p>
-                                <button class="btn">Edit</button>
+                                <p>{{ $review->businessBanking->accountingSoftware->accounting_software_name ?? 'No Accounting Software Product Selected' }}</p>
+                                <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-services']) }}" class="btn">Edit</a>
                             </div>
                             <h6>Insurance</h6>
                             <div class="review-panel">

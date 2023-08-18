@@ -80,7 +80,7 @@
                             <div class="bottom-step-items">
                                 <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                 <p>
-                                    @if( !empty($companyFormationStep->step_name) && $companyFormationStep->step_name == 'particulars')
+                                    @if( !empty($companyFormationStep->step_name) )
                                         <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'document']) }}" style="color: #ffffff;"> Document </a>
                                     @else
                                         Document

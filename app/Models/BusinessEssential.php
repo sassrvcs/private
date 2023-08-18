@@ -22,6 +22,6 @@ class BusinessEssential extends Model
 
     public function accountingSoftware()
     {
-        return $this->belongsTo(Companie::class, 'business_service_id', 'id');
+        return $this->belongsTo(Accounting::class, 'business_service_id', 'id');
     }
 }

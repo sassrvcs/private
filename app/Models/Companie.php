@@ -60,4 +60,14 @@ class Companie extends Model implements HasMedia
     {
         return $this->belongsTo(Address::class, 'forwarding_registered_office_address','id');
     }
+
+    public function businessAddressWithoutForwAddress()
+    {
+        return $this->belongsTo(Address::class, 'business_address','id');
+    }
+
+    public function businessAddressWithForwAddress()
+    {
+        return $this->belongsTo(Address::class, 'forwarding_business_office_address','id');
+    }
 }
