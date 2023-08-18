@@ -285,8 +285,7 @@
                                     <div class="add-an-offer">
                                         <p>Click on one of the buttons below to add an officer to your company.</p>
                                         <div class="btn-wrap">
-                                            <button type="submit" class="btn"
-                                                onclick="showPersonSection(),currentTab('position')"><img
+                                            <button type="submit" class="btn" onclick="showPersonSection()"><img
                                                     src="{{ asset('frontend/assets/images/person-icon.svg') }}"
                                                     alt=""> Person</button>
                                             <button type="submit" class="btn"><img
@@ -316,9 +315,9 @@
                                 <div class="appointment-tab">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" onclick="currentTab('position')" id="position-tab"
-                                                onclick="currentTab('position')" data-toggle="tab" href="#position"
-                                                role="tab" aria-controls="position" aria-selected="true">Position</a>
+                                            <a class="nav-link active" id="position-tab" onclick="currentTab('position')"
+                                                data-toggle="tab" href="#position" role="tab"
+                                                aria-controls="position" aria-selected="true">Position</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" onclick="currentTab('officer')" id="officer-tab"
@@ -422,7 +421,8 @@
                                                         <ul>
                                                             <li>
                                                                 <input type="checkbox" class="checkBoxPos" id="director"
-                                                                    onclick="consentSection()">
+                                                                    value="Director" onclick="consentSection()"
+                                                                    value="">
                                                                 <label for="director">Director <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                             alt="" id="director_i"></span></label>
@@ -433,8 +433,9 @@
                                                             </li>
                                                             <li>
                                                                 <input type="checkbox" class="checkBoxPos"
-                                                                    id="shareholder" onclick="shareholderTab()">
-                                                                <label for="shareholder">Shareholderss <span><img
+                                                                    value="Shareholder" id="shareholder"
+                                                                    onclick="shareholderTab()">
+                                                                <label for="shareholder">Shareholders <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                             alt=""
                                                                             id="shareholder_i"></span></label>
@@ -445,8 +446,8 @@
                                                             </li>
                                                             <li>
                                                                 <input type="checkbox" class="checkBoxPos" id="secretary"
-                                                                    onclick="consentSection()">
-                                                                <label for="secretary">secretary <span><img
+                                                                    value="Secretary" onclick="consentSection()">
+                                                                <label for="secretary">Secretary <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                             alt=""
                                                                             id="secretary_i"></span></label>
@@ -461,7 +462,7 @@
                                                             </li>
                                                             <li>
                                                                 <input type="checkbox" class="checkBoxPos" id="psc"
-                                                                    onclick="pscTab()">
+                                                                    value="PSC" onclick="pscTab()">
                                                                 <label for="psc">Person with Significant Control (PSC)
                                                                     <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
@@ -607,8 +608,8 @@
                                                             <div class="col-md-12 col-sm-12">
                                                                 <div class="used-addresses-panel">
                                                                     <!-- <div class="text">
-                                                                                                                                                                                    <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
-                                                                                                                                                                                </div> -->
+                                                                                                                                                                                                                                                        <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
+                                                                                                                                                                                                                                                    </div> -->
                                                                     <div class="btn-wrap">
                                                                         <!-- <button type="submit" class="btn select-btn">Select</button> -->
                                                                         <button type="submit" class="btn"
@@ -646,7 +647,8 @@
                                                     <h4>Officer Details</h4>
                                                 </div>
                                                 <div class="form-block">
-                                                    <input type="hidden" id="personOfficerEditId" readonly>
+                                                    <input type="text" class="hidden" id="personOfficerEditId"
+                                                        readonly>
                                                     <div class="row">
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
@@ -681,7 +683,6 @@
                                                                                 {{ $country['name'] }}</option>
                                                                         @endforeach
                                                                     @endif
-                                                                    <option value=""></option>
                                                                 </select>
                                                                 {{-- <input type="text" class="form-control blankCheck"
                                                                     id="person_national_id" name="person_national"> --}}
@@ -708,7 +709,7 @@
                                                 <div class="rsidential-address-info mb-4">
                                                     <h3>Residential Address</h3>
 
-                                                    <input type="hidden" id="ChossenResAdd_id" readonly>
+                                                    <input type="text" class="hidden" id="ChossenResAdd_id" readonly>
                                                     <p><strong>Please Note :</strong> <span>It is a legal requirement to
                                                             provide your actual residential address. Supplying an address
                                                             which is not your actual residential address, will lead to the
@@ -873,10 +874,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="own-address">
+                                                <div class="own-address service_add_choosed">
                                                     <div class="info">
                                                         <h3>Choose to use your own address</h3>
-                                                        <input type="hidden" id="ChossenServiceAdd_id" readonly>
+                                                        <input type="text" class="hidden" id="ChossenServiceAdd_id"
+                                                            readonly>
                                                         <p class="d-none" id="ChossenServiceAdd"></p>
                                                     </div>
                                                     <div class="btn-box">
@@ -884,6 +886,19 @@
                                                             onclick="chooseAdd('service')">Choose One</a>
                                                         <a type="button" class="btn another-btn choose_another_cl d-none"
                                                             onclick="chooseAdd('service')">Choose Another</a>
+                                                    </div>
+                                                </div>
+                                                <div class="own-address forwarding_add_after_buy_now_select d-none">
+                                                    <div class="info">
+                                                        <h3>Forwarding Address</h3>
+                                                        <input type="text" class="hidden"
+                                                            id="ChossenForwarding_Add_id" readonly>
+                                                        <p class="" id="ChossenForwarding_Add"></p>
+                                                    </div>
+                                                    <div class="btn-box">
+                                                        <a type="button"
+                                                            class="btn another-btn choose_another_forwading_add_cl"
+                                                            onclick="chooseAdd('forwad')">Choose Another</a>
                                                     </div>
                                                 </div>
                                                 <div class="forwarding-address d-none">
@@ -941,8 +956,11 @@
                                                     </div>
                                                     <div class="btn-block">
                                                         <button class="btn">Details</button>
-                                                        <button class="btn buy-now-btn" onclick="gotoPage()">Buy
+                                                        <button class="btn buy-now-btn buyNowBtn"
+                                                            onclick="buyAdd('forwarding')">Buy
                                                             Now</button>
+                                                        <button class="btn buy-now-btn d-none" id="removeBuy"
+                                                            onclick="removeBuy()">Remove</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -950,7 +968,7 @@
 
 
                                             {{-- ADDRESS TAB Choose Address Page starts --}}
-                                            <div class="form-wrap hideEdit d-none">
+                                            {{-- <div class="form-wrap hideEdit d-none">
                                                 <div class="form-info-block">
                                                     <h4>Service Address</h4>
                                                 </div>
@@ -965,7 +983,7 @@
 
                                                 </div>
 
-                                            </div>
+                                            </div> --}}
                                             {{-- ADDRESS TAB Choose Address Page ends --}}
 
                                             {{-- ADDRESS TAB End Edit form div starts --}}
@@ -1056,8 +1074,14 @@
                                                                                 alt="" id="own_i"></span>
                                                                         <span class="text">Ownership of
                                                                             shares</span></label>
-                                                                    <select class="form-control">
+                                                                    <select class="form-control" id="F_ownership"
+                                                                        onchange="show_hide_F_other_sig()">
                                                                         <option value="">N/A</option>
+                                                                        <option value="25">More than 25% but not more
+                                                                            than 50%</option>
+                                                                        <option value="50">More than 50% but less than
+                                                                            75%</option>
+                                                                        <option value="75">75% or more</option>
                                                                     </select>
                                                                     <span class="own_i_tooltip">If this person holds
                                                                         more
@@ -1081,8 +1105,14 @@
                                                                                 alt="" id="vot_i"></span>
                                                                         <span class="text">Voting
                                                                             Rights</span></label>
-                                                                    <select class="form-control">
+                                                                    <select class="form-control" id="F_voting"
+                                                                        onchange="show_hide_F_other_sig()">
                                                                         <option value="">N/A</option>
+                                                                        <option value="25">More than 25% but not more
+                                                                            than 50%</option>
+                                                                        <option value="50">More than 50% but less than
+                                                                            75%</option>
+                                                                        <option value="75">75% or more</option>
                                                                     </select>
                                                                     <span class="vot_i_tooltip">If this person holds
                                                                         more
@@ -1108,9 +1138,10 @@
                                                                         <span class="text">Appoint or remove the
                                                                             majority
                                                                             of the board of directors</span></label>
-                                                                    <select class="form-control">
-                                                                        <option value="">No</option>
-                                                                        <option value="">Yes</option>
+                                                                    <select class="form-control" id="F_appoint"
+                                                                        onchange="show_hide_F_other_sig()">
+                                                                        <option value="No">No</option>
+                                                                        <option value="Yes">Yes</option>
                                                                     </select>
                                                                     <span class="appo_i_tooltip">If this person is
                                                                         entitled, directly or indirectly, to appoint and
@@ -1127,7 +1158,7 @@
                                                             <div class="col-md-6 col-sm-12">
                                                             </div>
                                                         </div>
-                                                        <div class="row">
+                                                        <div class="row" id="F_other_sig">
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="qu-block block">
                                                                     <label for="" class="d-flex"><span
@@ -1137,9 +1168,9 @@
                                                                         <span class="text">Other Significant
                                                                             influences
                                                                             or control</span></label>
-                                                                    <select class="form-control">
-                                                                        <option value="">No</option>
-                                                                        <option value="">Yes</option>
+                                                                    <select class="form-control" id="F_other_sig_select_id">
+                                                                        <option value="No">No</option>
+                                                                        <option value="Yes">Yes</option>
                                                                     </select>
                                                                     <span class="other_i_tooltip">If this individual
                                                                         does
@@ -1165,14 +1196,96 @@
                                                         in the company?</p>
                                                     <ul>
                                                         <li>
-                                                            <input type="radio" id="no" name="com-qu">
+                                                            <input type="radio" id="no"
+                                                                onclick="f_radio_check()" value="no" name="com-qu">
                                                             <label for="no">No</label>
                                                         </li>
                                                         <li>
-                                                            <input type="radio" id="yes" name="com-qu">
+                                                            <input type="radio" id="yes"
+                                                                onclick="f_radio_check()" value="yes" name="com-qu">
                                                             <label for="yes">yes</label>
                                                         </li>
                                                     </ul>
+                                                    <div class="mt-4 mb-4 d-none" id="firmDD">
+                                                        <h5>What influence or control does this officer have over this
+                                                            company in their capacity within the Firm(s) ?
+                                                        </h5>
+                                                        <div class="authe-qu-block">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-12">
+                                                                    <div class="qu-block block">
+                                                                        <label for="" class="d-flex">
+                                                                            <span class="text">Ownership of
+                                                                                shares</span>
+                                                                        </label>
+
+                                                                        <select class="form-control" id="s_ownership"
+                                                                            onchange="show_hide_s_other_sig()">
+                                                                            <option value="">N/A</option>
+                                                                            <option value="25">More than 25% but not
+                                                                                more than 50%</option>
+                                                                            <option value="50">More than 50% but less
+                                                                                than 75%</option>
+                                                                            <option value="75">75% or more</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-12">
+                                                                    <div class="qu-block block">
+                                                                        <label for="" class="d-flex">
+                                                                            <span class="text">Voting
+                                                                                Rights</span>
+                                                                        </label>
+
+                                                                        <select class="form-control" id="s_voting"
+                                                                            onchange="show_hide_s_other_sig()">
+                                                                            <option value="">N/A</option>
+                                                                            <option value="25">More than 25% but not
+                                                                                more than 50%</option>
+                                                                            <option value="50">More than 50% but less
+                                                                                than 75%</option>
+                                                                            <option value="75">75% or more</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-12">
+                                                                    <div class="qu-block block">
+                                                                        <label for="" class="d-flex">
+                                                                            <span class="text">Appoint or remove the
+                                                                                majority
+                                                                                of the board of directors</span>
+                                                                        </label>
+
+                                                                        <select class="form-control" id="s_appoint"
+                                                                            onchange="show_hide_s_other_sig()">
+                                                                            <option value="No">No</option>
+                                                                            <option value="Yes">Yes</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" id="s_other_sig">
+                                                                <div class="col-md-6 col-sm-12">
+                                                                    <div class="qu-block block">
+                                                                        <label for="" class="d-flex">
+                                                                            <span class="text">Other Significant
+                                                                                influences or control</span></label>
+                                                                        <select class="form-control" value="s_other_sig_select_id">
+                                                                            <option value="No">No</option>
+                                                                            <option value="Yes">Yes</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-12">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                                 <div class="qu-panel">
                                                     <p>Does this officer have a controlling influence over a trust(s)
@@ -1182,14 +1295,96 @@
                                                         this company?</p>
                                                     <ul>
                                                         <li>
-                                                            <input type="radio" id="no2" name="com-qu2">
+                                                            <input type="radio" id="no2"
+                                                                onclick="s_radio_check()" value="no" name="com-qu2">
                                                             <label for="no2">No</label>
                                                         </li>
                                                         <li>
-                                                            <input type="radio" id="yes2" name="com-qu2">
+                                                            <input type="radio" id="yes2"
+                                                                onclick="s_radio_check()" value="yes" name="com-qu2">
                                                             <label for="yes2">yes</label>
                                                         </li>
                                                     </ul>
+                                                    <div class="mt-4 mb-4 d-none" id="trustDD">
+                                                        <h5>What control or influence does this officer have over this
+                                                            company in their capacity within the Trust(s) ?
+                                                        </h5>
+                                                        <div class="authe-qu-block">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-12">
+                                                                    <div class="qu-block block">
+                                                                        <label for="" class="d-flex">
+                                                                            <span class="text">Ownership of
+                                                                                shares</span>
+                                                                        </label>
+
+                                                                        <select class="form-control" id="t_ownership"
+                                                                            onchange="show_hide_t_other_sig()">
+                                                                            <option value="">N/A</option>
+                                                                            <option value="25">More than 25% but not
+                                                                                more than 50%</option>
+                                                                            <option value="50">More than 50% but less
+                                                                                than 75%</option>
+                                                                            <option value="75">75% or more</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-12">
+                                                                    <div class="qu-block block">
+                                                                        <label for="" class="d-flex">
+                                                                            <span class="text">Voting
+                                                                                Rights</span>
+                                                                        </label>
+
+                                                                        <select class="form-control" id="t_voting"
+                                                                            onchange="show_hide_t_other_sig()">
+                                                                            <option value="">N/A</option>
+                                                                            <option value="25">More than 25% but not
+                                                                                more than 50%</option>
+                                                                            <option value="50">More than 50% but less
+                                                                                than 75%</option>
+                                                                            <option value="75">75% or more</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-12">
+                                                                    <div class="qu-block block">
+                                                                        <label for="" class="d-flex">
+                                                                            <span class="text">Appoint or remove the
+                                                                                majority
+                                                                                of the board of directors</span>
+                                                                        </label>
+
+                                                                        <select class="form-control" id="t_appoint"
+                                                                            onchange="show_hide_t_other_sig()">
+                                                                            <option value="No">No</option>
+                                                                            <option value="Yes">Yes</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" id="t_other_sig">
+                                                                <div class="col-md-6 col-sm-12">
+                                                                    <div class="qu-block block">
+                                                                        <label for="" class="d-flex">
+                                                                            <span class="text">Other Significant
+                                                                                influences
+                                                                                or control</span></label>
+                                                                        <select class="form-control" id="t_other_sig_select_id">
+                                                                            <option value="No">No</option>
+                                                                            <option value="Yes">Yes</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-12">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1198,13 +1393,258 @@
                                         {{-- SHAREHOLDER TAB SECTION STARTS --}}
                                         <div class="tab-pane fade" id="share-holder" role="tabpanel"
                                             aria-labelledby="share-holder-tab">
+                                            <div class="share-holder-block" id="shareholderLandingPage">
+                                                <h4 class="form-ttl">Appointments</h4>
+                                                <div class="share-holder-block-wrap">
+                                                    <div class="share-holder-form">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label for="">Class <span><img
+                                                                                src="assets/images/in-icon.png"
+                                                                                alt=""></span></label>
+                                                                    <h5>ORDINARY</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label for="">Quantity</label>
+                                                                    <input type="text" id="sh_quantity" value="1"
+                                                                        class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label for="">Currency</label>
+                                                                    <select class="form-control" id="sh_currency">
+                                                                        <option value="AED">AED</option>
+                                                                        <option value="AFA">AFA</option>
+                                                                        <option value="ALL">ALL</option>
+                                                                        <option value="AMD">AMD</option>
+                                                                        <option value="ANG">ANG</option>
+                                                                        <option value="AOA">AOA</option>
+                                                                        <option value="ARS">ARS
+                                                                        </option>
+                                                                        <option value="AUD">AUD</option>
+                                                                        <option value="AWG">AWG</option>
+                                                                        <option value="AZM">AZM</option>
+                                                                        <option value="BAM">BAM</option>
+                                                                        <option value="BBD">BBD</option>
+                                                                        <option value="BDT">BDT</option>
+                                                                        <option value="BGN">BGN</option>
+                                                                        <option value="BHD">BHD</option>
+                                                                        <option value="BIF">BIF</option>
+                                                                        <option value="BMD">BMD</option>
+                                                                        <option value="BND">BND</option>
+                                                                        <option value="BOB">BOB</option>
+                                                                        <option value="BRL">BRL</option>
+                                                                        <option value="BSD">BSD</option>
+                                                                        <option value="BTN">BTN</option>
+                                                                        <option value="BWP">BWP</option>
+                                                                        <option value="BYR">BYR</option>
+                                                                        <option value="BZD">BZD</option>
+                                                                        <option value="CAD">CAD</option>
+                                                                        <option value="CDF">CDF</option>
+                                                                        <option value="CHF">CHF</option>
+                                                                        <option value="CLP">CLP</option>
+                                                                        <option value="CNY">CNY</option>
+                                                                        <option value="COP">COP</option>
+                                                                        <option value="CRC">CRC</option>
+                                                                        <option value="CUP">CUP</option>
+                                                                        <option value="CVE">CVE</option>
+                                                                        <option value="CYP">CYP</option>
+                                                                        <option value="CZK">CZK</option>
+                                                                        <option value="DJF">DJF</option>
+                                                                        <option value="DKK">DKK</option>
+                                                                        <option value="DOP">DOP</option>
+                                                                        <option value="DZD">DZD</option>
+                                                                        <option value="EEK">EEK</option>
+                                                                        <option value="EGP">EGP</option>
+                                                                        <option value="ERN">ERN</option>
+                                                                        <option value="ETB">ETB</option>
+                                                                        <option value="EUR">EUR</option>
+                                                                        <option value="FJD">FJD</option>
+                                                                        <option value="FKP">FKP</option>
+                                                                        <option value="GBP" selected="selected">GBP
+                                                                        </option>
+                                                                        <option value="GEL">GEL</option>
+                                                                        <option value="GGP">GGP</option>
+                                                                        <option value="GHC">GHC</option>
+                                                                        <option value="GIP">GIP</option>
+                                                                        <option value="GMD">GMD</option>
+                                                                        <option value="GNF">GNF</option>
+                                                                        <option value="GTQ">GTQ</option>
+                                                                        <option value="GYD">GYD</option>
+                                                                        <option value="HKD">HKD</option>
+                                                                        <option value="HNL">HNL</option>
+                                                                        <option value="HRK">HRK</option>
+                                                                        <option value="HTG">HTG</option>
+                                                                        <option value="HUF">HUF</option>
+                                                                        <option value="IDR">IDR</option>
+                                                                        <option value="ILS">ILS</option>
+                                                                        <option value="IMP">IMP</option>
+                                                                        <option value="INR">INR</option>
+                                                                        <option value="IQD">IQD</option>
+                                                                        <option value="IRR">IRR</option>
+                                                                        <option value="ISK">ISK</option>
+                                                                        <option value="JEP">JEP</option>
+                                                                        <option value="JMD">JMD</option>
+                                                                        <option value="JOD">JOD</option>
+                                                                        <option value="JPY">JPY</option>
+                                                                        <option value="KES">KES</option>
+                                                                        <option value="KGS">KGS</option>
+                                                                        <option value="KHR">KHR</option>
+                                                                        <option value="KMF">KMF</option>
+                                                                        <option value="KPW">KPW</option>
+                                                                        <option value="KRW">KRW</option>
+                                                                        <option value="KWD">KWD</option>
+                                                                        <option value="KYD">KYD</option>
+                                                                        <option value="KZT">KZT</option>
+                                                                        <option value="LAK">LAK</option>
+                                                                        <option value="LBP">LBP</option>
+                                                                        <option value="LKR">LKR</option>
+                                                                        <option value="LRD">LRD</option>
+                                                                        <option value="LSL">LSL</option>
+                                                                        <option value="LTL">LTL</option>
+                                                                        <option value="LVL">LVL</option>
+                                                                        <option value="LYD">LYD</option>
+                                                                        <option value="MAD">MAD</option>
+                                                                        <option value="MDL">MDL</option>
+                                                                        <option value="MGA">MGA</option>
+                                                                        <option value="MKD">MKD</option>
+                                                                        <option value="MMK">MMK</option>
+                                                                        <option value="MNT">MNT</option>
+                                                                        <option value="MOP">MOP</option>
+                                                                        <option value="MRO">MRO</option>
+                                                                        <option value="MTL">MTL</option>
+                                                                        <option value="MUR">MUR</option>
+                                                                        <option value="MVR">MVR</option>
+                                                                        <option value="MWK">MWK</option>
+                                                                        <option value="MXN">MXN</option>
+                                                                        <option value="MYR">MYR</option>
+                                                                        <option value="MZM">MZM</option>
+                                                                        <option value="NAD">NAD</option>
+                                                                        <option value="NGN">NGN</option>
+                                                                        <option value="NIO">NIO</option>
+                                                                        <option value="NOK">NOK</option>
+                                                                        <option value="NPR">NPR</option>
+                                                                        <option value="NZD">NZD</option>
+                                                                        <option value="OMR">OMR</option>
+                                                                        <option value="PAB">PAB</option>
+                                                                        <option value="PEN">PEN</option>
+                                                                        <option value="PGK">PGK</option>
+                                                                        <option value="PHP">PHP</option>
+                                                                        <option value="PKR">PKR</option>
+                                                                        <option value="PLN">PLN</option>
+                                                                        <option value="PYG">PYG</option>
+                                                                        <option value="QAR">QAR</option>
+                                                                        <option value="RON">RON</option>
+                                                                        <option value="RUB">RUB</option>
+                                                                        <option value="RWF">RWF</option>
+                                                                        <option value="SAR">SAR</option>
+                                                                        <option value="SBD">SBD</option>
+                                                                        <option value="SCR">SCR</option>
+                                                                        <option value="SDD">SDD</option>
+                                                                        <option value="SEK">SEK</option>
+                                                                        <option value="SGD">SGD</option>
+                                                                        <option value="SHP">SHP</option>
+                                                                        <option value="SIT">SIT</option>
+                                                                        <option value="SKK">SKK</option>
+                                                                        <option value="SLL">SLL</option>
+                                                                        <option value="SOS">SOS</option>
+                                                                        <option value="SPL">SPL</option>
+                                                                        <option value="SRG">SRG</option>
+                                                                        <option value="STD">STD</option>
+                                                                        <option value="SVC">SVC</option>
+                                                                        <option value="SYP">SYP</option>
+                                                                        <option value="SZL">SZL</option>
+                                                                        <option value="THB">THB</option>
+                                                                        <option value="TJS">TJS</option>
+                                                                        <option value="TMM">TMM</option>
+                                                                        <option value="TND">TND</option>
+                                                                        <option value="TOP">TOP</option>
+                                                                        <option value="TRY">TRY</option>
+                                                                        <option value="TTD">TTD</option>
+                                                                        <option value="TVD">TVD</option>
+                                                                        <option value="TWD">TWD</option>
+                                                                        <option value="TZS">TZS</option>
+                                                                        <option value="UAH">UAH</option>
+                                                                        <option value="UGX">UGX</option>
+                                                                        <option value="USD">USD</option>
+                                                                        <option value="UYU">UYU</option>
+                                                                        <option value="UZS">UZS</option>
+                                                                        <option value="VEB">VEB</option>
+                                                                        <option value="VND">VND</option>
+                                                                        <option value="VUV">VUV</option>
+                                                                        <option value="WST">WST</option>
+                                                                        <option value="XAF">XAF</option>
+                                                                        <option value="XAG">XAG</option>
+                                                                        <option value="XAU">XAU</option>
+                                                                        <option value="XCD">XCD</option>
+                                                                        <option value="XDR">XDR</option>
+                                                                        <option value="XOF">XOF</option>
+                                                                        <option value="XPD">XPD</option>
+                                                                        <option value="XPF">XPF</option>
+                                                                        <option value="XPT">XPT</option>
+                                                                        <option value="YER">YER</option>
+                                                                        <option value="YUM">YUM</option>
+                                                                        <option value="ZAR">ZAR</option>
+                                                                        <option value="ZMK">ZMK</option>
+                                                                        <option value="ZWD">ZWD</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label for="">Price per share</label>
+                                                                    <input type="text" value="1"
+                                                                        class="form-control" id="sh_pps">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="desc">
+                                                        <h5>Particulars <span><img src="assets/images/in-icon.png"
+                                                                    alt=""></span></h5>
+                                                        <textarea class="form-control" id="perticularsTextArea" rows="2"></textarea>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="shareholdings-table-wrap d-none" id="shareholderListing">
+                                                <h4>Shareholdings</h4>
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <th>Quantity</th>
+                                                            <th>Share Class</th>
+                                                            <th>Price</th>
+                                                            <th>Currency</th>
+                                                            <th></th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td id="quantityVal"></td>
+                                                                <td>ORDINARY</td>
+                                                                <td id="pps"></td>
+                                                                <td id="currencyVal"></td>
+                                                                <td><button class="remove-btn"
+                                                                        onclick="removeShareHolder()">Remove</button></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                         {{-- SHAREHOLDER TAB SECTION ENDS --}}
 
                                     </div>
                                 </div>
                                 <div class="step-btn-wrap mt-4">
-                                    <button class="btn prev-btn" onclick="theCancelButtonFunction()">Cancel</button>
+                                    <button class="btn prev-btn" id="cancelBtn"
+                                        onclick="location.reload()">Cancel</button>
+                                    <button class="btn prev-btn d-none" id="bckButton"
+                                        onclick="theCancelButtonFunction()">Back</button>
                                     <button class="btn" id="theNextBtn" onclick="checkConsentOrNot()">Next <img
                                             src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
                                             alt=""></button>
@@ -1216,6 +1656,7 @@
                 </div>
             </div>
         </div>
+        <input type="text" id="positionSelected" value="" readonly>
         <input type="text" id="appointmentType" value="" readonly>
         <input type="text" id="shoppingCartId_id" value="{{ $shoppingCartId }}" readonly>
         <input type="text" id="currentTab" value="" readonly>
@@ -1224,13 +1665,171 @@
         <input type="text" id="choosedPersonOfficerId" value="" readonly>
         <input type="text" id="addressTypeChoosed" value="" readonly>
         <input type="text" id="actionType" value="" readonly>
+
+        {{-- Nature of Control radio btn val --}}
+        <input type="text" id="f_radio_check_id" value="">
+        <input type="text" id="s_radio_check_id" value="">
     </section>
     <!-- ================ end: Particulars sec ================ -->
 @endsection
 
 @section('script')
     <script>
+        const databaseEntry = function() {
+            // VALUES
+            // general section values
+            const order_id = '';
+            const cart_id = $("#shoppingCartId_id").val();
+            const person_officer_id = $("#choosedPersonOfficerId").val();
+            const own_address_id = $("#ChossenServiceAdd_id").val();
+            const forwarding_address_id = $("#ChossenForwarding_Add_id").val();
+            const company_id = '';
+            const position = $("#positionSelected").val();
+            // noc section value
+            const noc_os = $("#F_ownership").val();
+            const noc_vr = $("#F_voting").val();
+            const noc_appoint = $("#F_appoint").val();
+            const noc_others = $("#F_other_sig_select_id").val();
+            const fci = $("#f_radio_check_id").val();
+            const fci_os = $("#s_ownership").val();
+            const fci_vr = $("#s_voting").val();
+            const fci_appoint = $("#s_appoint").val();
+            const fci_others = $("#s_other_sig_select_id").val();
+            const tci = $("#s_radio_check_id").val();
+            const tci_os = $("#t_ownership").val();
+            const tci_vr = $("#t_voting").val();
+            const tci_appoint = $("#t_appoint").val();
+            const tci_others = $("#t_other_sig_select_id").val();
+            // shareholder section value
+            const sh_quantity = $("#sh_quantity").val();
+            const sh_currency = $("#sh_currency").val();
+            const sh_pps = $("#sh_pps").val();
+
+            const currentTab = $('#currentTab').val()
+
+            const requiredFields = document.querySelectorAll('.blankCheckFinalSubmit');
+            const requiredFieldsArr = [...requiredFields];
+
+            let validation = 0;
+            requiredFieldsArr.forEach(el => {
+                if (el.value === '') {
+                    el.classList.add('validation');
+                    el.nextElementSibling.classList.remove('d-none');
+                    return validation++;
+                } else {
+                    el.classList.remove('validation');
+                    el.nextElementSibling.classList.add('d-none');
+                }
+            });
+
+            console.log(validation);
+            if (validation === 0) {
+                console.log('gg');
+                $.ajax({
+                    url: "{!! route('person-appointment-save') !!}",
+                    type: 'POST',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        order_id,
+                        cart_id,
+                        person_officer_id,
+                        own_address_id,
+                        forwarding_address_id,
+                        company_id,
+                        position,
+                        noc_os,
+                        noc_vr,
+                        noc_appoint,
+                        noc_others,
+                        fci,
+                        fci_os,
+                        fci_vr,
+                        fci_appoint,
+                        fci_others,
+                        tci,
+                        tci_os,
+                        tci_vr,
+                        tci_appoint,
+                        tci_others,
+                        sh_quantity,
+                        sh_currency,
+                        sh_pps,
+                    },
+                    success: function(result) {
+                        if (result) {
+                            location.reload()
+                        }
+                    }
+                });
+            }
+        }
+
+        function f_radio_check() {
+            const radio_ele = document.querySelector('input[name="com-qu"]:checked');
+
+            if (radio_ele.getAttribute("id") === 'yes') {
+                $("#firmDD").removeClass('d-none')
+                $("#f_radio_check_id").val('yes')
+            } else {
+                $("#firmDD").addClass('d-none')
+                $("#f_radio_check_id").val('no')
+            }
+        }
+
+        function s_radio_check() {
+            const radio_ele = document.querySelector('input[name="com-qu2"]:checked');
+
+            if (radio_ele.getAttribute("id") === 'yes2') {
+                $("#trustDD").removeClass('d-none')
+                $("#s_radio_check_id").val('yes')
+            } else {
+                $("#trustDD").addClass('d-none')
+                $("#s_radio_check_id").val('no')
+            }
+        }
+
+        function show_hide_F_other_sig() {
+            const F_ownership = $('#F_ownership').find(":selected").val();
+            const F_Voting = $('#F_voting').find(":selected").val();
+            const F_appoint = $('#F_appoint').find(":selected").val();
+
+            if (F_ownership === '25' || F_ownership === '50' || F_ownership === '75' || F_Voting === '25' || F_Voting ===
+                '50' || F_Voting === '75' || F_appoint === 'Yes') {
+                $("#F_other_sig").addClass('d-none')
+            } else {
+                $("#F_other_sig").removeClass('d-none')
+            }
+        }
+
+        function show_hide_s_other_sig() {
+            const s_ownership = $('#s_ownership').find(":selected").val();
+            const s_voting = $('#s_voting').find(":selected").val();
+            const s_appoint = $('#s_appoint').find(":selected").val();
+
+            if (s_ownership === '25' || s_ownership === '50' || s_ownership === '75' || s_voting === '25' || s_voting ===
+                '50' || s_voting === '75' || s_appoint === 'Yes') {
+                $("#s_other_sig").addClass('d-none')
+            } else {
+                $("#s_other_sig").removeClass('d-none')
+            }
+        }
+
+        function show_hide_t_other_sig() {
+            const t_ownership = $('#t_ownership').find(":selected").val();
+            const t_voting = $('#t_voting').find(":selected").val();
+            const t_appoint = $('#t_appoint').find(":selected").val();
+
+            if (t_ownership === '25' || t_ownership === '50' || t_ownership === '75' || t_voting === '25' || t_voting ===
+                '50' || t_voting === '75' || t_appoint === 'Yes') {
+                $("#t_other_sig").addClass('d-none')
+            } else {
+                $("#t_other_sig").removeClass('d-none')
+            }
+        }
+
         const AddMoreAddSave = function(ths) {
+
+            const currentTab = $("#currentTab").val();
 
             const where = $('#where').val();
             const house_noNew = $('#house_noNew').val();
@@ -1273,14 +1872,19 @@
                         billing_countryNew,
                     },
                     success: function(result) {
-                        if (result === 'details_resi') {
+                        if (currentTab === 'details') {
                             $("#details_tab_new_address_form").html('')
-
-                            $("#detailsTabAddList_id").removeClass('d-none');
-                            addListing();
-
-                            $("#actionType").val('select');
                         }
+                        if (currentTab === 'addressing') {
+                            $("#address_tab_new_address_form").html('')
+                        }
+                        // if (result === 'details_resi') {
+
+                        $("#detailsTabAddList_id").removeClass('d-none');
+                        addListing();
+
+                        $("#actionType").val('select');
+                        // }
                     }
                 });
             }
@@ -1296,10 +1900,10 @@
                     where: 'details_resi',
                 },
                 success: function(data) {
+                    $("#detailsTabAddList_id").addClass('d-none');
+                    $("#actionType").val('add');
                     if (currentTab === 'details') {
                         $("#details_tab_new_address_form").html(data)
-                        $("#detailsTabAddList_id").addClass('d-none');
-                        $("#actionType").val('add');
                     }
                     if (currentTab === 'addressing') {
                         $("#address_tab_new_address_form").html(data)
@@ -1313,6 +1917,75 @@
             const currentTab = $('#currentTab').val()
             const addressTypeChoosed = $('#addressTypeChoosed').val()
             const actionType = $('#actionType').val()
+
+            // OFFICER BACK
+            if (currentTab === 'officer') {
+                $('#position-tab').addClass('active');
+                $('#position').addClass('active show');
+
+                $('#officer-tab').removeClass('active');
+                $('#officer').removeClass('active show');
+
+                $('#currentTab').val('position')
+
+                $("#cancelBtn").removeClass('d-none');
+                $("#bckButton").addClass('d-none');
+            }
+
+            // DETAILS BACK
+            if (currentTab === 'details' && addressTypeChoosed === '') {
+                $('#details-tab').removeClass('active');
+                $('#details').removeClass('active show');
+
+                $('#officer-tab').addClass('active');
+                $('#officer').addClass('active show');
+
+                $('#currentTab').val('officer')
+            }
+
+            // ADDRESSING BACK
+            if (currentTab === 'addressing' && addressTypeChoosed === '') {
+                $('#details-tab').addClass('active');
+                $('#details').addClass('active show');
+
+                $('#addressing-tab').removeClass('active');
+                $('#addressing').removeClass('active show');
+
+                $('#currentTab').val('details')
+            }
+
+            // NATURE OF CONTROL BACK
+            if (currentTab === 'nature-control' && addressTypeChoosed === '') {
+                $('#nature-control-tab').removeClass('active');
+                $('#nature-control').removeClass('active show');
+
+                $('#addressing-tab').addClass('active');
+                $('#addressing').addClass('active show');
+
+                $('#currentTab').val('addressing')
+            }
+
+            // SHARE HOLDER BACK
+            if (currentTab === 'share-holder' && addressTypeChoosed === '') {
+
+                if ($("#nature-control-tab").closest('li').hasClass('d-none')) {
+                    $('#share-holder-tab').removeClass('active');
+                    $('#share-holder').removeClass('active show');
+
+                    $('#addressing-tab').addClass('active');
+                    $('#addressing').addClass('active show');
+
+                    $('#currentTab').val('addressing')
+                } else {
+                    $('#share-holder-tab').removeClass('active');
+                    $('#share-holder').removeClass('active show');
+
+                    $('#nature-control-tab').addClass('active');
+                    $('#nature-control').addClass('active show');
+
+                    $('#currentTab').val('nature-control')
+                }
+            }
 
             if (currentTab === 'details' && addressTypeChoosed === 'residential' && actionType === '') {
                 $("#detailsTabLandingPage_id").removeClass('d-none');
@@ -1348,9 +2021,9 @@
             if (currentTab === 'details' && addressTypeChoosed === 'residential' && actionType === 'add') {
                 $("#actionType").val('select')
 
-                $("#detailsTabLandingPage_id").addClass('d-none');
+                // $("#detailsTabLandingPage_id").addClass('d-none');
                 $('#myTab').addClass('d-none')
-                $('.hideEditmyTab').addClass('d-none')
+                // $('.hideEditmyTab').addClass('d-none')
 
                 $("#details_tab_new_address_form").html('')
 
@@ -1358,7 +2031,7 @@
             }
 
             // ADDRESS SECTION
-            if (currentTab === 'addressing' && addressTypeChoosed === 'service' && actionType === 'select') {
+            if (currentTab === 'addressing' && actionType === 'select') {
                 $("#addressTypeChoosed").val('')
                 $("#actionType").val('')
 
@@ -1368,6 +2041,27 @@
 
                 $("#detailsTabAddList_id").addClass('d-none');
             }
+
+            if (currentTab === 'addressing' && actionType === 'edit') {
+
+                $("#actionType").val('select')
+
+                $(".edit_from").addClass('d-none')
+                $("#editFormAjaxLoadAddressSection").html('')
+
+                $("#detailsTabAddList_id").removeClass('d-none');
+            }
+
+            if (currentTab === 'addressing' && actionType === 'add') {
+                $("#actionType").val('select')
+
+                $('#myTab').addClass('d-none')
+
+                $("#address_tab_new_address_form").html('')
+
+                $("#detailsTabAddList_id").removeClass('d-none');
+            }
+
 
         }
 
@@ -1388,7 +2082,19 @@
 
         function chooseAdd(type) {
             $("#detailsTabAddList_id").removeClass('d-none');
-            $('.hideEdit').addClass('d-none');
+            // $('.hideEdit').addClass('d-none');
+
+            $("#serviceAddLandingSection").addClass('d-none');
+            $("#myTab").addClass('d-none');
+            $("#theNextBtn").addClass('d-none');
+
+            $("#addressTypeChoosed").val(type)
+            $("#actionType").val('select')
+        }
+
+        function buyAdd(type) {
+            $("#detailsTabAddList_id").removeClass('d-none');
+            // $('.hideEdit').removeClass('d-none');
 
             $("#serviceAddLandingSection").addClass('d-none');
             $("#myTab").addClass('d-none');
@@ -1579,6 +2285,9 @@
                     success: function(data) {
                         $("#ChossenResAdd").html(data);
                         $("#ChossenResAdd").removeClass('d-none');
+                        $(".res_choose_another_cl").removeClass('d-none');
+
+                        $(".res_choose_one_cl").addClass('d-none');
                     }
                 });
             }
@@ -1665,6 +2374,10 @@
             $('#person_aqthree_ans_id').val('');
 
             $('#choosedPersonOfficerId').val('')
+            $('#ChossenResAdd').html('')
+
+            $(".res_choose_another_cl").addClass('d-none');
+            $(".res_choose_one_cl").removeClass('d-none');
         }
 
         const consentSection = function() {
@@ -1687,10 +2400,20 @@
             $('#currentTab').val('details')
         }
 
+        // CURRENT TAB POSITION
         const currentTab = function(tabName) {
             $('#currentTab').val(tabName)
+            if (tabName === 'position') {
+                $("#bckButton").addClass('d-none')
+                $("#cancelBtn").removeClass('d-none')
+            } else {
+                $("#cancelBtn").addClass('d-none')
+                $("#bckButton").removeClass('d-none')
+
+            }
         }
 
+        // THE NEXT BUTTON FUNCTIONS STARTS
         const checkConsentOrNot = function() {
 
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'details') {
@@ -1705,9 +2428,6 @@
                 const person_lname = $('#person_lname_id').val();
                 const person_occupation = $('#person_occupation_id').val();
 
-                // const add_id_val = $('#add_id').val();
-                // console.log(add_id_val);
-                // return false
                 const person_aqone = $('#person_aqone_id').val();
                 const person_aqone_ans = $('#person_aqone_ans_id').val();
                 const person_aqtwo = $('#person_aqtwo_id').val();
@@ -1753,11 +2473,89 @@
                         },
                         success: function(response) {
                             $('#choosedPersonOfficerId').val(response['id'])
+
+                            $('#details-tab').removeClass('active');
+                            $('#details').removeClass('active show');
+
+                            $('#addressing-tab').addClass('active');
+                            $('#addressing').addClass('active show');
+
+                            $('#currentTab').val('addressing')
                         },
                     });
                 }
-
                 return false
+            }
+
+            // CHECKING THE LAST SECTION BEFORE DATABASE ENTRY FROM ADDRESSING
+            if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'addressing') {
+                if ($("#nature-control-tab").closest('li').hasClass('d-none') && $("#share-holder-tab").closest('li')
+                    .hasClass('d-none')) {
+                    console.log('DS1');
+                    return false
+                }
+                if ($("#nature-control-tab").closest('li').hasClass('d-none') === false) {
+                    $('#nature-control-tab').addClass('active');
+                    $('#nature-control').addClass('active show');
+
+                    $('#addressing-tab').removeClass('active');
+                    $('#addressing').removeClass('active show');
+
+                    $('#currentTab').val('nature-control')
+                    return false
+                }
+                if ($("#share-holder-tab").closest('li').hasClass('d-none') === false) {
+                    $('#share-holder-tab').addClass('active');
+                    $('#share-holder').addClass('active show');
+
+                    $('#addressing-tab').removeClass('active');
+                    $('#addressing').removeClass('active show');
+
+                    $('#currentTab').val('share-holder')
+                    return false
+                }
+                return false
+            }
+
+            // CHECKING THE LAST SECTION BEFORE DATABASE ENTRY FROM nature-control
+            if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'nature-control') {
+                if ($("#share-holder-tab").closest('li').hasClass('d-none')) {
+                    console.log('DS1');
+                    return false
+                }
+
+                if ($("#share-holder-tab").closest('li').hasClass('d-none') === false) {
+                    $('#nature-control-tab').removeClass('active');
+                    $('#nature-control').removeClass('active show');
+
+                    $('#share-holder-tab').addClass('active');
+                    $('#share-holder').addClass('active show');
+
+                    $('#currentTab').val('share-holder')
+                    return false
+                }
+                return false
+            }
+
+            if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'share-holder') {
+                if ($("#shareholderLandingPage").hasClass('d-none')) {
+                    console.log('DS');
+
+                    return false
+                }
+
+                $("#shareholderLandingPage").addClass('d-none')
+                $("#shareholderListing").removeClass('d-none')
+
+                const sh_quantity = $("#sh_quantity").val()
+                const sh_currency = $("#sh_currency").val()
+                const sh_pps = $("#sh_pps").val()
+
+                $("#quantityVal").html(sh_quantity)
+                $("#pps").html(sh_pps)
+                $("#currencyVal").html(sh_currency)
+
+                return false;
             }
 
             if ($('#currentTab').val() === 'officer') {
@@ -1789,11 +2587,40 @@
                 $('#officer-tab').addClass('active');
                 $('#officer').addClass('active show');
 
+                const checkBoxArr = [...$(".checkBoxPos")];
+                let posiArr = []
+                checkBoxArr.forEach((el, i) => {
+                    if (el.checked === true) {
+                        if (i == checkBoxArr.length - 1) {
+                            posiArr.push(el.value)
+                        }
+                        posiArr.push(el.value, )
+                    }
+                })
+                $("#positionSelected").val(posiArr.join(', '))
+
                 $('#currentTab').val('officer')
+
+                $("#cancelBtn").addClass('d-none');
+                $("#bckButton").removeClass('d-none');
             }
 
         }
+        // THE NEXT BUTTON FUNCTIONS ENDS
 
+        function removeShareHolder() {
+            $("#shareholderLandingPage").removeClass('d-none')
+
+            $("#shareholderListing").addClass('d-none')
+
+            $("#quantityVal").html('')
+            $("#pps").html('')
+            $("#currencyVal").html('')
+
+            $("#sh_quantity").val(1)
+            $("#sh_currency").val('GBP')
+            $("#sh_pps").val(1)
+        }
 
         function shareholderTab() {
             $('.shareholderLinksCls').toggleClass('d-none');
@@ -1806,24 +2633,12 @@
 
 
         const showPersonSection = function() {
+            $('#currentTab').val('position')
             $(".main_section").hide();
             $('.person_section').removeClass('d-none');
 
             $('#appointmentType').val('person');
         }
-
-        function gotoPage() {
-            $.ajax({
-                url: "{!! route('remove-forwarding-business-address-section') !!}",
-                type: 'get',
-                success: function(result) {
-                    setTimeout(function() {
-                        $('.selc-addr').text('Select');
-                    }, 2000);
-                    window.location.href = "{{ route('choose-address-after-buy-now') }}"
-                }
-            });
-        };
 
         function go_to_the_next_page() {
             const price = $('#business_office_price').val();
@@ -1873,8 +2688,7 @@
                 $('.res_choose_another_cl').removeClass('d-none');
 
                 $('.res_choose_one_cl').addClass('d-none');
-                $("#detailsTabAddList_id").addClass('d-none');
-                $("#actionType").val('')
+
             }
 
             if (addressTypeChoosed === 'service') {
@@ -1893,13 +2707,16 @@
                 }
 
                 $('#ChossenServiceAdd_id').val(id)
+
                 $('#ChossenServiceAdd').removeClass('d-none');
                 $("#serviceAddLandingSection").removeClass('d-none')
-                $('.choose_one_cl').addClass('d-none');
                 $('.choose_another_cl').removeClass('d-none');
+
+                $('.choose_one_cl').addClass('d-none');
             }
 
-            if (addressTypeChoosed === 'forwading') {
+            if (addressTypeChoosed === 'forwarding') {
+
                 if (type === 'listing') {
                     const house_number = $(`.${id}_add_house_number`).val();
                     const add_street = $(`.${id}_add_street`).val();
@@ -1908,17 +2725,38 @@
                     const user_county = $(`.${id}_user_county`).val();
                     const address_post_code = $(`.${id}_address_post_code`).val();
 
-                    $('#ChossenForwadingAdd').html(
+                    $('#ChossenForwarding_Add').html(
                         `${house_number},${add_street},${add_locality},${add_town},${user_county},${address_post_code}`)
                 } else {
-                    $('#ChossenForwadingAdd').html(ths.value)
+                    $('#ChossenForwarding_Add').html(ths.value)
                 }
+
+                $('.forwarding_add_after_buy_now_select').removeClass('d-none')
+                $("#serviceAddLandingSection").removeClass('d-none')
+                $("#removeBuy").removeClass('d-none')
+
+                $(".buyNowBtn").addClass('d-none')
+                $(".service_add_choosed").addClass('d-none')
+
+                $('#ChossenForwarding_Add_id').val(id)
+                $("#ChossenServiceAdd_id").val('')
+
+
             }
 
-            $('.hideEdit').addClass('d-none');
+            $("#actionType").val('')
+            $("#detailsTabAddList_id").addClass('d-none');
             $("#addressTypeChoosed").val('')
+        }
 
-            // $('#ownAddEdit_id').removeClass('d-none');
+        function removeBuy() {
+            $(".service_add_choosed").removeClass('d-none')
+            $(".buyNowBtn").removeClass('d-none')
+
+            $('.forwarding_add_after_buy_now_select').addClass('d-none')
+            $("#removeBuy").addClass('d-none')
+
+            $('#ChossenForwarding_Add_id').val('')
         }
 
         $('.edit-addr').click(function(type) {
@@ -1927,7 +2765,7 @@
         });
 
         function editAddress(id) {
-            $('.hideEdit').addClass('d-none');
+            // $('.hideEdit').addClass('d-none');
             $('.edit_from').removeClass('d-none');
 
             const currentTab = $("#currentTab").val();
@@ -1955,7 +2793,7 @@
                     if (currentTab === 'addressing') {
                         $('#editFormAjaxLoadAddressSection').html(data)
                         $('.edit_from').removeClass('d-none');
-                        $('#addressListingPage_id').addClass('d-none');
+                        $('#detailsTabAddList_id').addClass('d-none');
                     } else {
                         $('#editFormAjaxLoadAddressSection').html('')
                         $('.edit_from').addClass('d-none');

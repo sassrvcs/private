@@ -220,7 +220,8 @@ class CompanyFormController extends Controller
 
     public function savePersonOfficer(Request $request)
     {
-
+        // dd($request->personOfficerEditId);
+        // dd($request->ChossenResAdd_id);
         $inserted = '';
         $updated = '';
 
@@ -254,7 +255,7 @@ class CompanyFormController extends Controller
                 'nationality' => $request->person_national,
                 'last_name' => $request->person_lname,
                 'occupation' => $request->person_occupation,
-                'add_id' => $request->add_id_val,
+                'add_id' => $request->ChossenResAdd_id,
                 'authenticate_one' => $request->person_aqone,
                 'authenticate_one_ans' => $request->person_aqone_ans,
                 'authenticate_two' => $request->person_aqtwo,
@@ -313,5 +314,9 @@ class CompanyFormController extends Controller
         $data = $house_number.",".$street.",".$locality.",".$town.",".$county.",".$post_code;
 
         return $data;
+    }
+
+    public function person_appointment_save() {
+        
     }
 }

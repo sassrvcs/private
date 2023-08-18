@@ -149,18 +149,22 @@
                     contry,
                 },
                 success: function(result) {
+                    $("#actionType").val('select')
                     if (currentTab === 'details') {
                         $('#editFormAjaxLoadResidentialSection').html('')
 
                         $('#detailsTabAddList_id').removeClass('d-none');
                         $('.edit_from_residential').addClass('d-none');
 
-                        $("#actionType").val('select')
                     }
                     if (currentTab === 'addressing') {
                         $('#editFormAjaxLoadAddressSection').html('')
-                        $('.hideEdit').removeClass('d-none');
+
+                        $('#detailsTabAddList_id').removeClass('d-none');
+                        // $('.hideEdit').removeClass('d-none');
+
                         $('.edit_from').addClass('d-none');
+
                     }
                     addListing();
                 }
