@@ -353,192 +353,162 @@ return [
                 "id"   => "01250",
                 "name" => 'Growing of other tree and bush fruits and nuts'
             ],
-            '17' => [
+            '65' => [
                 "id"   => "03220",
                 "name" => 'Freshwater aquaculture'
             ],
-            '18' => [
+            '66' => [
                 "id"   => "03210",
                 "name" => 'Marine aquaculture'
             ],
-            '19' => [
+            '67' => [
                 "id"   => "03120",
                 "name" => 'Freshwater fishing'
             ],
-            '19' => [
+            '68' => [
                 "id"   => "03110",
                 "name" => 'Marine fishing'
             ],
-            '19' => [
+            '69' => [
                 "id"   => "02400",
                 "name" => 'Support services to forestry'
             ],
-            '19' => [
+            '70' => [
                 "id"   => "02300",
                 "name" => 'Gathering of wild growing non-wood products'
             ],
-            '19' => [
+            '71' => [
                 "id"   => "02200",
                 "name" => 'Logging'
             ],
-            '19' => [
+            '72' => [
                 "id"   => "02100",
                 "name" => 'Silviculture and other forestry activities'
             ],
-            '19' => [
+            '73' => [
                 "id"   => "01700",
                 "name" => 'Hunting, trapping and related service activities'
             ],
-            '19' => [
+            '74' => [
                 "id"   => "01640",
                 "name" => 'Freshwater fishingSeed processing for propagation'
             ],
-            '19' => [
+            '75' => [
                 "id"   => "01630",
                 "name" => 'Post-harvest crop activities'
             ],
-            '19' => [
+            '76' => [
                 "id"   => "01629",
                 "name" => 'Support activities for animal production (other than farm animal boarding and care) n.e.c.'
             ],
-            '19' => [
+            '77' => [
                 "id"   => "01621",
                 "name" => 'Farm animal boarding and care'
             ],
-            '19' => [
+            '78' => [
                 "id"   => "01610",
                 "name" => 'Support activities for crop production'
             ],
-            '19' => [
+            '79' => [
                 "id"   => "01500",
                 "name" => 'Mixed farming'
             ],
-            '19' => [
+            '80' => [
                 "id"   => "01490",
                 "name" => 'Raising of other animals'
             ],
-            '19' => [
+            '81' => [
                 "id"   => "01470",
                 "name" => 'Raising of poultry'
             ],
-            '19' => [
+            '82' => [
                 "id"   => "01460",
                 "name" => 'Raising of swine / pigs'
             ],
-            '19' => [
+            '83' => [
                 "id"   => "01450",
                 "name" => 'Raising of sheep and goats'
             ],
-            '19' => [
+            '84' => [
                 "id"   => "01440",
                 "name" => 'Raising of camels and camelids'
             ],
-            '19' => [
+            '85' => [
                 "id"   => "01430",
                 "name" => 'Raising of horses and other equines'
             ],
-            '19' => [
+            '86' => [
                 "id"   => "01420",
                 "name" => 'Raising of other cattle and buffaloes'
             ],
-            '19' => [
+            '87' => [
                 "id"   => "01410",
                 "name" => 'Raising of dairy cattle'
             ],
-            '19' => [
+            '88' => [
                 "id"   => "01300",
                 "name" => 'Plant propagation'
             ],
-            '19' => [
+            '89' => [
                 "id"   => "01290",
                 "name" => 'Growing of other perennial crops'
             ],
-            '19' => [
+            '90' => [
                 "id"   => "01280",
                 "name" => 'Growing of spices, aromatic, drug and pharmaceutical crops'
             ],
-            '19' => [
+            '91' => [
                 "id"   => "01270",
                 "name" => 'Growing of beverage crops'
             ],
-            '19' => [
+            '92' => [
                 "id"   => "01260",
                 "name" => 'Growing of oleaginous fruits'
             ],
-            '19' => [
+            '93' => [
                 "id"   => "01240",
                 "name" => 'Growing of pome fruits and stone fruits'
             ],
-            '19' => [
+            '94' => [
                 "id"   => "01230",
                 "name" => 'Growing of citrus fruits'
             ],
-            '19' => [
+            '95' => [
                 "id"   => "01220",
                 "name" => 'Growing of tropical and subtropical fruits'
             ],
-            '19' => [
+            '96' => [
                 "id"   => "01210",
                 "name" => 'Growing of grapes'
             ],
-            '19' => [
+            '97' => [
                 "id"   => "01190",
                 "name" => 'Growing of other non-perennial crops'
             ],
-            '19' => [
+            '98' => [
                 "id"   => "01160",
                 "name" => 'Growing of fibre crops'
             ],
-            '19' => [
+            '99' => [
                 "id"   => "01150 ",
                 "name" => 'Growing of tobacco'
             ],
-            '19' => [
+            '100' => [
                 "id"   => "01140",
                 "name" => 'Growing of sugar cane'
             ],
-            '19' => [
+            '101' => [
                 "id"   => "01130",
                 "name" => 'Growing of vegetables and melons, roots and tubers'
             ],
-            '19' => [
+            '102' => [
                 "id"   => "01120",
                 "name" => 'Growing of rice'
             ],
-            '19' => [
+            '103' => [
                 "id"   => "01110",
                 "name" => 'Growing of cereals (except rice), leguminous crops and oil seeds'
             ]
-        ],
-        "6" => [
-            '14' => [
-                "id"   => "99999",
-                "name" => 'Dormant Company'
             ],
-            '15' => [
-                "id"   => "99000",
-                "name" => 'Activities of extraterritorial organisations and bodies'
-            ]
-        ],
-        "7" => [
-            '14' => [
-                "id"   => "99999",
-                "name" => 'Dormant Company'
-            ],
-            '15' => [
-                "id"   => "99000",
-                "name" => 'Activities of extraterritorial organisations and bodies'
-            ]
-        ],
-        "8" => [
-            '14' => [
-                "id"   => "99999",
-                "name" => 'Dormant Company'
-            ],
-            '15' => [
-                "id"   => "99000",
-                "name" => 'Activities of extraterritorial organisations and bodies'
-            ]
-        ],
     ]
 ];
