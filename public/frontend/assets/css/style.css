@@ -8666,3 +8666,86 @@ form.woocommerce-form-login.login{
     padding: 0;
     margin: 0;
 }
+
+/*=============== 18-08-2023 =============*/
+.shareholdings-table-wrap{
+    padding: 30px 0 0;
+    margin: 0;
+}
+.shareholdings-table-wrap h4{
+    color: #353A40;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 0;
+    margin: 0 0 20px;
+}
+.shareholdings-table-wrap table{
+    vertical-align: middle;
+}
+.shareholdings-table-wrap table th{
+    background: #ACB5BA;
+    border: none;
+    color: #FFF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+.shareholdings-table-wrap table td{
+    background: #F0F0F0;
+    color: #353A40;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+    vertical-align: middle;
+    border-top: 3px solid #fff;
+}
+.shareholdings-table-wrap table td:last-child{
+    text-align: right;
+}
+.shareholdings-table-wrap table td .remove-btn{
+    border-radius: 10px;
+    border: 1px solid #FD0000;
+    padding: 8px 23px;
+    color: #FD0000;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height:1.2;
+    outline: none;
+    box-shadow: none;
+}
+
+.payment-pro-table-wrap{
+    padding: 0;
+    margin: 0;
+}
+.payment-pro-table-wrap table{
+    width: 100%;
+    border: 1px solid rgba(222, 222, 222, 1)
+}
+.payment-pro-table-wrap table th{
+    padding: 10px;
+    text-align: center;
+    color: #FFF;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.2;
+    background: #353A40;
+}
+.payment-pro-table-wrap table td{
+    padding: 10px;
+    border-bottom: 1px solid rgba(222, 222, 222, 1);
+    border-right: 1px solid rgba(222, 222, 222, 1);
+    text-align: center;
+}
+.payment-pro-table-wrap table th:first-child,
+.payment-pro-table-wrap table td:first-child{
+    text-align: left;
+}

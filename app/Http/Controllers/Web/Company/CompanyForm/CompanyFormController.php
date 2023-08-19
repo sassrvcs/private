@@ -9,6 +9,7 @@ use App\Models\Companie;
 use App\Models\Country;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Address;
+use App\Models\Person_appointment;
 use App\Models\PersonOfficer;
 use App\Models\ShoppingCart;
 
@@ -220,7 +221,8 @@ class CompanyFormController extends Controller
 
     public function savePersonOfficer(Request $request)
     {
-
+        // dd($request->personOfficerEditId);
+        // dd($request->ChossenResAdd_id);
         $inserted = '';
         $updated = '';
 
@@ -229,13 +231,11 @@ class CompanyFormController extends Controller
                 'shopping_cart_id' => $request->shoppingCartId,
                 'title' => $request->person_tittle,
                 'dob_day' => $request->person_bday,
-                'dob_month' => $request->person_bmon,
-                'dob_year' => $request->person_byear,
                 'first_name' => $request->person_fname,
                 'nationality' => $request->person_national,
                 'last_name' => $request->person_lname,
                 'occupation' => $request->person_occupation,
-                'add_id' => $request->add_id_val,
+                'add_id' => $request->ChossenResAdd_id,
                 'authenticate_one' => $request->person_aqone,
                 'authenticate_one_ans' => $request->person_aqone_ans,
                 'authenticate_two' => $request->person_aqtwo,
@@ -252,13 +252,11 @@ class CompanyFormController extends Controller
                 'shopping_cart_id' => $request->shoppingCartId,
                 'title' => $request->person_tittle,
                 'dob_day' => $request->person_bday,
-                'dob_month' => $request->person_bmon,
-                'dob_year' => $request->person_byear,
                 'first_name' => $request->person_fname,
                 'nationality' => $request->person_national,
                 'last_name' => $request->person_lname,
                 'occupation' => $request->person_occupation,
-                'add_id' => $request->add_id_val,
+                'add_id' => $request->ChossenResAdd_id,
                 'authenticate_one' => $request->person_aqone,
                 'authenticate_one_ans' => $request->person_aqone_ans,
                 'authenticate_two' => $request->person_aqtwo,
@@ -300,5 +298,57 @@ class CompanyFormController extends Controller
         if ($inserted) {
             return $request->where;
         }
+    }
+
+    public function selected_address(Request $request) {
+        $id = $request->get('offValadd_id');
+
+        $add = Address::where('id',$id)->get();
+
+        $house_number = $add[0]['house_number'];
+        $street = $add[0]['street'];
+        $locality = $add[0]['locality'];
+        $town = $add[0]['town']; 
+        $county = $add[0]['county']; 
+        $post_code = $add[0]['post_code']; 
+
+        $data = $house_number.",".$street.",".$locality.",".$town.",".$county.",".$post_code;
+
+        return $data;
+    }
+
+    public function person_appointment_save(Request $request) {
+       $inserted = Person_appointment::create([
+        'order_id' => $request->order_id,
+        'user_id' => Auth::user()->id,
+        'cart_id' => $request->cart_id,
+        'person_officer_id' => $request->person_officer_id,
+        'own_address_id' => $request->own_address_id,
+        'forwarding_address_id' => $request->forwarding_address_id,
+        'company_id' => $request->company_id,
+        'position' => $request->position,
+        'noc_os' => $request->noc_os,
+        'noc_vr' => $request->noc_vr,
+        'noc_appoint' => $request->noc_appoint,
+        'noc_others' => $request->noc_others,
+        'fci' => $request->fci,
+        'fci_os' => $request->fci_os,
+        'fci_vr' => $request->fci_vr,
+        'fci_appoint' => $request->fci_appoint,
+        'fci_others' => $request->fci_others,
+        'tci' => $request->tci,
+        'tci_os' => $request->tci_os,
+        'tci_vr' => $request->tci_vr,
+        'tci_appoint' => $request->tci_appoint,
+        'tci_others' => $request->tci_others,
+        'sh_quantity' => $request->sh_quantity,
+        'sh_currency' => $request->sh_currency,
+        'sh_pps' => $request->sh_pps,
+        'perticularsTextArea' => $request->perticularsTextArea,
+        ]) ;
+        
+        if($inserted){
+            return 1;
+       }
     }
 }

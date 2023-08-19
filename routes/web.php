@@ -135,10 +135,12 @@ Route::get('update-forwarding-registered-office-address', [CompanyFormController
 Route::get('update-forwarding-business-office-address', [CompanyFormController::class, 'updateForwardingBusinessAddress'])->name('update-forwarding-business-office-address')->middleware('auth');
 Route::get('remove-forwarding-address-section', [CompanyFormController::class, 'removeForwardingAddressSection'])->name('remove-forwarding-address-section')->middleware('auth');
 Route::get('remove-forwarding-business-address-section', [CompanyFormController::class, 'removeForwardingBusinessAddressSection'])->name('remove-forwarding-business-address-section')->middleware('auth');
+Route::get('selected-address', [CompanyFormController::class, 'selected_address'])->name('selected-address')->middleware('auth');
 
 // Appointment Section
 Route::get('appointments', [CompanyFormController::class, 'appointments_open'])->name('appointments')->middleware('auth');
 Route::post('save-person-officer', [CompanyFormController::class, 'savePersonOfficer'])->name('save-person-officer')->middleware('auth');
+Route::post('person-appointment-save', [CompanyFormController::class, 'person_appointment_save'])->name('person-appointment-save')->middleware('auth');
 
 // Route::get('save-person-office', [CompanyFormController::class, 'savePersonOfficer'])->name('save-person-officer')->middleware('auth');
 
