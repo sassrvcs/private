@@ -57,24 +57,26 @@ class CompanieFormController extends Controller
             'url'  => $documentUrl,
         ];
 
-        if($companyFormationStep == null) {
-            return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
-        } else {
-            if( isset($request->data) && $request->data == 'previous') {
-                return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
-            }
+        return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
 
-            if($companyFormationStep->step_name == 'particulars') {
-                return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
-            } else if($companyFormationStep->step_name == 'document') {
-                return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-banking']));
-            } else if($companyFormationStep->step_name == 'business-banking') {
-                return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-services']));
-            } else {
-                // dd('Work In Progress..... URL not set now...');
-                return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
-            }
-        }
+        // if($companyFormationStep == null) {
+        //     return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
+        // } else {
+        //     if( isset($request->data) && $request->data == 'previous') {
+        //         return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
+        //     }
+
+        //     if($companyFormationStep->step_name == 'particulars') {
+        //         return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
+        //     } else if($companyFormationStep->step_name == 'document') {
+        //         return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-banking']));
+        //     } else if($companyFormationStep->step_name == 'business-banking') {
+        //         return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-services']));
+        //     } else {
+        //         // dd('Work In Progress..... URL not set now...');
+        //         return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
+        //     }
+        // }
     }
 
     /**
