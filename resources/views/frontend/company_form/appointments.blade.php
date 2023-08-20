@@ -297,6 +297,105 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="shareholdings-table-wrap">
+                                    <h4>Current Appointments</h4>
+                                    <p>Below is a list of officers currently assigned to your company</p>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Director</th>
+                                                    <th>Shareholder</th>
+                                                    <th>Secretary</th>
+                                                    <th>PSC</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>John David</td>
+                                                    <td><img src="assets/images/table-checkmark-icon.svg" alt=""></td>
+                                                    <td><img src="assets/images/table-checkmark-icon.svg" alt=""></td>
+                                                    <td><img src="assets/images/table-checkmark-icon.svg" alt=""></td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="tb-btn-wrap d-flex justify-content-end">
+                                                            <button class="remove-btn">Remove</button>
+                                                            <button class="edit-btn">Edit</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="shareholdings-table-wrap">
+                                    <h4>Shareholders</h4>
+                                    <p>Below is a list of all shareholders and their holdings.</p>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr><th>Name</th>
+                                                <th>Shareholding</th>
+                                                <th></th>
+                                            </tr></thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>John David</td>
+                                                    <td>1 x ORDINARY @ 1.00 GBP per share</td>
+                                                    <td>
+                                                        <div class="tb-btn-wrap d-flex justify-content-end">
+                                                            <button class="edit-btn">Edit</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="share-holder-block mt-4">
+                                    <div class="ttl">
+                                        <h5>Share Classes</h5>
+                                        <p>Below is confirmation of all share classes of the company.</p>
+                                    </div>
+                                    <div class="share-holder-block-wrap">
+                                        <div class="share-holder-form">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="">Class <span><img src="assets/images/in-icon.png" alt=""></span></label>
+                                                        <h5>ORDINARY</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="">Price</label>
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="">Currency</label>
+                                                        <select class="form-control">
+                                                            <option value="">GBP</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="desc">
+                                            <h3>Particulars</h3>
+                                            <div class="box">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sagittis tellus et augue dignissim, quis elementum lorem imperdiet. Duis eu velit id metus maximus auctor.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="step-btn-wrap mt-4">
                                     <button class="btn prev-btn" onclick="gotToBusinessAddressPage()"><img
                                             src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"

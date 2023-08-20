@@ -194,8 +194,16 @@ class CompanyFormController extends Controller
 
         $person_officers = PersonOfficer::get()->toArray();
 
+        $personAppointments = Person_appointment::where("user_id", Auth::user()->id)->get()->toArray();
 
-        return view('frontend.company_form.appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers'));
+        $appointmentsList = [];
+        if(!empty($personAppointments)){
+            $appointmentsList = $personAppointments;
+        }
+
+        // dd($appointmentsList);
+
+        return view('frontend.company_form.appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers','appointmentsList'));
     }
 
     public function address_listing(Request $request)
