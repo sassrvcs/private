@@ -704,11 +704,11 @@
                         shoppingCartId_id
                     },
                     success: function(response) {
-                        window.location.href = "{{ route('appointments') }}"
+                        window.location.href = "{{ route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}"
                     },
                 });
             } else {
-                window.location.href = "{{ route('appointments') }}"
+                window.location.href = "{{ route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}"
             }
 
         };

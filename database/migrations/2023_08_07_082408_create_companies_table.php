@@ -24,6 +24,8 @@ return new class extends Migration
 
             $table->string('companie_name')->index()->nullable();
             $table->string('companie_type')->nullable();
+            $table->string('section_name')->index()->nullable();
+            $table->string('step_name')->nullable();
 
             $table->timestamps();
 

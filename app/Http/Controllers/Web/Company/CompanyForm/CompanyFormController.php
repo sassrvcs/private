@@ -201,9 +201,41 @@ class CompanyFormController extends Controller
             $appointmentsList = $personAppointments;
         }
 
-        // dd($appointmentsList);
-
         return view('frontend.company_form.appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers','appointmentsList'));
+    }
+
+    public function remove_officer_list(Request $request) {
+
+        $id = $request->id;
+
+        $result = Person_appointment::where('id',$id)->delete();
+
+        if($result){
+            return 1;
+        }
+    }
+
+    public function update_shareholder_from_appointment_listing(Request $request) {
+        $idVal = $request->idVal;
+
+        $edit_share_price = $request->edit_share_price;
+        $edit_share_currency = $request->edit_share_currency;
+        $edit_share_particulars = $request->edit_share_particulars;
+
+        $updated = null;
+        foreach ($idVal as $key => $value) {
+            # code...
+            $updated = Person_appointment::where('id', $value)->update([
+                'sh_pps' => $edit_share_price["$key"],
+                'sh_currency' => $edit_share_currency["$key"],
+                'perticularsTextArea' => $edit_share_particulars["$key"],
+            ]);
+
+        }
+
+        if($updated){
+            return 1;
+        }
     }
 
     public function address_listing(Request $request)

@@ -180,109 +180,695 @@
                                     </div>
                                 </div>
 
-                                <div class="shareholdings-table-wrap">
-                                    <h4>Current Appointments</h4>
-                                    <p>Below is a list of officers currently assigned to your company</p>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Director</th>
-                                                    <th>Shareholder</th>
-                                                    <th>Secretary</th>
-                                                    <th>PSC</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>John David</td>
-                                                    <td><img src="assets/images/table-checkmark-icon.svg" alt=""></td>
-                                                    <td><img src="assets/images/table-checkmark-icon.svg" alt=""></td>
-                                                    <td><img src="assets/images/table-checkmark-icon.svg" alt=""></td>
-                                                    <td></td>
-                                                    <td>
-                                                        <div class="tb-btn-wrap d-flex justify-content-end">
-                                                            <button class="remove-btn">Remove</button>
-                                                            <button class="edit-btn">Edit</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                @if (!empty($appointmentsList))
+                                    <div class="shareholdings-table-wrap" id="appointment_officer_listing">
+                                        <h4>Current Appointments</h4>
+                                        <p>Below is a list of officers currently assigned to your company</p>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Director</th>
+                                                        <th>Shareholder</th>
+                                                        <th>Secretary</th>
+                                                        <th>PSC</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($appointmentsList as $val)
+                                                        <tr>
+                                                            <td>@php
+                                                                $officerDetails = officer_details_for_appointments_list($val['person_officer_id']);
+                                                                $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
+                                                                echo $fullName;
+                                                            @endphp</td>
+                                                            @php
+                                                                $positionString = $val['position'];
+                                                                $positionArray = explode(', ', $val['position']);
+                                                            @endphp
+                                                            <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                                    class="{{ in_array('Director', $positionArray) ? '' : 'd-none' }}"
+                                                                    alt=""></td>
+                                                            <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                                    class="{{ in_array('Shareholder', $positionArray) ? '' : 'd-none' }}"
+                                                                    alt=""></td>
+                                                            <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                                    class="{{ in_array('Secretary', $positionArray) ? '' : 'd-none' }}"
+                                                                    alt=""></td>
+                                                            <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                                    class="{{ in_array('PSC', $positionArray) ? '' : 'd-none' }}"
+                                                                    alt=""></td>
+                                                            <td>
+                                                                <div class="tb-btn-wrap d-flex justify-content-end">
+                                                                    <button class="remove-btn"
+                                                                        onclick="removeOfficerList('{{ isset($val['id']) ? $val['id'] : '' }}')">Remove</button>
+                                                                    <button class="edit-btn">Edit</button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
 
-                                <div class="shareholdings-table-wrap">
-                                    <h4>Shareholders</h4>
-                                    <p>Below is a list of all shareholders and their holdings.</p>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr><th>Name</th>
-                                                <th>Shareholding</th>
-                                                <th></th>
-                                            </tr></thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>John David</td>
-                                                    <td>1 x ORDINARY @ 1.00 GBP per share</td>
-                                                    <td>
-                                                        <div class="tb-btn-wrap d-flex justify-content-end">
-                                                            <button class="edit-btn">Edit</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
 
-                                <div class="share-holder-block mt-4">
-                                    <div class="ttl">
-                                        <h5>Share Classes</h5>
-                                        <p>Below is confirmation of all share classes of the company.</p>
-                                    </div>
-                                    <div class="share-holder-block-wrap">
-                                        <div class="share-holder-form">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="">Class <span><img src="assets/images/in-icon.png" alt=""></span></label>
-                                                        <h5>ORDINARY</h5>
-                                                    </div>
+                                @if (!empty($appointmentsList))
+                                    @php
+                                        $idArry = [];
+                                        $listed_idArry = [];
+                                        $pscCheck = '';
+                                    @endphp
+                                    @foreach ($appointmentsList as $val)
+                                        @php
+                                            array_push($listed_idArry, $val['id']);
+                                            $pscCheck = in_array('PSC', $positionArray) ? '1' : '';
+                                            
+                                            $listed_idStrng = implode(',', $listed_idArry);
+                                            $positionString = $val['position'];
+                                            $positionArray = explode(', ', $val['position']);
+                                        @endphp
+                                        @if (in_array('Shareholder', $positionArray))
+                                            @php
+                                                array_push($idArry, $val['id']);
+                                            @endphp
+                                            <div class="shareholdings-table-wrap" id="share_holding_table_id">
+                                                <h4>Shareholders</h4>
+                                                <p>Below is a list of all shareholders and their holdings.</p>
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Shareholding</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    @php
+                                                                        $officerDetails = officer_details_for_appointments_list($val['person_officer_id']);
+                                                                        $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
+                                                                        echo $fullName;
+                                                                    @endphp
+                                                                </td>
+                                                                <td>{{ isset($val['sh_quantity']) ? $val['sh_quantity'] : '' }}
+                                                                    x ORDINARY @
+                                                                    {{ isset($val['sh_pps']) ? $val['sh_pps'] . '.00' : '' }}
+                                                                    {{ isset($val['sh_currency']) ? $val['sh_currency'] : '' }}
+                                                                    per share</td>
+                                                                <td>
+                                                                    <div class="tb-btn-wrap d-flex justify-content-end">
+                                                                        <button class="edit-btn">Edit</button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="">Price</label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
+                                            </div>
+
+
+                                            <div class="share-holder-block mt-4">
+                                                <div class="ttl">
+                                                    <h5>Share Classes</h5>
+                                                    <p>Below is confirmation of all share classes of the company.</p>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="">Currency</label>
-                                                        <select class="form-control">
-                                                            <option value="">GBP</option>
-                                                        </select>
+                                                <div class="share-holder-block-wrap">
+                                                    <div class="share-holder-form">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label for="">Class <span><img
+                                                                                src="assets/images/in-icon.png"
+                                                                                alt=""></span></label>
+                                                                    <h5>ORDINARY</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label for="">Price</label>
+                                                                    <input type="text"
+                                                                        value="{{ isset($val['sh_pps']) ? $val['sh_pps'] : '' }}"
+                                                                        class="form-control edit_share_price_{{ $val['id'] }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label for="">Currency</label>
+                                                                    <select
+                                                                        class="form-control edit_share_currency_{{ $val['id'] }}">
+                                                                        <option value="AED"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'AED' ? 'selected' : '' }}>
+                                                                            AED</option>
+                                                                        <option value="AFA"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'AFA' ? 'selected' : '' }}>
+                                                                            AFA</option>
+                                                                        <option value="ALL"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ALL' ? 'selected' : '' }}>
+                                                                            ALL</option>
+                                                                        <option value="AMD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'AMD' ? 'selected' : '' }}>
+                                                                            AMD</option>
+                                                                        <option value="ANG"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ANG' ? 'selected' : '' }}>
+                                                                        </option>
+                                                                        <option value="ARS"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ARS' ? 'selected' : '' }}>
+                                                                            ARS
+                                                                        </option>
+                                                                        <option value="AOA"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'AOA' ? 'selected' : '' }}>
+                                                                            AOA</option>
+                                                                        <option value="AUD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'AUD' ? 'selected' : '' }}>
+                                                                            AUD</option>
+                                                                        <option value="AWG"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'AWG' ? 'selected' : '' }}>
+                                                                            AWG</option>
+                                                                        <option value="AZM"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'AZM' ? 'selected' : '' }}>
+                                                                            AZM</option>
+                                                                        <option value="BAM"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BAM' ? 'selected' : '' }}>
+                                                                            BAM</option>
+                                                                        <option value="BBD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BBD' ? 'selected' : '' }}>
+                                                                            BBD</option>
+                                                                        <option value="BDT"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BDT' ? 'selected' : '' }}>
+                                                                            BDT</option>
+                                                                        <option value="BGN"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BGN' ? 'selected' : '' }}>
+                                                                            BGN</option>
+                                                                        <option value="BHD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BHD' ? 'selected' : '' }}>
+                                                                            BHD</option>
+                                                                        <option value="BIF"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BIF' ? 'selected' : '' }}>
+                                                                            BIF</option>
+                                                                        <option value="BMD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BMD' ? 'selected' : '' }}>
+                                                                            BMD</option>
+                                                                        <option value="BND"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BND' ? 'selected' : '' }}>
+                                                                            BND</option>
+                                                                        <option value="BOB"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BOB' ? 'selected' : '' }}>
+                                                                            BOB</option>
+                                                                        <option value="BRL"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BRL' ? 'selected' : '' }}>
+                                                                            BRL</option>
+                                                                        <option value="BSD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BSD' ? 'selected' : '' }}>
+                                                                            BSD</option>
+                                                                        <option value="BTN"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BTN' ? 'selected' : '' }}>
+                                                                            BTN</option>
+                                                                        <option value="BWP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BWP' ? 'selected' : '' }}>
+                                                                            BWP</option>
+                                                                        <option value="BYR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BYR' ? 'selected' : '' }}>
+                                                                            BYR</option>
+                                                                        <option value="BZD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'BZD' ? 'selected' : '' }}>
+                                                                            BZD</option>
+                                                                        <option value="CAD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'CAD' ? 'selected' : '' }}>
+                                                                            CAD</option>
+                                                                        <option value="CDF"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'CDF' ? 'selected' : '' }}>
+                                                                            CDF</option>
+                                                                        <option value="CHF"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'CHF' ? 'selected' : '' }}>
+                                                                            CHF</option>
+                                                                        <option value="CLP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'CLP' ? 'selected' : '' }}>
+                                                                            CLP</option>
+                                                                        <option value="CNY"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'CNY' ? 'selected' : '' }}>
+                                                                            CNY</option>
+                                                                        <option value="COP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'COP' ? 'selected' : '' }}>
+                                                                            COP</option>
+                                                                        <option value="CRC"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'CRC' ? 'selected' : '' }}>
+                                                                            CRC</option>
+                                                                        <option value="CUP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'CUP' ? 'selected' : '' }}>
+                                                                            CUP</option>
+                                                                        <option value="CVE"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'CVE' ? 'selected' : '' }}>
+                                                                            CVE</option>
+                                                                        <option value="CYP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'CYP' ? 'selected' : '' }}>
+                                                                            CYP</option>
+                                                                        <option value="CZK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'CZK' ? 'selected' : '' }}>
+                                                                            CZK</option>
+                                                                        <option value="DJF"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'DJF' ? 'selected' : '' }}>
+                                                                            DJF</option>
+                                                                        <option value="DKK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'DKK' ? 'selected' : '' }}>
+                                                                            DKK</option>
+                                                                        <option value="DOP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'DOP' ? 'selected' : '' }}>
+                                                                            DOP</option>
+                                                                        <option value="DZD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'DZD' ? 'selected' : '' }}>
+                                                                            DZD</option>
+                                                                        <option value="EEK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'EEK' ? 'selected' : '' }}>
+                                                                            EEK</option>
+                                                                        <option value="EGP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'EGP' ? 'selected' : '' }}>
+                                                                            EGP</option>
+                                                                        <option value="ERN"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ERN' ? 'selected' : '' }}>
+                                                                            ERN</option>
+                                                                        <option value="ETB"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ETB' ? 'selected' : '' }}>
+                                                                            ETB</option>
+                                                                        <option value="EUR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'EUR' ? 'selected' : '' }}>
+                                                                            EUR</option>
+                                                                        <option value="FJD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'FJD' ? 'selected' : '' }}>
+                                                                            FJD</option>
+                                                                        <option value="FKP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'FKP' ? 'selected' : '' }}>
+                                                                            FKP</option>
+                                                                        <option value="GBP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'GBP' ? 'selected' : '' }}>
+                                                                            GBP
+                                                                        </option>
+                                                                        <option value="GEL"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'GEL' ? 'selected' : '' }}>
+                                                                            GEL</option>
+                                                                        <option value="GGP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'GGP' ? 'selected' : '' }}>
+                                                                            GGP</option>
+                                                                        <option value="GHC"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'GHC' ? 'selected' : '' }}>
+                                                                            GHC</option>
+                                                                        <option value="GIP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'GIP' ? 'selected' : '' }}>
+                                                                            GIP</option>
+                                                                        <option value="GMD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'GMD' ? 'selected' : '' }}>
+                                                                            GMD</option>
+                                                                        <option value="GNF"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'GNF' ? 'selected' : '' }}>
+                                                                            GNF</option>
+                                                                        <option value="GTQ"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'GTQ' ? 'selected' : '' }}>
+                                                                            GTQ</option>
+                                                                        <option value="GYD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'GYD' ? 'selected' : '' }}>
+                                                                            GYD</option>
+                                                                        <option value="HKD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'HKD' ? 'selected' : '' }}>
+                                                                            HKD</option>
+                                                                        <option value="HNL"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'HNL' ? 'selected' : '' }}>
+                                                                            HNL</option>
+                                                                        <option value="HRK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'HRK' ? 'selected' : '' }}>
+                                                                            HRK</option>
+                                                                        <option value="HTG"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'HTG' ? 'selected' : '' }}>
+                                                                            HTG</option>
+                                                                        <option value="HUF"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'HUF' ? 'selected' : '' }}>
+                                                                            HUF</option>
+                                                                        <option value="IDR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'IDR' ? 'selected' : '' }}>
+                                                                            IDR</option>
+                                                                        <option value="ILS"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ILS' ? 'selected' : '' }}>
+                                                                            ILS</option>
+                                                                        <option value="IMP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'IMP' ? 'selected' : '' }}>
+                                                                            IMP</option>
+                                                                        <option value="INR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'INR' ? 'selected' : '' }}>
+                                                                            INR</option>
+                                                                        <option value="IQD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'IQD' ? 'selected' : '' }}>
+                                                                            IQD</option>
+                                                                        <option value="IRR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'IRR' ? 'selected' : '' }}>
+                                                                            IRR</option>
+                                                                        <option value="ISK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ISK' ? 'selected' : '' }}>
+                                                                            ISK</option>
+                                                                        <option value="JEP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'JEP' ? 'selected' : '' }}>
+                                                                            JEP</option>
+                                                                        <option value="JMD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'JMD' ? 'selected' : '' }}>
+                                                                            JMD</option>
+                                                                        <option value="JOD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'JOD' ? 'selected' : '' }}>
+                                                                            JOD</option>
+                                                                        <option value="JPY"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'JPY' ? 'selected' : '' }}>
+                                                                            JPY</option>
+                                                                        <option value="KES"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'KES' ? 'selected' : '' }}>
+                                                                            KES</option>
+                                                                        <option value="KGS"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'KGS' ? 'selected' : '' }}>
+                                                                            KGS</option>
+                                                                        <option value="KHR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'KHR' ? 'selected' : '' }}>
+                                                                            KHR</option>
+                                                                        <option value="KMF"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'KMF' ? 'selected' : '' }}>
+                                                                            KMF</option>
+                                                                        <option value="KPW"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'KPW' ? 'selected' : '' }}>
+                                                                            KPW</option>
+                                                                        <option value="KRW"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'KRW' ? 'selected' : '' }}>
+                                                                            KRW</option>
+                                                                        <option value="KWD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'KWD' ? 'selected' : '' }}>
+                                                                            KWD</option>
+                                                                        <option value="KYD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'KYD' ? 'selected' : '' }}>
+                                                                            KYD</option>
+                                                                        <option value="KZT"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'KZT' ? 'selected' : '' }}>
+                                                                            KZT</option>
+                                                                        <option value="LAK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'LAK' ? 'selected' : '' }}>
+                                                                            LAK</option>
+                                                                        <option value="LBP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'LBP' ? 'selected' : '' }}>
+                                                                            LBP</option>
+                                                                        <option value="LKR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'LKR' ? 'selected' : '' }}>
+                                                                            LKR</option>
+                                                                        <option value="LRD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'LRD' ? 'selected' : '' }}>
+                                                                            LRD</option>
+                                                                        <option value="LSL"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'LSL' ? 'selected' : '' }}>
+                                                                            LSL</option>
+                                                                        <option value="LTL"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'LTL' ? 'selected' : '' }}>
+                                                                            LTL</option>
+                                                                        <option value="LVL"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'LVL' ? 'selected' : '' }}>
+                                                                            LVL</option>
+                                                                        <option value="LYD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'LYD' ? 'selected' : '' }}>
+                                                                            LYD</option>
+                                                                        <option value="MAD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MAD' ? 'selected' : '' }}>
+                                                                            MAD</option>
+                                                                        <option value="MDL"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MDL' ? 'selected' : '' }}>
+                                                                            MDL</option>
+                                                                        <option value="MGA"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MGA' ? 'selected' : '' }}>
+                                                                            MGA</option>
+                                                                        <option value="MKD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MKD' ? 'selected' : '' }}>
+                                                                            MKD</option>
+                                                                        <option value="MMK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MMK' ? 'selected' : '' }}>
+                                                                            MMK</option>
+                                                                        <option value="MNT"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MNT' ? 'selected' : '' }}>
+                                                                            MNT</option>
+                                                                        <option value="MOP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MOP' ? 'selected' : '' }}>
+                                                                            MOP</option>
+                                                                        <option value="MRO"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MRO' ? 'selected' : '' }}>
+                                                                            MRO</option>
+                                                                        <option value="MTL"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MTL' ? 'selected' : '' }}>
+                                                                            MTL</option>
+                                                                        <option value="MUR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MUR' ? 'selected' : '' }}>
+                                                                            MUR</option>
+                                                                        <option value="MVR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MVR' ? 'selected' : '' }}>
+                                                                            MVR</option>
+                                                                        <option value="MWK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MWK' ? 'selected' : '' }}>
+                                                                            MWK</option>
+                                                                        <option value="MXN"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MXN' ? 'selected' : '' }}>
+                                                                            MXN</option>
+                                                                        <option value="MYR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MYR' ? 'selected' : '' }}>
+                                                                            MYR</option>
+                                                                        <option value="MZM"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'MZM' ? 'selected' : '' }}>
+                                                                            MZM</option>
+                                                                        <option value="NAD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'NAD' ? 'selected' : '' }}>
+                                                                            NAD</option>
+                                                                        <option value="NGN"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'NGN' ? 'selected' : '' }}>
+                                                                            NGN</option>
+                                                                        <option value="NIO"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'NIO' ? 'selected' : '' }}>
+                                                                            NIO</option>
+                                                                        <option value="NOK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'NOK' ? 'selected' : '' }}>
+                                                                            NOK</option>
+                                                                        <option value="NPR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'NPR' ? 'selected' : '' }}>
+                                                                            NPR</option>
+                                                                        <option value="NZD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'NZD' ? 'selected' : '' }}>
+                                                                            NZD</option>
+                                                                        <option value="OMR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'OMR' ? 'selected' : '' }}>
+                                                                            OMR</option>
+                                                                        <option value="PAB"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'PAB' ? 'selected' : '' }}>
+                                                                            PAB</option>
+                                                                        <option value="PEN"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'PEN' ? 'selected' : '' }}>
+                                                                            PEN</option>
+                                                                        <option value="PGK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'PGK' ? 'selected' : '' }}>
+                                                                            PGK</option>
+                                                                        <option value="PHP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'PHP' ? 'selected' : '' }}>
+                                                                            PHP</option>
+                                                                        <option value="PKR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'PKR' ? 'selected' : '' }}>
+                                                                            PKR</option>
+                                                                        <option value="PLN"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'PLN' ? 'selected' : '' }}>
+                                                                            PLN</option>
+                                                                        <option value="PYG"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'PYG' ? 'selected' : '' }}>
+                                                                            PYG</option>
+                                                                        <option value="QAR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'QAR' ? 'selected' : '' }}>
+                                                                            QAR</option>
+                                                                        <option value="RON"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'RON' ? 'selected' : '' }}>
+                                                                            RON</option>
+                                                                        <option value="RUB"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'RUB' ? 'selected' : '' }}>
+                                                                            RUB</option>
+                                                                        <option value="RWF"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'RWF' ? 'selected' : '' }}>
+                                                                            RWF</option>
+                                                                        <option value="SAR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SAR' ? 'selected' : '' }}>
+                                                                            SAR</option>
+                                                                        <option value="SBD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SBD' ? 'selected' : '' }}>
+                                                                            SBD</option>
+                                                                        <option value="SCR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SCR' ? 'selected' : '' }}>
+                                                                            SCR</option>
+                                                                        <option value="SDD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SDD' ? 'selected' : '' }}>
+                                                                            SDD</option>
+                                                                        <option value="SEK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SEK' ? 'selected' : '' }}>
+                                                                            SEK</option>
+                                                                        <option value="SGD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SGD' ? 'selected' : '' }}>
+                                                                            SGD</option>
+                                                                        <option value="SHP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SHP' ? 'selected' : '' }}>
+                                                                            SHP</option>
+                                                                        <option value="SIT"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SIT' ? 'selected' : '' }}>
+                                                                            SIT</option>
+                                                                        <option value="SKK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SKK' ? 'selected' : '' }}>
+                                                                            SKK</option>
+                                                                        <option value="SLL"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SLL' ? 'selected' : '' }}>
+                                                                            SLL</option>
+                                                                        <option value="SOS"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SOS' ? 'selected' : '' }}>
+                                                                            SOS</option>
+                                                                        <option value="SPL"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SPL' ? 'selected' : '' }}>
+                                                                            SPL</option>
+                                                                        <option value="SRG"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SRG' ? 'selected' : '' }}>
+                                                                            SRG</option>
+                                                                        <option value="STD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'STD' ? 'selected' : '' }}>
+                                                                            STD</option>
+                                                                        <option value="SVC"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SVC' ? 'selected' : '' }}>
+                                                                            SVC</option>
+                                                                        <option value="SYP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SYP' ? 'selected' : '' }}>
+                                                                            SYP</option>
+                                                                        <option value="SZL"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'SZL' ? 'selected' : '' }}>
+                                                                            SZL</option>
+                                                                        <option value="THB"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'THB' ? 'selected' : '' }}>
+                                                                            THB</option>
+                                                                        <option value="TJS"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'TJS' ? 'selected' : '' }}>
+                                                                            TJS</option>
+                                                                        <option value="TMM"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'TMM' ? 'selected' : '' }}>
+                                                                            TMM</option>
+                                                                        <option value="TND"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'TND' ? 'selected' : '' }}>
+                                                                            TND</option>
+                                                                        <option value="TOP"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'TOP' ? 'selected' : '' }}>
+                                                                            TOP</option>
+                                                                        <option value="TRY"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'TRY' ? 'selected' : '' }}>
+                                                                            TRY</option>
+                                                                        <option value="TTD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'TTD' ? 'selected' : '' }}>
+                                                                            TTD</option>
+                                                                        <option value="TVD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'TVD' ? 'selected' : '' }}>
+                                                                            TVD</option>
+                                                                        <option value="TWD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'TWD' ? 'selected' : '' }}>
+                                                                            TWD</option>
+                                                                        <option value="TZS"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'TZS' ? 'selected' : '' }}>
+                                                                            TZS</option>
+                                                                        <option value="UAH"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'UAH' ? 'selected' : '' }}>
+                                                                            UAH</option>
+                                                                        <option value="UGX"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'UGX' ? 'selected' : '' }}>
+                                                                            UGX</option>
+                                                                        <option value="USD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'USD' ? 'selected' : '' }}>
+                                                                            USD</option>
+                                                                        <option value="UYU"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'UYU' ? 'selected' : '' }}>
+                                                                            UYU</option>
+                                                                        <option value="UZS"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'UZS' ? 'selected' : '' }}>
+                                                                            UZS</option>
+                                                                        <option value="VEB"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'VEB' ? 'selected' : '' }}>
+                                                                            VEB</option>
+                                                                        <option value="VND"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'VND' ? 'selected' : '' }}>
+                                                                            VND</option>
+                                                                        <option value="VUV"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'VUV' ? 'selected' : '' }}>
+                                                                            VUV</option>
+                                                                        <option value="WST"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'WST' ? 'selected' : '' }}>
+                                                                            WST</option>
+                                                                        <option value="XAF"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'XAF' ? 'selected' : '' }}>
+                                                                            XAF</option>
+                                                                        <option value="XAG"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'XAG' ? 'selected' : '' }}>
+                                                                            XAG</option>
+                                                                        <option value="XAU"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'XAU' ? 'selected' : '' }}>
+                                                                            XAU</option>
+                                                                        <option value="XCD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'XCD' ? 'selected' : '' }}>
+                                                                            XCD</option>
+                                                                        <option value="XDR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'XDR' ? 'selected' : '' }}>
+                                                                            XDR</option>
+                                                                        <option value="XOF"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'XOF' ? 'selected' : '' }}>
+                                                                            XOF</option>
+                                                                        <option value="XPD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'XPD' ? 'selected' : '' }}>
+                                                                            XPD</option>
+                                                                        <option value="XPF"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'XPF' ? 'selected' : '' }}>
+                                                                            XPF</option>
+                                                                        <option value="XPT"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'XPT' ? 'selected' : '' }}>
+                                                                            XPT</option>
+                                                                        <option value="YER"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'YER' ? 'selected' : '' }}>
+                                                                            YER</option>
+                                                                        <option value="YUM"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'YUM' ? 'selected' : '' }}>
+                                                                            YUM</option>
+                                                                        <option value="ZAR"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ZAR' ? 'selected' : '' }}>
+                                                                            ZAR</option>
+                                                                        <option value="ZMK"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ZMK' ? 'selected' : '' }}>
+                                                                            ZMK</option>
+                                                                        <option value="ZWD"
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ZWD' ? 'selected' : '' }}>
+                                                                            ZWD</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="desc">
+                                                        <h3>Particulars</h3>
+                                                        <div class="box">
+                                                            <textarea class="form-control edit_share_particulars_{{ $val['id'] }}" id="" rows="2">{{ isset($val['perticularsTextArea']) ? $val['perticularsTextArea'] : '' }}</textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="desc">
-                                            <h3>Particulars</h3>
-                                            <div class="box">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sagittis tellus et augue dignissim, quis elementum lorem imperdiet. Duis eu velit id metus maximus auctor.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                        @endif
+                                    @endforeach
+                                    @php
+                                        $idStrng = implode(',', $idArry);
+                                    @endphp
+                                    <input type="hidden" id="listed_shareHolderContaining_ids"
+                                        value="{{ $idStrng }}" readonly>
+                                @endif
 
                                 <div class="step-btn-wrap mt-4">
+                                    <input type="hidden" id="listed_id" value="{{ isset($listed_idStrng) ? $listed_idStrng : ''}}" readonly>
+                                    <input type="hidden" id="psc_check" value="{{isset($pscCheck) ? $pscCheck : '' }}" readonly>
                                     <button class="btn prev-btn" onclick="gotToBusinessAddressPage()"><img
                                             src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
                                             alt=""> Previous: Business Address</button>
-                                    <button class="btn">Save & Continue <img
+                                    <button class="btn" onclick="goToDocuments()">Save & Continue <img
                                             src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
                                             alt=""></button>
                                 </div>
@@ -596,8 +1182,8 @@
                                                             <div class="col-md-12 col-sm-12">
                                                                 <div class="used-addresses-panel">
                                                                     <!-- <div class="text">
-                                                                                                                                                                                                                                                        <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
-                                                                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                                                                                                            <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
+                                                                                                                                                                                                                                                                                        </div> -->
                                                                     <div class="btn-wrap">
                                                                         <!-- <button type="submit" class="btn select-btn">Select</button> -->
                                                                         <button type="submit" class="btn"
@@ -635,8 +1221,7 @@
                                                     <h4>Officer Details</h4>
                                                 </div>
                                                 <div class="form-block">
-                                                    <input type="text" class="hidden" id="personOfficerEditId"
-                                                        readonly>
+                                                    <input type="hidden" id="personOfficerEditId" readonly>
                                                     <div class="row">
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
@@ -697,7 +1282,7 @@
                                                 <div class="rsidential-address-info mb-4">
                                                     <h3>Residential Address</h3>
 
-                                                    <input type="text" class="hidden" id="ChossenResAdd_id" readonly>
+                                                    <input type="hidden" id="ChossenResAdd_id" readonly>
                                                     <p><strong>Please Note :</strong> <span>It is a legal requirement to
                                                             provide your actual residential address. Supplying an address
                                                             which is not your actual residential address, will lead to the
@@ -865,7 +1450,7 @@
                                                 <div class="own-address service_add_choosed">
                                                     <div class="info">
                                                         <h3>Choose to use your own address</h3>
-                                                        <input type="text" class="hidden" id="ChossenServiceAdd_id"
+                                                        <input type="hidden" class="" id="ChossenServiceAdd_id"
                                                             readonly>
                                                         <p class="d-none" id="ChossenServiceAdd"></p>
                                                     </div>
@@ -879,7 +1464,7 @@
                                                 <div class="own-address forwarding_add_after_buy_now_select d-none">
                                                     <div class="info">
                                                         <h3>Forwarding Address</h3>
-                                                        <input type="text" class="hidden"
+                                                        <input type="hidden" class="hidden"
                                                             id="ChossenForwarding_Add_id" readonly>
                                                         <p class="" id="ChossenForwarding_Add"></p>
                                                     </div>
@@ -943,12 +1528,72 @@
                                                         </div>
                                                     </div>
                                                     <div class="btn-block">
-                                                        <button class="btn">Details</button>
+                                                        <button class="btn" onclick="DetailsSection()">Details</button>
                                                         <button class="btn buy-now-btn buyNowBtn"
                                                             onclick="buyAdd('forwarding')">Buy
                                                             Now</button>
                                                         <button class="btn buy-now-btn d-none" id="removeBuy"
                                                             onclick="removeBuy()">Remove</button>
+                                                    </div>
+                                                    <div class="details-desc d-none" id="DetailsSection_div">
+                                                        <h3>Why would I use your WC2 London Business Address Services?</h3>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="details-text">
+                                                                    <h4>Improve your corporate image</h4>
+                                                                    <p>A professional business address located in the heart
+                                                                        of London
+                                                                        can provide a number of benefits for your business -
+                                                                        boosting
+                                                                        your corporate image and extending your company’s
+                                                                        presence.</p>
+                                                                    <p>You can use our address as your company’s primary
+                                                                        correspondence
+                                                                        address, and we will forward all your business mail
+                                                                        to an
+                                                                        alternative address of your choosing, on a daily
+                                                                        basis.</p>
+                                                                    <p>This service is renewable on a 12 monthly basis at
+                                                                        the cost of
+                                                                        £96.00+vat</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="details-text">
+                                                                    <h4>Benefits of our Business Address Services</h4>
+                                                                    <ul>
+                                                                        <li>Creates a professional, corporate image.</li>
+                                                                        <li>Gives the impression of a large, established
+                                                                            business.</li>
+                                                                        <li>Provides an alternate contact address from your
+                                                                            registered
+                                                                            office or home address that is exclusively used
+                                                                            for
+                                                                            corresponding with clients, suppliers, investors
+                                                                            and other
+                                                                            third parties.</li>
+                                                                        <li>Non-statutory general business mail is delivered
+                                                                            to our
+                                                                            London address and forwarded to an alternate
+                                                                            address of your
+                                                                            choice two times per week.</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 col-sm-12">
+                                                                <div class="details-text">
+                                                                    <p><strong>Please note:</strong> This service does not
+                                                                        include a
+                                                                        registered office service, which should be purchased
+                                                                        separately.
+                                                                        All general business mail will be handled by us and
+                                                                        forwarded to
+                                                                        your UK or overseas address at the cost of Royal
+                                                                        Mail postal
+                                                                        rates plus 15%.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1156,7 +1801,8 @@
                                                                         <span class="text">Other Significant
                                                                             influences
                                                                             or control</span></label>
-                                                                    <select class="form-control" id="F_other_sig_select_id">
+                                                                    <select class="form-control"
+                                                                        id="F_other_sig_select_id">
                                                                         <option value="No">No</option>
                                                                         <option value="Yes">Yes</option>
                                                                     </select>
@@ -1262,7 +1908,8 @@
                                                                         <label for="" class="d-flex">
                                                                             <span class="text">Other Significant
                                                                                 influences or control</span></label>
-                                                                        <select class="form-control" value="s_other_sig_select_id">
+                                                                        <select class="form-control"
+                                                                            value="s_other_sig_select_id">
                                                                             <option value="No">No</option>
                                                                             <option value="Yes">Yes</option>
                                                                         </select>
@@ -1343,8 +1990,7 @@
                                                                     <div class="qu-block block">
                                                                         <label for="" class="d-flex">
                                                                             <span class="text">Appoint or remove the
-                                                                                majority
-                                                                                of the board of directors</span>
+                                                                                majority of the board of directors</span>
                                                                         </label>
 
                                                                         <select class="form-control" id="t_appoint"
@@ -1362,7 +2008,8 @@
                                                                             <span class="text">Other Significant
                                                                                 influences
                                                                                 or control</span></label>
-                                                                        <select class="form-control" id="t_other_sig_select_id">
+                                                                        <select class="form-control"
+                                                                            id="t_other_sig_select_id">
                                                                             <option value="No">No</option>
                                                                             <option value="Yes">Yes</option>
                                                                         </select>
@@ -1644,32 +2291,104 @@
                 </div>
             </div>
         </div>
-        <input type="text" id="positionSelected" value="" readonly>
-        <input type="text" id="appointmentType" value="" readonly>
-        <input type="text" id="shoppingCartId_id" value="{{ $shoppingCartId }}" readonly>
-        <input type="text" id="currentTab" value="" readonly>
+        <input type="hidden" id="orderId" value="" readonly>
+        <input type="hidden" id="positionSelected" value="" readonly>
+        <input type="hidden" id="appointmentType" value="" readonly>
+        <input type="hidden" id="shoppingCartId_id" value="{{ $shoppingCartId }}" readonly>
+        <input type="hidden" id="currentTab" value="" readonly>
 
         <!-- PERSON SECTION DATAS -->
-        <input type="text" id="choosedPersonOfficerId" value="" readonly>
-        <input type="text" id="addressTypeChoosed" value="" readonly>
-        <input type="text" id="actionType" value="" readonly>
+        <input type="hidden" id="choosedPersonOfficerId" value="" readonly>
+        <input type="hidden" id="addressTypeChoosed" value="" readonly>
+        <input type="hidden" id="actionType" value="" readonly>
 
         {{-- Nature of Control radio btn val --}}
-        <input type="text" id="f_radio_check_id" value="">
-        <input type="text" id="s_radio_check_id" value="">
+        <input type="hidden" id="f_radio_check_id" value="" readonly>
+        <input type="hidden" id="s_radio_check_id" value="" readonly>
     </section>
     <!-- ================ end: Particulars sec ================ -->
 @endsection
 
 @section('script')
     <script>
+        function DetailsSection() {
+            $('#DetailsSection_div').toggleClass('d-none')
+        }
+
+        const goToDocuments = function() {
+
+            // Appointment to Document section Movement starts
+            if ($("#listed_shareHolderContaining_ids").val() === '') {
+                $("#validationErrorShow").removeClass('d-none')
+                $("#validationErrorShow").html('You have to select ateast one shareholder!')
+            }
+
+            if ($("#psc_check").val() === '') {
+                $("#validationErrorShow").removeClass('d-none')
+                $("#validationErrorShow").html('You have to select a PSC!')
+            }
+
+            if ($("#listed_shareHolderContaining_ids").val() !== '' && $("#psc_check").val() !== '') {
+                // Shareholder edit section starts
+                const listed_shareHolderContaining_ids = $("#listed_shareHolderContaining_ids").val();
+
+                let idVal = null;
+                // let editable_data = [];
+                if (listed_shareHolderContaining_ids.includes(',')) {
+                    idVal = listed_shareHolderContaining_ids.split(',');
+
+                } else {
+                    idVal = listed_shareHolderContaining_ids.split('');
+                }
+                let edit_share_price = [];
+                let edit_share_currency = [];
+                let edit_share_particulars = [];
+                idVal.forEach(id => {
+                    edit_share_price.push($(`.edit_share_price_${id}`).val())
+                    edit_share_currency.push($(`.edit_share_currency_${id}`).val())
+                    edit_share_particulars.push($(`.edit_share_particulars_${id}`).val())
+                })
+
+                $.ajax({
+                    url: "{!! route('update-shareholder-from-appointment-listing') !!}",
+                    type: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        idVal,
+                        edit_share_price,
+                        edit_share_currency,
+                        edit_share_particulars
+                    },
+                    success: function(response) {
+                        window.location.href = "{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']) }}"
+                    },
+                });
+                // Shareholder edit section ends
+            }
+
+            // Appointment to Document section Movement Ends
+        }
+
+        const removeOfficerList = function(id) {
+            $.ajax({
+                url: "{!! route('remove-officer-list') !!}",
+                type: 'get',
+                data: {
+                    id,
+                },
+                success: function(result) {
+                    location.reload()
+                }
+            });
+        }
+
         const databaseEntry = function() {
             // VALUES
             // general section values
             const order_id = '';
             const cart_id = $("#shoppingCartId_id").val();
             const person_officer_id = $("#choosedPersonOfficerId").val();
-            
+
             const ChossenResAdd_id = $("#ChossenResAdd_id").val();
 
             const own_address_id = $("#ChossenServiceAdd_id").val();
@@ -1677,56 +2396,74 @@
             const company_id = '';
             const position = $("#positionSelected").val();
             // noc section value
-            const noc_os = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#F_ownership").val() :'';
-            const noc_vr = $("#nature-control-tab").closest('li').hasClass('d-none') === false ?  $("#F_voting").val() : '';
-            const noc_appoint = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#F_appoint").val() : '';
-            const noc_others =  $("#nature-control-tab").closest('li').hasClass('d-none') === false && $("#F_other_sig").hasClass('d-none') === false ? $("#F_other_sig_select_id").val() :'No';
+            const noc_os = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#F_ownership")
+                .val() : '';
+            const noc_vr = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#F_voting").val() :
+                '';
+            const noc_appoint = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#F_appoint")
+                .val() : '';
+            const noc_others = $("#nature-control-tab").closest('li').hasClass('d-none') === false && $("#F_other_sig")
+                .hasClass('d-none') === false ? $("#F_other_sig_select_id").val() : 'No';
 
-            const fci = $("#nature-control-tab").closest('li').hasClass('d-none') === false ?  $("#f_radio_check_id").val() : '';
-            const fci_os = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#s_ownership").val() : '';
-            const fci_vr = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#s_voting").val() : '';
-            const fci_appoint = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#s_appoint").val() : '';
-            const fci_others = $("#nature-control-tab").closest('li').hasClass('d-none') === false && $("#s_other_sig").hasClass('d-none') === false ? $("#s_other_sig_select_id").val() : 'No';
+            const fci = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#f_radio_check_id")
+                .val() : '';
+            const fci_os = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#s_ownership")
+                .val() : '';
+            const fci_vr = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#s_voting").val() :
+                '';
+            const fci_appoint = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#s_appoint")
+                .val() : '';
+            const fci_others = $("#nature-control-tab").closest('li').hasClass('d-none') === false && $("#s_other_sig")
+                .hasClass('d-none') === false ? $("#s_other_sig_select_id").val() : 'No';
 
-            const tci = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#s_radio_check_id").val() : '';
-            const tci_os = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#t_ownership").val() : '';
-            const tci_vr = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#t_voting").val() : '';
-            const tci_appoint = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#t_appoint").val() : '';
-            const tci_others = $("#nature-control-tab").closest('li').hasClass('d-none') === false && $("#t_other_sig").hasClass('d-none') === false ? $("#t_other_sig_select_id").val() : 'No';
+            const tci = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#s_radio_check_id")
+                .val() : '';
+            const tci_os = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#t_ownership")
+                .val() : '';
+            const tci_vr = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#t_voting").val() :
+                '';
+            const tci_appoint = $("#nature-control-tab").closest('li').hasClass('d-none') === false ? $("#t_appoint")
+                .val() : '';
+            const tci_others = $("#nature-control-tab").closest('li').hasClass('d-none') === false && $("#t_other_sig")
+                .hasClass('d-none') === false ? $("#t_other_sig_select_id").val() : 'No';
             // shareholder section value
-            const sh_quantity = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#sh_quantity").val() : '';
-            const sh_currency = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#sh_currency").val() :'';
-            const sh_pps = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#sh_pps").val() :'';
-            const perticularsTextArea = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#perticularsTextArea").val() :'';
+            const sh_quantity = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#sh_quantity")
+                .val() : '';
+            const sh_currency = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#sh_currency")
+                .val() : '';
+            const sh_pps = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#sh_pps").val() : '';
+            const perticularsTextArea = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $(
+                "#perticularsTextArea").val() : '';
 
             const requiredFields = document.querySelectorAll('.blankCheckFinalSubmit');
             const requiredFieldsArr = [...requiredFields];
 
             let validation = 0;
-            if(person_officer_id === ''){
+            if (person_officer_id === '') {
                 $("#validationErrorShow").removeClass('d-none')
                 $("#validationErrorShow").html('You have to choose an Officer!')
                 return validation++;
             }
-            if(ChossenResAdd_id === ''){
+            if (ChossenResAdd_id === '') {
                 $("#validationErrorShow").removeClass('d-none')
                 $("#validationErrorShow").html('You have to choose an Address for the Officer!')
                 return validation++;
             }
 
-            if($("#service_add_choosed").hasClass('d-none') === false && own_address_id === ''){
+            if ($("#service_add_choosed").hasClass('d-none') === false && own_address_id === '') {
                 $("#validationErrorShow").removeClass('d-none')
                 $("#validationErrorShow").html('You have to choose an Address!')
                 return validation++;
             }
 
-            if(position === ''){
+            if (position === '') {
                 $("#validationErrorShow").removeClass('d-none')
                 $("#validationErrorShow").html('You have to choose a Position!')
                 return validation++;
             }
 
-            if($(".forwarding_add_after_buy_now_select").hasClass('d-none') === false && forwarding_address_id===''){
+            if ($(".forwarding_add_after_buy_now_select").hasClass('d-none') === false && forwarding_address_id ===
+                '') {
                 $("#validationErrorShow").removeClass('d-none')
                 $("#validationErrorShow").html('You have to choose a Forwarding Address!')
                 return validation++;
@@ -2427,6 +3164,7 @@
         // THE NEXT BUTTON FUNCTIONS STARTS
         const checkConsentOrNot = function() {
 
+            // Details to Officer Tab Movement.
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'details') {
 
                 const ChossenResAdd_id = $('#ChossenResAdd_id').val();
@@ -2601,7 +3339,7 @@
                     if (el.checked === true) {
                         if (i == checkBoxArr.length - 1) {
                             posiArr.push(el.value)
-                        }else {
+                        } else {
                             posiArr.push(el.value, )
                         }
                     }
