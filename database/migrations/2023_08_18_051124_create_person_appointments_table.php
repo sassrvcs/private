@@ -40,7 +40,7 @@ return new class extends Migration
             $table->string('sh_quantity')->nullable();
             $table->string('sh_currency')->nullable();
             $table->string('sh_pps')->nullable();
-            $table->string('perticularsTextArea')->nullable();
+            $table->text('perticularsTextArea')->nullable();
 
             $table->timestamps();
 

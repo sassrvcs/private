@@ -7,7 +7,7 @@
         @if (!empty($used_address))
             @foreach ($used_address as $key => $value)
                 <input type="text"
-                    class="form-control d-none addressSelect"
+                    class="form-control custom-input d-none addressSelect"
                     data-search="{{ $value->house_number }},{{ $value->street }},{{ $value->locality }},{{ $value->town }},{{ $value->county }},{{ $value->post_code }},{{ $value->billing_country }}"
                     data-id="{{ $value->id }}"
                     value="{{ $value->house_number }},{{ $value->street }},{{ $value->locality }},{{ $value->town }},{{ $value->county }},{{ $value->post_code }}"

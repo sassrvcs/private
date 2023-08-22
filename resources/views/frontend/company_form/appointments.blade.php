@@ -57,6 +57,10 @@
             color: black;
             position: absolute;
         }
+
+        .custom-input {
+            cursor: pointer;
+        }
     </style>
     <section class="common-inner-page-banner"
         style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png') }})">
@@ -863,8 +867,10 @@
                                 @endif
 
                                 <div class="step-btn-wrap mt-4">
-                                    <input type="hidden" id="listed_id" value="{{ isset($listed_idStrng) ? $listed_idStrng : ''}}" readonly>
-                                    <input type="hidden" id="psc_check" value="{{isset($pscCheck) ? $pscCheck : '' }}" readonly>
+                                    <input type="hidden" id="listed_id"
+                                        value="{{ isset($listed_idStrng) ? $listed_idStrng : '' }}" readonly>
+                                    <input type="hidden" id="psc_check"
+                                        value="{{ isset($pscCheck) ? $pscCheck : '' }}" readonly>
                                     <button class="btn prev-btn" onclick="gotToBusinessAddressPage()"><img
                                             src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
                                             alt=""> Previous: Business Address</button>
@@ -1142,12 +1148,15 @@
                                                                         class="offValIdauthenticate_three_ans_{{ $offVal['id'] }}"
                                                                         value="{{ $offVal['authenticate_three_ans'] }}"
                                                                         readonly>
-                                                                    <input type="text"
-                                                                        class="form-control d-none officerSelect"
-                                                                        data-search="{{ $offVal['title'] }},{{ $offVal['dob_day'] }}-{{ $offVal['dob_month'] }}-{{ $offVal['dob_year'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}"
-                                                                        value="{{ $offVal['title'] }},{{ $offVal['dob_day'] }}-{{ $offVal['dob_month'] }}-{{ $offVal['dob_year'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}"
-                                                                        onclick="choosedOfficer('{{ $offVal['id'] }}')"
-                                                                        readonly>
+                                                                    <a
+                                                                        href="#
+                                                                        ">
+                                                                        <input type="text"
+                                                                            class="form-control d-none custom-input officerSelect"
+                                                                            data-search="{{ $offVal['title'] }},{{ $offVal['dob_day'] }}-{{ $offVal['dob_month'] }}-{{ $offVal['dob_year'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}"
+                                                                            value="{{ $offVal['title'] }},{{ $offVal['dob_day'] }}-{{ $offVal['dob_month'] }}-{{ $offVal['dob_year'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}"
+                                                                            onclick="choosedOfficer('{{ $offVal['id'] }}')"
+                                                                            readonly></a>
                                                                 @endforeach
                                                             @endif
                                                         </div>
@@ -1176,14 +1185,21 @@
                                                         @endif
 
                                                     </div>
-                                                    <div class="recently-used-addresses">
+                                                    <div class="new-address-block">
+                                                        <h3>Or enter a new Address</h3>
+                                                        <div class="new-address-field">
+                                                            <button type="submit" class="btn"
+                                                                onclick="addNewOfficer(),currentTab('details')">Add
+                                                                New
+                                                                Officer</button>
+                                                        </div>
+                                                    </div>
+                                                    {{-- <div class="recently-used-addresses">
                                                         <h4>Create a new Officer</h4>
                                                         <div class="row">
                                                             <div class="col-md-12 col-sm-12">
                                                                 <div class="used-addresses-panel">
-                                                                    <!-- <div class="text">
-                                                                                                                                                                                                                                                                                            <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
-                                                                                                                                                                                                                                                                                        </div> -->
+                            
                                                                     <div class="btn-wrap">
                                                                         <!-- <button type="submit" class="btn select-btn">Select</button> -->
                                                                         <button type="submit" class="btn"
@@ -1193,7 +1209,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -1213,9 +1229,8 @@
                                                         </div>
                                                         <div class="text">
                                                             <h5>Personal Details</h5>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                Phasellus scelerisque porta enim ut interdum. Aliquam mollis
-                                                                enim non purus laoreet, ut pretium lorem porta.</p>
+                                                            <p>It is recommended you enter your name as it appears on your
+                                                                ID, eg. passport or drivers licence.</p>
                                                         </div>
                                                     </div>
                                                     <h4>Officer Details</h4>
@@ -1228,13 +1243,18 @@
                                                                 <label for="">Title *:</label>
                                                                 <input type="text" class="form-control blankCheck"
                                                                     id="person_tittle_id" name="person_tittle">
+                                                                <div class="error d-none" style="color:red;">You should
+                                                                    have a title!</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
                                                                 <label for="">Date of Birth *:</label>
-                                                                <input type="date" class="form-control blankCheck"
-                                                                    name="person_bday" id="person_bday_id">
+                                                                <input type="date" onclick="dob_onclick(this)"
+                                                                    class="form-control" name="person_bday"
+                                                                    id="person_bday_id">
+                                                                <div class="error d-none" style="color:red;">Age should be
+                                                                    16 or above!</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
@@ -1242,6 +1262,8 @@
                                                                 <label for="">First Name(s) *:</label>
                                                                 <input type="text" name="person_fname"
                                                                     id="person_fname_id" class="form-control blankCheck">
+                                                                <div class="error d-none" style="color:red;">Please enter
+                                                                    your First Name!</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
@@ -1266,13 +1288,17 @@
                                                                 <label for="">Last Name *:</label>
                                                                 <input type="text" class="form-control blankCheck"
                                                                     id="person_lname_id" name="person_lname">
+                                                                <div class="error d-none" style="color:red;">Please enter
+                                                                    your Laste Name!</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
-                                                                <label for="">Occupation</label>
-                                                                <input type="text" class="form-control"
+                                                                <label for="">Occupation *:</label>
+                                                                <input type="text" class="form-control blankCheck"
                                                                     id="person_occupation_id" name="person_occupation">
+                                                                <div class="error d-none" style="color:red;">Please enter
+                                                                    your Occupation!</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1283,6 +1309,8 @@
                                                     <h3>Residential Address</h3>
 
                                                     <input type="hidden" id="ChossenResAdd_id" readonly>
+                                                    <div class="error d-none" id="residentialAddrValidation"
+                                                        style="color:red;">You have to select a Residential Address!</div>
                                                     <p><strong>Please Note :</strong> <span>It is a legal requirement to
                                                             provide your actual residential address. Supplying an address
                                                             which is not your actual residential address, will lead to the
@@ -1306,6 +1334,11 @@
 
                                                 <div class="form-info-block d-none" id="authenticationSection">
                                                     <h4 class="mb-5">Authentication Questions</h4>
+                                                    <div class="own-address mt-3 d-none" style="color:red;"
+                                                        id="AuthValidationError">
+                                                        Every question should be different!
+                                                    </div>
+
                                                     <div class="authe-qu-block">
                                                         <div class="row">
                                                             <div class="col-md-6 col-sm-12">
@@ -1330,6 +1363,8 @@
                                                                     <label for="">Answer</label>
                                                                     <input type="text" class="form-control"
                                                                         id="person_aqone_ans_id" name="person_aqone_ans">
+                                                                    <div class="error d-none" style="color:red;">Please
+                                                                        Answer!</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1356,6 +1391,8 @@
                                                                     <label for="">Answer</label>
                                                                     <input type="text" class="form-control"
                                                                         id="person_aqtwo_ans_id" name="person_aqtwo_ans">
+                                                                    <div class="error d-none" style="color:red;">Please
+                                                                        Answer!</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1383,6 +1420,8 @@
                                                                     <input type="text" class="form-control"
                                                                         id="person_aqthree_ans_id"
                                                                         name="person_aqthree_ans">
+                                                                    <div class="error d-none" style="color:red;">Please
+                                                                        Answer!</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1452,6 +1491,9 @@
                                                         <h3>Choose to use your own address</h3>
                                                         <input type="hidden" class="" id="ChossenServiceAdd_id"
                                                             readonly>
+                                                        <div class="error d-none" id="serviceAddrValidation"
+                                                            style="color:red;">You have to select a Service Address!
+                                                        </div>
                                                         <p class="d-none" id="ChossenServiceAdd"></p>
                                                     </div>
                                                     <div class="btn-box">
@@ -2044,8 +2086,8 @@
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="">Quantity</label>
-                                                                    <input type="text" id="sh_quantity" value="1"
-                                                                        class="form-control">
+                                                                    <input type="text" id="sh_quantity"
+                                                                        value="1" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -2311,6 +2353,12 @@
 
 @section('script')
     <script>
+        // DOB Future not select date
+        function dob_onclick(ths) {
+            const today = new Date().toISOString().split('T')[0];
+            ths.setAttribute("max", today);
+        }
+
         function DetailsSection() {
             $('#DetailsSection_div').toggleClass('d-none')
         }
@@ -2360,7 +2408,8 @@
                         edit_share_particulars
                     },
                     success: function(response) {
-                        window.location.href = "{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']) }}"
+                        window.location.href =
+                            "{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']) }}"
                     },
                 });
                 // Shareholder edit section ends
@@ -3164,7 +3213,7 @@
         // THE NEXT BUTTON FUNCTIONS STARTS
         const checkConsentOrNot = function() {
 
-            // Details to Officer Tab Movement.
+            // Details to Officer Tab Movement starts.
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'details') {
 
                 const ChossenResAdd_id = $('#ChossenResAdd_id').val();
@@ -3188,15 +3237,72 @@
                 const requiredFieldsArr = [...requiredFields];
 
                 let validation = 0;
+
+                // Date validation section starts--------------------------------->
+                // Get the selected date from the input field
+                var selectedDate = new Date(person_bday);
+
+                console.log(selectedDate)
+                // Get the current date
+                var currentDate = new Date();
+
+                // Calculate the difference in milliseconds
+                var timeDifference = currentDate - selectedDate;
+
+                // Convert milliseconds to days
+                // var daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+                // Convert milliseconds to Years
+                var yearsDifference = timeDifference / (1000 * 60 * 60 * 24 * 365.25);
+
+                if (selectedDate == 'Invalid Date' || yearsDifference < 16) {
+                    $('#person_bday_id').addClass('validation')
+                    $('#person_bday_id').next('div').removeClass('d-none');
+
+                    validation++;
+                } else {
+
+                    $('#person_bday_id').removeClass('validation')
+                    $('#person_bday_id').next('div').addClass('d-none');
+                }
+                // Date validation section ends-------------------------
+
+                // Authentication Section Validation starts------------------------>
+                if ($("#authenticationSection").hasClass('d-none') !== true) {
+                    if (person_aqone === person_aqtwo || person_aqtwo === person_aqthree || person_aqthree ===
+                        person_aqone) {
+                        $('#AuthValidationError').removeClass('d-none')
+                        validation++;
+                    } else {
+                        $('#AuthValidationError').addClass('d-none')
+                    }
+                }
+                // Authentication Section Validation ends---------------------------
+
+                // Residential address section validation starts-------------------->
+                if (ChossenResAdd_id === '') {
+                    $(".rsidential-address-info").addClass('validation')
+
+                    $("#residentialAddrValidation").removeClass('d-none')
+                    validation++;
+                } else {
+                    $(".rsidential-address-info").removeClass('validation')
+                    $("#residentialAddrValidation").addClass('d-none')
+                }
+                // Residential address section validation ends--------------------
+
+                // Validation Section for blank fields starts------------------->
                 requiredFieldsArr.forEach(el => {
                     if (el.value === '') {
                         el.classList.add('validation');
-
+                        el.nextElementSibling.classList.remove('d-none');
                         return validation++;
                     } else {
                         el.classList.remove('validation');
+                        el.nextElementSibling.classList.add('d-none');
                     }
                 });
+                // Validation Section for blank fields ends------------------------
 
                 if (validation === 0) {
                     $.ajax({
@@ -3233,11 +3339,24 @@
                 }
                 return false
             }
+            // Details to Officer Tab Movement ends.
 
-            // CHECKING THE LAST SECTION BEFORE DATABASE ENTRY FROM ADDRESSING
+            // From Addressing to Forward Tabs starts====================>
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'addressing') {
+
+                if ($("#service_add_choosed").hasClass('d-none') === false && $("#ChossenServiceAdd_id").val() === '') {
+                    $(".service_add_choosed").addClass('validation')
+                    $("#serviceAddrValidation").removeClass('d-none')
+
+                    return false
+                } else {
+                    $(".service_add_choosed").removeClass('validation')
+                    $("#serviceAddrValidation").addClass('d-none')
+                }
+
                 if ($("#nature-control-tab").closest('li').hasClass('d-none') && $("#share-holder-tab").closest('li')
                     .hasClass('d-none')) {
+
                     databaseEntry();
                     return false
                 }
@@ -3263,6 +3382,8 @@
                 }
                 return false
             }
+            // From Addressing to Forward Tab or Submit ends====================
+
 
             // CHECKING THE LAST SECTION BEFORE DATABASE ENTRY FROM nature-control
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'nature-control') {
@@ -3372,6 +3493,10 @@
         function shareholderTab() {
             $('.shareholderLinksCls').toggleClass('d-none');
             $('#authenticationSection').toggleClass('d-none');
+
+            $('#person_aqone_ans_id').toggleClass('blankCheck');
+            $('#person_aqtwo_ans_id').toggleClass('blankCheck');
+            $('#person_aqthree_ans_id').toggleClass('blankCheck');
         }
 
         function pscTab() {
