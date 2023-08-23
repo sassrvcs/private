@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Appointment</p>
+                                    <p><a href="{{ route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}" style="color: #ffffff;">Appointment</a></p>
                                 </div>
                                 <div class="bottom-step-items active">
                                     <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
@@ -154,7 +154,8 @@
                                         </div>
                                     </div>
                                     <div class="step-btn-wrap mt-4">
-                                        <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt=""> Previous: Appointment</button>
+                                        <a href="{{ route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}">
+                                        <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt=""> Previous: Appointment</button></a>
                                         <button class="btn save-next">Save &amp; Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}" alt=""></button>
                                     </div>
                                 </div>

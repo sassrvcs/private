@@ -953,12 +953,12 @@
                                                     </div>
                                                     <div class="desc">
                                                         <h3>Particulars</h3>
-                                                        <div class="box">
+                                                        {{-- <div class="box"> --}}
                                                             <textarea class="form-control shareHolderValidation edit_share_particulars_{{ $val['id'] }}" id=""
                                                                 rows="2">{{ isset($val['perticularsTextArea']) ? $val['perticularsTextArea'] : '' }}</textarea>
                                                             <div class="error d-none" style="color:red;">Particulars Can
                                                                 not be empty.</div>
-                                                        </div>
+                                                        {{-- </div> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -3791,6 +3791,8 @@
                             person_aqthree_ans
                         },
                         success: function(response) {
+                            console.log(response);
+                            console.log(response['id']);
                             $('#details-tab').removeClass('active');
                             $('#details').removeClass('active show');
 
@@ -3798,6 +3800,7 @@
                             $('#addressing').addClass('active show');
 
                             $('#currentTab').val('addressing')
+                            $("#choosedPersonOfficerId").val(response['id'])
                         },
                     });
                 }

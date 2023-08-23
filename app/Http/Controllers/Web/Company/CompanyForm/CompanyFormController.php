@@ -26,7 +26,6 @@ class CompanyFormController extends Controller
         $office_address = Companie::where('user_id', Auth::user()->id)->pluck('office_address')->first();
 
         $recent_addr  = $this->regAddrService->getRecentAddress($office_address);
-        // dd($recent_addr);
         $countries = Country::all();
 
         return view('frontend.company_form.register_address', compact('recent_addr', 'countries'));
@@ -306,7 +305,8 @@ class CompanyFormController extends Controller
             ]);
 
             if ($updated) {
-                return $updated;
+                $updatedRow = PersonOfficer::orderBy('updated_at','DESC')->first();
+                return $updatedRow;
             }
         }
     }
