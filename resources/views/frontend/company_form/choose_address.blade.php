@@ -269,7 +269,7 @@
                                     <form action="{{ route('register-new-address') }}" method="POST"
                                         class="form-register register">
                                         @csrf
-
+                                    <input type="text" name="main_order_id" value="{{$_GET['order'] ?? ''}}" readonly>
                                         <fieldset class="border p-3">
                                             <div class="row p-3" style="padding-top: 0 !important;">
 

@@ -299,6 +299,7 @@
                                             class="form-register register">
                                             @csrf
 
+                                            <input type="text" name="main_order_id" value="{{$_GET['order'] ?? ''}}" readonly>
                                             <fieldset class="border p-3">
                                                 <div class="row p-3" style="padding-top: 0 !important;">
                                                     <input type="hidden" id="bsnad" name="bsnad" value="bsnad">
@@ -617,7 +618,7 @@
         }
 
         function previousRegisterpage() {
-            window.location.href = "{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }})"
+            window.location.href = "{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'registered-address']) }})"
         }
 
         const searchBar = function() {
@@ -684,7 +685,7 @@
                     setTimeout(function() {
                         $('.selc-addr').text('Select');
                     }, 2000);
-                    window.location.href = "{{ route('choose-address-business') }}"
+                    window.location.href = "{{ route('choose-address-business', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) }}"
                 }
             });
         };
@@ -802,12 +803,12 @@
             $('.addAddressForm').removeClass('d-none');
         }
 
-        function setAddress(a, b) {
-            alert(a + '' + b);
-        }
+        // function setAddress(a, b) {
+        //     alert(a + '' + b);
+        // }
 
         function setAddress(userId, addressId) {
-            var url = "{{ route('registered-address') }}";
+            var url = "{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'registered-address']) }}";
 
 
             $(this).text('please wait..');

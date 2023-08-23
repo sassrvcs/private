@@ -306,6 +306,7 @@
                                             class="form-register register">
                                             @csrf
 
+                                            <input type="text" name="main_order_id" value="{{$_GET['order'] ?? ''}}" readonly>
                                             <fieldset class="border p-3">
                                                 <div class="row p-3" style="padding-top: 0 !important;">
                                                     <div class="form-row form-group">
@@ -646,10 +647,10 @@
         }
 
         const cancelPage = function() {
-            window.location.href = "{{ route('choose-address-after-buy-now') }}"
+            window.location.href = "{{ route('choose-address-after-buy-now', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'registered-address']) }}"
         }
         const cancelPageTwo = function() {
-            window.location.href = "{{ route('registered-address') }}"
+            window.location.href = "{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'registered-address']) }}"
         }
 
         const AddMoreAddSave = function(ths) {
@@ -689,7 +690,7 @@
                     setTimeout(function() {
                         $('.selc-addr').text('Select');
                     }, 2000);
-                    window.location.href = "{{ route('registered-address') }}"
+                    window.location.href = "{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'registered-address']) }}"
                 }
             });
         };
@@ -705,7 +706,7 @@
                     price
                 },
                 success: function(response) {
-                    window.location.href = "{{ route('choose-address-business') }}"
+                    window.location.href = "{{ route('choose-address-business', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) }}"
                 },
             });
 
@@ -767,7 +768,7 @@
         }
 
         function setAddress(userId, addressId) {
-            var url = "{{ route('registered-address') }}";
+            var url = "{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'registered-address']) }}";
 
 
 
