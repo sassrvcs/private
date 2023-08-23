@@ -14,7 +14,7 @@ use App\Http\Controllers\Web\Checkout\CheckoutStepController;
 use App\Http\Controllers\Admin\Accounting\AccountingController;
 use App\Http\Controllers\Admin\Customer\CustomerController;
 use App\Http\Controllers\Admin\Cms\CmsController;
-
+use App\Http\Controllers\Web\Company\DeliverPartnerServiceController;
 use App\Http\Controllers\Web\Home\HomeController;
 use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
 use App\Http\Controllers\Admin\BusinessBanking\BusinessBankingController;
@@ -132,6 +132,8 @@ Route::resource('review', ReviewController::class)->middleware('auth');
 // Route::get('business-service', [BusinessEssentialsController::class, 'index'])->name('business-service.index')->middleware('auth');
 // Route::post('business-service', [BusinessEssentialsController::class, 'store'])->name('business-service.store')->middleware('auth');
 
+// Delivery Partner Service
+Route::get('deliver-partner-services', [DeliverPartnerServiceController::class, 'index'])->name('delivery-partner.index')->middleware('auth');
 
 Route::get('update-forwarding-registered-office-address', [CompanyFormController::class, 'updateForwardingRegisterAddress'])->name('update-forwarding-registered-office-address')->middleware('auth');
 Route::get('update-forwarding-business-office-address', [CompanyFormController::class, 'updateForwardingBusinessAddress'])->name('update-forwarding-business-office-address')->middleware('auth');

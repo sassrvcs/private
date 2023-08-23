@@ -19,7 +19,7 @@ class CartService
         protected PackageService $packageService,
         protected AddonService $addonService
     ) { }
-    
+
     /**
      * Add compamy in session variable || Cart section 1st step
      * @param string $companyName
@@ -35,9 +35,9 @@ class CartService
         //     // session()->forget('cart');
         //     // dd('dsad');
         // }
-        
+
         Session::forget('cart');
-        
+
         $cartItem = [
             'company_name' => $companyName,
         ];
@@ -70,7 +70,7 @@ class CartService
         $order = Order::with('cart')->where('order_id', $request->order)->first();
         $addonService = $this->addonService->edit($request->service_id);
         if($request->action == 'remove') {
-            
+
             $addons = AddonCartService::where('cart_id',$order->cart->id)->where('service_id', $request->service_id)->first();
             // $addons = $order->cart->addonCartServices()->findOrFail($request->service_id);
             $addons->delete();
@@ -101,7 +101,8 @@ class CartService
     {
         if ($type == 'package') {
             $package = $this->packageService->getPackage($addedItemId);
-        
+
+
             // Get the cart from the session
             $cart = Session::get('cart', []);
             $cartItemCount = count($cart) -1;
@@ -117,7 +118,7 @@ class CartService
             } else {
                 $existingCartItem = $cartItemCount;
             }
-        
+
             if ($existingCartItem !== null) {
                 // Item already exists in the cart, update its quantity and price
                 if (isset($cart[$existingCartItem]['quantity'])) {
@@ -130,6 +131,7 @@ class CartService
                 $cart[$existingCartItem]['price']           = $package->package_price;
                 $cart[$existingCartItem]['package_id']      = $package->id;
                 $cart[$existingCartItem]['package_name']    = $package->package_name;
+                $cart[$existingCartItem]['package_description']    = $package->description;
                 $cart[$existingCartItem]['package_status']  = 1;
                 $cart[$existingCartItem]['step_complete']   = 1;
                 $cart[$existingCartItem]['addon_service'] = [];
@@ -140,13 +142,14 @@ class CartService
                     'quantity'       => 1,
                     'product_id'     => $package->id,
                     'package_name'   => $package->package_name,
+                    'package_description'   => $package->description,
                     'package_status' => 1,
                     'addon_service'  => []
                 ];
-        
+
                 $cart[] = $cartItem;
             }
-        
+
             // Save the updated cart back to the session
             Session::put('cart', $cart);
             // dd($cart);
@@ -242,7 +245,7 @@ class CartService
                     // If the 'addon_service' key is not set, initialize it as an empty array
                     $cart[$existingCartItem]['addon_service'] = [];
                 }
-        
+
                 // Add the new service to the 'addon_service' array
                 $cart[$existingCartItem]['addon_service'][] = [
                     'price' => $service->price,

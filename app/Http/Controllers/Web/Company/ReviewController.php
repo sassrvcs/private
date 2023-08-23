@@ -48,7 +48,10 @@ class ReviewController extends Controller
         // // download PDF file with download method
         // return $pdf->download('pdf_file.pdf');
 
-        $pdf = PDF::loadView('frontend.company_form.review_form.review', $data);
+        // $pdf = PDF::loadView('frontend.company_form.review_form.review', $data);
+        $pdf = PDF::loadView('PDF.review_index',$data);
+
+
         return $pdf->download('review.pdf');
     }
 
