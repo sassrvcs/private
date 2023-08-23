@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p><a href="{{ route('registered-address') }}" style="color: #ffffff;">Registered Address</a></p>
+                                    <p><a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" style="color: #ffffff;">Registered Address</a></p>
                                 </div>
                                 <div class="bottom-step-items active">
                                     <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p><a href="{{ route('appointments') }}" style="color: #ffffff;">Appointment</a></p>
+                                    <p><a href="{{ route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}" style="color: #ffffff;">Appointment</a></p>
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">

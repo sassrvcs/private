@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('person_officers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('shopping_cart_id')->nullable();
             $table->string('title')->nullable();
             $table->string('dob_day')->nullable();
@@ -33,6 +34,7 @@ return new class extends Migration
             $table->string('authenticate_three_ans')->nullable();
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('shopping_cart_id')->references('id')->on('shopping_carts')->onDelete('set null');
             $table->foreign('add_id')->references('id')->on('addresses')->onDelete('set null');
         });

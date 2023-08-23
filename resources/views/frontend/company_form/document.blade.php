@@ -70,7 +70,7 @@
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                     <p>Business Address</p>
                                 </div>
-                                <div class="bottom-step-items active">
+                                <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
                                     <p>Appointment</p>
                                 </div>

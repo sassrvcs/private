@@ -5,10 +5,13 @@
 use App\Models\PersonOfficer;
 
 function officer_details_for_appointments_list($id){
-    $officer_details = PersonOfficer::where('id',$id)->get()->toArray();
+    if(isset($id)){
 
-    if(!empty($officer_details)){
-        return $officer_details[0];
+        $officer_details = PersonOfficer::where('id',$id)->get()->toArray();
+    
+        if(!empty($officer_details)){
+            return $officer_details[0];
+        }
     }
 }
 ?>

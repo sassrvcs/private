@@ -74,7 +74,10 @@
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p><a href="{{route('choose-address-business')}}" style="color: #ffffff;">Business Address</a></p>
+                                    <p>
+                                        <a href="{{ route('choose-address-business', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) }}"
+                                            style="color: #ffffff;"> Business Address</a>
+                                    </p>
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
@@ -572,9 +575,10 @@
                                         </div>
                                     </div>
                                     <div class="step-btn-wrap mt-4">
-                                        <button class="btn prev-btn"><img
-                                                src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
-                                                alt="" onclick="previousParticulars()"> Previous: Particulars</button>
+                                        <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'particulars', 'data' => 'previous']) }}">
+                                            <button class="btn prev-btn"><img
+                                                    src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
+                                                    alt=""> Previous: Particulars</button></a>
                                         <button class="btn" onclick="gotoBusinessAddressChoosePage()">Save & Continue
                                             <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
                                                 alt=""></button>

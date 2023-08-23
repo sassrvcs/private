@@ -74,7 +74,10 @@
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p><a href="{{route('choose-address-business')}}" style="color: #ffffff;">Business Address</a></p>
+                                    <p>
+                                        <a href="{{ route('choose-address-business', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) }}"
+                                            style="color: #ffffff;"> Business Address</a>
+                                    </p>
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">

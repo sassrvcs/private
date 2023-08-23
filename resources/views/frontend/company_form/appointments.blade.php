@@ -147,7 +147,7 @@
             <div class="center-info">
                 <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
                     data-aos-once="true">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{ url('') }}">Home</a></li>
                     <li><a>Digital Packages</a></li>
                 </ul>
             </div>
@@ -193,15 +193,26 @@
                             <div class="particulars-bottom-step">
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Particulars</p>
+                                    <p>
+                                        <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'particulars', 'data' => 'previous']) }}"
+                                        style="color: #ffffff;"> Particulars</a>
+                                    </p>
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Registered Address</p>
+                                    <p>
+                                        <a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}"
+                                        style="color: #ffffff;"> Registered Address</a>
+                                    </p>
+                                    {{-- <p>Registered Address</p> --}}
                                 </div>
                                 <div class="bottom-step-items" onclick="gotToBusinessAddressPage()">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Business Address</p>
+                                    <p>
+                                        <a href="{{ route('choose-address-business', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) }}"
+                                        style="color: #ffffff;"> Business Address</a>
+                                    </p>
+                                    {{-- <p>Business Address</p> --}}
                                 </div>
                                 <div class="bottom-step-items active">
                                     <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
@@ -209,7 +220,11 @@
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Document</p>
+                                    <p>
+                                        <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'document'])  }}"
+                                        style="color: #ffffff;"> Document</a>
+                                    </p>
+                                    {{-- <p>Document</p> --}}
                                 </div>
                             </div>
 
@@ -253,6 +268,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <div class="own-address mt-3 d-none" style="color:red;" id="positionValidation">
+
+
+                                </div>
 
                                 @if (!empty($appointmentsList))
                                     <div class="shareholdings-table-wrap" id="appointment_officer_listing">
@@ -274,7 +294,7 @@
                                                     @foreach ($appointmentsList as $val)
                                                         <tr>
                                                             <td>@php
-                                                                $officerDetails = officer_details_for_appointments_list($val['person_officer_id']);
+                                                                $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
                                                                 $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
                                                                 echo $fullName;
                                                             @endphp</td>
@@ -314,16 +334,24 @@
                                     @php
                                         $idArry = [];
                                         $listed_idArry = [];
-                                        $pscCheck = '';
+                                        $pscCheck = 0;
+                                        $directorCheck = 0;
                                     @endphp
                                     @foreach ($appointmentsList as $val)
                                         @php
                                             array_push($listed_idArry, $val['id']);
-                                            $pscCheck = in_array('PSC', $positionArray) ? '1' : '';
                                             
                                             $listed_idStrng = implode(',', $listed_idArry);
                                             $positionString = $val['position'];
                                             $positionArray = explode(', ', $val['position']);
+                                            
+                                            if (in_array('PSC', $positionArray)) {
+                                                $pscCheck++;
+                                            }
+                                            if (in_array('Director', $positionArray)) {
+                                                $directorCheck++;
+                                            }
+                                            
                                         @endphp
                                         @if (in_array('Shareholder', $positionArray))
                                             @php
@@ -352,7 +380,7 @@
                                                                 </td>
                                                                 <td>{{ isset($val['sh_quantity']) ? $val['sh_quantity'] : '' }}
                                                                     x ORDINARY @
-                                                                    {{ isset($val['sh_pps']) ? $val['sh_pps'] . '.00' : '' }}
+                                                                    {{ isset($val['sh_pps']) ? $val['sh_pps'] : '' }}
                                                                     {{ isset($val['sh_currency']) ? $val['sh_currency'] : '' }}
                                                                     per share</td>
                                                                 <td>
@@ -387,9 +415,12 @@
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="">Price</label>
-                                                                    <input type="text"
+                                                                    <input type="text" oninput='number_field(this)'
+                                                                        onblur='conertToDecimal($(this))'
                                                                         value="{{ isset($val['sh_pps']) ? $val['sh_pps'] : '' }}"
-                                                                        class="form-control edit_share_price_{{ $val['id'] }}">
+                                                                        class="form-control shareHolderValidation edit_share_price_{{ $val['id'] }}">
+                                                                    <div class="error d-none" style="color:red;">Price Can
+                                                                        not be zero or empty.</div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -923,7 +954,10 @@
                                                     <div class="desc">
                                                         <h3>Particulars</h3>
                                                         <div class="box">
-                                                            <textarea class="form-control edit_share_particulars_{{ $val['id'] }}" id="" rows="2">{{ isset($val['perticularsTextArea']) ? $val['perticularsTextArea'] : '' }}</textarea>
+                                                            <textarea class="form-control shareHolderValidation edit_share_particulars_{{ $val['id'] }}" id=""
+                                                                rows="2">{{ isset($val['perticularsTextArea']) ? $val['perticularsTextArea'] : '' }}</textarea>
+                                                            <div class="error d-none" style="color:red;">Particulars Can
+                                                                not be empty.</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -940,8 +974,10 @@
                                 <div class="step-btn-wrap mt-4">
                                     <input type="hidden" id="listed_id"
                                         value="{{ isset($listed_idStrng) ? $listed_idStrng : '' }}" readonly>
-                                    <input type="hidden" id="psc_check"
-                                        value="{{ isset($pscCheck) ? $pscCheck : '' }}" readonly>
+                                    <input type="hidden" id="psc_check" value="{{ isset($pscCheck) ? $pscCheck : 0 }}"
+                                        readonly>
+                                    <input type="hidden" id="director_check" value="{{ isset($directorCheck) ? $directorCheck : 0 }}"
+                                        readonly>
                                     <button class="btn prev-btn" onclick="gotToBusinessAddressPage()"><img
                                             src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
                                             alt=""> Previous: Business Address</button>
@@ -1434,7 +1470,7 @@
                                                                 <div class="ans-block block">
                                                                     <label for="">Answer</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="person_aqone_ans_id" name="person_aqone_ans">
+                                                                        id="person_aqone_ans_id" maxlength="3" name="person_aqone_ans">
                                                                     <div class="error d-none" style="color:red;">Please
                                                                         Answer!</div>
                                                                 </div>
@@ -1462,7 +1498,7 @@
                                                                 <div class="ans-block block">
                                                                     <label for="">Answer</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="person_aqtwo_ans_id" name="person_aqtwo_ans">
+                                                                        id="person_aqtwo_ans_id" maxlength="3"  name="person_aqtwo_ans">
                                                                     <div class="error d-none" style="color:red;">Please
                                                                         Answer!</div>
                                                                 </div>
@@ -1491,7 +1527,7 @@
                                                                     <label for="">Answer</label>
                                                                     <input type="text" class="form-control"
                                                                         id="person_aqthree_ans_id"
-                                                                        name="person_aqthree_ans">
+                                                                        name="person_aqthree_ans" maxlength="3" >
                                                                     <div class="error d-none" style="color:red;">Please
                                                                         Answer!</div>
                                                                 </div>
@@ -2153,8 +2189,9 @@
                                                                             Rights</span>
                                                                     </label>
 
-                                                                    <select class="form-control" onchange="selectingNoc()"
-                                                                        id="t_voting" onchange="show_hide_t_other_sig()">
+                                                                    <select class="form-control"
+                                                                        onchange="selectingNoc()" id="t_voting"
+                                                                        onchange="show_hide_t_other_sig()">
                                                                         <option value="">N/A</option>
                                                                         <option value="25">More than 25% but not
                                                                             more than 50%</option>
@@ -2457,7 +2494,8 @@
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="">Price per share</label>
-                                                                    <input type="text" value="1.00" oninput='number_field(this)'
+                                                                    <input type="text" value="1.00"
+                                                                        oninput='number_field(this)'
                                                                         class="form-control sh_validation"
                                                                         onblur='conertToDecimal($(this))'
                                                                         id="sh_pps">
@@ -2566,29 +2604,36 @@
         }
 
         const goToDocuments = function() {
-
             // Appointment to Document section Movement starts
-            if ($("#listed_shareHolderContaining_ids").val() === '') {
-                $("#validationErrorShow").removeClass('d-none')
-                $("#validationErrorShow").html('You have to select ateast one shareholder!')
+            if ($("#share_holding_table_id").length === 0) {
+                $("#positionValidation").removeClass('d-none')
+                $("#positionValidation").html('You have to select ateast one shareholder!')
+                return false
+            }
+            
+            if ($("#psc_check").val() == 0) {
+                $("#positionValidation").removeClass('d-none')
+                $("#positionValidation").html('You have to select a PSC!')
+                return false
             }
 
-            if ($("#psc_check").val() === '') {
-                $("#validationErrorShow").removeClass('d-none')
-                $("#validationErrorShow").html('You have to select a PSC!')
+            if ($("#director_check").val() == 0) {
+                $("#positionValidation").removeClass('d-none')
+                $("#positionValidation").html('You have to select a Director!')
+
+                return false
             }
 
-            if ($("#listed_shareHolderContaining_ids").val() !== '' && $("#psc_check").val() !== '') {
+            if ($("#listed_shareHolderContaining_ids").val() !== '' && $("#psc_check").val() !== 0 && $("#director_check").val() !== 0) {
                 // Shareholder edit section starts
                 const listed_shareHolderContaining_ids = $("#listed_shareHolderContaining_ids").val();
 
                 let idVal = null;
-                // let editable_data = [];
                 if (listed_shareHolderContaining_ids.includes(',')) {
                     idVal = listed_shareHolderContaining_ids.split(',');
 
                 } else {
-                    idVal = listed_shareHolderContaining_ids.split('');
+                    idVal = [listed_shareHolderContaining_ids];
                 }
                 let edit_share_price = [];
                 let edit_share_currency = [];
@@ -2599,21 +2644,38 @@
                     edit_share_particulars.push($(`.edit_share_particulars_${id}`).val())
                 })
 
-                $.ajax({
-                    url: "{!! route('update-shareholder-from-appointment-listing') !!}",
-                    type: "POST",
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        idVal,
-                        edit_share_price,
-                        edit_share_currency,
-                        edit_share_particulars
-                    },
-                    success: function(response) {
-                        window.location.href =
-                            "{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']) }}"
-                    },
+                const requiredFields = document.querySelectorAll('.shareHolderValidation');
+                const requiredFieldsArr = [...requiredFields];
+
+                let validation = 0;
+                requiredFieldsArr.forEach(el => {
+                    if (el.value === '') {
+                        el.classList.add('validation');
+                        el.nextElementSibling.classList.remove('d-none');
+                        return validation++;
+                    } else {
+                        el.classList.remove('validation');
+                        el.nextElementSibling.classList.add('d-none');
+                    }
                 });
+                
+                if (validation === 0) {
+                    $.ajax({
+                        url: "{!! route('update-shareholder-from-appointment-listing') !!}",
+                        type: "POST",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            idVal,
+                            edit_share_price,
+                            edit_share_currency,
+                            edit_share_particulars
+                        },
+                        success: function(response) {
+                            window.location.href =
+                                "{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']) }}"
+                        },
+                    });
+                }
                 // Shareholder edit section ends
             }
 
@@ -2882,6 +2944,7 @@
                         addListing();
 
                         $("#actionType").val('select');
+                        scrollToTop()
                         // }
                     }
                 });
@@ -3064,7 +3127,7 @@
         }
 
         function gotToBusinessAddressPage() {
-            window.location.href = "{{ route('choose-address-business') }}"
+            window.location.href = "{!! route('choose-address-business', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) !!}"
         }
 
         function chooseAddRess(type, action) {
@@ -3453,6 +3516,7 @@
             }
 
             addNewOfficer('id');
+            scrollToTop()
         }
 
         const searchBar = function() {
@@ -3503,7 +3567,7 @@
 
         const addNewOfficer = function(id) {
 
-
+            scrollToTop()
 
             if (id) {
                 $('#officer-tab').toggleClass('active');
