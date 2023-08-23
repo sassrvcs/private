@@ -1561,8 +1561,8 @@
                                                 <div class="own-address service_add_choosed">
                                                     <div class="info">
                                                         <h3>Choose to use your own address</h3>
-                                                        <input type="hidden" id="ChossenServiceAdd_id" class="totalBlankCheck"
-                                                            readonly>
+                                                        <input type="hidden" id="ChossenServiceAdd_id"
+                                                            class="totalBlankCheck" readonly>
                                                         <div class="error d-none" id="serviceAddrValidation"
                                                             style="color:red;">You have to select a Service Address!
                                                         </div>
@@ -1585,7 +1585,7 @@
                                                     <div class="btn-box">
                                                         <a type="button"
                                                             class="btn another-btn choose_another_forwading_add_cl"
-                                                            onclick="chooseAdd('forwad')">Choose Another</a>
+                                                            onclick="chooseAdd('forwarding')">Choose Another</a>
                                                     </div>
                                                 </div>
                                                 <div class="forwarding-address d-none">
@@ -1601,7 +1601,7 @@
                                                         <a href="javascript:void(0)" type="button"
                                                             class="btn edit-btn edit-addr">Edit Address</a>
                                                         <a type="button" class="btn another-btn"
-                                                            onclick="chooseAdd('forwading')">Choose Another</a>
+                                                            onclick="chooseAdd('forwarding')">Choose Another</a>
                                                     </div>
                                                 </div>
                                                 <div class="office-address ">
@@ -2265,7 +2265,7 @@
                                                                 <div class="form-group">
                                                                     <label for="">Quantity</label>
                                                                     <input type="text" id="sh_quantity"
-                                                                        value="1"
+                                                                        value="1" oninput='number_field(this)'
                                                                         class="form-control sh_validation">
                                                                     <div class="error d-none" id=""
                                                                         style="color:red;">Quantity can not be empty or
@@ -2457,7 +2457,7 @@
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="">Price per share</label>
-                                                                    <input type="text" value="1.00"
+                                                                    <input type="text" value="1.00" oninput='number_field(this)'
                                                                         class="form-control sh_validation"
                                                                         onblur='conertToDecimal($(this))'
                                                                         id="sh_pps">
@@ -2477,8 +2477,10 @@
                                                             articles of association and any shareholders' agreements. The
                                                             prescribed particulars are a summary of these rights and might
                                                             be very different between different companies.</span>
-                                                        <textarea class="form-control" id="perticularsTextArea" rows="2"></textarea>
-
+                                                        <textarea class="form-control sh_validation" id="perticularsTextArea" rows="2"></textarea>
+                                                        <div class="error d-none" id="" style="color:red;">
+                                                            Particulars can not be empty.
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3090,15 +3092,15 @@
 
             scrollToTop()
         }
-        
+
         function buyAdd(type) {
             $("#detailsTabAddList_id").removeClass('d-none');
             // $('.hideEdit').removeClass('d-none');
-            
+
             $("#serviceAddLandingSection").addClass('d-none');
             $("#myTab").addClass('d-none');
             $("#theNextBtn").addClass('d-none');
-            
+
             $("#addressTypeChoosed").val(type)
             $("#actionType").val('select')
 
@@ -3590,10 +3592,21 @@
 
         //To convert the value to decimal point
         var conertToDecimal = function(ths) {
+            if (ths.val() === '') {
+                ths.val('1.00');
+                return false
+            }
             var num = parseFloat(ths.val());
             var cleanNum = num.toFixed(2);
             ths.val(cleanNum);
         };
+
+        // Only for number input.
+        function number_field($this) {
+            $this.value = $this.value
+                .replace(/[^0-9.]/g, "")
+                .replace(/(\..*?)\..*/g, "$1");
+        }
 
         // THE NEXT BUTTON FUNCTIONS STARTS
         const checkConsentOrNot = function() {
