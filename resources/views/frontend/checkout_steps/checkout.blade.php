@@ -444,8 +444,8 @@
                     total += price;
                 });
 
-                total_net = parseFloat(total);
-                total_vat = (parseFloat(total)*20)/100;
+                total_net = parseFloat(total+packagePrice);
+                total_vat = (parseFloat(total+packagePrice)*20)/100;
 
 
 
@@ -454,7 +454,7 @@
             $('.tax-rate .net bdi').text('£' + total_net.toFixed(2));
             $('.tax-rate .vat bdi').text('£' + total_vat.toFixed(2));
 
-            total =  parseFloat(total_net) + parseFloat(total_vat);
+            total = parseFloat(total_net) + parseFloat(total_vat);
             $('.order-total .amount bdi').text('£' + total.toFixed(2));
                 $("#all_total_amount").val(total.toFixed(2));
                 $("#total_final_amount").val(total.toFixed(2));

@@ -14,11 +14,11 @@
                 </ul>
            </div>
         </div>
-        
+
         <div class="call-info" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500"
             data-aos-once="true">
             <div class="icon-container">
-                <img src="assets/images/ic_baseline-phone.svg">
+                <img src="{{ asset('frontend/assets/images/ic_baseline-phone.svg') }}">
             </div>
             <div class="text-box">
                 <p>Free Consultations 24/7</p>
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                         </th>
-                        @foreach($packages as $key => $package) 
+                        @foreach($packages as $key => $package)
                             <th>
                                 <div class="items-th-info">
                                     <h4>{{ $package->package_name }}</h4>
@@ -202,7 +202,7 @@
                         $('#result_show').hide();
                         $('#available-company').hide();
                         $('#response-class').hide();
-                        
+
                         // Show data
                         $('.search-company-name').text(companyName);
                         $('#result_show').show(100);

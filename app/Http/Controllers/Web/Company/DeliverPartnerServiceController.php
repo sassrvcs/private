@@ -36,7 +36,7 @@ class DeliverPartnerServiceController extends Controller
         $deliveryPartner = $this->companyFormService->getCompanieName($_GET['order']);
         // dd($deliveryPartner);
         $all_order = $this->businessEssentialsService->showOrder($order_id);
-        
+
         $net_total = 0;
         $total_vat =0;
         $user = Auth::user();
@@ -77,12 +77,6 @@ class DeliverPartnerServiceController extends Controller
                                     ->distinct()
                                     ->get()
                                     ->toArray();
-
-
-
-
-
-
 
                                     // ->groupBy(function($data) {
                                     //     return $data->house_number;
