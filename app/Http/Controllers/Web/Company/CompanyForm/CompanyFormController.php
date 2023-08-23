@@ -26,7 +26,6 @@ class CompanyFormController extends Controller
         $office_address = Companie::where('user_id', Auth::user()->id)->pluck('office_address')->first();
 
         $recent_addr  = $this->regAddrService->getRecentAddress($office_address);
-        // dd($recent_addr);
         $countries = Country::all();
 
         return view('frontend.company_form.register_address', compact('recent_addr', 'countries'));
@@ -192,7 +191,7 @@ class CompanyFormController extends Controller
         $used_address = Address::where('user_id', Auth::user()->id)->get();
         $countries = Country::all()->toArray();
 
-        $person_officers = PersonOfficer::get()->toArray();
+        $person_officers = PersonOfficer::where('user_id', Auth::user()->id)->get()->toArray();
 
         $personAppointments = Person_appointment::where("user_id", Auth::user()->id)->get()->toArray();
 
@@ -261,13 +260,12 @@ class CompanyFormController extends Controller
 
     public function savePersonOfficer(Request $request)
     {
-        // dd($request->personOfficerEditId);
-        // dd($request->ChossenResAdd_id);
         $inserted = '';
         $updated = '';
 
         if ($request->personOfficerEditId === null) {
             $inserted = PersonOfficer::create([
+                'user_id' => Auth::user()->id,
                 'shopping_cart_id' => $request->shoppingCartId,
                 'title' => $request->person_tittle,
                 'dob_day' => $request->person_bday,
@@ -289,6 +287,7 @@ class CompanyFormController extends Controller
             }
         } else {
             $updated = PersonOfficer::where('id', $request->personOfficerEditId)->update([
+                'user_id' => Auth::user()->id,
                 'shopping_cart_id' => $request->shoppingCartId,
                 'title' => $request->person_tittle,
                 'dob_day' => $request->person_bday,
@@ -306,7 +305,8 @@ class CompanyFormController extends Controller
             ]);
 
             if ($updated) {
-                return $updated;
+                $updatedRow = PersonOfficer::orderBy('updated_at','DESC')->first();
+                return $updatedRow;
             }
         }
     }

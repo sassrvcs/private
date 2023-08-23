@@ -57,6 +57,80 @@
             color: black;
             position: absolute;
         }
+
+        .s_own_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .s_vot_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .s_appo_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .s_other_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .t_own_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .t_vot_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .t_appo_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .t_other_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .class_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .sh_appo_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .custom-input {
+            cursor: pointer;
+        }
     </style>
     <section class="common-inner-page-banner"
         style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png') }})">
@@ -73,7 +147,7 @@
             <div class="center-info">
                 <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
                     data-aos-once="true">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{ url('') }}">Home</a></li>
                     <li><a>Digital Packages</a></li>
                 </ul>
             </div>
@@ -119,15 +193,26 @@
                             <div class="particulars-bottom-step">
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Particulars</p>
+                                    <p>
+                                        <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'particulars', 'data' => 'previous']) }}"
+                                        style="color: #ffffff;"> Particulars</a>
+                                    </p>
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Registered Address</p>
+                                    <p>
+                                        <a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}"
+                                        style="color: #ffffff;"> Registered Address</a>
+                                    </p>
+                                    {{-- <p>Registered Address</p> --}}
                                 </div>
                                 <div class="bottom-step-items" onclick="gotToBusinessAddressPage()">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Business Address</p>
+                                    <p>
+                                        <a href="{{ route('choose-address-business', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) }}"
+                                        style="color: #ffffff;"> Business Address</a>
+                                    </p>
+                                    {{-- <p>Business Address</p> --}}
                                 </div>
                                 <div class="bottom-step-items active">
                                     <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
@@ -135,7 +220,11 @@
                                 </div>
                                 <div class="bottom-step-items">
                                     <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                    <p>Document</p>
+                                    <p>
+                                        <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'document'])  }}"
+                                        style="color: #ffffff;"> Document</a>
+                                    </p>
+                                    {{-- <p>Document</p> --}}
                                 </div>
                             </div>
 
@@ -179,6 +268,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <div class="own-address mt-3 d-none" style="color:red;" id="positionValidation">
+
+
+                                </div>
 
                                 @if (!empty($appointmentsList))
                                     <div class="shareholdings-table-wrap" id="appointment_officer_listing">
@@ -200,7 +294,7 @@
                                                     @foreach ($appointmentsList as $val)
                                                         <tr>
                                                             <td>@php
-                                                                $officerDetails = officer_details_for_appointments_list($val['person_officer_id']);
+                                                                $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
                                                                 $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
                                                                 echo $fullName;
                                                             @endphp</td>
@@ -240,16 +334,24 @@
                                     @php
                                         $idArry = [];
                                         $listed_idArry = [];
-                                        $pscCheck = '';
+                                        $pscCheck = 0;
+                                        $directorCheck = 0;
                                     @endphp
                                     @foreach ($appointmentsList as $val)
                                         @php
                                             array_push($listed_idArry, $val['id']);
-                                            $pscCheck = in_array('PSC', $positionArray) ? '1' : '';
                                             
                                             $listed_idStrng = implode(',', $listed_idArry);
                                             $positionString = $val['position'];
                                             $positionArray = explode(', ', $val['position']);
+                                            
+                                            if (in_array('PSC', $positionArray)) {
+                                                $pscCheck++;
+                                            }
+                                            if (in_array('Director', $positionArray)) {
+                                                $directorCheck++;
+                                            }
+                                            
                                         @endphp
                                         @if (in_array('Shareholder', $positionArray))
                                             @php
@@ -278,7 +380,7 @@
                                                                 </td>
                                                                 <td>{{ isset($val['sh_quantity']) ? $val['sh_quantity'] : '' }}
                                                                     x ORDINARY @
-                                                                    {{ isset($val['sh_pps']) ? $val['sh_pps'] . '.00' : '' }}
+                                                                    {{ isset($val['sh_pps']) ? $val['sh_pps'] : '' }}
                                                                     {{ isset($val['sh_currency']) ? $val['sh_currency'] : '' }}
                                                                     per share</td>
                                                                 <td>
@@ -306,15 +408,19 @@
                                                                     <label for="">Class <span><img
                                                                                 src="assets/images/in-icon.png"
                                                                                 alt=""></span></label>
+
                                                                     <h5>ORDINARY</h5>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="">Price</label>
-                                                                    <input type="text"
+                                                                    <input type="text" oninput='number_field(this)'
+                                                                        onblur='conertToDecimal($(this))'
                                                                         value="{{ isset($val['sh_pps']) ? $val['sh_pps'] : '' }}"
-                                                                        class="form-control edit_share_price_{{ $val['id'] }}">
+                                                                        class="form-control shareHolderValidation edit_share_price_{{ $val['id'] }}">
+                                                                    <div class="error d-none" style="color:red;">Price Can
+                                                                        not be zero or empty.</div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -847,9 +953,12 @@
                                                     </div>
                                                     <div class="desc">
                                                         <h3>Particulars</h3>
-                                                        <div class="box">
-                                                            <textarea class="form-control edit_share_particulars_{{ $val['id'] }}" id="" rows="2">{{ isset($val['perticularsTextArea']) ? $val['perticularsTextArea'] : '' }}</textarea>
-                                                        </div>
+                                                        {{-- <div class="box"> --}}
+                                                            <textarea class="form-control shareHolderValidation edit_share_particulars_{{ $val['id'] }}" id=""
+                                                                rows="2">{{ isset($val['perticularsTextArea']) ? $val['perticularsTextArea'] : '' }}</textarea>
+                                                            <div class="error d-none" style="color:red;">Particulars Can
+                                                                not be empty.</div>
+                                                        {{-- </div> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -863,8 +972,12 @@
                                 @endif
 
                                 <div class="step-btn-wrap mt-4">
-                                    <input type="hidden" id="listed_id" value="{{ isset($listed_idStrng) ? $listed_idStrng : ''}}" readonly>
-                                    <input type="hidden" id="psc_check" value="{{isset($pscCheck) ? $pscCheck : '' }}" readonly>
+                                    <input type="hidden" id="listed_id"
+                                        value="{{ isset($listed_idStrng) ? $listed_idStrng : '' }}" readonly>
+                                    <input type="hidden" id="psc_check" value="{{ isset($pscCheck) ? $pscCheck : 0 }}"
+                                        readonly>
+                                    <input type="hidden" id="director_check" value="{{ isset($directorCheck) ? $directorCheck : 0 }}"
+                                        readonly>
                                     <button class="btn prev-btn" onclick="gotToBusinessAddressPage()"><img
                                             src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
                                             alt=""> Previous: Business Address</button>
@@ -1142,12 +1255,15 @@
                                                                         class="offValIdauthenticate_three_ans_{{ $offVal['id'] }}"
                                                                         value="{{ $offVal['authenticate_three_ans'] }}"
                                                                         readonly>
-                                                                    <input type="text"
-                                                                        class="form-control d-none officerSelect"
-                                                                        data-search="{{ $offVal['title'] }},{{ $offVal['dob_day'] }}-{{ $offVal['dob_month'] }}-{{ $offVal['dob_year'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}"
-                                                                        value="{{ $offVal['title'] }},{{ $offVal['dob_day'] }}-{{ $offVal['dob_month'] }}-{{ $offVal['dob_year'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}"
-                                                                        onclick="choosedOfficer('{{ $offVal['id'] }}')"
-                                                                        readonly>
+                                                                    <a
+                                                                        href="#
+                                                                        ">
+                                                                        <input type="text"
+                                                                            class="form-control d-none custom-input officerSelect"
+                                                                            data-search="{{ $offVal['title'] }},{{ $offVal['dob_day'] }}-{{ $offVal['dob_month'] }}-{{ $offVal['dob_year'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}"
+                                                                            value="{{ $offVal['title'] }},{{ $offVal['dob_day'] }}-{{ $offVal['dob_month'] }}-{{ $offVal['dob_year'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}"
+                                                                            onclick="choosedOfficer('{{ $offVal['id'] }}')"
+                                                                            readonly></a>
                                                                 @endforeach
                                                             @endif
                                                         </div>
@@ -1176,14 +1292,21 @@
                                                         @endif
 
                                                     </div>
-                                                    <div class="recently-used-addresses">
+                                                    <div class="new-address-block">
+                                                        <h3>Or enter a new Address</h3>
+                                                        <div class="new-address-field">
+                                                            <button type="submit" class="btn"
+                                                                onclick="addNewOfficer(),currentTab('details')">Add
+                                                                New
+                                                                Officer</button>
+                                                        </div>
+                                                    </div>
+                                                    {{-- <div class="recently-used-addresses">
                                                         <h4>Create a new Officer</h4>
                                                         <div class="row">
                                                             <div class="col-md-12 col-sm-12">
                                                                 <div class="used-addresses-panel">
-                                                                    <!-- <div class="text">
-                                                                                                                                                                                                                                                                                            <p>1st Formations Ltd, 71-75, Shelton Steel, LONDON, WC2H 9JQ, UNI... </p>
-                                                                                                                                                                                                                                                                                        </div> -->
+                            
                                                                     <div class="btn-wrap">
                                                                         <!-- <button type="submit" class="btn select-btn">Select</button> -->
                                                                         <button type="submit" class="btn"
@@ -1193,7 +1316,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -1213,9 +1336,8 @@
                                                         </div>
                                                         <div class="text">
                                                             <h5>Personal Details</h5>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                Phasellus scelerisque porta enim ut interdum. Aliquam mollis
-                                                                enim non purus laoreet, ut pretium lorem porta.</p>
+                                                            <p>It is recommended you enter your name as it appears on your
+                                                                ID, eg. passport or drivers licence.</p>
                                                         </div>
                                                     </div>
                                                     <h4>Officer Details</h4>
@@ -1228,13 +1350,18 @@
                                                                 <label for="">Title *:</label>
                                                                 <input type="text" class="form-control blankCheck"
                                                                     id="person_tittle_id" name="person_tittle">
+                                                                <div class="error d-none" style="color:red;">You should
+                                                                    have a title!</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
                                                                 <label for="">Date of Birth *:</label>
-                                                                <input type="date" class="form-control blankCheck"
-                                                                    name="person_bday" id="person_bday_id">
+                                                                <input type="date" onclick="dob_onclick(this)"
+                                                                    class="form-control" name="person_bday"
+                                                                    id="person_bday_id">
+                                                                <div class="error d-none" style="color:red;">Age should be
+                                                                    16 or above!</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
@@ -1242,6 +1369,8 @@
                                                                 <label for="">First Name(s) *:</label>
                                                                 <input type="text" name="person_fname"
                                                                     id="person_fname_id" class="form-control blankCheck">
+                                                                <div class="error d-none" style="color:red;">Please enter
+                                                                    your First Name!</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
@@ -1252,13 +1381,13 @@
                                                                     id="person_national_id">
                                                                     @if (!empty($countries))
                                                                         @foreach ($countries as $country)
-                                                                            <option value="{{ $country['id'] }}">
+                                                                            <option value="{{ $country['id'] }}"
+                                                                                {{ $country['id'] === 72 ? 'selected' : '' }}>
                                                                                 {{ $country['name'] }}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </select>
-                                                                {{-- <input type="text" class="form-control blankCheck"
-                                                                    id="person_national_id" name="person_national"> --}}
+
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
@@ -1266,13 +1395,17 @@
                                                                 <label for="">Last Name *:</label>
                                                                 <input type="text" class="form-control blankCheck"
                                                                     id="person_lname_id" name="person_lname">
+                                                                <div class="error d-none" style="color:red;">Please enter
+                                                                    your Last Name!</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
-                                                                <label for="">Occupation</label>
-                                                                <input type="text" class="form-control"
+                                                                <label for="">Occupation *:</label>
+                                                                <input type="text" class="form-control blankCheck"
                                                                     id="person_occupation_id" name="person_occupation">
+                                                                <div class="error d-none" style="color:red;">Please enter
+                                                                    your Occupation!</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1283,6 +1416,8 @@
                                                     <h3>Residential Address</h3>
 
                                                     <input type="hidden" id="ChossenResAdd_id" readonly>
+                                                    <div class="error d-none" id="residentialAddrValidation"
+                                                        style="color:red;">You have to select a Residential Address!</div>
                                                     <p><strong>Please Note :</strong> <span>It is a legal requirement to
                                                             provide your actual residential address. Supplying an address
                                                             which is not your actual residential address, will lead to the
@@ -1306,6 +1441,11 @@
 
                                                 <div class="form-info-block d-none" id="authenticationSection">
                                                     <h4 class="mb-5">Authentication Questions</h4>
+                                                    <div class="own-address mt-3 d-none" style="color:red;"
+                                                        id="AuthValidationError">
+                                                        Every question should be different!
+                                                    </div>
+
                                                     <div class="authe-qu-block">
                                                         <div class="row">
                                                             <div class="col-md-6 col-sm-12">
@@ -1313,7 +1453,8 @@
                                                                     <label for="">Select First 3 letters of</label>
                                                                     <select class="form-control" id="person_aqone_id"
                                                                         name="person_aqone">
-                                                                        <option value="Mother’s Maiden Name">Mother’s
+                                                                        <option value="Mother’s Maiden Name" selected>
+                                                                            Mother’s
                                                                             Maiden
                                                                         <option value="Father's Forename">Father's Forename
                                                                         <option value="Town Of Birth">Town Of Birth
@@ -1329,7 +1470,9 @@
                                                                 <div class="ans-block block">
                                                                     <label for="">Answer</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="person_aqone_ans_id" name="person_aqone_ans">
+                                                                        id="person_aqone_ans_id" maxlength="3" name="person_aqone_ans">
+                                                                    <div class="error d-none" style="color:red;">Please
+                                                                        Answer!</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1355,7 +1498,9 @@
                                                                 <div class="ans-block block">
                                                                     <label for="">Answer</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="person_aqtwo_ans_id" name="person_aqtwo_ans">
+                                                                        id="person_aqtwo_ans_id" maxlength="3"  name="person_aqtwo_ans">
+                                                                    <div class="error d-none" style="color:red;">Please
+                                                                        Answer!</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1382,7 +1527,9 @@
                                                                     <label for="">Answer</label>
                                                                     <input type="text" class="form-control"
                                                                         id="person_aqthree_ans_id"
-                                                                        name="person_aqthree_ans">
+                                                                        name="person_aqthree_ans" maxlength="3" >
+                                                                    <div class="error d-none" style="color:red;">Please
+                                                                        Answer!</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1450,8 +1597,11 @@
                                                 <div class="own-address service_add_choosed">
                                                     <div class="info">
                                                         <h3>Choose to use your own address</h3>
-                                                        <input type="hidden" class="" id="ChossenServiceAdd_id"
-                                                            readonly>
+                                                        <input type="hidden" id="ChossenServiceAdd_id"
+                                                            class="totalBlankCheck" readonly>
+                                                        <div class="error d-none" id="serviceAddrValidation"
+                                                            style="color:red;">You have to select a Service Address!
+                                                        </div>
                                                         <p class="d-none" id="ChossenServiceAdd"></p>
                                                     </div>
                                                     <div class="btn-box">
@@ -1471,7 +1621,7 @@
                                                     <div class="btn-box">
                                                         <a type="button"
                                                             class="btn another-btn choose_another_forwading_add_cl"
-                                                            onclick="chooseAdd('forwad')">Choose Another</a>
+                                                            onclick="chooseAdd('forwarding')">Choose Another</a>
                                                     </div>
                                                 </div>
                                                 <div class="forwarding-address d-none">
@@ -1487,7 +1637,7 @@
                                                         <a href="javascript:void(0)" type="button"
                                                             class="btn edit-btn edit-addr">Edit Address</a>
                                                         <a type="button" class="btn another-btn"
-                                                            onclick="chooseAdd('forwading')">Choose Another</a>
+                                                            onclick="chooseAdd('forwarding')">Choose Another</a>
                                                     </div>
                                                 </div>
                                                 <div class="office-address ">
@@ -1692,6 +1842,12 @@
                                                             </ul>
                                                         </div>
                                                     </div>
+
+                                                    <div class="own-address mt-3 d-none" style="color:red;"
+                                                        id="NOC_validation_error">
+                                                        You must answer atleast one PSC question.
+                                                    </div>
+
                                                     <h4>Natural of Control</h4>
                                                 </div>
                                                 <div class="natural-of-control-block mb-4">
@@ -1831,7 +1987,8 @@
                                                     <ul>
                                                         <li>
                                                             <input type="radio" id="no"
-                                                                onclick="f_radio_check()" value="no" name="com-qu">
+                                                                onclick="f_radio_check()" value="no" checked
+                                                                name="com-qu">
                                                             <label for="no">No</label>
                                                         </li>
                                                         <li>
@@ -1864,6 +2021,17 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
+                                                                <span class="icon"><img
+                                                                        src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                        alt="" id="s_own_i"></span>
+                                                                <span class="s_own_i_tooltip">If this person holds
+                                                                    more
+                                                                    than 25% of the issued shares, directly or
+                                                                    indirectly, then they meet this nature of
+                                                                    control
+                                                                    condition. Please select their shareholding
+                                                                    percentage range from the drop down menu.</span>
+
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-12">
@@ -1884,6 +2052,17 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
+                                                                <span class="icon"><img
+                                                                        src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                        alt="" id="s_vot_i"></span>
+                                                                <span class="s_vot_i_tooltip">If this person holds
+                                                                    more
+                                                                    than 25% of the available voting rights,
+                                                                    directly or
+                                                                    indirectly, then they meet this nature of
+                                                                    control
+                                                                    condition. Please select their voting power
+                                                                    percentage range from the drop down menu.</span>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-12">
@@ -1901,6 +2080,21 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
+                                                                <span class="icon"><img
+                                                                        src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                        alt="" id="s_appo_i"></span>
+                                                                <span class="s_appo_i_tooltip">If this person is
+                                                                    entitled, directly or indirectly, to appoint and
+                                                                    remove a majority of the board of directors then
+                                                                    they meet this nature of control condition. Any
+                                                                    person that controls over 50% of the votes may
+                                                                    appoint the directors by ordinary resolution,
+                                                                    but a
+                                                                    person could be given this explicit right in the
+                                                                    Articles of Association or a Shareholders'
+                                                                    Agreement.</span>
+                                                                {{-- <div class="col-md-6 col-sm-12">
+                                                                </div> --}}
                                                             </div>
                                                             <div class="row" id="s_other_sig">
                                                                 <div class="col-md-6 col-sm-12">
@@ -1915,109 +2109,168 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6 col-sm-12">
-                                                                </div>
+                                                                <span class="icon"><img
+                                                                        src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                        alt="" id="s_other_i"></span>
+                                                                <span class="s_other_i_tooltip">If this individual
+                                                                    does
+                                                                    not meet any of the preceding natures of control
+                                                                    conditions, but still exerts, or has the right
+                                                                    to
+                                                                    exert, influence or control over the Company,
+                                                                    then
+                                                                    they meet this nature of control
+                                                                    condition.</span>
+
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </div>
-                                                <div class="qu-panel">
-                                                    <p>Does this officer have a controlling influence over a trust(s)
-                                                        and/or
-                                                        the trustees of that trust(s), which has a controlling interest
-                                                        in
-                                                        this company?</p>
-                                                    <ul>
-                                                        <li>
-                                                            <input type="radio" id="no2"
-                                                                onclick="s_radio_check()" value="no" name="com-qu2">
-                                                            <label for="no2">No</label>
-                                                        </li>
-                                                        <li>
-                                                            <input type="radio" id="yes2"
-                                                                onclick="s_radio_check()" value="yes" name="com-qu2">
-                                                            <label for="yes2">yes</label>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="mt-4 mb-4 d-none" id="trustDD">
-                                                        <h5>What control or influence does this officer have over this
-                                                            company in their capacity within the Trust(s) ?
-                                                        </h5>
-                                                        <div class="authe-qu-block">
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <div class="qu-block block">
-                                                                        <label for="" class="d-flex">
-                                                                            <span class="text">Ownership of
-                                                                                shares</span>
-                                                                        </label>
 
-                                                                        <select class="form-control" id="t_ownership"
-                                                                            onchange="show_hide_t_other_sig()">
-                                                                            <option value="">N/A</option>
-                                                                            <option value="25">More than 25% but not
-                                                                                more than 50%</option>
-                                                                            <option value="50">More than 50% but less
-                                                                                than 75%</option>
-                                                                            <option value="75">75% or more</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <div class="qu-block block">
-                                                                        <label for="" class="d-flex">
-                                                                            <span class="text">Voting
-                                                                                Rights</span>
-                                                                        </label>
+                                            </div>
+                                            <div class="qu-panel">
+                                                <p>Does this officer have a controlling influence over a trust(s)
+                                                    and/or
+                                                    the trustees of that trust(s), which has a controlling interest
+                                                    in
+                                                    this company?</p>
+                                                <ul>
+                                                    <li>
+                                                        <input type="radio" id="no2" onclick="s_radio_check()"
+                                                            value="no" checked name="com-qu2">
+                                                        <label for="no2">No</label>
+                                                    </li>
+                                                    <li>
+                                                        <input type="radio" id="yes2" onclick="s_radio_check()"
+                                                            value="yes" name="com-qu2">
+                                                        <label for="yes2">yes</label>
+                                                    </li>
+                                                </ul>
+                                                <div class="mt-4 mb-4 d-none" id="trustDD">
+                                                    <h5>What control or influence does this officer have over this
+                                                        company in their capacity within the Trust(s) ?
+                                                    </h5>
+                                                    <div class="authe-qu-block">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="qu-block block">
+                                                                    <label for="" class="d-flex">
+                                                                        <span class="text">Ownership of
+                                                                            shares</span>
+                                                                    </label>
 
-                                                                        <select class="form-control" id="t_voting"
-                                                                            onchange="show_hide_t_other_sig()">
-                                                                            <option value="">N/A</option>
-                                                                            <option value="25">More than 25% but not
-                                                                                more than 50%</option>
-                                                                            <option value="50">More than 50% but less
-                                                                                than 75%</option>
-                                                                            <option value="75">75% or more</option>
-                                                                        </select>
-                                                                    </div>
+                                                                    <select class="form-control" id="t_ownership"
+                                                                        onchange="show_hide_t_other_sig()">
+                                                                        <option value="">N/A</option>
+                                                                        <option value="25">More than 25% but not
+                                                                            more than 50%</option>
+                                                                        <option value="50">More than 50% but less
+                                                                            than 75%</option>
+                                                                        <option value="75">75% or more</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <div class="qu-block block">
-                                                                        <label for="" class="d-flex">
-                                                                            <span class="text">Appoint or remove the
-                                                                                majority of the board of directors</span>
-                                                                        </label>
+                                                            <span class="icon"><img
+                                                                    src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                    alt="" id="t_own_i"></span>
+                                                            <span class="t_own_i_tooltip">If this person holds
+                                                                more
+                                                                than 25% of the issued shares, directly or
+                                                                indirectly, then they meet this nature of
+                                                                control
+                                                                condition. Please select their shareholding
+                                                                percentage range from the drop down menu.</span>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="qu-block block">
+                                                                    <label for="" class="d-flex">
+                                                                        <span class="text">Voting
+                                                                            Rights</span>
+                                                                    </label>
 
-                                                                        <select class="form-control" id="t_appoint"
-                                                                            onchange="show_hide_t_other_sig()">
-                                                                            <option value="No">No</option>
-                                                                            <option value="Yes">Yes</option>
-                                                                        </select>
-                                                                    </div>
+                                                                    <select class="form-control"
+                                                                        onchange="selectingNoc()" id="t_voting"
+                                                                        onchange="show_hide_t_other_sig()">
+                                                                        <option value="">N/A</option>
+                                                                        <option value="25">More than 25% but not
+                                                                            more than 50%</option>
+                                                                        <option value="50">More than 50% but less
+                                                                            than 75%</option>
+                                                                        <option value="75">75% or more</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="row" id="t_other_sig">
-                                                                <div class="col-md-6 col-sm-12">
-                                                                    <div class="qu-block block">
-                                                                        <label for="" class="d-flex">
-                                                                            <span class="text">Other Significant
-                                                                                influences
-                                                                                or control</span></label>
-                                                                        <select class="form-control"
-                                                                            id="t_other_sig_select_id">
-                                                                            <option value="No">No</option>
-                                                                            <option value="Yes">Yes</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-12">
+                                                            <span class="icon"><img
+                                                                    src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                    alt="" id="t_vot_i"></span>
+                                                            <span class="t_vot_i_tooltip">If this person holds
+                                                                more
+                                                                than 25% of the available voting rights,
+                                                                directly or
+                                                                indirectly, then they meet this nature of
+                                                                control
+                                                                condition. Please select their voting power
+                                                                percentage range from the drop down menu.</span>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="qu-block block">
+                                                                    <label for="" class="d-flex">
+                                                                        <span class="text">Appoint or remove the
+                                                                            majority of the board of directors</span>
+                                                                    </label>
+
+                                                                    <select class="form-control"
+                                                                        onchange="selectingNoc()" id="t_appoint"
+                                                                        onchange="show_hide_t_other_sig()">
+                                                                        <option value="No">No</option>
+                                                                        <option value="Yes">Yes</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
+                                                            <span class="icon"><img
+                                                                    src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                    alt="" id="t_appo_i"></span>
+                                                            <span class="t_appo_i_tooltip">If this person is
+                                                                entitled, directly or indirectly, to appoint and
+                                                                remove a majority of the board of directors then
+                                                                they meet this nature of control condition. Any
+                                                                person that controls over 50% of the votes may
+                                                                appoint the directors by ordinary resolution,
+                                                                but a
+                                                                person could be given this explicit right in the
+                                                                Articles of Association or a Shareholders'
+                                                                Agreement.</span>
+                                                        </div>
+                                                        <div class="row" id="t_other_sig">
+                                                            <div class="col-md-6 col-sm-12">
+                                                                <div class="qu-block block">
+                                                                    <label for="" class="d-flex">
+                                                                        <span class="text">Other Significant
+                                                                            influences
+                                                                            or control</span></label>
+                                                                    <select class="form-control"
+                                                                        id="t_other_sig_select_id">
+                                                                        <option value="No">No</option>
+                                                                        <option value="Yes">Yes</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <span class="icon"><img
+                                                                    src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                    alt="" id="t_other_i"></span>
+                                                            <span class="t_other_i_tooltip">If this individual
+                                                                does
+                                                                not meet any of the preceding natures of control
+                                                                conditions, but still exerts, or has the right
+                                                                to
+                                                                exert, influence or control over the Company,
+                                                                then
+                                                                they meet this nature of control
+                                                                condition.</span>
+                                                            {{-- <div class="col-md-6 col-sm-12">
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2036,16 +2289,25 @@
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="">Class <span><img
-                                                                                src="assets/images/in-icon.png"
-                                                                                alt=""></span></label>
+                                                                                src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                                id="class_i"></span></label>
+                                                                    <span class="class_i_tooltip">This package provides a
+                                                                        company with one class of shares, which is ORDINARY
+                                                                        shares. All shares in this company carry equal
+                                                                        rights.</span>
                                                                     <h5>ORDINARY</h5>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="">Quantity</label>
-                                                                    <input type="text" id="sh_quantity" value="1"
-                                                                        class="form-control">
+                                                                    <input type="text" id="sh_quantity"
+                                                                        value="1" oninput='number_field(this)'
+                                                                        class="form-control sh_validation">
+                                                                    <div class="error d-none" id=""
+                                                                        style="color:red;">Quantity can not be empty or
+                                                                        zero</div>
+
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -2232,17 +2494,31 @@
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="">Price per share</label>
-                                                                    <input type="text" value="1"
-                                                                        class="form-control" id="sh_pps">
+                                                                    <input type="text" value="1.00"
+                                                                        oninput='number_field(this)'
+                                                                        class="form-control sh_validation"
+                                                                        onblur='conertToDecimal($(this))'
+                                                                        id="sh_pps">
+                                                                    <div class="error d-none" id=""
+                                                                        style="color:red;">Price can not be empty or zero
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="desc">
-                                                        <h5>Particulars <span><img src="assets/images/in-icon.png"
-                                                                    alt=""></span></h5>
-                                                        <textarea class="form-control" id="perticularsTextArea" rows="2"></textarea>
-
+                                                        <h5>Particulars <span><img
+                                                                    src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                    alt="" id="sh_appo_i"></span></h5>
+                                                        <span class="sh_appo_i_tooltip">Shares in a company give the owner
+                                                            various shareholder rights and are usually defined in the
+                                                            articles of association and any shareholders' agreements. The
+                                                            prescribed particulars are a summary of these rights and might
+                                                            be very different between different companies.</span>
+                                                        <textarea class="form-control sh_validation" id="perticularsTextArea" rows="2"></textarea>
+                                                        <div class="error d-none" id="" style="color:red;">
+                                                            Particulars can not be empty.
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2272,8 +2548,8 @@
                                             </div>
                                         </div>
                                         {{-- SHAREHOLDER TAB SECTION ENDS --}}
-
                                     </div>
+
                                 </div>
                                 <div class="step-btn-wrap mt-4">
                                     <button class="btn prev-btn" id="cancelBtn"
@@ -2285,20 +2561,21 @@
                                             alt=""></button>
                                 </div>
                             </div>
-                            {{-- APPOINTMENTS SECTION ENDS --}}
                         </div>
+                        {{-- APPOINTMENTS SECTION ENDS --}}
                     </div>
                 </div>
             </div>
         </div>
+        </div>
         <input type="hidden" id="orderId" value="" readonly>
-        <input type="hidden" id="positionSelected" value="" readonly>
+        <input type="hidden" id="positionSelected" value="" class="totalBlankCheck" readonly>
         <input type="hidden" id="appointmentType" value="" readonly>
         <input type="hidden" id="shoppingCartId_id" value="{{ $shoppingCartId }}" readonly>
         <input type="hidden" id="currentTab" value="" readonly>
 
         <!-- PERSON SECTION DATAS -->
-        <input type="hidden" id="choosedPersonOfficerId" value="" readonly>
+        <input type="hidden" id="choosedPersonOfficerId" class="totalBlankCheck" value="" readonly>
         <input type="hidden" id="addressTypeChoosed" value="" readonly>
         <input type="hidden" id="actionType" value="" readonly>
 
@@ -2311,34 +2588,52 @@
 
 @section('script')
     <script>
+        // Scroll to the top of the page
+        function scrollToTop() {
+            window.scrollTo(0, 0);
+        }
+
+        // DOB Future not select date
+        function dob_onclick(ths) {
+            const today = new Date().toISOString().split('T')[0];
+            ths.setAttribute("max", today);
+        }
+
         function DetailsSection() {
             $('#DetailsSection_div').toggleClass('d-none')
         }
 
         const goToDocuments = function() {
-
             // Appointment to Document section Movement starts
-            if ($("#listed_shareHolderContaining_ids").val() === '') {
-                $("#validationErrorShow").removeClass('d-none')
-                $("#validationErrorShow").html('You have to select ateast one shareholder!')
+            if ($("#share_holding_table_id").length === 0) {
+                $("#positionValidation").removeClass('d-none')
+                $("#positionValidation").html('You have to select ateast one shareholder!')
+                return false
+            }
+            
+            if ($("#psc_check").val() == 0) {
+                $("#positionValidation").removeClass('d-none')
+                $("#positionValidation").html('You have to select a PSC!')
+                return false
             }
 
-            if ($("#psc_check").val() === '') {
-                $("#validationErrorShow").removeClass('d-none')
-                $("#validationErrorShow").html('You have to select a PSC!')
+            if ($("#director_check").val() == 0) {
+                $("#positionValidation").removeClass('d-none')
+                $("#positionValidation").html('You have to select a Director!')
+
+                return false
             }
 
-            if ($("#listed_shareHolderContaining_ids").val() !== '' && $("#psc_check").val() !== '') {
+            if ($("#listed_shareHolderContaining_ids").val() !== '' && $("#psc_check").val() !== 0 && $("#director_check").val() !== 0) {
                 // Shareholder edit section starts
                 const listed_shareHolderContaining_ids = $("#listed_shareHolderContaining_ids").val();
 
                 let idVal = null;
-                // let editable_data = [];
                 if (listed_shareHolderContaining_ids.includes(',')) {
                     idVal = listed_shareHolderContaining_ids.split(',');
 
                 } else {
-                    idVal = listed_shareHolderContaining_ids.split('');
+                    idVal = [listed_shareHolderContaining_ids];
                 }
                 let edit_share_price = [];
                 let edit_share_currency = [];
@@ -2349,20 +2644,38 @@
                     edit_share_particulars.push($(`.edit_share_particulars_${id}`).val())
                 })
 
-                $.ajax({
-                    url: "{!! route('update-shareholder-from-appointment-listing') !!}",
-                    type: "POST",
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        idVal,
-                        edit_share_price,
-                        edit_share_currency,
-                        edit_share_particulars
-                    },
-                    success: function(response) {
-                        window.location.href = "{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']) }}"
-                    },
+                const requiredFields = document.querySelectorAll('.shareHolderValidation');
+                const requiredFieldsArr = [...requiredFields];
+
+                let validation = 0;
+                requiredFieldsArr.forEach(el => {
+                    if (el.value === '') {
+                        el.classList.add('validation');
+                        el.nextElementSibling.classList.remove('d-none');
+                        return validation++;
+                    } else {
+                        el.classList.remove('validation');
+                        el.nextElementSibling.classList.add('d-none');
+                    }
                 });
+                
+                if (validation === 0) {
+                    $.ajax({
+                        url: "{!! route('update-shareholder-from-appointment-listing') !!}",
+                        type: "POST",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            idVal,
+                            edit_share_price,
+                            edit_share_currency,
+                            edit_share_particulars
+                        },
+                        success: function(response) {
+                            window.location.href =
+                                "{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']) }}"
+                        },
+                    });
+                }
                 // Shareholder edit section ends
             }
 
@@ -2450,7 +2763,7 @@
                 return validation++;
             }
 
-            if ($("#service_add_choosed").hasClass('d-none') === false && own_address_id === '') {
+            if ($(".service_add_choosed").hasClass('d-none') === false && own_address_id === '') {
                 $("#validationErrorShow").removeClass('d-none')
                 $("#validationErrorShow").html('You have to choose an Address!')
                 return validation++;
@@ -2631,6 +2944,7 @@
                         addListing();
 
                         $("#actionType").val('select');
+                        scrollToTop()
                         // }
                     }
                 });
@@ -2809,11 +3123,11 @@
                 $("#detailsTabAddList_id").removeClass('d-none');
             }
 
-
+            scrollToTop()
         }
 
         function gotToBusinessAddressPage() {
-            window.location.href = "{{ route('choose-address-business') }}"
+            window.location.href = "{!! route('choose-address-business', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) !!}"
         }
 
         function chooseAddRess(type, action) {
@@ -2825,6 +3139,8 @@
 
             $("#addressTypeChoosed").val(type);
             $("#actionType").val(action);
+
+            scrollToTop()
         }
 
         function chooseAdd(type) {
@@ -2837,6 +3153,8 @@
 
             $("#addressTypeChoosed").val(type)
             $("#actionType").val('select')
+
+            scrollToTop()
         }
 
         function buyAdd(type) {
@@ -2849,6 +3167,8 @@
 
             $("#addressTypeChoosed").val(type)
             $("#actionType").val('select')
+
+            scrollToTop()
         }
 
         function addListing() {
@@ -2978,6 +3298,147 @@
             const tooltip = document.querySelector(".other_i_tooltip");
             tooltip.style.display = "none";
         }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        const s_own_i = document.getElementById("s_own_i");
+        s_own_i.addEventListener("mouseover", S_OWNshowTooltip);
+        s_own_i.addEventListener("mouseout", S_OWNhideTooltip);
+
+        function S_OWNshowTooltip() {
+            const tooltip = document.querySelector(".s_own_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function S_OWNhideTooltip() {
+            const tooltip = document.querySelector(".s_own_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const s_vot_i = document.getElementById("s_vot_i");
+        s_vot_i.addEventListener("mouseover", S_VOTshowTooltip);
+        s_vot_i.addEventListener("mouseout", S_VOThideTooltip);
+
+        function S_VOTshowTooltip() {
+            const tooltip = document.querySelector(".s_vot_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function S_VOThideTooltip() {
+            const tooltip = document.querySelector(".s_vot_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const s_appo_i = document.getElementById("s_appo_i");
+        s_appo_i.addEventListener("mouseover", S_APOshowTooltip);
+        s_appo_i.addEventListener("mouseout", S_APOhideTooltip);
+
+        function S_APOshowTooltip() {
+            const tooltip = document.querySelector(".s_appo_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function S_APOhideTooltip() {
+            const tooltip = document.querySelector(".s_appo_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const s_other_i = document.getElementById("s_other_i");
+        s_other_i.addEventListener("mouseover", S_OTHshowTooltip);
+        s_other_i.addEventListener("mouseout", S_OTHhideTooltip);
+
+        function S_OTHshowTooltip() {
+            const tooltip = document.querySelector(".s_other_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function S_OTHhideTooltip() {
+            const tooltip = document.querySelector(".s_other_i_tooltip");
+            tooltip.style.display = "none";
+        }
+        // ////////////////////////////////////////////////////
+        const t_own_i = document.getElementById("t_own_i");
+        t_own_i.addEventListener("mouseover", T_OWNshowTooltip);
+        t_own_i.addEventListener("mouseout", T_OWNhideTooltip);
+
+        function T_OWNshowTooltip() {
+            const tooltip = document.querySelector(".t_own_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function T_OWNhideTooltip() {
+            const tooltip = document.querySelector(".t_own_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const t_vot_i = document.getElementById("t_vot_i");
+        t_vot_i.addEventListener("mouseover", T_VOTshowTooltip);
+        t_vot_i.addEventListener("mouseout", T_VOThideTooltip);
+
+        function T_VOTshowTooltip() {
+            const tooltip = document.querySelector(".t_vot_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function T_VOThideTooltip() {
+            const tooltip = document.querySelector(".t_vot_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const t_appo_i = document.getElementById("t_appo_i");
+        t_appo_i.addEventListener("mouseover", T_APOshowTooltip);
+        t_appo_i.addEventListener("mouseout", T_APOhideTooltip);
+
+        function T_APOshowTooltip() {
+            const tooltip = document.querySelector(".t_appo_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function T_APOhideTooltip() {
+            const tooltip = document.querySelector(".t_appo_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const t_other_i = document.getElementById("t_other_i");
+        t_other_i.addEventListener("mouseover", T_OTHshowTooltip);
+        t_other_i.addEventListener("mouseout", T_OTHhideTooltip);
+
+        function T_OTHshowTooltip() {
+            const tooltip = document.querySelector(".t_other_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function T_OTHhideTooltip() {
+            const tooltip = document.querySelector(".t_other_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        // ////////////////////////////////////////////////////
+        const class_i = document.getElementById("class_i");
+        class_i.addEventListener("mouseover", class_showTooltip);
+        class_i.addEventListener("mouseout", class_hideTooltip);
+
+        function class_showTooltip() {
+            const tooltip = document.querySelector(".class_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function class_hideTooltip() {
+            const tooltip = document.querySelector(".class_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const sh_appo_i = document.getElementById("sh_appo_i");
+        sh_appo_i.addEventListener("mouseover", sh_appo_showTooltip);
+        sh_appo_i.addEventListener("mouseout", sh_appo_hideTooltip);
+
+        function sh_appo_showTooltip() {
+            const tooltip = document.querySelector(".sh_appo_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function sh_appo_hideTooltip() {
+            const tooltip = document.querySelector(".sh_appo_i_tooltip");
+            tooltip.style.display = "none";
+        }
 
         const choosedOfficer = function(id) {
             const offValId = $(`.offValId_${id}`).val();
@@ -3019,7 +3480,21 @@
             $('#choosedPersonOfficerId').val(offValId)
             $('#currentTab').val('details')
 
-            console.log(offValadd_id);
+            const requiredFields = document.querySelectorAll('.blankCheck');
+            const requiredFieldsArr = [...requiredFields];
+
+            requiredFieldsArr.forEach(el => {
+                el.classList.remove('validation');
+                el.nextElementSibling.classList.add('d-none');
+            });
+
+            $('#person_bday_id').removeClass('validation')
+            $('#person_bday_id').next('div').addClass('d-none');
+            $(".rsidential-address-info").removeClass('validation')
+            $("#residentialAddrValidation").addClass('d-none')
+            $('#AuthValidationError').addClass('d-none')
+
+            // console.log(offValadd_id);
 
             if (offValadd_id == '') {
                 $("#ChossenResAdd").html('');
@@ -3041,6 +3516,7 @@
             }
 
             addNewOfficer('id');
+            scrollToTop()
         }
 
         const searchBar = function() {
@@ -3091,6 +3567,8 @@
 
         const addNewOfficer = function(id) {
 
+            scrollToTop()
+
             if (id) {
                 $('#officer-tab').toggleClass('active');
                 $('#officer').toggleClass('active show');
@@ -3110,15 +3588,15 @@
             $('#person_bday_id').val('');
             $('#person_fname_id').val('');
             $('#person_lname_id').val('');
-            $('#person_national_id').val('');
+            $('#person_national_id').val('72');
             $('#person_occupation_id').val('');
 
             $('#ChossenResAdd_id').val('');
-            $('#person_aqone_id').val('');
+            $('#person_aqone_id').val("Mother’s Maiden Name");
             $('#person_aqone_ans_id').val('');
-            $('#person_aqtwo_id').val('');
+            $('#person_aqtwo_id').val("Father's Forename");
             $('#person_aqtwo_ans_id').val('');
-            $('#person_aqthree_id').val('');
+            $('#person_aqthree_id').val('Town Of Birth');
             $('#person_aqthree_ans_id').val('');
 
             $('#choosedPersonOfficerId').val('')
@@ -3126,6 +3604,22 @@
 
             $(".res_choose_another_cl").addClass('d-none');
             $(".res_choose_one_cl").removeClass('d-none');
+
+            // Making the add section validagion marking free.
+            const requiredFields = document.querySelectorAll('.blankCheck');
+            const requiredFieldsArr = [...requiredFields];
+
+            requiredFieldsArr.forEach(el => {
+                el.classList.remove('validation');
+                el.nextElementSibling.classList.add('d-none');
+            });
+
+            $('#person_bday_id').removeClass('validation')
+            $('#person_bday_id').next('div').addClass('d-none');
+            $(".rsidential-address-info").removeClass('validation')
+            $("#residentialAddrValidation").addClass('d-none')
+            $('#AuthValidationError').addClass('d-none')
+
         }
 
         const consentSection = function() {
@@ -3161,10 +3655,29 @@
             }
         }
 
+        //To convert the value to decimal point
+        var conertToDecimal = function(ths) {
+            if (ths.val() === '') {
+                ths.val('1.00');
+                return false
+            }
+            var num = parseFloat(ths.val());
+            var cleanNum = num.toFixed(2);
+            ths.val(cleanNum);
+        };
+
+        // Only for number input.
+        function number_field($this) {
+            $this.value = $this.value
+                .replace(/[^0-9.]/g, "")
+                .replace(/(\..*?)\..*/g, "$1");
+        }
+
         // THE NEXT BUTTON FUNCTIONS STARTS
         const checkConsentOrNot = function() {
+            scrollToTop()
 
-            // Details to Officer Tab Movement.
+            // Details to Officer Tab Movement starts.
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'details') {
 
                 const ChossenResAdd_id = $('#ChossenResAdd_id').val();
@@ -3188,15 +3701,72 @@
                 const requiredFieldsArr = [...requiredFields];
 
                 let validation = 0;
+
+                // Date validation section starts--------------------------------->
+                // Get the selected date from the input field
+                var selectedDate = new Date(person_bday);
+
+                console.log(selectedDate)
+                // Get the current date
+                var currentDate = new Date();
+
+                // Calculate the difference in milliseconds
+                var timeDifference = currentDate - selectedDate;
+
+                // Convert milliseconds to days
+                // var daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+                // Convert milliseconds to Years
+                var yearsDifference = timeDifference / (1000 * 60 * 60 * 24 * 365.25);
+
+                if (selectedDate == 'Invalid Date' || yearsDifference < 16) {
+                    $('#person_bday_id').addClass('validation')
+                    $('#person_bday_id').next('div').removeClass('d-none');
+
+                    validation++;
+                } else {
+
+                    $('#person_bday_id').removeClass('validation')
+                    $('#person_bday_id').next('div').addClass('d-none');
+                }
+                // Date validation section ends-------------------------
+
+                // Authentication Section Validation starts------------------------>
+                if ($("#authenticationSection").hasClass('d-none') !== true) {
+                    if (person_aqone === person_aqtwo || person_aqtwo === person_aqthree || person_aqthree ===
+                        person_aqone) {
+                        $('#AuthValidationError').removeClass('d-none')
+                        validation++;
+                    } else {
+                        $('#AuthValidationError').addClass('d-none')
+                    }
+                }
+                // Authentication Section Validation ends---------------------------
+
+                // Residential address section validation starts-------------------->
+                if (ChossenResAdd_id === '') {
+                    $(".rsidential-address-info").addClass('validation')
+
+                    $("#residentialAddrValidation").removeClass('d-none')
+                    validation++;
+                } else {
+                    $(".rsidential-address-info").removeClass('validation')
+                    $("#residentialAddrValidation").addClass('d-none')
+                }
+                // Residential address section validation ends--------------------
+
+                // Validation Section for blank fields starts------------------->
                 requiredFieldsArr.forEach(el => {
                     if (el.value === '') {
                         el.classList.add('validation');
-
+                        el.nextElementSibling.classList.remove('d-none');
                         return validation++;
                     } else {
                         el.classList.remove('validation');
+                        el.nextElementSibling.classList.add('d-none');
                     }
                 });
+                // Validation Section for blank fields ends------------------------
 
                 if (validation === 0) {
                     $.ajax({
@@ -3221,6 +3791,8 @@
                             person_aqthree_ans
                         },
                         success: function(response) {
+                            console.log(response);
+                            console.log(response['id']);
                             $('#details-tab').removeClass('active');
                             $('#details').removeClass('active show');
 
@@ -3228,16 +3800,31 @@
                             $('#addressing').addClass('active show');
 
                             $('#currentTab').val('addressing')
+                            $("#choosedPersonOfficerId").val(response['id'])
                         },
                     });
                 }
                 return false
             }
+            // Details to Officer Tab Movement ends.
 
-            // CHECKING THE LAST SECTION BEFORE DATABASE ENTRY FROM ADDRESSING
+            // From Addressing to Forward Tabs starts====================>
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'addressing') {
+
+                if ($(".service_add_choosed").hasClass('d-none') === false && $("#ChossenServiceAdd_id").val() === '') {
+                    $(".service_add_choosed").addClass('validation')
+                    $("#serviceAddrValidation").removeClass('d-none')
+
+                    return false
+                } else {
+                    $(".service_add_choosed").removeClass('validation')
+                    $("#serviceAddrValidation").addClass('d-none')
+                }
+
+
                 if ($("#nature-control-tab").closest('li').hasClass('d-none') && $("#share-holder-tab").closest('li')
                     .hasClass('d-none')) {
+
                     databaseEntry();
                     return false
                 }
@@ -3263,9 +3850,20 @@
                 }
                 return false
             }
+            // From Addressing to Forward Tab or Submit ends====================
 
-            // CHECKING THE LAST SECTION BEFORE DATABASE ENTRY FROM nature-control
+
+            // From NoC to Forward Tabs starts==========================>
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'nature-control') {
+
+                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&
+                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No') {
+                    $("#NOC_validation_error").removeClass('d-none')
+                    return false
+                }
+                $("#NOC_validation_error").addClass('d-none')
+
                 if ($("#share-holder-tab").closest('li').hasClass('d-none')) {
                     databaseEntry();
                     return false
@@ -3283,19 +3881,46 @@
                 }
                 return false
             }
+            // From NoC to Forward Tabs ends==========================
 
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'share-holder') {
+
+                // if($("#positionSelected").val() === ''){
+
+                //     return false
+                // }
+
                 if ($("#shareholderLandingPage").hasClass('d-none')) {
                     databaseEntry();
+                    return false
+                }
+
+                const sh_quantity = $("#sh_quantity").val()
+                const sh_currency = $("#sh_currency").val()
+                const sh_pps = $("#sh_pps").val()
+
+                const requiredFields = document.querySelectorAll('.sh_validation');
+                const requiredFieldsArr = [...requiredFields];
+
+                let validation = 0;
+                requiredFieldsArr.forEach(el => {
+                    if (el.value === '' || el.value === '0') {
+                        el.classList.add('validation');
+                        el.nextElementSibling.classList.remove('d-none');
+                        return validation++
+                    } else {
+                        el.classList.remove('validation');
+                        el.nextElementSibling.classList.add('d-none');
+                    }
+                });
+
+                if (validation > 0) {
                     return false
                 }
 
                 $("#shareholderLandingPage").addClass('d-none')
                 $("#shareholderListing").removeClass('d-none')
 
-                const sh_quantity = $("#sh_quantity").val()
-                const sh_currency = $("#sh_currency").val()
-                const sh_pps = $("#sh_pps").val()
 
                 $("#quantityVal").html(sh_quantity)
                 $("#pps").html(sh_pps)
@@ -3366,12 +3991,16 @@
 
             $("#sh_quantity").val(1)
             $("#sh_currency").val('GBP')
-            $("#sh_pps").val(1)
+            $("#sh_pps").val('1.00')
         }
 
         function shareholderTab() {
             $('.shareholderLinksCls').toggleClass('d-none');
             $('#authenticationSection').toggleClass('d-none');
+
+            $('#person_aqone_ans_id').toggleClass('blankCheck');
+            $('#person_aqtwo_ans_id').toggleClass('blankCheck');
+            $('#person_aqthree_ans_id').toggleClass('blankCheck');
         }
 
         function pscTab() {
@@ -3484,6 +4113,7 @@
 
                 $(".buyNowBtn").addClass('d-none')
                 $(".service_add_choosed").addClass('d-none')
+                $("#ChossenServiceAdd_id").removeClass('totalBlankCheck')
 
                 $('#ChossenForwarding_Add_id').val(id)
                 $("#ChossenServiceAdd_id").val('')
@@ -3494,6 +4124,7 @@
             $("#actionType").val('')
             $("#detailsTabAddList_id").addClass('d-none');
             $("#addressTypeChoosed").val('')
+            scrollToTop()
         }
 
         function removeBuy() {
