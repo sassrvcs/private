@@ -25,9 +25,9 @@ class CheckoutStepController extends Controller
         protected CheckoutService $checkoutService
     ) { }
 
-    /** 
+    /**
      * Review company name and selected package
-     * @Checkout step -> 2  
+     * @Checkout step -> 2
     */
     public function reviewCompanyPackage()
     {
@@ -45,8 +45,9 @@ class CheckoutStepController extends Controller
         $updatedValue   = $this->cartService->searchAndUpdateCompany($request->validated());
         $sessionCart    = $this->cartService->getCartViaSession();
         $addonServices  = $this->addonService->index();
+        $total_amount =0;
         // dump($sessionCart);
-        return view('frontend.checkout_steps.addon_services', compact('sessionCart', 'addonServices'));
+        return view('frontend.checkout_steps.addon_services', compact('sessionCart', 'addonServices','total_amount'));
     }
 
     /**
@@ -61,7 +62,7 @@ class CheckoutStepController extends Controller
         $sessionCart    = $this->cartService->getCartViaSession();
         $package        = $this->packageService->index(end($sessionCart)['package_name']);
         $countries      = $this->countryService->countryList();
-        
+
         $package = $package[0] ?? '';
         if(count($sessionCart) > 1) {
             foreach (end($sessionCart)['addon_service'] as $addonService) {
@@ -83,7 +84,7 @@ class CheckoutStepController extends Controller
 
         return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user'));
     }
-    
+
     /**
      * Register a new customer from checkout
      * @param Request $request

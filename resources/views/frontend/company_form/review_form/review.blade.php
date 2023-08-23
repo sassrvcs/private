@@ -53,7 +53,8 @@ ul.ef-16-benefits-list {
                                     <span>
                                         <a href="{{ route('review.create', ['order' => $_GET['order'] ?? '', 'section' => 'Review', 'step' => 'download']) }}">Download Summary </a>
                                     </span>
-                                    <button class="btn">Save & Continue</button>
+
+                                  <a href="{{ route('delivery-partner.index', ['order' => $_GET['order'] ?? '', 'section' => 'Deliver_Part', 'step' => 'download']) }}"><button class="btn">Save & Continue</button></a>
                                 </div>
                             </div>
                             <div class="review-panel">
@@ -85,7 +86,7 @@ ul.ef-16-benefits-list {
                                     <h3>Forwarding Address</h3>
                                     <ul>
                                         <li>
-                                            <strong>Address : </strong> 
+                                            <strong>Address : </strong>
                                             {{ $review->officeAddressWithForwAddress->house_number ?? '' }},
                                             {{ $review->officeAddressWithForwAddress->street ?? '' }},
                                             {{ $review->officeAddressWithForwAddress->locality ?? '' }},
@@ -101,7 +102,7 @@ ul.ef-16-benefits-list {
                                     <h3>Registered Office</h3>
                                     <ul>
                                         <li>
-                                            <strong>Address : </strong> 
+                                            <strong>Address : </strong>
                                             {{ $review->officeAddressWithForwAddress->house_number ?? '' }},
                                             {{ $review->officeAddressWithForwAddress->street ?? '' }},
                                             {{ $review->officeAddressWithForwAddress->locality ?? '' }},
@@ -135,7 +136,7 @@ ul.ef-16-benefits-list {
                                     <li><strong>Service Address : </strong>105 Krome Avemiami FL 33185 3700USA</li>
                                 </ul>
                                 <ul>
-                                    <li><strong>Name Of Control : </strong> Lorem ipsum dolor sit amet, consectetur adipiscing 
+                                    <li><strong>Name Of Control : </strong> Lorem ipsum dolor sit amet, consectetur adipiscing
                                         elit. Fusce nec odio fringilla, finibus leo a, elementum neque.</li>
                                 </ul>
                                 <button class="btn">Edit</button>
@@ -187,7 +188,7 @@ ul.ef-16-benefits-list {
                             <button class="btn">Save &amp; Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}" alt=""></button>
                         </div>
                     </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -196,20 +197,5 @@ ul.ef-16-benefits-list {
 </section>
 @endsection
 
-@section('script')
-<script>
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     const dontNeedButton = document.querySelector('.btn-don-need');
-    //     if (dontNeedButton) {
-    //         dontNeedButton.addEventListener('click', function() {
-    //             // alert("You have indicated that you don't need a bank account.");
-    //             $('#business-essential-store').submit();
-    //         });
-    //     }
-    // });
 
-    // $(document).ready(function () {
-        
-    // });
-</script>
-@endsection
+

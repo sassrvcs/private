@@ -115,7 +115,7 @@
                                                     {{-- <input type="text" class="form-control" name="companie_name" id="companie_name" value="{{ (isset($companyFormationStep->companie_name) && !empty($companyFormationStep->companie_name)) ? strtoupper($companyFormationStep->companie_name) : strtoupper($orders->company_name ?? '' ) }}" oninput="this.value = this.value.toUpperCase();"> --}}
                                                     <input type="text" class="form-control" name="companie_name" id="companie_name"
                                                         value="{{ old('companie_name', strtoupper($companyFormationStep->companie_name ?? ($orders->company_name ?? ''))) }}"
-                                                        oninput="this.value = this.value.toUpperCase();">
+                                                        oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
                                                     <button type="submit" class="btn check-company">Check another name</button>
                                                 </div>
                                             </div>
@@ -134,7 +134,7 @@
                                                     <div class="sensitive-word">
                                                         <h5 id="is_sensitive_word"> </h5>
                                                         <div class="sensitive-word-guidance"> </div>
-                                                    </div> 
+                                                    </div>
                                                 </div>
 
                                                 <div class="w-row ef-supporting-doc-attachment-wrapper" style="clear:both">
@@ -166,7 +166,7 @@
                                                     <div class="sensitive-word">
                                                         <p> You need permission from <strong class="company-name"></strong> to use this company name.</p>
                                                         <p> Please obtain permission and upload file here.</p>
-                                                    </div> 
+                                                    </div>
                                                 </div>
                                                 <input type="hidden" name="same_as_name" id='same_as_name' value="">
                                                 <div class="w-row ef-supporting-doc-attachment-wrapper" style="clear:both">
@@ -215,7 +215,7 @@
                                                         @endif
                                                     @endforeach
                                                 </select>
-                                                
+
                                                 @error('jurisdiction_id')
                                                     <div class="error" style="color:red;">{{ $message }}</div>
                                                 @enderror
@@ -250,7 +250,7 @@
                                                 <select class="form-select selected_sic @error('sic_code') is-invalid @enderror" name="sic_code[]" id="multiple-select-field" data-placeholder="Choose anything" multiple>
                                                     @if( isset($companyFormationStep->sicCodes) )
                                                         @foreach($companyFormationStep->sicCodes as $key => $value)
-                                                            <option selected value="{{ $value->id }}">{{ $value->id }} - {{ $value->name }}</option>
+                                                            <option selected value="{{ $value->code }} - {{ $value->name }}">{{ $value->id }} - {{ $value->name }}</option>
                                                         @endforeach
                                                     @else
                                                         <option value="">None Selected</option>
@@ -302,11 +302,11 @@
             // Reference to the SICDetails and SICCodes arrays
             var sicDetails = "{{ json_encode($SICDetails) }}";
             var sicCodes = {!! htmlspecialchars_decode(json_encode($SICCodes)) !!};
-            
+
             // Reference to the two dropdowns
             var sicDetailsDropdown = $('#sic_name');
             var selectedSICDropdown = $('#multiple-select-field');
-            
+
             // Event listener for SICDetails dropdown change
             sicDetailsDropdown.change(function() {
                 var selectedSICId = $(this).val();
@@ -331,7 +331,18 @@
 
         $('.save-continue').click(function(e) {
             e.preventDefault();
+            checkCompanieAvailabality();
             // var companyType = $('#company_type').val();
+            $sic_data = $('#multiple-select-field').val();
+            if($sic_data.length==0){
+                console.log('empty');
+                $('#multiple-select-field').addClass('is-invalid');
+                $('#multiple-select-field').parent().append('<div id="error_sic" style="color:red;"> *SIC Code is requied</div>');
+                return;
+            }else{
+                $('#error_sic').remove();
+                $('#multiple-select-field').removeClass('is-invalid');
+            }
 
             var companyName = $('#companie_name').val();
             if (companyName.indexOf('LTD') !== -1 || companyName.indexOf('LIMITED') !== -1) {
@@ -385,7 +396,7 @@
             e.preventDefault();
             checkCompanieAvailabality();
         });
-        
+
         const checkCompanieAvailabality = async (sensetive = false) => {
 
             var companyName = $('#companie_name').val();
@@ -470,7 +481,7 @@
 
         // @todo Need to check implementession and add view button if file exists
         $(".doc-attach").click(function() {
-            
+
             const fileInput = document.getElementById("file-upload-sensitive");
             const fileInputSameAs = document.getElementById("file-upload-same-as-name");
             const allowedFileTypes = ['pdf'];
@@ -560,7 +571,7 @@
                 $('.doc-attach').prop('disabled', false).text('Attach');
             }
         });
-        
+
         // $(".doc-attach").click(function() {
         //     const fileInput = $(".file-upload")[0];
         //     $('.doc-attach').text('Attaching...');

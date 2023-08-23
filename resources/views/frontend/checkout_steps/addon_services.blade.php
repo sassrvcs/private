@@ -15,7 +15,7 @@
                 <li><a>Checkout</a></li>
             </ul>
             </div>
-            
+
             <div class="call-info aos-init aos-animate" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500" data-aos-once="true">
                 <div class="icon-container">
                     <img src="https://formationshunt.co.uk/wp-content/themes/formationshunt/assets/images/ic_baseline-phone.svg">
@@ -35,7 +35,7 @@
            <div class="checkout-wrapper">
               <div class="checkout-notices-wrapper">
                  <div class="checkout-message" role="alert">
-                    <p>“{{ end($sessionCart)['package_name'] ?? '' }}” has been added to your cart.</p> <a href="#" tabindex="1" class="theme-btn-primary con-shopping-btn">Continue shopping</a> 
+                    <p>“{{ end($sessionCart)['package_name'] ?? '' }}” has been added to your cart.</p> <a href="#" tabindex="1" class="theme-btn-primary con-shopping-btn">Continue shopping</a>
                  </div>
               </div>
               {{-- @dump($sessionCart) --}}
@@ -93,6 +93,7 @@
                                        <thead>
                                           <tr>
                                              <th class="product-name" colspan="3" width="75%">Item</th>
+
                                              <th>&nbsp;</th>
                                              <th class="product-total text-end">Price</th>
                                           </tr>
@@ -100,11 +101,13 @@
                                        <tbody id="item-tbody">
                                           <tr class="cart_item">
                                              <td class="product-name" colspan="3">
-                                                {{ end($sessionCart)['package_name'] ?? '' }}&nbsp;                                                                    
+
+                                                {{ end($sessionCart)['package_name'] ?? '' }}&nbsp;
+                                                {!!end($sessionCart)['package_description'] ?? '' !!}
                                              </td>
                                              <td class="text-end">&nbsp;</td>
                                              <td class="product-total text-end">
-                                                <span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ end($sessionCart)['price'] ?? '0' }}</bdi></span>                    
+                                                <span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ end($sessionCart)['price'] ?? '0' }}</bdi></span>
                                              </td>
                                           </tr>
 
@@ -124,12 +127,12 @@
                                           <tr class="cart-subtotal text-end">
                                              <td colspan="3"></td>
                                              <th class="text-end">Net:</th>
-                                             <td><span class="amount net"><bdi><span class="Price-currencySymbol">£</span>17.98</bdi></span></td>
+                                             <td><span class="amount net"><bdi><span class="Price-currencySymbol">£</span></bdi></span></td>
                                           </tr>
                                           <tr class="tax-rate tax-rate-vat-1 text-end">
                                              <td colspan="3"></td>
                                              <th class="text-end">VAT:</th>
-                                             <td><span class="amount vat"><span class="Price-currencySymbol">£</span>3.60</span></td>
+                                             <td><span class="amount vat"><bdi><span class="Price-currencySymbol">£</span></bdi></span></td>
                                           </tr>
 
                                           <tr class="order-total text-end">
@@ -220,7 +223,7 @@
                // Success: Handle the response (e.g., show a success message, update the cart UI)
                console.log(response);
                console.log(rowData);
-               
+
                $(`.row_${rowData}`).remove();
                calculateTotal();
             })
@@ -247,13 +250,19 @@
                // Add the price to the total
                total += price;
             });
+            total_net = parseFloat(total);
+            total_vat = (parseFloat(total)*20)/100;
 
-            
-            total = parseFloat(total) + parseFloat(netWithoutSymbol) + parseFloat(vatWithoutSymbol);
+
 
             console.log(total, netWithoutSymbol, vatWithoutSymbol);
             // Update the total amount in the HTML
+            $('.cart-subtotal .amount bdi').text('£' + total_net.toFixed(2));
+            $('.tax-rate .amount bdi').text('£' + total_vat.toFixed(2));
+
+            total =  parseFloat(total_net) + parseFloat(total_vat);
             $('.order-total .amount bdi').text('£' + total.toFixed(2));
+
          }
 
          calculateTotal();

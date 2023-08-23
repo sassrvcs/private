@@ -38,7 +38,7 @@
                                 <div class="border border-success p-2" style="border-color:#87CB28 !important;">
                                     <table class="table table-striped">
                                         <tbody>
-                                            <tr class="cart-subtotal">
+                                            <tr class="cart-subtotal d-none">
                                                 <th>Price</th>
                                                 <td class="text-end">
                                                     <span class="woocommerce-Price-amount amount package-price"><bdi><span
@@ -61,13 +61,18 @@
                                             <tr class="tax-rate tax-rate-vat-1">
                                                 <th>Net</th>
                                                 <td class="text-end"><span class="woocommerce-Price-amount amount net">
-                                                    <span class="woocommerce-Price-currencySymbol">£</span>17.98</span>
+                                                    <bdi>
+                                                    <span class="woocommerce-Price-currencySymbol">£</span>
+                                                    </bdi>
+                                                    </span>
                                                 </td>
                                             </tr>
                                             <tr class="tax-rate tax-rate-vat-1">
                                                 <th>VAT</th>
                                                 <td class="text-end"><span class="woocommerce-Price-amount amount vat">
-                                                    <span class="woocommerce-Price-currencySymbol">£</span>3.60</span>
+                                                    <bdi>
+                                                    <span class="woocommerce-Price-currencySymbol">£</span>
+                                                    </bdi></span>
                                                 </td>
                                             </tr>
                                             <tr class="order-total">
@@ -149,7 +154,7 @@
                                             </div>
                                         </fieldset>
                                     @endguest
-                                    
+
                                     <fieldset class="border p-3">
                                         <legend class="float-none w-auto p-2">Billing Details</legend>
                                         <div class="woocommerce-billing-fields">
@@ -264,7 +269,7 @@
                                                         @enderror
                                                     </span>
                                                 </div>
-                                                
+
                                                 <div class="form-row col-md-12 form-group">
                                                     <label class="">Locality</label>
                                                     <span class="woocommerce-input-wrapper">
@@ -438,13 +443,19 @@
                     // Add the price to the total
                     total += price;
                 });
-                    
-                total = total + packagePrice + netPrice + vatPrice;
 
-                // console.log(netPrice, vatPrice, packagePrice, total);
+                total_net = parseFloat(total);
+                total_vat = (parseFloat(total)*20)/100;
 
-                // Update the total amount in the HTML
-                $('.order-total .amount bdi').text('£' + total.toFixed(2));
+
+
+
+            // Update the total amount in the HTML
+            $('.tax-rate .net bdi').text('£' + total_net.toFixed(2));
+            $('.tax-rate .vat bdi').text('£' + total_vat.toFixed(2));
+
+            total =  parseFloat(total_net) + parseFloat(total_vat);
+            $('.order-total .amount bdi').text('£' + total.toFixed(2));
                 $("#all_total_amount").val(total.toFixed(2));
                 $("#total_final_amount").val(total.toFixed(2));
             }

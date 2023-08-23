@@ -510,5 +510,395 @@ return [
                 "name" => 'Growing of cereals (except rice), leguminous crops and oil seeds'
             ]
             ],
+        "6" => [
+            '104' => [
+                "id"   => "93290",
+                "name" => 'Other amusement and recreation activities n.e.c.'
+            ],
+            '105' => [
+                "id"   => "93210",
+                "name" => 'Activities of amusement parks and theme parks'
+            ],
+            '106' => [
+                "id"   => "93199",
+                "name" => 'Other sports activities'
+            ],
+            '107' => [
+                "id"   => "93191",
+                "name" => 'Activities of racehorse owners'
+            ],
+            '108' => [
+                "id"   => "93130",
+                "name" => 'Fitness facilities'
+            ],
+            '109' => [
+                "id"   => "93120",
+                "name" => 'Activities of sport clubs'
+            ],
+            '110' => [
+                "id"   => "93110",
+                "name" => 'Operation of sports facilities'
+            ],
+            '111' => [
+                "id"   => "92000",
+                "name" => 'Gambling and betting activities'
+            ],
+            '112' => [
+                "id"   => "91040",
+                "name" => 'Botanical and zoological gardens and nature reserves activities'
+            ],
+            '113' => [
+                "id"   => "91030",
+                "name" => 'Operation of historical sites and buildings and similar visitor attractions'
+            ],
+            '114' => [
+                "id"   => "91020",
+                "name" => 'Museums activities'
+            ],
+            '115' => [
+                "id"   => "91012",
+                "name" => 'Archives activities'
+            ],
+            '116' => [
+                "id"   => "91011",
+                "name" => 'Library activities'
+            ],
+            '117' => [
+                "id"   => "90040",
+                "name" => 'Operation of arts facilities'
+            ],
+            '118' => [
+                "id"   => "90030",
+                "name" => 'Artistic creation'
+            ],
+            '119' => [
+                "id"   => "90020",
+                "name" => 'Support activities to performing arts'
+            ],
+            '120' => [
+                "id"   => "90010",
+                "name" => 'Performing arts'
+            ]
+        ],
+        "7" => [
+            '121' => [
+                "id"   => "43999",
+                "name" => 'Other specialised construction activities n.e.c.'
+            ],
+            '122' => [
+                "id"   => "43991",
+                "name" => 'Scaffold erection'
+            ],
+            '123' => [
+                "id"   => "43910",
+                "name" => 'Roofing activities'
+            ],
+            '124' => [
+                "id"   => "43390",
+                "name" => 'Other building completion and finishing'
+            ],
+            '125' => [
+                "id"   => "43342",
+                "name" => 'Glazing'
+            ],
+            '126' => [
+                "id"   => "43341",
+                "name" => 'Painting'
+            ],
+            '127' => [
+                "id"   => "43330",
+                "name" => 'Floor and wall covering'
+            ],
+            '128' => [
+                "id"   => "43320",
+                "name" => 'Joinery installation'
+            ],
+            '129' => [
+                "id"   => "43310",
+                "name" => 'Plastering'
+            ],
+            '130' => [
+                "id"   => "43290",
+                "name" => 'Other construction installation'
+            ],
+            '131' => [
+                "id"   => "43220",
+                "name" => 'Plumbing, heat and air-conditioning installation'
+            ],
+            '132' => [
+                "id"   => "43210",
+                "name" => 'Electrical installation'
+            ],
+            '133' => [
+                "id"   => "43130",
+                "name" => 'Test drilling and boring'
+            ],
+            '134' => [
+                "id"   => "43120",
+                "name" => 'Site preparation'
+            ],
+            '135' => [
+                "id"   => "43110",
+                "name" => 'Demolition'
+            ],
+            '136' => [
+                "id"   => "42990",
+                "name" => 'Construction of other civil engineering projects n.e.c.'
+            ],
+            '137' => [
+                "id"   => "42910",
+                "name" => 'Construction of water projects'
+            ],
+            '138' => [
+                "id"   => "42220",
+                "name" => 'Construction of utility projects for electricity and telecommunications'
+            ],
+            '139' => [
+                "id"   => "42210",
+                "name" => 'Construction of utility projects for fluids'
+            ],
+            '140' => [
+                "id"   => "42130",
+                "name" => 'Construction of bridges and tunnels'
+            ],
+            '141' => [
+                "id"   => "42120",
+                "name" => 'Construction of railways and underground railways'
+            ],
+            '142' => [
+                "id"   => "42110",
+                "name" => 'Construction of roads and motorways'
+            ],
+            '143' => [
+                "id"   => "41202",
+                "name" => 'Construction of domestic buildings'
+            ],
+            '144' => [
+                "id"   => "41201",
+                "name" => 'Construction of commercial buildings'
+            ],
+            '145' => [
+                "id"   => "41100",
+                "name" => 'Development of building projects'
+            ]
+        ],
+        "8" => [
+            '146' => [
+                "id"   => "85600",
+                "name" => 'Educational support services'
+            ],
+            '147' => [
+                "id"   => "85590",
+                "name" => 'Other education n.e.c.'
+            ],
+            '148' => [
+                "id"   => "85530",
+                "name" => 'Driving school activities'
+            ],
+            '149' => [
+                "id"   => "85520",
+                "name" => 'Cultural education'
+            ],
+            '150' => [
+                "id"   => "85510",
+                "name" => 'Sports and recreation education'
+            ],
+            '151' => [
+                "id"   => "85422",
+                "name" => 'Post-graduate level higher education'
+            ],
+            '152' => [
+                "id"   => "85421",
+                "name" => 'First-degree level higher education'
+            ],
+            '153' => [
+                "id"   => "85410",
+                "name" => 'Post-secondary non-tertiary education'
+            ],
+            '154' => [
+                "id"   => "85320",
+                "name" => 'Technical and vocational secondary education'
+            ],
+            '155' => [
+                "id"   => "85310",
+                "name" => 'General secondary education'
+            ],
+            '156' => [
+                "id"   => "85200",
+                "name" => 'Primary education'
+            ],
+            '157' => [
+                "id"   => "85100",
+                "name" => 'Pre-primary education'
+            ]
+        ],
+        "9" => [
+            '158' => [
+                "id"   => "35300",
+                "name" => 'Steam and air conditioning supply'
+            ],
+            '159' => [
+                "id"   => "35230",
+                "name" => 'Trade of gas through mains'
+            ],
+            '160' => [
+                "id"   => "35220",
+                "name" => 'Distribution of gaseous fuels through mains'
+            ],
+            '161' => [
+                "id"   => "35210",
+                "name" => 'Manufacture of gas'
+            ],
+            '162' => [
+                "id"   => "35140",
+                "name" => 'Trade of electricity'
+            ],
+            '163' => [
+                "id"   => "35130",
+                "name" => 'Distribution of electricity'
+            ],
+            '164' => [
+                "id"   => "35120",
+                "name" => 'Transmission of electricity'
+            ],
+            '165' => [
+                "id"   => "35110",
+                "name" => 'Production of electricity'
+            ]
+        ],
+        "10" => [
+            '166' => [
+                "id"   => "66300",
+                "name" => 'Fund management activities'
+            ],
+            '167' => [
+                "id"   => "66290",
+                "name" => 'Other activities auxiliary to insurance and pension funding'
+            ],
+            '168' => [
+                "id"   => "66220",
+                "name" => 'Activities of insurance agents and brokers'
+            ],
+            '169' => [
+                "id"   => "66210",
+                "name" => 'Risk and damage evaluation'
+            ],
+            '170' => [
+                "id"   => "66190",
+                "name" => 'Activities auxiliary to financial intermediation n.e.c.'
+            ],
+            '171' => [
+                "id"   => "66120",
+                "name" => 'Security and commodity contracts dealing activities'
+            ],
+            '172' => [
+                "id"   => "66110",
+                "name" => 'Administration of financial markets'
+            ],
+            '173' => [
+                "id"   => "65300",
+                "name" => 'Pension funding'
+            ],
+            '174' => [
+                "id"   => "65202",
+                "name" => 'Non-life reinsurance'
+            ],
+            '175' => [
+                "id"   => "65201",
+                "name" => 'Life reinsurance'
+            ],
+            '176' => [
+                "id"   => "65120",
+                "name" => 'Non-life insurance'
+            ],
+            '177' => [
+                "id"   => "65110",
+                "name" => 'Life insurance'
+            ],
+            '178' => [
+                "id"   => "64999",
+                "name" => 'Financial intermediation not elsewhere classified'
+            ],
+            '179' => [
+                "id"   => "64992",
+                "name" => 'Factoring'
+            ],
+            '180' => [
+                "id"   => "64991",
+                "name" => 'Security dealing on own account'
+            ],
+            '181' => [
+                "id"   => "64929",
+                "name" => 'Other credit granting n.e.c.'
+            ],
+            '182' => [
+                "id"   => "64922",
+                "name" => 'Activities of mortgage finance companies'
+            ],
+            '183' => [
+                "id"   => "64921",
+                "name" => 'Credit granting by non-deposit taking finance houses and other specialist consumer credit grantors'
+            ],
+            '184' => [
+                "id"   => "64910",
+                "name" => 'Financial leasing'
+            ],
+            '185' => [
+                "id"   => "64306",
+                "name" => 'Activities of real estate investment trusts'
+            ],
+            '186' => [
+                "id"   => "64305",
+                "name" => 'Activities of property unit trusts'
+            ],
+            '187' => [
+                "id"   => "64304",
+                "name" => 'Activities of open-ended investment companies'
+            ],
+            '188' => [
+                "id"   => "64303",
+                "name" => 'Activities of venture and development capital companies'
+            ],
+            '189' => [
+                "id"   => "64302",
+                "name" => 'Activities of unit trusts'
+            ],
+            '190' => [
+                "id"   => "64301",
+                "name" => 'Activities of investment trusts'
+            ],
+            '191' => [
+                "id"   => "64209",
+                "name" => 'Activities of other holding companies n.e.c.'
+            ],
+            '192' => [
+                "id"   => "64205",
+                "name" => 'Activities of financial services holding companies'
+            ],
+            '193' => [
+                "id"   => "64204",
+                "name" => 'Activities of distribution holding companies'
+            ],
+            '194' => [
+                "id"   => "64202",
+                "name" => 'Activities of production holding companies'
+            ],
+            '195' => [
+                "id"   => "64201",
+                "name" => 'Activities of agricultural holding companies'
+            ],
+            '196' => [
+                "id"   => "64192",
+                "name" => 'Building societies'
+            ],
+            '197' => [
+                "id"   => "64191",
+                "name" => 'Banks'
+            ],
+            '198' => [
+                "id"   => "64110",
+                "name" => 'Central banking'
+            ]
+        ],
     ]
 ];

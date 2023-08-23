@@ -29,33 +29,34 @@ class CompanyFormService
                 'step_name'         => $request['step_name'],
             ]);
 
+
             if($company) {
                 // Delete previous data before insert data into database
-                // if($request['sic_code']) {
-                //     SicCode::where('companie_id', $company->id)->delete();
-                // }
-
+                if($request['sic_code']) {
+                    SicCode::where('companie_id', $company->id)->delete();
+                }
                 foreach( $request['sic_code'] as $sicCode ) {
+
                     if (strpos($sicCode, " - ") !== false) {
                         list($sicCode, $sicName) = explode(" - ", $sicCode, 2);
 
-                        $existingSic = SicCode::where('companie_id', $company->id)
-                            ->where('code', $sicCode)
-                            ->first();
-
-                        if ($existingSic) {
-                            // Update existing record
-                            $existingSic->update([
-                                'name' => $sicName,
-                            ]);
-                        } else {
+                        // $existingSic = SicCode::where('companie_id', $company->id)
+                        //     ->where('code', $sicCode)
+                        //     ->first();
+                        // dd($existingSic);
+                        // if ($existingSic) {
+                        //     // Update existing record
+                        //     $existingSic->update([
+                        //         'name' => $sicName,
+                        //     ]);
+                        // } else {
                             // Insert new record
                             SicCode::insert([
-                                'name'       => $sicName,   
+                                'name'       => $sicName,
                                 'companie_id'=> $company->id,
                                 'code'       => $sicCode,
                             ]);
-                        }
+                        // }
 
                         // Insert new data after deleteing
                     }
@@ -82,7 +83,7 @@ class CompanyFormService
             return $company;
         });
     }
-    
+
     public function updateOrder($request)
     {
         return DB::transaction(function () {
@@ -139,4 +140,6 @@ class CompanyFormService
     //         return $model;
     //     });
     // }
+
+   
 }
