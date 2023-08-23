@@ -3060,6 +3060,7 @@
                 $("#detailsTabAddList_id").removeClass('d-none');
             }
 
+            scrollToTop()
         }
 
         function gotToBusinessAddressPage() {
@@ -3610,6 +3611,7 @@
 
         // THE NEXT BUTTON FUNCTIONS STARTS
         const checkConsentOrNot = function() {
+            scrollToTop()
 
             // Details to Officer Tab Movement starts.
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'details') {
@@ -3922,7 +3924,7 @@
 
             $("#sh_quantity").val(1)
             $("#sh_currency").val('GBP')
-            $("#sh_pps").val(1)
+            $("#sh_pps").val('1.00')
         }
 
         function shareholderTab() {
@@ -4055,6 +4057,7 @@
             $("#actionType").val('')
             $("#detailsTabAddList_id").addClass('d-none');
             $("#addressTypeChoosed").val('')
+            scrollToTop()
         }
 
         function removeBuy() {
