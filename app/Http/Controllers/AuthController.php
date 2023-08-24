@@ -242,11 +242,11 @@ class AuthController extends Controller
             $address->save();
 
             if(isset($request->cdabn)){
-                return redirect()->route('choose-address-after-buy-now')->withSuccess('Address added successfully');
+                return redirect(route('choose-address-after-buy-now', ['order' => $request->main_order_id, 'section' => 'Company_formaction', 'step' => 'registered-address']));
             }if(isset($request->bsnad)){
-                return redirect()->route('choose-address-business')->withSuccess('Address added successfully');
+                return redirect(route('choose-address-business', ['order' => $request->main_order_id, 'section' => 'Company_formaction', 'step' => 'business-address']));
             }else{
-                return redirect()->route('choose-address')->withSuccess('Address added successfully');
+                return redirect(route('choose-address', ['order' => $request->main_order_id, 'section' => 'Company_formaction', 'step' => 'registered-address']));
             }
 
         }
