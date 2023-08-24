@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
 
+
 class Order extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
@@ -31,5 +32,11 @@ class Order extends Model implements HasMedia
     public function cart()
     {
         return $this->belongsTo(ShoppingCart::class);
+    }
+
+
+    public function myCompany()
+    {
+        return $this->belongsTo(Companie::class, 'company_name', 'companie_name');
     }
 }

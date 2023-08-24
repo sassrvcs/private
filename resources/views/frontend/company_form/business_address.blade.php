@@ -441,7 +441,7 @@
                                                     <li>If you choose to purchase this service, we will forward all business correspondence (non-government mail) to a forwarding address of your choosing.</li>
                                                     <li>This service does not include a registered office service, which should be purchased separately.</li>
                                                     <li><b>You are not required to provide a business address to form a company, however, you may wish to use our Covent Garden, WC2 address to enhance your corporate image and provide privacy for your home address.</b></li>
-                                                    
+
                                                 </ul>
                                             </div>
                                         </div>
@@ -617,7 +617,7 @@
         }
 
         function previousRegisterpage() {
-            window.location.href = "{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }})"
+            window.location.href = "{!! route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) !!}"
         }
 
         const searchBar = function() {

@@ -70,4 +70,9 @@ class Companie extends Model implements HasMedia
     {
         return $this->belongsTo(Address::class, 'forwarding_business_office_address','id');
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'company_name', 'companie_name');
+    }
 }

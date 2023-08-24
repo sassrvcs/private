@@ -7924,21 +7924,21 @@ form.woocommerce-form-login.login{
     padding: 40px 0 0;
     margin: 0;
 }
+
 .business-sidebar{
     border: 1px solid #94BFE5;
     background: #E7F2FC;
     padding: 20px 15px;
     border-radius: 5px;
 }
+
 .business-sidebar .ttl{
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin: 0 0 30px;
 }
-.business-sidebar .ttl img{
 
-}
 .business-sidebar .ttl h3{
     width: calc(100% - 34px);
     font-family: 'Poppins', sans-serif;
@@ -7959,10 +7959,12 @@ form.woocommerce-form-login.login{
     padding: 0;
     margin: 0 0 15px;
 }
+
 .business-ess-wrap{
     padding: 0;
     margin: 0;
 }
+
 .business-ess-wrap > small{
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
@@ -7973,11 +7975,27 @@ form.woocommerce-form-login.login{
     margin: 0 0 10px;
     display: block;
 }
+
 .business-ess-panel {
     border: 1px solid #D9D9D9;
     border-radius: 5px;
     margin: 0 0 15px;
+    position: relative;
 }
+
+.business-ess-panel .active-icon{
+    width: 20px;
+    position: absolute;
+    left: -8px;
+    top: -5px;
+    z-index: 1;
+    display: none;
+}
+
+/* .business-ess-panel.active .active-icon{
+    display: block;
+} */
+
 .business-ess-panel .business-ess-panel-top{
     padding:30px;
     margin: 0;
@@ -7986,13 +8004,16 @@ form.woocommerce-form-login.login{
 .business-ess-panel.with-img .business-ess-panel-top {
     display: flex;
 }
+
 .business-ess-panel.with-img .business-ess-panel-top .main-img{
     width: 270px;
 }
+
 .business-ess-panel.with-img .business-ess-panel-top .business-ess-panel-wrap{
     width: calc(100% - 270px);
     padding: 0 15px 0 0;
 }
+
 .business-ess-panel .business-ess-panel-top .img-text-box{
     display: flex;
     flex-wrap: wrap;
@@ -8000,15 +8021,19 @@ form.woocommerce-form-login.login{
     padding: 0;
     margin: 0 0 30px;
 }
+
 .business-ess-panel .business-ess-panel-top .img-text-box .tham-icon{
     max-width: 250px;
 }
+
 .business-ess-panel .business-ess-panel-top .img-text-box .tham-icon img{
     max-width: 100%;
 }
+
 .business-ess-panel .business-ess-panel-top .desc{
     padding: 0 0 0 15px;
 }
+
 .business-ess-panel .business-ess-panel-top .desc h3{
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
@@ -8018,6 +8043,7 @@ form.woocommerce-form-login.login{
     padding: 0;
     margin: 0 0 10px;
 }
+
 .business-ess-panel .business-ess-panel-top .desc p{
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
@@ -8064,10 +8090,12 @@ form.woocommerce-form-login.login{
     padding: 0;
     margin: 0 0 0px;
 }
+
 .business-ess-panel .bottom-panel p strong{
     font-weight: 700;
 }
-.business-ess-panel .bottom-panel .btn{
+
+.business-ess-panel .bottom-panel .btn {
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 600;

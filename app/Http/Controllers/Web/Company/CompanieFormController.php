@@ -43,7 +43,7 @@ class CompanieFormController extends Controller
         $sensitiveFirstMedia = $orders->getFirstMedia('sensetive-document');
         // dd($firstMedia);
         $sameAsFirstMedia = $orders->getFirstMedia('same-as-name-document');
-        
+
         if($sensitiveFirstMedia) {
             $documentName = $sensitiveFirstMedia ? $sensitiveFirstMedia->file_name : '';
             $documentUrl = $sensitiveFirstMedia ? $sensitiveFirstMedia->getUrl() : '';
@@ -57,26 +57,26 @@ class CompanieFormController extends Controller
             'url'  => $documentUrl,
         ];
 
-        return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
+        // return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
 
-        // if($companyFormationStep == null) {
-        //     return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
-        // } else {
-        //     if( isset($request->data) && $request->data == 'previous') {
-        //         return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
-        //     }
+        if($companyFormationStep == null) {
+            return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
+        } else {
+            if( isset($request->data) && $request->data == 'previous') {
+                return view('frontend.company_form.perticulers', compact('orders', 'mediaDoc', 'companyFormationStep', 'jurisdictions', 'SICDetails', 'SICCodes'));
+            }
 
-        //     if($companyFormationStep->step_name == 'particulars') {
-        //         return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
-        //     } else if($companyFormationStep->step_name == 'document') {
-        //         return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-banking']));
-        //     } else if($companyFormationStep->step_name == 'business-banking') {
-        //         return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-services']));
-        //     } else {
-        //         // dd('Work In Progress..... URL not set now...');
-        //         return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
-        //     }
-        // }
+            if($companyFormationStep->step_name == 'particulars') {
+                return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
+            } else if($companyFormationStep->step_name == 'document') {
+                return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-banking']));
+            } else if($companyFormationStep->step_name == 'business-banking') {
+                return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-services']));
+            } else {
+                // dd('Work In Progress..... URL not set now...');
+                return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
+            }
+        }
     }
 
     /**
@@ -117,7 +117,7 @@ class CompanieFormController extends Controller
             dd($e);
         }
     }
-    
+
     /**
      * Upload file for company | order
      * @param Request $request
@@ -212,7 +212,7 @@ class CompanieFormController extends Controller
         }
 
         $company->save();
-        
+
         if($request->input('legal_document') == 'byspoke_article') {
             if ($request->hasFile('document')) {
                 // Attach the uploaded file to the model using Laravel Media Library
@@ -220,7 +220,7 @@ class CompanieFormController extends Controller
             }
         } else {
             $companyMedia = $company->getMedia('documents')->first();
-            
+
             // Delete the media if exist
             if ($companyMedia) {
                 $companyMedia->delete();

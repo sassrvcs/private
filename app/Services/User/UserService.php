@@ -55,7 +55,8 @@ class UserService
      */
     public function show($id)
     {
-        $user = User::with('address','orders', 'companies')->findOrFail($id);
+        $user = User::with('address','orders','orders.myCompany', 'companies')->findOrFail($id);
+
         return $user;
     }
 

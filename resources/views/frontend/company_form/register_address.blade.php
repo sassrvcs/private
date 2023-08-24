@@ -348,7 +348,7 @@
                                     </div>
                                 </div>
                                 <div class="step-btn-wrap mt-4">
-                                    <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'particulars', 'data' => 'previous']) }}">
+                                    <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '','section' => 'Company_formaction','step' => 'particulars', 'data' => 'previous']) }}">
                                         <button class="btn prev-btn"><img
                                                 src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
                                                 alt=""> Previous: Particulars</button></a>
