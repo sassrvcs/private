@@ -12,6 +12,13 @@ use App\Models\Address;
 use App\Models\Person_appointment;
 use App\Models\PersonOfficer;
 use App\Models\ShoppingCart;
+use App\Models\companyFormStep;
+use App\Http\Requests\Company\CompanieFormAccessRequest;
+use App\Http\Requests\Company\CompanieStoreRequest;
+use App\Models\Jurisdiction;
+use App\Models\Order;
+use App\Services\CompanieSearchService;
+use App\Services\Company\CompanyFormSteps\CompanyFormService;
 
 class CompanyFormController extends Controller
 {
@@ -23,12 +30,135 @@ class CompanyFormController extends Controller
     {
         //$recent_addr  = $this->regAddrService->getRecentAddress();
         // if company table has office add id
-        $office_address = Companie::where('user_id', Auth::user()->id)->pluck('office_address')->first();
+        $order = Order::where('order_id', $_GET['order'])->first();
+
+        $office_address = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->pluck('office_address')->first();
 
         $recent_addr  = $this->regAddrService->getRecentAddress($office_address);
+
         $countries = Country::all();
 
         return view('frontend.company_form.register_address', compact('recent_addr', 'countries'));
+    }
+
+    public function registerAddressStoreStep(Request $request)
+    {
+        // First check if under Step List
+
+        $order = $request->order_id;
+        $exist_order = companyFormStep::where('order', $order)->where('section', 'company_formation')->where('step', 'register-address')->first();
+        if ($exist_order) {
+            return response()->json(['success' => 'true', 'message' => 'Successfully Done.'], 200);
+        } else {
+            $order_details = Order::where('order_id', $order)->first();
+
+            $company_id = Companie::where('companie_name', 'LIKE', '%' . $order_details->company_name . '%')->pluck('id')->first();
+
+            $companyFormStep = new companyFormStep;
+            $companyFormStep->order = $request->order_id;
+            $companyFormStep->order_id = $order_details->id;
+            $companyFormStep->company_id  = $company_id;
+            $companyFormStep->section  = 'company_formation';
+            $companyFormStep->step  = 'register-address';
+
+            $companyFormStep->save();
+
+            $orders = Order::with('user')->where('order_id', $request->order_id)->first();
+            $companyFormationStep = Companie::with('sicCodes')->where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
+            $companyFormationStep->section_name = 'company_formation';
+            $companyFormationStep->step_name = 'register-address';
+            $companyFormationStep->save();
+
+
+            return response()->json(['success' => 'true', 'message' => 'Successfully Done.'], 200);
+        }
+    }
+
+    public function buisnessAddressStoreStep(Request $request)
+    {
+        $order = $request->order_id;
+        $exist_order = companyFormStep::where('order', $order)->where('section', 'company_formation')->where('step', 'business-address')->first();
+        if ($exist_order) {
+            return response()->json(['success' => 'true', 'message' => 'Successfully Done.'], 200);
+        } else {
+            $order_details = Order::where('order_id', $order)->first();
+
+            $company_id = Companie::where('companie_name', 'LIKE', '%' . $order_details->company_name . '%')->pluck('id')->first();
+
+            $companyFormStep = new companyFormStep;
+            $companyFormStep->order = $request->order_id;
+            $companyFormStep->order_id = $order_details->id;
+            $companyFormStep->company_id  = $company_id;
+            $companyFormStep->section  = 'company_formation';
+            $companyFormStep->step  = 'business-address';
+
+            $companyFormStep->save();
+
+            $orders = Order::with('user')->where('order_id', $request->order_id)->first();
+            $companyFormationStep = Companie::with('sicCodes')->where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
+            $companyFormationStep->section_name = 'company_formation';
+            $companyFormationStep->step_name = 'business-address';
+            $companyFormationStep->save();
+            return response()->json(['success' => 'true', 'message' => 'Successfully Done.'], 200);
+        }
+    }
+
+    public function appointmentStoreStep(Request $request)
+    {
+        $order = $request->order_id;
+        $exist_order = companyFormStep::where('order', $order)->where('section', 'company_formation')->where('step', 'appointments')->first();
+        if ($exist_order) {
+            return response()->json(['success' => 'true', 'message' => 'Successfully Done.'], 200);
+        } else {
+            $order_details = Order::where('order_id', $order)->first();
+
+            $company_id = Companie::where('companie_name', 'LIKE', '%' . $order_details->company_name . '%')->pluck('id')->first();
+
+            $companyFormStep = new companyFormStep;
+            $companyFormStep->order = $request->order_id;
+            $companyFormStep->order_id = $order_details->id;
+            $companyFormStep->company_id  = $company_id;
+            $companyFormStep->section  = 'company_formation';
+            $companyFormStep->step  = 'appointments';
+
+            $companyFormStep->save();
+
+            $orders = Order::with('user')->where('order_id', $request->order_id)->first();
+            $companyFormationStep = Companie::with('sicCodes')->where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
+            $companyFormationStep->section_name = 'company_formation';
+            $companyFormationStep->step_name = 'appointments';
+            $companyFormationStep->save();
+            return response()->json(['success' => 'true', 'message' => 'Successfully Done.'], 200);
+        }
+    }
+
+    public function reviewStoreStep(Request $request){
+        $order = $request->order_id;
+        $exist_order = companyFormStep::where('order', $order)->where('section', 'Review')->where('step', 'review')->first();
+        if ($exist_order) {
+            return response()->json(['success' => 'true', 'message' => 'Successfully Done.'], 200);
+        } else {
+            $order_details = Order::where('order_id', $order)->first();
+
+            $company_id = Companie::where('companie_name', 'LIKE', '%' . $order_details->company_name . '%')->pluck('id')->first();
+
+            $companyFormStep = new companyFormStep;
+            $companyFormStep->order = $request->order_id;
+            $companyFormStep->order_id = $order_details->id;
+            $companyFormStep->company_id  = $company_id;
+            $companyFormStep->section  = 'Review';
+            $companyFormStep->step  = 'review';
+
+            $companyFormStep->save();
+
+            $orders = Order::with('user')->where('order_id', $request->order_id)->first();
+            $companyFormationStep = Companie::with('sicCodes')->where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
+            $companyFormationStep->section_name = 'Review';
+            $companyFormationStep->step_name = 'review';
+            $companyFormationStep->save();
+            return response()->json(['success' => 'true', 'message' => 'Successfully Done.'], 200);
+        }
+
     }
     public function editRegisterAddress()
     {
@@ -89,12 +219,14 @@ class CompanyFormController extends Controller
     public function updateRegisterAddress(Request $request)
     {
 
-        $user_id = $request->input('user_id');
+        $order = Order::where('order_id', $request->order_id)->first();
+        // dd($order);
+        $company_name = $order->company_name;
         $address_id = $request->input('address_id');
 
 
         $Company = Companie::updateOrCreate(
-            ['user_id' =>  $user_id],
+            ['companie_name' =>  $company_name],
             ['office_address' => $address_id]
         );
         return 1;
@@ -191,30 +323,32 @@ class CompanyFormController extends Controller
         $used_address = Address::where('user_id', Auth::user()->id)->get();
         $countries = Country::all()->toArray();
 
-        $person_officers = PersonOfficer::where('user_id', Auth::user()->id)->get()->toArray();
+        $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 
-        $personAppointments = Person_appointment::where("user_id", Auth::user()->id)->get()->toArray();
+        $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
 
         $appointmentsList = [];
-        if(!empty($personAppointments)){
+        if (!empty($personAppointments)) {
             $appointmentsList = $personAppointments;
         }
 
-        return view('frontend.company_form.appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers','appointmentsList'));
+        return view('frontend.company_form.appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
     }
 
-    public function remove_officer_list(Request $request) {
+    public function remove_officer_list(Request $request)
+    {
 
         $id = $request->id;
 
-        $result = Person_appointment::where('id',$id)->delete();
+        $result = Person_appointment::where('id', $id)->delete();
 
-        if($result){
+        if ($result) {
             return 1;
         }
     }
 
-    public function update_shareholder_from_appointment_listing(Request $request) {
+    public function update_shareholder_from_appointment_listing(Request $request)
+    {
         $idVal = $request->idVal;
 
         $edit_share_price = $request->edit_share_price;
@@ -229,10 +363,9 @@ class CompanyFormController extends Controller
                 'sh_currency' => $edit_share_currency["$key"],
                 'perticularsTextArea' => $edit_share_particulars["$key"],
             ]);
-
         }
 
-        if($updated){
+        if ($updated) {
             return 1;
         }
     }
@@ -264,8 +397,10 @@ class CompanyFormController extends Controller
         $updated = '';
 
         if ($request->personOfficerEditId === null) {
+
             $inserted = PersonOfficer::create([
                 'user_id' => Auth::user()->id,
+                'order_id' => $request->order_id,
                 'shopping_cart_id' => $request->shoppingCartId,
                 'title' => $request->person_tittle,
                 'dob_day' => $request->person_bday,
@@ -286,7 +421,10 @@ class CompanyFormController extends Controller
                 return $inserted;
             }
         } else {
+
+
             $updated = PersonOfficer::where('id', $request->personOfficerEditId)->update([
+                'order_id' => $request->order_id,
                 'user_id' => Auth::user()->id,
                 'shopping_cart_id' => $request->shoppingCartId,
                 'title' => $request->person_tittle,
@@ -305,7 +443,7 @@ class CompanyFormController extends Controller
             ]);
 
             if ($updated) {
-                $updatedRow = PersonOfficer::orderBy('updated_at','DESC')->first();
+                $updatedRow = PersonOfficer::orderBy('updated_at', 'DESC')->first();
                 return $updatedRow;
             }
         }
@@ -340,55 +478,57 @@ class CompanyFormController extends Controller
         }
     }
 
-    public function selected_address(Request $request) {
+    public function selected_address(Request $request)
+    {
         $id = $request->get('offValadd_id');
 
-        $add = Address::where('id',$id)->get();
+        $add = Address::where('id', $id)->get();
 
         $house_number = $add[0]['house_number'];
         $street = $add[0]['street'];
         $locality = $add[0]['locality'];
-        $town = $add[0]['town']; 
-        $county = $add[0]['county']; 
-        $post_code = $add[0]['post_code']; 
+        $town = $add[0]['town'];
+        $county = $add[0]['county'];
+        $post_code = $add[0]['post_code'];
 
-        $data = $house_number.",".$street.",".$locality.",".$town.",".$county.",".$post_code;
+        $data = $house_number . "," . $street . "," . $locality . "," . $town . "," . $county . "," . $post_code;
 
         return $data;
     }
 
-    public function person_appointment_save(Request $request) {
-       $inserted = Person_appointment::create([
-        'order_id' => $request->order_id,
-        'user_id' => Auth::user()->id,
-        'cart_id' => $request->cart_id,
-        'person_officer_id' => $request->person_officer_id,
-        'own_address_id' => $request->own_address_id,
-        'forwarding_address_id' => $request->forwarding_address_id,
-        'company_id' => $request->company_id,
-        'position' => $request->position,
-        'noc_os' => $request->noc_os,
-        'noc_vr' => $request->noc_vr,
-        'noc_appoint' => $request->noc_appoint,
-        'noc_others' => $request->noc_others,
-        'fci' => $request->fci,
-        'fci_os' => $request->fci_os,
-        'fci_vr' => $request->fci_vr,
-        'fci_appoint' => $request->fci_appoint,
-        'fci_others' => $request->fci_others,
-        'tci' => $request->tci,
-        'tci_os' => $request->tci_os,
-        'tci_vr' => $request->tci_vr,
-        'tci_appoint' => $request->tci_appoint,
-        'tci_others' => $request->tci_others,
-        'sh_quantity' => $request->sh_quantity,
-        'sh_currency' => $request->sh_currency,
-        'sh_pps' => $request->sh_pps,
-        'perticularsTextArea' => $request->perticularsTextArea,
-        ]) ;
-        
-        if($inserted){
+    public function person_appointment_save(Request $request)
+    {
+        $inserted = Person_appointment::create([
+            'order' => $request->order_id,
+            'user_id' => Auth::user()->id,
+            'cart_id' => $request->cart_id,
+            'person_officer_id' => $request->person_officer_id,
+            'own_address_id' => $request->own_address_id,
+            'forwarding_address_id' => $request->forwarding_address_id,
+            'company_id' => $request->company_id,
+            'position' => $request->position,
+            'noc_os' => $request->noc_os,
+            'noc_vr' => $request->noc_vr,
+            'noc_appoint' => $request->noc_appoint,
+            'noc_others' => $request->noc_others,
+            'fci' => $request->fci,
+            'fci_os' => $request->fci_os,
+            'fci_vr' => $request->fci_vr,
+            'fci_appoint' => $request->fci_appoint,
+            'fci_others' => $request->fci_others,
+            'tci' => $request->tci,
+            'tci_os' => $request->tci_os,
+            'tci_vr' => $request->tci_vr,
+            'tci_appoint' => $request->tci_appoint,
+            'tci_others' => $request->tci_others,
+            'sh_quantity' => $request->sh_quantity,
+            'sh_currency' => $request->sh_currency,
+            'sh_pps' => $request->sh_pps,
+            'perticularsTextArea' => $request->perticularsTextArea,
+        ]);
+
+        if ($inserted) {
             return 1;
-       }
+        }
     }
 }

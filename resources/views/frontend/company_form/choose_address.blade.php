@@ -196,7 +196,7 @@
                                                     data-search="{{ $value->house_number }},{{ $value->street }},{{ $value->locality }},{{ $value->town }},{{ $value->county }},{{ $value->post_code }},{{ $value->billing_country }}"
                                                     data-id="{{ $value->id }}"
                                                     value="{{ $value->house_number }},{{ $value->street }},{{ $value->locality }},{{ $value->town }},{{ $value->county }},{{ $value->post_code }},{{ $value->billing_country }}"
-                                                    onclick="setAddress({{ $value->user_id }},{{ $value->id }})"
+                                                    onclick="setAddress({{ $_GET['order'] }},{{ $value->id }})"
                                                     readonly>
                                             @endforeach
                                         @endif
@@ -238,7 +238,7 @@
                                                                 value="{{ $value->billing_country }}">
 
                                                             <button type="button" class="btn select-btn selc-addr"
-                                                                onclick="setAddress({{ $value->user_id }},{{ $value->id }})">Select</button>
+                                                                onclick="setAddress({{ $_GET['order']}},{{ $value->id }})">Select</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -269,7 +269,7 @@
                                     <form action="{{ route('register-new-address') }}" method="POST"
                                         class="form-register register">
                                         @csrf
-                                    <input type="text" name="main_order_id" value="{{$_GET['order'] ?? ''}}" readonly>
+                                    <input type="hidden" name="main_order_id" value="{{$_GET['order'] ?? ''}}" readonly>
                                         <fieldset class="border p-3">
                                             <div class="row p-3" style="padding-top: 0 !important;">
 
@@ -380,6 +380,9 @@
                                         <div class="mb-3">
                                             <button type="button" onClick="AddMoreAddSave(this)"
                                                 class="btn btn-primary">Submit</button>
+                                        </div>
+                                        <div class="step-btn-wrap mt-4">
+                                            <button class="btn prev-btn" onclick="cancelPage()">Cancel</button>
                                         </div>
                                     </form>
                                 </div>
@@ -496,7 +499,7 @@
         //     alert(a + '' + b);
         // }
 
-        function setAddress(userId, addressId) {
+        function setAddress(order_id, addressId) {
             var url = "{!! route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) !!}";
 
             $(this).text('please wait..');
@@ -504,7 +507,7 @@
                 url: "{!! route('update-address') !!}",
                 type: 'GET',
                 data: {
-                    user_id: userId,
+                    order_id: order_id,
                     address_id: addressId
                 },
                 success: function(result) {

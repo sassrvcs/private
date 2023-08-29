@@ -45,15 +45,15 @@
                             </div>
                             <div class="top-step-items">
                                 <strong>2.Business Essentials</strong>
-                                <span>Products & services</span>
+                                <span>Products & Services</span>
+                            </div>
+                            <div class="top-step-items active">
+                                <strong>3.Summary</strong>
+                                <span>Details about your order</span>
                             </div>
                             <div class="top-step-items">
-                                <strong>3.Company Formation</strong>
-                                <span>Details about your company</span>
-                            </div>
-                            <div class="top-step-items">
-                                <strong>4.Company Formation</strong>
-                                <span>Details about your company</span>
+                                <strong>4.Delivery & Partner Services</strong>
+                                <span>Delivery & Partner Details</span>
                             </div>
                         </div>
                         <div class="particulars-bottom-step">
@@ -122,8 +122,13 @@
 
                                             <div class="text-danger alert-custom-highlight-s1" id="srchfld-error" style="display: none">
                                                 <em id="srchfld-error" class="text-danger">
-                                                    <h4 id="message-cls">Warning, <span id="companie-name"> </span> is <span id="c-availablity"></span> available for registration.</h4>
+                                                    <h4 id="message-cls">Warning, <span class="companie-name"> </span> is <span id="c-availablity"></span> available for registration.</h4>
                                                     <p id="paragraph"> You need to put a valid Company ending: LTD, LIMITED, CYF, CYFYNGEDIG, LTD. etc. to proceed further.</p>
+                                                </em>
+                                            </div>
+                                            <div class="text-danger alert-custom-highlight-s1" id="srchfld-success" style="display: none">
+                                                <em id="srchfld-success" class="text-danger">
+                                                    <h4 id="message-cls"><span class="companie-name"> </span> <span style="color: #3B9D22 !important">is  available for registration.</span></h4>
                                                 </em>
                                             </div>
 
@@ -250,12 +255,15 @@
                                                 <select class="form-select selected_sic @error('sic_code') is-invalid @enderror" name="sic_code[]" id="multiple-select-field" data-placeholder="Choose anything" multiple>
                                                     @if( isset($companyFormationStep->sicCodes) )
                                                         @foreach($companyFormationStep->sicCodes as $key => $value)
-                                                            <option selected value="{{ $value->code }} - {{ $value->name }}">{{ $value->id }} - {{ $value->name }}</option>
+                                                            <option selected value="{{ $value->code }} - {{ $value->name }}">{{ $value->code }} - {{ $value->name }}</option>
                                                         @endforeach
                                                     @else
                                                         <option value="">None Selected</option>
                                                     @endif
                                                 </select>
+                                                <div id="error_sic">
+
+                                                </div>
                                                 @error('sic_code')
                                                     <div class="error" style="color:red;">{{ $message }}</div>
                                                 @enderror
@@ -337,10 +345,10 @@
             if($sic_data.length==0){
                 console.log('empty');
                 $('#multiple-select-field').addClass('is-invalid');
-                $('#multiple-select-field').parent().append('<div id="error_sic" style="color:red;"> *SIC Code is requied</div>');
+                $('#error_sic').html('<div id="error_sic" style="color:red;"> *SIC Code is requied</div>');
                 return;
             }else{
-                $('#error_sic').remove();
+                $('#error_sic').html('');
                 $('#multiple-select-field').removeClass('is-invalid');
             }
 
@@ -380,7 +388,7 @@
                 $("#perticulars").submit();
             } else {
                 $('#srchfld-error').show();
-                $('#companie-name').text(companyName);
+                $('.companie-name').text(companyName);
                 return;
             }
         });
@@ -398,6 +406,21 @@
         });
 
         const checkCompanieAvailabality = async (sensetive = false) => {
+            var companyName = $('#companie_name').val();
+            console.log('companyName',companyName);
+            if (companyName.indexOf('LTD') !== -1 || companyName.indexOf('LIMITED') !== -1) {
+                console.log(companyName.indexOf('LTD') !== -1);
+                $('#srchfld-error').hide();
+                $('#srchfld-success').show();
+                $('.companie-name').text(companyName);
+
+                return;
+            }else{
+                $('#srchfld-error').show();
+                $('#srchfld-success').hide();
+                $('.companie-name').text(companyName);
+
+            }
 
             var companyName = $('#companie_name').val();
             var orderId = $('#order_id').val();
@@ -413,6 +436,7 @@
                 }
             })
             .then(function (response) {
+                console.log('response',response);
                 // Handle the response data here
                 console.log(response.data.items[0]);
 
@@ -437,7 +461,7 @@
                             $('#srchfld-error').show();
                             $('#c-availablity').text('');
                             $('#c_availablity').val('available');
-                            $('#companie-name').text(companyName);
+                            $('.companie-name').text(companyName);
                         }
                     }
                 } else {
@@ -446,8 +470,8 @@
                         $('.sensitive-word-chk').hide();
                         $('.same-as-name-word').hide();
 
+                        $('.companie-name').text(companyName);
                         $('#srchfld-error').show();
-                        $('#companie-name').text(companyName);
                         $('#c-availablity').text('not');
                         $('#same_as_name').val('false');
                         $('#c_availablity').val('not_available');
@@ -459,7 +483,7 @@
                         $('#c-availablity').text('');
                         $('#c_availablity').val('available');
                         $('#same_as_name').val('true');
-                        $('#companie-name').text(companyName);
+                        $('.companie-name').text(companyName);
                         $('.company-name').text(response.data.items[0].title);
                         $('#paragraph').html(`Name authorisation from <strong> ${response.data.items[0].title} </strong>`);
                     }
@@ -476,7 +500,7 @@
         }
 
         $(document).ready(function() {
-            checkCompanieAvailabality(true);
+            // checkCompanieAvailabality(true);
         });
 
         // @todo Need to check implementession and add view button if file exists

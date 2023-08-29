@@ -6,6 +6,7 @@ use App\Models\Accounting;
 use App\Models\BusinessBanking;
 use App\Models\BusinessEssential;
 use App\Models\Companie;
+use App\Models\companyFormStep;
 use App\Models\Order;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +36,7 @@ class BusinessEssentialsService
         return DB::transaction(function () use ($request) {
 
             $company = $this->companyFormService->getCompanieName($request->order);
-            
+
             if ($request->business_bank_id) {
                 $step = 'business_bank';
                 $businessBanking = BusinessEssential::updateOrCreate(
@@ -73,10 +74,21 @@ class BusinessEssentialsService
                 $businessBanking = '';
             }
 
-            // dd('dsadasdas product');
-            $company->section_name  = $request->section;
-            $company->step_name     = $request->step;
 
+            $exist_order = companyFormStep::where('order', $request->order)->where('section', $request->section)->where('step', $request->step)->first();
+            if(!$exist_order){
+                $order = Order::where('order_id',$request->order)->pluck('id')->first();
+                $companyFormStep = new companyFormStep;
+                $companyFormStep->order = $request->order;
+                $companyFormStep->order_id = $order;
+                $companyFormStep->company_id  = $company->id;
+                $companyFormStep->section  = $request->section;
+                $companyFormStep->step  = $request->step;
+
+                $companyFormStep->save();
+                $company->section_name  = $request->section;
+                $company->step_name     = $request->step;
+            }
             $company->save();
 
             return ['information' => $businessBanking, 'step' => $step];

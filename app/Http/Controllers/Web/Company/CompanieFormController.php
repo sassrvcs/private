@@ -8,6 +8,7 @@ use App\Http\Requests\Company\CompanieStoreRequest;
 use App\Models\Companie;
 use App\Models\Jurisdiction;
 use App\Models\Order;
+use App\Models\companyFormStep;
 use App\Services\CompanieSearchService;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use App\Services\MediaUploadService;
@@ -68,10 +69,22 @@ class CompanieFormController extends Controller
 
             if($companyFormationStep->step_name == 'particulars') {
                 return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
-            } else if($companyFormationStep->step_name == 'document') {
-                return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-banking']));
+            }else if($companyFormationStep->step_name == 'register-address') {
+                return redirect(route('choose-address-business', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'business-address']));
+            }else if($companyFormationStep->step_name == 'business-address') {
+                return redirect( route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']));
+            }else if($companyFormationStep->step_name == 'appointments') {
+                return redirect(route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']));
+            }else if($companyFormationStep->step_name == 'document') {
+                return redirect(route('business-essential.index', ['order' => $request->order_id, 'section' => 'BusinessEssential', 'step' => 'business-banking']));
             } else if($companyFormationStep->step_name == 'business-banking') {
                 return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-services']));
+            } else if($companyFormationStep->step_name == 'business-service') {
+                return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'optional-extras']));
+            } else if($companyFormationStep->step_name == 'other-extras') {
+                return redirect(route('review.index', ['order' => $request->order, 'section' => 'Review', 'step' => 'review']));
+            } else if($companyFormationStep->step_name == 'review') {
+                return redirect(route('review.index', ['order' => $request->order, 'section' => 'Review', 'step' => 'review']));
             } else {
                 // dd('Work In Progress..... URL not set now...');
                 return redirect(route('registered-address', ['order' => $request->order, 'section' => 'Company_formaction', 'step' => 'register-address']));
@@ -165,7 +178,10 @@ class CompanieFormController extends Controller
         $companyId      = $companieName->id ?? '';
         $legalDocument  = $companieName->legal_document ?? '';
 
-        $document = $companieName->getFirstMedia('documents');
+        // $document = $companieName->getFirstMedia('documents');
+        $document = $companieName->getMedia('documents')
+        ->sortByDesc('updated_at')
+        ->first();
 
         if ($document) {
             $documentName = $document->file_name;
@@ -192,11 +208,12 @@ class CompanieFormController extends Controller
      */
     public function uploadCompanyDocuments(Request $request)
     {
-        // dd($request->all());
+
         // Validate the request (optional but recommended)
         $request->validate([
             'document' => 'nullable|file',
         ]);
+
 
         $companyID = (!empty($request->company_id)) ? $request->company_id : $request->input('model_id');
 
@@ -206,10 +223,25 @@ class CompanieFormController extends Controller
 
         $company->legal_document = $request->legal_document;
 
-        if(isset($request->section_name) && !empty($request->section_name)) {
-            $company->section_name = $request->section_name;
-            $company->step_name    = $request->step_name;
+        $exist_order = companyFormStep::where('order', $request->order_id)->where('section', 'company_formation')->where('step', 'document')->first();
+        if(!$exist_order){
+            $order = Order::where('order_id',$request->order_id)->pluck('id')->first();
+            $companyFormStep = new companyFormStep;
+            $companyFormStep->order = $request->order_id;
+            $companyFormStep->order_id = $order;
+            $companyFormStep->company_id  = $request->company_id;
+            $companyFormStep->section  = 'company_formation';
+            $companyFormStep->step  = 'document';
+
+            $companyFormStep->save();
+
+            if(isset($request->section_name) && !empty($request->section_name)) {
+                $company->section_name = $request->section_name;
+                $company->step_name    = $request->step_name;
+            }
         }
+
+
 
         $company->save();
 

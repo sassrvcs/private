@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+
     <!-- ================ start: common-inner-page-banner ================ -->
     <style>
         .director_i_tooltip {
@@ -178,16 +180,16 @@
                                     <span>Details about your company</span>
                                 </div>
                                 <div class="top-step-items">
-                                    <strong>2.Company Formation</strong>
-                                    <span>Details about your company</span>
+                                    <strong>2.Business Essentials</strong>
+                                    <span>Products & Services</span>
+                                </div>
+                                <div class="top-step-items active">
+                                    <strong>3.Summary</strong>
+                                    <span>Details about your order</span>
                                 </div>
                                 <div class="top-step-items">
-                                    <strong>3.Company Formation</strong>
-                                    <span>Details about your company</span>
-                                </div>
-                                <div class="top-step-items">
-                                    <strong>4.Company Formation</strong>
-                                    <span>Details about your company</span>
+                                    <strong>4.Delivery & Partner Services</strong>
+                                    <span>Delivery & Partner Details</span>
                                 </div>
                             </div>
                             <div class="particulars-bottom-step">
@@ -268,7 +270,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="own-address mt-3 d-none" style="color:red;" id="positionValidation">
 
 
@@ -304,15 +306,26 @@
                                                             @endphp
                                                             <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
                                                                     class="{{ in_array('Director', $positionArray) ? '' : 'd-none' }}"
+                                                                    alt=""><img src="{{ asset('frontend/assets/images/cross.svg') }}"
+                                                                    class="{{ in_array('Director', $positionArray) ? 'd-none' : '' }}"
                                                                     alt=""></td>
                                                             <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
                                                                     class="{{ in_array('Shareholder', $positionArray) ? '' : 'd-none' }}"
+                                                                    alt="">
+                                                                    <img src="{{ asset('frontend/assets/images/cross.svg') }}"
+                                                                    class="{{ in_array('Shareholder', $positionArray) ? 'd-none' : '' }}"
                                                                     alt=""></td>
                                                             <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
                                                                     class="{{ in_array('Secretary', $positionArray) ? '' : 'd-none' }}"
+                                                                    alt="">
+                                                                    <img src="{{ asset('frontend/assets/images/cross.svg') }}"
+                                                                    class="{{ in_array('Secretary', $positionArray) ? 'd-none' : '' }}"
                                                                     alt=""></td>
                                                             <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
                                                                     class="{{ in_array('PSC', $positionArray) ? '' : 'd-none' }}"
+                                                                    alt="">
+                                                                    <img src="{{ asset('frontend/assets/images/cross.svg') }}"
+                                                                    class="{{ in_array('PSC', $positionArray) ? 'd-none' : '' }}"
                                                                     alt=""></td>
                                                             <td>
                                                                 <div class="tb-btn-wrap d-flex justify-content-end">
@@ -340,18 +353,18 @@
                                     @foreach ($appointmentsList as $val)
                                         @php
                                             array_push($listed_idArry, $val['id']);
-                                            
+
                                             $listed_idStrng = implode(',', $listed_idArry);
                                             $positionString = $val['position'];
                                             $positionArray = explode(', ', $val['position']);
-                                            
+
                                             if (in_array('PSC', $positionArray)) {
                                                 $pscCheck++;
                                             }
                                             if (in_array('Director', $positionArray)) {
                                                 $directorCheck++;
                                             }
-                                            
+
                                         @endphp
                                         @if (in_array('Shareholder', $positionArray))
                                             @php
@@ -1306,7 +1319,7 @@
                                                         <div class="row">
                                                             <div class="col-md-12 col-sm-12">
                                                                 <div class="used-addresses-panel">
-                            
+
                                                                     <div class="btn-wrap">
                                                                         <!-- <button type="submit" class="btn select-btn">Select</button> -->
                                                                         <button type="submit" class="btn"
@@ -2610,7 +2623,7 @@
                 $("#positionValidation").html('You have to select ateast one shareholder!')
                 return false
             }
-            
+
             if ($("#psc_check").val() == 0) {
                 $("#positionValidation").removeClass('d-none')
                 $("#positionValidation").html('You have to select a PSC!')
@@ -2658,7 +2671,7 @@
                         el.nextElementSibling.classList.add('d-none');
                     }
                 });
-                
+
                 if (validation === 0) {
                     $.ajax({
                         url: "{!! route('update-shareholder-from-appointment-listing') !!}",
@@ -2671,8 +2684,29 @@
                             edit_share_particulars
                         },
                         success: function(response) {
-                            window.location.href =
+                            $order_id = {{$_GET['order']}};
+
+                            console.log('Under Save Success',$order_id);
+                            $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            url : "{{ url('appointment-step') }}",
+                            data : {
+                                'order_id': $order_id
+                            },
+                            type : 'POST',
+                            dataType : 'json',
+                            success : function(result){
+
+                                window.location.href =
                                 "{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']) }}"
+
+
+                                    }
+                            });
+
+
                         },
                     });
                 }
@@ -2698,7 +2732,7 @@
         const databaseEntry = function() {
             // VALUES
             // general section values
-            const order_id = '';
+            const order_id = {{$_GET['order']}};
             const cart_id = $("#shoppingCartId_id").val();
             const person_officer_id = $("#choosedPersonOfficerId").val();
 
@@ -3679,7 +3713,7 @@
 
             // Details to Officer Tab Movement starts.
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'details') {
-
+                const order_id = {{$_GET['order']}};
                 const ChossenResAdd_id = $('#ChossenResAdd_id').val();
                 const shoppingCartId = $('#shoppingCartId_id').val();
                 const personOfficerEditId = $('#personOfficerEditId').val();
@@ -3774,6 +3808,7 @@
                         type: "POST",
                         data: {
                             "_token": "{{ csrf_token() }}",
+                            order_id,
                             shoppingCartId,
                             personOfficerEditId,
                             person_tittle,

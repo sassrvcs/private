@@ -306,7 +306,7 @@
                                             class="form-register register">
                                             @csrf
 
-                                            <input type="text" name="main_order_id" value="{{$_GET['order'] ?? ''}}" readonly>
+                                            <input type="hidden" name="main_order_id" value="{{$_GET['order'] ?? ''}}" readonly>
                                             <fieldset class="border p-3">
                                                 <div class="row p-3" style="padding-top: 0 !important;">
                                                     <div class="form-row form-group">
@@ -426,6 +426,13 @@
                                                 <button type="button" onClick="AddMoreAddSave(this)"
                                                     class="btn btn-primary">Submit</button>
                                                 <!-- <button type="submit" onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';" class="btn btn-primary">Submit</button> -->
+                                            </div>
+                                            <div class="step-btn-wrap mt-4">
+                                                @if ($forwardingAddVal !== null)
+                                                    <button class="btn prev-btn" onclick="cancelPage()">Cancel</button>
+                                                @else
+                                                    <button class="btn prev-btn" onclick="cancelPageTwo()">Cancel</button>
+                                                @endif
                                             </div>
                                         </form>
                                     </div>
@@ -622,7 +629,7 @@
             window.location.href =
                 "{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'particulars', 'data' => 'previous']) }}"
         }
-        
+
         const searchBar = function() {
             const searchBarVal = $('#searchBar_id').val();
 

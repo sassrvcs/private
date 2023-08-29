@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <!-- ================ start: common-inner-page-banner ================ -->
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <section class="common-inner-page-banner"
         style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png') }})">
         <div class="custom-container">
@@ -48,16 +48,16 @@
                                     <span>Details about your company</span>
                                 </div>
                                 <div class="top-step-items">
-                                    <strong>2.Company Formation</strong>
-                                    <span>Details about your company</span>
+                                    <strong>2.Business Essentials</strong>
+                                    <span>Products & Services</span>
+                                </div>
+                                <div class="top-step-items active">
+                                    <strong>3.Summary</strong>
+                                    <span>Details about your order</span>
                                 </div>
                                 <div class="top-step-items">
-                                    <strong>3.Company Formation</strong>
-                                    <span>Details about your company</span>
-                                </div>
-                                <div class="top-step-items">
-                                    <strong>4.Company Formation</strong>
-                                    <span>Details about your company</span>
+                                    <strong>4.Delivery & Partner Services</strong>
+                                    <span>Delivery & Partner Details</span>
                                 </div>
                             </div>
                             <div class="particulars-bottom-step">
@@ -380,7 +380,27 @@
                 $('.own-address').addClass('validation')
                 $('.address_selection_cl').removeClass('d-none')
             } else {
-                window.location.href = "{!! route('choose-address-business', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) !!}"
+                $order_id = {{$_GET['order']}};
+
+                console.log('Under Save Success',$order_id);
+                $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url : "{{ url('registered-address-step') }}",
+                data : {
+                    'order_id': $order_id
+                },
+                type : 'POST',
+                dataType : 'json',
+                success : function(result){
+
+                    window.location.href = "{!! route('choose-address-business', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) !!}"
+
+
+                          }
+                 });
+
             }
         }
 

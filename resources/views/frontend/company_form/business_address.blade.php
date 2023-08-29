@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- ================ start: common-inner-page-banner ================ -->
     <section class="common-inner-page-banner"
@@ -48,16 +49,16 @@
                                     <span>Details about your company</span>
                                 </div>
                                 <div class="top-step-items">
-                                    <strong>2.Company Formation</strong>
-                                    <span>Details about your company</span>
+                                    <strong>2.Business Essentials</strong>
+                                    <span>Products & Services</span>
+                                </div>
+                                <div class="top-step-items active">
+                                    <strong>3.Summary</strong>
+                                    <span>Details about your order</span>
                                 </div>
                                 <div class="top-step-items">
-                                    <strong>3.Company Formation</strong>
-                                    <span>Details about your company</span>
-                                </div>
-                                <div class="top-step-items">
-                                    <strong>4.Company Formation</strong>
-                                    <span>Details about your company</span>
+                                    <strong>4.Delivery & Partner Services</strong>
+                                    <span>Delivery & Partner Details</span>
                                 </div>
                             </div>
                             <div class="particulars-bottom-step">
@@ -299,7 +300,7 @@
                                             class="form-register register">
                                             @csrf
 
-                                            <input type="text" name="main_order_id" value="{{$_GET['order'] ?? ''}}" readonly>
+                                            <input type="hidden" name="main_order_id" value="{{$_GET['order'] ?? ''}}" readonly>
                                             <fieldset class="border p-3">
                                                 <div class="row p-3" style="padding-top: 0 !important;">
                                                     <input type="hidden" id="bsnad" name="bsnad" value="bsnad">
@@ -418,6 +419,9 @@
                                                 <button type="button" onClick="AddMoreAddSave(this)"
                                                     class="btn btn-primary">Submit</button>
                                                 <!-- <button type="submit" onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';" class="btn btn-primary">Submit</button> -->
+                                            </div>
+                                            <div class="step-btn-wrap mt-4">
+                                                <button class="btn prev-btn" onclick="window.location.reload()">Cancel</button>
                                             </div>
                                         </form>
                                     </div>
@@ -618,7 +622,7 @@
         }
 
         function previousRegisterpage() {
-            window.location.href = "{!! route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) !!}"
+            window.location.href = "{!! route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address', 'data' => 'previous']) !!}"
         }
 
         const searchBar = function() {
@@ -705,11 +709,50 @@
                         shoppingCartId_id
                     },
                     success: function(response) {
-                        window.location.href = "{{ route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}"
+                        $order_id = {{$_GET['order']}};
+
+                        console.log('Under Save Success',$order_id);
+                        $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url : "{{ url('buisness-address-step') }}",
+                        data : {
+                            'order_id': $order_id
+                        },
+                        type : 'POST',
+                        dataType : 'json',
+                        success : function(result){
+
+
+                            window.location.href = "{{ route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}"
+
+                                }
+                        });
                     },
                 });
             } else {
-                window.location.href = "{{ route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}"
+                $order_id = {{$_GET['order']}};
+
+                console.log('Under Save Success',$order_id);
+                $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url : "{{ url('buisness-address-step') }}",
+                data : {
+                    'order_id': $order_id
+                },
+                type : 'POST',
+                dataType : 'json',
+                success : function(result){
+
+
+                    window.location.href = "{{ route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}"
+
+                        }
+                });
+
             }
 
         };

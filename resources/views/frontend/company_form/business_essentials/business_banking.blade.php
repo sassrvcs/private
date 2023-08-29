@@ -25,17 +25,17 @@ ul.ef-16-benefits-list {
                                     <span>Details about your company</span>
                                 </a>
                             </div>
-                            <div class="top-step-items active">
+                            <div class="top-step-items">
                                 <strong>2.Business Essentials</strong>
-                                <span>Products & services</span>
+                                <span>Products & Services</span>
+                            </div>
+                            <div class="top-step-items active">
+                                <strong>3.Summary</strong>
+                                <span>Details about your order</span>
                             </div>
                             <div class="top-step-items">
-                                <strong>3.Company Formation</strong>
-                                <span>Details about your company</span>
-                            </div>
-                            <div class="top-step-items">
-                                <strong>4.Company Formation</strong>
-                                <span>Details about your company</span>
+                                <strong>4.Delivery & Partner Services</strong>
+                                <span>Delivery & Partner Details</span>
                             </div>
                         </div>
                         <div class="particulars-bottom-step">
@@ -72,14 +72,14 @@ ul.ef-16-benefits-list {
                                     <div class="business-ess-wrap">
                                         <small>The following banks have expressed an interest to support you and your new company :</small>
                                         @foreach($businessBanks as $key => $businessBank)
-                                            <div class="business-ess-panel div-{{ $businessBank->id }} 
-                                                @if(!empty($selectedBusinessBanking) && $selectedBusinessBanking == $businessBank->id) active @endif" 
+                                            <div class="business-ess-panel div-{{ $businessBank->id }}
+                                                @if(!empty($selectedBusinessBanking) && $selectedBusinessBanking == $businessBank->id) active @endif"
                                                 @if(!empty($selectedBusinessBanking) && $selectedBusinessBanking == $businessBank->id) style="border:1px solid #87CB28" @endif>
                                                 <input style="display: none"
-                                                    type="radio" name="business_banking" value="{{ $businessBank->id }}" class="radio-{{ $businessBank->id }}" 
+                                                    type="radio" name="business_banking" value="{{ $businessBank->id }}" class="radio-{{ $businessBank->id }}"
                                                     @if(!empty($selectedBusinessBanking) && $selectedBusinessBanking == $businessBank->id) {{ 'checked' }}  @endif
                                                 >
-                                                <img class="active-icon checkbox-{{$businessBank->id}}" 
+                                                <img class="active-icon checkbox-{{$businessBank->id}}"
                                                     @if(!empty($selectedBusinessBanking) && $selectedBusinessBanking == $businessBank->id) style="display:block"  @endif
                                                     src="{{ asset('frontend/assets/images/td-tick.svg') }}" alt="tick image"
                                                 >
@@ -194,7 +194,7 @@ ul.ef-16-benefits-list {
                 </button>
             </div>
             <div class="modal-body terms-condition-body">
-                
+
             </div>
             <div class="modal-footer">
                 {{-- <button type="button" class="btn btn-primary btn-don-need submit-frm">I don't need a bank account</button> --}}

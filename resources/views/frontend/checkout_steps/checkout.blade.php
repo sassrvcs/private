@@ -29,6 +29,8 @@
                                 </div>
                                 <hr>
                                 <p class="h6">{{ end($sessionCart)['package_name'] ?? '' }}</p>
+
+                                <p>{!!end($sessionCart)['package_description'] ?? '' !!}</p>
                                 <ul class="list-group list-group-flush fa-ul ms-3">
                                     @foreach($package->features as $feature)
                                         <li class="list-group-item px-0 py-2"><span class="fa-li"><i class="fa fa-caret-right"></i></span>{{ $feature->feature }}</li>
@@ -155,17 +157,11 @@
                                         </fieldset>
                                     @endguest
 
-                                    <fieldset class="border p-3">
-                                        <legend class="float-none w-auto p-2">Billing Details</legend>
+                                    <fieldset class="border p-3 @if(Auth::check()) d-none @endif">
+                                        <legend class="float-none w-auto p-2 ">Billing Details</legend>
                                         <div class="woocommerce-billing-fields">
                                             <div class="woocommerce-billing-fields__field-wrapper row p-3">
-                                                <div class="form-row col-md-12 form-group">
-                                                    <label for="post_code" class="col-form-label">UK Postcode Lookup:</label>
-                                                    <div class="woocommerce-input-wrapper with-rg-btn">
-                                                        <input type="text" class="form-control" name="post_code" id="post_code" value="">
-                                                        <button type="button" class="btn btn-primary" id="findAddress" style="padding:8px;">Find Address</button>
-                                                    </div>
-                                                </div>
+
                                                 <div class="form-row form-group" id="billing_organization_field">
                                                     <label for="billing_organization" class="">Organisation (if applicable) </label>
                                                     <input type="text" class="input-text form-control @error('organisation') is-invalid @enderror" value="{{ $user->organisation ?? old('organisation')}}" name="organisation" id="billing_organization" placeholder="" >
@@ -173,7 +169,7 @@
                                                         <div class="error" style="color:red;">{{ $message }}</div>
                                                     @enderror
                                                 </div>
-                                                <div class="form-row form-group" id="billing_title_field"
+                                                <div class="col-md-6 form-row form-group" id="billing_title_field"
                                                     data-priority="20">
                                                     <label for="billing_title" class="">Title&nbsp;<abbr class="required" title="required">*</abbr></label>
                                                     <select id="billing_title" name="title" value="{{old('title')}}" class="select form-control @error('title') is-invalid @enderror">
@@ -225,6 +221,13 @@
                                                             <div class="error" style="color:red;">{{ $message }}</div>
                                                         @enderror
                                                     </span>
+                                                </div>
+                                                <div class="form-row col-md-12 form-group">
+                                                    <label for="post_code" class="col-form-label">UK Postcode Lookup:</label>
+                                                    <div class="woocommerce-input-wrapper with-rg-btn">
+                                                        <input type="text" class="form-control" name="post_code" id="post_code" value="">
+                                                        <button type="button" class="btn btn-primary" id="findAddress" style="padding:8px;">Find Address</button>
+                                                    </div>
                                                 </div>
 
                                                 <div class="form-row address-field update_totals_on_change col-md-12 col-12 form-group">

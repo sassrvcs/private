@@ -5,7 +5,7 @@
 {{-- Additional CSS for now --}}
 <style>
 button.btn.btn-danger {
-    border: 1px solid #bb0202 !important;    
+    border: 1px solid #bb0202 !important;
     background: #bb0202 !important;
 }
 </style>
@@ -21,17 +21,17 @@ button.btn.btn-danger {
                                 <strong>1.Company Formation</strong>
                                 <span>Details about your company</span>
                             </div>
-                            <div class="top-step-items active">
+                            <div class="top-step-items">
                                 <strong>2.Business Essentials</strong>
-                                <span>Products & services</span>
+                                <span>Products & Services</span>
+                            </div>
+                            <div class="top-step-items active">
+                                <strong>3.Summary</strong>
+                                <span>Details about your order</span>
                             </div>
                             <div class="top-step-items">
-                                <strong>3.Company Formation</strong>
-                                <span>Details about your company</span>
-                            </div>
-                            <div class="top-step-items">
-                                <strong>4.Company Formation</strong>
-                                <span>Details about your company</span>
+                                <strong>4.Delivery & Partner Services</strong>
+                                <span>Delivery & Partner Details</span>
                             </div>
                         </div>
                         <div class="particulars-bottom-step">

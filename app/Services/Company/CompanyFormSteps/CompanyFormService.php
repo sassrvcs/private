@@ -3,6 +3,7 @@
 namespace App\Services\Company\CompanyFormSteps;
 
 use App\Models\Companie;
+use App\Models\companyFormStep;
 use App\Models\Country;
 use App\Models\Order;
 use App\Models\SicCode;
@@ -16,6 +17,7 @@ class CompanyFormService
      */
     public function companyFormStep1($request)
     {
+        // dd($request);
         return DB::transaction(function () use ($request) {
             $company = Companie::updateOrCreate([
                 'companie_name'     => $request['companie_name'],
@@ -28,6 +30,23 @@ class CompanyFormService
                 'section_name'      => $request['section_name'],
                 'step_name'         => $request['step_name'],
             ]);
+
+        $company = Companie::where('companie_name', 'LIKE', '%' . $request['companie_name'] . '%')->first();
+        $exist= companyFormStep::where('order',$request['order'])->where('section','company_formation')->where('step','particulars')->first();
+        if(!$exist){
+            $companyFormStep = new companyFormStep;
+            $companyFormStep->order = $request['order'];
+            $companyFormStep->order_id = $request['order_id'];
+            $companyFormStep->company_id  = $company->id;
+            $companyFormStep->section  = 'company_formation';
+            $companyFormStep->step  = 'particulars';
+
+            $companyFormStep->save();
+        }
+
+
+
+
 
 
             if($company) {
@@ -141,5 +160,5 @@ class CompanyFormService
     //     });
     // }
 
-   
+
 }

@@ -36,17 +36,17 @@ ul.ef-16-benefits-list {
                                 <strong>1.Company Formation</strong>
                                 <span>Details about your company</span>
                             </div>
-                            <div class="top-step-items active">
+                            <div class="top-step-items">
                                 <strong>2.Business Essentials</strong>
-                                <span>Products & services</span>
+                                <span>Products & Services</span>
+                            </div>
+                            <div class="top-step-items active">
+                                <strong>3.Summary</strong>
+                                <span>Details about your order</span>
                             </div>
                             <div class="top-step-items">
-                                <strong>3.Company Formation</strong>
-                                <span>Details about your company</span>
-                            </div>
-                            <div class="top-step-items">
-                                <strong>4.Company Formation</strong>
-                                <span>Details about your company</span>
+                                <strong>4.Delivery & Partner Services</strong>
+                                <span>Delivery & Partner Details</span>
                             </div>
                         </div>
                         <div class="particulars-bottom-step">
@@ -88,13 +88,13 @@ ul.ef-16-benefits-list {
                                         {{-- @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) style="border:3px solid #01ff7e"  @endif --}}
                                         @foreach($businessServices as $key => $businessService)
                                             <div class="business-ess-panel div-{{ $businessService->id }}
-                                                @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) active @endif" 
+                                                @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) active @endif"
                                                 @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) style="border:1px solid #87CB28" @endif >
                                                 <input style="display: none"
                                                     type="radio" name="business_service" value="{{ $businessService->id }}" class="radio-{{ $businessService->id }}"
                                                     @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) {{ 'checked' }}  @endif
                                                 >
-                                                <img class="active-icon checkbox-{{$businessService->id}}" 
+                                                <img class="active-icon checkbox-{{$businessService->id}}"
                                                     @if(!empty($selectedBusinessService) && $selectedBusinessService == $businessService->id) style="display:block"  @endif
                                                     src="{{ asset('frontend/assets/images/td-tick.svg') }}" alt="tick image"
                                                 >

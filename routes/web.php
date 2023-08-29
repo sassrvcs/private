@@ -100,6 +100,10 @@ Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
 // Route::get('refund-cancellation', [PageController::class, 'refundcancellation'])->name('page.refundcancellation');
 
 Route::get('registered-address', [CompanyFormController::class, 'registerAddress'])->middleware('auth')->name('registered-address');
+Route::post('registered-address-step', [CompanyFormController::class, 'registerAddressStoreStep'])->middleware('auth')->name('registered-address-step');
+Route::post('buisness-address-step', [CompanyFormController::class, 'buisnessAddressStoreStep'])->middleware('auth')->name('buisness-address-step');
+Route::post('appointment-step', [CompanyFormController::class, 'appointmentStoreStep'])->middleware('auth')->name('appointment-step');
+Route::post('review-step', [CompanyFormController::class, 'reviewStoreStep'])->middleware('auth')->name('review-step');
 Route::get('edit-address', [CompanyFormController::class, 'editRegisterAddress'])->name('edit-address')->middleware('auth');
 Route::get('choose-address', [CompanyFormController::class, 'chooseAddress'])->name('choose-address')->middleware('auth');
 Route::get('choose-address-after-buy-now', [CompanyFormController::class, 'chooseAddressAfterBuyNow'])->name('choose-address-after-buy-now')->middleware('auth');
@@ -120,7 +124,7 @@ Route::post('upload-company-doc', [CompanieFormController::class, 'storeImage'])
 Route::post('companie-formation', [CompanieFormController::class, 'store'])->name('companie-formation.store')->middleware('auth');
 Route::patch('company-name-update', [CompanieFormController::class, 'updateCompanieName'])->name('companyname.update')->middleware('auth');
 Route::get('company-document', [CompanieFormController::class, 'companyDocuments'])->name('companyname.document')->middleware('auth');
-Route::post('company-document', [CompanieFormController::class, 'uploadCompanyDocuments'])->name('companyname.document')->middleware('auth');
+Route::post('company-document', [CompanieFormController::class, 'uploadCompanyDocuments'])->name('companyname.documents')->middleware('auth');
 
 // Business Essential Steps
 Route::get('business-essential', [BusinessEssentialsController::class, 'index'])->name('business-essential.index')->middleware('auth');

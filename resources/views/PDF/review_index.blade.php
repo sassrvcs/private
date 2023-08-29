@@ -82,8 +82,42 @@
                                     <td style="padding: 0;">
                                         <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff; font-family: 'Poppins', sans-serif; border:1px solid #000;">
                                             <tr>
-                                                <td style="padding:10px; border-right: 1px solid #000;width: 50%;">Address</td>
-                                                <td style="padding:10px;width: 50%;">42 Danes Court, North End Road, Greater London,Wembley, United Kingdom (UK), ha90ae</td>
+                                                @if (!empty($review->forwarding_registered_office_address))
+                                                <h3>Registered Office</h3>
+                                                <ul>
+                                                    <li>
+                                                        <strong>Address : </strong> London: 52 Danes Court, North End Road, Wembley,
+                                                        Middlesex, HAQ OAE, United Kingdom
+                                                    </li>
+                                                </ul>
+                                                <h3>Forwarding Address</h3>
+                                                <ul>
+                                                    <li>
+                                                        <strong>Address : </strong>
+                                                        {{ $review->officeAddressWithForwAddress->house_number ?? '' }},
+                                                        {{ $review->officeAddressWithForwAddress->street ?? '' }},
+                                                        {{ $review->officeAddressWithForwAddress->locality ?? '' }},
+                                                        {{ $review->officeAddressWithForwAddress->town ?? '' }},
+                                                        {{ $review->officeAddressWithForwAddress->post_code ?? '' }},
+                                                    </li>
+                                                </ul>
+                                            @else
+                                                {{-- <h3>Registered Office</h3>
+                                            <ul>
+                                                <li><strong>Address : </strong>9 Raglan Court, Empire Way, WEMBLEY, HA9 0RE, SCOTLAND</li>
+                                            </ul> --}}
+                                                <h3>Registered Office</h3>
+                                                <ul>
+                                                    <li>
+                                                        <strong>Address : </strong>
+                                                        {{ $review->officeAddressWithForwAddress->house_number ?? '' }},
+                                                        {{ $review->officeAddressWithForwAddress->street ?? '' }},
+                                                        {{ $review->officeAddressWithForwAddress->locality ?? '' }},
+                                                        {{ $review->officeAddressWithForwAddress->town ?? '' }},
+                                                        {{ $review->officeAddressWithForwAddress->post_code ?? '' }}
+                                                    </li>
+                                                </ul>
+                                            @endif
                                             </tr>
                                         </table>
                                     </td>

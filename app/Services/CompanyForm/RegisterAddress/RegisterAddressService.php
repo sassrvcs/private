@@ -17,8 +17,9 @@ use Illuminate\Support\Facades\Auth;
 class RegisterAddressService
 {
     public function getRecentAddress($id){
-
+        // dd($id);
         $recent_addr = Address::where('id',$id)->first();
+
         return $recent_addr;
     }
 }

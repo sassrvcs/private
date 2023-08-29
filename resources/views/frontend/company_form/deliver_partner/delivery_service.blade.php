@@ -109,7 +109,10 @@
                                                             <td>
                                                                 <p>${{$net_total+$all_order->cart->package->package_price}}</p>
                                                                 <p>${{$total_vat+(($all_order->cart->package->package_price*20)/100)}}</p>
-                                                                <strong>${{$net_total+$all_order->cart->package->package_price+$total_vat}}</strong>
+                                                                @php
+                                                                    $total_price = (($net_total+$all_order->cart->package->package_price)+($total_vat+(($all_order->cart->package->package_price*20)/100)))
+                                                                @endphp
+                                                                <strong>${{$total_price}}</strong>
                                                             </td>
                                                         </tr>
                                                     </tfoot>
