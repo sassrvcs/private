@@ -13,6 +13,8 @@ use App\Models\Address;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Country;
+use App\Models\DeliveryPartnerDetail;
+use App\Models\Person_appointment;
 use Illuminate\Support\Facades\Session;
 use DB ;
 
@@ -78,6 +80,9 @@ class DeliverPartnerServiceController extends Controller
                                     ->get()
                                     ->toArray();
 
+        $partner_services_contact_name = Person_appointment::join('person_officers','person_officers.id','=','person_appointments.person_officer_id')->leftJoin('addresses','person_officers.add_id','=','addresses.id')->select('person_officers.first_name','person_officers.last_name','person_officers.id','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country','addresses.address_type','person_officers.add_id')->where('person_appointments.order',$order_id)->distinct()->get()->toArray();
+
+
                                     // ->groupBy(function($data) {
                                     //     return $data->house_number;
                                     // })->toArray();
@@ -113,18 +118,56 @@ class DeliverPartnerServiceController extends Controller
         if(empty($billing_address_list)){
             $billing_address_list = $primary_address_list ;
         }
-        return view('frontend.company_form.deliver_partner.delivery_service',compact('deliveryPartner','user','primary_address','billing_address','countries','primary_address_list','billing_address_list','all_order','net_total','total_vat'));
+        return view('frontend.company_form.deliver_partner.delivery_service',compact('deliveryPartner','user','primary_address','billing_address','countries','primary_address_list','billing_address_list','all_order','net_total','total_vat','partner_services_contact_name'));
 
     }
+    // public function fetchPartnerDetails()
+    // {
+    //     echo "hello";
+
+    // }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        // dd($request);
+        $exist_order = DeliveryPartnerDetail::where('order_id',$request->order_id)->first();
+        if($exist_order){
+            $exist_order->delete();
+        }
+        $referrer_name= $request->referrer_name;;
+        if($request->contact_referer=='myself')
+        {$referrer_name='';}
+        $save_order_details = new DeliveryPartnerDetail();
+        $save_order_details->order_id = $request->order_id;
+        $save_order_details->order_desc = $request->order_desc;
+        $save_order_details->recipient_name = $request->recipient_name;
+        $save_order_details->recipient_email = $request->recipient_email;
+        $save_order_details->regulated_body = $request->regulated;
+        $save_order_details->dob = $request->dob;
+        // $save_order_details->address = $request->address;
+        $save_order_details->residential_address = $request->res_address;
+        $save_order_details->relation = $request->relation_area;
+        $save_order_details->referring = $request->contact_referer;
+        $save_order_details->referrer_name = $referrer_name;
+        $save_order_details->contact_name = $request->contact_name;
+        $save_order_details->contact_email = $request->contact_email;
+        $save_order_details->contact_phone = $request->contact_phone;
+        $save_order_details->contact_mobile = $request->contact_mobile;
+        $save_order_details->contact_calltime = $request->call_time;
+        $save_order_details->contact_address = $request->res_address;
+        $save_order_details->save();
+        if($save_order_details->save())
+        {
+            
+
+        }else{
+            return redirect()->back()->with('error', 'Please check issue');
+        }
     }
 
     /**

@@ -105,11 +105,24 @@
                                                 {{ end($sessionCart)['package_name'] ?? '' }}&nbsp;
                                                 {!!end($sessionCart)['package_description'] ?? '' !!}
                                              </td>
+
                                              <td class="text-end">&nbsp;</td>
                                              <td class="product-total text-end">
                                                 <span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ end($sessionCart)['price'] ?? '0' }}</bdi></span>
                                              </td>
                                           </tr>
+                                          <tr class="cart_item">
+                                            <td class="product-name" colspan="3">
+
+                                               <span>Pre-Submission Review (we check your company details to avoid mistakes)</span>
+                                            </td>
+
+                                            <td class="text-end">&nbsp;</td>
+                                            <td class="product-total text-end">
+                                               <span class="amount"><bdi><span class="Price-currencySymbol">£</span>4.99</bdi></span>
+                                            </td>
+                                         </tr>
+
 
                                           @if( isset(end($sessionCart)['addon_service']) )
                                              @php $i=0; @endphp
@@ -171,6 +184,8 @@
          // Get all "Add" buttons with the class "addserv"
          const addButtons = document.querySelectorAll(".addserv");
          const removeButtons = document.querySelectorAll(".remove");
+
+         // Additional Pre submission review
 
          $(document).on('click', '.addserv', function(e) {
             // e.preventDefaault();

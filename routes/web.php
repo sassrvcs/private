@@ -133,11 +133,14 @@ Route::get('business-bank/terms-condition/{id}', [BusinessEssentialsController::
 
 Route::resource('review', ReviewController::class)->middleware('auth');
 
+
+
 // Route::get('business-service', [BusinessEssentialsController::class, 'index'])->name('business-service.index')->middleware('auth');
 // Route::post('business-service', [BusinessEssentialsController::class, 'store'])->name('business-service.store')->middleware('auth');
 
 // Delivery Partner Service
 Route::get('deliver-partner-services', [DeliverPartnerServiceController::class, 'index'])->name('delivery-partner.index')->middleware('auth');
+Route::post('deliver-partner-services/delivery-partner-details', [DeliverPartnerServiceController::class, 'create'])->name('delivery-partner.create')->middleware('auth');
 
 Route::get('update-forwarding-registered-office-address', [CompanyFormController::class, 'updateForwardingRegisterAddress'])->name('update-forwarding-registered-office-address')->middleware('auth');
 Route::get('update-forwarding-business-office-address', [CompanyFormController::class, 'updateForwardingBusinessAddress'])->name('update-forwarding-business-office-address')->middleware('auth');

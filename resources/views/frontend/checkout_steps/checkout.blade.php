@@ -547,5 +547,19 @@
             // Hide model
             $("#exampleModalCenterAddress").hide();
         }
+
+        $('#place_order').on('click',function(event){
+            event.preventDefault();
+            console.log('under payment');
+            $.ajax({
+            url:"test.php",    //the page containing php script
+            type: "post",    //request type,
+            dataType: 'json',
+            data: {registration: "success", name: "xyz", email: "abc@gmail.com"},
+            success:function(result){
+                console.log(result.abc);
+            }
+        });
+        })
     </script>
 @endsection

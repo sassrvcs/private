@@ -176,10 +176,11 @@ class CompanyFormController extends Controller
     public function chooseAddressAfterBuyNow()
     {
         $countries = Country::all()->toArray();
+        $order = Order::where('order_id',$_GET['order'])->first();
 
         $used_address = Address::where('user_id', Auth::user()->id)->get();
 
-        $forwardingAdd = Companie::where('user_id', Auth::user()->id)->first()->toArray();
+        $forwardingAdd = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->first()->toArray();
         $forwardingAddVal = $forwardingAdd['forwarding_registered_office_address'];
 
         if ($forwardingAddVal !== null) {
@@ -193,11 +194,13 @@ class CompanyFormController extends Controller
 
     public function chooseBusinessAddress()
     {
+        $order = Order::where('order_id',$_GET['order'])->first();
+
         $countries = Country::all()->toArray();
 
         $used_address = Address::where('user_id', Auth::user()->id)->get();
 
-        $forwardingAdd = Companie::where('user_id', Auth::user()->id)->first()->toArray();
+        $forwardingAdd = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->first()->toArray();
         $forwardingAddVal = $forwardingAdd['forwarding_business_office_address'];
 
         if ($forwardingAddVal !== null) {

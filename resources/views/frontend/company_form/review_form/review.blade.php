@@ -88,7 +88,7 @@
                                         <h3>Registered Office</h3>
                                         <ul>
                                             <li>
-                                                <strong>Address : </strong> London: 52 Danes Court, North End Road, Wembley,
+                                                <strong>Address : </strong>  52 Danes Court, North End Road, Wembley,
                                                 Middlesex, HAQ OAE, United Kingdom
                                             </li>
                                         </ul>
@@ -117,6 +117,46 @@
                                                 {{ $review->officeAddressWithoutForwAddress->locality ?? '' }},
                                                 {{ $review->officeAddressWithoutForwAddress->town ?? '' }},
                                                 {{ $review->officeAddressWithoutForwAddress->post_code ?? '' }}
+                                            </li>
+                                        </ul>
+                                    @endif
+                                    <a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}"
+                                        class="btn">Edit</a>
+                                </div>
+                                <div class="review-panel">
+                                    @if (!empty($review->forwarding_business_office_address))
+                                        <h3>Buisness Address</h3>
+                                        <ul>
+                                            <li>
+                                                <strong>Address : </strong>52 Danes Court, North End Road, Wembley,
+                                                Middlesex, HAQ OAE, United Kingdom
+                                            </li>
+                                        </ul>
+                                        <h3>Forwarding Address</h3>
+                                        <ul>
+                                            <li>
+                                                <strong>Address : </strong>
+                                                {{ $review->businessAddressWithForwAddress->house_number ?? '' }},
+                                                {{ $review->businessAddressWithForwAddress->street ?? '' }},
+                                                {{ $review->businessAddressWithForwAddress->locality ?? '' }},
+                                                {{ $review->businessAddressWithForwAddress->town ?? '' }},
+                                                {{ $review->businessAddressWithForwAddress->post_code ?? '' }},
+                                            </li>
+                                        </ul>
+                                    @else
+                                        {{-- <h3>Registered Office</h3>
+                                    <ul>
+                                        <li><strong>Address : </strong>9 Raglan Court, Empire Way, WEMBLEY, HA9 0RE, SCOTLAND</li>
+                                    </ul> --}}
+                                        <h3>Buisness Address</h3>
+                                        <ul>
+                                            <li>
+                                                <strong>Address : </strong>
+                                                {{ $review->businessAddressWithoutForwAddress->house_number ?? '' }},
+                                                {{ $review->businessAddressWithoutForwAddress->street ?? '' }},
+                                                {{ $review->businessAddressWithoutForwAddress->locality ?? '' }},
+                                                {{ $review->businessAddressWithoutForwAddress->town ?? '' }},
+                                                {{ $review->businessAddressWithoutForwAddress->post_code ?? '' }}
                                             </li>
                                         </ul>
                                     @endif
@@ -158,14 +198,15 @@
                                         <li><strong>Residential Address : </strong>132, My Street, Kingston, New York 12401.
                                         </li>
                                         <li><strong>Service Address : </strong>105 Krome Avemiami FL 33185 3700USA</li>
+                                        @if (in_array('PSC', $positionArray))
+
+                                            <li><strong>Name Of Control : </strong> {{$val['noc_vr']}} </li>
+                                        @endif
+
                                     </ul>
                                     @endforeach
 
-                                    <ul>
-                                        <li><strong>Name Of Control : </strong> Lorem ipsum dolor sit amet, consectetur
-                                            adipiscing
-                                            elit. Fusce nec odio fringilla, finibus leo a, elementum neque.</li>
-                                    </ul>
+
                                     <a href="{{  route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}"
                                         class="btn">Edit</a>
                                 </div>

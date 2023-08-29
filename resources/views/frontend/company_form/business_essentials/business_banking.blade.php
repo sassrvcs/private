@@ -96,7 +96,7 @@ ul.ef-16-benefits-list {
                                                             </div>
                                                             <div class="desc">
                                                                 <h3>{{ $businessBank->title ?? "" }}</h3>
-                                                                <p><span>{{ $businessBank->short_description }}</span></p>
+                                                                <p><span style="color: black;">{{ $businessBank->short_description }}</span></p>
                                                             </div>
                                                         </div>
                                                         <div class="info">

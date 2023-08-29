@@ -110,7 +110,7 @@ ul.ef-16-benefits-list {
                                                             </div>
                                                             <div class="desc">
                                                                 <h3>{{ $businessService->accounting_software_name ?? " " }}</h3>
-                                                                <p><span>{{ $businessService->short_desc  ?? ''}}</span></p>
+                                                                <p><span style="color: black;">{{ $businessService->short_desc  ?? ''}}</span></p>
                                                             </div>
                                                         </div>
                                                         <div class="info">
