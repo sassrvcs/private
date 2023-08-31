@@ -101,7 +101,7 @@ Route::get('payment-exception', [CheckoutStepController::class, 'paymentExceptio
 Route::get('payment-cancelled', [CheckoutStepController::class, 'paymentCancelled'])->name('payment-cancelled');
 
 
-
+Route::get('/delete-cart-item/{indx}',[CheckoutStepController::class,'deleteCartItem'])->name('delete-cart-item');
 
 Route::get('companies', CompaniesListController::class)->name('companies-list');
 

@@ -18,6 +18,46 @@
                         <div id="contdiv">
                             <div class="search-result mb-4">
                                 <div class="row align-items-center">
+                                    @if(count($sessionCart) > 1)
+                                        <table class="efTable">
+                                            <tr class="ui-widget-header">
+                                                <td>Company Name</td>
+                                                <td>Status</td>
+                                                <td>Price</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>                                        
+                                            
+                                            @foreach($sessionCart as $key => $sessionC)                                            
+                                                @if($key < (count($sessionCart) - 1) )    
+                                                    <tr>                                                        
+                                                        <td>{{ $sessionC['company_name'] ?? '' }}</td>
+                                                        <td>Incomplete</td>
+                                                        <td>&pound;{{ $sessionC['price'] ?? '' }}</td>
+
+                                                        <td style=""> 
+                                                            <a onclick="return deleteCartSessionItem();" href="{{route('delete-cart-item', $key)}}">
+                                                                <!-- <i class="fa fa-trash"></i> -->
+                                                                <button id="" type="submit" class="efButton deleteButton ui-button ui-widget" name="pa" value="deleteo">Delete &#10007;</button>
+                                                            </a>
+                                                        </td>
+
+                                                        <td style="">
+                                                        <!-- proceed to payment -->
+                                                            <form method="post" action="{{ route('addon-services',["indx" => $key]) }}" id="buyForm">
+                                                                @csrf
+                                                                <input type="hidden" name="checkout_step" value="3">
+                                                                <input type="hidden" name="company_name" value="{{ $sessionC['company_name'] ?? '' }}">
+                                                                <input type="hidden" name="pack_price" value="{{ $sessionC['price'] ?? '' }}">
+                                                                <button type="submit" name="buyForm" class="btn btn-primary wow zoomIn">Proceed to register<i class="fa fa-long-arrow-right"></i></button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach                                        
+                                        </table>
+                                    @endif
+
                                     <div class="col-md-8">
                                         <div class="search-result" id="available-company">
                                             <span class="icon"><i class="fa fa-check-circle-o"></i></span>
@@ -32,6 +72,7 @@
                                             {{-- <div class="hhr-text">Search for another name</div> --}}
                                         </div>
                                     </div>
+
                                     <div class="col-md-4 text-end">
                                         <p class="h5">You have chosen the <span style="color:#87CB28;">{{ end($sessionCart)['package_name'] ?? '' }}</span></p>
                                         <form method="post" action="{{ route('addon-services') }}" id="buyForm">
@@ -141,6 +182,11 @@
                 // Hide loader
                 loader.style.display = 'none';
             });
+        }
+
+        function deleteCartSessionItem() {
+            if(!confirm("Are You Sure to delete?"))
+            event.preventDefault();
         }
     </script>
 @endsection

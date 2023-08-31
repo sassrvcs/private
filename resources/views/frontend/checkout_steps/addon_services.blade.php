@@ -1,8 +1,9 @@
 @extends('layouts.master')
 @section('content')
-    {{-- url({{ asset('frontend/assets/images/main-banner.png')}}); --}}
-    <!-- ================ start: main-banner ================ -->
-    <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/compare-packages-banner.png') }})">
+   {{-- url({{ asset('frontend/assets/images/main-banner.png')}}); --}}
+   <!-- ================ start: main-banner ================ -->
+   <input type="hidden" name="indx" id="indx" value="{{ $indx ?? '' }}">
+   <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/compare-packages-banner.png') }})">
         <div class="custom-container">
             <div class="left-info">
                 <figure data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="aos-init aos-animate">
@@ -26,16 +27,20 @@
                 </div>
             </div>
         </div>
-    </section>
-    <!-- ================ end: main-banner ================ -->
+      </section>
+      <!-- ================ end: main-banner ================ -->
 
-    <!-- ================ start: checkout-sec ================ -->
-    <section class="sectiongap legal rrr fix-container-width ">
+      <!-- ================ start: checkout-sec ================ -->
+      <section class="sectiongap legal rrr fix-container-width ">
         <div class="container">
            <div class="checkout-wrapper">
               <div class="checkout-notices-wrapper">
                  <div class="checkout-message" role="alert">
-                    <p>“{{ end($sessionCart)['package_name'] ?? '' }}” has been added to your cart.</p> <a href="/" tabindex="1" class="theme-btn-primary con-shopping-btn">Continue shopping</a>
+                    @if( isset($indx) )
+                        <p>“{{ $sessionCart[$indx]['package_name'] ?? '' }}” has been added to your cart.</p> <a href="#" tabindex="1" class="theme-btn-primary con-shopping-btn">Continue shopping</a>
+                     @else
+                        <p>“{{ end($sessionCart)['package_name'] ?? '' }}” has been added to your cart.</p> <a href="#" tabindex="1" class="theme-btn-primary con-shopping-btn">Continue shopping</a>
+                     @endif
                  </div>
               </div>
               {{-- @dump($sessionCart) --}}
@@ -68,7 +73,7 @@
                                        {{-- @if( isset(end($sessionCart)['addon_service']) && in_array($addonService->id, end($sessionCart)['addon_service']) )
                                           <a href="javascript:void(0);" class="btn btn-secondary btn-sm addserv addon_{{$addonService->id}}" data-url="{{ route('update-cart', ['id' => $addonService->id ]) }}" data-item="{{ $addonService->id }}">Add</a>
                                        @else --}}
-                                       <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv addon_{{$addonService->id}}" data-url="{{ route('update-cart', ['id' => $addonService->id ]) }}" data-item="{{ $addonService->id }}">Add</a>
+                                       <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv addon_{{$addonService->id}}" data-url="{{ route('update-cart', ['id' => $addonService->id, 'indx' => $indx ]) }}" data-item="{{ $addonService->id }}">Add</a>
                                        {{-- @endif --}}
                                     </div>
                                  </div>
@@ -84,7 +89,7 @@
                                  <h3 id="order_review_heading" class="mb-3">Your Basket</h3>
                                  <div class="alert-info p-3">
                                     <p>Your new company name:</p>
-                                    <p class="h6">{{ end($sessionCart)['company_name'] ?? '' }}</p>
+                                    <p class="h6">{{ isset($indx) ? $sessionCart[$indx]['company_name'] ?? '' : end($sessionCart)['company_name'] ?? '' }}</p>
                                  </div>
                                  <hr>
                               </div>
@@ -102,14 +107,14 @@
                                        <tbody id="item-tbody">
                                           <tr class="cart_item">
                                              <td class="product-name" colspan="3">
-
-                                                {{ end($sessionCart)['package_name'] ?? '' }}&nbsp;
-                                                {!!end($sessionCart)['package_description'] ?? '' !!}
+                                                {{ isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' : end($sessionCart)['package_name'] ?? '' }}
+                                                &nbsp;
+                                                {!! isset($indx) ? $sessionCart[$indx]['package_description'] ?? '' : end($sessionCart)['package_description'] ?? '' !!}
                                              </td>
 
                                              <td class="text-end">&nbsp;</td>
                                              <td class="product-total text-end">
-                                                <span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ end($sessionCart)['price'] ?? '0' }}</bdi></span>
+                                                <span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ isset($indx) ? $sessionCart[$indx]['price'] ?? '0' : end($sessionCart)['price'] ?? '0' }}</bdi></span>
                                              </td>
                                           </tr>
                                           {{-- <tr class="fee row_4">
@@ -124,17 +129,31 @@
                                             </td>
                                          </tr> --}}
 
-
-                                          @if( isset(end($sessionCart)['addon_service']) )
+                                          @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )
                                              @php $i=0; @endphp
-                                             @foreach( end($sessionCart)['addon_service'] as $key => $value)
-                                                <tr class="fee row_{{ $key }}">
+                                             @foreach( $sessionCart[$indx]['addon_service'] as $addon_key => $value)
+                                                <tr class="fee row_{{ $addon_key }}">
                                                    <td colspan="3">{{ $value['service_name'] }}</td>
-                                                   <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                   <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $addon_key,'indx' => $indx] ) }}" dara-row="{{ $addon_key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
                                                    <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
                                                 </tr>
                                                 @php $i++ @endphp
                                              @endforeach
+                                          @else
+                                             @if( isset(end($sessionCart)['addon_service']) )
+                                                @php
+                                                   $i=0;
+                                                   $total_item = count($sessionCart) - 1;
+                                                @endphp
+                                                @foreach( end($sessionCart)['addon_service'] as $addon_key => $value)
+                                                   <tr class="fee row_{{ $addon_key }}">
+                                                      <td colspan="3">{{ $value['service_name'] }}</td>
+                                                      <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $addon_key,'indx' => $total_item] ) }}" dara-row="{{ $addon_key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                      <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
+                                                   </tr>
+                                                   @php $i++ @endphp
+                                                @endforeach
+                                             @endif
                                           @endif
                                           @if( isset(end($sessionCart)['additional_service']) )
 
@@ -293,12 +312,14 @@
          calculateTotal();
 
          $(document).on('click', '#checkout-final', function() {
+            var indx = $("#indx").val();
             // alert('sdfs');
             if (!$('#flexCheckChecked').is(':checked')) {
                $("#error-span").show();
                return;
             } else {
-               location.href = "{{ route('checkout') }}";
+               query = "?indx=" + indx;
+               location.href = "{{ route('checkout') }}" + query;
             }
          });
       });

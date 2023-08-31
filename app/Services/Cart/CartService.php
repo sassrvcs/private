@@ -97,7 +97,7 @@ class CartService
      * @param  string  $searchText
      * @return 'messsge as per data'
      */
-    public function addToCartViaSession($addedItemId, $type = 'package')
+    public function addToCartViaSession($addedItemId, $type = 'package', $indx = null)
     {
 
         if ($type == 'package') {
@@ -173,7 +173,7 @@ class CartService
 
         if($type == 'service') {
             // dd('Working....!');
-            return $this->updateAddonService($addedItemId);
+            return $this->updateAddonService($addedItemId, $indx);
         }
     }
 
@@ -220,7 +220,7 @@ class CartService
     /**
      * Update addon service
      */
-    private function updateAddonService($service_id)
+    private function updateAddonService($service_id, $cart_index)
     {
         $service = $this->addonService->edit($service_id);
         // dd($service);
@@ -230,17 +230,23 @@ class CartService
         $cartItemCount = count($cart) -1;
 
         // dd($cart);
-        $existingCartItem = null;
-        if($cartItemCount < 1) {
-            foreach ($cart as $index => $cartItem) {
-                if (isset($cartItem['company_name']) && !empty($cartItem['company_name'])) {
-                    $existingCartItem = $index;
-                    break;
+        if(isset($cart_index)){
+            $existingCartItem = $cart_index;
+        }else{
+            $existingCartItem = null;
+            if($cartItemCount < 1) {
+                foreach ($cart as $index => $cartItem) {
+                    if (isset($cartItem['company_name']) && !empty($cartItem['company_name'])) {
+                        $existingCartItem = $index;
+                        break;
+                    }
                 }
+            } else {
+                $existingCartItem = $cartItemCount;
             }
-        } else {
-            $existingCartItem = $cartItemCount;
         }
+
+        //dd($existingCartItem);
 
         if ($existingCartItem !== null) {
 
@@ -290,17 +296,28 @@ class CartService
      * Remove service ID from session | cart
      * @param string $service_key
      */
-    public function removeAddonService($service_key)
+    public function removeAddonService($service_key, $cart_index = null)
     {
-        // dd($service_key);
-        $cart = session()->pull('cart', []);
-        // dd($cart);
-        if (isset($cart[0]['addon_service']) && is_array($cart[0]['addon_service'])) {
+        $cart1 = session()->pull('cart', []);
+        //echo $service_key;
+        //echo $cart_index;
+        //dd($cart1);
+        if(isset($cart_index)){
+            if (isset($cart1[$cart_index]['addon_service']) && is_array($cart1[$cart_index]['addon_service'])) {
+                unset($cart1[$cart_index]['addon_service'][$service_key]);
+
+                session()->put('cart', $cart1);
+
+                return true;
+            }
+        }
+
+        /*if (isset($cart[0]['addon_service']) && is_array($cart[0]['addon_service'])) {
             unset($cart[0]['addon_service'][$service_key]);
 
             session()->put('cart', $cart);
             return true;
-        }
+        }*/
     }
     // public function removePreSubmissionService($service_key)
     // {

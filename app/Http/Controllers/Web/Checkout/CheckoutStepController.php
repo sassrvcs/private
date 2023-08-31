@@ -48,7 +48,8 @@ class CheckoutStepController extends Controller
         $addonServices  = $this->addonService->index();
         $total_amount =0;
         // dump($sessionCart);
-        return view('frontend.checkout_steps.addon_services', compact('sessionCart', 'addonServices','total_amount'));
+        $indx = $request->indx;
+        return view('frontend.checkout_steps.addon_services', compact('sessionCart', 'addonServices','total_amount', 'indx'));
     }
 
     /**
@@ -59,6 +60,8 @@ class CheckoutStepController extends Controller
     {
         // dd($request);
         $order_id=null;
+        $indx = $request->indx;
+
         if($request->query('order')){
             $checkout = Order::with('cart.package','cart.addonCartServices.service')->where('order_id',$request->query('order'))->first();
             // dd($checkout);
@@ -94,9 +97,9 @@ class CheckoutStepController extends Controller
             if(auth()->user()) {
                 $user = $this->userService->show(auth()->user()->id);
                 $checkout = $this->checkoutService->doCheckoutFinalStep($request, auth()->user());
-                return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user','checkout'));
+                return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user','checkout','indx'));
             }else{
-                return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user'));
+                return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user', 'indx'));
 
             }
 
@@ -199,5 +202,30 @@ class CheckoutStepController extends Controller
     }
     public function paymentCancelled(Request $request){
         dd($request);
+    }
+
+    /**
+     * Delete session cart item
+     * @Checkout step -> 2
+    */
+    public function deleteCartItem(Request $request)
+    {
+        $session_indx = $request->indx;
+
+        $sessionCart1 = Session::get('cart');
+        /*foreach($sessionCart1 as $key => $sessionC){
+            if ( $sessionC['company_name'] == $session_indx ) {
+                echo $key;
+                unset($sessionCart1[$key]);
+            }
+        }*/
+
+        unset($sessionCart1[$session_indx]);
+
+        Session::put('cart', $sessionCart1);
+
+        $sessionCart = Session::get('cart');
+
+        return view('frontend.checkout_steps.search_compant', compact('sessionCart'));
     }
 }
