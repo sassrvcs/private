@@ -28,8 +28,9 @@
                                                 <td></td>
                                             </tr>                                        
                                             
-                                            @foreach($sessionCart as $key => $sessionC)                                            
-                                                @if($key < (count($sessionCart) - 1) )    
+                                            @php $cnt = 0; @endphp
+                                            @foreach($sessionCart as $key => $sessionC) 
+                                                @if($cnt < (count($sessionCart) - 1) )    
                                                     <tr>                                                        
                                                         <td>{{ $sessionC['company_name'] ?? '' }}</td>
                                                         <td>Incomplete</td>
@@ -54,6 +55,7 @@
                                                         </td>
                                                     </tr>
                                                 @endif
+                                                @php $cnt++; @endphp
                                             @endforeach                                        
                                         </table>
                                     @endif
