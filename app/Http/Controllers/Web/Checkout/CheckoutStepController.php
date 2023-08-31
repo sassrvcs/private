@@ -69,6 +69,7 @@ class CheckoutStepController extends Controller
             $package =$checkout->cart->package ?? [];
             $countries =[];
             $user = [];
+            // dd($checkout);
             return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user','checkout'));
         }
         else{
