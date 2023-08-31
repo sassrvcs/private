@@ -99,12 +99,15 @@ class CartService
      */
     public function addToCartViaSession($addedItemId, $type = 'package')
     {
+
         if ($type == 'package') {
+
             $package = $this->packageService->getPackage($addedItemId);
 
 
             // Get the cart from the session
             $cart = Session::get('cart', []);
+            // dd($cart);
             $cartItemCount = count($cart) -1;
 
             $existingCartItem = null;
@@ -120,6 +123,7 @@ class CartService
             }
 
             if ($existingCartItem !== null) {
+
                 // Item already exists in the cart, update its quantity and price
                 if (isset($cart[$existingCartItem]['quantity'])) {
                     $cart[$existingCartItem]['quantity'] += 1;
@@ -135,6 +139,12 @@ class CartService
                 $cart[$existingCartItem]['package_status']  = 1;
                 $cart[$existingCartItem]['step_complete']   = 1;
                 $cart[$existingCartItem]['addon_service'] = [];
+                $cart[$existingCartItem]['additional_service'] = [
+                    'product_id'     => 100,
+                    'package_name' => 'Pre-Submission Review (we check your company details to avoid mistakes)',
+                        'price' =>4.99,
+                ];
+
             } else {
 
                 $cartItem = [
@@ -143,6 +153,11 @@ class CartService
                     'product_id'     => $package->id,
                     'package_name'   => $package->package_name,
                     'package_description'   => $package->description,
+                    'additional_service' =>[
+                        'product_id'     => 100,
+                        'package_name' => 'Pre-Submission Review (we check your company details to avoid mistakes)',
+                        'price' =>4.99,
+                    ],
                     'package_status' => 1,
                     'addon_service'  => []
                 ];
@@ -198,6 +213,7 @@ class CartService
     public function getCartViaSession()
     {
         $sessionCart = Session::get('cart');
+        // dd($sessionCart);
         return $sessionCart;
     }
 
@@ -276,8 +292,9 @@ class CartService
      */
     public function removeAddonService($service_key)
     {
+        // dd($service_key);
         $cart = session()->pull('cart', []);
-
+        // dd($cart);
         if (isset($cart[0]['addon_service']) && is_array($cart[0]['addon_service'])) {
             unset($cart[0]['addon_service'][$service_key]);
 
@@ -285,4 +302,17 @@ class CartService
             return true;
         }
     }
+    // public function removePreSubmissionService($service_key)
+    // {
+    //     dd($service_key);
+    //     $cart = session()->pull('cart', []);
+    //     if (isset($cart[0]['addon_service']) && is_array($cart[0]['addon_service'])) {
+    //         unset($cart[0]['addon_service'][$service_key]);
+
+    //         session()->put('cart', $cart);
+    //         return true;
+    //     }
+    // }
+
+
 }

@@ -22,8 +22,9 @@ class CheckoutService
      */
     public function doCheckoutFinalStep($request, $user)
     {
+        $order='';
         $sessionCart = Session::get('cart', []);
-        return DB::transaction(function () use ($request, $user, $sessionCart) {
+        return DB::transaction(function () use ($request, $user, $sessionCart,$order) {
             $addonServices = [];
             $cart = end($sessionCart);
             $shoppingCart = ShoppingCart::create([
@@ -35,7 +36,7 @@ class CheckoutService
 
             // Create a new order in database with pending status
             if ($shoppingCart) {
-                Order::updateOrCreate([
+               $order= Order::updateOrCreate([
                     'user_id'       => $user->id,
                     'company_name'  => $cart['company_name']
                 ],[
@@ -53,13 +54,13 @@ class CheckoutService
             foreach($cart['addon_service'] as $addonService) {
                 $addonServices[] = [
                     'cart_id'    => $shoppingCart->id,
-                    'service_id' => $addonService['service_id'], 
+                    'service_id' => $addonService['service_id'],
                 ];
             }
 
             AddonCartService::insert($addonServices);
 
-            return true;
+            return $order;
         });
     }
 

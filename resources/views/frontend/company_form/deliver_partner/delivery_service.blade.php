@@ -1,8 +1,5 @@
 @extends('layouts.master')
-@section('content')
-    {{-- Include Inner Header View --}}
-    @include('layouts.inner_header')
-    {{-- Additional CSS for now --}}
+@section('style')
     <style>
         ul.ef-16-benefits-list {
             list-style: inside;
@@ -11,9 +8,29 @@
         .terms-condition {
             cursor: pointer;
         }
+
+        .my-error-class {
+            color: #FF0000 !important;
+            margin-left: 2px;
+            /* red */
+        }
+
+        input.my-error-class,
+        textarea.my-error-class,
+        select.my-error-class {
+            border: 1px solid #FF0000 !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
     </style>
+@endsection
+@section('content')
+    {{-- Include Inner Header View --}}
+    @include('layouts.inner_header')
+    {{-- Additional CSS for now --}}
+
     <section class="sectiongap legal rrr fix-container-width ">
-        <form action="{{route('delivery-partner.create')}}" id="delivery_form" method="post">
+        <form action="{{ route('delivery-partner.create') }}" id="delivery_form" method="post">
             @csrf
             <div class="container">
                 <div class="companies-wrap">
@@ -71,30 +88,29 @@
                                                         <tr>
 
 
-                                                            <td>{{$all_order->cart->package->package_name}} </td>
+                                                            <td>{{ $all_order->cart->package->package_name }} </td>
                                                             <td>1</td>
-                                                            <td>${{$all_order->cart->package->package_price}}</td>
-                                                            <td>${{$all_order->cart->package->package_price}}</td>
-                                                            <td>${{($all_order->cart->package->package_price*20)/100}}</td>
+                                                            <td>${{ $all_order->cart->package->package_price }}</td>
+                                                            <td>${{ $all_order->cart->package->package_price }}</td>
+                                                            <td>${{ ($all_order->cart->package->package_price * 20) / 100 }}
+                                                            </td>
                                                         </tr>
                                                         @foreach ($all_order->cart->addonCartServices as $item)
+                                                            @php
 
-                                                        @php
+                                                                $net_total = $net_total + $item->service->price;
+                                                                $vat = ($item->service->price * 20) / 100;
+                                                                $total_vat = $total_vat + $vat;
+                                                            @endphp
 
-                                                                $net_total =$net_total+ $item->service->price;
-                                                                $vat = ($item->service->price*20)/100;
-                                                                $total_vat = $total_vat+$vat;
-                                                        @endphp
+                                                            <tr>
 
-                                                        <tr>
-
-                                                            <td>{{$item->service->service_name}} </td>
-                                                            <td>1</td>
-                                                            <td>${{$item->service->price}}</td>
-                                                            <td>${{$item->service->price}}</td>
-                                                            <td>${{$vat}}</td>
-                                                        </tr>
-
+                                                                <td>{{ $item->service->service_name }} </td>
+                                                                <td>1</td>
+                                                                <td>${{ $item->service->price }}</td>
+                                                                <td>${{ $item->service->price }}</td>
+                                                                <td>${{ $vat }}</td>
+                                                            </tr>
                                                         @endforeach
                                                     </tbody>
                                                     <tfoot>
@@ -108,19 +124,21 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td>
-                                                                <p>${{$net_total+$all_order->cart->package->package_price}}</p>
-                                                                <p>${{$total_vat+(($all_order->cart->package->package_price*20)/100)}}</p>
+                                                                <p>${{ $net_total + $all_order->cart->package->package_price }}
+                                                                </p>
+                                                                <p>${{ $total_vat + ($all_order->cart->package->package_price * 20) / 100 }}
+                                                                </p>
                                                                 @php
-                                                                $total_price = (($net_total+$all_order->cart->package->package_price)+($total_vat+(($all_order->cart->package->package_price*20)/100)))
+                                                                    $total_price = $net_total + $all_order->cart->package->package_price + ($total_vat + ($all_order->cart->package->package_price * 20) / 100);
                                                                 @endphp
-                                                                <strong>${{$total_price}}</strong>
+                                                                <strong>${{ $total_price }}</strong>
                                                             </td>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
                                             </div>
                                             <div class="delivery-details-info">
-                                                <input type="hidden" name="order_id" value="{{$_GET['order']}}">
+                                                <input type="hidden" name="order_id" value="{{ $_GET['order'] }}">
                                                 <h4 class="form-ttl">Delivery Details</h4>
                                                 <p>Please check the recipient information below is correct, as these details
                                                     will be used to deliver your order to you.</p>
@@ -165,11 +183,13 @@
                                                     <p>Are you part of a regulated body?</p>
                                                     <ul>
                                                         <li>
-                                                            <input type="radio" value="no" id="no" name="regulated" checked>
-                                                            <label for="no" >NO</label>
+                                                            <input type="radio" value="no" id="no"
+                                                                name="regulated" checked>
+                                                            <label for="no">NO</label>
                                                         </li>
                                                         <li>
-                                                            <input type="radio" value="yes" id="yes" name="regulated">
+                                                            <input type="radio" value="yes" id="yes"
+                                                                name="regulated">
                                                             <label for="yes">yes</label>
                                                         </li>
                                                     </ul>
@@ -177,7 +197,8 @@
                                                 <ul class="feild-list">
                                                     <li>
                                                         <label>Your Date of Birth :</label>
-                                                        <input type="date" id="dob" name="dob" class="form-control" onclick="dob_onclick(this)">
+                                                        <input type="date" id="dob" name="dob"
+                                                            class="form-control" onclick="dob_onclick(this)">
                                                     </li>
                                                     <li>
                                                         <label for="">Residential Address : </label>
@@ -200,7 +221,11 @@
                                                                 </p>
                                                             @endforeach
                                                         </span>
-                                                        <button type="button" id="choosePrimaryAddress"  class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force" id="openModalButton" role="button" aria-disabled="false" fdprocessedid="4xigk"><span class="ui-button-text"> Choose Another</span></button>
+                                                        <button type="button" id="choosePrimaryAddress"
+                                                            class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force"
+                                                            id="openModalButton" role="button" aria-disabled="false"
+                                                            fdprocessedid="4xigk"><span class="ui-button-text" onclick="openModal()"> Choose
+                                                                Another</span></button>
                                                         {{-- <button class="btn" id="choosePrimaryAddress" role="button"
                                                             aria-disabled="false">Choose Address</button> --}}
                                                     </li>
@@ -227,26 +252,34 @@
                                                 <ul class="feild-list">
                                                     <li>
                                                         <label>Referring </label>
-                                                        <select class="form-control" name="contact_referer" id="fetchParterDetails">
-                                                            <option value="" selected="selected">Please Select</option>
-                                                            <option value="myself" >Myself</option>
+                                                        <select class="form-control" name="contact_referer"
+                                                            id="fetchParterDetails">
+                                                            <option value="" selected="selected">Please Select
+                                                            </option>
+                                                            <option value="myself">Myself</option>
                                                             <option value="somebodyelse">Somebody Else</option>
                                                         </select>
                                                     </li>
                                                     <li id="populate_referrer_name" hidden>
                                                         <label>Referrer's Name: </label>
-                                                        <input type="text" class="form-control" name="referrer_name" value="{{ $user->forename }} {{ $user->surname }}">
+                                                        <input type="text" class="form-control" name="referrer_name"
+                                                            value="{{ $user->forename }} {{ $user->surname }}">
                                                     </li>
                                                     <li>
                                                         <label>Contact Name : </label>
-                                                        <select class="form-control" id="contact_name" name="contact_name">
-                                                           <option value="">Please Select</option>
-                                                           @forelse ($partner_services_contact_name as $partner_name)
-
-                                                           <option value="{{ $partner_name['first_name'] }} {{ $partner_name['last_name'] }}" data-address=" @if ($partner_name['house_number']){{$partner_name['house_number']}},@endif @if($partner_name['street']){{$partner_name['street']}},@endif @if ($partner_name['locality']){{$partner_name['locality']}}, @endif @if ($partner_name['town']) {{$partner_name['town']}},@endif @if ($partner_name['county']){{ $partner_name['county']}},@endif @if ($partner_name['post_code']){{$partner_name['post_code']}}@endif" data-add-id="{{$partner_name['add_id']}}">{{ $partner_name['first_name'] }} {{ $partner_name['last_name'] }}</option>
-                                                           @empty
-                                                           <option value="">No data found</option>
-                                                           @endforelse
+                                                        <select class="form-control" id="contact_name"
+                                                            name="contact_name">
+                                                            <option value="">Please Select</option>
+                                                            @forelse ($partner_services_contact_name as $partner_name)
+                                                                <option
+                                                                    value="{{ $partner_name['first_name'] }} {{ $partner_name['last_name'] }}"
+                                                                    data-address=" @if ($partner_name['house_number']) {{ $partner_name['house_number'] }}, @endif @if ($partner_name['street']) {{ $partner_name['street'] }}, @endif @if ($partner_name['locality']) {{ $partner_name['locality'] }}, @endif @if ($partner_name['town']) {{ $partner_name['town'] }}, @endif @if ($partner_name['county']) {{ $partner_name['county'] }}, @endif @if ($partner_name['post_code']) {{ $partner_name['post_code'] }} @endif"
+                                                                    data-add-id="{{ $partner_name['add_id'] }}">
+                                                                    {{ $partner_name['first_name'] }}
+                                                                    {{ $partner_name['last_name'] }}</option>
+                                                            @empty
+                                                                <option value="">No data found</option>
+                                                            @endforelse
                                                         </select>
                                                     </li>
                                                     <li>
@@ -255,11 +288,13 @@
                                                     </li>
                                                     <li>
                                                         <label>Contact Phone : </label>
-                                                        <input type="number" class="form-control" name="contact_phone" id="contact_phone" minlength="10" maxlength="10">
+                                                        <input type="number" class="form-control" name="contact_phone"
+                                                            id="contact_phone" minlength="10" maxlength="10">
                                                     </li>
                                                     <li>
                                                         <label>Contact Mobile : </label>
-                                                        <input type="number" class="form-control" name="contact_mobile" id="contact_mobile" minlength="10" maxlength="10">
+                                                        <input type="number" class="form-control" name="contact_mobile"
+                                                            id="contact_mobile" minlength="10" maxlength="10">
                                                     </li>
                                                     <li>
                                                         <label>Preferred Call Time : </label>
@@ -272,9 +307,9 @@
                                                     <li>
                                                         <label for="">Residential Address : </label>
                                                         <input type="text" class="form-control" name="res_address"
-                                                            id="res_address" >
+                                                            id="res_address">
                                                         <input type="text" class="form-control" name="res_address_id"
-                                                        id="res_address_id" hidden>
+                                                            id="res_address_id" hidden>
                                                         {{-- <span>@foreach ($primary_address as $key => $value)
 
 
@@ -304,8 +339,10 @@
                                                 </div>
                                                 <div class="checkbox-panel">
                                                     <input type="checkbox" id="lorem" name="terms">
-                                                    <label for="lorem"><strong>I agree to the <a href="{{ route('page', ['slug' => 'terms-conditions'] ) }}">Terms
-                                                                and Conditions</a> & <a href="{{ route('page', ['slug' => 'gdpr-privacy-policy'] ) }}">Privacy
+                                                    <label for="lorem"><strong>I agree to the <a
+                                                                href="{{ route('page', ['slug' => 'terms-conditions']) }}">Terms
+                                                                and Conditions</a> & <a
+                                                                href="{{ route('page', ['slug' => 'gdpr-privacy-policy']) }}">Privacy
                                                                 Policy</a></strong></label>
                                                 </div>
                                                 <div class="step-btn-wrap mt-4">
@@ -324,7 +361,7 @@
     </section>
 
     {{-- Open modal for choose address --}}
-    <div class="modal custom-modal-s1" id="choosePrimaryAddressModal" tabindex="-1" role="dialog"
+    <div class="modal custom-modal-s1" id="choosePrimaryAddressModalData" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content border-0">
@@ -418,11 +455,12 @@
             </div>
         </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" />
+@endsection
+@section('script')
+ 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+
     <script>
         function dob_onclick(ths) {
             const today = new Date().toISOString().split('T')[0];
@@ -467,19 +505,17 @@
                 }
             });
 
-            $("#choosePrimaryAddress").click(function() {
-                $('#choosePrimaryAddressModal').modal('show');
-            });
+            // $("#choosePrimaryAddress").click(function() {
+            //     $('#choosePrimaryAddressModal').modal('show');
+            // });
 
-            $("#fetchParterDetails").change(function(){
+            $("#fetchParterDetails").change(function() {
                 var mode = $(this).val();
-                if(mode=='myself'||mode=='')
-                {
-                    $("#populate_referrer_name").attr('hidden',true);
+                if (mode == 'myself' || mode == '') {
+                    $("#populate_referrer_name").attr('hidden', true);
                 }
-                if(mode=='somebodyelse')
-                {
-                    $("#populate_referrer_name").removeAttr('hidden',true);
+                if (mode == 'somebodyelse') {
+                    $("#populate_referrer_name").removeAttr('hidden', true);
                 }
             })
 
@@ -489,11 +525,16 @@
                 var add_id = selectedOption.data('add-id');
                 address = $.trim(address);
                 add_id = $.trim(add_id);
-        $("#res_address").val(address);
-        $("#res_address_id").val(add_id);
+                $("#res_address").val(address);
+                $("#res_address_id").val(add_id);
 
-                });
+            });
         });
+        function openModal(){
+            console.log('hit');
+                $('#choosePrimaryAddressModalData').modal('show');
+
+        }
 
 
         function setAddress(userId, addressId, addressType) {
@@ -532,73 +573,41 @@
 
         }
 
-        $("#delivery_form").submit(function(e) {
-            if($("#delivery_form").valid())
-                {
-                    $("#delivery_form").submit()
-                }
-
-            e.preventDefault();
-            return false;
-        });
-
-        $("#delivery_form").validate({
-            rules: {
-                recipient_name: "required",
-                recipient_email: "required",
-                regulated: "required",
-                dob: {
-                    dobNotLessThan18: true,
-                    required: true,
-                },
-                relation_area: "required",
-                contact_name:"required",
-                contact_email: "required",
-                contact_phone: {
-                    required:true
-                },
-                contact_mobile: "required",
-                res_address:"required",
-                i_confirm: "required",
-                receive_updates: "required",
-                terms: "required",
 
 
-            },
+
+        $('#delivery_form').validate({
             errorClass: "my-error-class",
-            errorPlacement: function(error, element) {
-                if (element.attr("type") == "radio") {
-                    error.appendTo(element.parent("li").parent('ul').parent('div'));
-                } else {
-                    error.insertAfter(element);
-                }
+                rules: {
+                    recipient_name: "required",
+                    recipient_email: "required",
+                    regulated: "required",
+                    dob: {
+                        dobNotLessThan18: true,
+                        required: true,
+                    },
+                    relation_area: "required",
+                    contact_name: "required",
+                    contact_email: "required",
+                    contact_phone: {
+                        required: true
+                    },
+                    contact_mobile: "required",
+                    res_address: "required",
+                    i_confirm: "required",
+                    receive_updates: "required",
+                    terms: "required",
+            },
+            submitHandler: function() {
+                $('#delivery_form').submit();
             }
 
         });
-
-            $.validator.addMethod("dobNotLessThan18", function(value, element) {
-            var inputDate = new Date(value);
-            var minDate = new Date();
-            minDate.setFullYear(minDate.getFullYear() - 16);
-            return inputDate <= minDate;
+        $.validator.addMethod("dobNotLessThan18", function(value, element) {
+                var inputDate = new Date(value);
+                var minDate = new Date();
+                minDate.setFullYear(minDate.getFullYear() - 16);
+                return inputDate <= minDate;
             }, "You must be at least 16 years old.");
-
-
     </script>
-
-    <style>
-        .my-error-class {
-            color: #FF0000 !important;
-            margin-left: 2px;
-            /* red */
-        }
-
-        input.my-error-class,
-        textarea.my-error-class,
-        select.my-error-class {
-            border: 1px solid #FF0000 !important;
-            outline: none !important;
-            box-shadow: none !important;
-        }
-    </style>
 @endsection

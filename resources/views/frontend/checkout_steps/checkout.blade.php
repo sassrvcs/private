@@ -25,17 +25,21 @@
                             <div class="card-body">
                                 <div class="alert-info p-3">
                                     <p>Your new company name:</p>
-                                    <p class="h6">{{ end($sessionCart)['company_name'] ?? '' }}</p>
+                                    <p class="h6">{{ end($sessionCart)['company_name'] ?? $checkout->company_name }}</p>
                                 </div>
                                 <hr>
                                 <p class="h6">{{ end($sessionCart)['package_name'] ?? '' }}</p>
 
-                                <p>{!!end($sessionCart)['package_description'] ?? '' !!}</p>
+                                <p>{!!end($sessionCart)['package_description'] ?? $package->description !!}</p>
                                 <ul class="list-group list-group-flush fa-ul ms-3">
+                                    @if($package)
                                     @foreach($package->features as $feature)
                                         <li class="list-group-item px-0 py-2"><span class="fa-li"><i class="fa fa-caret-right"></i></span>{{ $feature->feature }}</li>
                                     @endforeach
+                                    @endif
                                 </ul>
+
+
                                 <hr>
                                 <div class="border border-success p-2" style="border-color:#87CB28 !important;">
                                     <table class="table table-striped">
@@ -44,21 +48,64 @@
                                                 <th>Price</th>
                                                 <td class="text-end">
                                                     <span class="woocommerce-Price-amount amount package-price"><bdi><span
-                                                    class="woocommerce-Price-currencySymbol">£</span> {{ end($sessionCart)['price'] ?? '0' }} </bdi></span>
+                                                        @if (auth()->check())
+                                                        @php
+                                                            $total_addon_price =0 ;
+                                                            if(isset($checkout->cart->addonCartServices)){
+
+                                                                foreach ($checkout->cart->addonCartServices as $key => $value) {
+                                                                   $total_addon_price+=$value->service->price;
+                                                                }
+
+                                                            }
+                                                            $total_net =  ($checkout->cart->package->package_price) -  $checkout->paid_amount;
+
+
+                                                        @endphp
+                                                        @endif
+                                                    class="woocommerce-Price-currencySymbol">£</span> {{ end($sessionCart)['price'] ?? $total_net }} </bdi></span>
                                                 </td>
                                             </tr>
                                         </tbody>
-                                        <tbody id="item-tbody" style="display:none;">
-                                            @if( isset(end($sessionCart)['addon_service']) )
-                                                @foreach( end($sessionCart)['addon_service'] as $key => $value)
-                                                    <tr class="fee" style="display:none;">
-                                                        <td colspan="3">{{ $value['service_name'] }}</td>
-                                                        <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
-                                                        <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
+                                        <tbody id="item-tbody" style=" @if (auth()->check()) @if($checkout->cart->addonCartServices) display:block; @else display:none; @endif @endif">
+                                            @if(!auth()->check())
+                                                @if( isset(end($sessionCart)['addon_service']) )
+                                                    @foreach( end($sessionCart)['addon_service'] as $key => $value)
+                                                        <tr class="fee" style="display:block;">
+                                                            <td colspan="3">{{ $value['service_name'] }}</td>
+                                                            <td class="text-end "><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                            <td class="text-end "><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+                                                @if( isset(end($sessionCart)['additional_service']) )
+                                                    <tr class="fee row_100">
+                                                        <td colspan="3">{{ end($sessionCart)['additional_service']['package_name'] }}</td>
+                                                        <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' =>100] ) }}" dara-row="{{100 }}" data-service_id="100" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                        <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ end($sessionCart)['additional_service']['price'] }}</bdi></span></td>
                                                     </tr>
-                                                @endforeach
+                                                @endif
+                                            @else
+                                                @if(isset($checkout->cart->addonCartServices))
+                                                    @foreach( $checkout->cart->addonCartServices as $key => $value)
+                                                        <tr class="fee" >
+                                                            <td colspan="3">{{ $value->service->service_name }}</td>
+                                                            <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                            <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value->service->price }}</bdi></span></td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+                                                @if( isset(end($sessionCart)['additional_service']) )
+                                                    <tr class="fee row_100">
+                                                        <td colspan="3">{{ end($sessionCart)['additional_service']['package_name'] }}</td>
+                                                        <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' =>100] ) }}" dara-row="{{100 }}" data-service_id="100" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                        <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ end($sessionCart)['additional_service']['price'] }}</bdi></span></td>
+                                                    </tr>
+                                                @endif
                                             @endif
+
                                         </tbody>
+
                                         <tbody>
                                             <tr class="tax-rate tax-rate-vat-1">
                                                 <th>Net</th>
@@ -126,6 +173,8 @@
                             @endif
                                 @csrf
                                 <div id="customer_details">
+                                     <input type="text" name="order" value=" @if (auth()->check()){{$checkout->order_id}} @endif">
+
                                     @guest
                                         <fieldset class="border p-3">
                                             <legend class="float-none w-auto p-2">Account Details</legend>
@@ -216,8 +265,8 @@
                                                 <div class="form-row col-md-12 form-group">
                                                     <label class="">Phone&nbsp;<abbr class="required">*</abbr></label>
                                                     <span class="woocommerce-input-wrapper">
-                                                        <input type="text" class="input-text form-control @error('phone_no') is-invalid @enderror" type="text" name="phone_no" value="{{ ($user->phone_no) ?? old('phone_no')}}">
-                                                        @error('phone_no')
+                                                        <input type="text" class="input-text form-control @error('phone') is-invalid @enderror" name="phone" value="{{ ($user->phone_no) ?? old('phone_no')}}" >
+                                                        @error('phone')
                                                             <div class="error" style="color:red;">{{ $message }}</div>
                                                         @enderror
                                                     </span>
@@ -447,6 +496,7 @@
                     total += price;
                 });
 
+
                 total_net = parseFloat(total+packagePrice);
                 total_vat = (parseFloat(total+packagePrice)*20)/100;
 
@@ -477,6 +527,7 @@
                     input.attr("type", "password");
                 }
             });
+
 
             $("#lostPassword").click(function() {
                 $('#lostPasswordModal').show();
@@ -548,18 +599,12 @@
             $("#exampleModalCenterAddress").hide();
         }
 
-        $('#place_order').on('click',function(event){
-            event.preventDefault();
-            console.log('under payment');
-            $.ajax({
-            url:"test.php",    //the page containing php script
-            type: "post",    //request type,
-            dataType: 'json',
-            data: {registration: "success", name: "xyz", email: "abc@gmail.com"},
-            success:function(result){
-                console.log(result.abc);
-            }
-        });
-        })
+        // $('#place_order').on('click',function(event){
+        //     event.preventDefault();
+
+        //     console.log('under payment');
+
+
+        // })
     </script>
 @endsection

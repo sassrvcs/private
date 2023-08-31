@@ -118,12 +118,12 @@ class AuthController extends Controller
      */
     public function saveRegisterForm(Request $request)
     {
-
+    //    dd($request);
         $validate = Validator::make($request->all(), [
             'title' => 'required',
             'forename' => 'required|alpha',
             'surname' => 'required|alpha',
-            'phone' => 'nullable|numeric|digits_between:8,13',
+            'phone' => 'required|numeric|digits_between:8,13',
             'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email|unique:users',
             'confirm_email' => 'sometimes|same:email',
             'password' => 'required|min:8|string',
@@ -133,7 +133,8 @@ class AuthController extends Controller
             'town' => 'required',
             'billing_country' => 'required',
             'chek1' => 'required',
-            'chek2' => 'required'
+            'chek2' => 'required',
+            'county' => 'required'
         ],[
             'title.required'    => 'Title is required.',
             'forename.required' => 'Forename is required.',
@@ -152,6 +153,7 @@ class AuthController extends Controller
             'billing_country.required' =>'This field is required.',
             'chek1.required'    =>'This field is required.',
             'chek2.required'    =>'This field is required.',
+            'county.required'   =>'This field is required.',
         ]);
 
         if(null !==($request->input('register_form')) && $request->input('register_form')=='registration'){
@@ -169,7 +171,9 @@ class AuthController extends Controller
                 'town' => 'required',
                 'billing_country' => 'required',
                 'chek1' => 'required',
-                'chek2' => 'required'
+                'chek2' => 'required',
+                'county' => 'required'
+
             ],[
                 'title.required'    => 'Title is required.',
                 'forename.required' => 'Forename is required.',
@@ -188,6 +192,8 @@ class AuthController extends Controller
                 'billing_country.required' =>'This field is required.',
                 'chek1.required'    =>'This field is required.',
                 'chek2.required'    =>'This field is required.',
+                'county.required'   =>'This field is required.',
+
             ]);
         }
 

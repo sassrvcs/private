@@ -59,7 +59,7 @@ Route::post('/registerNewAddess',[AuthController::class,'registerNewAddess'])->n
 Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-address');
 
 // Register for checkout
-Route::post('/checkout-final',[CheckoutStepController::class,'checkoutCustomer'])->name('checkout-final');
+Route::post('/checkout-final',[CheckoutStepController::class,'paymentNow'])->name('checkout-final');
 
 Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-account')->middleware('auth');
 Route::post('/logout', [AuthController::class, 'logout'])->name('clientlogout')->middleware('auth');
@@ -93,6 +93,16 @@ Route::post('/update-cart', [CartController::class, 'updateCart'])->name('update
 Route::get('review-company-package', [CheckoutStepController::class, 'reviewCompanyPackage'])->name('review-company-package');
 Route::match(['get', 'post'], 'addon-services', [CheckoutStepController::class, 'addOnServices'])->name('addon-services');
 Route::get('checkout', [CheckoutStepController::class, 'validateAuthentication'])->name('checkout');
+
+Route::get('pay-now', [CheckoutStepController::class, 'paymentNow'])->name('pay-now');
+Route::get('payment-success', [CheckoutStepController::class, 'paymentSuccess'])->name('payment-success');
+Route::get('payment-declined', [CheckoutStepController::class, 'paymentDeclined'])->name('payment-declined');
+Route::get('payment-exception', [CheckoutStepController::class, 'paymentException'])->name('payment-exception');
+Route::get('payment-cancelled', [CheckoutStepController::class, 'paymentCancelled'])->name('payment-cancelled');
+
+
+
+
 Route::get('companies', CompaniesListController::class)->name('companies-list');
 
 Route::get('/search-companie', CompanieController::class);

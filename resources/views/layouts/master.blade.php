@@ -22,6 +22,7 @@
 
 <body>
 @include('layouts.header')
+@yield('style')
 @yield('content')
 @include('layouts.footer')
 @yield('script')

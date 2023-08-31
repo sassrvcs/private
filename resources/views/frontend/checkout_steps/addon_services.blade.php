@@ -35,7 +35,7 @@
            <div class="checkout-wrapper">
               <div class="checkout-notices-wrapper">
                  <div class="checkout-message" role="alert">
-                    <p>“{{ end($sessionCart)['package_name'] ?? '' }}” has been added to your cart.</p> <a href="#" tabindex="1" class="theme-btn-primary con-shopping-btn">Continue shopping</a>
+                    <p>“{{ end($sessionCart)['package_name'] ?? '' }}” has been added to your cart.</p> <a href="/" tabindex="1" class="theme-btn-primary con-shopping-btn">Continue shopping</a>
                  </div>
               </div>
               {{-- @dump($sessionCart) --}}
@@ -76,6 +76,7 @@
                            </div>
                         </div>
                      </div>
+
                      <div class="col-md-5">
                         <div class="position-sticky top-0">
                            <div class="card basket">
@@ -111,17 +112,17 @@
                                                 <span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ end($sessionCart)['price'] ?? '0' }}</bdi></span>
                                              </td>
                                           </tr>
-                                          <tr class="cart_item">
+                                          {{-- <tr class="fee row_4">
                                             <td class="product-name" colspan="3">
 
                                                <span>Pre-Submission Review (we check your company details to avoid mistakes)</span>
                                             </td>
 
-                                            <td class="text-end">&nbsp;</td>
+                                            <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => 4] ) }}" dara-row="4" data-service_id="4.99" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
                                             <td class="product-total text-end">
                                                <span class="amount"><bdi><span class="Price-currencySymbol">£</span>4.99</bdi></span>
                                             </td>
-                                         </tr>
+                                         </tr> --}}
 
 
                                           @if( isset(end($sessionCart)['addon_service']) )
@@ -135,6 +136,15 @@
                                                 @php $i++ @endphp
                                              @endforeach
                                           @endif
+                                          @if( isset(end($sessionCart)['additional_service']) )
+
+                                                <tr class="fee row_100">
+                                                    <td colspan="3">{{ end($sessionCart)['additional_service']['package_name'] }}</td>
+                                                    <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' =>end($sessionCart)['package_id']] ) }}" dara-row="{{100 }}" data-service_id="100" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                    <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ end($sessionCart)['additional_service']['price'] }}</bdi></span></td>
+                                                </tr>
+
+                                         @endif
                                        </tbody>
                                        <tbody id="tax-tbody">
                                           <tr class="cart-subtotal text-end">

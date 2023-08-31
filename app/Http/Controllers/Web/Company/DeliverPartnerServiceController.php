@@ -160,10 +160,13 @@ class DeliverPartnerServiceController extends Controller
         $save_order_details->contact_mobile = $request->contact_mobile;
         $save_order_details->contact_calltime = $request->call_time;
         $save_order_details->contact_address = $request->res_address;
+        // dd($save_order_details);
         $save_order_details->save();
         if($save_order_details->save())
         {
-            
+
+            return redirect( route('checkout', ['order' => $request->order_id,'step'=>'final_payment']) );
+
 
         }else{
             return redirect()->back()->with('error', 'Please check issue');

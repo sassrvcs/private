@@ -146,9 +146,8 @@ class AccountController extends Controller
     }
 
     public function savePrimaryAddress(Request $request){
-
-       $id = $request->input('recent_addr');
-
+        $id = $request->address_id;
+      
         Address::where('id',$id)
                 ->update(
                     [
@@ -244,7 +243,7 @@ class AccountController extends Controller
             $temp['forename'] =  $request->input('forename');
             $temp['surname'] = $request->input('surname');
             $temp['email'] =  $request->input('email');
-            
+
             // If password in not empty then show error
             if(!empty($request->input('password'))) {
                 $temp['password'] = bcrypt($request->input('password'));

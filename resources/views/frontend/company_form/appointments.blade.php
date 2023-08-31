@@ -271,7 +271,7 @@
                                     </div>
                                 </div>
 
-                                <div class="own-address mt-3 d-none" style="color:red;" id="positionValidation">
+                                <div class="own-address mt-3 d-none" style="color:red; font-size:16px;" id="positionValidation">
 
 
                                 </div>

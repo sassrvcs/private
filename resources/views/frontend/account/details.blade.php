@@ -225,7 +225,7 @@
                                 <div class="form-row form-group ">
                                     <label for="username">Primary&nbsp;</label>
                                     <span class="input-wrapper">
-                                        <input type="number" class="numberonly form-control" name="phone" value="{{ $user->phone_no}}">
+                                        <input type="number" class="numberonly form-control" name="phone" value="{{ $user->phone_no}}" required>
                                     </span>
                                 </div>
 
@@ -945,6 +945,7 @@
                             address_id:address_id
                         },
                         success: function(result) {
+
                         $("#primaryAddressConfirmModal").modal('hide');
                         setTimeout(function () {
                             $(".loader").hide();

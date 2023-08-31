@@ -15,7 +15,7 @@ class Order extends Model implements HasMedia
     protected $fillable = [
         'user_id','cart_id','order_id','payable_amount',
         'company_number','company_name','auth_code','payment_mode',
-        'payment_status', 'order_status'
+        'payment_status', 'order_status','paid_amount'
     ];
 
     /**
