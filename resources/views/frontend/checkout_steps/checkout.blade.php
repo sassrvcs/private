@@ -25,12 +25,12 @@
                             <div class="card-body">
                                 <div class="alert-info p-3">
                                     <p>Your new company name:</p>
-                                    <p class="h6">{{ end($sessionCart)['company_name'] ?? '' }}</p>
+                                    <p class="h6">{{ isset($indx) ? $sessionCart[$indx]['company_name'] ?? '' : end($sessionCart)['company_name'] ?? '' }}</p>
                                 </div>
                                 <hr>
-                                <p class="h6">{{ end($sessionCart)['package_name'] ?? '' }}</p>
+                                <p class="h6">{{ isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' : end($sessionCart)['package_name'] ?? '' }}</p>
 
-                                <p>{!!end($sessionCart)['package_description'] ?? '' !!}</p>
+                                <p>{!! isset($indx) ? $sessionCart[$indx]['package_description'] ?? '' : end($sessionCart)['package_description'] ?? '' !!}</p>
                                 <ul class="list-group list-group-flush fa-ul ms-3">
                                     @foreach($package->features as $feature)
                                         <li class="list-group-item px-0 py-2"><span class="fa-li"><i class="fa fa-caret-right"></i></span>{{ $feature->feature }}</li>
@@ -44,19 +44,29 @@
                                                 <th>Price</th>
                                                 <td class="text-end">
                                                     <span class="woocommerce-Price-amount amount package-price"><bdi><span
-                                                    class="woocommerce-Price-currencySymbol">£</span> {{ end($sessionCart)['price'] ?? '0' }} </bdi></span>
+                                                    class="woocommerce-Price-currencySymbol">£</span>{{ isset($indx) ? $sessionCart[$indx]['price'] ?? '0' : end($sessionCart)['price'] ?? '0' }}</bdi></span>
                                                 </td>
                                             </tr>
                                         </tbody>
                                         <tbody id="item-tbody" style="display:none;">
-                                            @if( isset(end($sessionCart)['addon_service']) )
-                                                @foreach( end($sessionCart)['addon_service'] as $key => $value)
+                                            @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )
+                                                @foreach( $sessionCart[$indx]['addon_service'] as $key => $value)
                                                     <tr class="fee" style="display:none;">
                                                         <td colspan="3">{{ $value['service_name'] }}</td>
                                                         <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
                                                         <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
                                                     </tr>
                                                 @endforeach
+                                            @else
+                                                @if( isset(end($sessionCart)['addon_service']) )
+                                                    @foreach( end($sessionCart)['addon_service'] as $key => $value)
+                                                        <tr class="fee" style="display:none;">
+                                                            <td colspan="3">{{ $value['service_name'] }}</td>
+                                                            <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                            <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             @endif
                                         </tbody>
                                         <tbody>

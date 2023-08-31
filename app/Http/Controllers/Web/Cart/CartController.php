@@ -65,7 +65,8 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->type);
-        $response = $this->cartService->addToCartViaSession($id, $request->type);
+        $cart_index = $request->indx;
+        $response = $this->cartService->addToCartViaSession($id, $request->type, $cart_index);
         return $response;
     }
 
@@ -82,9 +83,9 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $response = $this->cartService->removeAddonService($id);
+        $response = $this->cartService->removeAddonService($id, $request->indx);
         return $response;
         // ['message' => CompanieSearchService::COMPANY_AVAILABLE, 'search_text' => '', 'is_sensitive' => '', 'is_sensitive_word' => '']
     }
