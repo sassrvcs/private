@@ -93,6 +93,7 @@ Route::post('/update-cart', [CartController::class, 'updateCart'])->name('update
 Route::get('review-company-package', [CheckoutStepController::class, 'reviewCompanyPackage'])->name('review-company-package');
 Route::match(['get', 'post'], 'addon-services', [CheckoutStepController::class, 'addOnServices'])->name('addon-services');
 Route::get('checkout', [CheckoutStepController::class, 'validateAuthentication'])->name('checkout');
+Route::get('/delete-cart-item/{indx}',[CheckoutStepController::class,'deleteCartItem'])->name('delete-cart-item');
 Route::get('companies', CompaniesListController::class)->name('companies-list');
 
 Route::get('/search-companie', CompanieController::class);

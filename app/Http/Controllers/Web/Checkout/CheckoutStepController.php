@@ -47,15 +47,17 @@ class CheckoutStepController extends Controller
         $addonServices  = $this->addonService->index();
         $total_amount =0;
         // dump($sessionCart);
-        return view('frontend.checkout_steps.addon_services', compact('sessionCart', 'addonServices','total_amount'));
+        $indx = $request->indx;
+        return view('frontend.checkout_steps.addon_services', compact('sessionCart', 'addonServices','total_amount', 'indx'));
     }
 
     /**
      * Check user is authorised or not
      * @Checkout step -> 4
      */
-    public function validateAuthentication()
+    public function validateAuthentication(Request $request)
     {
+        $indx = $request->indx;
         $user = [];
         $request        = (object) [];
         $totalPrice     = 0;
@@ -82,7 +84,7 @@ class CheckoutStepController extends Controller
             $checkout = $this->checkoutService->doCheckoutFinalStep($request, auth()->user());
         }
 
-        return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user'));
+        return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user', 'indx'));
     }
 
     /**
@@ -129,5 +131,30 @@ class CheckoutStepController extends Controller
                 return redirect()->route('my-account')->with('success','Company has been registerd successfully');
             }
         }
+    }
+
+    /**
+     * Delete session cart item
+     * @Checkout step -> 2
+    */
+    public function deleteCartItem(Request $request)
+    {
+        $session_indx = $request->indx; 
+
+        $sessionCart1 = Session::get('cart');
+        /*foreach($sessionCart1 as $key => $sessionC){
+            if ( $sessionC['company_name'] == $session_indx ) {
+                echo $key;
+                unset($sessionCart1[$key]);  
+            }
+        }*/
+
+        unset($sessionCart1[$session_indx]);
+
+        Session::put('cart', $sessionCart1);
+
+        $sessionCart = Session::get('cart');
+        
+        return view('frontend.checkout_steps.search_compant', compact('sessionCart'));
     }
 }
