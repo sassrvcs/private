@@ -43,7 +43,7 @@ class CheckoutStepController extends Controller
      */
     public function addOnServices(CheckoutStepRequest $request)
     {
-        $updatedValue   = $this->cartService->searchAndUpdateCompany($request->validated());
+        //$updatedValue   = $this->cartService->searchAndUpdateCompany($request->validated());
         $sessionCart    = $this->cartService->getCartViaSession();
         $addonServices  = $this->addonService->index();
         $total_amount =0;

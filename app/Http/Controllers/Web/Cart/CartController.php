@@ -52,7 +52,11 @@ class CartController extends Controller
             $this->cartService->addToCartViaSession($id);
         }
         // dd($data);
-        return redirect(route('review-company-package'));
+        if( isset($sessionCart) && count($sessionCart) >= 2){
+            return redirect(route('review-company-package'));    
+        }else{
+            return redirect(route('addon-services'));
+        } 
     }
 
     /**
