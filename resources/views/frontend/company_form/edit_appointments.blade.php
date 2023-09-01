@@ -4540,7 +4540,7 @@
             $("#quantityVal").html('')
             $("#pps").html('')
             $("#currencyVal").html('')
-            $("#perticularsTextArea").html('')
+            $("#perticularsTextArea").val('')
             $("#sh_quantity").val(1)
             $("#sh_currency").val('GBP')
             $("#sh_pps").val('1.00')
