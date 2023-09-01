@@ -24,9 +24,9 @@ class CheckoutStepRequest extends FormRequest
     public function rules()
     {
         return [
-            'company_name'  => ['required'],
-            'pack_price'    => ['required'],
-            'checkout_step' => ['required']
+            //'company_name'  => ['required'],
+            //'pack_price'    => ['required'],
+            //'checkout_step' => ['required']
         ];
     }
 }

@@ -8887,4 +8887,24 @@ margin: 0;
     padding: 8px 30px;
   }
 
+.efTable.srccomTb {
+    border: 1px solid #ccc;
+}
+.efTable.srccomTb td{
+    padding: 10px;
+}
+table.efTable td .btn{
+    margin-top: 0;
+    padding: 6px 10px;
+    font-size: 14px;
+}
 
+table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
+    font-size: 14px;
+    line-height: 1.2;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #6e737c;
+    background: #fff;
+    color: #ff4646;
+}
