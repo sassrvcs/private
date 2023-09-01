@@ -1012,7 +1012,7 @@
                                                 data-toggle="tab" href="#position" role="tab"
                                                 aria-controls="position" aria-selected="true">Position</a> --}}
 
-                                                <a class="nav-link active" id="position-tab" data-toggle="tab"
+                                                <a class="nav-link active" id="position-tab" role="tab"
                                                 aria-controls="position" aria-selected="true">Position</a>
                                         </li>
                                         {{-- <li class="nav-item">
@@ -1046,14 +1046,13 @@
                                                 aria-selected="false">Nature of Control</a>
                                         </li>
                                         <li class="nav-item shareholderLinksCls d-none">
-                                            {{-- <a class="nav-link" onclick="currentTab('share-holder')"
+                                            <a class="nav-link"
                                             id="share-holder-tab" data-toggle="tab" href="#share-holder"
                                             role="tab" aria-controls="share-holder" aria-selected="false">Share
-                                            Holder</a> --}}
-
-                                            <a class="nav-link" id="share-holder-tab"
-                                                role="tab" aria-controls="share-holder" aria-selected="false">Share
-                                                Holder</a>
+                                            Holder</a>
+                                            {{-- <a class="nav-link" id="share-holder-tab"
+                                                role="tab" aria-controls="share-holder" onclick="currentTab('share-holder')" aria-selected="false">Share
+                                                Holder</a> --}}
                                         </li>
                                     </ul>
 
@@ -4541,7 +4540,7 @@
             $("#quantityVal").html('')
             $("#pps").html('')
             $("#currencyVal").html('')
-
+            $("#perticularsTextArea").html('')
             $("#sh_quantity").val(1)
             $("#sh_currency").val('GBP')
             $("#sh_pps").val('1.00')
@@ -4899,8 +4898,18 @@
         var get_mode_val = new URLSearchParams(window.location.search); //getting the url param and if  mode is edit_shareholder then selecting the tab automatically
         var mode = get_mode_val.get('mode');
          if (mode=="edit_shareholder") {
-            $("#share-holder-tab").click()
             currentTab('share-holder')
+            $("#share-holder-tab").click()
+            $("#share-holder-tab").removeAttr('data-toggle','tab')
+            $("#share-holder-tab").removeAttr('href','#share-holder')
+            // data-toggle="tab" href="#share-holder"
+        //    var attrToggle= $("#share-holder-tab").attr('data-toggle','tab')
+        //    var attrHref= $("#share-holder-tab").attr('herf','#share-holder')
+        //    if(attrToggle&&attrHref)
+        //    {
+
+            // }
+
 
             // $("#shareholderLandingPage").addClass('d-none');
             // const sh_quantity = $("#sh_quantity").val()
@@ -4915,6 +4924,10 @@
             // $("#shareholderListing").removeClass('d-none')
 
             console.log(true)
+         }else{
+            console.log('attr');
+            $("#share-holder-tab").removeAttr('data-toggle','tab')
+            $("#share-holder-tab").removeAttr('href')
          }
     </script>
 @endsection
