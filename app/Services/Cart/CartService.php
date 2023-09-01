@@ -119,7 +119,7 @@ class CartService
                     }
                 }
             } else {
-                $existingCartItem = $cartItemCount;
+                $existingCartItem = array_key_last( $cart ); //$cartItemCount;
             }
 
             if ($existingCartItem !== null) {

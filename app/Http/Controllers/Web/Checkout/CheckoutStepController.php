@@ -227,6 +227,7 @@ class CheckoutStepController extends Controller
 
         $sessionCart = Session::get('cart');
 
-        return view('frontend.checkout_steps.search_compant', compact('sessionCart'));
+        //return view('frontend.checkout_steps.search_compant', compact('sessionCart'));
+        return redirect(route('review-company-package'));
     }
 }
