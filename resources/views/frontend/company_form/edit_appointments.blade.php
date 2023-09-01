@@ -1008,8 +1008,11 @@
                                 <div class="appointment-tab">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="position-tab" onclick="currentTab('position')"
+                                            {{-- <a class="nav-link active" id="position-tab" onclick="currentTab('position')"
                                                 data-toggle="tab" href="#position" role="tab"
+                                                aria-controls="position" aria-selected="true">Position</a> --}}
+
+                                                <a class="nav-link active" id="position-tab" role="tab"
                                                 aria-controls="position" aria-selected="true">Position</a>
                                         </li>
                                         {{-- <li class="nav-item">
@@ -1018,26 +1021,38 @@
                                                 aria-selected="false">Officer</a>
                                         </li> --}}
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="currentTab('details')" id="details-tab"
+                                            {{-- <a class="nav-link" onclick="currentTab('details')" id="details-tab"
                                                 data-toggle="tab" href="#details" role="tab" aria-controls="details"
-                                                aria-selected="false">Details</a>
+                                                aria-selected="false" >Details</a> --}}
+
+                                                <a class="nav-link" id="details-tab"  role="tab" aria-controls="details"
+                                                aria-selected="false" >Details</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="currentTab('addressing')" id="addressing-tab"
+                                            {{-- <a class="nav-link" onclick="currentTab('addressing')" id="addressing-tab"
                                                 data-toggle="tab" href="#addressing" role="tab"
+                                                aria-controls="addressing" aria-selected="false">Addressing</a> --}}
+
+                                                <a class="nav-link"  id="addressing-tab" role="tab"
                                                 aria-controls="addressing" aria-selected="false">Addressing</a>
                                         </li>
                                         <li class="nav-item nocLinkCls d-none">
-                                            <a class="nav-link" onclick="currentTab('nature-control')"
+                                            {{-- <a class="nav-link" onclick="currentTab('nature-control')"
                                                 id="nature-control-tab" data-toggle="tab" href="#nature-control"
                                                 role="tab" aria-controls="nature-control"
+                                                aria-selected="false">Nature of Control</a> --}}
+
+                                                <a class="nav-link" id="nature-control-tab" role="tab" aria-controls="nature-control"
                                                 aria-selected="false">Nature of Control</a>
                                         </li>
                                         <li class="nav-item shareholderLinksCls d-none">
-                                            <a class="nav-link" onclick="currentTab('share-holder')"
-                                                id="share-holder-tab" data-toggle="tab" href="#share-holder"
-                                                role="tab" aria-controls="share-holder" aria-selected="false">Share
-                                                Holder</a>
+                                            <a class="nav-link"
+                                            id="share-holder-tab" data-toggle="tab" href="#share-holder"
+                                            role="tab" aria-controls="share-holder" aria-selected="false">Share
+                                            Holder</a>
+                                            {{-- <a class="nav-link" id="share-holder-tab"
+                                                role="tab" aria-controls="share-holder" onclick="currentTab('share-holder')" aria-selected="false">Share
+                                                Holder</a> --}}
                                         </li>
                                     </ul>
 
@@ -3040,21 +3055,21 @@
             </div>
         </div>
         </div>
-        <input type="text" id="orderId" value="{{ $_GET['order'] }}" readonly>
-        <input type="text" id="positionSelected" value="{{$appointment_details['position']}}" class="totalBlankCheck" readonly>
-        <input type="text" id="appointmentType" value="" readonly>
-        <input type="text" id="shoppingCartId_id" value="{{ $shoppingCartId }}" readonly>
-        <input type="text" id="currentTab" value="" readonly>
+        <input type="hidden" id="orderId" value="{{ $_GET['order'] }}" readonly>
+        <input type="hidden" id="positionSelected" value="{{$appointment_details['position']}}" class="totalBlankCheck" readonly>
+        <input type="hidden" id="appointmentType" value="" readonly>
+        <input type="hidden" id="shoppingCartId_id" value="{{ $shoppingCartId }}" readonly>
+        <input type="hidden" id="currentTab" value="" readonly>
 
         <!-- PERSON SECTION DATAS -->
-        <input type="text" id="choosedPersonOfficerId" class="totalBlankCheck" value="{{$officer_details['id']}}" readonly>
-        <input type="text" id="addressTypeChoosed" value="" readonly>
-        <input type="text" id="actionType" value="" readonly>
+        <input type="hidden" id="choosedPersonOfficerId" class="totalBlankCheck" value="{{$officer_details['id']}}" readonly>
+        <input type="hidden" id="addressTypeChoosed" value="" readonly>
+        <input type="hidden" id="actionType" value="" readonly>
 
         {{-- Nature of Control radio btn val --}}
 
-        <input type="text" id="f_radio_check_id" value="{{$put_fci_val}}" readonly>
-        <input type="text" id="s_radio_check_id" value="{{$put_tci_val}}" readonly>
+        <input type="hidden" id="f_radio_check_id" value="{{$put_fci_val}}" readonly>
+        <input type="hidden" id="s_radio_check_id" value="{{$put_tci_val}}" readonly>
     </section>
     <!-- ================ end: Particulars sec ================ -->
 @endsection
@@ -4525,7 +4540,7 @@
             $("#quantityVal").html('')
             $("#pps").html('')
             $("#currencyVal").html('')
-
+            $("#perticularsTextArea").val('')
             $("#sh_quantity").val(1)
             $("#sh_currency").val('GBP')
             $("#sh_pps").val('1.00')
@@ -4883,8 +4898,18 @@
         var get_mode_val = new URLSearchParams(window.location.search); //getting the url param and if  mode is edit_shareholder then selecting the tab automatically
         var mode = get_mode_val.get('mode');
          if (mode=="edit_shareholder") {
-            $("#share-holder-tab").click()
             currentTab('share-holder')
+            $("#share-holder-tab").click()
+            $("#share-holder-tab").removeAttr('data-toggle','tab')
+            $("#share-holder-tab").removeAttr('href','#share-holder')
+            // data-toggle="tab" href="#share-holder"
+        //    var attrToggle= $("#share-holder-tab").attr('data-toggle','tab')
+        //    var attrHref= $("#share-holder-tab").attr('herf','#share-holder')
+        //    if(attrToggle&&attrHref)
+        //    {
+
+            // }
+
 
             // $("#shareholderLandingPage").addClass('d-none');
             // const sh_quantity = $("#sh_quantity").val()
@@ -4899,6 +4924,10 @@
             // $("#shareholderListing").removeClass('d-none')
 
             console.log(true)
+         }else{
+            console.log('attr');
+            $("#share-holder-tab").removeAttr('data-toggle','tab')
+            $("#share-holder-tab").removeAttr('href')
          }
     </script>
 @endsection
