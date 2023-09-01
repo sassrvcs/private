@@ -105,6 +105,7 @@
                                             <input type="hidden" class="recent_addr_id"
                                                 value="{{ !empty($recent_addr) && $recent_addr['id'] !== '' ? $recent_addr['id'] : '' }}"
                                                 readonly>
+
                                             <fieldset class="border p-3">
                                                 <div class="form-row form-group ">
                                                     <label>Name / Number *:&nbsp;
@@ -418,7 +419,7 @@
         });
 
         $('.saveAddress').click(function() {
-            var recent_addr = $('.recent_addr_id').val();
+            var address_id = $('.recent_addr_id').val();
             var number = $('#house_no1').val();
             var steet = $('#street1').val();
             var locality = $('#locality1').val();
@@ -453,7 +454,7 @@
                     type: 'POST',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        recent_addr,
+                        address_id,
                         number: number,
                         steet: steet,
                         locality: locality,

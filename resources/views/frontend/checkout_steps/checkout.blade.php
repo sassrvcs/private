@@ -67,7 +67,7 @@
                                                 </td>
                                             </tr>
                                         </tbody>
-                                        <tbody id="item-tbody" style="display:none;">
+                                        <tbody id="item-tbody" >
                                             @if(auth()->check())
                                                 @if($checkout )
                                                         @if(isset($checkout->cart->addonCartServices))
@@ -102,7 +102,7 @@
                                                     @endif
                                                 @endif
                                             @else
-                                                    @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )
+                                                @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )
                                                     @foreach( $sessionCart[$indx]['addon_service'] as $key => $value)
                                                         <tr class="fee" style="display:none;">
                                                             <td colspan="3">{{ $value['service_name'] }}</td>
@@ -122,11 +122,28 @@
                                                     @endif
                                                 @endif
                                             @endif
+                                            @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )
+                                                <tr class="fee row_100">
+                                                    <td colspan="3">{{ $sessionCart[$indx]['additional_service']['package_name'] }}</td>
+                                                    <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' =>$sessionCart[$indx]['package_id']] ) }}" dara-row="{{100 }}" data-service_id="100" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                    <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $sessionCart[$indx]['additional_service']['price'] }}</bdi></span></td>
+                                                </tr>
+                                            @else
+                                                @if( isset(end($sessionCart)['additional_service']) )
 
+                                                <tr class="fee row_100">
+                                                    <td colspan="3">{{ end($sessionCart)['additional_service']['package_name'] }}</td>
+                                                    <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' =>end($sessionCart)['package_id']] ) }}" dara-row="{{100 }}" data-service_id="100" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                    <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ end($sessionCart)['additional_service']['price'] }}</bdi></span></td>
+                                                </tr>
 
+                                                @endif
+                                            @endif
                                         </tbody>
 
                                         <tbody>
+
+
                                             <tr class="tax-rate tax-rate-vat-1">
                                                 <th>Net</th>
                                                 <td class="text-end"><span class="woocommerce-Price-amount amount net">
@@ -241,18 +258,18 @@
                                                 <div class="col-md-6 form-row form-group" id="billing_title_field"
                                                     data-priority="20">
                                                     <label for="billing_title" class="">Title&nbsp;<abbr class="required" title="required">*</abbr></label>
-                                                    <select id="billing_title" name="title" value="{{old('title')}}" class="select form-control @error('title') is-invalid @enderror">
+                                                    <select  name="title" value="{{old('title')}}" class="select form-control @error('title') is-invalid @enderror">
                                                         <option value="" selected="selected">Please select...</option>
-                                                        <option {{ (isset($user->title) && $user->title == 'Mr') ? 'selected' : '' }} value="Mr">Mr</option>
-                                                        <option {{ (isset($user->title) && $user->title == 'Mrs') ? 'selected' : '' }} value="Mrs">Mrs</option>
-                                                        <option {{ (isset($user->title) && $user->title == 'Miss') ? 'selected' : '' }} value="Miss">Miss</option>
-                                                        <option {{ (isset($user->title) && $user->title == 'Sir') ? 'selected' : '' }} value="Sir">Sir</option>
-                                                        <option {{ (isset($user->title) && $user->title == 'Ms') ? 'selected' : '' }} value="Ms">Ms</option>
-                                                        <option {{ (isset($user->title) && $user->title == 'Dr') ? 'selected' : '' }} value="Dr">Dr</option>
-                                                        <option {{ (isset($user->title) && $user->title == 'Madam') ? 'selected' : '' }} value="Madam">Madam</option>
-                                                        <option {{ (isset($user->title) && $user->title == 'Ma\'am') ? 'selected' : '' }} value="Ma'am">Ma'am</option>
-                                                        <option {{ (isset($user->title) && $user->title == 'Lord') ? 'selected' : '' }} value="Lord">Lord</option>
-                                                        <option {{ (isset($user->title) && $user->title == 'Lady') ? 'selected' : '' }} value="Lady">Lady</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Mr') ? 'selected' : '' }} @if(old('title') == "Mr") selected @endif value="Mr">Mr</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Mrs') ? 'selected' : '' }} @if(old('title') == "Mrs") selected @endif value="Mrs">Mrs</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Miss') ? 'selected' : '' }} @if(old('title') == "Miss") selected @endif value="Miss">Miss</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Sir') ? 'selected' : '' }} @if(old('title') == "Sir") selected @endif value="Sir">Sir</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Ms') ? 'selected' : '' }} @if(old('title') == "Ms") selected @endif value="Ms">Ms</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Dr') ? 'selected' : '' }} @if(old('title') == "Dr") selected @endif value="Dr">Dr</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Madam') ? 'selected' : '' }} @if(old('title') == "Madam") selected @endif value="Madam">Madam</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Ma\'am') ? 'selected' : '' }} @if(old('title') == "Ma\'am") selected @endif value="Ma'am">Ma'am</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Lord') ? 'selected' : '' }} @if(old('title') == "Lord") selected @endif value="Lord">Lord</option>
+                                                        <option {{ (isset($user->title) && $user->title == 'Lady') ? 'selected' : '' }} @if(old('title') == "Lady") selected @endif value="Lady">Lady</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-row col-md-12 form-group">

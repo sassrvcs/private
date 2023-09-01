@@ -220,6 +220,8 @@
             // e.preventDefaault();
             const itemId = this.getAttribute('data-item');
             const apiUrl = this.getAttribute('data-url');
+            console.log('itemId',itemId);
+            console.log('apiUrl',apiUrl);
             console.log("Clicked item ID:", itemId);
 
             // Add the item to your cart using Axios (you can use your existing API endpoint here)
@@ -227,6 +229,7 @@
                type: 'service'
             })
             .then(function(response) {
+                console.log('response',response);
                // Success: Handle the response (e.g., show a success message, update the cart UI)
                console.log("{{ $i }}");
 
