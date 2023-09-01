@@ -166,6 +166,8 @@
                                 <div class="review-panel">
                                     <h3>Appointments</h3>
                                     @foreach ($appointmentsList as $val)
+                                   
+
                                     <ul>
                                         <li><strong>Name : </strong><span style="text-transform:uppercase;">@php
                                             $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
@@ -195,9 +197,49 @@
                                             $nationality_name = \App\Models\Country::where('id',$nationality)->pluck('name')->first();
                                             echo $nationality_name;
                                         @endphp</li>
-                                        <li><strong>Residential Address : </strong>132, My Street, Kingston, New York 12401.
+                                        <li><strong>Residential Address : </strong> @php
+                                            $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
+                                            $add_id = $officerDetails['add_id'];
+                                            $address = \App\Models\Address::where('id',$add_id)->first();
+
+                                        @endphp
+                                        {{$address->house_number ?? ''}},
+                                        {{$address->street ?? ''}},
+                                        {{$address->locality ?? ''}},
+                                        {{$address->town ?? ''}},
+                                        {{$address->country ?? ''}},
+                                        {{$address->post_code ?? ''}}
                                         </li>
-                                        <li><strong>Service Address : </strong>105 Krome Avemiami FL 33185 3700USA</li>
+                                        <li><strong>Service Address : </strong>
+                                            @if (isset($val['own_address_id']))
+                                                @php
+                                                    $service_add = \App\Models\Address::where('id',$val['own_address_id'])->first();
+                                                    // dd($service_add);
+
+                                                @endphp
+                                                 {{$service_add->house_number ?? ''}},
+                                                 {{$service_add->street ?? ''}},
+                                                 {{$service_add->locality ?? ''}},
+                                                 {{$service_add->town ?? ''}},
+                                                 {{$service_add->country ?? ''}},
+                                                 {{$service_add->post_code ?? ''}}
+
+                                            @else
+                                                @php
+                                                    $service_add = \App\Models\Address::where('id',$val['forwarding_address_id'])->first();
+                                                    // dd($service_add);
+
+                                                 @endphp
+                                                {{$service_add->house_number ?? ''}},
+                                                {{$service_add->street ?? ''}},
+                                                {{$service_add->locality ?? ''}},
+                                                {{$service_add->town ?? ''}},
+                                                {{$service_add->country ?? ''}},
+                                                {{$service_add->post_code ?? ''}}
+
+                                            @endif
+
+                                        </li>
                                         @if (in_array('PSC', $positionArray))
 
                                             <li><strong>Name Of Control : </strong> {{$val['noc_vr']}} </li>
