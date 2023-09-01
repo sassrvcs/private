@@ -9,4 +9,8 @@ class PersonOfficer extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    function address(){
+        return $this->belongsTo(Address::class,'add_id','id');
+    }
 }

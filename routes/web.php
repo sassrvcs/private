@@ -150,8 +150,12 @@ Route::get('selected-address', [CompanyFormController::class, 'selected_address'
 
 // Appointment Section
 Route::get('appointments', [CompanyFormController::class, 'appointments_open'])->name('appointments')->middleware('auth');
+Route::get('appointments/person-appointment/edit', [CompanyFormController::class, 'person_appointment_edit'])->name('person_appointment_edit')->middleware('auth');
+
 Route::post('save-person-officer', [CompanyFormController::class, 'savePersonOfficer'])->name('save-person-officer')->middleware('auth');
 Route::post('person-appointment-save', [CompanyFormController::class, 'person_appointment_save'])->name('person-appointment-save')->middleware('auth');
+Route::post('person-appointment-update', [CompanyFormController::class, 'person_appointment_update'])->name('person-appointment-update')->middleware('auth');
+
 
 // Route::get('save-person-office', [CompanyFormController::class, 'savePersonOfficer'])->name('save-person-officer')->middleware('auth');
 
