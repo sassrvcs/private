@@ -271,7 +271,7 @@
                                     </div>
                                 </div>
 
-                                <div class="own-address mt-3 d-none" style="color:red; font-size:16px;" id="positionValidation">
+                                <div class="own-address mt-3 d-none" style="color:red;" id="positionValidation">
 
 
                                 </div>
@@ -331,7 +331,7 @@
                                                                 <div class="tb-btn-wrap d-flex justify-content-end">
                                                                     <button class="remove-btn"
                                                                         onclick="removeOfficerList('{{ isset($val['id']) ? $val['id'] : '' }}')">Remove</button>
-                                                                    <a class="edit-btn" href="{{route('person_appointment_edit').'?id='.$val['id'].'&order='.$_GET['order'].'&section=Company_formaction&step=appointments&mode=edit_person_appointment'}}">Edit</a>
+                                                                    <button class="edit-btn" >Edit</button>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -398,8 +398,7 @@
                                                                     per share</td>
                                                                 <td>
                                                                     <div class="tb-btn-wrap d-flex justify-content-end">
-                                                                        {{-- <button class="edit-btn">Edit</button> --}}
-                                                                        <a class="edit-btn" href="{{route('person_appointment_edit').'?id='.$val['id'].'&order='.$_GET['order'].'&section=Company_formaction&step=appointments&mode=edit_shareholder'}}">Edit</a>
+                                                                        <button class="edit-btn">Edit</button>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -455,7 +454,7 @@
                                                                             {{ isset($val['sh_currency']) && $val['sh_currency'] === 'AMD' ? 'selected' : '' }}>
                                                                             AMD</option>
                                                                         <option value="ANG"
-                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ANG' ? 'selected' : '' }}>
+                                                                            {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ANG' ? 'selected' : '' }}>ANG
                                                                         </option>
                                                                         <option value="ARS"
                                                                             {{ isset($val['sh_currency']) && $val['sh_currency'] === 'ARS' ? 'selected' : '' }}>
@@ -1013,11 +1012,11 @@
                                                 data-toggle="tab" href="#position" role="tab"
                                                 aria-controls="position" aria-selected="true">Position</a>
                                         </li>
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <a class="nav-link" onclick="currentTab('officer')" id="officer-tab"
                                                 data-toggle="tab" href="#officer" role="tab" aria-controls="officer"
                                                 aria-selected="false">Officer</a>
-                                        </li>
+                                        </li> --}}
                                         <li class="nav-item">
                                             <a class="nav-link" onclick="currentTab('details')" id="details-tab"
                                                 data-toggle="tab" href="#details" role="tab" aria-controls="details"
@@ -1121,7 +1120,12 @@
                                                     <div class="choose-possition-option">
                                                         <ul>
                                                             <li>
-                                                                <input type="checkbox" class="checkBoxPos" id="director"
+                                                                @php
+                                                                $positions = explode(',',$appointment_details['position']);
+                                                                $positions = array_map('trim', $positions);
+                                                                @endphp
+                                                                <input type="checkbox"  @if (in_array("Director", $positions))checked
+                                                                @endif class="checkBoxPos" id="director"
                                                                     value="Director" onclick="consentSection()"
                                                                     value="">
                                                                 <label for="director">Director <span><img
@@ -1133,7 +1137,8 @@
                                                                     day-to-day management of the business.</span>
                                                             </li>
                                                             <li>
-                                                                <input type="checkbox" class="checkBoxPos"
+                                                                <input type="checkbox" @if (in_array("Shareholder", $positions))checked
+                                                                @endif class="checkBoxPos"
                                                                     value="Shareholder" id="shareholder"
                                                                     onclick="shareholderTab()">
                                                                 <label for="shareholder">Shareholders <span><img
@@ -1146,8 +1151,9 @@
                                                                     shareholder.</span>
                                                             </li>
                                                             <li>
-                                                                <input type="checkbox" class="checkBoxPos" id="secretary"
-                                                                    value="Secretary" onclick="consentSection()">
+                                                                <input type="checkbox" @if (in_array("Secretary", $positions))checked
+                                                                @endif class="checkBoxPos" id="secretary"
+                                                                    value="Secretary"  onclick="consentSection()">
                                                                 <label for="secretary">Secretary <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                             alt=""
@@ -1162,7 +1168,8 @@
                                                                     Act, and keeps the statutory records up to date.</span>
                                                             </li>
                                                             <li>
-                                                                <input type="checkbox" class="checkBoxPos" id="psc"
+                                                                <input type="checkbox" @if (in_array("PSC", $positions))checked
+                                                                @endif class="checkBoxPos" id="psc"
                                                                     value="PSC" onclick="pscTab()">
                                                                 <label for="psc">Person with Significant Control (PSC)
                                                                     <span><img
@@ -1183,7 +1190,8 @@
                                                             <br class="brCls d-none">
 
                                                             <li class="occLinkCls d-none">
-                                                                <input type="checkbox" id="occ">
+                                                                <input type="checkbox" id="occ" @if ((in_array("Secretary", $positions))||(in_array("Director", $positions)))checked
+                                                                @endif>
                                                                 <label for="occ" id="consentText_id">The officers
                                                                     confirm they have
                                                                     consented to act as a Director or Secretary</label>
@@ -1357,13 +1365,13 @@
                                                     <h4>Officer Details</h4>
                                                 </div>
                                                 <div class="form-block">
-                                                    <input type="hidden" id="personOfficerEditId" readonly>
+                                                    <input type="hidden" id="personOfficerEditId" readonly value="{{@$officer_details['id']}}">
                                                     <div class="row">
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
                                                                 <label for="">Title *:</label>
                                                                 <input type="text" class="form-control blankCheck"
-                                                                    id="person_tittle_id" name="person_tittle">
+                                                                    id="person_tittle_id" name="person_tittle" value="{{@$officer_details['title']}}">
                                                                 <div class="error d-none" style="color:red;">You should
                                                                     have a title!</div>
                                                             </div>
@@ -1371,9 +1379,9 @@
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
                                                                 <label for="">Date of Birth *:</label>
-                                                                <input type="date" onclick="dob_onclick(this)"
+                                                                <input type="date" onchange="bday_validation_onchange(this)" onclick="dob_onclick(this)"
                                                                     class="form-control" name="person_bday"
-                                                                    id="person_bday_id">
+                                                                    id="person_bday_id" value="{{@$officer_details['dob_day']}}">
                                                                 <div class="error d-none" style="color:red;">Age should be
                                                                     16 or above!</div>
                                                             </div>
@@ -1382,7 +1390,7 @@
                                                             <div class="form-group">
                                                                 <label for="">First Name(s) *:</label>
                                                                 <input type="text" name="person_fname"
-                                                                    id="person_fname_id" class="form-control blankCheck">
+                                                                    id="person_fname_id" class="form-control blankCheck" value="{{@$officer_details['first_name']}}">
                                                                 <div class="error d-none" style="color:red;">Please enter
                                                                     your First Name!</div>
                                                             </div>
@@ -1391,12 +1399,15 @@
                                                             <div class="form-group">
                                                                 <label for="">Nationality - <small>of accepted
                                                                         nationalities *: </small></label>
+
                                                                 <select name="person_national" class="form-control"
                                                                     id="person_national_id">
+                                                                  {{-- <input type="text" value="{{$officer_details['nationality'] }}"> --}}
+
                                                                     @if (!empty($countries))
                                                                         @foreach ($countries as $country)
                                                                             <option value="{{ $country['id'] }}"
-                                                                                {{ $country['id'] === 72 ? 'selected' : '' }}>
+                                                                                {{ $country['id'] === intval($officer_details['nationality']) ? 'selected' : '' }}>
                                                                                 {{ $country['name'] }}</option>
                                                                         @endforeach
                                                                     @endif
@@ -1408,7 +1419,7 @@
                                                             <div class="form-group">
                                                                 <label for="">Last Name *:</label>
                                                                 <input type="text" class="form-control blankCheck"
-                                                                    id="person_lname_id" name="person_lname">
+                                                                    id="person_lname_id" name="person_lname" value="{{@$officer_details['last_name']}}">
                                                                 <div class="error d-none" style="color:red;">Please enter
                                                                     your Last Name!</div>
                                                             </div>
@@ -1417,7 +1428,7 @@
                                                             <div class="form-group">
                                                                 <label for="">Occupation *:</label>
                                                                 <input type="text" class="form-control blankCheck"
-                                                                    id="person_occupation_id" name="person_occupation">
+                                                                    id="person_occupation_id" name="person_occupation" value="{{@$officer_details['occupation']}}">
                                                                 <div class="error d-none" style="color:red;">Please enter
                                                                     your Occupation!</div>
                                                             </div>
@@ -1429,14 +1440,15 @@
                                                 <div class="rsidential-address-info mb-4">
                                                     <h3>Residential Address</h3>
 
-                                                    <input type="hidden" id="ChossenResAdd_id" readonly>
+                                                    <input type="hidden" id="ChossenResAdd_id" readonly value="{{@$officer_details['add_id']}}">
                                                     <div class="error d-none" id="residentialAddrValidation"
                                                         style="color:red;">You have to select a Residential Address!</div>
                                                     <p><strong>Please Note :</strong> <span>It is a legal requirement to
                                                             provide your actual residential address. Supplying an address
                                                             which is not your actual residential address, will lead to the
                                                             rejection of your new company registration.</span></p>
-                                                    <p class="d-none" id="ChossenResAdd"></p>
+                                                    <p class="" id="ChossenResAdd">{{@$officer_details['address']['house_number']}}
+                                                    ,{{@$officer_details['address']['street'] }},{{ @$officer_details['address']['locality'] }},{{ $officer_details['address']['town'] }},{{ $officer_details['address']['county'] }},{{ $officer_details['address']['post_code'] }}</p>
 
                                                     <div class="btn-block">
                                                         <button class="btn buy-now-btn res_choose_one_cl"
@@ -1467,15 +1479,27 @@
                                                                     <label for="">Select First 3 letters of</label>
                                                                     <select class="form-control" id="person_aqone_id"
                                                                         name="person_aqone">
-                                                                        <option value="Mother’s Maiden Name" selected>
+                                                                        <option value="Mother’s Maiden Name" @if (@$officer_details['authenticate_one'] == 'Mother’s Maiden Name')
+                                                                        selected
+                                                                        @endif>
                                                                             Mother’s
                                                                             Maiden
-                                                                        <option value="Father's Forename">Father's Forename
-                                                                        <option value="Town Of Birth">Town Of Birth
-                                                                        <option value="Telephone Number">Telephone Number
-                                                                        <option value="National insurance">National
+                                                                        <option value="Father's Forename" @if (@$officer_details['authenticate_one'] == 'Father’s Forename')
+                                                                        selected
+                                                                        @endif>Father's Forename
+                                                                        <option value="Town Of Birth" @if (@$officer_details['authenticate_one'] == 'Town Of Birth')
+                                                                            selected
+                                                                        @endif>Town Of Birth
+                                                                        <option value="Telephone Number" @if (@$officer_details['authenticate_one'] == 'Telephone Number')
+                                                                            selected
+                                                                        @endif>Telephone Number
+                                                                        <option value="National insurance" @if (@$officer_details['authenticate_one'] == 'National insurance')
+                                                                            selected
+                                                                        @endif>National
                                                                             insurance
-                                                                        <option value="Passport Number">Passport Number
+                                                                        <option value="Passport Number" @if (@$officer_details['authenticate_one'] == 'Passport Number')
+                                                                            selected
+                                                                        @endif>Passport Number
                                                                         </option>
                                                                     </select>
                                                                 </div>
@@ -1484,7 +1508,7 @@
                                                                 <div class="ans-block block">
                                                                     <label for="">Answer</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="person_aqone_ans_id" maxlength="3" name="person_aqone_ans">
+                                                                        id="person_aqone_ans_id" maxlength="3" name="person_aqone_ans" value="{{@$officer_details['authenticate_one_ans']}}">
                                                                     <div class="error d-none" style="color:red;">Please
                                                                         Answer!</div>
                                                                 </div>
@@ -1496,14 +1520,26 @@
                                                                     <label for="">Select First 3 letters of</label>
                                                                     <select class="form-control" id="person_aqtwo_id"
                                                                         name="person_aqtwo">
-                                                                        <option value="Father's Forename">Father's Forename
-                                                                        <option value="Mother’s Maiden Name">Mother’s
+                                                                        <option value="Father's Forename" @if (@$officer_details['authenticate_two'] == 'Father’s Forename')
+                                                                        selected
+                                                                        @endif>Father's Forename
+                                                                        <option value="Mother’s Maiden Name" @if (@$officer_details['authenticate_two'] == 'Mother’s Maiden Name')
+                                                                        selected
+                                                                        @endif>Mother’s
                                                                             Maiden
-                                                                        <option value="Town Of Birth">Town Of Birth
-                                                                        <option value="Telephone Number">Telephone Number
-                                                                        <option value="National insurance">National
+                                                                        <option value="Town Of Birth" @if (@$officer_details['authenticate_two'] == 'Town Of Birth')
+                                                                            selected
+                                                                        @endif>Town Of Birth
+                                                                        <option value="Telephone Number" @if (@$officer_details['authenticate_two'] == 'Telephone Number')
+                                                                            selected
+                                                                        @endif>Telephone Number
+                                                                        <option value="National insurance" @if (@$officer_details['authenticate_two'] == 'National insurance')
+                                                                            selected
+                                                                        @endif>National
                                                                             insurance
-                                                                        <option value="Passport Number">Passport Number
+                                                                        <option value="Passport Number" @if (@$officer_details['authenticate_two'] == 'Passport Number')
+                                                                            selected
+                                                                        @endif>Passport Number
                                                                         </option>
                                                                     </select>
                                                                 </div>
@@ -1512,7 +1548,7 @@
                                                                 <div class="ans-block block">
                                                                     <label for="">Answer</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="person_aqtwo_ans_id" maxlength="3"  name="person_aqtwo_ans">
+                                                                        id="person_aqtwo_ans_id" maxlength="3"  name="person_aqtwo_ans" value="{{@$officer_details['authenticate_two_ans']}}">
                                                                     <div class="error d-none" style="color:red;">Please
                                                                         Answer!</div>
                                                                 </div>
@@ -1524,14 +1560,25 @@
                                                                     <label for="">Select First 3 letters of</label>
                                                                     <select class="form-control" id="person_aqthree_id"
                                                                         name="person_aqthree">
-                                                                        <option value="Town Of Birth">Town Of Birth
-                                                                        <option value="Mother’s Maiden Name">Mother’s
-                                                                            Maiden
-                                                                        <option value="Father's Forename">Father's Forename
-                                                                        <option value="Telephone Number">Telephone Number
-                                                                        <option value="National insurance">National
+                                                                        <option value="Town Of Birth" @if (@$officer_details['authenticate_three'] == 'Town Of Birth')
+                                                                        selected
+                                                                        @endif>Town Of Birth
+                                                                        <option value="Mother’s Maiden Name" @if (@$officer_details['authenticate_three'] == 'Mother’s Maiden Name')
+                                                                        selected
+                                                                        @endif>Mother’s Maiden
+                                                                        <option value="Father's Forename" @if (@$officer_details['authenticate_three'] == 'Father’s Forename')
+                                                                        selected
+                                                                        @endif>Father's Forename
+                                                                        <option value="Telephone Number" @if (@$officer_details['authenticate_three'] == 'Telephone Number')
+                                                                        selected
+                                                                        @endif>Telephone Number
+                                                                        <option value="National insurance" @if (@$officer_details['authenticate_three'] == 'National insurance')
+                                                                        selected
+                                                                        @endif> National
                                                                             insurance
-                                                                        <option value="Passport Number">Passport Number
+                                                                        <option value="Passport Number" @if (@$officer_details['authenticate_three'] == 'Passport Number')
+                                                                        selected
+                                                                        @endif>Passport Number
                                                                         </option>
                                                                     </select>
                                                                 </div>
@@ -1541,7 +1588,7 @@
                                                                     <label for="">Answer</label>
                                                                     <input type="text" class="form-control"
                                                                         id="person_aqthree_ans_id"
-                                                                        name="person_aqthree_ans" maxlength="3" >
+                                                                        name="person_aqthree_ans" maxlength="3" value="{{@$officer_details['authenticate_three_ans']}}">
                                                                     <div class="error d-none" style="color:red;">Please
                                                                         Answer!</div>
                                                                 </div>
@@ -1608,29 +1655,57 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="own-address service_add_choosed">
+                                                @php
+                                                $appoint_own_address_id = '';
+                                                $appoint_construct_own_address = '';
+                                                $appoint_forwarding_address_id = '';
+                                                $appoint_construct_forwarding_address = '';
+
+                                                if($appointment_details['own_address']!=null)
+                                                {
+                                                    $appoint_own_address_id = $appointment_details['own_address']['id'];
+                                                    $appoint_construct_own_address = $appointment_details['own_address']['house_number'].','.@$appointment_details['own_address']['street'].','.$appointment_details['own_address']['locality'] .','.$appointment_details['own_address']['town'].','.$appointment_details['own_address']['county'].','.$appointment_details['own_address']['post_code'];
+                                                }
+                                                if ($appointment_details['forwarding_address']!=null) {
+
+                                                    $appoint_forwarding_address_id = $appointment_details['forwarding_address']['id'];
+
+                                                    $appoint_construct_forwarding_address = $appointment_details['forwarding_address']['house_number'].','.@$appointment_details['forwarding_address']['street'].','.$appointment_details['forwarding_address']['locality'] .','.$appointment_details['forwarding_address']['town'].','.$appointment_details['forwarding_address']['county'].','.$appointment_details['forwarding_address']['post_code'];
+
+                                                    // dd( $appoint_construct_forwarding_address );
+                                                }
+
+                                            @endphp
+                                                <div class="own-address service_add_choosed {{$appoint_own_address_id==''?'d-none':''}}">
                                                     <div class="info">
+
                                                         <h3>Choose to use your own address</h3>
                                                         <input type="hidden" id="ChossenServiceAdd_id"
-                                                            class="totalBlankCheck" readonly>
+                                                            class="totalBlankCheck" readonly @if ($appoint_own_address_id!='')
+                                                            value="{{$appoint_own_address_id}}"
+                                                            @endif>
                                                         <div class="error d-none" id="serviceAddrValidation"
                                                             style="color:red;">You have to select a Service Address!
                                                         </div>
-                                                        <p class="d-none" id="ChossenServiceAdd"></p>
+                                                        <p class="{{$appoint_own_address_id==''?'d-none':''}}" id="ChossenServiceAdd">
+                                                        {{@$appoint_construct_own_address}}
+                                                        </p>
                                                     </div>
                                                     <div class="btn-box">
-                                                        <a type="button" class="btn another-btn choose_one_cl"
-                                                            onclick="chooseAdd('service')">Choose One</a>
-                                                        <a type="button" class="btn another-btn choose_another_cl d-none"
+                                                        {{-- <a type="button" class="btn another-btn choose_one_cl"
+                                                            onclick="chooseAdd('service')">Choose One</a> --}}
+                                                        <a type="button" class="btn another-btn choose_another_cl"
                                                             onclick="chooseAdd('service')">Choose Another</a>
                                                     </div>
                                                 </div>
-                                                <div class="own-address forwarding_add_after_buy_now_select d-none">
+                                                <div class="own-address forwarding_add_after_buy_now_select {{$appoint_forwarding_address_id==''?'d-none':''}}">
                                                     <div class="info">
                                                         <h3>Forwarding Address</h3>
                                                         <input type="hidden" class="hidden"
-                                                            id="ChossenForwarding_Add_id" readonly>
-                                                        <p class="" id="ChossenForwarding_Add"></p>
+                                                            id="ChossenForwarding_Add_id" readonly @if ($appoint_forwarding_address_id!='')
+                                                            value="{{$appoint_forwarding_address_id}}"
+                                                            @endif>
+                                                        <p class="{{$appoint_forwarding_address_id==''?'d-none':''}}" id="ChossenForwarding_Add">{{@$appoint_construct_forwarding_address}}</p>
                                                     </div>
                                                     <div class="btn-box">
                                                         <a type="button"
@@ -1693,11 +1768,18 @@
                                                     </div>
                                                     <div class="btn-block">
                                                         <button class="btn" onclick="DetailsSection()">Details</button>
-                                                        <button class="btn buy-now-btn buyNowBtn"
+                                                        <button class="btn buy-now-btn buyNowBtn {{$appoint_forwarding_address_id!=''?'d-none':''}}"
                                                             onclick="buyAdd('forwarding')">Buy
                                                             Now</button>
-                                                        <button class="btn buy-now-btn d-none" id="removeBuy"
-                                                            onclick="removeBuy()">Remove</button>
+                                                            <button class="btn buy-now-btn {{$appoint_forwarding_address_id==''?'d-none':''}}" id="removeBuy" onclick="removeBuy()">Remove</button>
+                                                        {{-- @if ($appoint_forwarding_address_id=='')
+
+                                                        <button class="btn buy-now-btn buyNowBtn"
+                                                            onclick="buyAdd('forwarding');$(this).addClass('d-none')">Buy
+                                                            Now</button>
+                                                        @else
+                                                        <button class="btn buy-now-btn" id="removeBuyCondition"  onclick="removeBuy();$(this).addClass('d-none')">Remove</button>
+                                                        @endif --}}
                                                     </div>
                                                     <div class="details-desc d-none" id="DetailsSection_div">
                                                         <h3>Why would I use your WC2 London Business Address Services?</h3>
@@ -1880,11 +1962,11 @@
                                                                     <select class="form-control" id="F_ownership"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="">N/A</option>
-                                                                        <option value="25">More than 25% but not more
+                                                                        <option value="More than 25% but not more than 50%" {{strpos($appointment_details['noc_os'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not more
                                                                             than 50%</option>
-                                                                        <option value="50">More than 50% but less than
+                                                                        <option value="More than 50% but less than 75%" {{strpos($appointment_details['noc_os'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less than
                                                                             75%</option>
-                                                                        <option value="75">75% or more</option>
+                                                                        <option value="75% or more" {{strpos($appointment_details['noc_os'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
                                                                     </select>
                                                                     <span class="own_i_tooltip">If this person holds
                                                                         more
@@ -1908,16 +1990,13 @@
                                                                                 alt="" id="vot_i"></span>
                                                                         <span class="text">Voting
                                                                             Rights</span></label>
+                                                                            {{-- {{dd($appointment_details['noc_os'])}} --}}
                                                                     <select class="form-control" id="F_voting"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="">N/A</option>
-                                                                        <option value="More than 25% but not more
-                                                                        than 50%">More than 25% but not more
-                                                                            than 50%</option>
-                                                                        <option value="More than 50% but less than
-                                                                        75%">More than 50% but less than
-                                                                            75%</option>
-                                                                        <option value="75% or more">75% or more</option>
+                                                                        <option value="More than 25% but not more than 50%" {{strpos($appointment_details['noc_vr'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not more than 50%</option>
+                                                                        <option value="More than 50% but less than 75%" {{strpos($appointment_details['noc_vr'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less than 75%</option>
+                                                                        <option value="75% or more" {{strpos($appointment_details['noc_vr'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
                                                                     </select>
                                                                     <span class="vot_i_tooltip">If this person holds
                                                                         more
@@ -1945,8 +2024,8 @@
                                                                             of the board of directors</span></label>
                                                                     <select class="form-control" id="F_appoint"
                                                                         onchange="show_hide_F_other_sig()">
-                                                                        <option value="No">No</option>
-                                                                        <option value="Yes">Yes</option>
+                                                                        <option value="No" {{stripos($appointment_details['noc_appoint'], 'No') !== false ? 'selected' : ''}}>No</option>
+                                                                        <option value="Yes" {{stripos($appointment_details['noc_appoint'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
                                                                     </select>
                                                                     <span class="appo_i_tooltip">If this person is
                                                                         entitled, directly or indirectly, to appoint and
@@ -1963,7 +2042,34 @@
                                                             <div class="col-md-6 col-sm-12">
                                                             </div>
                                                         </div>
-                                                        <div class="row" id="F_other_sig">
+                                                        @php
+                                                            if($appointment_details['noc_appoint']!='' || $appointment_details['noc_vr']!='' || (stripos($appointment_details['noc_appoint'], 'No') !== false))
+                                                            { $hide_f_other_sig = "d-none"; }
+                                                            else
+                                                            {$hide_f_other_sig="";}
+                                                            if(!(in_array("PSC", $positions)))
+                                                            {
+                                                                $hide_f_other_sig="";
+                                                            };
+                                                            if((stripos($appointment_details['noc_others'], 'Yes') !== false))
+                                                            {
+                                                                $hide_f_other_sig="";
+                                                            }
+
+
+                                                            if($appointment_details['fci']==null||stripos($appointment_details['fci'],'no')!==false){
+                                                                $put_fci_val="No";
+                                                            }else{
+                                                                $put_fci_val="Yes";
+                                                            }
+                                                            if($appointment_details['tci']==null||stripos($appointment_details['tci'],'no')!==false){
+                                                                $put_tci_val="No";
+                                                            }else{
+                                                                $put_tci_val="Yes";
+                                                            }
+
+                                                        @endphp
+                                                        <div class="row {{$hide_f_other_sig}}" id="F_other_sig" >
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="qu-block block">
                                                                     <label for="" class="d-flex"><span
@@ -1973,10 +2079,11 @@
                                                                         <span class="text">Other Significant
                                                                             influences
                                                                             or control</span></label>
+
                                                                     <select class="form-control"
                                                                         id="F_other_sig_select_id">
-                                                                        <option value="No">No</option>
-                                                                        <option value="Yes">Yes</option>
+                                                                        <option value="No" {{stripos($appointment_details['noc_others'], 'no') !== false ? 'selected' : ''}}>No</option>
+                                                                        <option value="Yes" {{stripos($appointment_details['noc_others'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
                                                                     </select>
                                                                     <span class="other_i_tooltip">If this individual
                                                                         does
@@ -2003,17 +2110,17 @@
                                                     <ul>
                                                         <li>
                                                             <input type="radio" id="no"
-                                                                onclick="f_radio_check()" value="no" checked
+                                                                onclick="f_radio_check()" value="No" {{$put_fci_val=='No' ? 'checked' : ''}}
                                                                 name="com-qu">
                                                             <label for="no">No</label>
                                                         </li>
                                                         <li>
                                                             <input type="radio" id="yes"
-                                                                onclick="f_radio_check()" value="yes" name="com-qu">
+                                                                onclick="f_radio_check()" {{$put_fci_val=='Yes' ? 'checked' : ''}} value="Yes" name="com-qu">
                                                             <label for="yes">yes</label>
                                                         </li>
                                                     </ul>
-                                                    <div class="mt-4 mb-4 d-none" id="firmDD">
+                                                    <div class="mt-4 mb-4 {{$put_fci_val=='No' ? 'd-none' : ''}}" id="firmDD">
                                                         <h5>What influence or control does this officer have over this
                                                             company in their capacity within the Firm(s) ?
                                                         </h5>
@@ -2025,17 +2132,15 @@
                                                                             <span class="text">Ownership of
                                                                                 shares</span>
                                                                         </label>
-
+                                                                            {{-- {{$appointment_details['fci_os']}} --}}
                                                                         <select class="form-control" id="s_ownership"
                                                                             onchange="show_hide_s_other_sig()">
                                                                             <option value="">N/A</option>
-                                                                            <option value="More than 25% but not
-                                                                            more than 50%">More than 25% but not
+                                                                            <option value="More than 25% but not more than 50%" {{strpos($appointment_details['fci_os'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not
                                                                                 more than 50%</option>
-                                                                            <option value="More than 50% but less
-                                                                            than 75%">More than 50% but less
+                                                                            <option value="More than 50% but less than 75%" {{strpos($appointment_details['fci_os'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less
                                                                                 than 75%</option>
-                                                                            <option value="75% or more">75% or more</option>
+                                                                            <option value="75% or more" {{strpos($appointment_details['fci_os'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -2051,24 +2156,21 @@
                                                                     percentage range from the drop down menu.</span>
 
                                                             </div>
-                                                            <div class="row">
+                                                            <div class="row ">
                                                                 <div class="col-md-6 col-sm-12">
                                                                     <div class="qu-block block">
                                                                         <label for="" class="d-flex">
                                                                             <span class="text">Voting
                                                                                 Rights</span>
                                                                         </label>
-
                                                                         <select class="form-control" id="s_voting"
                                                                             onchange="show_hide_s_other_sig()">
                                                                             <option value="">N/A</option>
-                                                                            <option value="More than 25% but not
-                                                                            more than 50%">More than 25% but not
+                                                                            <option value="More than 25% but not more than 50%" {{strpos($appointment_details['fci_vr'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not
                                                                                 more than 50%</option>
-                                                                            <option value="More than 50% but less
-                                                                            than 75%">More than 50% but less
+                                                                            <option value="More than 50% but less than 75%" {{strpos($appointment_details['fci_vr'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less
                                                                                 than 75%</option>
-                                                                            <option value="75% or more">75% or more</option>
+                                                                            <option value="75% or more" {{strpos($appointment_details['fci_vr'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -2095,8 +2197,8 @@
 
                                                                         <select class="form-control" id="s_appoint"
                                                                             onchange="show_hide_s_other_sig()">
-                                                                            <option value="No">No</option>
-                                                                            <option value="Yes">Yes</option>
+                                                                            <option value="No" {{stripos($appointment_details['fci_appoint'], 'No') !== false ? 'selected' : ''}}>No</option>
+                                                                            <option value="Yes" {{stripos($appointment_details['fci_appoint'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -2123,9 +2225,9 @@
                                                                             <span class="text">Other Significant
                                                                                 influences or control</span></label>
                                                                         <select class="form-control"
-                                                                            value="s_other_sig_select_id">
-                                                                            <option value="No">No</option>
-                                                                            <option value="Yes">Yes</option>
+                                                                            id="s_other_sig_select_id">
+                                                                            <option value="No" {{stripos($appointment_details['fci_others'], 'No') !== false ? 'selected' : ''}}>No</option>
+                                                                            <option value="Yes" {{stripos($appointment_details['fci_others'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -2157,16 +2259,16 @@
                                                 <ul>
                                                     <li>
                                                         <input type="radio" id="no2" onclick="s_radio_check()"
-                                                            value="no" checked name="com-qu2">
+                                                            value="No" checked name="com-qu2" {{$put_fci_val=='No' ? 'checked' : ''}}>
                                                         <label for="no2">No</label>
                                                     </li>
                                                     <li>
                                                         <input type="radio" id="yes2" onclick="s_radio_check()"
-                                                            value="yes" name="com-qu2">
+                                                            value="Yes" name="com-qu2" {{$put_tci_val=='Yes' ? 'checked' : ''}}>
                                                         <label for="yes2">yes</label>
                                                     </li>
                                                 </ul>
-                                                <div class="mt-4 mb-4 d-none" id="trustDD">
+                                                <div class="mt-4 mb-4 {{$put_tci_val=='No' ? 'd-none' : ''}} " id="trustDD">
                                                     <h5>What control or influence does this officer have over this
                                                         company in their capacity within the Trust(s) ?
                                                     </h5>
@@ -2178,17 +2280,15 @@
                                                                         <span class="text">Ownership of
                                                                             shares</span>
                                                                     </label>
-
+                                                                    {{-- {{{$appointment_details['tci_os']}}} --}}
                                                                     <select class="form-control" id="t_ownership"
                                                                         onchange="show_hide_t_other_sig()">
                                                                         <option value="">N/A</option>
-                                                                        <option value="More than 25% but not
-                                                                        more than 50%">More than 25% but not
+                                                                        <option value="More than 25% but not more than 50%" {{strpos($appointment_details['tci_os'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not
                                                                             more than 50%</option>
-                                                                        <option value="More than 50% but less
-                                                                        than 75%">More than 50% but less
+                                                                        <option value="More than 50% but less than 75%" {{strpos($appointment_details['tci_os'], '75% or more') !== false ? 'selected' : ''}} >More than 50% but less
                                                                             than 75%</option>
-                                                                        <option value="75% or more">75% or more</option>
+                                                                        <option value="75% or more" {{strpos($appointment_details['tci_os'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -2212,16 +2312,15 @@
                                                                     </label>
 
                                                                     <select class="form-control"
-                                                                        onchange="selectingNoc()" id="t_voting"
+                                                                         id="t_voting"
                                                                         onchange="show_hide_t_other_sig()">
                                                                         <option value="">N/A</option>
-                                                                        <option value="More than 25% but not
-                                                                        more than 50%">More than 25% but not
+                                                                        <option value="More than 25% but not more than 50%" {{strpos($appointment_details['tci_vr'], 'More than 25% ') !== false ? 'selected' : ''}}>More than 25% but not
                                                                             more than 50%</option>
                                                                         <option value="More than 50% but less
-                                                                        than 75%">More than 50% but less
+                                                                        than 75%" {{strpos($appointment_details['tci_vr'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less
                                                                             than 75%</option>
-                                                                        <option value="75% or more">75% or more</option>
+                                                                        <option value="75% or more" {{strpos($appointment_details['tci_vr'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -2246,10 +2345,10 @@
                                                                     </label>
 
                                                                     <select class="form-control"
-                                                                        onchange="selectingNoc()" id="t_appoint"
+                                                                         id="t_appoint"
                                                                         onchange="show_hide_t_other_sig()">
-                                                                        <option value="No">No</option>
-                                                                        <option value="Yes">Yes</option>
+                                                                        <option value="No" {{strpos($appointment_details['tci_appoint'], 'No') !== false ? 'selected' : ''}}>No</option>
+                                                                        <option value="Yes" {{strpos($appointment_details['tci_appoint'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -2276,8 +2375,8 @@
                                                                             or control</span></label>
                                                                     <select class="form-control"
                                                                         id="t_other_sig_select_id">
-                                                                        <option value="No">No</option>
-                                                                        <option value="Yes">Yes</option>
+                                                                        <option value="No" {{strpos($appointment_details['tci_others'], 'No') !== false ? 'selected' : ''}}>No</option>
+                                                                        <option value="Yes" {{strpos($appointment_details['tci_others'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -2326,7 +2425,7 @@
                                                                 <div class="form-group">
                                                                     <label for="">Quantity</label>
                                                                     <input type="text" id="sh_quantity"
-                                                                        value="1" oninput='number_field(this)'
+                                                                        value="{{@$appointment_details['sh_quantity']!=''?@$appointment_details['sh_quantity']:'1'}}" oninput='number_field(this)'
                                                                         class="form-control sh_validation">
                                                                     <div class="error d-none" id=""
                                                                         style="color:red;">Quantity can not be empty or
@@ -2338,191 +2437,537 @@
                                                                 <div class="form-group">
                                                                     <label for="">Currency</label>
                                                                     <select class="form-control" id="sh_currency">
-                                                                        <option value="AED">AED</option>
-                                                                        <option value="AFA">AFA</option>
-                                                                        <option value="ALL">ALL</option>
-                                                                        <option value="AMD">AMD</option>
-                                                                        <option value="ANG">ANG</option>
-                                                                        <option value="AOA">AOA</option>
-                                                                        <option value="ARS">ARS
+
+
+                                                                        <option value="AED"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'AED' ? 'selected' : '' }}>
+                                                                            AED</option>
+                                                                        <option value="AFA"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'AFA' ? 'selected' : '' }}>
+                                                                            AFA</option>
+                                                                        <option value="ALL"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'ALL' ? 'selected' : '' }}>
+                                                                            ALL</option>
+                                                                        <option value="AMD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'AMD' ? 'selected' : '' }}>
+                                                                            AMD</option>
+                                                                        <option value="ANG"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'ANG' ? 'selected' : '' }}>
                                                                         </option>
-                                                                        <option value="AUD">AUD</option>
-                                                                        <option value="AWG">AWG</option>
-                                                                        <option value="AZM">AZM</option>
-                                                                        <option value="BAM">BAM</option>
-                                                                        <option value="BBD">BBD</option>
-                                                                        <option value="BDT">BDT</option>
-                                                                        <option value="BGN">BGN</option>
-                                                                        <option value="BHD">BHD</option>
-                                                                        <option value="BIF">BIF</option>
-                                                                        <option value="BMD">BMD</option>
-                                                                        <option value="BND">BND</option>
-                                                                        <option value="BOB">BOB</option>
-                                                                        <option value="BRL">BRL</option>
-                                                                        <option value="BSD">BSD</option>
-                                                                        <option value="BTN">BTN</option>
-                                                                        <option value="BWP">BWP</option>
-                                                                        <option value="BYR">BYR</option>
-                                                                        <option value="BZD">BZD</option>
-                                                                        <option value="CAD">CAD</option>
-                                                                        <option value="CDF">CDF</option>
-                                                                        <option value="CHF">CHF</option>
-                                                                        <option value="CLP">CLP</option>
-                                                                        <option value="CNY">CNY</option>
-                                                                        <option value="COP">COP</option>
-                                                                        <option value="CRC">CRC</option>
-                                                                        <option value="CUP">CUP</option>
-                                                                        <option value="CVE">CVE</option>
-                                                                        <option value="CYP">CYP</option>
-                                                                        <option value="CZK">CZK</option>
-                                                                        <option value="DJF">DJF</option>
-                                                                        <option value="DKK">DKK</option>
-                                                                        <option value="DOP">DOP</option>
-                                                                        <option value="DZD">DZD</option>
-                                                                        <option value="EEK">EEK</option>
-                                                                        <option value="EGP">EGP</option>
-                                                                        <option value="ERN">ERN</option>
-                                                                        <option value="ETB">ETB</option>
-                                                                        <option value="EUR">EUR</option>
-                                                                        <option value="FJD">FJD</option>
-                                                                        <option value="FKP">FKP</option>
-                                                                        <option value="GBP" selected="selected">GBP
+                                                                        <option value="ARS"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'ARS' ? 'selected' : '' }}>
+                                                                            ARS
                                                                         </option>
-                                                                        <option value="GEL">GEL</option>
-                                                                        <option value="GGP">GGP</option>
-                                                                        <option value="GHC">GHC</option>
-                                                                        <option value="GIP">GIP</option>
-                                                                        <option value="GMD">GMD</option>
-                                                                        <option value="GNF">GNF</option>
-                                                                        <option value="GTQ">GTQ</option>
-                                                                        <option value="GYD">GYD</option>
-                                                                        <option value="HKD">HKD</option>
-                                                                        <option value="HNL">HNL</option>
-                                                                        <option value="HRK">HRK</option>
-                                                                        <option value="HTG">HTG</option>
-                                                                        <option value="HUF">HUF</option>
-                                                                        <option value="IDR">IDR</option>
-                                                                        <option value="ILS">ILS</option>
-                                                                        <option value="IMP">IMP</option>
-                                                                        <option value="INR">INR</option>
-                                                                        <option value="IQD">IQD</option>
-                                                                        <option value="IRR">IRR</option>
-                                                                        <option value="ISK">ISK</option>
-                                                                        <option value="JEP">JEP</option>
-                                                                        <option value="JMD">JMD</option>
-                                                                        <option value="JOD">JOD</option>
-                                                                        <option value="JPY">JPY</option>
-                                                                        <option value="KES">KES</option>
-                                                                        <option value="KGS">KGS</option>
-                                                                        <option value="KHR">KHR</option>
-                                                                        <option value="KMF">KMF</option>
-                                                                        <option value="KPW">KPW</option>
-                                                                        <option value="KRW">KRW</option>
-                                                                        <option value="KWD">KWD</option>
-                                                                        <option value="KYD">KYD</option>
-                                                                        <option value="KZT">KZT</option>
-                                                                        <option value="LAK">LAK</option>
-                                                                        <option value="LBP">LBP</option>
-                                                                        <option value="LKR">LKR</option>
-                                                                        <option value="LRD">LRD</option>
-                                                                        <option value="LSL">LSL</option>
-                                                                        <option value="LTL">LTL</option>
-                                                                        <option value="LVL">LVL</option>
-                                                                        <option value="LYD">LYD</option>
-                                                                        <option value="MAD">MAD</option>
-                                                                        <option value="MDL">MDL</option>
-                                                                        <option value="MGA">MGA</option>
-                                                                        <option value="MKD">MKD</option>
-                                                                        <option value="MMK">MMK</option>
-                                                                        <option value="MNT">MNT</option>
-                                                                        <option value="MOP">MOP</option>
-                                                                        <option value="MRO">MRO</option>
-                                                                        <option value="MTL">MTL</option>
-                                                                        <option value="MUR">MUR</option>
-                                                                        <option value="MVR">MVR</option>
-                                                                        <option value="MWK">MWK</option>
-                                                                        <option value="MXN">MXN</option>
-                                                                        <option value="MYR">MYR</option>
-                                                                        <option value="MZM">MZM</option>
-                                                                        <option value="NAD">NAD</option>
-                                                                        <option value="NGN">NGN</option>
-                                                                        <option value="NIO">NIO</option>
-                                                                        <option value="NOK">NOK</option>
-                                                                        <option value="NPR">NPR</option>
-                                                                        <option value="NZD">NZD</option>
-                                                                        <option value="OMR">OMR</option>
-                                                                        <option value="PAB">PAB</option>
-                                                                        <option value="PEN">PEN</option>
-                                                                        <option value="PGK">PGK</option>
-                                                                        <option value="PHP">PHP</option>
-                                                                        <option value="PKR">PKR</option>
-                                                                        <option value="PLN">PLN</option>
-                                                                        <option value="PYG">PYG</option>
-                                                                        <option value="QAR">QAR</option>
-                                                                        <option value="RON">RON</option>
-                                                                        <option value="RUB">RUB</option>
-                                                                        <option value="RWF">RWF</option>
-                                                                        <option value="SAR">SAR</option>
-                                                                        <option value="SBD">SBD</option>
-                                                                        <option value="SCR">SCR</option>
-                                                                        <option value="SDD">SDD</option>
-                                                                        <option value="SEK">SEK</option>
-                                                                        <option value="SGD">SGD</option>
-                                                                        <option value="SHP">SHP</option>
-                                                                        <option value="SIT">SIT</option>
-                                                                        <option value="SKK">SKK</option>
-                                                                        <option value="SLL">SLL</option>
-                                                                        <option value="SOS">SOS</option>
-                                                                        <option value="SPL">SPL</option>
-                                                                        <option value="SRG">SRG</option>
-                                                                        <option value="STD">STD</option>
-                                                                        <option value="SVC">SVC</option>
-                                                                        <option value="SYP">SYP</option>
-                                                                        <option value="SZL">SZL</option>
-                                                                        <option value="THB">THB</option>
-                                                                        <option value="TJS">TJS</option>
-                                                                        <option value="TMM">TMM</option>
-                                                                        <option value="TND">TND</option>
-                                                                        <option value="TOP">TOP</option>
-                                                                        <option value="TRY">TRY</option>
-                                                                        <option value="TTD">TTD</option>
-                                                                        <option value="TVD">TVD</option>
-                                                                        <option value="TWD">TWD</option>
-                                                                        <option value="TZS">TZS</option>
-                                                                        <option value="UAH">UAH</option>
-                                                                        <option value="UGX">UGX</option>
-                                                                        <option value="USD">USD</option>
-                                                                        <option value="UYU">UYU</option>
-                                                                        <option value="UZS">UZS</option>
-                                                                        <option value="VEB">VEB</option>
-                                                                        <option value="VND">VND</option>
-                                                                        <option value="VUV">VUV</option>
-                                                                        <option value="WST">WST</option>
-                                                                        <option value="XAF">XAF</option>
-                                                                        <option value="XAG">XAG</option>
-                                                                        <option value="XAU">XAU</option>
-                                                                        <option value="XCD">XCD</option>
-                                                                        <option value="XDR">XDR</option>
-                                                                        <option value="XOF">XOF</option>
-                                                                        <option value="XPD">XPD</option>
-                                                                        <option value="XPF">XPF</option>
-                                                                        <option value="XPT">XPT</option>
-                                                                        <option value="YER">YER</option>
-                                                                        <option value="YUM">YUM</option>
-                                                                        <option value="ZAR">ZAR</option>
-                                                                        <option value="ZMK">ZMK</option>
-                                                                        <option value="ZWD">ZWD</option>
+                                                                        <option value="AOA"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'AOA' ? 'selected' : '' }}>
+                                                                            AOA</option>
+                                                                        <option value="AUD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'AUD' ? 'selected' : '' }}>
+                                                                            AUD</option>
+                                                                        <option value="AWG"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'AWG' ? 'selected' : '' }}>
+                                                                            AWG</option>
+                                                                        <option value="AZM"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'AZM' ? 'selected' : '' }}>
+                                                                            AZM</option>
+                                                                        <option value="BAM"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BAM' ? 'selected' : '' }}>
+                                                                            BAM</option>
+                                                                        <option value="BBD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BBD' ? 'selected' : '' }}>
+                                                                            BBD</option>
+                                                                        <option value="BDT"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BDT' ? 'selected' : '' }}>
+                                                                            BDT</option>
+                                                                        <option value="BGN"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BGN' ? 'selected' : '' }}>
+                                                                            BGN</option>
+                                                                        <option value="BHD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BHD' ? 'selected' : '' }}>
+                                                                            BHD</option>
+                                                                        <option value="BIF"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BIF' ? 'selected' : '' }}>
+                                                                            BIF</option>
+                                                                        <option value="BMD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BMD' ? 'selected' : '' }}>
+                                                                            BMD</option>
+                                                                        <option value="BND"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BND' ? 'selected' : '' }}>
+                                                                            BND</option>
+                                                                        <option value="BOB"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BOB' ? 'selected' : '' }}>
+                                                                            BOB</option>
+                                                                        <option value="BRL"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BRL' ? 'selected' : '' }}>
+                                                                            BRL</option>
+                                                                        <option value="BSD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BSD' ? 'selected' : '' }}>
+                                                                            BSD</option>
+                                                                        <option value="BTN"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BTN' ? 'selected' : '' }}>
+                                                                            BTN</option>
+                                                                        <option value="BWP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BWP' ? 'selected' : '' }}>
+                                                                            BWP</option>
+                                                                        <option value="BYR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BYR' ? 'selected' : '' }}>
+                                                                            BYR</option>
+                                                                        <option value="BZD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'BZD' ? 'selected' : '' }}>
+                                                                            BZD</option>
+                                                                        <option value="CAD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'CAD' ? 'selected' : '' }}>
+                                                                            CAD</option>
+                                                                        <option value="CDF"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'CDF' ? 'selected' : '' }}>
+                                                                            CDF</option>
+                                                                        <option value="CHF"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'CHF' ? 'selected' : '' }}>
+                                                                            CHF</option>
+                                                                        <option value="CLP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'CLP' ? 'selected' : '' }}>
+                                                                            CLP</option>
+                                                                        <option value="CNY"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'CNY' ? 'selected' : '' }}>
+                                                                            CNY</option>
+                                                                        <option value="COP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'COP' ? 'selected' : '' }}>
+                                                                            COP</option>
+                                                                        <option value="CRC"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'CRC' ? 'selected' : '' }}>
+                                                                            CRC</option>
+                                                                        <option value="CUP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'CUP' ? 'selected' : '' }}>
+                                                                            CUP</option>
+                                                                        <option value="CVE"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'CVE' ? 'selected' : '' }}>
+                                                                            CVE</option>
+                                                                        <option value="CYP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'CYP' ? 'selected' : '' }}>
+                                                                            CYP</option>
+                                                                        <option value="CZK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'CZK' ? 'selected' : '' }}>
+                                                                            CZK</option>
+                                                                        <option value="DJF"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'DJF' ? 'selected' : '' }}>
+                                                                            DJF</option>
+                                                                        <option value="DKK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'DKK' ? 'selected' : '' }}>
+                                                                            DKK</option>
+                                                                        <option value="DOP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'DOP' ? 'selected' : '' }}>
+                                                                            DOP</option>
+                                                                        <option value="DZD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'DZD' ? 'selected' : '' }}>
+                                                                            DZD</option>
+                                                                        <option value="EEK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'EEK' ? 'selected' : '' }}>
+                                                                            EEK</option>
+                                                                        <option value="EGP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'EGP' ? 'selected' : '' }}>
+                                                                            EGP</option>
+                                                                        <option value="ERN"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'ERN' ? 'selected' : '' }}>
+                                                                            ERN</option>
+                                                                        <option value="ETB"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'ETB' ? 'selected' : '' }}>
+                                                                            ETB</option>
+                                                                        <option value="EUR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'EUR' ? 'selected' : '' }}>
+                                                                            EUR</option>
+                                                                        <option value="FJD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'FJD' ? 'selected' : '' }}>
+                                                                            FJD</option>
+                                                                        <option value="FKP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'FKP' ? 'selected' : '' }}>
+                                                                            FKP</option>
+                                                                        <option value="GBP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'GBP' ? 'selected' : '' }} {{$appointment_details['sh_currency']==''?'selected':''}}>
+                                                                            GBP
+                                                                        </option>
+                                                                        <option value="GEL"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'GEL' ? 'selected' : '' }}>
+                                                                            GEL</option>
+                                                                        <option value="GGP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'GGP' ? 'selected' : '' }}>
+                                                                            GGP</option>
+                                                                        <option value="GHC"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'GHC' ? 'selected' : '' }}>
+                                                                            GHC</option>
+                                                                        <option value="GIP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'GIP' ? 'selected' : '' }}>
+                                                                            GIP</option>
+                                                                        <option value="GMD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'GMD' ? 'selected' : '' }}>
+                                                                            GMD</option>
+                                                                        <option value="GNF"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'GNF' ? 'selected' : '' }}>
+                                                                            GNF</option>
+                                                                        <option value="GTQ"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'GTQ' ? 'selected' : '' }}>
+                                                                            GTQ</option>
+                                                                        <option value="GYD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'GYD' ? 'selected' : '' }}>
+                                                                            GYD</option>
+                                                                        <option value="HKD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'HKD' ? 'selected' : '' }}>
+                                                                            HKD</option>
+                                                                        <option value="HNL"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'HNL' ? 'selected' : '' }}>
+                                                                            HNL</option>
+                                                                        <option value="HRK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'HRK' ? 'selected' : '' }}>
+                                                                            HRK</option>
+                                                                        <option value="HTG"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'HTG' ? 'selected' : '' }}>
+                                                                            HTG</option>
+                                                                        <option value="HUF"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'HUF' ? 'selected' : '' }}>
+                                                                            HUF</option>
+                                                                        <option value="IDR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'IDR' ? 'selected' : '' }}>
+                                                                            IDR</option>
+                                                                        <option value="ILS"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'ILS' ? 'selected' : '' }}>
+                                                                            ILS</option>
+                                                                        <option value="IMP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'IMP' ? 'selected' : '' }}>
+                                                                            IMP</option>
+                                                                        <option value="INR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'INR' ? 'selected' : '' }}>
+                                                                            INR</option>
+                                                                        <option value="IQD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'IQD' ? 'selected' : '' }}>
+                                                                            IQD</option>
+                                                                        <option value="IRR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'IRR' ? 'selected' : '' }}>
+                                                                            IRR</option>
+                                                                        <option value="ISK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'ISK' ? 'selected' : '' }}>
+                                                                            ISK</option>
+                                                                        <option value="JEP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'JEP' ? 'selected' : '' }}>
+                                                                            JEP</option>
+                                                                        <option value="JMD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'JMD' ? 'selected' : '' }}>
+                                                                            JMD</option>
+                                                                        <option value="JOD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'JOD' ? 'selected' : '' }}>
+                                                                            JOD</option>
+                                                                        <option value="JPY"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'JPY' ? 'selected' : '' }}>
+                                                                            JPY</option>
+                                                                        <option value="KES"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'KES' ? 'selected' : '' }}>
+                                                                            KES</option>
+                                                                        <option value="KGS"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'KGS' ? 'selected' : '' }}>
+                                                                            KGS</option>
+                                                                        <option value="KHR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'KHR' ? 'selected' : '' }}>
+                                                                            KHR</option>
+                                                                        <option value="KMF"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'KMF' ? 'selected' : '' }}>
+                                                                            KMF</option>
+                                                                        <option value="KPW"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'KPW' ? 'selected' : '' }}>
+                                                                            KPW</option>
+                                                                        <option value="KRW"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'KRW' ? 'selected' : '' }}>
+                                                                            KRW</option>
+                                                                        <option value="KWD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'KWD' ? 'selected' : '' }}>
+                                                                            KWD</option>
+                                                                        <option value="KYD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'KYD' ? 'selected' : '' }}>
+                                                                            KYD</option>
+                                                                        <option value="KZT"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'KZT' ? 'selected' : '' }}>
+                                                                            KZT</option>
+                                                                        <option value="LAK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'LAK' ? 'selected' : '' }}>
+                                                                            LAK</option>
+                                                                        <option value="LBP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'LBP' ? 'selected' : '' }}>
+                                                                            LBP</option>
+                                                                        <option value="LKR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'LKR' ? 'selected' : '' }}>
+                                                                            LKR</option>
+                                                                        <option value="LRD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'LRD' ? 'selected' : '' }}>
+                                                                            LRD</option>
+                                                                        <option value="LSL"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'LSL' ? 'selected' : '' }}>
+                                                                            LSL</option>
+                                                                        <option value="LTL"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'LTL' ? 'selected' : '' }}>
+                                                                            LTL</option>
+                                                                        <option value="LVL"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'LVL' ? 'selected' : '' }}>
+                                                                            LVL</option>
+                                                                        <option value="LYD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'LYD' ? 'selected' : '' }}>
+                                                                            LYD</option>
+                                                                        <option value="MAD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MAD' ? 'selected' : '' }}>
+                                                                            MAD</option>
+                                                                        <option value="MDL"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MDL' ? 'selected' : '' }}>
+                                                                            MDL</option>
+                                                                        <option value="MGA"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MGA' ? 'selected' : '' }}>
+                                                                            MGA</option>
+                                                                        <option value="MKD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MKD' ? 'selected' : '' }}>
+                                                                            MKD</option>
+                                                                        <option value="MMK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MMK' ? 'selected' : '' }}>
+                                                                            MMK</option>
+                                                                        <option value="MNT"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MNT' ? 'selected' : '' }}>
+                                                                            MNT</option>
+                                                                        <option value="MOP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MOP' ? 'selected' : '' }}>
+                                                                            MOP</option>
+                                                                        <option value="MRO"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MRO' ? 'selected' : '' }}>
+                                                                            MRO</option>
+                                                                        <option value="MTL"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MTL' ? 'selected' : '' }}>
+                                                                            MTL</option>
+                                                                        <option value="MUR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MUR' ? 'selected' : '' }}>
+                                                                            MUR</option>
+                                                                        <option value="MVR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MVR' ? 'selected' : '' }}>
+                                                                            MVR</option>
+                                                                        <option value="MWK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MWK' ? 'selected' : '' }}>
+                                                                            MWK</option>
+                                                                        <option value="MXN"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MXN' ? 'selected' : '' }}>
+                                                                            MXN</option>
+                                                                        <option value="MYR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MYR' ? 'selected' : '' }}>
+                                                                            MYR</option>
+                                                                        <option value="MZM"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'MZM' ? 'selected' : '' }}>
+                                                                            MZM</option>
+                                                                        <option value="NAD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'NAD' ? 'selected' : '' }}>
+                                                                            NAD</option>
+                                                                        <option value="NGN"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'NGN' ? 'selected' : '' }}>
+                                                                            NGN</option>
+                                                                        <option value="NIO"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'NIO' ? 'selected' : '' }}>
+                                                                            NIO</option>
+                                                                        <option value="NOK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'NOK' ? 'selected' : '' }}>
+                                                                            NOK</option>
+                                                                        <option value="NPR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'NPR' ? 'selected' : '' }}>
+                                                                            NPR</option>
+                                                                        <option value="NZD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'NZD' ? 'selected' : '' }}>
+                                                                            NZD</option>
+                                                                        <option value="OMR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'OMR' ? 'selected' : '' }}>
+                                                                            OMR</option>
+                                                                        <option value="PAB"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'PAB' ? 'selected' : '' }}>
+                                                                            PAB</option>
+                                                                        <option value="PEN"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'PEN' ? 'selected' : '' }}>
+                                                                            PEN</option>
+                                                                        <option value="PGK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'PGK' ? 'selected' : '' }}>
+                                                                            PGK</option>
+                                                                        <option value="PHP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'PHP' ? 'selected' : '' }}>
+                                                                            PHP</option>
+                                                                        <option value="PKR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'PKR' ? 'selected' : '' }}>
+                                                                            PKR</option>
+                                                                        <option value="PLN"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'PLN' ? 'selected' : '' }}>
+                                                                            PLN</option>
+                                                                        <option value="PYG"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'PYG' ? 'selected' : '' }}>
+                                                                            PYG</option>
+                                                                        <option value="QAR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'QAR' ? 'selected' : '' }}>
+                                                                            QAR</option>
+                                                                        <option value="RON"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'RON' ? 'selected' : '' }}>
+                                                                            RON</option>
+                                                                        <option value="RUB"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'RUB' ? 'selected' : '' }}>
+                                                                            RUB</option>
+                                                                        <option value="RWF"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'RWF' ? 'selected' : '' }}>
+                                                                            RWF</option>
+                                                                        <option value="SAR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SAR' ? 'selected' : '' }}>
+                                                                            SAR</option>
+                                                                        <option value="SBD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SBD' ? 'selected' : '' }}>
+                                                                            SBD</option>
+                                                                        <option value="SCR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SCR' ? 'selected' : '' }}>
+                                                                            SCR</option>
+                                                                        <option value="SDD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SDD' ? 'selected' : '' }}>
+                                                                            SDD</option>
+                                                                        <option value="SEK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SEK' ? 'selected' : '' }}>
+                                                                            SEK</option>
+                                                                        <option value="SGD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SGD' ? 'selected' : '' }}>
+                                                                            SGD</option>
+                                                                        <option value="SHP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SHP' ? 'selected' : '' }}>
+                                                                            SHP</option>
+                                                                        <option value="SIT"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SIT' ? 'selected' : '' }}>
+                                                                            SIT</option>
+                                                                        <option value="SKK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SKK' ? 'selected' : '' }}>
+                                                                            SKK</option>
+                                                                        <option value="SLL"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SLL' ? 'selected' : '' }}>
+                                                                            SLL</option>
+                                                                        <option value="SOS"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SOS' ? 'selected' : '' }}>
+                                                                            SOS</option>
+                                                                        <option value="SPL"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SPL' ? 'selected' : '' }}>
+                                                                            SPL</option>
+                                                                        <option value="SRG"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SRG' ? 'selected' : '' }}>
+                                                                            SRG</option>
+                                                                        <option value="STD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'STD' ? 'selected' : '' }}>
+                                                                            STD</option>
+                                                                        <option value="SVC"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SVC' ? 'selected' : '' }}>
+                                                                            SVC</option>
+                                                                        <option value="SYP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SYP' ? 'selected' : '' }}>
+                                                                            SYP</option>
+                                                                        <option value="SZL"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'SZL' ? 'selected' : '' }}>
+                                                                            SZL</option>
+                                                                        <option value="THB"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'THB' ? 'selected' : '' }}>
+                                                                            THB</option>
+                                                                        <option value="TJS"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'TJS' ? 'selected' : '' }}>
+                                                                            TJS</option>
+                                                                        <option value="TMM"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'TMM' ? 'selected' : '' }}>
+                                                                            TMM</option>
+                                                                        <option value="TND"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'TND' ? 'selected' : '' }}>
+                                                                            TND</option>
+                                                                        <option value="TOP"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'TOP' ? 'selected' : '' }}>
+                                                                            TOP</option>
+                                                                        <option value="TRY"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'TRY' ? 'selected' : '' }}>
+                                                                            TRY</option>
+                                                                        <option value="TTD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'TTD' ? 'selected' : '' }}>
+                                                                            TTD</option>
+                                                                        <option value="TVD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'TVD' ? 'selected' : '' }}>
+                                                                            TVD</option>
+                                                                        <option value="TWD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'TWD' ? 'selected' : '' }}>
+                                                                            TWD</option>
+                                                                        <option value="TZS"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'TZS' ? 'selected' : '' }}>
+                                                                            TZS</option>
+                                                                        <option value="UAH"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'UAH' ? 'selected' : '' }}>
+                                                                            UAH</option>
+                                                                        <option value="UGX"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'UGX' ? 'selected' : '' }}>
+                                                                            UGX</option>
+                                                                        <option value="USD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'USD' ? 'selected' : '' }}>
+                                                                            USD</option>
+                                                                        <option value="UYU"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'UYU' ? 'selected' : '' }}>
+                                                                            UYU</option>
+                                                                        <option value="UZS"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'UZS' ? 'selected' : '' }}>
+                                                                            UZS</option>
+                                                                        <option value="VEB"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'VEB' ? 'selected' : '' }}>
+                                                                            VEB</option>
+                                                                        <option value="VND"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'VND' ? 'selected' : '' }}>
+                                                                            VND</option>
+                                                                        <option value="VUV"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'VUV' ? 'selected' : '' }}>
+                                                                            VUV</option>
+                                                                        <option value="WST"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'WST' ? 'selected' : '' }}>
+                                                                            WST</option>
+                                                                        <option value="XAF"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'XAF' ? 'selected' : '' }}>
+                                                                            XAF</option>
+                                                                        <option value="XAG"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'XAG' ? 'selected' : '' }}>
+                                                                            XAG</option>
+                                                                        <option value="XAU"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'XAU' ? 'selected' : '' }}>
+                                                                            XAU</option>
+                                                                        <option value="XCD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'XCD' ? 'selected' : '' }}>
+                                                                            XCD</option>
+                                                                        <option value="XDR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'XDR' ? 'selected' : '' }}>
+                                                                            XDR</option>
+                                                                        <option value="XOF"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'XOF' ? 'selected' : '' }}>
+                                                                            XOF</option>
+                                                                        <option value="XPD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'XPD' ? 'selected' : '' }}>
+                                                                            XPD</option>
+                                                                        <option value="XPF"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'XPF' ? 'selected' : '' }}>
+                                                                            XPF</option>
+                                                                        <option value="XPT"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'XPT' ? 'selected' : '' }}>
+                                                                            XPT</option>
+                                                                        <option value="YER"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'YER' ? 'selected' : '' }}>
+                                                                            YER</option>
+                                                                        <option value="YUM"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'YUM' ? 'selected' : '' }}>
+                                                                            YUM</option>
+                                                                        <option value="ZAR"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'ZAR' ? 'selected' : '' }}>
+                                                                            ZAR</option>
+                                                                        <option value="ZMK"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'ZMK' ? 'selected' : '' }}>
+                                                                            ZMK</option>
+                                                                        <option value="ZWD"
+                                                                            {{ isset($appointment_details['sh_currency']) && $appointment_details['sh_currency'] === 'ZWD' ? 'selected' : '' }}>
+                                                                            ZWD</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="">Price per share</label>
-                                                                    <input type="text" value="1.00"
+                                                                    <input type="text"
                                                                         oninput='number_field(this)'
                                                                         class="form-control sh_validation"
                                                                         onblur='conertToDecimal($(this))'
-                                                                        id="sh_pps">
+                                                                        id="sh_pps" value="{{@$appointment_details['sh_pps']!=''?@$appointment_details['sh_pps']:'1.00'}}">
                                                                     <div class="error d-none" id=""
                                                                         style="color:red;">Price can not be empty or zero
                                                                     </div>
@@ -2539,7 +2984,7 @@
                                                             articles of association and any shareholders' agreements. The
                                                             prescribed particulars are a summary of these rights and might
                                                             be very different between different companies.</span>
-                                                        <textarea class="form-control sh_validation" id="perticularsTextArea" rows="2"></textarea>
+                                                        <textarea class="form-control sh_validation" id="perticularsTextArea" rows="2">{{@$appointment_details['perticularsTextArea']!=''?@$appointment_details['perticularsTextArea']:''}}</textarea>
                                                         <div class="error d-none" id="" style="color:red;">
                                                             Particulars can not be empty.
                                                         </div>
@@ -2573,11 +3018,14 @@
                                         </div>
                                         {{-- SHAREHOLDER TAB SECTION ENDS --}}
                                     </div>
-
+                                    @php
+                                        $cancel_and_success_route = route('appointments').'?order='.$_GET['order'].'&section=Company_formaction&step=appointments';
+                                    @endphp
                                 </div>
                                 <div class="step-btn-wrap mt-4">
-                                    <button class="btn prev-btn" id="cancelBtn"
-                                        onclick="location.reload()">Cancel</button>
+                                    <a href="{{ $cancel_and_success_route }}" class="btn prev-btn" id="cancelBtn">Cancel</a>
+                                    {{-- <button class="btn prev-btn" id="cancelBtn"
+                                        onclick="location.reload()">Cancel</button> --}}
                                     <button class="btn prev-btn d-none" id="bckButton"
                                         onclick="theCancelButtonFunction()">Back</button>
                                     <button class="btn" id="theNextBtn" onclick="checkConsentOrNot()">Next <img
@@ -2592,26 +3040,48 @@
             </div>
         </div>
         </div>
-        <input type="hidden" id="orderId" value="" readonly>
-        <input type="hidden" id="positionSelected" value="" class="totalBlankCheck" readonly>
-        <input type="hidden" id="appointmentType" value="" readonly>
-        <input type="hidden" id="shoppingCartId_id" value="{{ $shoppingCartId }}" readonly>
-        <input type="hidden" id="currentTab" value="" readonly>
+        <input type="text" id="orderId" value="{{ $_GET['order'] }}" readonly>
+        <input type="text" id="positionSelected" value="{{$appointment_details['position']}}" class="totalBlankCheck" readonly>
+        <input type="text" id="appointmentType" value="" readonly>
+        <input type="text" id="shoppingCartId_id" value="{{ $shoppingCartId }}" readonly>
+        <input type="text" id="currentTab" value="" readonly>
 
         <!-- PERSON SECTION DATAS -->
-        <input type="hidden" id="choosedPersonOfficerId" class="totalBlankCheck" value="" readonly>
-        <input type="hidden" id="addressTypeChoosed" value="" readonly>
-        <input type="hidden" id="actionType" value="" readonly>
+        <input type="text" id="choosedPersonOfficerId" class="totalBlankCheck" value="{{$officer_details['id']}}" readonly>
+        <input type="text" id="addressTypeChoosed" value="" readonly>
+        <input type="text" id="actionType" value="" readonly>
 
         {{-- Nature of Control radio btn val --}}
-        <input type="hidden" id="f_radio_check_id" value="" readonly>
-        <input type="hidden" id="s_radio_check_id" value="" readonly>
+
+        <input type="text" id="f_radio_check_id" value="{{$put_fci_val}}" readonly>
+        <input type="text" id="s_radio_check_id" value="{{$put_tci_val}}" readonly>
     </section>
     <!-- ================ end: Particulars sec ================ -->
 @endsection
 
 @section('script')
     <script>
+
+        show_hide_s_other_sig();
+        show_hide_t_other_sig();
+        $(document).ready(function() {
+            if($('#director').prop('checked'))
+            {
+                consentSection()
+            }
+            if($('#shareholder').prop('checked'))
+            {
+                shareholderTab()
+            }
+            if($('#psc').prop('checked'))
+            {
+                pscTab()
+            }
+            if($('#secretary').prop('checked'))
+            {
+                consentSection()
+            }
+        })
         // Scroll to the top of the page
         function scrollToTop() {
             window.scrollTo(0, 0);
@@ -2744,6 +3214,7 @@
             // VALUES
             // general section values
             const order_id = {{$_GET['order']}};
+            const appointment_id = {{$_GET['id']}};
             const cart_id = $("#shoppingCartId_id").val();
             const person_officer_id = $("#choosedPersonOfficerId").val();
 
@@ -2830,12 +3301,13 @@
             if (validation === 0) {
                 console.log('gg');
                 $.ajax({
-                    url: "{!! route('person-appointment-save') !!}",
+                    url: "{!! route('person-appointment-update') !!}",
                     type: 'POST',
                     data: {
                         "_token": "{{ csrf_token() }}",
                         order_id,
                         cart_id,
+                        appointment_id,
                         person_officer_id,
                         own_address_id,
                         forwarding_address_id,
@@ -2862,8 +3334,13 @@
                     },
                     success: function(result) {
                         if (result) {
-                            location.reload()
+
+                            window.location.href ="{{$cancel_and_success_route}}"
                         }
+                    },
+                    error:function(result){
+                        // console.log(result);
+                        alert("Some error occured. Please try again later.");
                     }
                 });
             }
@@ -2876,6 +3353,12 @@
                 $("#firmDD").removeClass('d-none')
                 $("#f_radio_check_id").val('yes')
             } else {
+                $("#s_ownership").first().val('')
+                $("#s_voting").first().val('')
+                $("#s_appoint").first().val('No')
+                $("#s_other_sig").removeClass('d-none')
+
+
                 $("#firmDD").addClass('d-none')
                 $("#f_radio_check_id").val('no')
             }
@@ -2888,6 +3371,12 @@
                 $("#trustDD").removeClass('d-none')
                 $("#s_radio_check_id").val('yes')
             } else {
+
+                $("#t_ownership").first().val('')
+                $("#t_voting").first().val('')
+                $("#t_appoint").first().val('No')
+                $("#t_other_sig").removeClass('d-none')
+
                 $("#trustDD").addClass('d-none')
                 $("#s_radio_check_id").val('no')
             }
@@ -2898,9 +3387,11 @@
             const F_Voting = $('#F_voting').find(":selected").val();
             const F_appoint = $('#F_appoint').find(":selected").val();
 
-            if (F_ownership === '25' || F_ownership === '50' || F_ownership === '75' || F_Voting === '25' || F_Voting ===
-                '50' || F_Voting === '75' || F_appoint === 'Yes') {
+            if (F_ownership != '' || F_ownership != '' || F_ownership != '' || F_Voting != '' || F_Voting !=
+                '' || F_Voting != '' || F_appoint === 'Yes') {
                 $("#F_other_sig").addClass('d-none')
+                $("#F_other_sig_select_id option[value='No']").attr('selected', true);
+
             } else {
                 $("#F_other_sig").removeClass('d-none')
             }
@@ -2911,9 +3402,11 @@
             const s_voting = $('#s_voting').find(":selected").val();
             const s_appoint = $('#s_appoint').find(":selected").val();
 
-            if (s_ownership === '25' || s_ownership === '50' || s_ownership === '75' || s_voting === '25' || s_voting ===
-                '50' || s_voting === '75' || s_appoint === 'Yes') {
+            if (s_ownership != '' || s_ownership != '' || s_ownership != '' || s_voting != '' || s_voting !=
+                '' || s_voting != '' || s_appoint === 'Yes') {
                 $("#s_other_sig").addClass('d-none')
+                $("#s_other_sig_select_id option[value='No']").attr('selected', true);
+
             } else {
                 $("#s_other_sig").removeClass('d-none')
             }
@@ -2923,10 +3416,11 @@
             const t_ownership = $('#t_ownership').find(":selected").val();
             const t_voting = $('#t_voting').find(":selected").val();
             const t_appoint = $('#t_appoint').find(":selected").val();
-
-            if (t_ownership === '25' || t_ownership === '50' || t_ownership === '75' || t_voting === '25' || t_voting ===
-                '50' || t_voting === '75' || t_appoint === 'Yes') {
+            console.log("s_other_sig")
+            if (t_ownership != '' || t_ownership != '' || t_ownership != '' || t_voting != '' || t_voting !=
+                '' || t_voting != '' || t_appoint === 'Yes') {
                 $("#t_other_sig").addClass('d-none')
+                $("#t_other_sig_select_id option[value='No']").attr('selected', true);
             } else {
                 $("#t_other_sig").removeClass('d-none')
             }
@@ -3043,10 +3537,13 @@
                 $('#details-tab').removeClass('active');
                 $('#details').removeClass('active show');
 
-                $('#officer-tab').addClass('active');
-                $('#officer').addClass('active show');
-
-                $('#currentTab').val('officer')
+                // $('#officer-tab').addClass('active');
+                // $('#officer').addClass('active show');
+                $('#position-tab').addClass('active');
+                $('#position').addClass('active show');
+                $('#currentTab').val('position')
+                $("#cancelBtn").removeClass('d-none');
+                $("#bckButton").addClass('d-none')
             }
 
             // ADDRESSING BACK
@@ -3191,20 +3688,6 @@
         function chooseAdd(type) {
             $("#detailsTabAddList_id").removeClass('d-none');
             // $('.hideEdit').addClass('d-none');
-
-            $("#serviceAddLandingSection").addClass('d-none');
-            $("#myTab").addClass('d-none');
-            $("#theNextBtn").addClass('d-none');
-
-            $("#addressTypeChoosed").val(type)
-            $("#actionType").val('select')
-
-            scrollToTop()
-        }
-
-        function buyAdd(type) {
-            $("#detailsTabAddList_id").removeClass('d-none');
-            // $('.hideEdit').removeClass('d-none');
 
             $("#serviceAddLandingSection").addClass('d-none');
             $("#myTab").addClass('d-none');
@@ -3837,8 +4320,8 @@
                             person_aqthree_ans
                         },
                         success: function(response) {
-                            console.log(response);
-                            console.log(response['id']);
+                            // console.log(response);
+                            // console.log(response['id']);
                             $('#details-tab').removeClass('active');
                             $('#details').removeClass('active show');
 
@@ -3902,11 +4385,19 @@
             // From NoC to Forward Tabs starts==========================>
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'nature-control') {
 
-                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' &&
-                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&
-                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No') {
+                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' &&$("#F_other_sig_select_id").val() === 'No' &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&$("#s_other_sig_select_id").val() === 'No' &&
+                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' &&$("#t_other_sig_select_id").val() === 'No') {
                     $("#NOC_validation_error").removeClass('d-none')
                     return false
+                }
+                //auto select no if the radio button value is yes but no data altered
+                if($("#f_radio_check_id").val()!="no" &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&$("#s_other_sig_select_id").val() === 'No') {
+                    $("#no").click();
+                }
+                if($("#s_radio_check_id").val()!="no"&& $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' &&$("#t_other_sig_select_id").val() === 'No') {
+                    $("#no2").click();
                 }
                 $("#NOC_validation_error").addClass('d-none')
 
@@ -4001,8 +4492,8 @@
                 $('#position-tab').removeClass('active');
                 $('#position').removeClass('active show');
 
-                $('#officer-tab').addClass('active');
-                $('#officer').addClass('active show');
+                $('#details-tab').addClass('active');
+                $('#details').addClass('active show');
 
                 const checkBoxArr = [...$(".checkBoxPos")];
                 let posiArr = []
@@ -4017,7 +4508,7 @@
                 })
                 $("#positionSelected").val(posiArr.join(', '))
 
-                $('#currentTab').val('officer')
+                $('#currentTab').val('details')
 
                 $("#cancelBtn").addClass('d-none');
                 $("#bckButton").removeClass('d-none');
@@ -4061,7 +4552,7 @@
 
             $('#appointmentType').val('person');
         }
-
+        showPersonSection()
         function go_to_the_next_page() {
             const price = $('#business_office_price').val();
             const shoppingCartId_id = $('#shoppingCartId_id').val();
@@ -4146,16 +4637,19 @@
                     const add_town = $(`.${id}_add_town`).val();
                     const user_county = $(`.${id}_user_county`).val();
                     const address_post_code = $(`.${id}_address_post_code`).val();
-
+                    $('#ChossenForwarding_Add').removeClass('d-none');
                     $('#ChossenForwarding_Add').html(
                         `${house_number},${add_street},${add_locality},${add_town},${user_county},${address_post_code}`)
                 } else {
                     $('#ChossenForwarding_Add').html(ths.value)
+
                 }
 
                 $('.forwarding_add_after_buy_now_select').removeClass('d-none')
                 $("#serviceAddLandingSection").removeClass('d-none')
                 $("#removeBuy").removeClass('d-none')
+                $("#removeBuyCondition").addClass('d-none')
+
 
                 $(".buyNowBtn").addClass('d-none')
                 $(".service_add_choosed").addClass('d-none')
@@ -4173,6 +4667,7 @@
             $("#detailsTabAddList_id").addClass('d-none');
             $("#addressTypeChoosed").val('')
             scrollToTop()
+            $("#serviceAddrValidation").addClass('d-none');//removing the error msg if address choosed
         }
 
         function removeBuy() {
@@ -4184,6 +4679,20 @@
 
             $('#ChossenForwarding_Add_id').val('');
             $('#ChossenServiceAdd').html('');
+        }
+
+        function buyAdd(type) {
+            $("#detailsTabAddList_id").removeClass('d-none');
+            // $('.hideEdit').removeClass('d-none');
+
+            $("#serviceAddLandingSection").addClass('d-none');
+            $("#myTab").addClass('d-none');
+            $("#theNextBtn").addClass('d-none');
+
+            $("#addressTypeChoosed").val(type)
+            $("#actionType").val('select')
+
+            scrollToTop()
         }
 
         $('.edit-addr').click(function(type) {
@@ -4355,5 +4864,41 @@
                 }
             });
         });
+        function bday_validation_onchange()
+        {
+            var person_bday = $('#person_bday_id').val();
+            var selectedDate = new Date(person_bday);
+            console.log(selectedDate)
+            var currentDate = new Date()
+            var timeDifference = currentDate - selectedDate;
+            var yearsDifference = timeDifference / (1000 * 60 * 60 * 24 * 365.25);
+            if (selectedDate == 'Invalid Date' || yearsDifference < 16) {
+            $('#person_bday_id').addClass('validation')
+            $('#person_bday_id').next('div').removeClass('d-none');
+            } else {
+            $('#person_bday_id').removeClass('validation')
+            $('#person_bday_id').next('div').addClass('d-none');
+            }
+        }
+        var get_mode_val = new URLSearchParams(window.location.search); //getting the url param and if  mode is edit_shareholder then selecting the tab automatically
+        var mode = get_mode_val.get('mode');
+         if (mode=="edit_shareholder") {
+            $("#share-holder-tab").click()
+            currentTab('share-holder')
+
+            // $("#shareholderLandingPage").addClass('d-none');
+            // const sh_quantity = $("#sh_quantity").val()
+            // const sh_currency = $("#sh_currency").val()
+            // const sh_pps = $("#sh_pps").val()
+
+            // $("#quantityVal").html(sh_quantity)
+            // $("#pps").html(sh_pps)
+            // $("#currencyVal").html(sh_currency)
+
+            // $("#shareholderLandingPage").addClass('d-none')
+            // $("#shareholderListing").removeClass('d-none')
+
+            console.log(true)
+         }
     </script>
 @endsection

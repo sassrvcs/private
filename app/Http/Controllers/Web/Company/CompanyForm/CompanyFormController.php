@@ -338,6 +338,8 @@ class CompanyFormController extends Controller
         return view('frontend.company_form.appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
     }
 
+
+
     public function remove_officer_list(Request $request)
     {
 
@@ -533,5 +535,102 @@ class CompanyFormController extends Controller
         if ($inserted) {
             return 1;
         }
+    }
+    public function person_appointment_update(Request $request)
+    {
+        $appointment_id = $request->appointment_id;
+        // return($appointment_id);
+        $appointment_exists = Person_appointment::find($appointment_id);
+        if($appointment_exists){
+            if(stripos($request->fci,'no')!==false){
+                $fci_appoint = null;
+                $fci_others = null;
+                $fci_vr = null;
+                $fci_os = null;
+            }else{
+                $fci_appoint = $request->fci_appoint;
+                $fci_others = $request->fci_others;
+                $fci_vr = $request->fci_vr;
+                $fci_os = $request->fci_os;
+            }
+            if(stripos($request->tci,'no')!==false){
+                $tci_appoint = null;
+                $tci_others = null;
+                $tci_vr = null;
+                $tci_os = null;
+            }else{
+                $tci_appoint = $request->tci_appoint;
+                $tci_others = $request->tci_others;
+                $tci_vr = $request->tci_vr;
+                $tci_os = $request->tci_os;
+            }
+            $updated = Person_appointment::where('id', $appointment_id)->update([
+                'order' => $request->order_id,
+                'user_id' => Auth::user()->id,
+                'cart_id' => $request->cart_id,
+                'person_officer_id' => $request->person_officer_id,
+                'own_address_id' => $request->own_address_id,
+                'forwarding_address_id' => $request->forwarding_address_id,
+                'company_id' => $request->company_id,
+                'position' => $request->position,
+                'noc_appoint' => $request->noc_appoint,
+                'noc_os' => $request->noc_os,
+                'noc_vr' => $request->noc_vr,
+                'noc_others' => $request->noc_others,
+                'fci_appoint' => $fci_appoint,
+                'fci' => $request->fci,
+                'fci_os' => $fci_os,
+                'fci_vr' => $fci_vr,
+                'fci_others' => $fci_others,
+                'tci' => $request->tci,
+                'tci_os' => $tci_os,
+                'tci_vr' => $tci_vr,
+                'tci_appoint' =>$tci_appoint,
+                'tci_others' => $tci_others,
+                'sh_quantity' => $request->sh_quantity,
+                'sh_currency' => $request->sh_currency,
+                'sh_pps' => $request->sh_pps,
+                'perticularsTextArea' => $request->perticularsTextArea,
+            ]);
+        }else{
+            return "User not found";
+        }
+
+        if ($updated) {
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+    public function person_appointment_edit(Request $request)
+    {
+        $appointment_id = $request->query('id');
+        $appointment_details = Person_appointment::with('forwarding_address')->with('own_address')->where('id', $appointment_id)->get()->first()->toArray();
+        // dd($appointment_details);
+        $officer_details = PersonOfficer::with('address')->where('id', $appointment_details['person_officer_id'])->get()->first()->toArray();
+        $cartInfo = ShoppingCart::where(['user_id' => Auth::user()->id])->get()->first();
+
+        $shoppingCartId = '';
+        if (!empty($cartInfo)) {
+            if (!empty($cartInfo['id'])) {
+                $shoppingCartId = $cartInfo['id'];
+            } else {
+                $shoppingCartId = '';
+            }
+        }
+
+        $used_address = Address::where('user_id', Auth::user()->id)->get();
+        $countries = Country::all()->toArray();
+
+        $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
+
+        $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
+
+        $appointmentsList = [];
+        if (!empty($personAppointments)) {
+            $appointmentsList = $personAppointments;
+        }
+
+        return view('frontend.company_form.edit_appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
     }
 }
