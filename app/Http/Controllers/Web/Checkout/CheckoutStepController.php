@@ -193,16 +193,20 @@ class CheckoutStepController extends Controller
     }
 
     public function paymentSuccess(Request $request){
-        dd($request);
+        return view('frontend.payment_getway.success');
+
     }
     public function paymentDeclined(Request $request){
-        dd($request);
+                return view('frontend.payment_getway.declined');
+
     }
     public function paymentException(Request $request){
-        dd($request);
+                return view('frontend.payment_getway.exception');
+
     }
     public function paymentCancelled(Request $request){
-        dd($request);
+                return view('frontend.payment_getway.cancelled');
+
     }
 
     /**

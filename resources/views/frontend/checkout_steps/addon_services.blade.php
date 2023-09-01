@@ -131,6 +131,7 @@
 
                                           @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )
                                              @php $i=0; @endphp
+
                                              @foreach( $sessionCart[$indx]['addon_service'] as $addon_key => $value)
                                                 <tr class="fee row_{{ $addon_key }}">
                                                    <td colspan="3">{{ $value['service_name'] }}</td>
@@ -140,6 +141,7 @@
                                                 @php $i++ @endphp
                                              @endforeach
                                           @else
+
                                              @if( isset(end($sessionCart)['addon_service']) )
                                                 @php
                                                    $i=0;
@@ -231,7 +233,7 @@
             .then(function(response) {
                 console.log('response',response);
                // Success: Handle the response (e.g., show a success message, update the cart UI)
-               console.log("{{ $i }}");
+
 
                if (response.data.service_name) {
                   // Get the table element by its ID
@@ -239,15 +241,15 @@
 
                   // // Create a new table row
                   var newRow = document.createElement("tr");
-
+                  console.log(newRow);
                   // Set the class attribute of the row
-                  newRow.setAttribute("class", "fee row_{{ $i }}");
+                  newRow.setAttribute("class", "fee row_"+itemId);
 
                   // Set the HTML content of the row
                   newRow.innerHTML = `<td colspan="3">${response.data.service_name}</td>
-                     <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $i] ) }}" dara-row="{{ $i }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></button></td>
+                     <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => '`+itemId+`'] ) }}" dara-row="`+itemId+`" class="badge remove bg-secondary"><i class="fa fa-times"></i></button></td>
                      <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>${response.data.price}</bdi></span></td>`;
-
+                console.log('newRow',newRow);
                   // Append the new row to the table
                   table.appendChild(newRow);
                   calculateTotal();

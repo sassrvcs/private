@@ -30,7 +30,7 @@ class ReviewController extends Controller
         if (!empty($personAppointments)) {
             $appointmentsList = $personAppointments;
         }
-       
+        // dd($review);
         return view('frontend.company_form.review_form.review', compact('review', 'person_officers', 'appointmentsList'));
     }
 

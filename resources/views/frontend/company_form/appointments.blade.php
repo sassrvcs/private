@@ -1880,11 +1880,9 @@
                                                                     <select class="form-control" id="F_ownership"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="">N/A</option>
-                                                                        <option value="25">More than 25% but not more
-                                                                            than 50%</option>
-                                                                        <option value="50">More than 50% but less than
-                                                                            75%</option>
-                                                                        <option value="75">75% or more</option>
+                                                                        <option value="More than 25% but not more than 50%">More than 25% but not more than 50%</option>
+                                                                        <option value="More than 50% but less than 75%">More than 50% but less than 75%</option>
+                                                                        <option value="75% or more">75% or more</option>
                                                                     </select>
                                                                     <span class="own_i_tooltip">If this person holds
                                                                         more
@@ -1911,11 +1909,9 @@
                                                                     <select class="form-control" id="F_voting"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="">N/A</option>
-                                                                        <option value="More than 25% but not more
-                                                                        than 50%">More than 25% but not more
+                                                                        <option value="More than 25% but not more than 50%">More than 25% but not more
                                                                             than 50%</option>
-                                                                        <option value="More than 50% but less than
-                                                                        75%">More than 50% but less than
+                                                                        <option value="More than 50% but less than 75%">More than 50% but less than
                                                                             75%</option>
                                                                         <option value="75% or more">75% or more</option>
                                                                     </select>
@@ -2029,11 +2025,9 @@
                                                                         <select class="form-control" id="s_ownership"
                                                                             onchange="show_hide_s_other_sig()">
                                                                             <option value="">N/A</option>
-                                                                            <option value="More than 25% but not
-                                                                            more than 50%">More than 25% but not
+                                                                            <option value="More than 25% but not more than 50%">More than 25% but not
                                                                                 more than 50%</option>
-                                                                            <option value="More than 50% but less
-                                                                            than 75%">More than 50% but less
+                                                                            <option value="More than 50% but less than 75%">More than 50% but less
                                                                                 than 75%</option>
                                                                             <option value="75% or more">75% or more</option>
                                                                         </select>
@@ -2062,11 +2056,9 @@
                                                                         <select class="form-control" id="s_voting"
                                                                             onchange="show_hide_s_other_sig()">
                                                                             <option value="">N/A</option>
-                                                                            <option value="More than 25% but not
-                                                                            more than 50%">More than 25% but not
+                                                                            <option value="More than 25% but not more than 50%">More than 25% but not
                                                                                 more than 50%</option>
-                                                                            <option value="More than 50% but less
-                                                                            than 75%">More than 50% but less
+                                                                            <option value="More than 50% but less than 75%">More than 50% but less
                                                                                 than 75%</option>
                                                                             <option value="75% or more">75% or more</option>
                                                                         </select>
@@ -2182,11 +2174,9 @@
                                                                     <select class="form-control" id="t_ownership"
                                                                         onchange="show_hide_t_other_sig()">
                                                                         <option value="">N/A</option>
-                                                                        <option value="More than 25% but not
-                                                                        more than 50%">More than 25% but not
+                                                                        <option value="More than 25% but not more than 50%">More than 25% but not
                                                                             more than 50%</option>
-                                                                        <option value="More than 50% but less
-                                                                        than 75%">More than 50% but less
+                                                                        <option value="More than 50% but less than 75%">More than 50% but less
                                                                             than 75%</option>
                                                                         <option value="75% or more">75% or more</option>
                                                                     </select>
@@ -2215,11 +2205,9 @@
                                                                         onchange="selectingNoc()" id="t_voting"
                                                                         onchange="show_hide_t_other_sig()">
                                                                         <option value="">N/A</option>
-                                                                        <option value="More than 25% but not
-                                                                        more than 50%">More than 25% but not
+                                                                        <option value="More than 25% but not more than 50%">More than 25% but not
                                                                             more than 50%</option>
-                                                                        <option value="More than 50% but less
-                                                                        than 75%">More than 50% but less
+                                                                        <option value="More than 50% but less than 75%">More than 50% but less
                                                                             than 75%</option>
                                                                         <option value="75% or more">75% or more</option>
                                                                     </select>

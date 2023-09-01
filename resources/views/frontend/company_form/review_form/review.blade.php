@@ -124,6 +124,7 @@
                                         class="btn">Edit</a>
                                 </div>
                                 <div class="review-panel">
+
                                     @if (!empty($review->forwarding_business_office_address))
                                         <h3>Buisness Address</h3>
                                         <ul>
@@ -148,7 +149,9 @@
                                     <ul>
                                         <li><strong>Address : </strong>9 Raglan Court, Empire Way, WEMBLEY, HA9 0RE, SCOTLAND</li>
                                     </ul> --}}
+
                                         <h3>Buisness Address</h3>
+                                        @if($review->business_address)
                                         <ul>
                                             <li>
                                                 <strong>Address : </strong>
@@ -159,14 +162,16 @@
                                                 {{ $review->businessAddressWithoutForwAddress->post_code ?? '' }}
                                             </li>
                                         </ul>
+                                        @endif
                                     @endif
-                                    <a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}"
+
+                                    <a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) }}"
                                         class="btn">Edit</a>
                                 </div>
                                 <div class="review-panel">
                                     <h3>Appointments</h3>
                                     @foreach ($appointmentsList as $val)
-                                   
+
 
                                     <ul>
                                         <li><strong>Name : </strong><span style="text-transform:uppercase;">@php

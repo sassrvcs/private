@@ -195,11 +195,7 @@
                                                     </ul>
                                                 </div>
                                                 <ul class="feild-list">
-                                                    <li>
-                                                        <label>Your Date of Birth :</label>
-                                                        <input type="date" id="dob" name="dob"
-                                                            class="form-control" onclick="dob_onclick(this)">
-                                                    </li>
+
                                                     <li>
                                                         <label for="">Residential Address : </label>
                                                         <span>
@@ -224,10 +220,15 @@
                                                         <button type="button" id="choosePrimaryAddress"
                                                             class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force"
                                                             id="openModalButton" role="button" aria-disabled="false"
-                                                            fdprocessedid="4xigk"><span class="ui-button-text" onclick="openModal()"> Choose
+                                                            fdprocessedid="4xigk"><span class="ui-button-text" onclick="openModal()" style="margin-left:10px"> Choose
                                                                 Another</span></button>
                                                         {{-- <button class="btn" id="choosePrimaryAddress" role="button"
                                                             aria-disabled="false">Choose Address</button> --}}
+                                                    </li>
+                                                    <li>
+                                                        <label>Your Date of Birth :</label>
+                                                        <input type="date" id="dob" name="dob"
+                                                            class="form-control" onclick="dob_onclick(this)">
                                                     </li>
                                                     <li class="align-items-start">
                                                         <label for="">What is your relation to this company? :
@@ -457,7 +458,7 @@
     </div>
 @endsection
 @section('script')
- 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
 
