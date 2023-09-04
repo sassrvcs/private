@@ -165,7 +165,7 @@
                                         @endif
                                     @endif
 
-                                    <a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) }}"
+                                    <a href="{{ route('choose-address-business', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) }}"
                                         class="btn">Edit</a>
                                 </div>
                                 <div class="review-panel">

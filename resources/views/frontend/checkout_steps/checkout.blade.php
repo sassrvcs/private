@@ -67,7 +67,7 @@
                                                 </td>
                                             </tr>
                                         </tbody>
-                                        <tbody id="item-tbody" >
+                                        <tbody id="item-tbody" style="display:none;">
                                             @if(auth()->check())
                                                 @if($checkout )
                                                         @if(isset($checkout->cart->addonCartServices))
@@ -102,7 +102,7 @@
                                                     @endif
                                                 @endif
                                             @else
-                                                @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )
+                                                    @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )
                                                     @foreach( $sessionCart[$indx]['addon_service'] as $key => $value)
                                                         <tr class="fee" style="display:none;">
                                                             <td colspan="3">{{ $value['service_name'] }}</td>
@@ -122,14 +122,11 @@
                                                     @endif
                                                 @endif
                                             @endif
-                                            @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )
-                                                <tr class="fee row_100">
-                                                    <td colspan="3">{{ $sessionCart[$indx]['additional_service']['package_name'] }}</td>
-                                                    <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' =>$sessionCart[$indx]['package_id']] ) }}" dara-row="{{100 }}" data-service_id="100" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
-                                                    <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $sessionCart[$indx]['additional_service']['price'] }}</bdi></span></td>
-                                                </tr>
-                                            @else
-                                                @if( isset(end($sessionCart)['additional_service']) )
+
+                                        </tbody>
+
+                                        <tbody>
+                                            @if( isset(end($sessionCart)['additional_service']) )
 
                                                 <tr class="fee row_100">
                                                     <td colspan="3">{{ end($sessionCart)['additional_service']['package_name'] }}</td>
@@ -137,12 +134,7 @@
                                                     <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ end($sessionCart)['additional_service']['price'] }}</bdi></span></td>
                                                 </tr>
 
-                                                @endif
                                             @endif
-                                        </tbody>
-
-                                        <tbody>
-
 
                                             <tr class="tax-rate tax-rate-vat-1">
                                                 <th>Net</th>
