@@ -34,7 +34,7 @@
       <section class="sectiongap legal rrr fix-container-width ">
         <div class="container">
            <div class="checkout-wrapper">
-              <div class="checkout-notices-wrapper">
+              <div class="checkout-notices-wrapper d-none">
                  <div class="checkout-message" role="alert">
                     @if( isset($indx) )
                         <p>“{{ $sessionCart[$indx]['package_name'] ?? '' }}” has been added to your cart.</p> <a href="#" tabindex="1" class="theme-btn-primary con-shopping-btn">Continue shopping</a>

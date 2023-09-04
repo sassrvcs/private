@@ -50,7 +50,10 @@ class ReviewController extends Controller
 
     public function create()
     {
+        // ini_set('memory_limit', '64000000000000M');
+
         $review = $this->companyFormService->getCompanieName($_GET['order']);
+
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 
         $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
@@ -69,8 +72,8 @@ class ReviewController extends Controller
         // $pdf = PDF::loadView('frontend.company_form.review_form.review', $data);
         $pdf = PDF::loadView('PDF.review_index',$data);
 
-
-        return $pdf->download('review.pdf');
+        // return view('PDF.review_index',$data);
+        return $pdf->download($review->companie_name.'.pdf');
     }
 
 }

@@ -294,11 +294,6 @@
                                     <p>No Insurance Product Selected</p>
                                     <button class="btn">Edit</button>
                                 </div>
-                                <h6>Finance</h6>
-                                <div class="review-panel">
-                                    <p>No Finance Product Selected</p>
-                                    <button class="btn">Edit</button>
-                                </div>
                                 <h6>Memberships</h6>
                                 <div class="review-panel">
                                     <p>No Membership Product Selected</p>

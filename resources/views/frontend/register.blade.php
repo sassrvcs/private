@@ -148,7 +148,7 @@
 
             </fieldset>
             <fieldset class="border p-3">
-                <legend class="float-none w-auto p-2">Primary Address
+                <legend class="float-none w-auto p-2">Billing Address
                 </legend>
                 <div class="row p-3" style="padding-top: 0 !important;">
                     <div class="form-row form-group">

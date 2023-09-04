@@ -12,7 +12,7 @@
                 </ol>
             </div>
             {{-- @dump($sessionCart) --}}
-            <div class="col-md-8 offset-md-2">
+            <div class="col-md-12">
                 <div class="search_area mb-5">
                     <div class="container">
                         <div id="contdiv">
@@ -27,17 +27,17 @@
                                                     <td>Price</td>
                                                     <td></td>
                                                     <td></td>
-                                                </tr>                                        
-                                                
+                                                </tr>
+
                                                 @php $cnt = 0; @endphp
-                                                @foreach($sessionCart as $key => $sessionC) 
-                                                    @if($cnt < (count($sessionCart) - 1) )    
-                                                        <tr>                                                        
+                                                @foreach($sessionCart as $key => $sessionC)
+                                                    @if($cnt < (count($sessionCart) - 1) )
+                                                        <tr>
                                                             <td>{{ $sessionC['company_name'] ?? '' }}</td>
                                                             <td>Incomplete</td>
                                                             <td>&pound;{{ $sessionC['price'] ?? '' }}</td>
 
-                                                            <td style=""> 
+                                                            <td style="">
                                                                 <a onclick="return deleteCartSessionItem();" href="{{route('delete-cart-item', $key)}}">
                                                                     <!-- <i class="fa fa-trash"></i> -->
                                                                     <button id="" type="submit" class="efButton deleteButton ui-button ui-widget" name="pa" value="deleteo">Delete &#10007;</button>
@@ -61,7 +61,7 @@
                                                         </tr>
                                                     @endif
                                                     @php $cnt++; @endphp
-                                                @endforeach                                        
+                                                @endforeach
                                             </table>
                                         @endif
                                     </div>
@@ -156,7 +156,7 @@
                     $('#not-available-company').hide();
                     $('.search-company-name').text(searchValue);
 		            $('#srchfld-three').val('');
-		    
+
                     // if(response.data.is_sensitive == 1) {
                     //     $('#is_sensitive_word_row').show();
                     //     $('#is_sensitive_word').text(response.data.is_sensitive_word);
