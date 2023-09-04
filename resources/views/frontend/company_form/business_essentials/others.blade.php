@@ -90,7 +90,7 @@ button.btn.btn-danger {
                                 <input type="hidden" name="step" value="other-extras">
                                 <input type="hidden" name="section" value="BusinessEssential">
                             </form>
-                            <div class="step-btn-wrap mt-4">
+                            <div class="step-btn-wrap mt-4" style="justify-content: space-between">
                                 <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-services']) }}" class="btn prev-btn">
                                     <img src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt=""> Previous: Business Service
                                 </a>

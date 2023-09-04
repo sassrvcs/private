@@ -300,7 +300,7 @@
                                     <button class="btn">Edit</button>
                                 </div>
                             </div>
-                            <div class="step-btn-wrap mt-4">
+                            <div class="step-btn-wrap mt-4" style="justify-content: space-between">
                                 <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'optional-extras']) }}"
                                     class="btn prev-btn"><img
                                         src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt="">

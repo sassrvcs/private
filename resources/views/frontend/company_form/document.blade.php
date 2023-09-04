@@ -153,7 +153,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="step-btn-wrap mt-4">
+                                    <div class="step-btn-wrap mt-4" style="justify-content: space-between">
                                         <a href="{{ route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}">
                                         <button class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt=""> Previous: Appointment</button></a>
                                         <button class="btn save-next">Save &amp; Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}" alt=""></button>

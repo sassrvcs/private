@@ -148,7 +148,7 @@ ul.ef-16-benefits-list {
                                         <input type="hidden" name="step" value="business-service">
                                         <input type="hidden" name="section" value="BusinessEssential">
                                     </form>
-                                    <div class="step-btn-wrap mt-4">
+                                    <div class="step-btn-wrap mt-4" style="justify-content: space-between">
                                         <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" class="btn prev-btn"><img src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt=""> Previous : Business Banking</a>
                                         <button class="btn save-continue">Save & Continue <img src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}" alt=""></button>
                                     </div>

@@ -190,7 +190,7 @@
 
                                                 </div>
 
-                                                <div class="step-btn-wrap mt-4">
+                                                <div class="step-btn-wrap mt-4" >
                                                     <button type="button" class="btn saveAddress">Save & Continue <img
                                                             src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
                                                             alt=""></button>
@@ -579,7 +579,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="step-btn-wrap mt-4">
+                                    <div class="step-btn-wrap mt-4" style="justify-content: space-between">
                                         <button class="btn prev-btn" onclick="previousRegisterpage()"><img
                                                 src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
                                                 alt=""> Previous: Registered Address</button>

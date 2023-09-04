@@ -985,7 +985,7 @@
                                         value="{{ $idStrng }}" readonly>
                                 @endif
 
-                                <div class="step-btn-wrap mt-4">
+                                <div class="step-btn-wrap mt-4" style="justify-content: space-between">
                                     <input type="hidden" id="listed_id"
                                         value="{{ isset($listed_idStrng) ? $listed_idStrng : '' }}" readonly>
                                     <input type="hidden" id="psc_check" value="{{ isset($pscCheck) ? $pscCheck : 0 }}"

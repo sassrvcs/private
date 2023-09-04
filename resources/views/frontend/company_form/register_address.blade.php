@@ -348,7 +348,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="step-btn-wrap mt-4">
+                                <div class="step-btn-wrap mt-4" style="justify-content: space-between">
                                     <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '','section' => 'Company_formaction','step' => 'particulars', 'data' => 'previous']) }}">
                                         <button class="btn prev-btn"><img
                                                 src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
