@@ -1798,6 +1798,7 @@
                                             {{-- ADDRESS TAB NEW ADDRESS FORM SECTION STARTS --}}
                                             <div id="address_tab_new_address_form">
 
+
                                             </div>
                                             {{-- ADDRESS TAB NEW ADDRESS FORM SECTION ENDS --}}
 
@@ -1856,10 +1857,9 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-
                                                     <div class="own-address mt-3 d-none" style="color:red;"
                                                         id="NOC_validation_error">
-                                                        You must answer atleast one PSC question.
+                                                        You must answer atleast first two PSC question.
                                                     </div>
 
                                                     <h4>Natural of Control</h4>
@@ -3200,7 +3200,12 @@
 
             $("#addressTypeChoosed").val(type)
             $("#actionType").val('select')
-
+            if(type=="forwarding")
+            {
+                $("#forwarding_address_text").removeClass('d-none')
+            }else{
+                $("#forwarding_address_text").addClass('d-none')
+            }
             scrollToTop()
         }
 
@@ -3889,7 +3894,11 @@
 
             // From NoC to Forward Tabs starts==========================>
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'nature-control') {
-
+                if ($("#F_ownership").val() === '' || $("#F_voting").val() === '')
+                {
+                    $("#NOC_validation_error").removeClass('d-none')
+                    return false;
+                }
                 if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' &&
                     $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&
                     $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No') {
@@ -4164,6 +4173,7 @@
         }
 
         function removeBuy() {
+            $("#forwarding_address_text").addClass('d-none')
             $(".service_add_choosed").removeClass('d-none')
             $(".buyNowBtn").removeClass('d-none')
 
