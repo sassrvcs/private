@@ -1,3 +1,7 @@
+<div class="choose-own-address mb-2 d-none" id="forwarding_address_text">
+    <h3>Forwarding Address</h3>
+    <h5>Tell us where to forward your mail to you, by entering your address below.</h5>
+</div>
 <div class="choose-own-address">
     <h3>Search Addresses</h3>
     <div class="src-are">
