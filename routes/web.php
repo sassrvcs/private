@@ -27,6 +27,9 @@ use App\Http\Controllers\Web\Company\CompanieFormController;
 use App\Http\Controllers\Web\Company\CompanyForm\CompanyFormController;
 use App\Http\Controllers\Web\Company\ReviewController;
 
+use App\Http\Controllers\Web\Order\OrderController;
+use App\Http\Controllers\Web\Invoice\InvoiceController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -168,6 +171,14 @@ Route::post('person-appointment-update', [CompanyFormController::class, 'person_
 
 
 // Route::get('save-person-office', [CompanyFormController::class, 'savePersonOfficer'])->name('save-person-officer')->middleware('auth');
+
+//===========order section========//
+Route::get('order-history', [OrderController::class, 'index'])->name('order-history')->middleware('auth');
+Route::get('delete-order-item',[OrderController::class,'deleteOrderItem'])->name('delete-order-item')->middleware('auth');
+Route::get('order-details', [OrderController::class, 'getDetails'])->name('order-details')->middleware('auth');
+//===========invoice section========//
+Route::get('invoice-history', [InvoiceController::class, 'index'])->name('invoice-history')->middleware('auth');
+Route::get('order-invoice', [InvoiceController::class, 'orderInvoice'])->name('order-invoice')->middleware('auth');
 
 Route::prefix('admin')->middleware(['auth', 'auth.session'])
 ->group(function () {

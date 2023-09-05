@@ -39,4 +39,12 @@ class Order extends Model implements HasMedia
     {
         return $this->belongsTo(Companie::class, 'company_name', 'companie_name');
     }
+
+    /**
+     * @return hasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany(orderTransaction::class,'order_id');
+    }
 }
