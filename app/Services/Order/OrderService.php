@@ -50,5 +50,16 @@ class OrderService
         $transactions = orderTransaction::where('order_id', $id)->get();
         
         return $transactions;
-    }      
+    } 
+
+    /**
+     * Get final transaction order 
+     * @param string $id
+     */
+    public function getOrderFinalTransaction($id)
+    {
+        $transaction = orderTransaction::where('order_id', $id)->where('step', 1)->first();
+        
+        return $transaction;
+    }          
 }

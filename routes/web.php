@@ -178,6 +178,7 @@ Route::get('delete-order-item',[OrderController::class,'deleteOrderItem'])->name
 Route::get('order-details', [OrderController::class, 'getDetails'])->name('order-details')->middleware('auth');
 //===========invoice section========//
 Route::get('invoice-history', [InvoiceController::class, 'index'])->name('invoice-history')->middleware('auth');
+Route::get('order-invoice', [InvoiceController::class, 'orderInvoice'])->name('order-invoice')->middleware('auth');
 
 Route::prefix('admin')->middleware(['auth', 'auth.session'])
 ->group(function () {

@@ -62,10 +62,12 @@
                                             <p><strong>Status: </strong></p>
                                             <p>{{ ($order->order_status == 'pending') ? 'Incomplete' : (($order->order_status == 'progress') ? 'Inprogress' : 'Complete') }}   </p>
                                         </div>
-                                        <div class="panel d-flex justify-content-between">
-                                            <p><strong>Invoice: </strong></p>
-                                            <p><a href="#">View</a></p>
-                                        </div>
+                                        @if($order->order_status == 'success')
+                                            <div class="panel d-flex justify-content-between">
+                                                <p><strong>Invoice: </strong></p>
+                                                <p><a href="{{ route('order-invoice', ['order' => $order->order_id]) }}" target="_blank">View</a></p>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
