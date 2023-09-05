@@ -2,7 +2,7 @@
 @section('content')
     <form action="{{ $paymentUrl }}" id="payment_getway" method="POST">
         @foreach ($formData as $key => $value)
-            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+            <input type="text" name="{{ $key }}" value="{{ $value }}">
         @endforeach
 
     </form>

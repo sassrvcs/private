@@ -404,29 +404,8 @@
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td style="height:30px;">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding:0">
-                                            <h2
-                                                style="color:#000; font-weight:700; margin:0;font-size:29px;font-family: 'Poppins', sans-serif; margin-bottom: 20px;">
-                                                Finance</h2>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 0;">
-                                            <table width="100%" cellpadding="0" cellspacing="0"
-                                                style="background:#fff; font-family: 'Poppins', sans-serif; border:1px solid #000;">
-                                                <tr>
-                                                    <td style="padding:10px; border-right: 1px solid #000;width: 50%;">
-                                                        Finance</td>
-                                                    <td style="padding:10px;width: 50%;">No Finance Product selected
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
+                                   
+
 
                                     <tr>
                                         <td style="height:30px;">&nbsp;</td>

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Order;
+use App\Models\orderTransaction;
 
 class CheckoutStepController extends Controller
 {
@@ -155,17 +156,16 @@ class CheckoutStepController extends Controller
     }
 
     public function paymentNow(Request $request){
-        // dd($request);
-        if(isset($request->step) && $request->step == 'final_payment') {}
+
         $order = $request->order;
 
         $paymentUrl = "https://mdepayments.epdq.co.uk/ncol/test/orderstandard_utf8.asp"; // Barclays payment gateway URL
         $pspid = "epdq1638710";
         $shaInPasscode = "";
         $shaOutPasscode = "F&I4s97SdqEE(lDAaJ";
-        $amount = $request->total_amount * 100;
+        $amount = $request->total_amount *100;
         $currency = "GBP";
-        $orderID = "ORDER12356".time();
+        // $orderID = "ORDER12356".time();
         $formData = array(
             "PSPID" => $pspid,
             "orderID" => $order,
@@ -178,7 +178,7 @@ class CheckoutStepController extends Controller
         );
 
         ksort($formData);
-
+        // dd($formData);
         $shaString = "";
         foreach ($formData as $field => $value) {
             $shaString .= strtoupper($field) . "=" . $value . $shaOutPasscode;
@@ -193,6 +193,19 @@ class CheckoutStepController extends Controller
     }
 
     public function paymentSuccess(Request $request){
+        // dd($request);
+        $order_details = Order::where('order_id',$request->query('orderID'))->first();
+
+        $order_transaction = new orderTransaction;
+        $order_transaction->order_id =$request->query('orderID');
+        $order_transaction->status=$request->query('orderID');
+        $order_transaction->PAYID=$request->query('orderID');
+        $order_transaction->ACCEPTANCE=$request->query('orderID');
+        $order_transaction->SHASIGN=$request->query('orderID');
+        $order_transaction->amount=null;
+        $order_transaction->save();
+
+
         return view('frontend.payment_getway.success');
 
     }
