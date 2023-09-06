@@ -55,11 +55,11 @@
                     <tr>
                         <td>
                             <p>{{ $user->title . ' ' . $user->forename . ' ' . $user->surname }}</p>
-                            <p>7 Thurlow Gardens</p>
-                            <p>Wembley</p>
-                            <p>Middlesex</p>
-                            <p>HA0 2AH</p>
-                            <p>UNITED KINGDOM</p>
+                            <p>{{ $billing_address->house_number ?? '' }}</p>
+                            <p>{{ $billing_address->street ?? '' }}</p>
+                            <p>{{ $billing_address->town ?? '' }}</p>
+                            <p>{{ $billing_address->post_code ?? '' }}</p>
+                            <p>{{ $billing_address->country ?? '' }}</p>
                         </td>
                     </tr>
                     <tr>

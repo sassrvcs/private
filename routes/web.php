@@ -29,6 +29,7 @@ use App\Http\Controllers\Web\Company\ReviewController;
 
 use App\Http\Controllers\Web\Order\OrderController;
 use App\Http\Controllers\Web\Invoice\InvoiceController;
+use App\Http\Controllers\Web\Payment\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -179,6 +180,8 @@ Route::get('order-details', [OrderController::class, 'getDetails'])->name('order
 //===========invoice section========//
 Route::get('invoice-history', [InvoiceController::class, 'index'])->name('invoice-history')->middleware('auth');
 Route::get('order-invoice', [InvoiceController::class, 'orderInvoice'])->name('order-invoice')->middleware('auth');
+//===========payment section========//
+Route::get('payment-history', [PaymentController::class, 'index'])->name('payment-history')->middleware('auth');
 
 Route::prefix('admin')->middleware(['auth', 'auth.session'])
 ->group(function () {
