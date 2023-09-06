@@ -338,7 +338,35 @@ class CompanyFormController extends Controller
         return view('frontend.company_form.appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
     }
 
+    public function appointments_open_corporate()
+    {
+        $cartInfo = ShoppingCart::where(['user_id' => Auth::user()->id])->get()->first();
 
+        $shoppingCartId = '';
+        if (!empty($cartInfo)) {
+            if (!empty($cartInfo['id'])) {
+                $shoppingCartId = $cartInfo['id'];
+            } else {
+                $shoppingCartId = '';
+            }
+        }
+
+        $used_address = Address::where('user_id', Auth::user()->id)->get();
+        $countries = Country::all()->toArray();
+
+        $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
+
+        $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
+
+        $appointmentsList = [];
+        if (!empty($personAppointments)) {
+            $appointmentsList = $personAppointments;
+        }
+
+        return view('frontend.company_form.appointments_corporate', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
+    }
+
+   
 
     public function remove_officer_list(Request $request)
     {
@@ -400,6 +428,14 @@ class CompanyFormController extends Controller
     {
         $inserted = '';
         $updated = '';
+        $legal_form = $request->has('legal_form')?$request->legal_form:null;
+        $law_governed = $request->has('law_governed')?$request->law_governed:null;
+        $registry_held = $request->has('registry_held')?$request->registry_held:null;
+        $place_registered = $request->has('place_registered')?$request->place_registered:null;
+        $registration_number = $request->has('registration_number')?$request->registration_number:null;
+        $uk_registered = $request->has('uk_registered')?$request->uk_registered:'Yes';
+        $legal_name = $request->has('legal_name')?$request->legal_name:null;
+
 
         if ($request->personOfficerEditId === null) {
 
@@ -420,6 +456,15 @@ class CompanyFormController extends Controller
                 'authenticate_two_ans' => $request->person_aqtwo_ans,
                 'authenticate_three' => $request->person_aqthree,
                 'authenticate_three_ans' => $request->person_aqthree_ans,
+
+                'legal_form' => $legal_form,
+                'law_governed' => $law_governed,
+                'registry_held' => $registry_held,
+                'place_registered' => $place_registered,
+                'registration_number' => $registration_number,
+                'uk_registered' => $uk_registered,
+                'legal_name' => $legal_name
+
             ]);
 
             if ($inserted) {
@@ -445,6 +490,14 @@ class CompanyFormController extends Controller
                 'authenticate_two_ans' => $request->person_aqtwo_ans,
                 'authenticate_three' => $request->person_aqthree,
                 'authenticate_three_ans' => $request->person_aqthree_ans,
+
+                'legal_form' => $legal_form,
+                'law_governed' => $law_governed,
+                'registry_held' => $registry_held,
+                'place_registered' => $place_registered,
+                'registration_number' => $registration_number,
+                'uk_registered' => $uk_registered,
+                'legal_name' => $legal_name
             ]);
 
             if ($updated) {
@@ -530,6 +583,7 @@ class CompanyFormController extends Controller
             'sh_currency' => $request->sh_currency,
             'sh_pps' => $request->sh_pps,
             'perticularsTextArea' => $request->perticularsTextArea,
+            'appointment_type' => $request->appointment_type
         ]);
 
         if ($inserted) {
@@ -591,6 +645,7 @@ class CompanyFormController extends Controller
                 'sh_currency' => $request->sh_currency,
                 'sh_pps' => $request->sh_pps,
                 'perticularsTextArea' => $request->perticularsTextArea,
+                'appointment_type' => $request->appointment_type
             ]);
         }else{
             return "User not found";
@@ -630,7 +685,13 @@ class CompanyFormController extends Controller
         if (!empty($personAppointments)) {
             $appointmentsList = $personAppointments;
         }
+        // dd($appointment_details);
+        if($appointment_details['appointment_type']=='corporate')
+        {
+            return view('frontend.company_form.edit_appointments_corporate', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
+        }
 
         return view('frontend.company_form.edit_appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
     }
+
 }
