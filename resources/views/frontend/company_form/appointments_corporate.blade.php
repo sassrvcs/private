@@ -1016,11 +1016,14 @@
                                                 <a class="nav-link active" id="position-tab" role="tab"
                                                 aria-controls="position" aria-selected="true">Position</a>
                                         </li>
-                                        {{-- <li class="nav-item">
-                                            <a class="nav-link" onclick="currentTab('officer')" id="officer-tab"
+                                        <li class="nav-item">
+                                            {{-- <a class="nav-link" onclick="currentTab('officer')" id="officer-tab"
                                                 data-toggle="tab" href="#officer" role="tab" aria-controls="officer"
+                                                aria-selected="false">Officer</a> --}}
+
+                                                <a class="nav-link"  id="officer-tab" role="tab" aria-controls="officer"
                                                 aria-selected="false">Officer</a>
-                                        </li> --}}
+                                        </li>
                                         <li class="nav-item">
                                             {{-- <a class="nav-link" onclick="currentTab('details')" id="details-tab"
                                                 data-toggle="tab" href="#details" role="tab" aria-controls="details"
@@ -1387,10 +1390,10 @@
                                                             <div class="form-group">
                                                                 <div><label for="">Corporate Details</label></div>
                                                                 <label for="">Legal Name</label>
-                                                                {{-- <input type="date" onclick="dob_onclick(this)"
+                                                                <input type="date" onclick="dob_onclick(this)"
                                                                     class="form-control" name="person_bday"
-                                                                    id="person_bday_id">
-                                                                <div class="error d-none" style="color:red;">Age should be
+                                                                    id="person_bday_id" hidden>
+                                                                {{-- <div class="error d-none" style="color:red;">Age should be
                                                                     16 or above!</div> --}}
                                                                     <input type="text" class="form-control blankCheck"
                                                                     id="legal_name" name="legal_name">
@@ -1410,8 +1413,8 @@
                                                         <div class="col-md-6 col-sm-12 reg_in_uk_container" >
                                                             <div class="form-group">
                                                                 <label for="">Registered in the UK ?</label>
-                                                                {{-- <select name="person_national" class="form-control"
-                                                                    id="person_national_id">
+                                                                <select name="person_national" class="form-control"
+                                                                    id="person_national_id" hidden>
                                                                     @if (!empty($countries))
                                                                         @foreach ($countries as $country)
                                                                             <option value="{{ $country['id'] }}"
@@ -1419,7 +1422,7 @@
                                                                                 {{ $country['name'] }}</option>
                                                                         @endforeach
                                                                     @endif
-                                                                </select> --}}
+                                                                </select >
                                                                 <div>
                                                                     <span>Yes</span> <input type="radio" name="uk_registered" class="uk_registered" value="Yes" checked onclick="registered_in_uk(1)">
                                                                      <span>No</span><input type="radio" name="uk_registered" class="uk_registered" value="No" onclick="registered_in_uk(0)">
@@ -1428,6 +1431,7 @@
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
+                                                                <input type="text" class="form-control" id="person_occupation_id" name="person_occupation" value="" hidden>
                                                                 <label for="">Last Name *:</label>
                                                                 <input type="text" class="form-control blankCheck"
                                                                     id="person_lname_id" name="person_lname">
@@ -2645,6 +2649,11 @@
         {{-- Nature of Control radio btn val --}}
         <input type="hidden" id="f_radio_check_id" value="" readonly>
         <input type="hidden" id="s_radio_check_id" value="" readonly>
+
+
+
+
+
     </section>
     <!-- ================ end: Particulars sec ================ -->
 @endsection
@@ -2733,13 +2742,13 @@
                 $(".registration_number_err").addClass('d-none')
             }
         }
-            // const requiredFields = document.querySelectorAll('.blankCheck');
-            // const requiredFieldsArr = [...requiredFields];
+            const requiredFields = document.querySelectorAll('.blankCheck');
+            const requiredFieldsArr = [...requiredFields];
 
-            // requiredFieldsArr.forEach(el => {
-            //     el.classList.remove('validation');
-            //     el.nextElementSibling.classList.add('d-none');
-            // });
+            requiredFieldsArr.forEach(el => {
+                el.classList.remove('validation');
+                el.nextElementSibling.classList.add('d-none');
+            });
         }
         function registered_in_uk(mode)
         {
@@ -3193,24 +3202,25 @@
 
             // DETAILS BACK
             if (currentTab === 'details' && addressTypeChoosed === '') {
-                // $('#details-tab').removeClass('active');
-                // $('#details').removeClass('active show');
-
-                // $('#officer-tab').addClass('active');
-                // $('#officer').addClass('active show');
-
-                // $('#currentTab').val('officer')
-
                 $('#details-tab').removeClass('active');
                 $('#details').removeClass('active show');
 
-                // $('#officer-tab').addClass('active');
-                // $('#officer').addClass('active show');
-                $('#position-tab').addClass('active');
-                $('#position').addClass('active show');
-                $('#currentTab').val('position')
-                $("#cancelBtn").removeClass('d-none');
-                $("#bckButton").addClass('d-none')
+                $('#officer-tab').addClass('active');
+                $('#officer').addClass('active show');
+
+                $('#currentTab').val('officer')
+
+                // $('#details-tab').removeClass('active');
+                // $('#details').removeClass('active show');
+
+                $('#officer-tab').addClass('active');
+                $('#officer').addClass('active show');
+
+                // $('#position-tab').addClass('active');
+                // $('#position').addClass('active show');
+                // $('#currentTab').val('position')
+                // $("#cancelBtn").removeClass('d-none');
+                // $("#bckButton").addClass('d-none')
             }
 
             // ADDRESSING BACK
@@ -4198,11 +4208,11 @@
                 $('#position-tab').removeClass('active');
                 $('#position').removeClass('active show');
 
-                // $('#officer-tab').addClass('active');
-                // $('#officer').addClass('active show');
+                $('#officer-tab').addClass('active');
+                $('#officer').addClass('active show');
 
-                $('#details-tab').addClass('active');
-                $('#details').addClass('active show');
+                // $('#details-tab').addClass('active');
+                // $('#details').addClass('active show');
 
                 const checkBoxArr = [...$(".checkBoxPos")];
                 let posiArr = []
@@ -4217,8 +4227,8 @@
                 })
                 $("#positionSelected").val(posiArr.join(', '))
                 //cng_dd
-                $('#currentTab').val('details')
-                // $('#currentTab').val('officer')
+                // $('#currentTab').val('details')
+                $('#currentTab').val('officer')
 
                 $("#cancelBtn").addClass('d-none');
                 $("#bckButton").removeClass('d-none');

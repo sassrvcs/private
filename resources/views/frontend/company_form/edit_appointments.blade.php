@@ -3071,6 +3071,16 @@
 
         <input type="hidden" id="f_radio_check_id" value="{{$put_fci_val}}" readonly>
         <input type="hidden" id="s_radio_check_id" value="{{$put_tci_val}}" readonly>
+
+        <input type="hidden" id="legal_name" value="{{$officer_details['legal_name']}}" readonly>
+        <input type="hidden" id="law_governed" value="{{$officer_details['law_governed']}}" readonly>
+        <input type="hidden" id="legal_form" value="{{$officer_details['legal_form']}}" readonly>
+
+        <input type="hidden" id="uk_registered" value="{{$officer_details['uk_registered']}}" readonly>
+        <input type="hidden" id="registry_held" value="{{$officer_details['registry_held']}}" readonly>
+        <input type="hidden" id="place_registered" value="{{$officer_details['place_registered']}}" readonly>
+        <input type="hidden" id="registration_number" value="{{$officer_details['registration_number']}}" readonly>
+
     </section>
     <!-- ================ end: Particulars sec ================ -->
 @endsection
@@ -4248,6 +4258,16 @@
                 const person_aqthree = $('#person_aqthree_id').val();
                 const person_aqthree_ans = $('#person_aqthree_ans_id').val();
 
+
+                const legal_name = $('#legal_name').val();
+                const uk_registered = $('#uk_registered').val();
+                console.log(uk_registered)
+                const registration_number = $('#registration_number').val();
+                const place_registered = $('#place_registered').val();
+                const registry_held = $('#registry_held').val();
+                const law_governed = $('#law_governed').val();
+                const legal_form = $('#legal_form').val();
+
                 const requiredFields = document.querySelectorAll('.blankCheck');
                 const requiredFieldsArr = [...requiredFields];
 
@@ -4340,7 +4360,14 @@
                             person_aqtwo,
                             person_aqtwo_ans,
                             person_aqthree,
-                            person_aqthree_ans
+                            person_aqthree_ans,
+                            legal_name,
+                            legal_form,
+                            law_governed,
+                            registry_held,
+                            place_registered,
+                            registration_number,
+                            uk_registered,
                         },
                         success: function(response) {
                             // console.log(response);

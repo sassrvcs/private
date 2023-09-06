@@ -366,7 +366,7 @@ class CompanyFormController extends Controller
         return view('frontend.company_form.appointments_corporate', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
     }
 
-   
+
 
     public function remove_officer_list(Request $request)
     {
@@ -435,7 +435,7 @@ class CompanyFormController extends Controller
         $registration_number = $request->has('registration_number')?$request->registration_number:null;
         $uk_registered = $request->has('uk_registered')?$request->uk_registered:'Yes';
         $legal_name = $request->has('legal_name')?$request->legal_name:null;
-
+        $uk_registered = $uk_registered==null?'Yes':$uk_registered;
 
         if ($request->personOfficerEditId === null) {
 

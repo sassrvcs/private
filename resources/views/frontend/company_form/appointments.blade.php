@@ -1279,6 +1279,34 @@
                                                                         class="offValIdauthenticate_three_ans_{{ $offVal['id'] }}"
                                                                         value="{{ $offVal['authenticate_three_ans'] }}"
                                                                         readonly>
+                                                                        <input type="hidden"
+                                                                        class="law_governed_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['law_governed'] }}"
+                                                                        readonly>
+                                                                        <input type="hidden"
+                                                                        class="legal_form_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['legal_form'] }}"
+                                                                        readonly>
+                                                                        <input type="hidden"
+                                                                        class="legal_name_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['legal_name'] }}"
+                                                                        readonly>
+                                                                        <input type="hidden"
+                                                                        class="uk_registered_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['uk_registered'] }}"
+                                                                        readonly>
+                                                                        <input type="hidden"
+                                                                        class="registration_number_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['registration_number'] }}"
+                                                                        readonly>
+                                                                        <input type="hidden"
+                                                                        class="place_registered_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['place_registered'] }}"
+                                                                        readonly>
+                                                                        <input type="hidden"
+                                                                        class="registry_held_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['registry_held'] }}"
+                                                                        readonly>
                                                                     <a
                                                                         href="#
                                                                         ">
@@ -2606,6 +2634,15 @@
         <input type="hidden" id="s_radio_check_id" value="" readonly>
         <input type="appointment_type" id="appointment_type" value="person" hidden readonly>
 
+
+        <input type="hidden" id="legal_name" value="" readonly>
+        <input type="hidden" id="uk_registered" value="" readonly>
+        <input type="hidden" id="registry_held" value="" readonly>
+        <input type="hidden" id="place_registered" value="" readonly>
+        <input type="hidden" id="registration_number" value="" readonly>
+        <input type="hidden" id="law_governed" value="" readonly>
+        <input type="hidden" id="legal_form" value="" readonly>
+
     </section>
     <!-- ================ end: Particulars sec ================ -->
 @endsection
@@ -3510,6 +3547,28 @@
             const offValIdauthenticate_three = $(`.offValIdauthenticate_three_${id}`).val();
             const offValIdauthenticate_three_ans = $(`.offValIdauthenticate_three_ans_${id}`).val();
 
+            const law_governed = $(`.law_governed_${id}`).val();
+            const legal_form = $(`.legal_form_${id}`).val();
+            const legal_name = $(`.legal_name_${id}`).val();
+            const uk_registered = $(`.uk_registered_${id}`).val();
+            const registration_number = $(`.registration_number_${id}`).val();
+            const place_registered = $(`.place_registered_${id}`).val();
+            const registry_held = $(`.registry_held_${id}`).val();
+
+
+            if(legal_name=='')
+            {
+                $("#legal_name").val(offVallast_name+' '+offValfirst_name);
+            }else{
+                $('#legal_name').val(legal_name);
+            }
+            $("#law_governed").val(law_governed);
+            $("#legal_form").val(legal_form);
+            $("#uk_registered").val(uk_registered);
+            $("#registration_number").val(registration_number);
+            $("#place_registered").val(place_registered);
+            $("#registry_held").val(registry_held);
+
             $('#personOfficerEditId').val(offValId);
             $('#choosedPersonOfficerId').val(offValId);
             $('#person_tittle_id').val(offValtitle);
@@ -3576,7 +3635,6 @@
 
             const addVals = document.querySelectorAll('.officerSelect')
             const addValsArr = [...addVals];
-
             addValsArr.forEach(el => {
                 addData = el.dataset.search;
 
@@ -3749,6 +3807,15 @@
                 const person_aqthree = $('#person_aqthree_id').val();
                 const person_aqthree_ans = $('#person_aqthree_ans_id').val();
 
+                const legal_name = $('#legal_name').val();
+                const uk_registered = $('#uk_registered').val();
+                console.log(uk_registered)
+                const registration_number = $('#registration_number').val();
+                const place_registered = $('#place_registered').val();
+                const registry_held = $('#registry_held').val();
+                const law_governed = $('#law_governed').val();
+                const legal_form = $('#legal_form').val();
+
                 const requiredFields = document.querySelectorAll('.blankCheck');
                 const requiredFieldsArr = [...requiredFields];
 
@@ -3841,7 +3908,14 @@
                             person_aqtwo,
                             person_aqtwo_ans,
                             person_aqthree,
-                            person_aqthree_ans
+                            person_aqthree_ans,
+                            legal_name,
+                            legal_form,
+                            law_governed,
+                            registry_held,
+                            place_registered,
+                            registration_number,
+                            uk_registered,
                         },
                         success: function(response) {
                             console.log(response);
