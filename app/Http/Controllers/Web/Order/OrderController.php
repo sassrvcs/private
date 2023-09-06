@@ -33,7 +33,7 @@ class OrderController extends Controller
         //echo "<pre>";
         //print_r($orders);
 
-        return view('frontend.orders.order_history', compact('orders'));
+        return view('frontend.orders.order_history', compact('orders', 'status'));
     } 
 
     /**

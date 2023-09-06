@@ -25,7 +25,7 @@ class InvoiceService
             ->select('order_transactions.order_id','order_transactions.status','order_transactions.PAYID',
                 'order_transactions.ACCEPTANCE','order_transactions.SHASIGN','order_transactions.invoice_id',
                 'order_transactions.amount','order_transactions.created_at', 'orders.company_name', 
-                'packages.short_description', 'orders.payable_amount')
+                'packages.short_description', 'orders.payable_amount','packages.package_price')
             ->where('orders.user_id', auth()->user()->id) 
             ->where('order_transactions.step', 1); 
 
