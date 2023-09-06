@@ -1393,21 +1393,21 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
-                                                            {{-- <div class="form-group">
-                                                                <label for="">Date of Birth *:</label>
+                                                            <div class="form-group" hidden>
+                                                                {{-- <label for="">Date of Birth *:</label> --}}
                                                                 <input type="date" onchange="bday_validation_onchange(this)" onclick="dob_onclick(this)"
                                                                     class="form-control" name="person_bday"
-                                                                    id="person_bday_id" value="{{@$officer_details['dob_day']}}">
-                                                                <div class="error d-none" style="color:red;">Age should be
-                                                                    16 or above!</div>
-                                                            </div> --}}
+                                                                    id="person_bday_id" value="{{@$officer_details['dob_day']}}" hidden>
+                                                                {{-- <div class="error d-none" style="color:red;">Age should be
+                                                                    16 or above!</div> --}}
+                                                            </div>
                                                             <div class="form-group">
                                                                 <div><label for="">Corporate Details</label></div>
                                                                 <label for="">Legal Name</label>
                                                                 {{-- <input type="date" onclick="dob_onclick(this)"
                                                                     class="form-control" name="person_bday"
-                                                                    id="person_bday_id">
-                                                                <div class="error d-none" style="color:red;">Age should be
+                                                                    id="person_bday_id"> --}}
+                                                                {{-- <div class="error d-none" style="color:red;">Age should be
                                                                     16 or above!</div> --}}
                                                                     <input type="text" class="form-control blankCheck"
                                                                     id="legal_name" name="legal_name" value="{{@$officer_details['legal_name']}}">
@@ -1426,21 +1426,22 @@
                                                         </div>
                                                         <div class="col-md-6 col-sm-12 reg_in_uk_container">
                                                             <div class="form-group">
-                                                                {{-- <label for="">Nationality - <small>of accepted
-                                                                        nationalities *: </small></label>
+                                                                 {{-- <label for="">Nationality - <small>of accepted
+                                                                        nationalities *: </small></label> --}}
+                                                                        <div hidden>
+                                                                        <select name="person_national" class="form-control"
+                                                                        id="person_national_id">
+                                                                      {{-- <input type="text" value="{{$officer_details['nationality'] }}"> --}}
 
-                                                                <select name="person_national" class="form-control"
-                                                                    id="person_national_id"> --}}
-                                                                  {{-- <input type="text" value="{{$officer_details['nationality'] }}"> --}}
-
-                                                                    {{-- @if (!empty($countries))
-                                                                        @foreach ($countries as $country)
-                                                                            <option value="{{ $country['id'] }}"
-                                                                                {{ $country['id'] === intval($officer_details['nationality']) ? 'selected' : '' }}>
-                                                                                {{ $country['name'] }}</option>
-                                                                        @endforeach
-                                                                    @endif --}}
-                                                                {{-- </select> --}}
+                                                                        @if (!empty($countries))
+                                                                            @foreach ($countries as $country)
+                                                                                <option value="{{ $country['id'] }}"
+                                                                                    {{ $country['id'] === intval($officer_details['nationality']) ? 'selected' : '' }}>
+                                                                                    {{ $country['name'] }}</option>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    </select>
+                                                                         </div>
                                                                 <label for="">Registered in the UK ?</label>
                                                                 <div>
                                                                     <span>Yes</span> <input type="radio" name="uk_registered" class="uk_registered" value="Yes" @if (@$officer_details['uk_registered'] == 'Yes') checked @endif onclick="registered_in_uk(1)">
@@ -1460,19 +1461,19 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12 corporate_details_expect_legal_container">
-                                                            {{-- <div class="form-group">
-                                                                <label for="">Occupation *:</label>
-                                                                <input type="text" class="form-control blankCheck"
-                                                                    id="person_occupation_id" name="person_occupation" value="{{@$officer_details['occupation']}}">
-                                                                <div class="error d-none" style="color:red;">Please enter
-                                                                    your Occupation!</div>
-                                                            </div> --}}
+                                                            {{-- <div class="form-group"> --}}
+                                                                {{-- <label for="">Occupation *:</label> --}}
+                                                                <input type="text" class="form-control"
+                                                                id="person_occupation_id" name="person_occupation" value="{{@$officer_details['occupation']}}" hidden>
+                                                                {{-- <div class="error d-none" style="color:red;">Please enter
+                                                                    your Occupation!</div> --}}
+                                                            {{-- </div> --}}
 
                                                             <div class="form-group">
                                                                 <label for="">Registration Number:</label>
                                                                 <input type="text" class="form-control blankCheck"
                                                                     id="registration_number" name="registration_number" value="{{$officer_details['registration_number']}}">
-                                                                <div class="error d-none" style="color:red;">Please enter
+                                                                <div class="error d-none registration_number_err" style="color:red;">Please enter
                                                                     the Registration Number!</div>
                                                             </div>
                                                             <div class="form-group place_registered_div d-none">
@@ -3233,13 +3234,13 @@
                 $(".registration_number_err").addClass('d-none')
             }
         }
-            // const requiredFields = document.querySelectorAll('.blankCheck');
-            // const requiredFieldsArr = [...requiredFields];
+            const requiredFields = document.querySelectorAll('.blankCheck');
+            const requiredFieldsArr = [...requiredFields];
 
-            // requiredFieldsArr.forEach(el => {
-            //     el.classList.remove('validation');
-            //     el.nextElementSibling.classList.add('d-none');
-            // });
+            requiredFieldsArr.forEach(el => {
+                el.classList.remove('validation');
+                el.nextElementSibling.classList.add('d-none');
+            });
         }
         toggleCorporateDetails()
         function registered_in_uk(mode)
