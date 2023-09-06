@@ -1033,8 +1033,8 @@
                                                 data-toggle="tab" href="#addressing" role="tab"
                                                 aria-controls="addressing" aria-selected="false">Addressing</a> --}}
 
-                                                <a class="nav-link"  id="addressing-tab" role="tab"
-                                                aria-controls="addressing" aria-selected="false">Addressing</a>
+                                                {{-- <a class="nav-link"  id="addressing-tab" role="tab" --}}
+                                                {{-- aria-controls="addressing" aria-selected="false">Addressing</a> --}}
                                         </li>
                                         <li class="nav-item nocLinkCls d-none">
                                             {{-- <a class="nav-link" onclick="currentTab('nature-control')"
@@ -1141,7 +1141,7 @@
                                                                 @endphp
                                                                 <input type="checkbox"  @if (in_array("Director", $positions))checked
                                                                 @endif class="checkBoxPos" id="director"
-                                                                    value="Director" onclick="consentSection()"
+                                                                    value="Director" onclick="consentSection(),toggleCorporateDetails()"
                                                                     value="">
                                                                 <label for="director">Director <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
@@ -1155,7 +1155,7 @@
                                                                 <input type="checkbox" @if (in_array("Shareholder", $positions))checked
                                                                 @endif class="checkBoxPos"
                                                                     value="Shareholder" id="shareholder"
-                                                                    onclick="shareholderTab()">
+                                                                    onclick="shareholderTab(),toggleCorporateDetails()">
                                                                 <label for="shareholder">Shareholders <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                             alt=""
@@ -1168,7 +1168,7 @@
                                                             <li>
                                                                 <input type="checkbox" @if (in_array("Secretary", $positions))checked
                                                                 @endif class="checkBoxPos" id="secretary"
-                                                                    value="Secretary"  onclick="consentSection()">
+                                                                    value="Secretary"  onclick="consentSection(),toggleCorporateDetails()">
                                                                 <label for="secretary">Secretary <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                             alt=""
@@ -1185,7 +1185,7 @@
                                                             <li>
                                                                 <input type="checkbox" @if (in_array("PSC", $positions))checked
                                                                 @endif class="checkBoxPos" id="psc"
-                                                                    value="PSC" onclick="pscTab()">
+                                                                    value="PSC" onclick="pscTab(),toggleCorporateDetails()">
                                                                 <label for="psc">Person with Significant Control (PSC)
                                                                     <span><img
                                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
@@ -1384,6 +1384,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
+                                                                <div><label for="">Authoriser Details</label></div>
                                                                 <label for="">Title *:</label>
                                                                 <input type="text" class="form-control blankCheck"
                                                                     id="person_tittle_id" name="person_tittle" value="{{@$officer_details['title']}}">
@@ -1392,13 +1393,26 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
-                                                            <div class="form-group">
+                                                            {{-- <div class="form-group">
                                                                 <label for="">Date of Birth *:</label>
                                                                 <input type="date" onchange="bday_validation_onchange(this)" onclick="dob_onclick(this)"
                                                                     class="form-control" name="person_bday"
                                                                     id="person_bday_id" value="{{@$officer_details['dob_day']}}">
                                                                 <div class="error d-none" style="color:red;">Age should be
                                                                     16 or above!</div>
+                                                            </div> --}}
+                                                            <div class="form-group">
+                                                                <div><label for="">Corporate Details</label></div>
+                                                                <label for="">Legal Name</label>
+                                                                {{-- <input type="date" onclick="dob_onclick(this)"
+                                                                    class="form-control" name="person_bday"
+                                                                    id="person_bday_id">
+                                                                <div class="error d-none" style="color:red;">Age should be
+                                                                    16 or above!</div> --}}
+                                                                    <input type="text" class="form-control blankCheck"
+                                                                    id="legal_name" name="legal_name" value="{{@$officer_details['legal_name']}}">
+                                                                <div class="error d-none" style="color:red;">You should
+                                                                    have a legal name!</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
@@ -1410,23 +1424,29 @@
                                                                     your First Name!</div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 col-sm-12">
+                                                        <div class="col-md-6 col-sm-12 reg_in_uk_container">
                                                             <div class="form-group">
-                                                                <label for="">Nationality - <small>of accepted
+                                                                {{-- <label for="">Nationality - <small>of accepted
                                                                         nationalities *: </small></label>
 
                                                                 <select name="person_national" class="form-control"
-                                                                    id="person_national_id">
+                                                                    id="person_national_id"> --}}
                                                                   {{-- <input type="text" value="{{$officer_details['nationality'] }}"> --}}
 
-                                                                    @if (!empty($countries))
+                                                                    {{-- @if (!empty($countries))
                                                                         @foreach ($countries as $country)
                                                                             <option value="{{ $country['id'] }}"
                                                                                 {{ $country['id'] === intval($officer_details['nationality']) ? 'selected' : '' }}>
                                                                                 {{ $country['name'] }}</option>
                                                                         @endforeach
-                                                                    @endif
-                                                                </select>
+                                                                    @endif --}}
+                                                                {{-- </select> --}}
+                                                                <label for="">Registered in the UK ?</label>
+                                                                <div>
+                                                                    <span>Yes</span> <input type="radio" name="uk_registered" class="uk_registered" value="Yes" @if (@$officer_details['uk_registered'] == 'Yes') checked @endif onclick="registered_in_uk(1)">
+                                                                    <span>No</span><input type="radio" @if (@$officer_details['uk_registered'] == 'No') checked
+                                                                    @endif name="uk_registered" class="uk_registered" value="No" onclick="registered_in_uk(0)">
+                                                                </div>
 
                                                             </div>
                                                         </div>
@@ -1439,13 +1459,46 @@
                                                                     your Last Name!</div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 col-sm-12">
-                                                            <div class="form-group">
+                                                        <div class="col-md-6 col-sm-12 corporate_details_expect_legal_container">
+                                                            {{-- <div class="form-group">
                                                                 <label for="">Occupation *:</label>
                                                                 <input type="text" class="form-control blankCheck"
                                                                     id="person_occupation_id" name="person_occupation" value="{{@$officer_details['occupation']}}">
                                                                 <div class="error d-none" style="color:red;">Please enter
                                                                     your Occupation!</div>
+                                                            </div> --}}
+
+                                                            <div class="form-group">
+                                                                <label for="">Registration Number:</label>
+                                                                <input type="text" class="form-control blankCheck"
+                                                                    id="registration_number" name="registration_number" value="{{$officer_details['registration_number']}}">
+                                                                <div class="error d-none" style="color:red;">Please enter
+                                                                    the Registration Number!</div>
+                                                            </div>
+                                                            <div class="form-group place_registered_div d-none">
+                                                                <label for="">Place Registered</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="place_registered" name="place_registered" value="{{@$officer_details['place_registered']}}"">
+
+                                                            </div>
+                                                            <div class="form-group registry_held_div d-none">
+                                                                <label for="">Registry Held</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="registry_held" name="registry_held" value="{{@$officer_details['registry_held']}}" >
+                                                            </div>
+                                                            <div class="form-group law_governed_div d-none">
+                                                                <label for="">Law Governed</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="law_governed" name="law_governed" value="{{@$officer_details['law_governed']}}" >
+                                                                    <div class="error d-none" style="color:red;">Please fill
+                                                                        the law governed field!</div>
+                                                            </div>
+                                                            <div class="form-group legal_form_div">
+                                                                <label for="">Legal Form:</label>
+                                                                <input type="text" class="form-control blankCheck"
+                                                                    id="legal_form" name="legal_form" value="{{@$officer_details['legal_form']}}">
+                                                                <div class="error d-none" style="color:red;">Please enter
+                                                                    the legal form!</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3058,7 +3111,7 @@
         <input type="hidden" id="orderId" value="{{ $_GET['order'] }}" readonly>
         <input type="hidden" id="positionSelected" value="{{$appointment_details['position']}}" class="totalBlankCheck" readonly>
         <input type="hidden" id="appointmentType" value="" readonly>
-        <input type="hidden" id="appointment_type" value="person" readonly>
+        <input type="hidden" id="appointment_type" value="corporate" readonly>
         <input type="hidden" id="shoppingCartId_id" value="{{ $shoppingCartId }}" readonly>
         <input type="hidden" id="currentTab" value="" readonly>
 
@@ -3112,7 +3165,117 @@
         function DetailsSection() {
             $('#DetailsSection_div').toggleClass('d-none')
         }
+        function toggleCorporateDetails() {
+            check = $('input[name="uk_registered"]:checked').val();
+            if(check=="Yes")
+            {
+                mode = 1
+            }else{
+                mode=0
+            }
+            if(!$('#psc').is(":checked")){
+            if (($('#director').is(":checked") || $('#secretary').is(":checked"))&& !$('#psc').is(":checked")) {
+                console.log('hit director')
+                if(mode==1){
+                    $(".legal_form_div").addClass('d-none')
+                    $("#legal_form").removeClass('blankCheck')
+                    $(".registry_held_div").addClass('d-none')
 
+                    $(".reg_in_uk_container").removeClass('d-none');
+                    $(".corporate_details_expect_legal_container").removeClass('d-none');
+                    $("#registration_number").addClass('blankCheck')
+                    $("#law_governed").removeClass('blankCheck')
+                    $("#legal_form").removeClass('blankCheck')
+                    $("#legal_form").val('')
+
+                }else{
+                    $(".legal_form_div").removeClass('d-none')
+                    $("#legal_form").addClass('blankCheck')
+                    $(".registry_held_div").addClass('d-none')
+                    $(".reg_in_uk_container").removeClass('d-none');
+                    $(".corporate_details_expect_legal_container").removeClass('d-none');
+                    $("#registration_number").removeClass('blankCheck')
+                    $("#law_governed").addClass('blankCheck')
+                    $("#legal_form").addClass('blankCheck')
+                    $("#registry_held").val('')
+
+                }
+            }else if (!$('#director').is(":checked") && !$('#secretary').is(":checked")&& !$('#psc').is(":checked")&& $('#shareholder').is(":checked")) {
+                console.log('hit shareholder')
+                $(".reg_in_uk_container").addClass('d-none');
+                $(".corporate_details_expect_legal_container").addClass('d-none');
+                $(".corporate_details_expect_legal_container div input").val('');
+                // console.log(elem)
+                $("#legal_form").removeClass('blankCheck')
+                $("#registration_number").removeClass('blankCheck')
+                $("#law_governed").removeClass('blankCheck')
+            }
+        }else{
+            console.log('psc hit');
+            if (mode==1) {
+                $(".reg_in_uk_container").removeClass('d-none');
+                $(".corporate_details_expect_legal_container").removeClass('d-none');
+                $(".legal_form_div").removeClass('d-none')
+                $("#legal_form").addClass('blankCheck')
+                $(".registry_held_div").addClass('d-none')
+                $("#registration_number").addClass('blankCheck')
+                $("#law_governed").removeClass('blankCheck')
+                $("#legal_form").addClass('blankCheck')
+
+            }else{
+                $(".reg_in_uk_container").removeClass('d-none');
+                $(".corporate_details_expect_legal_container").removeClass('d-none');
+                $(".legal_form_div").removeClass('d-none')
+                $("#registration_number").removeClass('blankCheck')
+                $("#law_governed").addClass('blankCheck')
+                $("#legal_form").addClass('blankCheck')
+                $(".registry_held_div").removeClass('d-none')
+                $(".registration_number_err").addClass('d-none')
+            }
+        }
+            // const requiredFields = document.querySelectorAll('.blankCheck');
+            // const requiredFieldsArr = [...requiredFields];
+
+            // requiredFieldsArr.forEach(el => {
+            //     el.classList.remove('validation');
+            //     el.nextElementSibling.classList.add('d-none');
+            // });
+        }
+        toggleCorporateDetails()
+        function registered_in_uk(mode)
+        {
+            check = $('input[name="uk_registered"]:checked').val();
+            if(check=="Yes")
+            {
+                mode = 1
+            }else{
+                mode=0
+            }
+            console.log(mode)
+            if (mode === 0) {
+                $(".place_registered_div").removeClass("d-none");
+                $(".registry_held_div").removeClass("d-none");
+                $(".law_governed_div").removeClass("d-none");
+                $("#law_governed").addClass("blankCheck");
+                $("#registration_number").removeClass("blankCheck");
+                toggleCorporateDetails()
+                // $('#place_registered').val('');
+                // $('#registry_held').val('');
+                // $('#law_governed').val('');
+            }else{
+                $(".place_registered_div").addClass("d-none");
+                $(".registry_held_div").addClass("d-none");
+                $(".law_governed_div").addClass("d-none");
+                $("#law_governed").removeClass("blankCheck");
+                $("#registration_number").addClass("blankCheck");
+
+                $('#place_registered').val('United Kingdom');
+                $('#registry_held').val('Companies House');
+                $('#law_governed').val('Companies Act 2006');
+                toggleCorporateDetails()
+            }
+        }
+        registered_in_uk(1)
         const goToDocuments = function() {
             // Appointment to Document section Movement starts
             if ($("#share_holding_table_id").length === 0) {
@@ -3580,10 +3743,14 @@
                 $('#nature-control-tab').removeClass('active');
                 $('#nature-control').removeClass('active show');
 
-                $('#addressing-tab').addClass('active');
-                $('#addressing').addClass('active show');
+                // $('#addressing-tab').addClass('active');
+                // $('#addressing').addClass('active show');
 
-                $('#currentTab').val('addressing')
+                // $('#currentTab').val('addressing')
+
+                $('#details-tab').addClass('active');
+                $('#details').addClass('active show');
+                $('#currentTab').val('details')
             }
 
             // SHARE HOLDER BACK
@@ -3593,10 +3760,13 @@
                     $('#share-holder-tab').removeClass('active');
                     $('#share-holder').removeClass('active show');
 
-                    $('#addressing-tab').addClass('active');
-                    $('#addressing').addClass('active show');
+                    $('#details-tab').addClass('active');
+                    $('#details').addClass('active show');
+                    $('#currentTab').val('details')
+                    // $('#addressing-tab').addClass('active');
+                    // $('#addressing').addClass('active show');
 
-                    $('#currentTab').val('addressing')
+                    // $('#currentTab').val('addressing')
                 } else {
                     $('#share-holder-tab').removeClass('active');
                     $('#share-holder').removeClass('active show');
@@ -4248,6 +4418,15 @@
                 const person_aqthree = $('#person_aqthree_id').val();
                 const person_aqthree_ans = $('#person_aqthree_ans_id').val();
 
+                const legal_name = $('#legal_name').val();
+                const uk_registered = $('input[name="uk_registered"]:checked').val();
+                console.log(uk_registered)
+                const registration_number = $('#registration_number').val();
+                const place_registered = $('#place_registered').val();
+                const registry_held = $('#registry_held').val();
+                const law_governed = $('#law_governed').val();
+                const legal_form = $('#legal_form').val();
+
                 const requiredFields = document.querySelectorAll('.blankCheck');
                 const requiredFieldsArr = [...requiredFields];
 
@@ -4255,31 +4434,27 @@
 
                 // Date validation section starts--------------------------------->
                 // Get the selected date from the input field
-                var selectedDate = new Date(person_bday);
+                // var selectedDate = new Date(person_bday);
 
-                console.log(selectedDate)
-                // Get the current date
-                var currentDate = new Date();
+                // console.log(selectedDate)
+                // // Get the current date
+                // var currentDate = new Date();
 
-                // Calculate the difference in milliseconds
-                var timeDifference = currentDate - selectedDate;
+                // // Calculate the difference in milliseconds
+                // var timeDifference = currentDate - selectedDate;
 
-                // Convert milliseconds to days
-                // var daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+                // var yearsDifference = timeDifference / (1000 * 60 * 60 * 24 * 365.25);
 
-                // Convert milliseconds to Years
-                var yearsDifference = timeDifference / (1000 * 60 * 60 * 24 * 365.25);
+                // if (selectedDate == 'Invalid Date' || yearsDifference < 16) {
+                //     $('#person_bday_id').addClass('validation')
+                //     $('#person_bday_id').next('div').removeClass('d-none');
 
-                if (selectedDate == 'Invalid Date' || yearsDifference < 16) {
-                    $('#person_bday_id').addClass('validation')
-                    $('#person_bday_id').next('div').removeClass('d-none');
+                //     validation++;
+                // } else {
 
-                    validation++;
-                } else {
-
-                    $('#person_bday_id').removeClass('validation')
-                    $('#person_bday_id').next('div').addClass('d-none');
-                }
+                //     $('#person_bday_id').removeClass('validation')
+                //     $('#person_bday_id').next('div').addClass('d-none');
+                // }
                 // Date validation section ends-------------------------
 
                 // Authentication Section Validation starts------------------------>
@@ -4340,19 +4515,33 @@
                             person_aqtwo,
                             person_aqtwo_ans,
                             person_aqthree,
-                            person_aqthree_ans
+                            person_aqthree_ans,
+                            legal_name,
+                            legal_form,
+                            law_governed,
+                            registry_held,
+                            place_registered,
+                            registration_number,
+                            uk_registered,
                         },
                         success: function(response) {
                             // console.log(response);
                             // console.log(response['id']);
-                            $('#details-tab').removeClass('active');
-                            $('#details').removeClass('active show');
+                            // $('#details-tab').removeClass('active');
+                            // $('#details').removeClass('active show');
 
-                            $('#addressing-tab').addClass('active');
-                            $('#addressing').addClass('active show');
+                            // $('#addressing-tab').addClass('active');
+                            // $('#addressing').addClass('active show');
+
+                            // $('#currentTab').val('addressing')
+                            // $("#choosedPersonOfficerId").val(response['id'])
 
                             $('#currentTab').val('addressing')
                             $("#choosedPersonOfficerId").val(response['id'])
+                            $("#personOfficerEditId").val(response['id'])
+                            $("#theNextBtn").click()
+                            $('#details-tab').removeClass('active');
+                            $('#details').removeClass('active show');
                         },
                     });
                 }

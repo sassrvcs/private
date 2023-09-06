@@ -261,9 +261,15 @@
                                             <button type="submit" class="btn" onclick="showPersonSection()"><img
                                                     src="{{ asset('frontend/assets/images/person-icon.svg') }}"
                                                     alt=""> Person</button>
-                                            <button type="submit" class="btn"><img
+                                                @php
+                                                $corporate_section_redirect_link = route('appointments_corporate').'?order='.$_GET['order'].'&section=Company_formaction&step=appointments';
+                                                @endphp
+                                            <a href="{{$corporate_section_redirect_link}}" type="button" class="btn"><img
+                                                src="{{ asset('frontend/assets/images/corporate-icon.svg') }}"
+                                                alt="">Corporate</a>
+                                            {{-- <button type="button" class="btn" onclick><img
                                                     src="{{ asset('frontend/assets/images/corporate-icon.svg') }}"
-                                                    alt=""> Corporate</button>
+                                                    alt="">Corporate</button> --}}
                                             <button type="submit" class="btn other-legal-btn"><img
                                                     src="{{ asset('frontend/assets/images/other-legal-entity-icon.svg') }}"
                                                     alt=""> Other Legal Entity</button>
@@ -298,7 +304,11 @@
                                                             <td>@php
                                                                 $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
                                                                 $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
-                                                                echo $fullName;
+                                                                if ($officerDetails['first_name']!='' && $officerDetails['last_name']!='') {
+                                                                    echo $fullName;
+                                                                }else{
+                                                                    echo $officerDetails['legal_name'];
+                                                                }
                                                             @endphp</td>
                                                             @php
                                                                 $positionString = $val['position'];
@@ -2594,6 +2604,8 @@
         {{-- Nature of Control radio btn val --}}
         <input type="hidden" id="f_radio_check_id" value="" readonly>
         <input type="hidden" id="s_radio_check_id" value="" readonly>
+        <input type="appointment_type" id="appointment_type" value="person" hidden readonly>
+
     </section>
     <!-- ================ end: Particulars sec ================ -->
 @endsection
@@ -2780,6 +2792,7 @@
             const sh_pps = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#sh_pps").val() : '';
             const perticularsTextArea = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $(
                 "#perticularsTextArea").val() : '';
+            const appointment_type = $("#appointment_type").val();
 
             const requiredFields = document.querySelectorAll('.blankCheckFinalSubmit');
             const requiredFieldsArr = [...requiredFields];
@@ -2847,6 +2860,7 @@
                         sh_currency,
                         sh_pps,
                         perticularsTextArea,
+                        appointment_type
                     },
                     success: function(result) {
                         if (result) {
@@ -3840,7 +3854,11 @@
 
                             $('#currentTab').val('addressing')
                             $("#choosedPersonOfficerId").val(response['id'])
+                            $("#personOfficerEditId").val(response['id'])
                         },
+                        error : function (response) {
+                            console.log(response);
+                        }
                     });
                 }
                 return false
