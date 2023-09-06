@@ -22,7 +22,8 @@ class PermissionSeeder extends Seeder
             'Business Banking',
             'Accounting Software',
             'Customer',
-            'CMS'
+            'CMS',
+            'Companies'
             // Add more permissions as needed
         ];
 
