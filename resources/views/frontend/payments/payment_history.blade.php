@@ -36,50 +36,32 @@
                 <div class="MyAccount-content col-md-12">                    
                     <div class="MyAccount-content col-md-12">
                         <div class="companies-topbar">
-                            <h3>Order History</h3>
+                            <h3>Payment History</h3>
                         </div>
                         <div class="companies-table-wrap">
                             <div class="table-responsive">
-                                @if($order_invoice)
+                                @if($order_payments)
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Invoiced</th>
-                                                <th>Status</th>
-                                                <th>Company</th>
-                                                <th>Description</th>
-                                                <th>Net</th>
-                                                <th>Gross</th>
-                                                <th></th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                                <th>Notes</th>
+                                                <th>Payment Ref.</th>
+                                                <th>Order</th>                                                
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($order_invoice as $order)
+                                            @foreach($order_payments as $order_payment)
                                             <tr>
-                                                <td>{{ $order->order_id }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d/m/Y') }}</td>
-                                                <td>{{ 'Complete' }}</td>
-                                                <td>{{ $order->company_name }}</td>
-                                                <td>{{ $order->short_description }}</td>
-                                                <td>
-                                                    @php
-                                                        $gross_amount = $order->payable_amount;
-                                                        $vat = ($order->payable_amount * 20) / 100;
-                                                        $net_amount = $gross_amount - $vat;
-                                                    @endphp
-                                                    {{ $net_amount }}
-                                                </td>
-                                                <td>{{ $order->payable_amount }}</td>
-                                                <td>   
-                                                    <a href="{{ route('order-invoice', ['order' => $order->order_id]) }}">
-                                                        Invoice
-                                                    </a>                                                 
-                                                    <div class="d-flex justify-content-end">
-                                                        <a class="view-btn delet-btn" href="{{ route('order-details', ['order' => $order->order_id]) }}">
-                                                            <strong>Details</strong>
-                                                        </a>                                                            
-                                                    </div>                                                    
+                                                <td>{{ \Carbon\Carbon::parse($order_payment->created_at)->format('d/m/Y') }}</td>
+                                                <td>{{ $order_payment->amount }}</td>
+                                                <td></td>
+                                                <td>{{ $order_payment->invoice_id }}</td>                                                
+                                                <td> 
+                                                    <a href="{{ route('order-details', ['order' => $order_payment->order_id]) }}">
+                                                        {{ $order_payment->order_id }}
+                                                    </a>                                 
                                                 </td>
                                             </tr> 
                                             @endforeach                                       

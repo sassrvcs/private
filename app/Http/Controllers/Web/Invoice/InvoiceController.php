@@ -8,6 +8,7 @@ use App\Services\Order\OrderService;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use App\Services\Company\BusinessEssentialSteps\BusinessEssentialsService;
 use Illuminate\Http\Request;
+use App\Models\Address;
 use PDF;
 
 class InvoiceController extends Controller
@@ -28,30 +29,13 @@ class InvoiceController extends Controller
     {
         $authID = auth()->user()->id;
         
-        $orders  = $this->invoiceService->index();
+        $order_invoice  = $this->invoiceService->index();        
         
-        //echo $status;
         //echo "<pre>";
         //print_r($orders);
-        return view('frontend.invoice.invoice_history', compact('orders'));
-    } 
-
-    /**
-     * Delete order item
-     * @Checkout step -> 2
-    */
-    public function deleteOrderItem(Request $request)
-    {
-        $order_id = $request->order_id;
-
-        $order = $this->orderService->getOrder($order_id);
-
-        if($order){
-            //$order->delete();
-        }
-        
-        return redirect(route('order-history'));
-    } 
+        //die;
+        return view('frontend.invoice.invoice_history', compact('order_invoice'));
+    }     
 
     public function orderInvoice(Request $request)
     {
@@ -69,6 +53,12 @@ class InvoiceController extends Controller
 
         $transaction = $this->orderService->getOrderFinalTransaction($order_id);
 
+        $billing_address = Address::join('countries','countries.id','=','addresses.billing_country')
+            ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+            ->where('addresses.user_id', $user->id)
+            ->where('addresses.address_type','billing_address')
+            ->first();
+
         $net_total = 0;
         $total_vat =0;     
 
@@ -79,7 +69,8 @@ class InvoiceController extends Controller
             'all_order' => $all_order,
             'net_total' => $net_total,
             'total_vat' => $total_vat,
-            'transaction' => $transaction
+            'transaction' => $transaction,
+            'billing_address' => $billing_address
         ]; // Convert the model to an array        
 
         $pdf = PDF::loadView('PDF.invoice', $data);

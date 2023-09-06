@@ -46,7 +46,7 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="_mi _before fas fa-chart-pie" aria-hidden="true"></i><span>Finances</span></a>
                     <ul class="dropdown-menu depth_0">
                         <li id="menu-item-5096" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-5096"><a href="{{ route('invoice-history') }}" class="dropdown-item ">Invoive History</a></li>
-                        <li id="menu-item-5099" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-5099"><a href="#" class="dropdown-item ">Payment History</a></li>
+                        <li id="menu-item-5099" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-5099"><a href="{{ route('payment-history') }}" class="dropdown-item ">Payment History</a></li>
                     </ul>
                 </li>
             </ul>
