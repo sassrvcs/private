@@ -31,6 +31,8 @@ use App\Http\Controllers\Web\Order\OrderController;
 use App\Http\Controllers\Web\Invoice\InvoiceController;
 use App\Http\Controllers\Web\Payment\PaymentController;
 
+use App\Http\Controllers\Admin\Company\CompanyController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -211,6 +213,8 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
         // Route::resource('product', ProductController::class);
         // Route::resource('category', CategoryController::class);
         Route::resource('change-password', ChangePasswordController::class);
+
+        Route::resource('company', CompanyController::class);
     });
 });
 
