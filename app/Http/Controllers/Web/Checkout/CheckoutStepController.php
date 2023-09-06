@@ -195,7 +195,7 @@ class CheckoutStepController extends Controller
     public function paymentSuccess(Request $request){
         // dd($request);
         $order_details = Order::where('order_id',$request->query('orderID'))->first();
-
+        dd($order_details);
         $order_transaction = new orderTransaction;
         $order_transaction->order_id =$request->query('orderID');
         $order_transaction->status=$request->query('orderID');
@@ -203,7 +203,211 @@ class CheckoutStepController extends Controller
         $order_transaction->ACCEPTANCE=$request->query('orderID');
         $order_transaction->SHASIGN=$request->query('orderID');
         $order_transaction->amount=null;
-        $order_transaction->save();
+        // $order_transaction->save();
+
+        $transaction_id = random_int(100000, 999999);
+        $six_digit_random_number = random_int(100000, 999999);
+
+        $xml = '<GovTalkMessage xsi:schemaLocation="http://www.govtalk.gov.uk/CM/envelope http://xmlbeta.companieshouse.gov.uk:80/v1-0/schema/Egov_ch-v2-0.xsd" xmlns ="http://www.govtalk.gov.uk/CM/envelope"
+        xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
+        xmlns:gt="http://www.govtalk.gov.uk/schemas/govtalk/core"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <EnvelopeVersion />
+        <Header>
+            <MessageDetails>
+                <Class>CompanyIncorporation</Class>
+                <Qualifier>request</Qualifier>
+                <TransactionID>'.$transaction_id.'</TransactionID>
+                <GatewayTest>0</GatewayTest>
+            </MessageDetails>
+            <SenderDetails>
+                <IDAuthentication>
+                    <SenderID>7db721e60d22d2b868d5c975cb19a74b</SenderID>
+                    <Authentication>
+                        <Method>clear</Method>
+                        <Value>658fd00434fdfb12569537cbc7205b4f</Value>
+                    </Authentication>
+                </IDAuthentication>
+                <!-- <EmailAddress>contact@formationshunt.co.uk</EmailAddress> -->
+            </SenderDetails>
+        </Header>
+        <GovTalkDetails>
+            <Keys />
+        </GovTalkDetails>
+        <Body>
+            <FormSubmission
+                xmlns="http://xmlgw.companieshouse.gov.uk/Header"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlgw.companieshouse.gov.uk/Header http://xmlgw.companieshouse.gov.uk/v2-1/schema/forms/FormSubmission-v2-11.xsd">
+                <FormHeader>
+                    <CompanyName>'.$order_details->company_name.'</CompanyName>
+                    <PackageReference>4076</PackageReference>
+                    <FormIdentifier>CompanyIncorporation</FormIdentifier>
+                    <SubmissionNumber>'.$six_digit_random_number.'</SubmissionNumber>
+                    <ContactName>Divyaba Harishchandrasinh</ContactName>
+                    <ContactNumber>0744627777</ContactNumber>
+                </FormHeader>
+                <DateSigned>2023-08-09</DateSigned>
+                <Form>
+                    <CompanyIncorporation
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://xmlgw.companieshouse.gov.uk http://xmlgw.companieshouse.gov.uk/v2-1/schema/forms/CompanyIncorporation-v3-6.xsd"
+                        xmlns="http://xmlgw.companieshouse.gov.uk">
+                        <CompanyType>BYSHR</CompanyType>
+                        <CountryOfIncorporation>EW</CountryOfIncorporation>
+                        <RegisteredOfficeAddress>
+                            <Premise>112</Premise>
+                            <Street>Watford Road</Street>
+                            <Thoroughfare>Wembley</Thoroughfare>
+                            <PostTown>London</PostTown>
+                            <Country>GBR</Country>
+                            <Postcode>HA0 3HF</Postcode>
+                        </RegisteredOfficeAddress>
+                        <DataMemorandum>true</DataMemorandum>
+                        <Articles>BYSHRMODEL</Articles>
+                        <RestrictedArticles>false</RestrictedArticles>
+                        <Appointment>
+                            <ConsentToAct>true</ConsentToAct>
+                            <Director>
+                                <Person>
+                                    <Title>Miss</Title>
+                                    <Forename>Divyaba</Forename>
+                                    <Surname>Harishchandrasinh</Surname>
+                                    <ServiceAddress>
+                                        <SameAsRegisteredOffice>true</SameAsRegisteredOffice>
+                                    </ServiceAddress>
+                                    <DOB>1970-05-23</DOB>
+                                    <Nationality>British</Nationality>
+                                    <Occupation>Director</Occupation>
+                                    <CountryOfResidence>United Kingdom</CountryOfResidence>
+                                    <ResidentialAddress>
+                                        <Address>
+                                            <Premise>112</Premise>
+                                            <Street>Watford Road</Street>
+                                            <Thoroughfare>Wembley</Thoroughfare>
+                                            <PostTown>Greater London</PostTown>
+                                            <Country>GBR</Country>
+                                            <Postcode>HA0 3HF</Postcode>
+                                        </Address>
+                                    </ResidentialAddress>
+                                </Person>
+                            </Director>
+                        </Appointment>
+                        <PSCs>
+                            <PSC>
+                                <PSCNotification>
+                                    <Individual>
+                                        <Title></Title>
+                                        <Forename>Divyaba</Forename>
+                                        <Surname>Harishchandrasinh</Surname>
+                                        <ServiceAddress>
+                                            <SameAsRegisteredOffice>true</SameAsRegisteredOffice>
+                                        </ServiceAddress>
+                                        <DOB>1970-05-23</DOB>
+                                        <Nationality>British</Nationality>
+                                        <CountryOfResidence>United Kingdom</CountryOfResidence>
+                                        <ResidentialAddress>
+                                            <Address>
+                                                <Premise>112</Premise>
+                                                <Street>Watford Road</Street>
+                                                <Thoroughfare>Wembley</Thoroughfare>
+                                                <PostTown>Greater London</PostTown>
+                                                <Country>GBR</Country>
+                                                <Postcode>HA0 3HF</Postcode>
+                                            </Address>
+                                        </ResidentialAddress>
+                                        <ConsentStatement>true</ConsentStatement>
+                                    </Individual>
+                                    <NatureOfControls>
+                                        <NatureOfControl>SIGINFLUENCECONTROL</NatureOfControl>
+                                    </NatureOfControls>
+                                </PSCNotification>
+                            </PSC>
+                        </PSCs>
+                        <StatementOfCapital>
+                            <Capital>
+                                <TotalAmountUnpaid>0</TotalAmountUnpaid>
+                                <TotalNumberOfIssuedShares>1</TotalNumberOfIssuedShares>
+                                <ShareCurrency>GBP</ShareCurrency>
+                                <TotalAggregateNominalValue>1.00</TotalAggregateNominalValue>
+                                <Shares>
+                                    <ShareClass>Ordinary</ShareClass>
+                                    <PrescribedParticulars>Each share is entitled to one vote in any circumstances. Each share has equal rights to dividends. Each share is entitled to participate in a distribution arising from a winding up of the company</PrescribedParticulars>
+                                    <NumShares>1</NumShares>
+                                    <AggregateNominalValue>1.00</AggregateNominalValue>
+                                </Shares>
+                            </Capital>
+                        </StatementOfCapital>
+                        <Subscribers>
+                            <Person>
+                                <Forename>Divyaba</Forename>
+                                <Surname>Harishchandrasinh</Surname>
+                            </Person>
+                            <Address>
+                                <Premise>112</Premise>
+                                <Street>Watford Road</Street>
+                                <Thoroughfare>Wembley</Thoroughfare>
+                                <PostTown>Greater London</PostTown>
+                                <Country>GBR</Country>
+                                <Postcode>HA0 3HF</Postcode>
+                            </Address>
+                            <Authentication>
+                                <PersonalAttribute>BIRTOWN</PersonalAttribute>
+                                <PersonalData>BUR</PersonalData>
+                            </Authentication>
+                            <Authentication>
+                                <PersonalAttribute>TEL</PersonalAttribute>
+                                <PersonalData>111</PersonalData>
+                            </Authentication>
+                            <Authentication>
+                                <PersonalAttribute>MUM</PersonalAttribute>
+                                <PersonalData>SUH</PersonalData>
+                            </Authentication>
+                            <Shares>
+                                <ShareClass>Ordinary</ShareClass>
+                                <NumShares>1</NumShares>
+                                <AmountPaidDuePerShare>1</AmountPaidDuePerShare>
+                                <AmountUnpaidPerShare>0</AmountUnpaidPerShare>
+                                <ShareCurrency>GBP</ShareCurrency>
+                                <ShareValue>1</ShareValue>
+                            </Shares>
+                            <MemorandumStatement>Each subscriber to this memorandum of association wishes to form a company under the Companies Act 2006 and agrees to become a member of the company and to take at least one share.</MemorandumStatement>
+                        </Subscribers>
+                        <Authoriser>
+                            <Subscribers>
+                                <Subscriber>
+                                    <Person>
+                                        <Forename>Divyaba</Forename>
+                                        <Surname>Harishchandrasinh</Surname>
+                                    </Person>
+                                    <Authentication>
+                                        <PersonalAttribute>BIRTOWN</PersonalAttribute>
+                                        <PersonalData>BUR</PersonalData>
+                                    </Authentication>
+                                    <Authentication>
+                                        <PersonalAttribute>TEL</PersonalAttribute>
+                                        <PersonalData>111</PersonalData>
+                                    </Authentication>
+                                    <Authentication>
+                                        <PersonalAttribute>MUM</PersonalAttribute>
+                                        <PersonalData>SUH</PersonalData>
+                                    </Authentication>
+                                </Subscriber>
+                            </Subscribers>
+                        </Authoriser>
+                        <SameDay>false</SameDay>
+                        <SameName>false</SameName>
+                        <NameAuthorisation>false</NameAuthorisation>
+                        <SICCodes>
+                            <SICCode>96090</SICCode>
+                        </SICCodes>
+                    </CompanyIncorporation>
+                </Form>
+            </FormSubmission>
+        </Body>
+    </GovTalkMessage>';
+
+
+        dd($xml);
 
 
         return view('frontend.payment_getway.success');
