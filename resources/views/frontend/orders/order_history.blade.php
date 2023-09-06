@@ -36,11 +36,20 @@
                 <div class="MyAccount-content col-md-12">                    
                     <div class="MyAccount-content col-md-12">
                         <div class="companies-topbar">
-                            <h3>Order History</h3>
+                            <h3>
+                                @if($status == '')
+                                    @php $report_type = 'All'; @endphp
+                                @else
+                                    @php                                    
+                                        $report_type = ($status == 'pending') ? 'Incomplete' : (($status == 'progress') ? 'Inprogress' : 'Completed');
+                                    @endphp  
+                                @endif 
+                                Order History ({{ $report_type}})
+                            </h3>
                         </div>
                         <div class="companies-table-wrap">
                             <div class="table-responsive">
-                                @if($orders)
+                                @if($orders && $orders->count() > 0 )
                                     <table class="table">
                                         <thead>
                                             <tr>
@@ -71,7 +80,7 @@
                                                                 <img src="{{ asset('frontend/assets/images/close-icon.png')}}" alt=""> 
                                                                 <strong>Delete</strong>
                                                             </a>
-                                                            <button class="view-btn">
+                                                            <button class="view-btn ml-2">
                                                                 <img src="{{ asset('frontend/assets/images/right-arrow-icon.png')}}" alt=""> 
                                                                 <strong>Continue Order</strong>
                                                             </button>

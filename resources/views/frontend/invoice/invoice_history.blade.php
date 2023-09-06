@@ -36,7 +36,7 @@
                 <div class="MyAccount-content col-md-12">                    
                     <div class="MyAccount-content col-md-12">
                         <div class="companies-topbar">
-                            <h3>Order History</h3>
+                            <h3>Invoice History</h3>
                         </div>
                         <div class="companies-table-wrap">
                             <div class="table-responsive">
@@ -63,20 +63,22 @@
                                                 <td>{{ $order->company_name }}</td>
                                                 <td>{{ $order->short_description }}</td>
                                                 <td>
-                                                    @php
-                                                        $gross_amount = $order->payable_amount;
-                                                        $vat = ($order->payable_amount * 20) / 100;
-                                                        $net_amount = $gross_amount - $vat;
+                                                    @php                                                        
+                                                        $vat = ($order->package_price * 20) / 100;
+                                                        $net_amount = $order->package_price ;
+                                                        $gross_amount = $order->package_price + $vat;
                                                     @endphp
                                                     {{ $net_amount }}
                                                 </td>
-                                                <td>{{ $order->payable_amount }}</td>
+                                                <td>{{ $gross_amount }}</td>
                                                 <td>   
-                                                    <a href="{{ route('order-invoice', ['order' => $order->order_id]) }}">
-                                                        Invoice
-                                                    </a>                                                 
-                                                    <div class="d-flex justify-content-end">
-                                                        <a class="view-btn delet-btn" href="{{ route('order-details', ['order' => $order->order_id]) }}">
+                                                                                                    
+                                                    <div class="d-flex justify-content-end align-items-center">
+                                                        <a href="{{ route('order-invoice', ['order' => $order->order_id]) }}" target="_blank">
+                                                            Invoice
+                                                        </a> 
+
+                                                        <a class="view-btn delet-btn ml-4" href="{{ route('order-details', ['order' => $order->order_id]) }}">
                                                             <strong>Details</strong>
                                                         </a>                                                            
                                                     </div>                                                    
