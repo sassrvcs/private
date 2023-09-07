@@ -232,16 +232,25 @@ class CompanyFormController extends Controller
             ['companie_name' =>  $company_name],
             ['office_address' => $address_id]
         );
+
+        $Company = Companie::updateOrCreate(
+            ['companie_name' =>  $company_name],
+            ['forwarding_registered_office_address' => null]
+        );
         return 1;
     }
 
     public function updateForwardingRegisterAddress(Request $request)
     {
+        // dd($request);
+        $order = Order::where('order_id', $request->order_id)->first();
+        $company_name = $order->company_name;
 
-        $id = $request->id;
-        $user_id = Auth::user()->id;
+        $id = $request->address_id;
+        // $user_id = Auth::user()->id;
 
-        Companie::where('user_id', $user_id)->update(['forwarding_registered_office_address' => $id]);
+        Companie::where('companie_name', $company_name)->update(['forwarding_registered_office_address' => $id]);
+        Companie::where('companie_name', $company_name)->update(['office_address' => null]);
 
         $addData = Address::where('id', $id)->first()->toArray();
 

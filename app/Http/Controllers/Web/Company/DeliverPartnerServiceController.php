@@ -16,6 +16,8 @@ use App\Models\Country;
 use App\Models\DeliveryPartnerDetail;
 use App\Models\Person_appointment;
 use Illuminate\Support\Facades\Session;
+use App\Services\XMLCreation\GenerateXmlService;
+
 use DB ;
 
 class DeliverPartnerServiceController extends Controller
@@ -23,6 +25,8 @@ class DeliverPartnerServiceController extends Controller
     public function __construct(
         protected CompanyFormService $companyFormService,
         protected BusinessEssentialsService $businessEssentialsService,
+        protected GenerateXmlService $xmlService
+
 
     ) { }
     /**
@@ -164,6 +168,8 @@ class DeliverPartnerServiceController extends Controller
         $save_order_details->save();
         if($save_order_details->save())
         {
+            $this->xmlService->index($request->order_id);
+
 
             return redirect( route('checkout', ['order' => $request->order_id,'step'=>'final_payment']) );
 

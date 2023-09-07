@@ -224,7 +224,7 @@
                                                         data-search="{{ $value->house_number }},{{ $value->street }},{{ $value->locality }},{{ $value->town }},{{ $value->county }},{{ $value->post_code }},{{ $value->billing_country }}"
                                                         data-id="{{ $value->id }}"
                                                         value="{{ $value->house_number }},{{ $value->street }},{{ $value->locality }},{{ $value->town }},{{ $value->county }},{{ $value->post_code }},{{ $value->billing_country }}"
-                                                        onclick="selectedForwardAdd({{ $value->id }})" readonly>
+                                                        onclick="selectedForwardAdd({{ $_GET['order']}},{{ $value->id }})" readonly>
                                                 @endforeach
                                             @endif
                                         </div>
@@ -268,7 +268,7 @@
                                                                     value="{{ $value->billing_country }}">
 
                                                                 <button type="button" class="btn select-btn selc-addr"
-                                                                    onclick="selectedForwardAdd('{{ $value->id }}')">Select</button>
+                                                                    onclick="selectedForwardAdd({{ $_GET['order']}},{{ $value->id }})">Select</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -719,13 +719,14 @@
 
         };
 
-        function selectedForwardAdd(id) {
+        function selectedForwardAdd(order_id,addressId) {
 
             $.ajax({
                 url: "{!! route('update-forwarding-registered-office-address') !!}",
-                type: 'get',
+                type: 'GET',
                 data: {
-                    id
+                    order_id: order_id,
+                    address_id: addressId
                 },
                 success: function(result) {
                     console.log(result);

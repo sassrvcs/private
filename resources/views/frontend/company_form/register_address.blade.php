@@ -98,11 +98,11 @@
                                         <h5 class="edit-add-ttl">Edit Address</h5>
 
                                         <form class="form-register">
-                                            <input type="hidden" class="user_id" name="user_id"
+                                            <input type="text" class="user_id" name="user_id"
                                                 value="{{ !empty($recent_addr) && $recent_addr['user_id'] !== '' ? $recent_addr['user_id'] : '' }}">
-                                            <input type="hidden" class="address_type" name="address_type"
+                                            <input type="text" class="address_type" name="address_type"
                                                 value="{{ !empty($recent_addr) && $recent_addr['address_type'] !== '' ? $recent_addr['address_type'] : '' }}">
-                                            <input type="hidden" class="recent_addr_id"
+                                            <input type="text" class="recent_addr_id"
                                                 value="{{ !empty($recent_addr) && $recent_addr['id'] !== '' ? $recent_addr['id'] : '' }}"
                                                 readonly>
 
@@ -237,7 +237,7 @@
                                         <div class="info">
 
                                             <h3>Choose to use your own address</h3>
-                                            <input type="hidden" id="recent_address_id"
+                                            <input type="text" id="recent_address_id"
                                                 value="{{ isset($recent_addr->id) ? $recent_addr->id : '' }}" readonly>
                                             <p>{{ isset($recent_addr->house_number) ? $recent_addr->house_number : '' }},
                                                 {{ isset($recent_addr->street) ? $recent_addr->street : '' }}, @if (!empty($recent_addr->locality))
@@ -257,7 +257,7 @@
                                     @else
                                         <div class="info">
                                             <h3>Choose to use your own address</h3>
-                                            <input type="hidden" id="recent_address_id" value="" readonly>
+                                            <input type="text" id="recent_address_id" value="" readonly>
                                             <div class="error d-none address_selection_cl" style="color:red;">You have to
                                                 select an Address.</div>
                                         </div>
