@@ -83,7 +83,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Number :</strong></td>
-                                                        <td>{{ $order->order_id ?? "-" }}</td>
+                                                        <td>{{ $order->number ?? "-" }}</td>
                                                         <td></td>
                                                         <td></td>
                                                     </tr>
@@ -127,18 +127,20 @@
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Registered Office :</strong></td>
-                                                        
+
                                                         <td>
-                                                            @if (!empty($review->forwarding_registered_office_address))                                                                
+                                                            @if (!empty($review->forwarding_registered_office_address))
                                                                 <ul>
                                                                     <li>
                                                                         <strong>Address : </strong>  52 Danes Court, North End Road, Wembley,
                                                                         Middlesex, HAQ OAE, United Kingdom
                                                                     </li>
                                                                 </ul>
-                                                                <h3>Forwarding Address</h3>
+                                                                <span style="margin-top: 2px;"></span>
+
                                                                 <ul>
-                                                                    <li>                                                                        
+                                                                    <li>
+                                                                        <strong>Forwarding Address : </strong>
                                                                         {{ $review->officeAddressWithForwAddress->house_number ?? '' }},
                                                                         {{ $review->officeAddressWithForwAddress->street ?? '' }},
                                                                         {{ $review->officeAddressWithForwAddress->locality ?? '' }},
@@ -146,9 +148,9 @@
                                                                         {{ $review->officeAddressWithForwAddress->post_code ?? '' }},
                                                                     </li>
                                                                 </ul>
-                                                            @else 
+                                                            @else
                                                                 <ul>
-                                                                    <li>                                                                        
+                                                                    <li>
                                                                         {{ $review->officeAddressWithoutForwAddress->house_number ?? '' }},
                                                                         {{ $review->officeAddressWithoutForwAddress->street ?? '' }},
                                                                         {{ $review->officeAddressWithoutForwAddress->locality ?? '' }},
@@ -158,14 +160,14 @@
                                                                 </ul>
                                                             @endif
                                                         </td>
-                                                        
+
                                                         <td></td>
                                                         <td>{{--<button class="ch-ed-btn"><img src="assets/images/draw-icon.png" alt=""> Edit</button>--}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td width="200"><strong>Confirmation Statement :</strong></td>
                                                         <td><p>15/06/2024</p>All companies are legally required to file an annual Confirmation Statement.
-                                                            Avoid missing this deadline by purchasing our filing service (ind. filing fee of 
+                                                            Avoid missing this deadline by purchasing our filing service (ind. filing fee of
                                                             $13.00).</td>
                                                         <td>$44.00</td>
                                                         <td>{{--<button class="ch-ed-btn">Order</button>--}}</td>
@@ -199,7 +201,7 @@
                                                         <td><strong>Reference Date :</strong></td>
                                                         <td>30th June</td>
                                                         <td></td>
-                                                        <td><button class="ch-ed-btn"><img src="assets/images/draw-icon.png" alt=""> Edit</button></td>
+                                                        {{-- <td><button class="ch-ed-btn"><img src="assets/images/draw-icon.png" alt=""> Edit</button></td> --}}
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -263,7 +265,7 @@
                                                                         class="{{ in_array('PSC', $positionArray) ? 'd-none' : '' }}"
                                                                         alt=""></td>
                                                                 <td>
-                                                                    {{--<div class="tb-btn-wrap d-flex justify-content-end">                                                                        
+                                                                    {{--<div class="tb-btn-wrap d-flex justify-content-end">
                                                                         <a class="edit-btn" href="{{route('person_appointment_edit').'?id='.$val['id'].'&order='.$_GET['order'].'&section=Company_formaction&step=appointments&mode=edit_person_appointment'}}">Edit</a>
                                                                     </div>--}}
                                                                 </td>
@@ -317,7 +319,7 @@
                                             </table>
                                         </div>
                                         <div class="overviews-btn-wrap d-flex justify-content-end mb-4">
-                                            <button class="btn"><img src="assets/images/statement-icon.svg" alt=""> Add New Statement</button>
+                                            {{-- <button class="btn"><img src="assets/images/statement-icon.svg" alt=""> Add New Statement</button> --}}
                                         </div>
 
                                         {{--<div class="table-responsivr mb-4">
@@ -390,7 +392,7 @@
                                                                         {{ isset($val['sh_pps']) ? $val['sh_pps'] : '' }}
                                                                         {{ isset($val['sh_currency']) ? $val['sh_currency'] : '' }}
                                                                         per share
-                                                                    </td>                                                                    
+                                                                    </td>
                                                                 </tr>
                                                             @endif
                                                         @endforeach

@@ -176,6 +176,10 @@ class GenerateXmlService
         }
 
         dd($all_psc);
+
+
+
+        
         $xml = '<GovTalkMessage xsi:schemaLocation="http://www.govtalk.gov.uk/CM/envelope http://xmlbeta.companieshouse.gov.uk:80/v1-0/schema/Egov_ch-v2-0.xsd" xmlns ="http://www.govtalk.gov.uk/CM/envelope"
         xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
         xmlns:gt="http://www.govtalk.gov.uk/schemas/govtalk/core"
@@ -227,37 +231,7 @@ class GenerateXmlService
                         <Articles>'.$articles.'</Articles>
                         <RestrictedArticles>false</RestrictedArticles>
                         '.$all_director.'
-                        <PSCs>
-                            <PSC>
-                                <PSCNotification>
-                                    <Individual>
-                                        <Title></Title>
-                                        <Forename>Divyaba</Forename>
-                                        <Surname>Harishchandrasinh</Surname>
-                                        <ServiceAddress>
-                                            <SameAsRegisteredOffice>true</SameAsRegisteredOffice>
-                                        </ServiceAddress>
-                                        <DOB>1970-05-23</DOB>
-                                        <Nationality>British</Nationality>
-                                        <CountryOfResidence>United Kingdom</CountryOfResidence>
-                                        <ResidentialAddress>
-                                            <Address>
-                                                <Premise>112</Premise>
-                                                <Street>Watford Road</Street>
-                                                <Thoroughfare>Wembley</Thoroughfare>
-                                                <PostTown>Greater London</PostTown>
-                                                <Country>GBR</Country>
-                                                <Postcode>HA0 3HF</Postcode>
-                                            </Address>
-                                        </ResidentialAddress>
-                                        <ConsentStatement>true</ConsentStatement>
-                                    </Individual>
-                                    <NatureOfControls>
-                                        <NatureOfControl>SIGINFLUENCECONTROL</NatureOfControl>
-                                    </NatureOfControls>
-                                </PSCNotification>
-                            </PSC>
-                        </PSCs>
+                        '.$all_psc.'
                         <StatementOfCapital>
                             <Capital>
                                 <TotalAmountUnpaid>0</TotalAmountUnpaid>

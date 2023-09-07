@@ -117,26 +117,32 @@
                                             </td> --}}
                                             <td>{{ $order->company_number ?? "-" }}</td>
                                             <td>{{ $order->auth_code ?? "-" }}</td>
-                                            
+
                                             {{--<td><span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">{{ ($order->order_status == 'pending') ? 'INCOMPLETE' : 'ACCEPTED' }}</span></td>--}}
-                                            
+
                                             <td><span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">
                                                 {{ ($order->order_status == 'pending') ? 'INCOMPLETE' : 'ACCEPTED' }}</span>
                                             </td>
+                                            @php
 
-                                            <!-- <td>
-                                                <a href="{{ route('accepted-company', ['order' => $order->order_id]) }}" class="view-btn">
-                                                    View 
-                                                    <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt="">
-                                                </a>
-                                            </td> -->
-                                            
-                                            <td>
-                                                <a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" class="view-btn">
-                                                    View 
-                                                    <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt="">
-                                                </a>
-                                            </td>
+                                                $company_status = \App\Models\Companie::where('companie_name',$order->company_name)->pluck('status')->first();
+
+                                            @endphp
+                                            @if($company_status == '3')
+                                                <td>
+                                                    <a href="{{ route('accepted-company', ['order' => $order->order_id]) }}" class="view-btn">
+                                                        View
+                                                        <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt="">
+                                                    </a>
+                                                </td>
+                                            @else
+                                                <td>
+                                                    <a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" class="view-btn">
+                                                        View
+                                                        <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt="">
+                                                    </a>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
