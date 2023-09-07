@@ -20,7 +20,7 @@
                     <tr>
                         <td style="padding:0 0 10px; border-bottom:3px solid #000;">
                           <a href="#" title="logo" target="_blank">
-                            <img src="{{-- asset('frontend/assets/images/logo.png') --}}" title="logo" alt="logo" style="max-width: 500px;">
+                            <img src="{{ storage_path('app/public/logo.png') }}" title="logo" alt="logo" style="max-width: 500px;">
                           </a>
                         </td>
                     </tr>
@@ -206,19 +206,21 @@
                                                 <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom: 1px solid #000;"><strong>0.00</strong></td>
                                                 <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom: 1px solid #000;"><strong>0.00</strong></td>
                                             </tr>--}}
+
+                                            <!-- total section -->
                                             <tr>
-                                                <td style="padding: 4px 10px;font-size:14px;"><strong></strong></td>
-                                                <td style="padding: 4px 10px;text-align: right;font-size:14px;"><strong></strong></td>
-                                                <td style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;">
+                                                <td style="padding: 4px 10px;font-size:14px;border-top: 1px solid #000;"><strong></strong></td>
+                                                <td style="padding: 4px 10px;text-align: right;font-size:14px;border-top: 1px solid #000;"><strong></strong></td>
+                                                <td style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-top: 1px solid #000;">
                                                     <strong>Totals:</strong>
                                                 </td>
-                                                <td style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;">
+                                                <td style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
                                                     <strong>${{ $net_total + $all_order->cart->package->package_price }}</strong>
                                                 </td>
-                                                <td style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;">
+                                                <td style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
                                                     <strong>${{ $total_vat + ($all_order->cart->package->package_price * 20) / 100 }}</strong>
                                                 </td>
-                                                <td style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;">
+                                                <td style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
                                                     @php
                                                         $total_price = $net_total + $all_order->cart->package->package_price + ($total_vat + ($all_order->cart->package->package_price * 20) / 100);
                                                     @endphp                                                   
