@@ -195,15 +195,15 @@ class CheckoutStepController extends Controller
     public function paymentSuccess(Request $request){
         // dd($request);
         $order_details = Order::where('order_id',$request->query('orderID'))->first();
-        dd($order_details);
+        //dd($order_details);
         $order_transaction = new orderTransaction;
         $order_transaction->order_id =$request->query('orderID');
-        $order_transaction->status=$request->query('orderID');
-        $order_transaction->PAYID=$request->query('orderID');
-        $order_transaction->ACCEPTANCE=$request->query('orderID');
-        $order_transaction->SHASIGN=$request->query('orderID');
+        $order_transaction->status=$request->query('STATUS');
+        $order_transaction->PAYID=$request->query('PAYID');
+        $order_transaction->ACCEPTANCE=$request->query('ACCEPTANCE');
+        $order_transaction->SHASIGN=$request->query('SHASIGN');
         $order_transaction->amount=null;
-        // $order_transaction->save();
+         $order_transaction->save();
 
         $transaction_id = random_int(100000, 999999);
         $six_digit_random_number = random_int(100000, 999999);
@@ -407,7 +407,7 @@ class CheckoutStepController extends Controller
     </GovTalkMessage>';
 
 
-        dd($xml);
+       // dd($xml);
 
 
         return view('frontend.payment_getway.success');

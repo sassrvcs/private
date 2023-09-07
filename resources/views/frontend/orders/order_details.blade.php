@@ -146,7 +146,7 @@
                                                     <tr>
                                                         <td>{{ $trans->created_at }}</td>
                                                         <td>{{ $trans->amount }}</td>
-                                                        <td>{{ $trans->amount }}</td>
+                                                        <td>{{ 'DEBIT' }}</td>
                                                         <td>{{ ($trans->step == 0) ? 'Initial' : 'Fulfillment' }} of Order {{ $order->order_id }}</td>
                                                     </tr>
                                                 @endforeach                                            

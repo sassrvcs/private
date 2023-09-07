@@ -49,8 +49,8 @@
                                                 <th>Status</th>
                                                 <th>Company</th>
                                                 <th>Description</th>
-                                                <th>Net</th>
-                                                <th>Gross</th>
+                                                <!-- <th>Net</th>
+                                                <th>Gross</th> -->
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -62,7 +62,7 @@
                                                 <td>{{ 'Complete' }}</td>
                                                 <td>{{ $order->company_name }}</td>
                                                 <td>{{ $order->short_description }}</td>
-                                                <td>
+                                                {{--<td>
                                                     @php                                                        
                                                         $vat = ($order->package_price * 20) / 100;
                                                         $net_amount = $order->package_price ;
@@ -70,7 +70,7 @@
                                                     @endphp
                                                     {{ $net_amount }}
                                                 </td>
-                                                <td>{{ $gross_amount }}</td>
+                                                <td>{{ $gross_amount }}</td>--}}
                                                 <td>   
                                                                                                     
                                                     <div class="d-flex justify-content-end align-items-center">
