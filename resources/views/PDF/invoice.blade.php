@@ -116,12 +116,13 @@
                                                     $total_vat = $total_vat + $vat;
                                                 @endphp
                                                 <tr>
-                                                    <td>{{ $item->service->service_name }}</td>
-                                                    <td>1</td>
+                                                    <td style="padding: 4px 10px;border-left: 1px solid #000;border-right: 1px solid #000;font-size:14px;color:#646464;">{{ $item->service->service_name }}</td>
+                                                    <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">1</td>
                                                     <!-- <td><span class="status accepted">Accepted</span></td> -->                                                    
-                                                    <td>${{ $item->service->price }}</td>
-                                                    <td>${{ $vat }}</td>
-                                                    <td>${{ ($item->service->price) + $vat }}</td>
+                                                    <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">${{ $item->service->price }}</td>
+                                                    <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">${{ $item->service->price }}</td>
+                                                    <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">${{ $vat }}</td>
+                                                    <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">${{ ($item->service->price) + $vat }}</td>
                                                 </tr> 
                                             @endforeach  
 
