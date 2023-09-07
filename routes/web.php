@@ -110,6 +110,7 @@ Route::get('payment-cancelled', [CheckoutStepController::class, 'paymentCancelle
 Route::get('/delete-cart-item/{indx}',[CheckoutStepController::class,'deleteCartItem'])->name('delete-cart-item');
 
 Route::get('companies', CompaniesListController::class)->name('companies-list');
+Route::get('companies/accepted', [CompaniesListController::class, 'acceptedCompanyDetails'])->name('accepted-company');
 
 Route::get('/search-companie', CompanieController::class);
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
