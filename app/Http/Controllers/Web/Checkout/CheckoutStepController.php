@@ -198,7 +198,7 @@ class CheckoutStepController extends Controller
     }
 
     public function paymentSuccess(Request $request){
-        dd($request);
+        // dd($request);
         $order_details = Order::where('order_id',$request->query('orderID'))->first();
 
         $order_transaction = new orderTransaction;
