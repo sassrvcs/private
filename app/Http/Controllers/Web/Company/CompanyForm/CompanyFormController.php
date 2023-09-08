@@ -397,6 +397,7 @@ class CompanyFormController extends Controller
         //         'perticularsTextArea' => $edit_share_particulars["$key"],
         //     ]);
         // }
+        //push
         $fetch_share_sh_pps = Person_appointment::where(['order'=>$request->order_id])->whereIn('position',['Shareholder'])->whereNotNull('sh_pps')->latest('updated_at')->get()->first()->toArray();
         if($fetch_share_sh_pps)
         {
