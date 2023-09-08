@@ -407,13 +407,13 @@ class CompanyFormController extends Controller
         //     ]);
         // }
         //push
-        $fetch_share_sh_pps = Person_appointment::where(['order'=>$request->order_id])->whereIn('position',['Shareholder'])->whereNotNull('sh_pps')->latest('updated_at')->get()->first()->toArray();
+        $fetch_share_sh_pps = Person_appointment::where(['order'=>$request->order_id])->whereNotNull('sh_pps')->latest('updated_at')->get()->first()->toArray();
         if($fetch_share_sh_pps)
         {
             $sh_pps = $fetch_share_sh_pps['sh_pps'];
             $sh_currency = $fetch_share_sh_pps['sh_currency'];
             $particulars = $fetch_share_sh_pps['perticularsTextArea'];
-            Person_appointment::where(['order'=>$request->order_id])->whereIn('position',['Shareholder'])->whereNotNull('sh_pps')->update([
+            Person_appointment::where(['order'=>$request->order_id])->whereNotNull('sh_pps')->update([
                 'sh_pps' => $sh_pps,
                 'sh_currency' => $sh_currency,
                 'perticularsTextArea' =>$particulars
@@ -703,7 +703,7 @@ class CompanyFormController extends Controller
             $appointmentsList = $personAppointments;
         }
 
-        return view('frontend.company_form.appointments_OtherLegalEntity', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
+        return view('frontend.company_form.appointments_otherLegalEntity', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
     }
 
     public function person_appointment_edit(Request $request)
