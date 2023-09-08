@@ -1323,7 +1323,7 @@
 
                                                     </div>
                                                     <div class="new-address-block">
-                                                        <h3>Or enter a new Address</h3>
+                                                        <h3>Or enter a new officer</h3>
                                                         <div class="new-address-field">
                                                             <button type="submit" class="btn"
                                                                 onclick="addNewOfficer(),currentTab('details')">Add
@@ -3821,6 +3821,14 @@
             $('#person_lname_id').val('');
             $('#person_national_id').val('72');
             $('#person_occupation_id').val('');
+
+            $("#legal_name").val('')
+            $("#law_governed").val('');
+            $("#legal_form").val('');
+            $("#registration_number").val('');
+            $("#place_registered").val('');
+            $("#registry_held").val('');
+
 
             $('#ChossenResAdd_id').val('');
             $('#person_aqone_id').val("Mother’s Maiden Name");

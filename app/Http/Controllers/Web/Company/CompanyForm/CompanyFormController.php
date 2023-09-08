@@ -388,16 +388,27 @@ class CompanyFormController extends Controller
         $edit_share_currency = $request->edit_share_currency;
         $edit_share_particulars = $request->edit_share_particulars;
 
-        $updated = null;
-        foreach ($idVal as $key => $value) {
-            # code...
-            $updated = Person_appointment::where('id', $value)->update([
-                'sh_pps' => $edit_share_price["$key"],
-                'sh_currency' => $edit_share_currency["$key"],
-                'perticularsTextArea' => $edit_share_particulars["$key"],
+        $updated = 1;
+        // foreach ($idVal as $key => $value) {
+        //     # code...
+        //     $updated = Person_appointment::where('id', $value)->update([
+        //         'sh_pps' => $edit_share_price["$key"],
+        //         'sh_currency' => $edit_share_currency["$key"],
+        //         'perticularsTextArea' => $edit_share_particulars["$key"],
+        //     ]);
+        // }
+        $fetch_share_sh_pps = Person_appointment::where(['order'=>$request->order_id])->whereIn('position',['Shareholder'])->whereNotNull('sh_pps')->latest('updated_at')->get()->first()->toArray();
+        if($fetch_share_sh_pps)
+        {
+            $sh_pps = $fetch_share_sh_pps['sh_pps'];
+            $sh_currency = $fetch_share_sh_pps['sh_currency'];
+            $particulars = $fetch_share_sh_pps['perticularsTextArea'];
+            Person_appointment::where(['order'=>$request->order_id])->whereIn('position',['Shareholder'])->whereNotNull('sh_pps')->update([
+                'sh_pps' => $sh_pps,
+                'sh_currency' => $sh_currency,
+                'perticularsTextArea' =>$particulars
             ]);
         }
-
         if ($updated) {
             return 1;
         }
@@ -657,6 +668,34 @@ class CompanyFormController extends Controller
             return 0;
         }
     }
+    public function appointments_open_otherLegalEntity()
+    {
+        $cartInfo = ShoppingCart::where(['user_id' => Auth::user()->id])->get()->first();
+
+        $shoppingCartId = '';
+        if (!empty($cartInfo)) {
+            if (!empty($cartInfo['id'])) {
+                $shoppingCartId = $cartInfo['id'];
+            } else {
+                $shoppingCartId = '';
+            }
+        }
+
+        $used_address = Address::where('user_id', Auth::user()->id)->get();
+        $countries = Country::all()->toArray();
+
+        $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
+
+        $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
+
+        $appointmentsList = [];
+        if (!empty($personAppointments)) {
+            $appointmentsList = $personAppointments;
+        }
+
+        return view('frontend.company_form.appointments_OtherLegalEntity', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
+    }
+
     public function person_appointment_edit(Request $request)
     {
         $appointment_id = $request->query('id');
@@ -689,6 +728,11 @@ class CompanyFormController extends Controller
         if($appointment_details['appointment_type']=='corporate')
         {
             return view('frontend.company_form.edit_appointments_corporate', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
+        }
+        if($appointment_details['appointment_type']=='other_legal_entity')
+        {
+        return view('frontend.company_form.edit_appointments_otherLegalEntity', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
+
         }
 
         return view('frontend.company_form.edit_appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
