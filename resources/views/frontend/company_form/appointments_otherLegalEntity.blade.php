@@ -263,20 +263,16 @@
                                                     alt=""> Person</button>
                                                 @php
                                                 $corporate_section_redirect_link = route('appointments_corporate').'?order='.$_GET['order'].'&section=Company_formaction&step=appointments';
-                                                $other_legal_entity_redirect_link = route('appointments_otherLegalEntity').'?order='.$_GET['order'].'&section=Company_formaction&step=appointments';
                                                 @endphp
                                             <a href="{{$corporate_section_redirect_link}}" type="button" class="btn"><img
                                                 src="{{ asset('frontend/assets/images/corporate-icon.svg') }}"
-                                                alt=""> Corporate</a>
+                                                alt="">Corporate</a>
                                             {{-- <button type="button" class="btn" onclick><img
                                                     src="{{ asset('frontend/assets/images/corporate-icon.svg') }}"
                                                     alt="">Corporate</button> --}}
-                                            <a href="{{$other_legal_entity_redirect_link}}" type="button" class="btn other-legal-btn"><img
-                                                src="{{ asset('frontend/assets/images/other-legal-entity-icon.svg') }}"
-                                                alt=""> Other Legal Entity</a>
-                                            {{-- <button type="submit" class="btn other-legal-btn"><img
+                                            <button type="submit" class="btn other-legal-btn"><img
                                                     src="{{ asset('frontend/assets/images/other-legal-entity-icon.svg') }}"
-                                                    alt=""> Other Legal Entity</button> --}}
+                                                    alt=""> Other Legal Entity</button>
                                         </div>
                                     </div>
                                 </div>
@@ -308,11 +304,7 @@
                                                             <td>@php
                                                                 $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
                                                                 $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
-                                                                if ($officerDetails['first_name']!='' && $officerDetails['last_name']!='') {
-                                                                    echo $fullName;
-                                                                }else{
-                                                                    echo $officerDetails['legal_name'];
-                                                                }
+                                                                echo $fullName;
                                                             @endphp</td>
                                                             @php
                                                                 $positionString = $val['position'];
@@ -443,7 +435,7 @@
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="">Price</label>
-                                                                    <input readonly type="text" oninput='number_field(this)'
+                                                                    <input type="text" oninput='number_field(this)'
                                                                         onblur='conertToDecimal($(this))'
                                                                         value="{{ isset($val['sh_pps']) ? $val['sh_pps'] : '' }}"
                                                                         class="form-control shareHolderValidation edit_share_price_{{ $val['id'] }}">
@@ -454,7 +446,7 @@
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="">Currency</label>
-                                                                    <select disabled readonly
+                                                                    <select
                                                                         class="form-control edit_share_currency_{{ $val['id'] }}">
                                                                         <option value="AED"
                                                                             {{ isset($val['sh_currency']) && $val['sh_currency'] === 'AED' ? 'selected' : '' }}>
@@ -982,7 +974,7 @@
                                                     <div class="desc">
                                                         <h3>Particulars</h3>
                                                         {{-- <div class="box"> --}}
-                                                            <textarea readonly class="form-control shareHolderValidation edit_share_particulars_{{ $val['id'] }}" id=""
+                                                            <textarea class="form-control shareHolderValidation edit_share_particulars_{{ $val['id'] }}" id=""
                                                                 rows="2">{{ isset($val['perticularsTextArea']) ? $val['perticularsTextArea'] : '' }}</textarea>
                                                             <div class="error d-none" style="color:red;">Particulars Can
                                                                 not be empty.</div>
@@ -999,7 +991,7 @@
                                         value="{{ $idStrng }}" readonly>
                                 @endif
 
-                                <div class="step-btn-wrap mt-4" style="justify-content: space-between">
+                                <div class="step-btn-wrap mt-4">
                                     <input type="hidden" id="listed_id"
                                         value="{{ isset($listed_idStrng) ? $listed_idStrng : '' }}" readonly>
                                     <input type="hidden" id="psc_check" value="{{ isset($pscCheck) ? $pscCheck : 0 }}"
@@ -1023,34 +1015,48 @@
                                 <div class="appointment-tab">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="position-tab" onclick="currentTab('position')"
+                                            {{-- <a class="nav-link active" id="position-tab" onclick="currentTab('position')"
                                                 data-toggle="tab" href="#position" role="tab"
+                                                aria-controls="position" aria-selected="true">Position</a> --}}
+
+                                                <a class="nav-link active" id="position-tab" role="tab"
                                                 aria-controls="position" aria-selected="true">Position</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="currentTab('officer')" id="officer-tab"
+                                            {{-- <a class="nav-link" onclick="currentTab('officer')" id="officer-tab"
                                                 data-toggle="tab" href="#officer" role="tab" aria-controls="officer"
+                                                aria-selected="false">Officer</a> --}}
+                                                <a class="nav-link"  id="officer-tab" role="tab" aria-controls="officer"
                                                 aria-selected="false">Officer</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="currentTab('details')" id="details-tab"
+                                            {{-- <a class="nav-link" onclick="currentTab('details')" id="details-tab"
                                                 data-toggle="tab" href="#details" role="tab" aria-controls="details"
-                                                aria-selected="false">Details</a>
+                                                aria-selected="false">Details</a> --}}
+                                                <a class="nav-link" id="details-tab"  role="tab" aria-controls="details"
+                                                aria-selected="false" >Details</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="currentTab('addressing')" id="addressing-tab"
+                                            {{-- <a class="nav-link" onclick="currentTab('addressing')" id="addressing-tab"
                                                 data-toggle="tab" href="#addressing" role="tab"
+                                                aria-controls="addressing" aria-selected="false">Addressing</a> --}}
+                                                <a class="nav-link"  id="addressing-tab" role="tab"
                                                 aria-controls="addressing" aria-selected="false">Addressing</a>
                                         </li>
                                         <li class="nav-item nocLinkCls d-none">
-                                            <a class="nav-link" onclick="currentTab('nature-control')"
+                                            {{-- <a class="nav-link" onclick="currentTab('nature-control')"
                                                 id="nature-control-tab" data-toggle="tab" href="#nature-control"
                                                 role="tab" aria-controls="nature-control"
+                                                aria-selected="false">Nature of Control</a> --}}
+                                                <a class="nav-link" id="nature-control-tab" role="tab" aria-controls="nature-control"
                                                 aria-selected="false">Nature of Control</a>
                                         </li>
                                         <li class="nav-item shareholderLinksCls d-none">
-                                            <a class="nav-link" onclick="currentTab('share-holder')"
+                                            {{-- <a class="nav-link" onclick="currentTab('share-holder')"
                                                 id="share-holder-tab" data-toggle="tab" href="#share-holder"
+                                                role="tab" aria-controls="share-holder" aria-selected="false">Share
+                                                Holder</a> --}}
+                                                <a class="nav-link" id="share-holder-tab"
                                                 role="tab" aria-controls="share-holder" aria-selected="false">Share
                                                 Holder</a>
                                         </li>
@@ -1134,7 +1140,7 @@
                                                         porta enim ut interdum.</p>
                                                     <div class="choose-possition-option">
                                                         <ul>
-                                                            <li>
+                                                            <li hidden>
                                                                 <input type="checkbox" class="checkBoxPos" id="director"
                                                                     value="Director" onclick="consentSection()"
                                                                     value="">
@@ -1146,7 +1152,7 @@
                                                                     aged 16 years or over. A director is responsible for the
                                                                     day-to-day management of the business.</span>
                                                             </li>
-                                                            <li>
+                                                            <li hidden>
                                                                 <input type="checkbox" class="checkBoxPos"
                                                                     value="Shareholder" id="shareholder"
                                                                     onclick="shareholderTab()">
@@ -1159,7 +1165,7 @@
                                                                     share of company profits. You must appoint at least one
                                                                     shareholder.</span>
                                                             </li>
-                                                            <li>
+                                                            <li hidden>
                                                                 <input type="checkbox" class="checkBoxPos" id="secretary"
                                                                     value="Secretary" onclick="consentSection()">
                                                                 <label for="secretary">Secretary <span><img
@@ -1283,34 +1289,35 @@
                                                                         class="offValIdauthenticate_three_ans_{{ $offVal['id'] }}"
                                                                         value="{{ $offVal['authenticate_three_ans'] }}"
                                                                         readonly>
-                                                                        <input type="hidden"
-                                                                        class="law_governed_{{ $offVal['id'] }}"
-                                                                        value="{{ $offVal['law_governed'] }}"
-                                                                        readonly>
-                                                                        <input type="hidden"
-                                                                        class="legal_form_{{ $offVal['id'] }}"
-                                                                        value="{{ $offVal['legal_form'] }}"
-                                                                        readonly>
-                                                                        <input type="hidden"
-                                                                        class="legal_name_{{ $offVal['id'] }}"
-                                                                        value="{{ $offVal['legal_name'] }}"
-                                                                        readonly>
-                                                                        <input type="hidden"
-                                                                        class="uk_registered_{{ $offVal['id'] }}"
-                                                                        value="{{ $offVal['uk_registered'] }}"
-                                                                        readonly>
-                                                                        <input type="hidden"
-                                                                        class="registration_number_{{ $offVal['id'] }}"
-                                                                        value="{{ $offVal['registration_number'] }}"
-                                                                        readonly>
-                                                                        <input type="hidden"
-                                                                        class="place_registered_{{ $offVal['id'] }}"
-                                                                        value="{{ $offVal['place_registered'] }}"
-                                                                        readonly>
-                                                                        <input type="hidden"
-                                                                        class="registry_held_{{ $offVal['id'] }}"
-                                                                        value="{{ $offVal['registry_held'] }}"
-                                                                        readonly>
+                                                                    <input type="hidden"
+                                                                    class="law_governed_{{ $offVal['id'] }}"
+                                                                    value="{{ $offVal['law_governed'] }}"
+                                                                    readonly>
+                                                                    <input type="hidden"
+                                                                    class="legal_form_{{ $offVal['id'] }}"
+                                                                    value="{{ $offVal['legal_form'] }}"
+                                                                    readonly>
+                                                                    <input type="hidden"
+                                                                    class="legal_name_{{ $offVal['id'] }}"
+                                                                    value="{{ $offVal['legal_name'] }}"
+                                                                    readonly>
+                                                                    <input type="hidden"
+                                                                    class="uk_registered_{{ $offVal['id'] }}"
+                                                                    value="{{ $offVal['uk_registered'] }}"
+                                                                    readonly>
+                                                                    <input type="hidden"
+                                                                    class="registration_number_{{ $offVal['id'] }}"
+                                                                    value="{{ $offVal['registration_number'] }}"
+                                                                    readonly>
+                                                                    <input type="hidden"
+                                                                    class="place_registered_{{ $offVal['id'] }}"
+                                                                    value="{{ $offVal['place_registered'] }}"
+                                                                    readonly>
+                                                                    <input type="hidden"
+                                                                    class="registry_held_{{ $offVal['id'] }}"
+                                                                    value="{{ $offVal['registry_held'] }}"
+                                                                    readonly>
+
                                                                     <a
                                                                         href="#
                                                                         ">
@@ -1403,38 +1410,51 @@
                                                     <div class="row">
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
-                                                                <label for="">Title *:</label>
-                                                                <input type="text" class="form-control blankCheck"
+                                                                {{-- <label for="">Title *:</label> --}}
+                                                                <input hidden type="text" class="form-control "
                                                                     id="person_tittle_id" name="person_tittle">
-                                                                <div class="error d-none" style="color:red;">You should
-                                                                    have a title!</div>
+                                                                {{-- <div class="error d-none" style="color:red;">You should
+                                                                    have a title!</div> --}}
+
+                                                                <label for="">Legal Name</label>
+                                                                <input type="text" class="form-control blankCheck"
+                                                                id="legal_name" name="legal_name">
+                                                            <div class="error d-none" style="color:red;">You should
+                                                                have a legal name!</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
-                                                                <label for="">Date of Birth *:</label>
+                                                                {{-- <label for="">Date of Birth *:</label> --}}
                                                                 <input type="date" onclick="dob_onclick(this)"
                                                                     class="form-control" name="person_bday"
-                                                                    id="person_bday_id">
-                                                                <div class="error d-none" style="color:red;">Age should be
-                                                                    16 or above!</div>
+                                                                    id="person_bday_id" hidden>
+                                                                {{-- <div class="error d-none" style="color:red;" >Age should be
+                                                                    16 or above!</div> --}}
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
-                                                                <label for="">First Name(s) *:</label>
+                                                                {{-- <label for="">First Name(s) *:</label> --}}
                                                                 <input type="text" name="person_fname"
-                                                                    id="person_fname_id" class="form-control blankCheck">
-                                                                <div class="error d-none" style="color:red;">Please enter
-                                                                    your First Name!</div>
+                                                                    id="person_fname_id" class="form-control " hidden>
+                                                                {{-- <div class="error d-none" style="color:red;">Please enter
+                                                                    your First Name!</div> --}}
+
+                                                                    <label for="">Law Governed</label>
+                                                                    <input type="text" class="form-control blankCheck"
+                                                                        id="law_governed" name="law_governed">
+                                                                    <div class="error d-none" style="color:red;">Please fill
+                                                                            the law governed field!</div>
+
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
-                                                                <label for="">Nationality - <small>of accepted
-                                                                        nationalities *: </small></label>
+                                                                {{-- <label for="">Nationality - <small>of accepted
+                                                                        nationalities *: </small></label> --}}
                                                                 <select name="person_national" class="form-control"
-                                                                    id="person_national_id">
+                                                                    id="person_national_id" hidden>
                                                                     @if (!empty($countries))
                                                                         @foreach ($countries as $country)
                                                                             <option value="{{ $country['id'] }}"
@@ -1448,20 +1468,26 @@
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
-                                                                <label for="">Last Name *:</label>
-                                                                <input type="text" class="form-control blankCheck"
-                                                                    id="person_lname_id" name="person_lname">
-                                                                <div class="error d-none" style="color:red;">Please enter
-                                                                    your Last Name!</div>
+                                                                {{-- <label for="">Last Name *:</label> --}}
+                                                                <input type="text" class="form-control "
+                                                                    id="person_lname_id" name="person_lname" hidden>
+                                                                {{-- <div class="error d-none" style="color:red;">Please enter
+                                                                    your Last Name!</div> --}}
+                                                                    <label for="">Legal Form:</label>
+                                                                    <input type="text" class="form-control blankCheck"
+                                                                        id="legal_form" name="legal_form">
+                                                                    <div class="error d-none" style="color:red;">Please enter
+                                                                        the legal form!</div>
+
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 col-sm-12">
                                                             <div class="form-group">
-                                                                <label for="">Occupation *:</label>
-                                                                <input type="text" class="form-control blankCheck"
-                                                                    id="person_occupation_id" name="person_occupation">
-                                                                <div class="error d-none" style="color:red;">Please enter
-                                                                    your Occupation!</div>
+                                                                {{-- <label for="">Occupation *:</label> --}}
+                                                                <input type="text" class="form-control "
+                                                                    id="person_occupation_id" name="person_occupation" hidden>
+                                                                {{-- <div class="error d-none" style="color:red;">Please enter
+                                                                    your Occupation!</div> --}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2605,9 +2631,14 @@
                                     </div>
 
                                 </div>
+                                    @php
+                                    $cancel_and_success_route = route('appointments').'?order='.$_GET['order'].'&section=Company_formaction&step=appointments';
+                                    @endphp
                                 <div class="step-btn-wrap mt-4">
-                                    <button class="btn prev-btn" id="cancelBtn"
-                                        onclick="location.reload()">Cancel</button>
+                                    {{-- <button class="btn prev-btn" id="cancelBtn"
+                                        onclick="location.reload()">Cancel</button> --}}
+                                    <a href="{{ $cancel_and_success_route }}" class="btn prev-btn" id="cancelBtn">Cancel</a>
+
                                     <button class="btn prev-btn d-none" id="bckButton"
                                         onclick="theCancelButtonFunction()">Back</button>
                                     <button class="btn" id="theNextBtn" onclick="checkConsentOrNot()">Next <img
@@ -2636,17 +2667,12 @@
         {{-- Nature of Control radio btn val --}}
         <input type="hidden" id="f_radio_check_id" value="" readonly>
         <input type="hidden" id="s_radio_check_id" value="" readonly>
-        <input type="hidden" id="appointment_type" value="person" hidden readonly>
+        <input type="hidden" id="appointment_type" value="other_legal_entity" hidden readonly>
 
-
-        <input type="hidden" id="legal_name" value="" readonly>
         <input type="hidden" id="uk_registered" value="" readonly>
         <input type="hidden" id="registry_held" value="" readonly>
         <input type="hidden" id="place_registered" value="" readonly>
         <input type="hidden" id="registration_number" value="" readonly>
-        <input type="hidden" id="law_governed" value="" readonly>
-        <input type="hidden" id="legal_form" value="" readonly>
-
     </section>
     <!-- ================ end: Particulars sec ================ -->
 @endsection
@@ -2692,7 +2718,6 @@
             if ($("#listed_shareHolderContaining_ids").val() !== '' && $("#psc_check").val() !== 0 && $("#director_check").val() !== 0) {
                 // Shareholder edit section starts
                 const listed_shareHolderContaining_ids = $("#listed_shareHolderContaining_ids").val();
-                const order_id = {{$_GET['order']}};
 
                 let idVal = null;
                 if (listed_shareHolderContaining_ids.includes(',')) {
@@ -2734,12 +2759,9 @@
                             idVal,
                             edit_share_price,
                             edit_share_currency,
-                            edit_share_particulars,
-                            order_id,
+                            edit_share_particulars
                         },
                         success: function(response) {
-
-                            // console.log(response);
                             $order_id = {{$_GET['order']}};
 
                             console.log('Under Save Success',$order_id);
@@ -2909,8 +2931,13 @@
                     },
                     success: function(result) {
                         if (result) {
-                            location.reload()
+
+                            window.location.href ="{{$cancel_and_success_route}}"
                         }
+                    },
+                    error:function(result){
+                        console.log(result);
+                        alert("Some error occured. Please try again later.");
                     }
                 });
             }
@@ -3563,21 +3590,6 @@
             const place_registered = $(`.place_registered_${id}`).val();
             const registry_held = $(`.registry_held_${id}`).val();
 
-
-            if(legal_name=='')
-            {
-                // $("#legal_name").val(offVallast_name+' '+offValfirst_name);
-                $("#legal_name").val(offValfirst_name+' '+offVallast_name);
-            }else{
-                $('#legal_name').val(legal_name);
-            }
-            $("#law_governed").val(law_governed);
-            $("#legal_form").val(legal_form);
-            $("#uk_registered").val(uk_registered);
-            $("#registration_number").val(registration_number);
-            $("#place_registered").val(place_registered);
-            $("#registry_held").val(registry_held);
-
             $('#personOfficerEditId').val(offValId);
             $('#choosedPersonOfficerId').val(offValId);
             $('#person_tittle_id').val(offValtitle);
@@ -3599,6 +3611,19 @@
 
             $('#choosedPersonOfficerId').val(offValId)
             $('#currentTab').val('details')
+
+            if(legal_name=='')
+            {
+                $("#legal_name").val(offValfirst_name+' '+offVallast_name);
+            }else{
+                $('#legal_name').val(legal_name);
+            }
+            $("#law_governed").val(law_governed);
+            $("#legal_form").val(legal_form);
+            $("#uk_registered").val(uk_registered);
+            $("#registration_number").val(registration_number);
+            $("#place_registered").val(place_registered);
+            $("#registry_held").val(registry_held);
 
             const requiredFields = document.querySelectorAll('.blankCheck');
             const requiredFieldsArr = [...requiredFields];
@@ -3644,6 +3669,7 @@
 
             const addVals = document.querySelectorAll('.officerSelect')
             const addValsArr = [...addVals];
+
             addValsArr.forEach(el => {
                 addData = el.dataset.search;
 
@@ -3710,13 +3736,6 @@
             $('#person_national_id').val('72');
             $('#person_occupation_id').val('');
 
-            $("#legal_name").val('')
-            $("#law_governed").val('');
-            $("#legal_form").val('');
-            $("#registration_number").val('');
-            $("#place_registered").val('');
-            $("#registry_held").val('');
-
             $('#ChossenResAdd_id').val('');
             $('#person_aqone_id').val("Mother’s Maiden Name");
             $('#person_aqone_ans_id').val('');
@@ -3724,6 +3743,13 @@
             $('#person_aqtwo_ans_id').val('');
             $('#person_aqthree_id').val('Town Of Birth');
             $('#person_aqthree_ans_id').val('');
+
+            $("#legal_name").val('')
+            $("#law_governed").val('');
+            $("#legal_form").val('');
+            $("#registration_number").val('');
+            $("#place_registered").val('');
+            $("#registry_held").val('');
 
             $('#choosedPersonOfficerId').val('')
             $('#ChossenResAdd').html('')
@@ -3824,7 +3850,7 @@
                 const person_aqthree_ans = $('#person_aqthree_ans_id').val();
 
                 const legal_name = $('#legal_name').val();
-                const uk_registered = $('#uk_registered').val();
+                const uk_registered = $('input[name="uk_registered"]:checked').val();
                 console.log(uk_registered)
                 const registration_number = $('#registration_number').val();
                 const place_registered = $('#place_registered').val();
@@ -3839,43 +3865,35 @@
 
                 // Date validation section starts--------------------------------->
                 // Get the selected date from the input field
-                var selectedDate = new Date(person_bday);
+                // var selectedDate = new Date(person_bday);
+                // console.log(selectedDate)
+                // // Get the current date
+                // var currentDate = new Date();
+                // var timeDifference = currentDate - selectedDate;
+                // var yearsDifference = timeDifference / (1000 * 60 * 60 * 24 * 365.25);
 
-                console.log(selectedDate)
-                // Get the current date
-                var currentDate = new Date();
+                // if (selectedDate == 'Invalid Date' || yearsDifference < 16) {
+                //     $('#person_bday_id').addClass('validation')
+                //     $('#person_bday_id').next('div').removeClass('d-none');
 
-                // Calculate the difference in milliseconds
-                var timeDifference = currentDate - selectedDate;
+                //     validation++;
+                // } else {
 
-                // Convert milliseconds to days
-                // var daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+                //     $('#person_bday_id').removeClass('validation')
+                //     $('#person_bday_id').next('div').addClass('d-none');
+                // }
+                // // Date validation section ends-------------------------
 
-                // Convert milliseconds to Years
-                var yearsDifference = timeDifference / (1000 * 60 * 60 * 24 * 365.25);
-
-                if (selectedDate == 'Invalid Date' || yearsDifference < 16) {
-                    $('#person_bday_id').addClass('validation')
-                    $('#person_bday_id').next('div').removeClass('d-none');
-
-                    validation++;
-                } else {
-
-                    $('#person_bday_id').removeClass('validation')
-                    $('#person_bday_id').next('div').addClass('d-none');
-                }
-                // Date validation section ends-------------------------
-
-                // Authentication Section Validation starts------------------------>
-                if ($("#authenticationSection").hasClass('d-none') !== true) {
-                    if (person_aqone === person_aqtwo || person_aqtwo === person_aqthree || person_aqthree ===
-                        person_aqone) {
-                        $('#AuthValidationError').removeClass('d-none')
-                        validation++;
-                    } else {
-                        $('#AuthValidationError').addClass('d-none')
-                    }
-                }
+                // // Authentication Section Validation starts------------------------>
+                // if ($("#authenticationSection").hasClass('d-none') !== true) {
+                //     if (person_aqone === person_aqtwo || person_aqtwo === person_aqthree || person_aqthree ===
+                //         person_aqone) {
+                //         $('#AuthValidationError').removeClass('d-none')
+                //         validation++;
+                //     } else {
+                //         $('#AuthValidationError').addClass('d-none')
+                //     }
+                // }
                 // Authentication Section Validation ends---------------------------
 
                 // Residential address section validation starts-------------------->
@@ -4166,7 +4184,7 @@
 
             $('#appointmentType').val('person');
         }
-
+        showPersonSection()
         function go_to_the_next_page() {
             const price = $('#business_office_price').val();
             const shoppingCartId_id = $('#shoppingCartId_id').val();

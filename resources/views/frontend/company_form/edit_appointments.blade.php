@@ -2301,7 +2301,7 @@
                                                                         <option value="">N/A</option>
                                                                         <option value="More than 25% but not more than 50%" {{strpos($appointment_details['tci_os'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not
                                                                             more than 50%</option>
-                                                                        <option value="More than 50% but less than 75%" {{strpos($appointment_details['tci_os'], '75% or more') !== false ? 'selected' : ''}} >More than 50% but less
+                                                                        <option value="More than 50% but less than 75%" {{strpos($appointment_details['tci_os'], 'More than 50%') !== false ? 'selected' : ''}} >More than 50% but less
                                                                             than 75%</option>
                                                                         <option value="75% or more" {{strpos($appointment_details['tci_os'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
                                                                     </select>
