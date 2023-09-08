@@ -14,6 +14,7 @@ use App\Models\PersonOfficer;
 use App\Models\orderTransaction;
 use App\Models\DeliveryPartnerDetail;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
+use Spatie\PdfToText\Pdf;
 
 
 /**
@@ -32,9 +33,69 @@ class GenerateXmlService
     ) { }
     public function index($id)
     {
-
+        ini_set('max_execution_time', 0);
         $review = $this->companyFormService->getCompanieName($id);
         // dd($review);
+        $ArticleDocument='';
+        $SensitiveDocument='';
+        $SamenameDocument='';
+        $sameName='false';
+        $NameAuthorisation='false';
+
+        //For Articles of Association
+        $document = $review->getMedia('documents')->sortByDesc('updated_at')->first();
+        if ($document) {
+            $documentName = $document->file_name;
+            $documentUrl = $document->getUrl();
+            $pdfContent = Pdf::getText($documentUrl);
+            dd($pdfContent);
+            $base64EncodedPDF = base64_encode($pdfContent);
+            $ArticleDocument = '<Document>
+                                <Data >'.$base64EncodedPDF.'</Data>
+                                <Date>'.date("Y-m-d").'</Date>
+                                <Filename>'.basename($documentName).'</Filename>
+                                <ContentType>application/pdf</ContentType>
+                                <Category>ARTS</Category>
+                                </Document>';
+
+        }
+        // For Same Name
+
+        $document_same_name = $review->getMedia('company-same-as-name-document')->sortByDesc('updated_at')->first();
+        if ($document_same_name) {
+            $sameName='true';
+            $documentName = $document->file_name;
+            $documentUrl = $document->getUrl();
+            $pdfContent = file_get_contents($documentUrl);
+            $base64EncodedPDF = base64_encode($pdfContent);
+            $SensitiveDocument = '<Document>
+                                <Data >'.$base64EncodedPDF.'</Data>
+                                <Date>'.date("Y-m-d").'</Date>
+                                <Filename>'.basename($documentName).'</Filename>
+                                <ContentType>application/pdf</ContentType>
+                                <Category>SUPPEXISTNAME</Category>
+                                </Document>';
+
+        }
+        // For Sensitive Name
+        $document_sensetive = $review->getMedia('company-sensetive-document')->sortByDesc('updated_at')->first();
+        if ($document_sensetive) {
+            $NameAuthorisation='true';
+            $documentName = $document->file_name;
+            $documentUrl = $document->getUrl();
+            $pdfContent = file_get_contents($documentUrl);
+            $base64EncodedPDF = base64_encode($pdfContent);
+            $SamenameDocument = '<Document>
+                                <Data >'.$base64EncodedPDF.'</Data>
+                                <Date>'.date("Y-m-d").'</Date>
+                                <Filename>'.basename($documentName).'</Filename>
+                                <ContentType>application/pdf</ContentType>
+                                <Category>SUPPNAMEAUTH</Category>
+                                </Document>';
+
+        }
+
+
 
         $transaction_id = random_int(100000, 999999);
         $six_digit_random_number = random_int(100000, 999999);
@@ -64,10 +125,12 @@ class GenerateXmlService
                                             <Postcode>HAQ OAE</Postcode>
                                         </RegisteredOfficeAddress>';
         }
-        if($review->legal_document){
+        if($review->legal_document=="byspoke_article"){
             $articles = 'BYSHRMODEL';
+            $dataMemodrandum = 'true';
         }else{
             $articles = 'BESPOKE';
+            $dataMemodrandum = 'false';
         }
 
         $person_officers = PersonOfficer::where('order_id', $id)->get()->toArray();
@@ -129,7 +192,75 @@ class GenerateXmlService
         $all_psc = '';
         foreach ($appointmentsList as $val){
             $positionArray = explode(', ', $val['position']);
-            if(in_array('Director', $positionArray)){
+            if(in_array('PSC', $positionArray)){
+                $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
+                // dd($officerDetails);
+                if($registered_office_address->id==$officerDetails['add_id']){
+                    $same_add = 'true';
+                }else{
+                    $same_add = 'false';
+                }
+                $nationality = $officerDetails['nationality'];
+                $nationality_name = Country::where('id',$nationality)->pluck('name')->first();
+                $address= Address::where('id',$officerDetails['add_id'])->first();
+                if($val['noc_os']!=''){
+
+                    $natureOfControl = $val['noc_os'];
+                }else if($val['noc_vr']!=''){
+                    $natureOfControl = $val['noc_vr'];
+
+                }else{
+                    $natureOfControl = $val['noc_appoint'];
+
+                }
+                // dd($address);
+                $all_psc.='<PSCs>
+                                <PSC>
+                                    <PSCNotification>
+                                        <Individual>
+                                            <Title>'.$officerDetails['title'].'</Title>
+                                            <Forename>'.$officerDetails['first_name'].'</Forename>
+                                            <Surname>'.$officerDetails['last_name'].'</Surname>
+                                            <ServiceAddress>
+                                                <SameAsRegisteredOffice>'.$same_add.'</SameAsRegisteredOffice>
+                                            </ServiceAddress>
+                                            <DOB>'.$officerDetails['dob_day'].'</DOB>
+                                            <Nationality>'.$nationality_name.'</Nationality>
+                                            <CountryOfResidence>United Kingdom</CountryOfResidence>
+                                            <ResidentialAddress>
+                                                <Address>
+                                                    <Premise>'.$address->house_number.'</Premise>
+                                                    <Street>'.$address->street.'</Street>
+                                                    <Thoroughfare>'.$address->locality.'</Thoroughfare>
+                                                    <PostTown>'.$address->town.'</PostTown>
+                                                    <Country>'.$address->county.'</Country>
+                                                    <Postcode>'.$address->post_code.'</Postcode>
+                                                </Address>
+                                            </ResidentialAddress>
+                                            <ConsentStatement>true</ConsentStatement>
+                                        </Individual>
+                                        <NatureOfControls>
+                                            <NatureOfControl>'.$natureOfControl.'</NatureOfControl>
+                                        </NatureOfControls>
+                                    </PSCNotification>
+                                </PSC>
+                            </PSCs>';
+            }
+        }
+
+        // For Subscriber
+        $total_share=null;
+        $total_share_price=null;
+        $total_share_currency='';
+
+        $subscriber = '';
+        foreach ($appointmentsList as $val){
+            $positionArray = explode(', ', $val['position']);
+            if(in_array('Shareholder', $positionArray)){
+                $total_share+= $val['sh_quantity'];
+                $total_share_price=$val['sh_pps'];
+                $total_share_currency=$val['sh_currency'];
+
                 $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
                 // dd($officerDetails);
                 if($registered_office_address->id==$officerDetails['add_id']){
@@ -141,182 +272,142 @@ class GenerateXmlService
                 $nationality_name = Country::where('id',$nationality)->pluck('name')->first();
                 $address= Address::where('id',$officerDetails['add_id'])->first();
                 // dd($address);
-                $all_psc.='<PSCs>
-                <PSC>
-                    <PSCNotification>
-                        <Individual>
-                            <Title></Title>
-                            <Forename>Divyaba</Forename>
-                            <Surname>Harishchandrasinh</Surname>
-                            <ServiceAddress>
-                                <SameAsRegisteredOffice>true</SameAsRegisteredOffice>
-                            </ServiceAddress>
-                            <DOB>1970-05-23</DOB>
-                            <Nationality>British</Nationality>
-                            <CountryOfResidence>United Kingdom</CountryOfResidence>
-                            <ResidentialAddress>
+                $subscriber.='<Subscribers>
+                                <Person>
+                                    <Forename>'.$officerDetails['first_name'].'</Forename>
+                                    <Surname>'.$officerDetails['last_name'].'</Surname>
+                                </Person>
                                 <Address>
-                                    <Premise>112</Premise>
-                                    <Street>Watford Road</Street>
-                                    <Thoroughfare>Wembley</Thoroughfare>
-                                    <PostTown>Greater London</PostTown>
-                                    <Country>GBR</Country>
-                                    <Postcode>HA0 3HF</Postcode>
+                                    <Premise>'.$address->house_number.'</Premise>
+                                    <Street>'.$address->street.'</Street>
+                                    <Thoroughfare>'.$address->locality.'</Thoroughfare>
+                                    <PostTown>'.$address->town.'</PostTown>
+                                    <Country>'.$address->county.'</Country>
+                                    <OtherForeignCountry />
+                                    <Postcode>'.$address->post_code.'</Postcode>
                                 </Address>
-                            </ResidentialAddress>
-                            <ConsentStatement>true</ConsentStatement>
-                        </Individual>
-                        <NatureOfControls>
-                            <NatureOfControl>SIGINFLUENCECONTROL</NatureOfControl>
-                        </NatureOfControls>
-                    </PSCNotification>
-                </PSC>
-            </PSCs>';
-            }
-        }
-
-        dd($all_psc);
-
-
-
-        
-        $xml = '<GovTalkMessage xsi:schemaLocation="http://www.govtalk.gov.uk/CM/envelope http://xmlbeta.companieshouse.gov.uk:80/v1-0/schema/Egov_ch-v2-0.xsd" xmlns ="http://www.govtalk.gov.uk/CM/envelope"
-        xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
-        xmlns:gt="http://www.govtalk.gov.uk/schemas/govtalk/core"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <EnvelopeVersion />
-        <Header>
-            <MessageDetails>
-                <Class>CompanyIncorporation</Class>
-                <Qualifier>request</Qualifier>
-                <TransactionID>'.$transaction_id.'</TransactionID>
-                <GatewayTest>0</GatewayTest>
-            </MessageDetails>
-            <SenderDetails>
-                <IDAuthentication>
-                    <SenderID>7db721e60d22d2b868d5c975cb19a74b</SenderID>
-                    <Authentication>
-                        <Method>clear</Method>
-                        <Value>658fd00434fdfb12569537cbc7205b4f</Value>
-                    </Authentication>
-                </IDAuthentication>
-                <!-- <EmailAddress>contact@formationshunt.co.uk</EmailAddress> -->
-            </SenderDetails>
-        </Header>
-        <GovTalkDetails>
-            <Keys />
-        </GovTalkDetails>
-        <Body>
-            <FormSubmission
-                xmlns="http://xmlgw.companieshouse.gov.uk/Header"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlgw.companieshouse.gov.uk/Header http://xmlgw.companieshouse.gov.uk/v2-1/schema/forms/FormSubmission-v2-11.xsd">
-                <FormHeader>
-                    <CompanyName>'.$review->companie_name.'</CompanyName>
-                    <PackageReference>4076</PackageReference>
-                    <FormIdentifier>CompanyIncorporation</FormIdentifier>
-                    <SubmissionNumber>'.$six_digit_random_number.'</SubmissionNumber>
-                    <ContactName>'.$delivery_partner_details->recipient_name.'</ContactName>
-                    <ContactNumber>'.$delivery_partner_details->recipient_email.'</ContactNumber>
-                </FormHeader>
-                <DateSigned>'.date('Y-m-d').'</DateSigned>
-                <Form>
-                    <CompanyIncorporation
-                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://xmlgw.companieshouse.gov.uk http://xmlgw.companieshouse.gov.uk/v2-1/schema/forms/CompanyIncorporation-v3-6.xsd"
-                        xmlns="http://xmlgw.companieshouse.gov.uk">
-                        <CompanyType>BYSHR</CompanyType>
-                        <CountryOfIncorporation>'.$review->jurisdiction->value.'</CountryOfIncorporation>
-                        '.$office_register_address.'
-                        <DataMemorandum>true</DataMemorandum>
-                        <Articles>'.$articles.'</Articles>
-                        <RestrictedArticles>false</RestrictedArticles>
-                        '.$all_director.'
-                        '.$all_psc.'
-                        <StatementOfCapital>
-                            <Capital>
-                                <TotalAmountUnpaid>0</TotalAmountUnpaid>
-                                <TotalNumberOfIssuedShares>1</TotalNumberOfIssuedShares>
-                                <ShareCurrency>GBP</ShareCurrency>
-                                <TotalAggregateNominalValue>1.00</TotalAggregateNominalValue>
+                                <Authentication>
+                                    <PersonalAttribute>'.$officerDetails['authenticate_three'].'</PersonalAttribute>
+                                    <PersonalData>'.$officerDetails['authenticate_three_ans'].'</PersonalData>
+                                </Authentication>
+                                <Authentication>
+                                    <PersonalAttribute>'.$officerDetails['authenticate_two'].'</PersonalAttribute>
+                                    <PersonalData>'.$officerDetails['authenticate_two_ans'].'</PersonalData>
+                                </Authentication>
+                                <Authentication>
+                                    <PersonalAttribute>'.$officerDetails['authenticate_one'].'</PersonalAttribute>
+                                    <PersonalData>'.$officerDetails['authenticate_one_ans'].'</PersonalData>
+                                </Authentication>
                                 <Shares>
                                     <ShareClass>Ordinary</ShareClass>
-                                    <PrescribedParticulars>Each share is entitled to one vote in any circumstances. Each share has equal rights to dividends. Each share is entitled to participate in a distribution arising from a winding up of the company</PrescribedParticulars>
-                                    <NumShares>1</NumShares>
-                                    <AggregateNominalValue>1.00</AggregateNominalValue>
+                                    <NumShares>'.$val['sh_quantity'].'</NumShares>
+                                    <AmountPaidDuePerShare>1</AmountPaidDuePerShare>
+                                    <AmountUnpaidPerShare>0</AmountUnpaidPerShare>
+                                    <ShareCurrency>'.$val['sh_currency'].'</ShareCurrency>
+                                    <ShareValue>'.$val['sh_pps'].'</ShareValue>
                                 </Shares>
-                            </Capital>
-                        </StatementOfCapital>
-                        <Subscribers>
-                            <Person>
-                                <Forename>Divyaba</Forename>
-                                <Surname>Harishchandrasinh</Surname>
-                            </Person>
-                            <Address>
-                                <Premise>112</Premise>
-                                <Street>Watford Road</Street>
-                                <Thoroughfare>Wembley</Thoroughfare>
-                                <PostTown>Greater London</PostTown>
-                                <Country>GBR</Country>
-                                <Postcode>HA0 3HF</Postcode>
-                            </Address>
-                            <Authentication>
-                                <PersonalAttribute>BIRTOWN</PersonalAttribute>
-                                <PersonalData>BUR</PersonalData>
-                            </Authentication>
-                            <Authentication>
-                                <PersonalAttribute>TEL</PersonalAttribute>
-                                <PersonalData>111</PersonalData>
-                            </Authentication>
-                            <Authentication>
-                                <PersonalAttribute>MUM</PersonalAttribute>
-                                <PersonalData>SUH</PersonalData>
-                            </Authentication>
-                            <Shares>
-                                <ShareClass>Ordinary</ShareClass>
-                                <NumShares>1</NumShares>
-                                <AmountPaidDuePerShare>1</AmountPaidDuePerShare>
-                                <AmountUnpaidPerShare>0</AmountUnpaidPerShare>
-                                <ShareCurrency>GBP</ShareCurrency>
-                                <ShareValue>1</ShareValue>
-                            </Shares>
-                            <MemorandumStatement>Each subscriber to this memorandum of association wishes to form a company under the Companies Act 2006 and agrees to become a member of the company and to take at least one share.</MemorandumStatement>
-                        </Subscribers>
-                        <Authoriser>
-                            <Subscribers>
-                                <Subscriber>
-                                    <Person>
-                                        <Forename>Divyaba</Forename>
-                                        <Surname>Harishchandrasinh</Surname>
-                                    </Person>
-                                    <Authentication>
-                                        <PersonalAttribute>BIRTOWN</PersonalAttribute>
-                                        <PersonalData>BUR</PersonalData>
-                                    </Authentication>
-                                    <Authentication>
-                                        <PersonalAttribute>TEL</PersonalAttribute>
-                                        <PersonalData>111</PersonalData>
-                                    </Authentication>
-                                    <Authentication>
-                                        <PersonalAttribute>MUM</PersonalAttribute>
-                                        <PersonalData>SUH</PersonalData>
-                                    </Authentication>
-                                </Subscriber>
-                            </Subscribers>
-                        </Authoriser>
-                        <SameDay>false</SameDay>
-                        <SameName>false</SameName>
-                        <NameAuthorisation>false</NameAuthorisation>
-                        <SICCodes>
-                            <SICCode>96090</SICCode>
-                        </SICCodes>
-                    </CompanyIncorporation>
-                </Form>
-            </FormSubmission>
-        </Body>
-    </GovTalkMessage>';
+                                <MemorandumStatement>Each subscriber to this memorandum of association wishes to form a company under the Companies Act 2006 and agrees to become a member of the company and to take at least one share.</MemorandumStatement>
+                            </Subscribers>';
+            }
+        }
+        // dd($total_share);
+        // For Sic Codes
+        $SICCode= '';
+
+        foreach($review->sicCodes as  $index=>$SCode){
+
+            $SICCode .='<SICCode>'.$SCode->code.'</SICCode>';
+
+        }
+
+
+
+
+        $xml = '<GovTalkMessage xsi:schemaLocation="http://www.govtalk.gov.uk/CM/envelope http://xmlbeta.companieshouse.gov.uk:80/v1-0/schema/Egov_ch-v2-0.xsd" xmlns ="http://www.govtalk.gov.uk/CM/envelope"
+                    xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
+                    xmlns:gt="http://www.govtalk.gov.uk/schemas/govtalk/core"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <EnvelopeVersion />
+                    <Header>
+                        <MessageDetails>
+                            <Class>CompanyIncorporation</Class>
+                            <Qualifier>request</Qualifier>
+                            <TransactionID>'.$transaction_id.'</TransactionID>
+                            <GatewayTest>1</GatewayTest>
+                        </MessageDetails>
+                        <SenderDetails>
+                            <IDAuthentication>
+                                <SenderID>bf95afdc61d6291b3a8a18b2009c2623</SenderID>
+                                <Authentication>
+                                    <Method>clear</Method>
+                                    <Value>207227c10fa5d8e737f4ff5b2201d4be</Value>
+                                </Authentication>
+                            </IDAuthentication>
+                            <!-- <EmailAddress>contact@formationshunt.co.uk</EmailAddress> -->
+                        </SenderDetails>
+                    </Header>
+                    <GovTalkDetails>
+                        <Keys />
+                    </GovTalkDetails>
+                    <Body>
+                        <FormSubmission
+                            xmlns="http://xmlgw.companieshouse.gov.uk/Header"
+                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlgw.companieshouse.gov.uk/Header http://xmlgw.companieshouse.gov.uk/v2-1/schema/forms/FormSubmission-v2-11.xsd">
+                            <FormHeader>
+                                <CompanyName>'.$review->companie_name.'</CompanyName>
+                                <PackageReference>4076</PackageReference>
+                                <FormIdentifier>CompanyIncorporation</FormIdentifier>
+                                <SubmissionNumber>'.$six_digit_random_number.'</SubmissionNumber>
+                                <ContactName>'.$delivery_partner_details->recipient_name.'</ContactName>
+                                <ContactNumber>'.$delivery_partner_details->recipient_email.'</ContactNumber>
+                            </FormHeader>
+                            <DateSigned>'.date('Y-m-d').'</DateSigned>
+                            <Form>
+                                <CompanyIncorporation
+                                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://xmlgw.companieshouse.gov.uk http://xmlgw.companieshouse.gov.uk/v2-1/schema/forms/CompanyIncorporation-v3-6.xsd"
+                                    xmlns="http://xmlgw.companieshouse.gov.uk">
+                                    <CompanyType>BYSHR</CompanyType>
+                                    <CountryOfIncorporation>'.$review->jurisdiction->value.'</CountryOfIncorporation>
+                                    '.$office_register_address.'
+                                    <DataMemorandum>'.$dataMemodrandum.'</DataMemorandum>
+                                    <Articles>'.$articles.'</Articles>
+                                    <RestrictedArticles>false</RestrictedArticles>
+                                    '.$all_director.'
+                                    '.$all_psc.'
+                                    <StatementOfCapital>
+                                        <Capital>
+                                            <TotalAmountUnpaid>0</TotalAmountUnpaid>
+                                            <TotalNumberOfIssuedShares>'.$total_share.'</TotalNumberOfIssuedShares>
+                                            <ShareCurrency>'.$total_share_currency.'</ShareCurrency>
+                                            <TotalAggregateNominalValue>'.$total_share_price.'</TotalAggregateNominalValue>
+                                            <Shares>
+                                                <ShareClass>Ordinary</ShareClass>
+                                                <PrescribedParticulars>Each share is entitled to one vote in any circumstances. Each share has equal rights to dividends. Each share is entitled to participate in a distribution arising from a winding up of the company</PrescribedParticulars>
+                                                <NumShares>'.$total_share.'</NumShares>
+                                                <AggregateNominalValue>'.$total_share_price.'</AggregateNominalValue>
+                                            </Shares>
+                                        </Capital>
+                                    </StatementOfCapital>
+                                    '.$subscriber.'
+                                    <SameDay>false</SameDay>
+                                    <SameName>'.$sameName.'</SameName>
+                                    <NameAuthorisation>'.$NameAuthorisation.'</NameAuthorisation>
+                                    <SICCodes>
+                                    '.$SICCode.'
+                                    </SICCodes>
+                                </CompanyIncorporation>
+                            </Form>
+                            '.$ArticleDocument.'
+                            '.$SensitiveDocument.'
+                            '.$SamenameDocument.'
+                        </FormSubmission>
+                    </Body>
+                </GovTalkMessage>';
 
 
         dd($xml);
+        dd('here');
     }
 
 
