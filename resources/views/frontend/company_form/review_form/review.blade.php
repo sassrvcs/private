@@ -277,11 +277,7 @@
                                     <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}"
                                         class="btn">Edit</a>
                                 </div>
-                                <h6>Merchant Account</h6>
-                                <div class="review-panel">
-                                    <p>No Merchant Account Selected</p>
-                                    <button class="btn">Edit</button>
-                                </div>
+
                                 <h6>Accounting Software</h6>
                                 <div class="review-panel">
                                     <p>{{ $review->businessBanking->accountingSoftware->accounting_software_name ?? 'No Accounting Software Product Selected' }}
@@ -289,16 +285,7 @@
                                     <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-services']) }}"
                                         class="btn">Edit</a>
                                 </div>
-                                <h6>Insurance</h6>
-                                <div class="review-panel">
-                                    <p>No Insurance Product Selected</p>
-                                    <button class="btn">Edit</button>
-                                </div>
-                                <h6>Memberships</h6>
-                                <div class="review-panel">
-                                    <p>No Membership Product Selected</p>
-                                    <button class="btn">Edit</button>
-                                </div>
+
                             </div>
                             <div class="step-btn-wrap mt-4" style="justify-content: space-between">
                                 <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'optional-extras']) }}"
