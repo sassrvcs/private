@@ -55,10 +55,13 @@
                                     <tr>
                                         <th>Order ID</th>
                                         <th>Incorporated</th>
-                                        <th>Name</th>
-                                        <th>Number</th>
+                                        <th>Title</th>
+                                        <th>Action</th>
+                                        <th>Action</th>
+                                        <th>Comp. No.</th>
                                         <th>Auth. Code</th>
-                                        <th>Status</th>
+                                        <th>Approval</th>
+                                        <th>Action</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -76,10 +79,41 @@
                                             <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td> 
                                             <td>
                                                 {{ strtoupper($order->company_name) ?? "-" }}
+                                            </td> 
+                                            <td>
+                                                <a class="btn btn_baseColor btn-sm mt-2" data-toggle="modal" data-target="#modalSubmitCompanyHouse" id="submitCompanyHouse" onClick="SubmitCompanyHouse('{{ $order->order_id }}')"> 
+                                                    Submit to companies house
+                                                </a>
+                                            </td> 
+                                            <td>
+                                                <a class="btn btn_baseColor btn-sm mt-2" data-toggle="modal" data-target="#modalCheckStatus" id="checkStatus" onClick="CheckStatus('{{ $order->order_id }}')"> 
+                                                    Check Status
+                                                </a>
+                                            </td>                                           
+                                            <td>
+                                                <input type="text" name="company_number_{{ $order->order_id }}" id="company_number_{{ $order->order_id }}" value="{{ $order->company_number ?? '' }}">
+                                                <span class="error" id="error_company_number_{{ $order->order_id }}"></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="auth_code_{{ $order->order_id }}" id="auth_code_{{ $order->order_id }}" value="{{ $order->auth_code ?? '' }}">
+                                                <span class="error" id="error_auth_code_{{ $order->order_id }}"></span>
                                             </td>                                            
-                                            <td>{{ $order->company_number ?? "-" }}</td>
-                                            <td>{{ $order->auth_code ?? "-" }}</td>                                            
-                                            <td><span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">{{ ($order->order_status == 'pending') ? 'INCOMPLETE' : 'ACCEPTED' }}</span></td>
+                                            <td>
+                                                {{--<span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">
+                                                    {{ ($order->order_status == 'pending') ? 'INCOMPLETE' : 'ACCEPTED' }}
+                                                </span>--}}                                                
+
+                                                <select class="select form-control @error('title') is-invalid @enderror" name="status_{{ $order->order_id }}" id="status_{{ $order->order_id }}">
+                                                    @foreach($statuses as $key => $value)
+                                                    <option value={{ $key }}>{{ $value }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn_baseColor btn-sm mt-2" data-toggle="modal" id="updateStatus" onClick="UpdateStatus('{{ $order->order_id }}')"> 
+                                                    Update
+                                                </a>
+                                            </td>  
                                             <td>
                                                 <a href="{{ route('admin.company.show', $order->order_id) }}" 
                                                     class="view-btn"><img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt="">
@@ -118,13 +152,141 @@
         <div class="toast" data-type="success" data-title=" Added Successfully "> {{ Session::get('success') }}</div>
     @endif
 </section>
+
+<!-- ====modal==== -->
+<div class="modal fade" id="modalSubmitCompanyHouse" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal Submit Company Form</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div>
+    </div>
+</div>
+
+<!-- ====modal==== -->
+<div class="modal fade" id="modalCheckStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal Check Status</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="{{ asset('frontend/assets/js/bootstrap.min.4.5.2.js')}}"></script>
 <script>
     {{-- $(document).ready(function(){
 
     }); --}}
+
+    function SubmitCompanyHouse(order_id) {       
+
+        $.ajax({
+            url: "{{ route('admin.submit_company_house') }}",
+            type: "post",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                order_id: order_id,
+            },
+            success: function(res) {
+                console.log(res);
+                if(res.status == 'success'){
+                    $("#modalSubmitCompanyHouse").show();  
+                }  
+            }
+        });
+    }  
+
+    function CheckStatus(order_id) {       
+
+        $.ajax({
+            url: "{{ route('admin.check_status') }}",
+            type: "post",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                order_id: order_id,
+            },
+            success: function(res) {
+                console.log(res);
+                if(res.status == 'success'){
+                    $("#modalCheckStatus").show();  
+                }  
+            }
+        });
+    }  
+
+    function UpdateStatus(order_id) {       
+
+        var company_number = $("#company_number_" + order_id).val();
+        var auth_code = $("#auth_code_" + order_id).val();
+        var status = $("#status_" + order_id).val();
+
+        // alert(auth_code);
+
+        if(status == 2){
+            if(company_number==""){            
+                $("#error_company_number_" + order_id).html("Company no. is required")
+                setTimeout(function(){            
+                }, 5000); 
+                return false
+            }
+
+            if(auth_code==""){            
+                $("#error_auth_code_" + order_id).html("Auth code. is required")
+                setTimeout(function(){            
+                }, 5000); 
+                return false
+            }
+        }
+        
+        $.ajax({
+            url: "{{ route('admin.update_status') }}",
+            type: "post",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                order_id: order_id,
+                company_number: company_number,
+                auth_code: auth_code,
+                status: status
+            },
+            success: function(res) {
+                console.log(res);
+                if(res.status == 'success'){
+                    location.reload();    
+                }  
+            }
+        });
+    }        
 </script>
+<style type="text/css">
+    .error{
+        color: red;
+    }
+</style>
 @include('admin.commonScript.script')
 @endsection
