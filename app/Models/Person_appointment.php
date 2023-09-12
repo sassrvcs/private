@@ -24,4 +24,7 @@ class Person_appointment extends Model
     function own_address(){
         return $this->belongsTo(Address::class,'own_address_id','id');
     }
+    function person_officers(){
+        return $this->belongsTo(PersonOfficer::class,'person_officer_id','id');
+    }
 }

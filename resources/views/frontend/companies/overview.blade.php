@@ -51,9 +51,9 @@
                                 <li class="nav-item">
                                   <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Company Services</a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" id="Shop-contact-tab" data-toggle="pill" href="#Shop-contact" role="tab" aria-controls="Shop-contact" aria-selected="false">Shop</a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a class="nav-link" id="getting-started-tab" data-toggle="pill" href="#getting-started" role="tab" aria-controls="getting-started" aria-selected="false">Getting Started</a>
                                 </li>
@@ -413,7 +413,9 @@
                                                 <tbody>
                                                     <tr>
                                                         <td><strong>Company Summary</strong></td>
-                                                        <td width="167"><button class="ch-ed-btn"><img src="assets/images/download-icon.svg" alt=""> Download</button></td>
+                                                        <td width="167">
+                                                            <button class="ch-ed-btn" onclick="window.location.href='/review/create?order={{$_GET['order']}}&section=Review&step=download'"><img src="assets/images/download-icon.svg" alt="">Download</button>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Memorandum & Articles (Full Document)</strong></td>
@@ -424,12 +426,19 @@
                                                         <td width="167"><button class="ch-ed-btn"><img src="assets/images/download-icon.svg" alt=""> Download</button></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><strong>Certificate of Incorporation</strong></td>
+                                                        <td><strong>Incorporation Certificate </strong></td>
                                                         <td width="167"><button class="ch-ed-btn"><img src="assets/images/download-icon.svg" alt=""> Download</button></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><strong>Share / Member Certificates</strong></td>
-                                                        <td width="167"><button class="ch-ed-btn"><img src="assets/images/download-icon.svg" alt=""> Download</button></td>
+                                                        <td><strong>Share Certificate</strong></td>
+                                                        <td width="167"><button onclick="window.location.href='{{route('generate_certificate',['order'=>$_GET['order'],'c_id'=>$_GET['c_id']])}}'" class="ch-ed-btn"><img src="assets/images/download-icon.svg" alt=""> Download</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>E-filing information</strong></td>
+                                                        <td width="167">
+                                                            <button class="ch-ed-btn" onclick="window.location.href='{{route('efilling_pdf').'?order='.$_GET['order']}}'"><img src="assets/images/download-icon.svg" alt="">Download</button>
+                                                            {{-- <a target="blank" href="{{route('efilling_pdf').'?order='.$_GET['order']}}" class="ch-ed-btn"><img src="assets/images/download-icon.svg" alt="">Download</a> --}}
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
