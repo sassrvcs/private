@@ -220,6 +220,9 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
         Route::resource('change-password', ChangePasswordController::class);
 
         Route::resource('company', CompanyController::class);
+        Route::any('/company/submit_company_house',[CompanyController::class,'submitCompanyHouse'])->name('submit_company_house');
+        Route::any('/company/check_status',[CompanyController::class,'checkStatus'])->name('check_status');
+        Route::any('/company/update_status',[CompanyController::class,'updateStatus'])->name('update_status');
     });
 });
 
