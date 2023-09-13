@@ -174,13 +174,15 @@
                         <div class="tab-pane fade show active" id="reistration" role="tabpanel" aria-labelledby="nav-home-tab">
                             @if (auth()->check())
                                 <form action="{{ route('checkout-final')}}" method="POST">
+
                             @else
                                 <form action="{{ route('save-register-form')}}" method="POST">
+                                    <input type="text" name="indx" id="indx" value="{{$indx}}">
                             @endif
                                 @csrf
                                 <div id="customer_details">
                                      <input type="text" name="order" value=" @if (auth()->check()){{$checkout->order_id}} @endif">
-                                     <input type="text" name="indx" id="indx" value="{{$indx}}">
+
                                     @guest
                                         <fieldset class="border p-3">
                                             <legend class="float-none w-auto p-2">Account Details</legend>
