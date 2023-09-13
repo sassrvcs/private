@@ -19,7 +19,7 @@ class MailTestController extends Controller
         $content = ['name'=>$name,'pdf'=>$filePath];
         try {
            $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new MailWithAttachmentTest ($content));
-           print_r($status);
+        //    print_r($status);
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -427,7 +427,8 @@
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Incorporation Certificate </strong></td>
-                                                        <td width="167"><button class="ch-ed-btn" onclick="window.location.href='{{route('incorporate_certificate',['order'=>$_GET['order'],'c_id'=>$_GET['c_id']])}}'" ><img src="assets/images/download-icon.svg" alt=""> Download</button></td>
+                                                        <td width="167"><button class="ch-ed-btn"  ><img src="assets/images/download-icon.svg" alt=""> Download</button></td>
+                                                        {{-- onclick="window.location.href='{{route('incorporate_certificate',['order'=>$_GET['order'],'c_id'=>$_GET['c_id']])}}'" --}}
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Share Certificate</strong></td>
