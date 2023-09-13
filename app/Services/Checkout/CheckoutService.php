@@ -29,7 +29,7 @@ class CheckoutService
         return DB::transaction(function () use ($request, $user, $sessionCart,$order) {
             $addonServices = [];
             $cart = $sessionCart[$request->indx];
-            
+
             $shoppingCart = ShoppingCart::create([
                 'user_id'    => $user->id,
                 'package_id' => $cart['package_id'] ?? '',
