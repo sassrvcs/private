@@ -53,10 +53,10 @@ class CartController extends Controller
         }
         // dd($data);
         if( isset($sessionCart) && count($sessionCart) >= 2){
-            return redirect(route('review-company-package'));    
+            return redirect(route('review-company-package'));
         }else{
-            return redirect(route('addon-services'));
-        } 
+            return redirect(route('addon-services',['indx'=>'0']));
+        }
     }
 
     /**

@@ -45,11 +45,13 @@ class GenerateXmlService
         //For Articles of Association
         $document = $review->getMedia('documents')->sortByDesc('updated_at')->first();
         if ($document) {
+
             $documentName = $document->file_name;
             $documentUrl = $document->getUrl();
-            $pdfContent = Pdf::getText($documentUrl);
-            dd($pdfContent);
-            $base64EncodedPDF = base64_encode($pdfContent);
+
+            // $pdfContent = Pdf::getText($documentUrl);
+            $base64EncodedPDF = chunk_split(base64_encode(file_get_contents($documentUrl)));
+
             $ArticleDocument = '<Document>
                                 <Data >'.$base64EncodedPDF.'</Data>
                                 <Date>'.date("Y-m-d").'</Date>
@@ -66,8 +68,8 @@ class GenerateXmlService
             $sameName='true';
             $documentName = $document->file_name;
             $documentUrl = $document->getUrl();
-            $pdfContent = file_get_contents($documentUrl);
-            $base64EncodedPDF = base64_encode($pdfContent);
+            $base64EncodedPDF = chunk_split(base64_encode(file_get_contents($documentUrl)));
+
             $SensitiveDocument = '<Document>
                                 <Data >'.$base64EncodedPDF.'</Data>
                                 <Date>'.date("Y-m-d").'</Date>
@@ -83,8 +85,7 @@ class GenerateXmlService
             $NameAuthorisation='true';
             $documentName = $document->file_name;
             $documentUrl = $document->getUrl();
-            $pdfContent = file_get_contents($documentUrl);
-            $base64EncodedPDF = base64_encode($pdfContent);
+            $base64EncodedPDF = chunk_split(base64_encode(file_get_contents($documentUrl)));
             $SamenameDocument = '<Document>
                                 <Data >'.$base64EncodedPDF.'</Data>
                                 <Date>'.date("Y-m-d").'</Date>
@@ -104,14 +105,26 @@ class GenerateXmlService
         $delivery_partner_details = DeliveryPartnerDetail::where('order_id',$id)->first();
         // dd($delivery_partner_details);
         if($review->office_address){
-
             $registered_office_address = Address::where('id',$review->office_address)->first();
+            if($registered_office_address->county=='England'){
+                $country = 'GB-ENG';
+            }else if($registered_office_address->county=='United Kingdom' || $registered_office_address->county=='Greater London'){
+                $country = 'GBR';
+            }else if($registered_office_address->county=='Scotland'){
+                $country = 'GB-SCT';
+            }else if($registered_office_address->county=='Northern Ireland'){
+                $country = 'GB-NIR';
+            }else if($registered_office_address->county=='Wales'){
+                $country = 'GB-WLS';
+            }else{
+                $country = 'UNDEF';
+            }
             $office_register_address = '<RegisteredOfficeAddress>
                                             <Premise>'.$registered_office_address->house_number.'</Premise>
                                             <Street>'.$registered_office_address->street.'</Street>
                                             <Thoroughfare>'.$registered_office_address->locality.'</Thoroughfare>
                                             <PostTown>'.$registered_office_address->town.'</PostTown>
-                                            <Country>'.$registered_office_address->county.'</Country>
+                                            <Country>'.$country.'</Country>
                                             <Postcode>'.$registered_office_address->post_code.'</Postcode>
                                         </RegisteredOfficeAddress>';
         }else{
@@ -126,11 +139,11 @@ class GenerateXmlService
                                         </RegisteredOfficeAddress>';
         }
         if($review->legal_document=="byspoke_article"){
-            $articles = 'BYSHRMODEL';
+            $articles = 'BESPOKE';
             $dataMemodrandum = 'true';
         }else{
-            $articles = 'BESPOKE';
-            $dataMemodrandum = 'false';
+            $articles = 'BYSHRMODEL';
+            $dataMemodrandum = 'true';
         }
 
         $person_officers = PersonOfficer::where('order_id', $id)->get()->toArray();
@@ -158,6 +171,19 @@ class GenerateXmlService
                 $nationality = $officerDetails['nationality'];
                 $nationality_name = Country::where('id',$nationality)->pluck('name')->first();
                 $address= Address::where('id',$officerDetails['add_id'])->first();
+                if($address->county=='England'){
+                    $country = 'GB-ENG';
+                }else if($address->county=='United Kingdom' || $registered_office_address->county=='Greater London'){
+                    $country = 'GBR';
+                }else if($address->county=='Scotland'){
+                    $country = 'GB-SCT';
+                }else if($address->county=='Northern Ireland'){
+                    $country = 'GB-NIR';
+                }else if($address->county=='Wales'){
+                    $country = 'GB-WLS';
+                }else{
+                    $country = 'UNDEF';
+                }
 
                 $all_director.='<Appointment>
                                     <ConsentToAct>true</ConsentToAct>
@@ -170,7 +196,7 @@ class GenerateXmlService
                                                 <SameAsRegisteredOffice>'.$same_add.'</SameAsRegisteredOffice>
                                             </ServiceAddress>
                                             <DOB>'.$officerDetails['dob_day'].'</DOB>
-                                            <Nationality>'.$nationality_name.'</Nationality>
+                                            <Nationality>BRITISH</Nationality>
                                             <Occupation>'.$officerDetails['occupation'].'</Occupation>
                                             <CountryOfResidence>United Kingdom</CountryOfResidence>
                                             <ResidentialAddress>
@@ -179,7 +205,7 @@ class GenerateXmlService
                                                     <Street>'.$address->street.'</Street>
                                                     <Thoroughfare>'.$address->locality.'</Thoroughfare>
                                                     <PostTown>'.$address->town.'</PostTown>
-                                                    <Country>'.$address->county.'</Country>
+                                                    <Country>'.$country.'</Country>
                                                     <Postcode>'.$address->post_code.'</Postcode>
                                                 </Address>
                                             </ResidentialAddress>
@@ -203,15 +229,89 @@ class GenerateXmlService
                 $nationality = $officerDetails['nationality'];
                 $nationality_name = Country::where('id',$nationality)->pluck('name')->first();
                 $address= Address::where('id',$officerDetails['add_id'])->first();
-                if($val['noc_os']!=''){
-
-                    $natureOfControl = $val['noc_os'];
-                }else if($val['noc_vr']!=''){
-                    $natureOfControl = $val['noc_vr'];
-
+                if($address->county=='England'){
+                    $country = 'GB-ENG';
+                }else if($address->county=='United Kingdom' || $registered_office_address->county=='Greater London'){
+                    $country = 'GBR';
+                }else if($address->county=='Scotland'){
+                    $country = 'GB-SCT';
+                }else if($address->county=='Northern Ireland'){
+                    $country = 'GB-NIR';
+                }else if($address->county=='Wales'){
+                    $country = 'GB-WLS';
                 }else{
-                    $natureOfControl = $val['noc_appoint'];
+                    $country = 'UNDEF';
+                }
+                $noc_value='';
+                if($val['noc_os']!=''){
+                    if($val['noc_os']=='More than 25% but not more than 50%'){
+                        $noc_value='OWNERSHIPOFSHARES_25TO50PERCENT';
+                    }else if($val['noc_os']=='More than 50% but less than 75%'){
+                        $noc_value='OWNERSHIPOFSHARES_50TO75PERCENT';
+                    }else{
+                        $noc_value='OWNERSHIPOFSHARES_75TO100PERCENT';
+                    }
+                }else if($val['noc_vr']!=''){
+                    if($val['noc_vr']=='More than 25% but not more than 50%'){
+                        $noc_value='VOTINGRIGHTS_25TO50PERCENT';
+                    }else if($val['noc_vr']=='More than 50% but less than 75%'){
+                        $noc_value='VOTINGRIGHTS_50TO75PERCENT';
+                    }else{
+                        $noc_value='VOTINGRIGHTS_75TO100PERCENT';
+                    }
 
+                }else if($val['noc_appoint']=='Yes'){
+                    $noc_value='RIGHTTOAPPOINTANDREMOVEDIRECTORS';
+
+                }
+                else if($val['fci']=='yes'){
+                    if($val['fci_os']!=''){
+                        if($val['fci_os']=='More than 25% but not more than 50%'){
+                            $noc_value='OWNERSHIPOFSHARES_25TO50PERCENT_AS_TRUST';
+                        }else if($val['fci_os']=='More than 50% but less than 75%'){
+                            $noc_value='OWNERSHIPOFSHARES_50TO75PERCENT_AS_TRUST';
+                        }else{
+                            $noc_value='OWNERSHIPOFSHARES_75TO100PERCENT_AS_TRUST';
+                        }
+                    }else if($val['fci_vr']!=''){
+                        if($val['fci_vr']=='More than 25% but not more than 50%'){
+                            $noc_value='VOTINGRIGHTS_25TO50PERCENT_AS_TRUST';
+                        }else if($val['fci_vr']=='More than 50% but less than 75%'){
+                            $noc_value='VOTINGRIGHTS_50TO75PERCENT_AS_TRUST';
+                        }else{
+                            $noc_value='VOTINGRIGHTS_75TO100PERCENT_AS_TRUST';
+                        }
+                    }else if($val['fci_appoint']=='Yes'){
+                        $noc_value='RIGHTTOAPPOINTANDREMOVEDIRECTORS_AS_TRUST';
+
+                    }else{
+                        $noc_value='SIGINFLUENCECONTROL_AS_TRUST';
+
+                    }
+                }else if($val['tci']=='yes'){
+                    if($val['tci_os']!=''){
+                        if($val['tci_os']=='More than 25% but not more than 50%'){
+                            $noc_value='OWNERSHIPOFSHARES_25TO50PERCENT_AS_FIRM';
+                        }else if($val['tci_os']=='More than 50% but less than 75%'){
+                            $noc_value='OWNERSHIPOFSHARES_50TO75PERCENT_AS_FIRM';
+                        }else{
+                            $noc_value='OWNERSHIPOFSHARES_75TO100PERCENT_AS_FIRM';
+                        }
+                    }else if($val['tci_vr']!=''){
+                        if($val['tci_vr']=='More than 25% but not more than 50%'){
+                            $noc_value='VOTINGRIGHTS_25TO50PERCENT_AS_FIRM';
+                        }else if($val['tci_vr']=='More than 50% but less than 75%'){
+                            $noc_value='VOTINGRIGHTS_50TO75PERCENT_AS_FIRM';
+                        }else{
+                            $noc_value='VOTINGRIGHTS_75TO100PERCENT_AS_FIRM';
+                        }
+                    }else if($val['tci_appoint']=='Yes'){
+                        $noc_value='RIGHTTOAPPOINTANDREMOVEDIRECTORS_AS_FIRM';
+
+                    }else{
+                        $noc_value='SIGINFLUENCECONTROL_AS_FIRM';
+
+                    }
                 }
                 // dd($address);
                 $all_psc.='<PSCs>
@@ -225,7 +325,7 @@ class GenerateXmlService
                                                 <SameAsRegisteredOffice>'.$same_add.'</SameAsRegisteredOffice>
                                             </ServiceAddress>
                                             <DOB>'.$officerDetails['dob_day'].'</DOB>
-                                            <Nationality>'.$nationality_name.'</Nationality>
+                                            <Nationality>BRITISH</Nationality>
                                             <CountryOfResidence>United Kingdom</CountryOfResidence>
                                             <ResidentialAddress>
                                                 <Address>
@@ -233,14 +333,14 @@ class GenerateXmlService
                                                     <Street>'.$address->street.'</Street>
                                                     <Thoroughfare>'.$address->locality.'</Thoroughfare>
                                                     <PostTown>'.$address->town.'</PostTown>
-                                                    <Country>'.$address->county.'</Country>
+                                                    <Country>'.$country.'</Country>
                                                     <Postcode>'.$address->post_code.'</Postcode>
                                                 </Address>
                                             </ResidentialAddress>
                                             <ConsentStatement>true</ConsentStatement>
                                         </Individual>
                                         <NatureOfControls>
-                                            <NatureOfControl>'.$natureOfControl.'</NatureOfControl>
+                                            <NatureOfControl>'.$noc_value.'</NatureOfControl>
                                         </NatureOfControls>
                                     </PSCNotification>
                                 </PSC>
@@ -254,6 +354,8 @@ class GenerateXmlService
         $total_share_currency='';
 
         $subscriber = '';
+        $authoriser = '';
+
         foreach ($appointmentsList as $val){
             $positionArray = explode(', ', $val['position']);
             if(in_array('Shareholder', $positionArray)){
@@ -271,6 +373,77 @@ class GenerateXmlService
                 $nationality = $officerDetails['nationality'];
                 $nationality_name = Country::where('id',$nationality)->pluck('name')->first();
                 $address= Address::where('id',$officerDetails['add_id'])->first();
+                if($address->county=='England'){
+                    $country = 'GB-ENG';
+                }else if($address->county=='United Kingdom' || $registered_office_address->county=='Greater London'){
+                    $country = 'GBR';
+                }else if($address->county=='Scotland'){
+                    $country = 'GB-SCT';
+                }else if($address->county=='Northern Ireland'){
+                    $country = 'GB-NIR';
+                }else if($address->county=='Wales'){
+                    $country = 'GB-WLS';
+                }else{
+                    $country = 'UNDEF';
+                }
+                // Question Three
+                $question_three='';
+                $question_two='';
+                $question_one='';
+
+                if($officerDetails['authenticate_three']=="Mother’s Maiden Name"){
+                    $question_three='MUM';
+
+                }else if($officerDetails['authenticate_three']=="Father's Forename"){
+                    $question_three='DAD';
+
+                }else if($officerDetails['authenticate_three']=='Town Of Birth'){
+                    $question_three='BIRTOWN';
+
+                }else if($officerDetails['authenticate_three']=='Telephone Number'){
+                    $question_three='TEL';
+
+                }else if($officerDetails['authenticate_three']=='National insurance'){
+                    $question_three='NATINS';
+
+                }else if($officerDetails['authenticate_three']=='Passport Number'){
+                    $question_three='PASSNO';
+                }
+                if($officerDetails['authenticate_two']=="Mother’s Maiden Name"){
+                    $question_two='MUM';
+                }else if($officerDetails['authenticate_two']=="Father's Forename"){
+                    $question_two='DAD';
+
+                }else if($officerDetails['authenticate_two']=='Town Of Birth'){
+                    $question_two='BIRTOWN';
+
+                }else if($officerDetails['authenticate_two']=='Telephone Number'){
+                    $question_two='TEL';
+
+                }else if($officerDetails['authenticate_two']=='National insurance'){
+                    $question_two='NATINS';
+
+                }else if($officerDetails['authenticate_two']=='Passport Number'){
+                    $question_two='PASSNO';
+                }
+                if($officerDetails['authenticate_one']=="Mother’s Maiden Name"){
+                    $question_one='MUM';
+                }else if($officerDetails['authenticate_one']=="Father's Forename"){
+                    $question_one='DAD';
+
+                }else if($officerDetails['authenticate_one']=='Town Of Birth'){
+                    $question_one='BIRTOWN';
+
+                }else if($officerDetails['authenticate_one']=='Telephone Number'){
+                    $question_one='TEL';
+
+                }else if($officerDetails['authenticate_one']=='National insurance'){
+                    $question_one='NATINS';
+
+                }else if($officerDetails['authenticate_one']=='Passport Number'){
+                    $question_one='PASSNO';
+                }
+
                 // dd($address);
                 $subscriber.='<Subscribers>
                                 <Person>
@@ -282,20 +455,19 @@ class GenerateXmlService
                                     <Street>'.$address->street.'</Street>
                                     <Thoroughfare>'.$address->locality.'</Thoroughfare>
                                     <PostTown>'.$address->town.'</PostTown>
-                                    <Country>'.$address->county.'</Country>
-                                    <OtherForeignCountry />
+                                    <Country>'.$country.'</Country>
                                     <Postcode>'.$address->post_code.'</Postcode>
                                 </Address>
                                 <Authentication>
-                                    <PersonalAttribute>'.$officerDetails['authenticate_three'].'</PersonalAttribute>
+                                    <PersonalAttribute>'.$question_three.'</PersonalAttribute>
                                     <PersonalData>'.$officerDetails['authenticate_three_ans'].'</PersonalData>
                                 </Authentication>
                                 <Authentication>
-                                    <PersonalAttribute>'.$officerDetails['authenticate_two'].'</PersonalAttribute>
+                                    <PersonalAttribute>'.$question_two.'</PersonalAttribute>
                                     <PersonalData>'.$officerDetails['authenticate_two_ans'].'</PersonalData>
                                 </Authentication>
                                 <Authentication>
-                                    <PersonalAttribute>'.$officerDetails['authenticate_one'].'</PersonalAttribute>
+                                    <PersonalAttribute>'.$question_one.'</PersonalAttribute>
                                     <PersonalData>'.$officerDetails['authenticate_one_ans'].'</PersonalData>
                                 </Authentication>
                                 <Shares>
@@ -308,6 +480,31 @@ class GenerateXmlService
                                 </Shares>
                                 <MemorandumStatement>Each subscriber to this memorandum of association wishes to form a company under the Companies Act 2006 and agrees to become a member of the company and to take at least one share.</MemorandumStatement>
                             </Subscribers>';
+
+                        $authoriser.='
+                                <Authoriser>
+                                    <Subscribers>
+                                        <Subscriber>
+                                                <Person>
+                                                    <Forename>'.$officerDetails['first_name'].'</Forename>
+                                                    <Surname>'.$officerDetails['last_name'].'</Surname>
+                                                </Person>
+
+                                                <Authentication>
+                                                    <PersonalAttribute>'.$question_three.'</PersonalAttribute>
+                                                    <PersonalData>'.$officerDetails['authenticate_three_ans'].'</PersonalData>
+                                                </Authentication>
+                                                <Authentication>
+                                                    <PersonalAttribute>'.$question_two.'</PersonalAttribute>
+                                                    <PersonalData>'.$officerDetails['authenticate_two_ans'].'</PersonalData>
+                                                </Authentication>
+                                                <Authentication>
+                                                    <PersonalAttribute>'.$question_one.'</PersonalAttribute>
+                                                    <PersonalData>'.$officerDetails['authenticate_one_ans'].'</PersonalData>
+                                                </Authentication>
+                                        </Subscriber>
+                                    </Subscribers>
+					            </Authoriser>';
             }
         }
         // dd($total_share);
@@ -321,13 +518,8 @@ class GenerateXmlService
         }
 
 
-
-
-        $xml = '<GovTalkMessage xsi:schemaLocation="http://www.govtalk.gov.uk/CM/envelope http://xmlbeta.companieshouse.gov.uk:80/v1-0/schema/Egov_ch-v2-0.xsd" xmlns ="http://www.govtalk.gov.uk/CM/envelope"
-                    xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
-                    xmlns:gt="http://www.govtalk.gov.uk/schemas/govtalk/core"
-                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                    <EnvelopeVersion />
+        $xml ='<GovTalkMessage xsi:schemaLocation="http://www.govtalk.gov.uk/CM/envelope http://xmlbeta.companieshouse.gov.uk:80/v1-0/schema/Egov_ch-v2-0.xsd" xmlns ="http://www.govtalk.gov.uk/CM/envelope" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:gt="http://www.govtalk.gov.uk/schemas/govtalk/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+             <EnvelopeVersion />
                     <Header>
                         <MessageDetails>
                             <Class>CompanyIncorporation</Class>
@@ -343,16 +535,13 @@ class GenerateXmlService
                                     <Value>207227c10fa5d8e737f4ff5b2201d4be</Value>
                                 </Authentication>
                             </IDAuthentication>
-                            <!-- <EmailAddress>contact@formationshunt.co.uk</EmailAddress> -->
                         </SenderDetails>
                     </Header>
                     <GovTalkDetails>
                         <Keys />
                     </GovTalkDetails>
                     <Body>
-                        <FormSubmission
-                            xmlns="http://xmlgw.companieshouse.gov.uk/Header"
-                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlgw.companieshouse.gov.uk/Header http://xmlgw.companieshouse.gov.uk/v2-1/schema/forms/FormSubmission-v2-11.xsd">
+                        <FormSubmission xmlns="http://xmlgw.companieshouse.gov.uk/Header" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlgw.companieshouse.gov.uk/Header http://xmlgw.companieshouse.gov.uk/v2-1/schema/forms/FormSubmission-v2-11.xsd">
                             <FormHeader>
                                 <CompanyName>'.$review->companie_name.'</CompanyName>
                                 <PackageReference>4076</PackageReference>
@@ -363,10 +552,7 @@ class GenerateXmlService
                             </FormHeader>
                             <DateSigned>'.date('Y-m-d').'</DateSigned>
                             <Form>
-                                <CompanyIncorporation
-                                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                                    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://xmlgw.companieshouse.gov.uk http://xmlgw.companieshouse.gov.uk/v2-1/schema/forms/CompanyIncorporation-v3-6.xsd"
-                                    xmlns="http://xmlgw.companieshouse.gov.uk">
+                                <CompanyIncorporation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://xmlgw.companieshouse.gov.uk http://xmlgw.companieshouse.gov.uk/v2-1/schema/forms/CompanyIncorporation-v3-6.xsd" xmlns="http://xmlgw.companieshouse.gov.uk">
                                     <CompanyType>BYSHR</CompanyType>
                                     <CountryOfIncorporation>'.$review->jurisdiction->value.'</CountryOfIncorporation>
                                     '.$office_register_address.'
@@ -390,6 +576,7 @@ class GenerateXmlService
                                         </Capital>
                                     </StatementOfCapital>
                                     '.$subscriber.'
+                                    '.$authoriser.'
                                     <SameDay>false</SameDay>
                                     <SameName>'.$sameName.'</SameName>
                                     <NameAuthorisation>'.$NameAuthorisation.'</NameAuthorisation>
@@ -406,8 +593,8 @@ class GenerateXmlService
                 </GovTalkMessage>';
 
 
-        dd($xml);
-        dd('here');
+                echo($xml);
+                die();
     }
 
 

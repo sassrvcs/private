@@ -24,7 +24,7 @@
                                                 <tr class="ui-widget-header">
                                                     <td>Company Name</td>
                                                     <td>Status</td>
-                                                    <td>Price</td>
+                                                    <td>Package Price</td>
                                                     <td></td>
                                                     <td></td>
                                                 </tr>
@@ -82,7 +82,7 @@
 
                                     <div class="col-md-12 text-end mt-4">
                                         {{--<p class="h5">You have chosen the <span style="color:#87CB28;">{{ end($sessionCart)['package_name'] ?? '' }}</span></p>--}}
-                                        <form method="post" action="{{ route('addon-services') }}" id="buyForm">
+                                        <form method="post" action="{{ route('addon-services',["indx" => count($sessionCart)-1]) }}" id="buyForm">
                                             @csrf
                                             <input type="hidden" name="checkout_step" value="3">
                                             <input type="hidden" name="company_name" value="{{ end($sessionCart)['company_name'] ?? '' }}">
@@ -194,9 +194,19 @@
             });
         }
 
-        function deleteCartSessionItem() {
+        function deleteCartSessionItem($key) {
             if(!confirm("Are You Sure to delete?"))
             event.preventDefault();
+            axios.get("/delete-cart-item/"+$key, {
+
+            })
+            .then(function (response) {
+                // Handle the response data here
+                console.log(response.data);
+                window.location.reload();
+                // Do something with the response data
+            })
+
         }
     </script>
 @endsection

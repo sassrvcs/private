@@ -37,7 +37,8 @@ class CheckoutStepController extends Controller
     public function reviewCompanyPackage()
     {
         $sessionCart = Session::get('cart');
-        // dump( $sessionCart );
+
+        // dd( $sessionCart );
         return view('frontend.checkout_steps.search_compant', compact('sessionCart'));
     }
 
@@ -49,10 +50,12 @@ class CheckoutStepController extends Controller
     {
         //$updatedValue   = $this->cartService->searchAndUpdateCompany($request->validated());
         $sessionCart    = $this->cartService->getCartViaSession();
+
         $addonServices  = $this->addonService->index();
         $total_amount =0;
         // dump($sessionCart);
         $indx = $request->indx;
+        // dd($sessionCart);
         return view('frontend.checkout_steps.addon_services', compact('sessionCart', 'addonServices','total_amount', 'indx'));
     }
 
@@ -63,6 +66,7 @@ class CheckoutStepController extends Controller
     public function validateAuthentication(Request $request)
     {
         // dd($request);
+
         $order_id=null;
         $indx = $request->indx;
 
@@ -82,26 +86,25 @@ class CheckoutStepController extends Controller
             $request        = (object) [];
             $totalPrice     = 0;
             $sessionCart    = $this->cartService->getCartViaSession();
-            $package        = $this->packageService->index(end($sessionCart)['package_name']);
+            $package        = $this->packageService->index($sessionCart[$indx]['package_name']);
+            // dd($sessionCart);
             $countries      = $this->countryService->countryList();
 
             $package = $package[0] ?? '';
-            if(count($sessionCart) > 1) {
-                foreach (end($sessionCart)['addon_service'] as $addonService) {
+
+                foreach ($sessionCart[$indx]['addon_service'] as $addonService) {
                     $totalPrice = $totalPrice + $addonService['price'];
                     // dump($addonService['price']);
                 }
-            } else {
-                foreach ($sessionCart[0]['addon_service'] as $addonService) {
-                    $totalPrice = $totalPrice + $addonService['price'];
-                }
-            }
 
             $request->total_amount = $totalPrice;
-
+            $request->indx=$indx;
+                // dd($sessionCart, $package,$indx);
             if(auth()->user()) {
+                // dd($request);
                 $user = $this->userService->show(auth()->user()->id);
                 $checkout = $this->checkoutService->doCheckoutFinalStep($request, auth()->user());
+
                 return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user','checkout','indx'));
             }else{
                 return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user', 'indx'));
@@ -233,6 +236,7 @@ class CheckoutStepController extends Controller
     */
     public function deleteCartItem(Request $request)
     {
+
         $session_indx = $request->indx;
 
         $sessionCart1 = Session::get('cart');
@@ -244,12 +248,12 @@ class CheckoutStepController extends Controller
         }*/
 
         unset($sessionCart1[$session_indx]);
-
+        $sessionCart1 = array_values ($sessionCart1 );
         Session::put('cart', $sessionCart1);
 
         $sessionCart = Session::get('cart');
 
         //return view('frontend.checkout_steps.search_compant', compact('sessionCart'));
-        return redirect(route('review-company-package'));
+        return true;
     }
 }
