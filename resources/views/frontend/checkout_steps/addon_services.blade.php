@@ -133,9 +133,13 @@
                                              @php $i=0; @endphp
 
                                              @foreach( $sessionCart[$indx]['addon_service'] as $addon_key => $value)
-                                                <tr class="fee row_{{ $addon_key }}">
+                                               @php
+                                                    // dd($addon_key);
+
+                                               @endphp
+                                                <tr class="fee row_{{ $value['service_id'] }}">
                                                    <td colspan="3">{{ $value['service_name'] }}</td>
-                                                   <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $addon_key,'indx' => $indx] ) }}" dara-row="{{ $addon_key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                   <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $addon_key,'indx' => $indx] ) }}" dara-row="{{ $value['service_id'] }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
                                                    <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
                                                 </tr>
                                                 @php $i++ @endphp
@@ -148,24 +152,16 @@
                                                    $total_item = count($sessionCart) - 1;
                                                 @endphp
                                                 @foreach( end($sessionCart)['addon_service'] as $addon_key => $value)
-                                                   <tr class="fee row_{{ $addon_key }}">
+                                                   <tr class="fee row_{{ $value['service_id'] }}">
                                                       <td colspan="3">{{ $value['service_name'] }}</td>
-                                                      <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $addon_key,'indx' => $total_item] ) }}" dara-row="{{ $addon_key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                      <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $value['service_id'],'indx' => $total_item] ) }}" dara-row="{{ $value->service_id }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
                                                       <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
                                                    </tr>
                                                    @php $i++ @endphp
                                                 @endforeach
                                              @endif
                                           @endif
-                                          @if( isset(end($sessionCart)['additional_service']) )
-
-                                                <tr class="fee row_100">
-                                                    <td colspan="3">{{ end($sessionCart)['additional_service']['package_name'] }}</td>
-                                                    <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' =>end($sessionCart)['package_id']] ) }}" dara-row="{{100 }}" data-service_id="100" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
-                                                    <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ end($sessionCart)['additional_service']['price'] }}</bdi></span></td>
-                                                </tr>
-
-                                         @endif
+                                        
                                        </tbody>
                                        <tbody id="tax-tbody">
                                           <tr class="cart-subtotal text-end">
@@ -243,16 +239,17 @@
                   var newRow = document.createElement("tr");
                   console.log(newRow);
                   // Set the class attribute of the row
-                  newRow.setAttribute("class", "fee row_"+itemId);
+                  newRow.setAttribute("class", "fee row_"+response.data.id);
 
                   // Set the HTML content of the row
                   newRow.innerHTML = `<td colspan="3">${response.data.service_name}</td>
-                     <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => '`+itemId+`'] ) }}" dara-row="`+itemId+`" class="badge remove bg-secondary"><i class="fa fa-times"></i></button></td>
+                     <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => '`+response.data.id+`'] ) }}" dara-row="`+response.data.id+`" class="badge remove bg-secondary"><i class="fa fa-times"></i></button></td>
                      <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>${response.data.price}</bdi></span></td>`;
                 console.log('newRow',newRow);
                   // Append the new row to the table
                   table.appendChild(newRow);
                   calculateTotal();
+                  window.location.reload();
                }
             })
             .catch(function(error) {
@@ -266,7 +263,7 @@
             const rowData = this.getAttribute('dara-row');
             const apiUrl = this.getAttribute('data-route');
             console.log(`rowData - ${rowData}, apiUrl - ${apiUrl}`);
-
+            // return;
             axios.delete(apiUrl)
             .then(function(response) {
                // Success: Handle the response (e.g., show a success message, update the cart UI)
@@ -275,11 +272,14 @@
 
                $(`.row_${rowData}`).remove();
                calculateTotal();
+            // window.location.reload();
+
             })
             .catch(function(error) {
                // Error: Handle the error (e.g., show an error message)
                console.error(error);
             });
+
          });
 
          function calculateTotal() {

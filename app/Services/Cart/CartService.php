@@ -138,11 +138,12 @@ class CartService
                 $cart[$existingCartItem]['package_description']    = $package->description;
                 $cart[$existingCartItem]['package_status']  = 1;
                 $cart[$existingCartItem]['step_complete']   = 1;
-                $cart[$existingCartItem]['addon_service'] = [];
-                $cart[$existingCartItem]['additional_service'] = [
-                    'product_id'     => 100,
-                    'package_name' => 'Pre-Submission Review (we check your company details to avoid mistakes)',
-                        'price' =>4.99,
+                $cart[$existingCartItem]['addon_service'][] = [
+                    'price' => '4.99',
+                    'quantity' => 1,
+                    'service_id' => (int)100,
+                    'service_name' => 'Pre-Submission Review (we check your company details to avoid mistakes)',
+                    'service_status' => 1,
                 ];
 
             } else {
@@ -153,11 +154,6 @@ class CartService
                     'product_id'     => $package->id,
                     'package_name'   => $package->package_name,
                     'package_description'   => $package->description,
-                    'additional_service' =>[
-                        'product_id'     => 100,
-                        'package_name' => 'Pre-Submission Review (we check your company details to avoid mistakes)',
-                        'price' =>4.99,
-                    ],
                     'package_status' => 1,
                     'addon_service'  => []
                 ];
@@ -222,31 +218,16 @@ class CartService
      */
     private function updateAddonService($service_id, $cart_index)
     {
+
         $service = $this->addonService->edit($service_id);
-        // dd($service);
+
 
         // Get the cart from the session
         $cart = Session::get('cart', []);
+
         $cartItemCount = count($cart) -1;
+        $existingCartItem = $cart_index;
 
-        // dd($cart);
-        if(isset($cart_index)){
-            $existingCartItem = $cart_index;
-        }else{
-            $existingCartItem = null;
-            if($cartItemCount < 1) {
-                foreach ($cart as $index => $cartItem) {
-                    if (isset($cartItem['company_name']) && !empty($cartItem['company_name'])) {
-                        $existingCartItem = $index;
-                        break;
-                    }
-                }
-            } else {
-                $existingCartItem = $cartItemCount;
-            }
-        }
-
-        //dd($existingCartItem);
 
         if ($existingCartItem !== null) {
 
@@ -296,22 +277,27 @@ class CartService
      * Remove service ID from session | cart
      * @param string $service_key
      */
-    public function removeAddonService($service_key, $cart_index = null)
+    public function removeAddonService($service_key, $cart_index)
     {
+        // dd($service_key, $cart_index);
         $cart1 = session()->pull('cart', []);
         //echo $service_key;
         //echo $cart_index;
-        //dd($cart1);
+
         if(isset($cart_index)){
+
             if (isset($cart1[$cart_index]['addon_service']) && is_array($cart1[$cart_index]['addon_service'])) {
-                unset($cart1[$cart_index]['addon_service'][$service_key]);
+            foreach ($cart1[$cart_index]['addon_service'] as $key => $value) {
 
-                session()->put('cart', $cart1);
+                if($key == $service_key){
+                    unset($cart1[$cart_index]['addon_service'][$service_key]);
+                    session()->put('cart', $cart1);
 
+                }
+            }
                 return true;
             }
         }
-
         /*if (isset($cart[0]['addon_service']) && is_array($cart[0]['addon_service'])) {
             unset($cart[0]['addon_service'][$service_key]);
 

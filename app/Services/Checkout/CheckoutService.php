@@ -22,11 +22,14 @@ class CheckoutService
      */
     public function doCheckoutFinalStep($request, $user)
     {
+        // dd($request);
         $order='';
         $sessionCart = Session::get('cart', []);
+
         return DB::transaction(function () use ($request, $user, $sessionCart,$order) {
             $addonServices = [];
-            $cart = end($sessionCart);
+            $cart = $sessionCart[$request->indx];
+            
             $shoppingCart = ShoppingCart::create([
                 'user_id'    => $user->id,
                 'package_id' => $cart['package_id'] ?? '',
