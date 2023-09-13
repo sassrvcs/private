@@ -1433,13 +1433,13 @@
                                                                         id="person_national_id">
                                                                       {{-- <input type="text" value="{{$officer_details['nationality'] }}"> --}}
 
-                                                                        @if (!empty($countries))
-                                                                            @foreach ($countries as $country)
-                                                                                <option value="{{ $country['id'] }}"
-                                                                                    {{ $country['id'] === intval($officer_details['nationality']) ? 'selected' : '' }}>
-                                                                                    {{ $country['name'] }}</option>
-                                                                            @endforeach
-                                                                        @endif
+                                                                      @if (!empty($nationalities))
+                                                                      @foreach ($nationalities as $nationals)
+                                                                          <option value="{{ $nationals['id'] }}"
+                                                                              {{ $nationals['id'] === intval($officer_details['nationality']) ? 'selected' : '' }}>
+                                                                              {{ $nationals['nationality'] }}</option>
+                                                                      @endforeach
+                                                                  @endif
                                                                     </select>
                                                                          </div>
                                                                 <label for="">Registered in the UK ?</label>

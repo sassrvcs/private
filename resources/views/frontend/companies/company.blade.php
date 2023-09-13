@@ -130,7 +130,7 @@
                                             @endphp
                                             @if($company_status == '3')
                                                 <td>
-                                                    <a href="{{ route('accepted-company', ['order' => $order->order_id]) }}" class="view-btn">
+                                                    <a href="{{ route('accepted-company', ['order' => $order->order_id,'c_id'=>$order->myCompany->id]) }}" class="view-btn">
                                                         View
                                                         <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt="">
                                                     </a>

@@ -16,6 +16,7 @@ use App\Models\companyFormStep;
 use App\Http\Requests\Company\CompanieFormAccessRequest;
 use App\Http\Requests\Company\CompanieStoreRequest;
 use App\Models\Jurisdiction;
+use App\Models\Nationality;
 use App\Models\Order;
 use App\Services\CompanieSearchService;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
@@ -333,7 +334,8 @@ class CompanyFormController extends Controller
         }
 
         $used_address = Address::where('user_id', Auth::user()->id)->get();
-        $countries = Country::all()->toArray();
+        $countries = Country::all()->sortBy('name')->toArray();
+        $nationalities = Nationality::all()->sortBy('name')->toArray();
 
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 
@@ -344,7 +346,7 @@ class CompanyFormController extends Controller
             $appointmentsList = $personAppointments;
         }
 
-        return view('frontend.company_form.appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
+        return view('frontend.company_form.appointments', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
     }
 
     public function appointments_open_corporate()
@@ -362,7 +364,7 @@ class CompanyFormController extends Controller
 
         $used_address = Address::where('user_id', Auth::user()->id)->get();
         $countries = Country::all()->toArray();
-
+        $nationalities = Nationality::all()->sortBy('name')->toArray();
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 
         $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
@@ -372,7 +374,7 @@ class CompanyFormController extends Controller
             $appointmentsList = $personAppointments;
         }
 
-        return view('frontend.company_form.appointments_corporate', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
+        return view('frontend.company_form.appointments_corporate', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
     }
 
 
@@ -693,7 +695,7 @@ class CompanyFormController extends Controller
 
         $used_address = Address::where('user_id', Auth::user()->id)->get();
         $countries = Country::all()->toArray();
-
+        $nationalities = Nationality::all()->sortBy('name')->toArray();
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 
         $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
@@ -703,7 +705,7 @@ class CompanyFormController extends Controller
             $appointmentsList = $personAppointments;
         }
 
-        return view('frontend.company_form.appointments_otherLegalEntity', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
+        return view('frontend.company_form.appointments_otherLegalEntity', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
     }
 
     public function person_appointment_edit(Request $request)
@@ -724,7 +726,9 @@ class CompanyFormController extends Controller
         }
 
         $used_address = Address::where('user_id', Auth::user()->id)->get();
-        $countries = Country::all()->toArray();
+        $countries = Country::all()->sortBy('name')->toArray();
+        $nationalities = Nationality::all()->sortBy('name')->toArray();
+
 
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 
@@ -737,15 +741,15 @@ class CompanyFormController extends Controller
         // dd($appointment_details);
         if($appointment_details['appointment_type']=='corporate')
         {
-            return view('frontend.company_form.edit_appointments_corporate', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
+            return view('frontend.company_form.edit_appointments_corporate', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
         }
         if($appointment_details['appointment_type']=='other_legal_entity')
         {
-        return view('frontend.company_form.edit_appointments_otherLegalEntity', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
+        return view('frontend.company_form.edit_appointments_otherLegalEntity', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
 
         }
 
-        return view('frontend.company_form.edit_appointments', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
+        return view('frontend.company_form.edit_appointments', compact('used_address', 'countries','nationalities', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
     }
 
 }

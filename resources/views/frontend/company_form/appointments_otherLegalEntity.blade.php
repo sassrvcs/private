@@ -1455,13 +1455,13 @@
                                                                         nationalities *: </small></label> --}}
                                                                 <select name="person_national" class="form-control"
                                                                     id="person_national_id" hidden>
-                                                                    @if (!empty($countries))
-                                                                        @foreach ($countries as $country)
-                                                                            <option value="{{ $country['id'] }}"
-                                                                                {{ $country['id'] === 72 ? 'selected' : '' }}>
-                                                                                {{ $country['name'] }}</option>
-                                                                        @endforeach
-                                                                    @endif
+                                                                    @if (!empty($nationalities))
+                                                                    @foreach ($nationalities as $nationals)
+                                                                        <option value="{{ $nationals['id'] }}"
+                                                                            {{ $nationals['id'] === 251 ? 'selected' : '' }}>
+                                                                            {{ $nationals['nationality'] }}</option>
+                                                                    @endforeach
+                                                                @endif
                                                                 </select>
 
                                                             </div>

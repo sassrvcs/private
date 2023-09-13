@@ -12,8 +12,10 @@ use App\Models\Person_appointment;
 use App\Models\PersonOfficer;
 use App\Models\ShoppingCart;
 use App\Models\Address;
+use App\Models\Companie;
 use App\Models\Country;
-
+use App\Models\Order;
+use PDF;
 class CompaniesListController extends Controller
 {
     public  function __construct(
@@ -70,8 +72,93 @@ class CompaniesListController extends Controller
         if (!empty($personAppointments)) {
             $appointmentsList = $personAppointments;
         }
-        
-        return view('frontend.companies.overview', compact('used_address', 'countries', 'shoppingCartId', 'person_officers', 
+
+        return view('frontend.companies.overview', compact('used_address', 'countries', 'shoppingCartId', 'person_officers',
             'appointmentsList','review','order'));
+    }
+    public function efillingPdf(Request $request)
+    {
+        $order_id = $request->query('order');
+        $order_details = Order::where('order_id',$order_id)->get()->first();
+        $customer_name = auth()->user()->title.' '.auth()->user()->forename.' '.auth()->user()->surname;
+        $data = ['customer_name'=>$customer_name,'company_name'=>$order_details['company_name'],'order_ref'=>$order_id,'auth_code'=>$order_details['auth_code']];
+        $pdf = PDF::loadView('PDF.efilling_pdf',$data);
+
+        return $pdf->download($order_details['company_name'].'_efilling.pdf');
+    }
+    public function generateCertificate(Request $request)
+    {
+        $appointmentsList = Person_appointment::with('person_officers')->where('order', $request->query('order'))->get();
+        $company_details = Companie::with('officeAddressWithoutForwAddress')->with('forwAddress')->where('id',$request->query('c_id'))->get()->first();
+        $date = '11/09/2023';
+        $company_number = '123456789';
+        $address_details = $company_details['office_address']!=null?$company_details['officeAddressWithoutForwAddress']:$company_details['forwAddress'];
+        $company_name = $company_details['companie_name'];
+        $company_office_address = $this->construct_address($address_details);
+        $registered_in = $address_details['county'];
+        $shareholders_names ='';
+        $customer_name = auth()->user()->title.' '.auth()->user()->forename.' '.auth()->user()->surname;
+        $number_of_shares=null;
+        $person_officers_id = [];
+        foreach ($appointmentsList as $val){
+            $positionArray = explode(', ', $val['position']);
+            if(in_array('Shareholder', $positionArray)){
+                $number_of_shares+= $val['sh_quantity'];
+                if ($shareholders_names=='') {
+                    $shareholders_names .= $val['person_officers']['first_name'].' '.$val['person_officers']['last_name'];
+                }else{
+                    if(!in_array($val['person_officer_id'],$person_officers_id)){
+                        $shareholders_names .= ','.$val['person_officers']['first_name'].' '.$val['person_officers']['last_name'];
+                    }
+                }
+                array_push($person_officers_id,$val['person_officer_id']);
+            }
+        }
+        $data = ['date' => $date, 'company_number' => $company_number, 'company_name' => $company_name, 'company_office_address' => $company_office_address, 'registered_in' => $registered_in, 'number_of_shares' => $number_of_shares,'shareholders_names'=>$shareholders_names,'customer_name'=>$customer_name];
+        $pdf = PDF::loadView('PDF.certificate_pdf',$data);
+        return $pdf->download($company_name.'_certificate.pdf');
+
+
+    }
+    public function memoArticlesFull(Request $request)
+    {
+
+    }
+    public function memoArticlesDoc(Request $request)
+    {
+
+    }
+    public function incorporationCertificate(Request $request)
+    {
+
+    }
+    private function construct_address($address)
+    {
+        $con_address = '';
+        if($address['house_number']!='')
+        {
+            $con_address .= $address['house_number'].', ';
+        }
+        if($address['street']!='')
+        {
+            $con_address .= $address['street'].', ';
+        }
+        if($address['locality']!='')
+        {
+            $con_address .= $address['locality'].', ';
+        }
+        if($address['town']!='')
+        {
+            $con_address .= $address['town'].', ';
+        }
+        if($address['county']!='')
+        {
+            $con_address .= $address['county'].', ';
+        }
+        if($address['post_code']!='')
+        {
+            $con_address .= $address['post_code'];
+        }
+        return $con_address;
     }
 }

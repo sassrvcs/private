@@ -111,6 +111,10 @@ Route::get('/delete-cart-item/{indx}',[CheckoutStepController::class,'deleteCart
 
 Route::get('companies', CompaniesListController::class)->name('companies-list');
 Route::get('companies/accepted', [CompaniesListController::class, 'acceptedCompanyDetails'])->name('accepted-company');
+Route::get('companies/pdf/efilling_pdf', [CompaniesListController::class, 'efillingPdf'])->name('efilling_pdf');
+Route::get('companies/pdf/certificate', [CompaniesListController::class, 'generateCertificate'])->name('generate_certificate');
+
+
 
 Route::get('/search-companie', CompanieController::class);
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
