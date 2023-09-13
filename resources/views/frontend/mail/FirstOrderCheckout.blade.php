@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forget Password</title>
+    <title>Mail Template</title>
 </head>
 
 <style>
@@ -29,19 +29,22 @@
         </thead>
         <tbody>
             <tr>
-                <td style="text-align: left; padding: 50px 10px 10px 50px; font-size: 24px;">Dear User</td>
+                <td style="text-align: left; padding: 50px 10px 10px 50px; font-size: 24px;">Dear {{$name}}</td>
             </tr>
 
             <tr>
-                <th style="text-align: left; padding: 10px 10px 10px 50px; font-size: 28px;">Reset Password</th>
+                <th style="text-align: left; padding: 10px 10px 10px 50px; font-size: 28px;">Order Confirmation</th>
             </tr>
             <tr>
-                <td style="text-align: left; padding: 10px 50px 10px; font-size: 24px;">To reset your password, please <a href="{{ route('reset.password.get', $token) }}">click here</a></td>
+                <td style="text-align: left; padding: 10px 50px 10px; font-size: 24px;">Thank you! for your order</td>
             </tr>
             <tr>
-                <td style="text-align: left; padding: 20px 50px 50px; font-size: 18px; line-height: 26px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate perferendis nam consequatur
+                <td style="text-align: left; padding: 20px 50px; font-size: 18px; line-height: 26px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate perferendis nam consequatur
                     laudantium reprehenderit, dolorem labore vero hic facere veritatis laborum assumenda id accusamus
                     nostrum. Eveniet sapiente saepe sunt doloribus!</td>
+            </tr>
+            <tr>
+                <th style="text-align: left; padding: 20px 50px 50px; font-size: 32px;">Your Order id : 1238755556 </th>
             </tr>
         </tbody>
         <tfoot>

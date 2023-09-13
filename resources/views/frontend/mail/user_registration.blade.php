@@ -29,17 +29,14 @@
         </thead>
         <tbody>
             <tr>
-                <td style="text-align: left; padding: 50px 10px 10px 50px; font-size: 24px;">Dear User</td>
+                <td style="text-align: left; padding: 50px 10px 10px 50px; font-size: 24px;">Dear {{$name}}</td>
             </tr>
 
             <tr>
-                <th style="text-align: left; padding: 10px 10px 10px 50px; font-size: 28px;">Reset Password</th>
+                <th style="text-align: left; padding: 10px 10px 10px 50px; font-size: 28px;">Registration Confirmed!</th>
             </tr>
             <tr>
-                <td style="text-align: left; padding: 10px 50px 10px; font-size: 24px;">To reset your password, please <a href="{{ route('reset.password.get', $token) }}">click here</a></td>
-            </tr>
-            <tr>
-                <td style="text-align: left; padding: 20px 50px 50px; font-size: 18px; line-height: 26px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate perferendis nam consequatur
+                <td style="text-align: left; padding: 20px 50px; font-size: 18px; line-height: 26px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate perferendis nam consequatur
                     laudantium reprehenderit, dolorem labore vero hic facere veritatis laborum assumenda id accusamus
                     nostrum. Eveniet sapiente saepe sunt doloribus!</td>
             </tr>

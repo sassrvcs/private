@@ -71,7 +71,7 @@
                                                 <td colspan="3" style="padding:10px 10px;">This is to certify that</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="3" style="padding:10px 10px;"><strong>{{$customer_name}}</strong></td>
+                                                <td colspan="3" style="padding:10px 10px;"><strong>{{$director_names}}</strong></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="3" style="padding:10px 10px;">of</td>

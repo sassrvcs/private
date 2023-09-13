@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Mail\MailWithAttachmentTest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
+use PDF;
+class MailTestController extends Controller
+{
+    public function TestMail()
+    {
+        $name = "Myname";
+        $pdf = $this->generatePdf();
+        $filePath = storage_path('app/public/attachments/Invoice'.uniqid().'.pdf');
+        file_put_contents($filePath, $pdf );
+        $content = ['name'=>$name,'pdf'=>$filePath];
+        try {
+           $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new MailWithAttachmentTest ($content));
+           print_r($status);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    public function generatePdf()
+    {
+    $data = [
+        'content1' => 'Sample PDF',
+        'content2' => 'This is a sample PDF generated using Dompdf in Laravel.'
+    ];
+
+    // $pdf = new Dompdf();
+    // $pdf->loadHtml(View::make('pdf.sample', $data));
+    // $pdf->setPaper('A4');
+    $pdf = PDF::loadView('PDF.TestAttachment',$data);
+    $pdf->render();
+    return $pdf->output();
+    // return $pdf->download('_efilling.pdf');
+    }
+}

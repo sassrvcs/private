@@ -419,7 +419,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Memorandum & Articles (Full Document)</strong></td>
-                                                        <td width="167"><button class="ch-ed-btn"><img src="assets/images/download-icon.svg" alt=""> Download</button></td>
+                                                        <td width="167"><button class="ch-ed-btn" onclick="window.location.href='{{route('memoArticlesFull',['order'=>$_GET['order'],'c_id'=>$_GET['c_id']])}}'" ><img src="assets/images/download-icon.svg" alt=""> Download</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Memorandum & Articles (Document Only)</strong></td>
@@ -427,7 +427,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Incorporation Certificate </strong></td>
-                                                        <td width="167"><button class="ch-ed-btn"><img src="assets/images/download-icon.svg" alt=""> Download</button></td>
+                                                        <td width="167"><button class="ch-ed-btn" onclick="window.location.href='{{route('incorporate_certificate',['order'=>$_GET['order'],'c_id'=>$_GET['c_id']])}}'" ><img src="assets/images/download-icon.svg" alt=""> Download</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Share Certificate</strong></td>
@@ -436,7 +436,7 @@
                                                     <tr>
                                                         <td><strong>E-filing information</strong></td>
                                                         <td width="167">
-                                                            <button class="ch-ed-btn" onclick="window.location.href='{{route('efilling_pdf').'?order='.$_GET['order']}}'"><img src="assets/images/download-icon.svg" alt="">Download</button>
+                                                            <button class="ch-ed-btn" onclick="window.location.href='{{route('efilling_pdf',['order'=>$_GET['order'],'c_id'=>$_GET['c_id']])}}'"><img src="assets/images/download-icon.svg" alt="">Download</button>
                                                             {{-- <a target="blank" href="{{route('efilling_pdf').'?order='.$_GET['order']}}" class="ch-ed-btn"><img src="assets/images/download-icon.svg" alt="">Download</a> --}}
                                                         </td>
                                                     </tr>

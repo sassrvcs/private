@@ -15,6 +15,7 @@ use App\Models\Address;
 use App\Models\Companie;
 use App\Models\Country;
 use App\Models\Order;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 class CompaniesListController extends Controller
 {
@@ -78,10 +79,28 @@ class CompaniesListController extends Controller
     }
     public function efillingPdf(Request $request)
     {
+        $appointmentsList = Person_appointment::with('person_officers')->where('order', $request->query('order'))->get();
+        $company_details = Companie::where('id',$request->query('c_id'))->get()->first();
+
         $order_id = $request->query('order');
         $order_details = Order::where('order_id',$order_id)->get()->first();
-        $customer_name = auth()->user()->title.' '.auth()->user()->forename.' '.auth()->user()->surname;
-        $data = ['customer_name'=>$customer_name,'company_name'=>$order_details['company_name'],'order_ref'=>$order_id,'auth_code'=>$order_details['auth_code']];
+        $person_officers_director_id=[];
+        $director_names ='';
+        foreach ($appointmentsList as $val){
+            $positionArray = explode(', ', $val['position']);
+            if(in_array('Director', $positionArray)){
+                if ($director_names=='') {
+                    $director_names .= $val['person_officers']['first_name'].' '.$val['person_officers']['last_name'];
+                }else{
+                    if(!in_array($val['person_officer_id'],$person_officers_director_id)){
+                        $director_names .= ','.$val['person_officers']['first_name'].' '.$val['person_officers']['last_name'];
+                    }
+                }
+                array_push($person_officers_director_id,$val['person_officer_id']);
+            }
+        }
+
+        $data = ['customer_name'=>$director_names,'company_name'=>$company_details['companie_name'],'order_ref'=>$order_id,'auth_code'=>$order_details['auth_code']];
         $pdf = PDF::loadView('PDF.efilling_pdf',$data);
 
         return $pdf->download($order_details['company_name'].'_efilling.pdf');
@@ -97,9 +116,11 @@ class CompaniesListController extends Controller
         $company_office_address = $this->construct_address($address_details);
         $registered_in = $address_details['county'];
         $shareholders_names ='';
+        $director_names ='';
         $customer_name = auth()->user()->title.' '.auth()->user()->forename.' '.auth()->user()->surname;
         $number_of_shares=null;
         $person_officers_id = [];
+        $person_officers_director_id=[];
         foreach ($appointmentsList as $val){
             $positionArray = explode(', ', $val['position']);
             if(in_array('Shareholder', $positionArray)){
@@ -113,8 +134,19 @@ class CompaniesListController extends Controller
                 }
                 array_push($person_officers_id,$val['person_officer_id']);
             }
+            if(in_array('Director', $positionArray)){
+                if ($director_names=='') {
+                    $director_names .= $val['person_officers']['first_name'].' '.$val['person_officers']['last_name'];
+                }else{
+                    if(!in_array($val['person_officer_id'],$person_officers_director_id)){
+                        $director_names .= ','.$val['person_officers']['first_name'].' '.$val['person_officers']['last_name'];
+                    }
+                }
+                array_push($person_officers_director_id,$val['person_officer_id']);
+            }
         }
-        $data = ['date' => $date, 'company_number' => $company_number, 'company_name' => $company_name, 'company_office_address' => $company_office_address, 'registered_in' => $registered_in, 'number_of_shares' => $number_of_shares,'shareholders_names'=>$shareholders_names,'customer_name'=>$customer_name];
+        $data = ['date' => $date, 'company_number' => $company_number, 'company_name' => $company_name, 'company_office_address' => $company_office_address, 'registered_in' => $registered_in, 'number_of_shares' => $number_of_shares,'shareholders_names'=>$shareholders_names,'customer_name'=>$customer_name,'director_names'=>$director_names];
+        // dd($data);
         $pdf = PDF::loadView('PDF.certificate_pdf',$data);
         return $pdf->download($company_name.'_certificate.pdf');
 
@@ -122,15 +154,39 @@ class CompaniesListController extends Controller
     }
     public function memoArticlesFull(Request $request)
     {
+        $appointmentsList = Person_appointment::with('person_officers')->where('order', $request->query('order'))->get();
+        $company_details = Companie::where('id',$request->query('c_id'))->get()->first();
+        $company_name = $company_details['companie_name'];
+        $date = '11/09/2023';
+        $company_number = '123456789';
+        $person_officers_id = [];
+        $shareholders_names = [];
+        foreach ($appointmentsList as $val){
+            $positionArray = explode(', ', $val['position']);
+            if(in_array('Shareholder', $positionArray)){
 
+                    if(!in_array($val['person_officer_id'],$person_officers_id)){
+                        array_push($shareholders_names,$val['person_officers']['first_name'].' '.$val['person_officers']['last_name']);
+                    }
+
+                array_push($person_officers_id,$val['person_officer_id']);
+            }
+        }
+        $data = ['date' => $date, 'company_number' => $company_number, 'shareholders_names'=>$shareholders_names,'company_name'=>$company_name];
+        $pdf = PDF::loadView('PDF.memoArticlesFull_pdf',$data);
+        return $pdf->download($company_name.'_Memorandum&Articles(Full Document).pdf');
     }
     public function memoArticlesDoc(Request $request)
     {
 
     }
-    public function incorporationCertificate(Request $request)
+    public function incorporateCertificate(Request $request)
     {
-
+        $base64encodedstring = "996";
+        $filePath = storage_path('app/public/incorporateCertificate/file.pdf');
+        $decodeBase64 = base64_decode($base64encodedstring,true);
+        file_put_contents($filePath, $decodeBase64);
+        return response()->download($filePath);
     }
     private function construct_address($address)
     {

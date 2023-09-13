@@ -32,6 +32,7 @@ use App\Http\Controllers\Web\Invoice\InvoiceController;
 use App\Http\Controllers\Web\Payment\PaymentController;
 
 use App\Http\Controllers\Admin\Company\CompanyController;
+use App\Http\Controllers\MailTestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +83,7 @@ Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPassw
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+Route::get('send-mail-attach',[MailTestController::class,'TestMail'])->name('send-mail-attach');
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/package', WebPackageController::class)->name('package');
@@ -109,10 +111,14 @@ Route::get('payment-cancelled', [CheckoutStepController::class, 'paymentCancelle
 
 Route::get('/delete-cart-item/{indx}',[CheckoutStepController::class,'deleteCartItem'])->name('delete-cart-item');
 
-Route::get('companies', CompaniesListController::class)->name('companies-list');
-Route::get('companies/accepted', [CompaniesListController::class, 'acceptedCompanyDetails'])->name('accepted-company');
-Route::get('companies/pdf/efilling_pdf', [CompaniesListController::class, 'efillingPdf'])->name('efilling_pdf');
-Route::get('companies/pdf/certificate', [CompaniesListController::class, 'generateCertificate'])->name('generate_certificate');
+Route::get('companies', CompaniesListController::class)->middleware('auth')->name('companies-list');
+Route::get('companies/accepted', [CompaniesListController::class, 'acceptedCompanyDetails'])->middleware('auth')->name('accepted-company');
+Route::get('companies/pdf/efilling_pdf', [CompaniesListController::class, 'efillingPdf'])->middleware('auth')->name('efilling_pdf');
+Route::get('companies/pdf/certificate', [CompaniesListController::class, 'generateCertificate'])->middleware('auth')->name('generate_certificate');
+Route::get('companies/pdf/incorporate-certificate', [CompaniesListController::class, 'incorporateCertificate'])->middleware('auth')->name('incorporate_certificate');
+Route::get('companies/pdf/memo-articles-full', [CompaniesListController::class, 'memoArticlesFull'])->middleware('auth')->name('memoArticlesFull');
+
+
 
 
 

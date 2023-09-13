@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 // use Validator;
 // use Session;
+
+use App\Mail\UserRegistration;
 use Illuminate\Http\Request;
 use App\Services\User\UserService;
 use App\Models\User;
@@ -13,7 +15,7 @@ use App\Models\Country;
 use App\Services\Checkout\CheckoutService;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
-
+use Mail;
 class AuthController extends Controller
 {
     public function __construct(
@@ -201,6 +203,17 @@ class AuthController extends Controller
             // dd($validate->errors());
             return back()->withErrors($validate->errors())->withInput();
         } else {
+
+            // Mail::send('frontend.mail.user_registration', ['name' => $request->forename], function($message) use($request){
+            //     $message->to($request->email);
+            //     $message->subject('Registration successful');
+            // });
+            try {
+                Mail::to($request->email)->send(new UserRegistration($request->forename));
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+
             $response = $this->userService->store($request);
             if ($response) {
                 if(isset($request->checkout)) {
