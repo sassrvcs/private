@@ -3819,7 +3819,7 @@
             $('#person_bday_id').val('');
             $('#person_fname_id').val('');
             $('#person_lname_id').val('');
-            $('#person_national_id').val('72');
+            $('#person_national_id').val('251');
             $('#person_occupation_id').val('');
 
             $("#legal_name").val('')

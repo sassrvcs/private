@@ -48,15 +48,15 @@
                                 <li class="nav-item">
                                   <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Documents</a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                   <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Company Services</a>
-                                </li>
+                                </li> --}}
                                 {{-- <li class="nav-item">
                                     <a class="nav-link" id="Shop-contact-tab" data-toggle="pill" href="#Shop-contact" role="tab" aria-controls="Shop-contact" aria-selected="false">Shop</a>
                                 </li> --}}
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" id="getting-started-tab" data-toggle="pill" href="#getting-started" role="tab" aria-controls="getting-started" aria-selected="false">Getting Started</a>
-                                </li>
+                                </li> --}}
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -427,8 +427,16 @@
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Incorporation Certificate </strong></td>
-                                                        <td width="167"><button class="ch-ed-btn"  ><img src="assets/images/download-icon.svg" alt=""> Download</button></td>
-                                                        {{-- onclick="window.location.href='{{route('incorporate_certificate',['order'=>$_GET['order'],'c_id'=>$_GET['c_id']])}}'" --}}
+                                                        <td width="167">
+                                                            @if ($pdfcontent)
+                                                            <button class="ch-ed-btn" onclick="window.location.href='{{route('incorporate_certificate',['order'=>$_GET['order'],'c_id'=>$_GET['c_id']])}}'" >
+                                                            @else
+                                                            <button class="ch-ed-btn" onclick="alert('Certificate isn`t prepared for this company yet, please try after some time')" >
+
+                                                            @endif
+
+                                                            <img src="assets/images/download-icon.svg" alt=""> Download</button></td>
+
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Share Certificate</strong></td>

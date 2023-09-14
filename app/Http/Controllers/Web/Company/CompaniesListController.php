@@ -13,10 +13,12 @@ use App\Models\PersonOfficer;
 use App\Models\ShoppingCart;
 use App\Models\Address;
 use App\Models\Companie;
+use App\Models\companyXmlDetail;
 use App\Models\Country;
 use App\Models\Order;
 use Illuminate\Support\Facades\Storage;
 use PDF;
+use Illuminate\Support\Str;
 class CompaniesListController extends Controller
 {
     public  function __construct(
@@ -66,7 +68,13 @@ class CompaniesListController extends Controller
         $person_officers = PersonOfficer::where('order_id', $order_id)->get()->toArray();
 
         $personAppointments = Person_appointment::where('order', $order_id)->get()->toArray();
-
+        $getCompanyNoDate =  companyXmlDetail::where('order_id',$request->query('order'))->get()->first();
+        if($getCompanyNoDate&&@($getCompanyNoDate['pdf_content']!=''))
+        {
+            $pdfcontent = true;
+        }else{
+            $pdfcontent = false;
+        }
         $review = $this->companyFormService->getCompanieName($order_id);
 
         $appointmentsList = [];
@@ -74,7 +82,7 @@ class CompaniesListController extends Controller
             $appointmentsList = $personAppointments;
         }
 
-        return view('frontend.companies.overview', compact('used_address', 'countries', 'shoppingCartId', 'person_officers',
+        return view('frontend.companies.overview', compact('pdfcontent','used_address', 'countries', 'shoppingCartId', 'person_officers',
             'appointmentsList','review','order'));
     }
     public function efillingPdf(Request $request)
@@ -109,8 +117,13 @@ class CompaniesListController extends Controller
     {
         $appointmentsList = Person_appointment::with('person_officers')->where('order', $request->query('order'))->get();
         $company_details = Companie::with('officeAddressWithoutForwAddress')->with('forwAddress')->where('id',$request->query('c_id'))->get()->first();
-        $date = '11/09/2023';
-        $company_number = '123456789';
+        $getCompanyNoDate =  companyXmlDetail::where('order_id',$request->query('order'))->get()->first();
+        $date = '';
+        try {
+            $date = date('d/m/y', strtotime($getCompanyNoDate['updated_at']));
+        } catch (\Throwable $th) {
+        }
+        $company_number = $getCompanyNoDate['company_no']??'';
         $address_details = $company_details['office_address']!=null?$company_details['officeAddressWithoutForwAddress']:$company_details['forwAddress'];
         $company_name = $company_details['companie_name'];
         $company_office_address = $this->construct_address($address_details);
@@ -157,8 +170,13 @@ class CompaniesListController extends Controller
         $appointmentsList = Person_appointment::with('person_officers')->where('order', $request->query('order'))->get();
         $company_details = Companie::where('id',$request->query('c_id'))->get()->first();
         $company_name = $company_details['companie_name'];
-        $date = '11/09/2023';
-        $company_number = '123456789';
+        $getCompanyNoDate =  companyXmlDetail::where('order_id',$request->query('order'))->get()->first();
+        $date = '';
+        try {
+            $date = date('d/m/y', strtotime($getCompanyNoDate['updated_at']));
+        } catch (\Throwable $th) {
+        }
+        $company_number = $getCompanyNoDate['company_no']??'';
         $person_officers_id = [];
         $shareholders_names = [];
         foreach ($appointmentsList as $val){
@@ -182,11 +200,18 @@ class CompaniesListController extends Controller
     }
     public function incorporateCertificate(Request $request)
     {
-        $base64encodedstring = "996";
-        $filePath = storage_path('app/public/incorporateCertificate/file.pdf');
-        $decodeBase64 = base64_decode($base64encodedstring,true);
-        file_put_contents($filePath, $decodeBase64);
-        return response()->download($filePath);
+        $filename = 'Incorporation_certificate_'.$request->query('order').Str::random(10).'.pdf';
+        $getCompanyNoDate = companyXmlDetail::where('order_id',$request->query('order'))->get()->first();
+        if($getCompanyNoDate )
+        {
+            $base64encodedstring = $getCompanyNoDate['pdf_content'];
+            $filePath = storage_path('app/public/incorporateCertificate/'.$filename);
+            $decodeBase64 = base64_decode($base64encodedstring,true);
+            file_put_contents($filePath, $decodeBase64);
+            return response()->download($filePath);
+        }else{
+            return back();
+        }
     }
     private function construct_address($address)
     {

@@ -23,7 +23,7 @@
         <thead style="background-color: #313C4E;">
             <tr style="text-align: left;">
                 <th style="padding: 50px;">
-                    <img src="{{ asset('frontend/assets/images/logo.svg')}}" alt="">
+                    <img src="https://formationshunt.technoexponent.net/frontend/assets/images/logo.svg" alt="">
                 </th>
             </tr>
         </thead>

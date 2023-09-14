@@ -8,18 +8,21 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use PDF;
+use Illuminate\Support\Str;
+
 class MailTestController extends Controller
 {
     public function TestMail()
     {
+        $filename = 'Invoice'.uniqid().Str::random(10).'.pdf';
+
         $name = "Myname";
         $pdf = $this->generatePdf();
-        $filePath = storage_path('app/public/attachments/Invoice'.uniqid().'.pdf');
+        $filePath = storage_path('app/public/attachments/'.$filename);
         file_put_contents($filePath, $pdf );
         $content = ['name'=>$name,'pdf'=>$filePath];
         try {
            $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new MailWithAttachmentTest ($content));
-        //    print_r($status);
         } catch (\Throwable $th) {
             throw $th;
         }

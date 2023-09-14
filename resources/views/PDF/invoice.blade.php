@@ -118,13 +118,13 @@
                                                 <tr>
                                                     <td style="padding: 4px 10px;border-left: 1px solid #000;border-right: 1px solid #000;font-size:14px;color:#646464;">{{ $item->service->service_name }}</td>
                                                     <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">1</td>
-                                                    <!-- <td><span class="status accepted">Accepted</span></td> -->                                                    
+                                                    <!-- <td><span class="status accepted">Accepted</span></td> -->
                                                     <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">${{ $item->service->price }}</td>
                                                     <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">${{ $item->service->price }}</td>
                                                     <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">${{ $vat }}</td>
                                                     <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">${{ ($item->service->price) + $vat }}</td>
-                                                </tr> 
-                                            @endforeach  
+                                                </tr>
+                                            @endforeach
 
                                             {{--<tr>
                                                 <td style="padding: 4px 10px;border-left: 1px solid #000;border-right: 1px solid #000;font-size:14px;color:#646464;">- Limited by Shares Company Formation</td>
@@ -223,7 +223,7 @@
                                                 <td style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
                                                     @php
                                                         $total_price = $net_total + $all_order->cart->package->package_price + ($total_vat + ($all_order->cart->package->package_price * 20) / 100);
-                                                    @endphp                                                   
+                                                    @endphp
                                                     <strong>${{ $total_price }}</strong>
                                                 </td>
                                             </tr>
