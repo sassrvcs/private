@@ -67,9 +67,7 @@
                                 </thead>
                                 <tbody>
 
-                                    @php //$companyNames = $companies->companies->pluck('companie_name')->unique(); @endphp
 
-                                    @php //$companyNames = preg_replace('/\b(?:LTD|LIMITED)\b/i', '', strtoupper($companyNames)); @endphp
 
 
                                     @forelse($companies as $key => $order)
@@ -85,7 +83,13 @@
                                                         <a class="btn btn_baseColor btn-sm mt-2 d-none" style="margin:6px;"  id="viewXML" onClick="viewXML('{{ $order->order_id }}')">
                                                             View XML
                                                         </a>
-                                                        <a class="btn btn_baseColor btn-sm mt-2" style="margin:6px;"  id="submitCompanyHouse" onClick="SubmitCompanyHouse('{{ $order->order_id }}')">
+                                                        @php
+                                                            $submitted = \App\Models\companyXmlDetail::where('order_id',$order->order_id)->pluck('submitted')->first();
+
+
+                                                        @endphp
+
+                                                        <a class="btn btn_baseColor btn-sm mt-2 @if($submitted == 1) d-none @endif" style="margin:6px;"  id="submitCompanyHouse" onClick="SubmitCompanyHouse('{{ $order->order_id }}')">
                                                             Submit XML
                                                         </a>
                                                 </div>
@@ -108,10 +112,14 @@
                                                 {{--<span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">
                                                     {{ ($order->order_status == 'pending') ? 'INCOMPLETE' : 'ACCEPTED' }}
                                                 </span>--}}
+                                                @php
+                                                    $company_status = \App\Models\Companie::where('order_id',$order->order_id)->pluck('status')->first();
 
-                                                <select class="select form-control @error('title') is-invalid @enderror" name="status_{{ $order->order_id }}" id="status_{{ $order->order_id }}">
+                                                @endphp
+                                                    <select class="select form-control @error('title') is-invalid @enderror" name="status_{{ $order->order_id }}" id="status_{{ $order->order_id }}">
                                                     @foreach($statuses as $key => $value)
-                                                    <option value={{ $key }}>{{ $value }}</option>
+
+                                                    <option value={{ $key }} @if($key == $company_status) selected @endif>{{ $value }}</option>
                                                     @endforeach
                                                 </select>
                                             </td>
@@ -181,26 +189,32 @@
     </div>
 </div> -->
 
-<!-- ====modal====
+<!-- ====modal==== -->
 <div class="modal fade" id="modalCheckStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal Check Status</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle"> Check Status</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            ...
+                <p>Status Code - <span id="status_code"></span></p>
+                <p>Company Number - <span id="company_no"></span></p>
+                <p>Auth Code - <span id="auth_code"></span></p>
+                <p>Description - <span id="desc"></span></p>
+                <p>Date of Incorporation - <span id="date"></span></p>
+
+
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" onclick="modalOff()">Close</button>
             <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
           </div>
         </div>
     </div>
-</div> -->
+</div>
 @endsection
 
 @section('scripts')
@@ -223,7 +237,7 @@
                 order_id: order_id,
             },
             success: function(res) {
-                console.log(res.status);
+                console.log(res);
                 if(res.status == 'success'){
                     // console.log('here');
                     // $("#modalSubmitCompanyHouse").modal('show');
@@ -232,7 +246,17 @@
                             'Your company form has been submitted to Companies House',
                             'success'
                             )
-                }else{
+                            .then(function() {
+                                location.reload()
+                            });
+                }else if(res.status == 'error_xml'){
+                    Swal.fire(
+                            'Opps!',
+                            res.data.GovTalkErrors.Error.Text,
+                            'error'
+                            )
+                }
+                else{
                     Swal.fire(
                             'Opps!',
                             'There are some technical issues. Maybe Company form has not been completed.',
@@ -241,6 +265,10 @@
                 }
             }
         });
+    }
+
+    function modalOff(){
+        $("#modalCheckStatus").modal('hide');
     }
 
     function CheckStatus(order_id) {
@@ -255,7 +283,19 @@
             success: function(res) {
                 console.log(res);
                 if(res.status == 'success'){
-                    console.log('Done');
+                    $("#modalCheckStatus").modal('show');
+                    $('#desc').html(res.comment);
+                    $('#auth_code').html(res.auth_code);
+                    $('#company_no').html(res.company_number);
+                    $('#status_code').html(res.xml_status);
+                    $('#date').html(res.date);
+
+                }else{
+                    Swal.fire(
+                            'Opps!',
+                            'There are some technical issues. Maybe Company form has not been completed.',
+                            'error'
+                            )
                 }
             }
         });
@@ -269,7 +309,7 @@
 
         // alert(auth_code);
 
-        if(status == 2){
+        if(status == 3){
             if(company_number==""){
                 $("#error_company_number_" + order_id).html("Company no. is required")
                 setTimeout(function(){
