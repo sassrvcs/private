@@ -98,6 +98,7 @@ class CompanieFormController extends Controller
      */
     public function store(CompanieStoreRequest $request)
     {
+       
         $validate = Validator::make($request->all(), [
             'companie_name' => 'required',
             'companie_type' => 'required',

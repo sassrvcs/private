@@ -10,7 +10,7 @@
         <div class="text">
           <h2 style="color: red">Opps</h2>
           <p style="color: red">Payment has been Cancled</p>
-          <a href="{{route('checkout')}}" style="background: red; color:white">Back to Checkout</a>
+          <a href="{{route('index')}}" style="background: red; color:white">Home</a>
         </div>
       </div>
     </div>

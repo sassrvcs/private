@@ -15,7 +15,7 @@ class Companie extends Model implements HasMedia
         'user_id', 'jurisdiction_id',
         'office_address', 'business_address',
         'companie_name', 'companie_type',
-        'section_name', 'step_name',
+        'section_name', 'step_name','order_id',
         'forwarding_registered_office_address',
         'forwarding_business_office_address',
         'legal_document'

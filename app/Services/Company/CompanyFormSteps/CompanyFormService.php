@@ -24,6 +24,7 @@ class CompanyFormService
                 'user_id'           => auth()->user()->id,
             ],[
                 'user_id'           => auth()->user()->id,
+                'order_id'          => $request['order'],
                 'jurisdiction_id'   => $request['jurisdiction_id'],
                 'companie_name'     => $request['companie_name'],
                 'companie_type'     => $request['companie_type'],

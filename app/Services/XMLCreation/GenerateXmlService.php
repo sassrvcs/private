@@ -15,6 +15,8 @@ use App\Models\orderTransaction;
 use App\Models\DeliveryPartnerDetail;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use Spatie\PdfToText\Pdf;
+use App\Models\companyXmlDetail;
+use App\Models\Nationality;
 
 
 /**
@@ -33,9 +35,10 @@ class GenerateXmlService
     ) { }
     public function index($id)
     {
+
         ini_set('max_execution_time', 0);
         $review = $this->companyFormService->getCompanieName($id);
-        // dd($review);
+
         $ArticleDocument='';
         $SensitiveDocument='';
         $SamenameDocument='';
@@ -44,12 +47,11 @@ class GenerateXmlService
 
         //For Articles of Association
         $document = $review->getMedia('documents')->sortByDesc('updated_at')->first();
+
         if ($document) {
 
             $documentName = $document->file_name;
-            $documentUrl = $document->getUrl();
-
-            // $pdfContent = Pdf::getText($documentUrl);
+            $documentUrl = $document->getPath();
             $base64EncodedPDF = chunk_split(base64_encode(file_get_contents($documentUrl)));
 
             $ArticleDocument = '<Document>
@@ -66,8 +68,8 @@ class GenerateXmlService
         $document_same_name = $review->getMedia('company-same-as-name-document')->sortByDesc('updated_at')->first();
         if ($document_same_name) {
             $sameName='true';
-            $documentName = $document->file_name;
-            $documentUrl = $document->getUrl();
+            $documentName = $document_same_name->file_name;
+            $documentUrl = $document_same_name->getPath();
             $base64EncodedPDF = chunk_split(base64_encode(file_get_contents($documentUrl)));
 
             $SensitiveDocument = '<Document>
@@ -83,8 +85,8 @@ class GenerateXmlService
         $document_sensetive = $review->getMedia('company-sensetive-document')->sortByDesc('updated_at')->first();
         if ($document_sensetive) {
             $NameAuthorisation='true';
-            $documentName = $document->file_name;
-            $documentUrl = $document->getUrl();
+            $documentName = $document_sensetive->file_name;
+            $documentUrl = $document_sensetive->getPath();
             $base64EncodedPDF = chunk_split(base64_encode(file_get_contents($documentUrl)));
             $SamenameDocument = '<Document>
                                 <Data >'.$base64EncodedPDF.'</Data>
@@ -166,10 +168,11 @@ class GenerateXmlService
                 if($registered_office_address->id==$officerDetails['add_id']){
                     $same_add = 'true';
                 }else{
-                    $same_add = 'false';
+                    $same_add = 'true';
                 }
                 $nationality = $officerDetails['nationality'];
-                $nationality_name = Country::where('id',$nationality)->pluck('name')->first();
+                $nationality_name = Nationality::where('id',$nationality)->pluck('nationality')->first();
+
                 $address= Address::where('id',$officerDetails['add_id'])->first();
                 if($address->county=='England'){
                     $country = 'GB-ENG';
@@ -196,7 +199,7 @@ class GenerateXmlService
                                                 <SameAsRegisteredOffice>'.$same_add.'</SameAsRegisteredOffice>
                                             </ServiceAddress>
                                             <DOB>'.$officerDetails['dob_day'].'</DOB>
-                                            <Nationality>BRITISH</Nationality>
+                                            <Nationality>'.$nationality_name.'</Nationality>
                                             <Occupation>'.$officerDetails['occupation'].'</Occupation>
                                             <CountryOfResidence>United Kingdom</CountryOfResidence>
                                             <ResidentialAddress>
@@ -214,6 +217,58 @@ class GenerateXmlService
                                 </Appointment>';
             }
         }
+
+        // For Secretary
+        // For Director
+        $all_secretary = '';
+        foreach ($appointmentsList as $val){
+            $positionArray = explode(', ', $val['position']);
+            if(in_array('Secretary', $positionArray)){
+
+                $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
+                // dd($officerDetails);
+                if($registered_office_address->id==$officerDetails['add_id']){
+                    $same_add = 'true';
+                }else{
+                    $same_add = 'true';
+                }
+                $nationality = $officerDetails['nationality'];
+                $nationality_name = Nationality::where('id',$nationality)->pluck('nationality')->first();
+                $address= Address::where('id',$officerDetails['add_id'])->first();
+                if($address->county=='England'){
+                    $country = 'GB-ENG';
+                }else if($address->county=='United Kingdom' || $registered_office_address->county=='Greater London'){
+                    $country = 'GBR';
+                }else if($address->county=='Scotland'){
+                    $country = 'GB-SCT';
+                }else if($address->county=='Northern Ireland'){
+                    $country = 'GB-NIR';
+                }else if($address->county=='Wales'){
+                    $country = 'GB-WLS';
+                }else{
+                    $country = 'UNDEF';
+                }
+
+                $all_secretary.='<Appointment>
+                                    <ConsentToAct>true</ConsentToAct>
+                                    <Secretary>
+                                        <Person>
+                                            <Forename>'.$officerDetails['first_name'].'</Forename>
+                                            <Surname>'.$officerDetails['last_name'].'</Surname>
+                                            <ServiceAddress>
+                                                <Address>
+                                                    <Premise>'.$address->house_number.'</Premise>
+                                                    <Street>'.$address->street.'</Street>
+                                                    <PostTown>'.$address->town.'</PostTown>
+                                                    <Country>'.$country.'</Country>
+                                                </Address>
+                                            </ServiceAddress>
+                                        </Person>
+                                    </Secretary>
+                                </Appointment>';
+            }
+        }
+
         // For PSC
         $all_psc = '';
         foreach ($appointmentsList as $val){
@@ -224,10 +279,11 @@ class GenerateXmlService
                 if($registered_office_address->id==$officerDetails['add_id']){
                     $same_add = 'true';
                 }else{
-                    $same_add = 'false';
+                    $same_add = 'true';
                 }
                 $nationality = $officerDetails['nationality'];
-                $nationality_name = Country::where('id',$nationality)->pluck('name')->first();
+                $nationality_name = Nationality::where('id',$nationality)->pluck('nationality')->first();
+                $country_resident = Nationality::where('id',$nationality)->pluck('name')->first();
                 $address= Address::where('id',$officerDetails['add_id'])->first();
                 if($address->county=='England'){
                     $country = 'GB-ENG';
@@ -314,8 +370,7 @@ class GenerateXmlService
                     }
                 }
                 // dd($address);
-                $all_psc.='<PSCs>
-                                <PSC>
+                $all_psc.=' <PSC>
                                     <PSCNotification>
                                         <Individual>
                                             <Title>'.$officerDetails['title'].'</Title>
@@ -325,8 +380,8 @@ class GenerateXmlService
                                                 <SameAsRegisteredOffice>'.$same_add.'</SameAsRegisteredOffice>
                                             </ServiceAddress>
                                             <DOB>'.$officerDetails['dob_day'].'</DOB>
-                                            <Nationality>BRITISH</Nationality>
-                                            <CountryOfResidence>United Kingdom</CountryOfResidence>
+                                            <Nationality>'.$nationality_name.'</Nationality>
+                                            <CountryOfResidence>'.$country_resident.'</CountryOfResidence>
                                             <ResidentialAddress>
                                                 <Address>
                                                     <Premise>'.$address->house_number.'</Premise>
@@ -343,8 +398,7 @@ class GenerateXmlService
                                             <NatureOfControl>'.$noc_value.'</NatureOfControl>
                                         </NatureOfControls>
                                     </PSCNotification>
-                                </PSC>
-                            </PSCs>';
+                                </PSC>';
             }
         }
 
@@ -368,10 +422,10 @@ class GenerateXmlService
                 if($registered_office_address->id==$officerDetails['add_id']){
                     $same_add = 'true';
                 }else{
-                    $same_add = 'false';
+                    $same_add = 'true';
                 }
                 $nationality = $officerDetails['nationality'];
-                $nationality_name = Country::where('id',$nationality)->pluck('name')->first();
+                $nationality_name = Nationality::where('id',$nationality)->pluck('nationality')->first();
                 $address= Address::where('id',$officerDetails['add_id'])->first();
                 if($address->county=='England'){
                     $country = 'GB-ENG';
@@ -482,8 +536,7 @@ class GenerateXmlService
                             </Subscribers>';
 
                         $authoriser.='
-                                <Authoriser>
-                                    <Subscribers>
+
                                         <Subscriber>
                                                 <Person>
                                                     <Forename>'.$officerDetails['first_name'].'</Forename>
@@ -502,9 +555,7 @@ class GenerateXmlService
                                                     <PersonalAttribute>'.$question_one.'</PersonalAttribute>
                                                     <PersonalData>'.$officerDetails['authenticate_one_ans'].'</PersonalData>
                                                 </Authentication>
-                                        </Subscriber>
-                                    </Subscribers>
-					            </Authoriser>';
+                                        </Subscriber>';
             }
         }
         // dd($total_share);
@@ -560,23 +611,30 @@ class GenerateXmlService
                                     <Articles>'.$articles.'</Articles>
                                     <RestrictedArticles>false</RestrictedArticles>
                                     '.$all_director.'
+                                    '.$all_secretary.'
+                                    <PSCs>
                                     '.$all_psc.'
+                                    </PSCs>
                                     <StatementOfCapital>
                                         <Capital>
                                             <TotalAmountUnpaid>0</TotalAmountUnpaid>
                                             <TotalNumberOfIssuedShares>'.$total_share.'</TotalNumberOfIssuedShares>
                                             <ShareCurrency>'.$total_share_currency.'</ShareCurrency>
-                                            <TotalAggregateNominalValue>'.$total_share_price.'</TotalAggregateNominalValue>
+                                            <TotalAggregateNominalValue>'.$total_share.'</TotalAggregateNominalValue>
                                             <Shares>
                                                 <ShareClass>Ordinary</ShareClass>
                                                 <PrescribedParticulars>Each share is entitled to one vote in any circumstances. Each share has equal rights to dividends. Each share is entitled to participate in a distribution arising from a winding up of the company</PrescribedParticulars>
                                                 <NumShares>'.$total_share.'</NumShares>
-                                                <AggregateNominalValue>'.$total_share_price.'</AggregateNominalValue>
+                                                <AggregateNominalValue>'.$total_share.'</AggregateNominalValue>
                                             </Shares>
                                         </Capital>
                                     </StatementOfCapital>
                                     '.$subscriber.'
-                                    '.$authoriser.'
+                                    <Authoriser>
+                                        <Subscribers>
+                                            '.$authoriser.'
+                                        </Subscribers>
+                                    </Authoriser>
                                     <SameDay>false</SameDay>
                                     <SameName>'.$sameName.'</SameName>
                                     <NameAuthorisation>'.$NameAuthorisation.'</NameAuthorisation>
@@ -593,8 +651,31 @@ class GenerateXmlService
                 </GovTalkMessage>';
 
 
-                echo($xml);
-                die();
+                $xml_details = companyXmlDetail::where('order_id',$id)->first();
+                if($xml_details){
+                    $xml_details->xml_body=$xml;
+                    $xml_details->submission_no=$six_digit_random_number;
+                    $xml_details->tans_no=$transaction_id;
+                    $xml_details->save();
+
+                }else{
+                    $xml_data = new companyXmlDetail;
+                    $xml_data->order_id = $id;
+                    $xml_data->submission_no = $six_digit_random_number;
+                    $xml_data->company_name = $review->companie_name;
+                    $xml_data->tans_no = $transaction_id;
+                    $xml_data->status = null;
+                    $xml_data->comment = null;
+                    $xml_data->xml_body = $xml;
+                    $xml_data->authentication_code = null;
+                    $xml_data->company_no = null;
+                    $xml_data->approval = null;
+                    $xml_data->doc_request_key = null;
+                    $xml_data->pdf_content = null;
+                    $xml_data->save();
+
+
+                }
     }
 
 
