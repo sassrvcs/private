@@ -23,7 +23,8 @@
         <thead style="background-color: #313C4E;">
             <tr style="text-align: left;">
                 <th style="padding: 50px;">
-                    <img src="https://formationshunt.technoexponent.net/frontend/assets/images/logo.svg" alt="">
+                    {{-- https://formationshunt.technoexponent.net/frontend/assets/images/logo.svg --}}
+                    <img src="{{$message->embed($logo)}}" alt="">
                 </th>
             </tr>
         </thead>

@@ -46,7 +46,7 @@ class UserRegistration extends Mailable implements ShouldQueue
         return new Content(
             view: 'frontend.mail.user_registration',
             with: [
-                'name' => $this->name,
+                'name' => $this->name,'logo'=>public_path('frontend/assets/images/logo_custom.png')
             ]
         );
     }

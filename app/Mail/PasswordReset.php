@@ -43,8 +43,8 @@ class PasswordReset extends Mailable implements ShouldQueue
     public function content()
     {
         return new Content(
-            markdown: 'frontend.mail.forgetPassword',
-            with:['token'=>$this->token]
+            view: 'frontend.mail.forgetPassword',
+            with:['token'=>$this->token,'logo'=>public_path('frontend/assets/images/logo_custom.png')]
         );
     }
 

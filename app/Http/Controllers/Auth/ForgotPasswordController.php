@@ -55,6 +55,7 @@ class ForgotPasswordController extends Controller
         //   });
 
         try {
+
             Mail::to($request->email)->send(new PasswordReset($token));
         } catch (\Throwable $th) {
             // throw $th;
