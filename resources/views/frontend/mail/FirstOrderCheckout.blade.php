@@ -44,7 +44,7 @@
                     nostrum. Eveniet sapiente saepe sunt doloribus!</td>
             </tr>
             <tr>
-                <th style="text-align: left; padding: 20px 50px 50px; font-size: 32px;">Your Order id : 1238755556 </th>
+                <th style="text-align: left; padding: 20px 50px 50px; font-size: 32px;">Your Order id : {{$order_id}} </th>
             </tr>
         </tbody>
         <tfoot>

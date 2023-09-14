@@ -205,6 +205,7 @@ class CompanyController extends Controller
                    $auth_code =$array['Body']['SubmissionStatus']['Status']['IncorporationDetails']['AuthenticationCode'];
                    $date = $array['Body']['SubmissionStatus']['Status']['IncorporationDetails']['IncorporationDate'];
                     $xml_details->doc_request_key= $doc_req_key;
+                    $xml_details->form_date = $date;
                     $xml_details->save();
 
                     // GET PDF via DOC REQ KEY

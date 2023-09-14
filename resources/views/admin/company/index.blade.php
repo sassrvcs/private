@@ -100,12 +100,22 @@
                                                     Check Status
                                                 </a>
                                             </td>
+                                            @php
+                                                $company_number = \App\Models\companyXmlDetail::where('order_id',$order->order_id)->pluck('company_no')->first();
+
+
+                                            @endphp
                                             <td>
-                                                <input type="text" name="company_number_{{ $order->order_id }}" id="company_number_{{ $order->order_id }}" value="{{ $order->company_number ?? '' }}">
+                                                <input type="text" name="company_number_{{ $order->order_id }}" id="company_number_{{ $order->order_id }}" value="{{ $company_number ?? '' }}">
                                                 <span class="error" id="error_company_number_{{ $order->order_id }}"></span>
                                             </td>
+                                            @php
+                                                $auth_code = \App\Models\companyXmlDetail::where('order_id',$order->order_id)->pluck('authentication_code')->first();
+
+
+                                            @endphp
                                             <td>
-                                                <input type="text" name="auth_code_{{ $order->order_id }}" id="auth_code_{{ $order->order_id }}" value="{{ $order->auth_code ?? '' }}">
+                                                <input type="text" name="auth_code_{{ $order->order_id }}" id="auth_code_{{ $order->order_id }}" value="{{ $auth_code ?? '' }}">
                                                 <span class="error" id="error_auth_code_{{ $order->order_id }}"></span>
                                             </td>
                                             <td>

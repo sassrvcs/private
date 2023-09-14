@@ -8,19 +8,26 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Attachment;
+
+
 
 class FinalSubmitMail extends Mailable
 {
     use Queueable, SerializesModels;
-
+    private $name;
+    private $pdf;
+    private $order_id;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($content)
     {
-        //
+        $this->name = $content['name'];
+        $this->pdf = $content['pdf'];
+        $this->order_id = $content['order_id'];
     }
 
     /**
@@ -31,7 +38,7 @@ class FinalSubmitMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Final Submit Mail',
+            subject: 'Payment details from FormationsHunt',
         );
     }
 
@@ -43,7 +50,11 @@ class FinalSubmitMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'view.name',
+            view: 'frontend.mail.FirstOrderCheckout',
+            with: [
+                'name' => $this->name,
+                'order_id' => $this->order_id,
+            ],
         );
     }
 
@@ -54,6 +65,8 @@ class FinalSubmitMail extends Mailable
      */
     public function attachments()
     {
-        return [];
+        return [Attachment::fromPath($this->pdf)
+        ->as('Invoice.pdf')
+        ->withMime('application/pdf'),];
     }
 }

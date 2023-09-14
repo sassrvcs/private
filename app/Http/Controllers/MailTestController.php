@@ -31,17 +31,17 @@ class MailTestController extends Controller
 
     public function generatePdf()
     {
-    $data = [
-        'content1' => 'Sample PDF',
-        'content2' => 'This is a sample PDF generated using Dompdf in Laravel.'
-    ];
+        $data = [
+            'content1' => 'Sample PDF',
+            'content2' => 'This is a sample PDF generated using Dompdf in Laravel.'
+        ];
 
-    // $pdf = new Dompdf();
-    // $pdf->loadHtml(View::make('pdf.sample', $data));
-    // $pdf->setPaper('A4');
-    $pdf = PDF::loadView('PDF.TestAttachment',$data);
-    $pdf->render();
-    return $pdf->output();
-    // return $pdf->download('_efilling.pdf');
+        // $pdf = new Dompdf();
+        // $pdf->loadHtml(View::make('pdf.sample', $data));
+        // $pdf->setPaper('A4');
+        $pdf = PDF::loadView('PDF.TestAttachment',$data);
+        $pdf->render();
+        return $pdf->output();
+        // return $pdf->download('_efilling.pdf');
     }
 }

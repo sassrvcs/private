@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Checkout;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Checkout\CheckoutStepRequest;
+use App\Mail\FinalSubmitMail;
 use App\Services\Addon\AddonService;
 use App\Services\Cart\CartService;
 use App\Services\XMLCreation\GenerateXmlService;
@@ -17,6 +18,17 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Order;
 use App\Models\orderTransaction;
 use Illuminate\Support\Str;
+use App\Mail\MailWithAttachmentTest;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
+use App\Services\Invoice\InvoiceService;
+use App\Services\Order\OrderService;
+use App\Services\Company\CompanyFormSteps\CompanyFormService;
+use App\Services\Company\BusinessEssentialSteps\BusinessEssentialsService;
+use PDF;
+use App\Models\Address;
+
 class CheckoutStepController extends Controller
 {
     public function __construct(
@@ -26,7 +38,11 @@ class CheckoutStepController extends Controller
         protected CountryService $countryService,
         protected UserService $userService,
         protected CheckoutService $checkoutService,
-        protected GenerateXmlService $xmlService
+        protected GenerateXmlService $xmlService,
+        protected InvoiceService $invoiceService,
+        protected OrderService $orderService,
+        protected CompanyFormService $companyFormService,
+        protected BusinessEssentialsService $businessEssentialsService,
 
     ) { }
 
@@ -217,10 +233,25 @@ class CheckoutStepController extends Controller
         $order_transaction->amount=null;
         $order_transaction->save();
 
+        $filename = 'Invoice'.uniqid().Str::random(10).'.pdf';
+
+
+        $name = auth()->user()->title.' '.auth()->user()->forename.' '.auth()->user()->surname;
+        $pdf = $this->generatePdf($order_id);
+        $filePath = storage_path('app/public/attachments/'.$filename);
+        file_put_contents($filePath, $pdf );
+        $content = ['name'=>$name,'pdf'=>$filePath,'order_id'=>$order_id];
+        try {
+           $status =  Mail::to(auth()->user()->email)->send(new FinalSubmitMail ($content));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
 
         return view('frontend.payment_getway.success');
 
     }
+
     public function paymentDeclined(Request $request){
                 return view('frontend.payment_getway.declined');
 
@@ -232,6 +263,46 @@ class CheckoutStepController extends Controller
     public function paymentCancelled(Request $request){
                 return view('frontend.payment_getway.cancelled');
 
+    }
+
+    public function generatePdf($order_id)
+    {
+        $user = auth()->user();
+
+        $order_id = $order_id;
+
+        $order = $this->orderService->getOrder($order_id);
+
+        $deliveryPartner = $this->companyFormService->getCompanieName( $order_id );
+
+        $all_order = $this->businessEssentialsService->showOrder( $order_id );
+
+        $transaction = $this->orderService->getOrderFinalTransaction($order_id);
+
+        $billing_address = Address::join('countries','countries.id','=','addresses.billing_country')
+            ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+            ->where('addresses.user_id', $user->id)
+            ->where('addresses.address_type','billing_address')
+            ->first();
+
+        $net_total = 0;
+        $total_vat =0;
+
+        $data = [
+            'order' => $order,
+            'deliveryPartner' => $deliveryPartner,
+            'user' => $user,
+            'all_order' => $all_order,
+            'net_total' => $net_total,
+            'total_vat' => $total_vat,
+            'transaction' => $transaction,
+            'billing_address' => $billing_address
+        ]; // Convert the model to an array
+
+        $pdf = PDF::loadView('PDF.invoice', $data);
+        $pdf->render();
+        return $pdf->output();
+        // return $pdf->download('_efilling.pdf');
     }
 
     /**
