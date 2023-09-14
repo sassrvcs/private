@@ -33,7 +33,7 @@
                                 <tr>
                                     <td style="vertical-align: top;">
                                         <p>Customer Ref: 001395910</p>
-                                        <p>Invoice Ref: {{ $transaction ? $transaction->invoice_id : '' }}</p>
+                                        <p>Invoice Ref: {{ $transaction ? $transaction->uuid : '' }}</p>
                                         <p>Order Ref: {{ $order->order_id }}</p>
                                         <p>Invoice Date: {{ $transaction ? \Carbon\Carbon::parse($transaction->created_at)->format('d/m/Y') : '' }}</p>
                                     </td>

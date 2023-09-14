@@ -216,29 +216,29 @@ class CompaniesListController extends Controller
     private function construct_address($address)
     {
         $con_address = '';
-        if($address['house_number']!='')
+        if(@$address['house_number']!='')
         {
-            $con_address .= $address['house_number'].', ';
+            @$con_address .= $address['house_number'].', ';
         }
-        if($address['street']!='')
+        if(@$address['street']!='')
         {
-            $con_address .= $address['street'].', ';
+            @$con_address .= $address['street'].', ';
         }
-        if($address['locality']!='')
+        if(@$address['locality']!='')
         {
-            $con_address .= $address['locality'].', ';
+            @$con_address .= $address['locality'].', ';
         }
-        if($address['town']!='')
+        if(@$address['town']!='')
         {
-            $con_address .= $address['town'].', ';
+            @$con_address .= $address['town'].', ';
         }
-        if($address['county']!='')
+        if(@$address['county']!='')
         {
-            $con_address .= $address['county'].', ';
+            @$con_address .= $address['county'].', ';
         }
-        if($address['post_code']!='')
+        if(@$address['post_code']!='')
         {
-            $con_address .= $address['post_code'];
+            @$con_address .= $address['post_code'];
         }
         return $con_address;
     }

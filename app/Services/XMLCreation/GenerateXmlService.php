@@ -136,7 +136,7 @@ class GenerateXmlService
                                             <Street>North End Road</Street>
                                             <Thoroughfare>Wembley</Thoroughfare>
                                             <PostTown>Middlesex</PostTown>
-                                            <Country>United Kingdom</Country>
+                                            <Country>GBR</Country>
                                             <Postcode>HAQ OAE</Postcode>
                                         </RegisteredOfficeAddress>';
         }
