@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Order;
 use App\Models\orderTransaction;
-
+use Illuminate\Support\Str;
 class CheckoutStepController extends Controller
 {
     public function __construct(
@@ -164,7 +164,7 @@ class CheckoutStepController extends Controller
     public function paymentNow(Request $request){
 
         // dd($request);
-        $order = $request->order;
+        $order = $request->order.'/'.uniqid().Str::random(10);
 
         $paymentUrl = "https://mdepayments.epdq.co.uk/ncol/test/orderstandard_utf8.asp"; // Barclays payment gateway URL
         $pspid = "epdq1638710";
@@ -177,8 +177,8 @@ class CheckoutStepController extends Controller
             "PSPID" => $pspid,
             "orderID" => $order,
             "amount" => $amount,
+            "order" => $request->order,
             "currency" => $currency,
-            "operation"=>'SAL',
             "ACCEPTURL" => route('payment-success'),
             "DECLINEURL" => route('payment-declined'),
             "EXCEPTIONURL" => route('payment-exception'),
@@ -202,14 +202,18 @@ class CheckoutStepController extends Controller
 
     public function paymentSuccess(Request $request){
         // dd($request);
+        $order_arr = explode('/',$request->query('orderID'));
+        $order_id =$order_arr[0];
+
         $order_details = Order::where('order_id',$request->query('orderID'))->first();
 
         $order_transaction = new orderTransaction;
-        $order_transaction->order_id =$request->query('orderID');
-        $order_transaction->status=$request->query('orderID');
-        $order_transaction->PAYID=$request->query('orderID');
-        $order_transaction->ACCEPTANCE=$request->query('orderID');
-        $order_transaction->SHASIGN=$request->query('orderID');
+        $order_transaction->order_id =$order_id;
+        $order_transaction->uuid =$request->query('orderID');
+        $order_transaction->status=$request->query('STATUS');
+        $order_transaction->PAYID=$request->query('PAYID');
+        $order_transaction->ACCEPTANCE=$request->query('ACCEPTANCE');
+        $order_transaction->SHASIGN=$request->query('SHASIGN');
         $order_transaction->amount=null;
         $order_transaction->save();
 
