@@ -119,6 +119,7 @@
                                                                 <p>Net Total :</p>
                                                                 <p>VAT :</p>
                                                                 <strong>Total :</strong>
+
                                                             </td>
                                                             <td></td>
                                                             <td></td>
@@ -130,12 +131,46 @@
                                                                 </p>
                                                                 @php
                                                                     $total_price = $net_total + $all_order->cart->package->package_price + ($total_vat + ($all_order->cart->package->package_price * 20) / 100);
+                                                                    $total_paid = \App\Models\orderTransaction::where('order_id', $_GET['order'])->sum('amount');
+                                                                    $due_amount = $total_price - $total_paid;
                                                                 @endphp
                                                                 <strong>${{ $total_price }}</strong>
                                                             </td>
                                                         </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                <p>Amount Paid</p>
+
+
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+
+
+                                                                <p>${{ $total_paid }}</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>Due Amount</strong>
+
+
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+
+
+                                                                <strong>${{ $due_amount }}</strong>
+                                                            </td>
+                                                        </tr>
                                                     </tfoot>
-                                                
+
+
                                                 </table>
                                             </div>
                                             <div class="delivery-details-info">

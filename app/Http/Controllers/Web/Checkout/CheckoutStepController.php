@@ -28,6 +28,7 @@ use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use App\Services\Company\BusinessEssentialSteps\BusinessEssentialsService;
 use PDF;
 use App\Models\Address;
+use App\Models\Companie;
 
 class CheckoutStepController extends Controller
 {
@@ -136,50 +137,13 @@ class CheckoutStepController extends Controller
      */
     public function checkoutCustomer(Request $request)
     {
-        // dd($request);
-        // $validate = Validator::make($request->all(), [
-        //     'title'             => 'required',
-        //     'forename'          => 'required|alpha',
-        //     'surname'           => 'required|alpha',
-        //     // 'phone'             => 'required|numeric|digits_between:8,13',
-        //     // 'email'             => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email|unique:users',
-        //     'post_code'         => 'required',
-        //     'county'            => 'required',
-        //     'house_no'          => 'required',
-        //     'street'            => 'required',
-        //     'town'              => 'required',
-        //     'billing_country'   => 'required',
-        // ],[
-        //     'title.required'    => 'Title is required.',
-        //     'forename.required' => 'Forename is required.',
-        //     'surname.required'  => 'Surname is required.',
-        //     // 'phone.required'    => 'Phone number is required.',
-        //     // 'phone.required'    => 'Phone number is required.',
-        //     'phone.numeric'     => 'Please enter valid phone number.',
-        //     'county.required'   =>'This field is required.',
-        //     'street.required'   =>'This field is required.',
-        //     'town.required'     =>'This field is required.',
-        //     'post_code.required'=>'This field is required.',
-        //     'house_no.required' =>'This field is required.',
-        //     'billing_country.required' =>'This field is required.',
-        // ]);
 
-        // if($validate->fails()) {
-        //     return back()->withErrors($validate->errors())->withInput();
-        // }
-
-        // if (auth()->user()) {
-        //     $checkout = $this->checkoutService->doCheckoutFinalStep($request, auth()->user());
-        //     if ($checkout) {
-        //         return redirect()->route('my-account')->with('success','Company has been registerd successfully');
-        //     }
-        // }
         return $this->paymentNow($request);
     }
 
     public function paymentNow(Request $request){
 
-        // dd($request);
+
         $order = $request->order.'/'.uniqid().Str::random(10);
 
         $paymentUrl = "https://mdepayments.epdq.co.uk/ncol/test/orderstandard_utf8.asp"; // Barclays payment gateway URL
@@ -221,9 +185,15 @@ class CheckoutStepController extends Controller
         $order_arr = explode('/',$request->query('orderID'));
         $order_id =$order_arr[0];
 
-        $order_details = Order::where('order_id',$request->query('orderID'))->first();
+        $order_details = Order::where('order_id',$order_id)->first();
 
+        $company = Companie::where('order_id',$order_id)->first();
         $order_transaction = new orderTransaction;
+        if($company){
+            $order_transaction->step = 1;
+        }else{
+            $order_transaction->step = 0;
+        }
         $order_transaction->order_id =$order_id;
         $order_transaction->uuid =$request->query('orderID');
         $order_transaction->status=$request->query('STATUS');
