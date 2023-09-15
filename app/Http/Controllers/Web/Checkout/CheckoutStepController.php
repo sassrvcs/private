@@ -85,7 +85,12 @@ class CheckoutStepController extends Controller
         // dd($request);
 
         $order_id=null;
-        $indx = $request->indx;
+        if($request){
+
+            $indx = $request->indx;
+        }else{
+            $indx = $request->query('indx');
+        }
 
         if($request->query('order')){
             $checkout = Order::with('cart.package','cart.addonCartServices.service')->where('order_id',$request->query('order'))->first();

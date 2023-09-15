@@ -37,6 +37,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+
         $validate = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
             'password' => 'required|min:8|string',
@@ -53,9 +54,9 @@ class AuthController extends Controller
                 // Authentication passed...
                 if( isset($request->checkout) && !empty($request->checkout) ) {
                     $checkout = $this->checkoutService->doCheckoutFinalStep($request, auth()->user());
-                    // dd($checkout);
+
                     if ($checkout) {
-                        return redirect()->route('checkout');
+                        return redirect()->route('checkout',['indx'=>$request->indx]);
                     }
                 } else {
                     return redirect()->route('my-account');

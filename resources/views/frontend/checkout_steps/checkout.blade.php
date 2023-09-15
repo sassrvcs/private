@@ -159,18 +159,43 @@
                                             </tbody>
                                         </table>
                                     </div>
+
+                                    <div class="mt-3">
+                                        <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
+                                            <tbody>
+                                                <tr class="order-total">
+                                                    <th>Amount Due</th>
+                                                    <td class="text-end"><strong><span class="woocommerce-Price-amount amount_due"><bdi><span class="woocommerce-Price-currencySymbol">£</span></bdi></span></strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @else
+                                    <div class="mt-3">
+                                        <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
+                                            <tbody>
+                                                <tr class="order-total">
+                                                    <th>Paid Amount </th>
+                                                    <td class="text-end"><strong><span class="woocommerce-Price-amount paid_amount"><bdi><span class="woocommerce-Price-currencySymbol">£</span>0</bdi></span></strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
+                                            <tbody>
+                                                <tr class="order-total">
+                                                    <th>Amount Due</th>
+                                                    <td class="text-end"><strong><span class="woocommerce-Price-amount amount_due"><bdi><span class="woocommerce-Price-currencySymbol">£</span></bdi></span></strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 @endif
-                                <div class="mt-3">
-                                    <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
-                                        <tbody>
-                                            <tr class="order-total">
-                                                <th>Amount Due</th>
-                                                <td class="text-end"><strong><span class="woocommerce-Price-amount amount_due"><bdi><span class="woocommerce-Price-currencySymbol">£</span></bdi></span></strong>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -436,6 +461,8 @@
                         @guest
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="login-tab">
                                 <form action="{{ route('clientlogin') }}" method="POST" novalidate="novalidate">
+                                    <input type="text" name="indx" id="indx" value="{{$indx}}">
+
                                     @csrf
                                     <fieldset class="border p-3">
                                         <legend class="float-none w-auto p-2">Account Login</legend>
@@ -521,18 +548,17 @@
                     total += price;
                 });
 
-
                 total_net = parseFloat(total+packagePrice);
                 total_vat = (parseFloat(total+packagePrice)*20)/100;
-
-
-
 
                 // Update the total amount in the HTML
                 $('.tax-rate .net bdi').text('£' + total_net.toFixed(2));
                 $('.tax-rate .vat bdi').text('£' + total_vat.toFixed(2));
+
                 var paid_amount = parseFloat($('.paid_amount').text().replace('£', ''));
-                console.log('paid_amount', paid_amount);
+
+                console.log('paid_amount',paid_amount);
+
                 total = parseFloat(total_net) + parseFloat(total_vat);
                 var final_amount = total-paid_amount;
                 console.log('final_amount', final_amount);
@@ -544,6 +570,7 @@
 
                 $("#all_total_amount").val(final_amount.toFixed(2));
                 $("#total_final_amount").val(final_amount.toFixed(2));
+
                 if(final_amount.toFixed(2)==0){
                     $('#place_order').addClass('d-none');
                 }else{
