@@ -127,7 +127,7 @@ class CompaniesListController extends Controller
         $address_details = $company_details['office_address']!=null?$company_details['officeAddressWithoutForwAddress']:$company_details['forwAddress'];
         $company_name = $company_details['companie_name'];
         $company_office_address = $this->construct_address($address_details);
-        $registered_in = $address_details['county'];
+        $registered_in = @$address_details['county'];
         $shareholders_names ='';
         $director_names ='';
         $customer_name = auth()->user()->title.' '.auth()->user()->forename.' '.auth()->user()->surname;

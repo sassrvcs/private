@@ -405,7 +405,7 @@
                                                                 data-label="Country" autocomplete="country"
                                                                 data-placeholder="Select a country / region…">
                                                                 <option value="">Select a country / region…</option>
-                                                                <option value="72" selected>England</option>
+                                                                <option value="236" selected>United Kingdom</option>
                                                                 @foreach ($countries as $country)
                                                                     <option value="{{ $country['id'] }}">
                                                                         {{ $country['name'] }}</option>

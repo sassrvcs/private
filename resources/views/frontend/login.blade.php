@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+<meta name="csrf_token" content="{{ csrf_token() }}">
     <!-- ================ start: common-inner-page-banner ================ -->
     <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png')}})">
         <div class="custom-container">

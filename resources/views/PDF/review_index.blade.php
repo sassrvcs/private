@@ -210,7 +210,8 @@
                                                             @php
                                                             $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
                                                             $nationality = $officerDetails['nationality'];
-                                                            $nationality_name = \App\Models\Country::where('id',$nationality)->pluck('name')->first();
+                                                           
+                                                            $nationality_name = \App\Models\Nationality::where('id',$nationality)->pluck('nationality')->first();
                                                             echo $nationality_name;
                                                         @endphp</td>
                                                     </tr>

@@ -33,18 +33,18 @@
         <div class="companies-wrap">
             <div class="row woo-account">
                 @include('layouts.navbar')
-                <div class="MyAccount-content col-md-12">                    
+                <div class="MyAccount-content col-md-12">
                     <div class="MyAccount-content col-md-12">
                         <div class="companies-topbar">
                             <h3>
                                 @if($status == '')
                                     @php $report_type = 'All'; @endphp
                                 @else
-                                    @php                                    
+                                    @php
                                         $report_type = ($status == 'pending') ? 'Incomplete' : (($status == 'progress') ? 'Inprogress' : 'Completed');
-                                    @endphp  
-                                @endif 
-                                Order History ({{ $report_type}})
+                                    @endphp
+                                @endif
+                                Order History
                             </h3>
                         </div>
                         <div class="companies-table-wrap">
@@ -70,31 +70,33 @@
                                                 <td>{{ $order->cart->package->short_description }}</td>
                                                 <td>
                                                     <span class="status accepted">
-                                                        {{ ($order->order_status == 'pending') ? 'Incomplete' : (($order->order_status == 'progress') ? 'Inprogress' : 'Complete') }}   
+                                                        {{ ($order->order_status == 'pending') ? 'Incomplete' : (($order->order_status == 'progress') ? 'Inprogress' : 'Complete') }}
                                                     </span>
                                                 </td>
                                                 <td>
                                                     @if($order->order_status != 'success')
                                                         <div class="d-flex justify-content-end">
                                                             <a class="view-btn delet-btn" onclick="return deleteOrderItem();" href="{{route('delete-order-item', ['order_id' => $order->order_id] )}}">
-                                                                <img src="{{ asset('frontend/assets/images/close-icon.png')}}" alt=""> 
+                                                                <img src="{{ asset('frontend/assets/images/close-icon.png')}}" alt="">
                                                                 <strong>Delete</strong>
                                                             </a>
                                                             <button class="view-btn ml-2">
-                                                                <img src="{{ asset('frontend/assets/images/right-arrow-icon.png')}}" alt=""> 
-                                                                <strong>Continue Order</strong>
+                                                                <a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" >
+                                                                    <img src="{{ asset('frontend/assets/images/right-arrow-icon.png')}}" alt="">
+                                                                    <strong>Continue Order</strong>
+                                                                </a>
                                                             </button>
                                                         </div>
                                                     @else
                                                         <div class="d-flex justify-content-end">
                                                             <a class="view-btn delet-btn" href="{{ route('order-details', ['order' => $order->order_id]) }}">
                                                                 <strong>Details</strong>
-                                                            </a>                                                            
+                                                            </a>
                                                         </div>
                                                     @endif
                                                 </td>
-                                            </tr> 
-                                            @endforeach                                       
+                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 @else

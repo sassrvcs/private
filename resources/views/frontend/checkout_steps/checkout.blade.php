@@ -76,8 +76,8 @@
                                                                 @foreach( $checkout->cart->addonCartServices as $key => $value)
                                                                     <tr class="fee" >
                                                                         <td colspan="3">{{ $value->service->service_name }}</td>
-                                                                        <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
-                                                                        <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value->service->price }}</bdi></span></td>
+                                                                        <td class="text-end" style="display:none;"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                                        <td class="text-end" style="display:none;"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value->service->price }}</bdi></span></td>
                                                                     </tr>
                                                                 @endforeach
                                                         @endif
@@ -88,8 +88,8 @@
                                                         @foreach( $sessionCart[$indx]['addon_service'] as $key => $value)
                                                             <tr class="fee" >
                                                                 <td colspan="3">{{ $value['service_name'] }}</td>
-                                                                <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
-                                                                <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
+                                                                <td class="text-end" style="display:none;"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                                <td class="text-end" style="display:none;"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
                                                             </tr>
                                                         @endforeach
 
@@ -98,10 +98,10 @@
                                             @else
                                                 @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )
                                                     @foreach( $sessionCart[$indx]['addon_service'] as $key => $value)
-                                                        <tr class="fee" style="display:none;">
+                                                        <tr class="fee" >
                                                             <td colspan="3">{{ $value['service_name'] }}</td>
-                                                            <td class="text-end"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
-                                                            <td class="text-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
+                                                            <td class="text-end" style="display:none;"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                            <td class="text-end" style="display:none;"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
                                                         </tr>
                                                     @endforeach
 
@@ -143,17 +143,59 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="mt-3">
-                                    <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
-                                        <tbody>
-                                            <tr class="order-total">
-                                                <th>Amount Due</th>
-                                                <td class="text-end"><strong><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">£</span>21.58</bdi></span></strong>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                @if(auth()->check())
+                                    @php
+                                        $total_paid = \App\Models\orderTransaction::where('order_id', $checkout->order_id)->sum('amount');
+
+                                    @endphp
+                                    <div class="mt-3">
+                                        <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
+                                            <tbody>
+                                                <tr class="order-total">
+                                                    <th>Paid Amount </th>
+                                                    <td class="text-end"><strong><span class="woocommerce-Price-amount paid_amount"><bdi><span class="woocommerce-Price-currencySymbol">£</span>{{$total_paid}}</bdi></span></strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
+                                            <tbody>
+                                                <tr class="order-total">
+                                                    <th>Amount Due</th>
+                                                    <td class="text-end"><strong><span class="woocommerce-Price-amount amount_due"><bdi><span class="woocommerce-Price-currencySymbol">£</span></bdi></span></strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @else
+                                    <div class="mt-3">
+                                        <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
+                                            <tbody>
+                                                <tr class="order-total">
+                                                    <th>Paid Amount </th>
+                                                    <td class="text-end"><strong><span class="woocommerce-Price-amount paid_amount"><bdi><span class="woocommerce-Price-currencySymbol">£</span>0</bdi></span></strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
+                                            <tbody>
+                                                <tr class="order-total">
+                                                    <th>Amount Due</th>
+                                                    <td class="text-end"><strong><span class="woocommerce-Price-amount amount_due"><bdi><span class="woocommerce-Price-currencySymbol">£</span></bdi></span></strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -292,7 +334,7 @@
                                                     <span class="woocommerce-input-wrapper">
                                                         <select name="billing_country" id="billing_country" name="billing_country" class="  @error('billing_country') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
                                                             <option value="">Select a country / region…</option>
-                                                            <option value="72" selected>England</option>
+                                                            <option value="236" selected>United Kingdom</option>
                                                             @foreach ($countries as $country)
                                                                 <option value="{{$country->id}}">{{$country->name}}</option>
                                                             @endforeach
@@ -419,6 +461,8 @@
                         @guest
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="login-tab">
                                 <form action="{{ route('clientlogin') }}" method="POST" novalidate="novalidate">
+                                    <input type="text" name="indx" id="indx" value="{{$indx}}">
+
                                     @csrf
                                     <fieldset class="border p-3">
                                         <legend class="float-none w-auto p-2">Account Login</legend>
@@ -504,21 +548,35 @@
                     total += price;
                 });
 
-
                 total_net = parseFloat(total+packagePrice);
                 total_vat = (parseFloat(total+packagePrice)*20)/100;
 
+                // Update the total amount in the HTML
+                $('.tax-rate .net bdi').text('£' + total_net.toFixed(2));
+                $('.tax-rate .vat bdi').text('£' + total_vat.toFixed(2));
+
+                var paid_amount = parseFloat($('.paid_amount').text().replace('£', ''));
+
+                console.log('paid_amount',paid_amount);
+
+                total = parseFloat(total_net) + parseFloat(total_vat);
+                var final_amount = total-paid_amount;
+                console.log('final_amount', final_amount);
+
+                $('.order-total .amount bdi').text('£' + total.toFixed(2));
+
+                $('.order-total .amount_due bdi').text('£' + final_amount.toFixed(2));
 
 
+                $("#all_total_amount").val(final_amount.toFixed(2));
+                $("#total_final_amount").val(final_amount.toFixed(2));
 
-            // Update the total amount in the HTML
-            $('.tax-rate .net bdi').text('£' + total_net.toFixed(2));
-            $('.tax-rate .vat bdi').text('£' + total_vat.toFixed(2));
+                if(final_amount.toFixed(2)==0){
+                    $('#place_order').addClass('d-none');
+                }else{
+                    $('#place_order').removeClass('d-none');
 
-            total = parseFloat(total_net) + parseFloat(total_vat);
-            $('.order-total .amount bdi').text('£' + total.toFixed(2));
-                $("#all_total_amount").val(total.toFixed(2));
-                $("#total_final_amount").val(total.toFixed(2));
+                }
             }
 
             calculateTotal();
