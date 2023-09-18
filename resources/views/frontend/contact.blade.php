@@ -96,9 +96,9 @@
                                 <div class="group form-group col-md-6">
                                     <select class="form-control" name="country">
                                         <option value="">Select a country / region…</option>
-                                        <option value="72" selected>England</option>
+                                        <option value="236" selected>United Kingdom</option>
                                         @foreach ($countries as $country)
-                                            <option value="{{$country->id}}">{{$country->name}}</option>
+                                            <option value="{{$country->id}}" >{{$country->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

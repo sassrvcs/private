@@ -47,7 +47,7 @@
                                 <strong>2.Business Essentials</strong>
                                 <span>Products & Services</span>
                             </div>
-                            <div class="top-step-items active">
+                            <div class="top-step-items ">
                                 <strong>3.Summary</strong>
                                 <span>Details about your order</span>
                             </div>
@@ -56,37 +56,112 @@
                                 <span>Delivery & Partner Details</span>
                             </div>
                         </div>
+
                         <div class="particulars-bottom-step">
-                            <div class="bottom-step-items active">
-                                <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
-                                <p>
-                                    <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" style="color: #ffffff;"> Particulars</a>
-                                </p>
-                            </div>
-                            <div class="bottom-step-items">
-                                <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                <p>
-                                    <a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" style="color: #ffffff;"> Registered Address </a>
-                                </p>
-                            </div>
-                            <div class="bottom-step-items">
-                                <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                <p>Business Address</p>
-                            </div>
-                            <div class="bottom-step-items">
-                                <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                <p>Appointment</p>
-                            </div>
-                            <div class="bottom-step-items">
-                                <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                <p>
-                                    @if( !empty($companyFormationStep->step_name) )
-                                        <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'document']) }}" style="color: #ffffff;"> Document </a>
-                                    @else
-                                        Document
-                                    @endif
-                                </p>
-                            </div>
+                            @php
+                                $particular_step = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','company_formation')->where('step','particulars')->first();
+                            @endphp
+
+                            @if ($particular_step)
+                                <div class="bottom-step-items active">
+                                    <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
+                                    <p>
+                                        <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" style="color: #ffffff;"> Particulars</a>
+                                    </p>
+                                </div>
+                            @else
+                                <div class="bottom-step-items active">
+                                    <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
+                                    <p>
+                                        <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" style="color: #ffffff;"> Particulars</a>
+                                    </p>
+                                </div>
+
+                            @endif
+
+
+                            @php
+                                $register_step = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','company_formation')->where('step','register-address')->first();
+                            @endphp
+                            @if ($register_step)
+                                <div class="bottom-step-items active">
+                                    <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
+                                    <p>
+                                        <a href="{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) }}" style="color: #ffffff;"> Registered Address </a>
+                                    </p>
+                                </div>
+                            @else
+                                <div class="bottom-step-items">
+                                    <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
+                                    <p>
+                                         Registered Address
+                                    </p>
+                                </div>
+
+                            @endif
+
+                            @php
+                                $buisness_step = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','company_formation')->where('step','business-address')->first();
+                            @endphp
+
+                            @if ($buisness_step)
+                                <div class="bottom-step-items active">
+                                    <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
+                                    <p>
+                                        <a href="{{ route('choose-address-business', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'business-address']) }}" style="color: #ffffff;"> Business Address </a>
+                                    </p>
+                                </div>
+
+                            @else
+                                <div class="bottom-step-items">
+                                    <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
+                                    <p>Business Address</p>
+                                </div>
+
+                            @endif
+
+                            @php
+                                $appointment_step = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','company_formation')->where('step','appointments')->first();
+                            @endphp
+
+                            @if ($appointment_step)
+                                <div class="bottom-step-items active">
+                                    <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
+                                    <p>
+                                        <a href="{{ route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}" style="color: #ffffff;"> Appointment</a>
+                                    </p>
+                                </div>
+                            @else
+                                <div class="bottom-step-items">
+                                    <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
+                                    <p>Appointment</p>
+                                </div>
+
+                            @endif
+
+                            @php
+                                $doc_step = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','company_formation')->where('step','document')->first();
+                            @endphp
+
+                            @if ($doc_step)
+                                <div class="bottom-step-items active">
+                                    <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
+                                    <p>
+                                        @if( !empty($companyFormationStep->step_name) )
+                                            <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'document']) }}" style="color: #ffffff;"> Document </a>
+                                        @else
+                                            Document
+                                        @endif
+                                    </p>
+                                </div>
+                            @else
+                                <div class="bottom-step-items">
+                                    <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
+                                    <p>Document</p>
+                                </div>
+                            @endif
+
+
                         </div>
 
                         <div class="form-wrap">
@@ -353,7 +428,9 @@
             }
 
             var companyName = $('#companie_name').val();
-            if (companyName.indexOf('LTD') !== -1 || companyName.indexOf('LIMITED') !== -1) {
+
+            if (companyName.indexOf('LTD') !== -1 || companyName.indexOf('LIMITED') !== -1 || companyName.indexOf('CYF') !== -1 || companyName.indexOf('CYFYNGEDIG') !== -1 ) {
+
                 if($('#is_sensetibe').val() == 'true' && $("#sesitive-documents").val() == 'false') {
                     Swal.fire({
                         icon: 'error',
@@ -408,7 +485,7 @@
         const checkCompanieAvailabality = async (sensetive = false) => {
             var companyName = $('#companie_name').val();
             console.log('companyName',companyName);
-            if (companyName.indexOf('LTD') !== -1 || companyName.indexOf('LIMITED') !== -1) {
+            if (companyName.indexOf('LTD') !== -1 || companyName.indexOf('LIMITED') !== -1 || companyName.indexOf('CYF') !== -1 || companyName.indexOf('CYFYNGEDIG') !== -1) {
                 console.log(companyName.indexOf('LTD') !== -1);
                 $('#srchfld-error').hide();
                 $('#srchfld-success').show();

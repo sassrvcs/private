@@ -90,9 +90,9 @@
 
                                                             <td>{{ $all_order->cart->package->package_name }} </td>
                                                             <td>1</td>
-                                                            <td>${{ $all_order->cart->package->package_price }}</td>
-                                                            <td>${{ $all_order->cart->package->package_price }}</td>
-                                                            <td>${{ ($all_order->cart->package->package_price * 20) / 100 }}
+                                                            <td>£{{ $all_order->cart->package->package_price }}</td>
+                                                            <td>£{{ $all_order->cart->package->package_price }}</td>
+                                                            <td>£{{ ($all_order->cart->package->package_price * 20) / 100 }}
                                                             </td>
                                                         </tr>
                                                         @foreach ($all_order->cart->addonCartServices as $item)
@@ -107,9 +107,9 @@
 
                                                                 <td>{{ $item->service->service_name }} </td>
                                                                 <td>1</td>
-                                                                <td>${{ $item->service->price }}</td>
-                                                                <td>${{ $item->service->price }}</td>
-                                                                <td>${{ $vat }}</td>
+                                                                <td>£{{ $item->service->price }}</td>
+                                                                <td>£{{ $item->service->price }}</td>
+                                                                <td>£{{ $vat }}</td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
@@ -125,16 +125,16 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td>
-                                                                <p>${{ $net_total + $all_order->cart->package->package_price }}
+                                                                <p>£{{ $net_total + $all_order->cart->package->package_price }}
                                                                 </p>
-                                                                <p>${{ $total_vat + ($all_order->cart->package->package_price * 20) / 100 }}
+                                                                <p>£{{ $total_vat + ($all_order->cart->package->package_price * 20) / 100 }}
                                                                 </p>
                                                                 @php
                                                                     $total_price = $net_total + $all_order->cart->package->package_price + ($total_vat + ($all_order->cart->package->package_price * 20) / 100);
                                                                     $total_paid = \App\Models\orderTransaction::where('order_id', $_GET['order'])->sum('amount');
                                                                     $due_amount = $total_price - $total_paid;
                                                                 @endphp
-                                                                <strong>${{ $total_price }}</strong>
+                                                                <strong>£{{ $total_price }}</strong>
                                                             </td>
                                                         </tr>
 
@@ -150,7 +150,7 @@
                                                             <td>
 
 
-                                                                <p>${{ $total_paid }}</p>
+                                                                <p>- £{{ $total_paid }}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -165,7 +165,7 @@
                                                             <td>
 
 
-                                                                <strong>${{ $due_amount }}</strong>
+                                                                <strong>£{{ $due_amount }}</strong>
                                                             </td>
                                                         </tr>
                                                     </tfoot>

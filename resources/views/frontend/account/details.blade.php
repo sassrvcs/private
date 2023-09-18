@@ -242,21 +242,21 @@
                                 <legend class="float-none w-auto p-2">Notifications
                                 </legend>
                                 <div class=" px-0 col-md-12 col-12 mb-2">
-                                    <div class="px-0 form-check">
-                                        <b class="mr-2">Newsletter</b><input class="" id="chek1" name="newsletter" type="checkbox" value="1" {{ $user->newsletter =="1" ? 'checked' : '' }}>
+                                    <div class="px-0 form-check"><input class="" id="chek1" name="newsletter" type="checkbox" value="1" {{ $user->newsletter =="1" ? 'checked' : '' }}>
+                                        <b class="mr-2">Newsletter</b>
                                         <label for="chek1"> I would like to sign up to the newsletter distribution list
                                         </label>
                                     </div>
                                 </div>
                                 <div class=" px-0 col-md-12 col-12 mb-2">
-                                    <div class="px-0 form-check">
-                                        <b class="mr-2">Confirmation Statement</b> <input class="" id="chek2" name="confirmation_statements" value="1"  type="checkbox" {{ $user->confirmation_statements =="1" ? 'checked' : '' }}>
+                                    <div class="px-0 form-check"><input class="" id="chek2" name="confirmation_statements" value="1"  type="checkbox" {{ $user->confirmation_statements =="1" ? 'checked' : '' }}>
+                                        <b class="mr-2">Confirmation Statement</b>
                                         <label for="chek2"> I would like to receive updates on the confirmation statement</label>
                                     </div>
                                 </div>
                                 <div class=" px-0 col-md-12 col-12">
-                                    <div class="px-0 form-check">
-                                        <b class="mr-2">Accounts</b> <input class="" id="chek3" name="accounts" type="checkbox" value="1" {{ $user->accounts =="1" ? 'checked' : '' }}>
+                                    <div class="px-0 form-check"><input class="" id="chek3" name="accounts" type="checkbox" value="1" {{ $user->accounts =="1" ? 'checked' : '' }}>
+                                        <b class="mr-2">Accounts</b>
                                         <label for="chek3"> I would like to receive updates on my accounts
                                         </label>
                                     </div>
@@ -671,7 +671,7 @@
                         <span class="input-wrapper">
                             <select name="billing_country" id="billing_country" name="billing_country" class="contry  @error('billing_country') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
                                 <option value="">Select a country / region…</option>
-                                <option value="72" selected>England</option>
+                                <option value="236" selected>United Kingdom</option>
                                 @foreach ($countries as $country)
                                     <option value="{{$country->id}}">{{$country->name}}</option>
                                 @endforeach

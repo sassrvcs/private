@@ -199,8 +199,8 @@
                                         @php
                                             $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
                                             $nationality = $officerDetails['nationality'];
-                                            $nationality_name = \App\Models\Country::where('id',$nationality)->pluck('name')->first();
-                                            echo $nationality_name;
+                                            $nationality_name = \App\Models\Nationality::where('id',$nationality)->pluck('nationality')->first();
+                                                            echo $nationality_name;
                                         @endphp</li>
                                         <li><strong>Residential Address : </strong> @php
                                             $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
