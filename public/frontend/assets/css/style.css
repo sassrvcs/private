@@ -7280,6 +7280,9 @@ form.woocommerce-form-login.login{
     justify-content: space-between;
     margin: 0 0 15px;
 }
+.used-addresses-panel .text{
+    width: calc(100% - 205px);
+}
 .used-addresses-panel .text p{
     font-size: 13px;
     font-weight: 400;

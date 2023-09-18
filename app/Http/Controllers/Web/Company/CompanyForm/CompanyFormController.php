@@ -34,12 +34,17 @@ class CompanyFormController extends Controller
         $order = Order::where('order_id', $_GET['order'])->first();
 
         $office_address = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->pluck('office_address')->first();
+        $fwd_office_address = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->pluck('forwarding_registered_office_address')->first();
 
         $recent_addr  = $this->regAddrService->getRecentAddress($office_address);
 
         $countries = Country::all();
-
-        return view('frontend.company_form.register_address', compact('recent_addr', 'countries'));
+        // dd($fwd_office_address);
+        if($fwd_office_address!==null){
+            // &section=Company_formaction&step=register-address
+            return redirect()->route('choose-address-after-buy-now', ['order' =>  $_GET['order'],'section'=>'Company_formaction','step'=>'register-address']);
+        }
+        return view('frontend.company_form.register_address', compact('recent_addr', 'countries','fwd_office_address'));
     }
 
     public function registerAddressStoreStep(Request $request)

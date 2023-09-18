@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Email Template</title>
+  <title>Memorandum & Articles (Full Document)</title>
 </head>
 <body>
 <!-- partial:index.partial.html -->

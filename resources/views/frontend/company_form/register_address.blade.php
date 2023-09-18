@@ -237,7 +237,7 @@
                                         <div class="info">
 
                                             <h3>Choose to use your own address</h3>
-                                            <input type="text" id="recent_address_id"
+                                            <input type="text" hidden id="recent_address_id"
                                                 value="{{ isset($recent_addr->id) ? $recent_addr->id : '' }}" readonly>
                                             <p>{{ isset($recent_addr->house_number) ? $recent_addr->house_number : '' }},
                                                 {{ isset($recent_addr->street) ? $recent_addr->street : '' }}, @if (!empty($recent_addr->locality))
@@ -257,7 +257,7 @@
                                     @else
                                         <div class="info">
                                             <h3>Choose to use your own address</h3>
-                                            <input type="text" id="recent_address_id" value="" readonly>
+                                            <input type="text" id="recent_address_id" value="" hidden readonly>
                                             <div class="error d-none address_selection_cl" style="color:red;">You have to
                                                 select an Address.</div>
                                         </div>

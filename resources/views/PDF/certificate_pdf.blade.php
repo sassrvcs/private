@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Email Template</title>
+  <title>Certificate</title>
 </head>
 <body>
 <!-- partial:index.partial.html -->
