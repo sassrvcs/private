@@ -7281,7 +7281,7 @@ form.woocommerce-form-login.login{
     margin: 0 0 15px;
 }
 .used-addresses-panel .text{
-    width: calc(100% - 205px);
+    width: calc(100% - 205px)!important;
 }
 .used-addresses-panel .text p{
     font-size: 13px;
