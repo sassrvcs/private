@@ -76,7 +76,7 @@ class CompanieFormController extends Controller
             }else if($companyFormationStep->step_name == 'appointments') {
                 return redirect(route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']));
             }else if($companyFormationStep->step_name == 'document') {
-                return redirect(route('business-essential.index', ['order' => $request->order_id, 'section' => 'BusinessEssential', 'step' => 'business-banking']));
+                return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-banking']));
             } else if($companyFormationStep->step_name == 'business-banking') {
                 return redirect(route('business-essential.index', ['order' => $request->order, 'section' => 'BusinessEssential', 'step' => 'business-services']));
             } else if($companyFormationStep->step_name == 'business-service') {
@@ -98,7 +98,7 @@ class CompanieFormController extends Controller
      */
     public function store(CompanieStoreRequest $request)
     {
-       
+
         $validate = Validator::make($request->all(), [
             'companie_name' => 'required',
             'companie_type' => 'required',

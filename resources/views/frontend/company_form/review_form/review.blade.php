@@ -30,6 +30,7 @@
                                     </a>
                                 </div>
                                 <div class="top-step-items">
+                                    <a href="route('business-essential.index', ['order' => $request->order_id, 'section' => 'BusinessEssential', 'step' => 'business-banking'])" >
                                     <strong>2.Business Essentials</strong>
                                     <span>Products & Services</span>
                                 </div>

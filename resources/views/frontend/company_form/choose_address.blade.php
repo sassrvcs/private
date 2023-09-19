@@ -255,7 +255,7 @@
                                     </div>
                                 </div>
                                 <div class="step-btn-wrap mt-4">
-                                    <button class="btn prev-btn" onclick="cancelPage()">Cancel</button>
+                                    <button type="button" class="btn prev-btn" onclick="window.location.reload()">Cancel</button>
                                 </div>
                             </div>
 
@@ -361,7 +361,7 @@
                                                             data-label="Country" autocomplete="country"
                                                             data-placeholder="Select a country / region…">
                                                             <option value="">Select a country / region…</option>
-                                                            <option value="236" selected>United Kingdom</option>    
+                                                            <option value="236" selected>United Kingdom</option>
                                                             @foreach ($countries as $country)
                                                                 <option value="{{ $country['id'] }}">
                                                                     {{ $country['name'] }}</option>
@@ -382,7 +382,7 @@
                                                 class="btn btn-primary">Submit</button>
                                         </div>
                                         <div class="step-btn-wrap mt-4">
-                                            <button class="btn prev-btn" onclick="cancelPage()">Cancel</button>
+                                            <button type="button" class="btn prev-btn" onclick="cancelPage()">Cancel</button>
                                         </div>
                                     </form>
                                 </div>
@@ -439,7 +439,7 @@
         }
 
         const cancelPage = function() {
-            window.location.href = "{!! route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) !!}"
+            window.location.href = "{!! route('choose-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'register-address']) !!}"
         }
 
         const AddMoreAddSave = function(ths) {

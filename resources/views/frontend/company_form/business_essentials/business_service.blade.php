@@ -33,14 +33,16 @@ ul.ef-16-benefits-list {
                     <div class="particulars-form-wrap">
                         <div class="particulars-top-step">
                             <div class="top-step-items">
+                                <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}" >
                                 <strong>1.Company Formation</strong>
                                 <span>Details about your company</span>
+                                </a>
                             </div>
-                            <div class="top-step-items">
+                            <div class="top-step-items active">
                                 <strong>2.Business Essentials</strong>
                                 <span>Products & Services</span>
                             </div>
-                            <div class="top-step-items active">
+                            <div class="top-step-items ">
                                 <strong>3.Summary</strong>
                                 <span>Details about your order</span>
                             </div>
@@ -50,22 +52,65 @@ ul.ef-16-benefits-list {
                             </div>
                         </div>
                         <div class="particulars-bottom-step">
-                            <div class="bottom-step-items">
-                                <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                <p>
-                                    <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" style="color: #ffffff;"> Business Banking</a>
-                                </p>
-                            </div>
-                            <div class="bottom-step-items active">
-                                <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
-                                <p>
-                                    <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-services']) }}" style="color: #ffffff;"> Business Services </a>
-                                </p>
-                            </div>
-                            <div class="bottom-step-items">
-                                <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
-                                <p>Optional Extras</p>
-                            </div>
+                            @php
+                                $buisness_bank_step = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','BusinessEssential')->where('step','business-banking')->first();
+                            @endphp
+                            @if ($buisness_bank_step)
+                                <div class="bottom-step-items active">
+                                    <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
+                                    <p>
+                                        <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" style="color: #ffffff;"> Business Banking</a>
+                                    </p>
+                                </div>
+
+                            @else
+                                <div class="bottom-step-items ">
+                                    <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
+                                    <p>
+                                        Business Banking
+                                    </p>
+                                </div>
+
+                            @endif
+
+                            @php
+                                $buisness_service_step = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','BusinessEssential')->where('step','business-service')->first();
+                            @endphp
+
+                            @if ($buisness_service_step)
+                                <div class="bottom-step-items active">
+                                    <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
+                                    <p>
+                                        <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-services']) }}" style="color: #ffffff;"> Business Services </a>
+                                    </p>
+                                </div>
+                            @else
+                                <div class="bottom-step-items active">
+                                    <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
+                                    <p>
+                                        <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-services']) }}" style="color: #ffffff;"> Business Services </a>
+                                    </p>
+                                </div>
+                            @endif
+
+                            @php
+                                $optional_step = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','BusinessEssential')->where('step','other-extras')->first();
+                            @endphp
+
+                            @if ($optional_step)
+                                <div class="bottom-step-items active">
+                                    <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
+                                    <p>
+                                        <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'optional-extras']) }}" style="color: #ffffff;">Optional Extras </a>
+                                    </p>
+                                </div>
+                            @else
+                                <div class="bottom-step-items">
+                                    <img src="{{ asset('frontend/assets/images/inactive-tick.svg') }}" alt="">
+                                    <p>Optional Extras</p>
+                                </div>
+                            @endif
+
                         </div>
 
                         <div class="business-ess-sec">
