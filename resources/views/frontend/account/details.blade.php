@@ -907,6 +907,10 @@
 
                     }
 
+                },
+                error: function(){
+                    alert('No Record Found! Choose another.');
+                        $('#findAddress').html('Find Address');
                 }
             });
         });
