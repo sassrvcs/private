@@ -18,6 +18,13 @@
             position: absolute;
         }
 
+        .guarantor_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
         .secretary_i_tooltip {
             display: none;
             background-color: white;
@@ -354,7 +361,9 @@
 
 
                                 </div>
-
+                                @php
+                                    $guarantorCheck = 0;
+                                @endphp
                                 @if (!empty($appointmentsList))
                                     <div class="shareholdings-table-wrap" id="appointment_officer_listing">
                                         <h4>Current Appointments</h4>
@@ -365,7 +374,7 @@
                                                     <tr>
                                                         <th>Name</th>
                                                         <th>Director</th>
-                                                        <th>Shareholder</th>
+                                                        <th>{{$company_type=='Limited By Shares'?'Shareholder':''}}{{$company_type=='Limited By Guarantee'?'Guarantor':''}}</th>
                                                         <th>Secretary</th>
                                                         <th>PSC</th>
                                                         <th></th>
@@ -392,12 +401,18 @@
                                                                     alt=""><img src="{{ asset('frontend/assets/images/cross.svg') }}"
                                                                     class="{{ in_array('Director', $positionArray) ? 'd-none' : '' }}"
                                                                     alt=""></td>
-                                                            <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
-                                                                    class="{{ in_array('Shareholder', $positionArray) ? '' : 'd-none' }}"
+                                                            <td class ="{{$company_type=='Limited By Shares'?"d-none":''}}"><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                                    class="{{ in_array('Guarantor', $positionArray) ? '' : 'd-none' }}"
                                                                     alt="">
                                                                     <img src="{{ asset('frontend/assets/images/cross.svg') }}"
-                                                                    class="{{ in_array('Shareholder', $positionArray) ? 'd-none' : '' }}"
+                                                                    class="{{ in_array('Guarantor', $positionArray) ? 'd-none' : '' }}"
                                                                     alt=""></td>
+                                                            <td class="{{$company_type=='Limited By Guarantee'?"d-none":''}}"><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                                class="{{ in_array('Shareholder', $positionArray) ? '' : 'd-none' }}"
+                                                                alt="">
+                                                                <img src="{{ asset('frontend/assets/images/cross.svg') }}"
+                                                                class="{{ in_array('Shareholder', $positionArray) ? 'd-none' : '' }}"
+                                                                alt=""></td>
                                                             <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
                                                                     class="{{ in_array('Secretary', $positionArray) ? '' : 'd-none' }}"
                                                                     alt="">
@@ -432,6 +447,8 @@
                                         $listed_idArry = [];
                                         $pscCheck = 0;
                                         $directorCheck = 0;
+
+                                        $guarantorId = []
                                     @endphp
                                     @foreach ($appointmentsList as $val)
                                         @php
@@ -446,6 +463,10 @@
                                             }
                                             if (in_array('Director', $positionArray)) {
                                                 $directorCheck++;
+                                            }
+                                            if (in_array('Guarantor', $positionArray)) {
+                                                $guarantorCheck++;
+                                                array_push($guarantorId, ['p_id'=>$val['person_officer_id'],'amount_guarantee'=>$val['amount_guarantee']]);
                                             }
 
                                         @endphp
@@ -1061,6 +1082,42 @@
                                             </div>
                                         @endif
                                     @endforeach
+                                    @if ($guarantorCheck!=0)
+                                            {{-- {{$guarantorCheck}} --}}
+                                    <div class="shareholdings-table-wrap" id="guarantee_table_id">
+                                        <h4>Amount Guaranteed</h4>
+                                        {{-- <p>Below is a list of all shareholders and their holdings.</p> --}}
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Amount Guaranteed</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{-- @dd($guarantorId) --}}
+                                                    @foreach ($guarantorId as $val)
+                                                    <tr>
+                                                        <td>
+                                                            @php
+                                                            $officerDetails = officer_details_for_appointments_list($val['p_id']);
+                                                            $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
+                                                            echo $fullName;
+                                                        @endphp
+                                                        </td>
+                                                        <td>{{$val['amount_guarantee']}} GBP</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    @endforeach
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    @endif
+
                                     @php
                                         $idStrng = implode(',', $idArry);
                                     @endphp
@@ -1215,7 +1272,9 @@
                                                                     aged 16 years or over. A director is responsible for the
                                                                     day-to-day management of the business.</span>
                                                             </li>
-                                                            <li>
+
+                                                            <li class="{{ $company_type == 'Limited By Shares' ? '' : 'd-none'}}">
+
                                                                 <input type="checkbox" class="checkBoxPos"
                                                                     value="Shareholder" id="shareholder"
                                                                     onclick="shareholderTab()">
@@ -1227,6 +1286,18 @@
                                                                     owners of the company and are generally entitled to a
                                                                     share of company profits. You must appoint at least one
                                                                     shareholder.</span>
+
+                                                            </li>
+                                                            <li class="{{$company_type == 'Limited By Guarantee' ? '' : 'd-none'}}">
+
+                                                                    <input type="checkbox" class="checkBoxPos"
+                                                                    value="Guarantor" id="guarantor_checkbox"
+                                                                    onclick="guaranteeTab()">
+                                                                    <label for="guarantor">Guarantor<span><img
+                                                                    src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                    alt=""
+                                                                    id="guarantor_i"></span></label>
+                                                                    <span class="guarantor_i_tooltip">If this officer is to guarantee an amount in this company, please check this box. You will be asked about the amount guaranteed later.</span>
                                                             </li>
                                                             <li>
                                                                 <input type="checkbox" class="checkBoxPos" id="secretary"
@@ -1267,9 +1338,16 @@
 
                                                             <li class="occLinkCls d-none">
                                                                 <input type="checkbox" id="occ">
-                                                                <label for="occ" id="consentText_id">The officers
+                                                                <label for="occ" id="consentText_id">
+                                                                    @if ($company_type == 'Limited By Shares')
+                                                                    The officers
                                                                     confirm they have
-                                                                    consented to act as a Director or Secretary</label>
+                                                                    consented to act as a Director or Secretary
+                                                                    @endif
+                                                                    @if ($company_type == 'Limited By Guarantee')
+                                                                    The guarantors confirm that the named officer has consented to act as a Director or Secretary
+                                                                    @endif
+                                                                </label>
                                                             </li>
                                                             <div class="error d-none" id="consentSelectionDiv"
                                                                 style="color:red;">This officer must give their consent in
@@ -1279,6 +1357,12 @@
                                                             style="color:red;">You have to
                                                             select a Position.</div>
 
+                                                    </div>
+                                                    <div id="gurantee-amount-div" class="row d-none">
+                                                        <div class="col-sm-2">
+                                                            <label for="Amount Guaranteed" class="form-label">Amount Guaranteed</label>
+                                                            <input type="text" class="form-control" id="amount_guarantee" name="amount_guarantee" step="0.01">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1979,9 +2063,9 @@
                                                     <h5>Does this officer have a controlling interest in this company?
                                                     </h5>
                                                     <div class="authe-qu-block">
-                                                        <div class="row">
+                                                        <div class="row {{$company_type=='Limited By Guarantee'?'d-none':''}}">
                                                             <div class="col-md-6 col-sm-12">
-                                                                <div class="qu-block block">
+                                                                <div class="qu-block block ">
                                                                     <label for="" class="d-flex"><span
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
@@ -2125,9 +2209,9 @@
                                                             company in their capacity within the Firm(s) ?
                                                         </h5>
                                                         <div class="authe-qu-block">
-                                                            <div class="row">
+                                                            <div class="row {{$company_type=='Limited By Guarantee'?'d-none':''}}">
                                                                 <div class="col-md-6 col-sm-12">
-                                                                    <div class="qu-block block">
+                                                                    <div class="qu-block block ">
                                                                         <label for="" class="d-flex">
                                                                             <span class="text">Ownership of
                                                                                 shares</span>
@@ -2274,9 +2358,9 @@
                                                         company in their capacity within the Trust(s) ?
                                                     </h5>
                                                     <div class="authe-qu-block">
-                                                        <div class="row">
+                                                        <div class="row {{$company_type=='Limited By Guarantee'?'d-none':''}}">
                                                             <div class="col-md-6 col-sm-12">
-                                                                <div class="qu-block block">
+                                                                <div class="qu-block block ">
                                                                     <label for="" class="d-flex">
                                                                         <span class="text">Ownership of
                                                                             shares</span>
@@ -2312,8 +2396,7 @@
                                                                             Rights</span>
                                                                     </label>
 
-                                                                    <select class="form-control"
-                                                                        onchange="selectingNoc()" id="t_voting"
+                                                                    <select class="form-control" id="t_voting"
                                                                         onchange="show_hide_t_other_sig()">
                                                                         <option value="">N/A</option>
                                                                         <option value="More than 25% but not more than 50%">More than 25% but not
@@ -2344,8 +2427,7 @@
                                                                             majority of the board of directors</span>
                                                                     </label>
 
-                                                                    <select class="form-control"
-                                                                        onchange="selectingNoc()" id="t_appoint"
+                                                                    <select class="form-control" id="t_appoint"
                                                                         onchange="show_hide_t_other_sig()">
                                                                         <option value="No">No</option>
                                                                         <option value="Yes">Yes</option>
@@ -2715,6 +2797,8 @@
         <input type="hidden" id="registration_number" value="" readonly>
         <input type="hidden" id="law_governed" value="" readonly>
         <input type="hidden" id="legal_form" value="" readonly>
+        <input type="hidden" id="company_type" value="{{$company_type}}" readonly>
+
 
     </section>
     <!-- ================ end: Particulars sec ================ -->
@@ -2739,11 +2823,23 @@
 
         const goToDocuments = function() {
             // Appointment to Document section Movement starts
-            if ($("#share_holding_table_id").length === 0) {
-                $("#positionValidation").removeClass('d-none')
-                $("#positionValidation").html('You have to select ateast one shareholder!')
-                return false
-            }
+            const company_type = $("#company_type").val();
+
+                if ($("#share_holding_table_id").length === 0 && company_type=='Limited By Shares') {
+                    $("#positionValidation").removeClass('d-none')
+                    $("#positionValidation").html('You have to select ateast one shareholder!')
+                    return false
+                }
+
+
+                if ({{$guarantorCheck}} == 0 && company_type=='Limited By Guarantee') {
+                    $("#positionValidation").removeClass('d-none')
+                    $("#positionValidation").html('You have to select ateast one Guarantor!')
+                    return false
+                }
+
+
+            // Appointment to Document section Movement ends
 
             if ($("#psc_check").val() == 0) {
                 $("#positionValidation").removeClass('d-none')
@@ -2758,6 +2854,9 @@
                 return false
             }
 
+            if(company_type=='Limited By Shares')
+            {
+            // company_type=='Limited By Shares'
             if ($("#listed_shareHolderContaining_ids").val() !== '' && $("#psc_check").val() !== 0 && $("#director_check").val() !== 0) {
                 // Shareholder edit section starts
                 const listed_shareHolderContaining_ids = $("#listed_shareHolderContaining_ids").val();
@@ -2793,7 +2892,7 @@
                         el.nextElementSibling.classList.add('d-none');
                     }
                 });
-
+                console.log(validation)
                 if (validation === 0) {
                     $.ajax({
                         url: "{!! route('update-shareholder-from-appointment-listing') !!}",
@@ -2823,19 +2922,29 @@
                             type : 'POST',
                             dataType : 'json',
                             success : function(result){
-
+                                console.log(result)
                                 window.location.href =
                                 "{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']) }}"
 
 
-                                    }
+                                    },
+                            error:function(result)
+                            {
+                                console.log(result)
+                            }
+
                             });
 
 
                         },
                     });
                 }
+            }
                 // Shareholder edit section ends
+            }
+            if(company_type=='Limited By Guarantee'){
+                console.log('hit')
+                window.location.href ="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']) }}"
             }
 
             // Appointment to Document section Movement Ends
@@ -2907,6 +3016,7 @@
             const perticularsTextArea = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $(
                 "#perticularsTextArea").val() : '';
             const appointment_type = $("#appointment_type").val();
+            const amount_guarantee = $("#amount_guarantee").val();
 
             const requiredFields = document.querySelectorAll('.blankCheckFinalSubmit');
             const requiredFieldsArr = [...requiredFields];
@@ -2973,6 +3083,7 @@
                         sh_quantity,
                         sh_currency,
                         sh_pps,
+                        amount_guarantee,
                         perticularsTextArea,
                         appointment_type
                     },
@@ -3014,9 +3125,11 @@
             const F_Voting = $('#F_voting').find(":selected").val();
             const F_appoint = $('#F_appoint').find(":selected").val();
 
-            if (F_ownership === '25' || F_ownership === '50' || F_ownership === '75' || F_Voting === '25' || F_Voting ===
-                '50' || F_Voting === '75' || F_appoint === 'Yes') {
+            if (F_ownership != '' || F_ownership != '' || F_ownership != '' || F_Voting != '' || F_Voting !=
+                '' || F_Voting != '' || F_appoint === 'Yes') {
                 $("#F_other_sig").addClass('d-none')
+                $("#F_other_sig_select_id option[value='No']").attr('selected', true);
+
             } else {
                 $("#F_other_sig").removeClass('d-none')
             }
@@ -3027,9 +3140,11 @@
             const s_voting = $('#s_voting').find(":selected").val();
             const s_appoint = $('#s_appoint').find(":selected").val();
 
-            if (s_ownership === '25' || s_ownership === '50' || s_ownership === '75' || s_voting === '25' || s_voting ===
-                '50' || s_voting === '75' || s_appoint === 'Yes') {
+            if (s_ownership != '' || s_ownership != '' || s_ownership != '' || s_voting != '' || s_voting !=
+                '' || s_voting != '' || s_appoint === 'Yes') {
                 $("#s_other_sig").addClass('d-none')
+                $("#s_other_sig_select_id option[value='No']").attr('selected', true);
+
             } else {
                 $("#s_other_sig").removeClass('d-none')
             }
@@ -3039,10 +3154,12 @@
             const t_ownership = $('#t_ownership').find(":selected").val();
             const t_voting = $('#t_voting').find(":selected").val();
             const t_appoint = $('#t_appoint').find(":selected").val();
-
-            if (t_ownership === '25' || t_ownership === '50' || t_ownership === '75' || t_voting === '25' || t_voting ===
-                '50' || t_voting === '75' || t_appoint === 'Yes') {
+            console.log("s_other_sig")
+            if (t_ownership != ''  || t_voting !=
+                ''  || t_appoint === 'Yes') {
+                    console.log('yes');
                 $("#t_other_sig").addClass('d-none')
+                $("#t_other_sig_select_id option[value='No']").attr('selected', true);
             } else {
                 $("#t_other_sig").removeClass('d-none')
             }
@@ -3369,13 +3486,27 @@
         shareholder_i.addEventListener("mouseover", ShareshowTooltip);
         shareholder_i.addEventListener("mouseout", SharehideTooltip);
 
+        const guarantor_i = document.getElementById("guarantor_i");
+        guarantor_i.addEventListener("mouseover", guarantorshowTooltip);
+        guarantor_i.addEventListener("mouseout", guarantorhideTooltip);
+
+
         function ShareshowTooltip() {
             const tooltip = document.querySelector(".shareholder_i_tooltip");
             tooltip.style.display = "block";
         }
 
+
         function SharehideTooltip() {
             const tooltip = document.querySelector(".shareholder_i_tooltip");
+            tooltip.style.display = "none";
+        }
+        function guarantorshowTooltip() {
+            const tooltip = document.querySelector(".guarantor_i_tooltip");
+            tooltip.style.display = "block";
+        }
+        function guarantorhideTooltip() {
+            const tooltip = document.querySelector(".guarantor_i_tooltip");
             tooltip.style.display = "none";
         }
 
@@ -4071,14 +4202,14 @@
 
             // From NoC to Forward Tabs starts==========================>
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'nature-control') {
-                if ($("#F_ownership").val() === '' || $("#F_voting").val() === '')
-                {
-                    $("#NOC_validation_error").removeClass('d-none')
-                    return false;
-                }
-                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' &&
-                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&
-                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No') {
+                // if ($("#F_ownership").val() === '' || $("#F_voting").val() === '')
+                // {
+                //     $("#NOC_validation_error").removeClass('d-none')
+                //     return false;
+                // }
+                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' && $("#F_other_sig_select_id").val() === 'No' &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' && $("#s_other_sig_select_id").val() === 'No' &&
+                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' && $("#t_other_sig_select_id").val() === 'No') {
                     $("#NOC_validation_error").removeClass('d-none')
                     return false
                 }
@@ -4223,6 +4354,22 @@
             $('#person_aqthree_ans_id').toggleClass('blankCheck');
         }
 
+        function guaranteeTab() {
+            // $('.shareholderLinksCls').toggleClass('d-none');
+            if($("#guarantor_checkbox").is(":checked")){
+                $("#amount_guarantee").val('1.0')
+                $("#gurantee-amount-div").removeClass('d-none');
+            }else{
+                $("#gurantee-amount-div").addClass('d-none');
+                $("#amount_guarantee").val('')
+
+            }
+            $('#authenticationSection').toggleClass('d-none');
+
+            $('#person_aqone_ans_id').toggleClass('blankCheck');
+            $('#person_aqtwo_ans_id').toggleClass('blankCheck');
+            $('#person_aqthree_ans_id').toggleClass('blankCheck');
+        }
         function pscTab() {
             $('.nocLinkCls').toggleClass('d-none');
         }

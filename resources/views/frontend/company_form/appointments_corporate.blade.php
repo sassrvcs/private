@@ -18,6 +18,13 @@
             position: absolute;
         }
 
+        .guarantor_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
         .secretary_i_tooltip {
             display: none;
             background-color: white;
@@ -1217,7 +1224,7 @@
                                                                     aged 16 years or over. A director is responsible for the
                                                                     day-to-day management of the business.</span>
                                                             </li>
-                                                            <li>
+                                                            <li class="{{ $company_type == 'Limited By Shares' ? '' : 'd-none'}}">
                                                                 <input type="checkbox" class="checkBoxPos"
                                                                     value="Shareholder" id="shareholder"
                                                                     onclick="shareholderTab(),toggleCorporateDetails()">
@@ -1230,6 +1237,17 @@
                                                                     share of company profits. You must appoint at least one
                                                                     shareholder.</span>
                                                             </li>
+                                                            <li class="{{$company_type == 'Limited By Guarantee' ? '' : 'd-none'}}">
+
+                                                                <input type="checkbox" class="checkBoxPos"
+                                                                value="Guarantor" id="guarantor_checkbox"
+                                                                onclick="guaranteeTab()">
+                                                                <label for="guarantor">Guarantor<span><img
+                                                                src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                alt=""
+                                                                id="guarantor_i"></span></label>
+                                                                <span class="guarantor_i_tooltip">If this officer is to guarantee an amount in this company, please check this box. You will be asked about the amount guaranteed later.</span>
+                                                        </li>
                                                             <li>
                                                                 <input type="checkbox" class="checkBoxPos" id="secretary"
                                                                     value="Secretary" onclick="consentSection(),toggleCorporateDetails()">
@@ -1269,9 +1287,16 @@
 
                                                             <li class="occLinkCls d-none">
                                                                 <input type="checkbox" id="occ">
-                                                                <label for="occ" id="consentText_id">The officers
+                                                                <label for="occ" id="consentText_id">
+                                                                    @if ($company_type == 'Limited By Shares')
+                                                                    The officers
                                                                     confirm they have
-                                                                    consented to act as a Director or Secretary</label>
+                                                                    consented to act as a Director or Secretary
+                                                                    @endif
+                                                                    @if ($company_type == 'Limited By Guarantee')
+                                                                    The guarantors confirm that the named officer has consented to act as a Director or Secretary
+                                                                    @endif
+                                                                </label>
                                                             </li>
                                                             <div class="error d-none" id="consentSelectionDiv"
                                                                 style="color:red;">This officer must give their consent in
@@ -1281,6 +1306,12 @@
                                                             style="color:red;">You have to
                                                             select a Position.</div>
 
+                                                    </div>
+                                                    <div id="gurantee-amount-div" class="row d-none">
+                                                        <div class="col-sm-2">
+                                                            <label for="Amount Guaranteed" class="form-label">Amount Guaranteed</label>
+                                                            <input type="text" class="form-control" id="amount_guarantee" name="amount_guarantee" step="0.01">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1988,9 +2019,9 @@
                                                     <h5>Does this officer have a controlling interest in this company?
                                                     </h5>
                                                     <div class="authe-qu-block">
-                                                        <div class="row">
+                                                        <div class="row {{$company_type=='Limited By Guarantee'?'d-none':''}}">
                                                             <div class="col-md-6 col-sm-12">
-                                                                <div class="qu-block block">
+                                                                <div class="qu-block block ">
                                                                     <label for="" class="d-flex"><span
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
@@ -2134,9 +2165,9 @@
                                                             company in their capacity within the Firm(s) ?
                                                         </h5>
                                                         <div class="authe-qu-block">
-                                                            <div class="row">
+                                                            <div class="row {{$company_type=='Limited By Guarantee'?'d-none':''}}">
                                                                 <div class="col-md-6 col-sm-12">
-                                                                    <div class="qu-block block">
+                                                                    <div class="qu-block block ">
                                                                         <label for="" class="d-flex">
                                                                             <span class="text">Ownership of
                                                                                 shares</span>
@@ -2283,9 +2314,9 @@
                                                         company in their capacity within the Trust(s) ?
                                                     </h5>
                                                     <div class="authe-qu-block">
-                                                        <div class="row">
+                                                        <div class="row {{$company_type=='Limited By Guarantee'?'d-none':''}}">
                                                             <div class="col-md-6 col-sm-12">
-                                                                <div class="qu-block block">
+                                                                <div class="qu-block block ">
                                                                     <label for="" class="d-flex">
                                                                         <span class="text">Ownership of
                                                                             shares</span>
@@ -2321,8 +2352,7 @@
                                                                             Rights</span>
                                                                     </label>
 
-                                                                    <select class="form-control"
-                                                                        onchange="selectingNoc()" id="t_voting"
+                                                                    <select class="form-control"  id="t_voting"
                                                                         onchange="show_hide_t_other_sig()">
                                                                         <option value="">N/A</option>
                                                                         <option value="More than 25% but not more than 50%">More than 25% but not
@@ -2353,8 +2383,7 @@
                                                                             majority of the board of directors</span>
                                                                     </label>
 
-                                                                    <select class="form-control"
-                                                                        onchange="selectingNoc()" id="t_appoint"
+                                                                    <select class="form-control" id="t_appoint"
                                                                         onchange="show_hide_t_other_sig()">
                                                                         <option value="No">No</option>
                                                                         <option value="Yes">Yes</option>
@@ -3016,6 +3045,7 @@
             const perticularsTextArea = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $(
                 "#perticularsTextArea").val() : '';
             const appointment_type = $("#appointment_type").val();
+            const amount_guarantee = $("#amount_guarantee").val();
 
             const requiredFields = document.querySelectorAll('.blankCheckFinalSubmit');
             const requiredFieldsArr = [...requiredFields];
@@ -3083,6 +3113,7 @@
                         sh_quantity,
                         sh_currency,
                         sh_pps,
+                        amount_guarantee,
                         perticularsTextArea,
                         appointment_type
                     },
@@ -3129,9 +3160,11 @@
             const F_Voting = $('#F_voting').find(":selected").val();
             const F_appoint = $('#F_appoint').find(":selected").val();
 
-            if (F_ownership === '25' || F_ownership === '50' || F_ownership === '75' || F_Voting === '25' || F_Voting ===
-                '50' || F_Voting === '75' || F_appoint === 'Yes') {
+            if (F_ownership != '' || F_ownership != '' || F_ownership != '' || F_Voting != '' || F_Voting !=
+                '' || F_Voting != '' || F_appoint === 'Yes') {
                 $("#F_other_sig").addClass('d-none')
+                $("#F_other_sig_select_id option[value='No']").attr('selected', true);
+
             } else {
                 $("#F_other_sig").removeClass('d-none')
             }
@@ -3142,9 +3175,11 @@
             const s_voting = $('#s_voting').find(":selected").val();
             const s_appoint = $('#s_appoint').find(":selected").val();
 
-            if (s_ownership === '25' || s_ownership === '50' || s_ownership === '75' || s_voting === '25' || s_voting ===
-                '50' || s_voting === '75' || s_appoint === 'Yes') {
+            if (s_ownership != '' || s_ownership != '' || s_ownership != '' || s_voting != '' || s_voting !=
+                '' || s_voting != '' || s_appoint === 'Yes') {
                 $("#s_other_sig").addClass('d-none')
+                $("#s_other_sig_select_id option[value='No']").attr('selected', true);
+
             } else {
                 $("#s_other_sig").removeClass('d-none')
             }
@@ -3154,10 +3189,12 @@
             const t_ownership = $('#t_ownership').find(":selected").val();
             const t_voting = $('#t_voting').find(":selected").val();
             const t_appoint = $('#t_appoint').find(":selected").val();
-
-            if (t_ownership === '25' || t_ownership === '50' || t_ownership === '75' || t_voting === '25' || t_voting ===
-                '50' || t_voting === '75' || t_appoint === 'Yes') {
+            console.log("s_other_sig")
+            if (t_ownership != ''  || t_voting !=
+                ''  || t_appoint === 'Yes') {
+                    console.log('yes');
                 $("#t_other_sig").addClass('d-none')
+                $("#t_other_sig_select_id option[value='No']").attr('selected', true);
             } else {
                 $("#t_other_sig").removeClass('d-none')
             }
@@ -3502,6 +3539,20 @@
         const shareholder_i = document.getElementById("shareholder_i");
         shareholder_i.addEventListener("mouseover", ShareshowTooltip);
         shareholder_i.addEventListener("mouseout", SharehideTooltip);
+
+        const guarantor_i = document.getElementById("guarantor_i");
+        guarantor_i.addEventListener("mouseover", guarantorshowTooltip);
+        guarantor_i.addEventListener("mouseout", guarantorhideTooltip);
+
+        function guarantorshowTooltip() {
+            const tooltip = document.querySelector(".guarantor_i_tooltip");
+            tooltip.style.display = "block";
+        }
+        function guarantorhideTooltip() {
+            const tooltip = document.querySelector(".guarantor_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
 
         function ShareshowTooltip() {
             const tooltip = document.querySelector(".shareholder_i_tooltip");
@@ -4181,14 +4232,14 @@
 
             // From NoC to Forward Tabs starts==========================>
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'nature-control') {
-                if ($("#F_ownership").val() === '' || $("#F_voting").val() === '')
-                {
-                    $("#NOC_validation_error").removeClass('d-none')
-                    return false;
-                }
-                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' &&
-                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&
-                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No') {
+                // if ($("#F_ownership").val() === '' || $("#F_voting").val() === '')
+                // {
+                //     $("#NOC_validation_error").removeClass('d-none')
+                //     return false;
+                // }
+                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' && $("#F_other_sig_select_id").val() === 'No' &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' && $("#s_other_sig_select_id").val() === 'No' &&
+                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' && $("#t_other_sig_select_id").val() === 'No') {
                     $("#NOC_validation_error").removeClass('d-none')
                     return false
                 }
@@ -4330,6 +4381,22 @@
 
         function shareholderTab() {
             $('.shareholderLinksCls').toggleClass('d-none');
+            $('#authenticationSection').toggleClass('d-none');
+
+            $('#person_aqone_ans_id').toggleClass('blankCheck');
+            $('#person_aqtwo_ans_id').toggleClass('blankCheck');
+            $('#person_aqthree_ans_id').toggleClass('blankCheck');
+        }
+        function guaranteeTab() {
+            // $('.shareholderLinksCls').toggleClass('d-none');
+            if($("#guarantor_checkbox").is(":checked")){
+                $("#amount_guarantee").val('1.0')
+                $("#gurantee-amount-div").removeClass('d-none');
+            }else{
+                $("#gurantee-amount-div").addClass('d-none');
+                $("#amount_guarantee").val('')
+
+            }
             $('#authenticationSection').toggleClass('d-none');
 
             $('#person_aqone_ans_id').toggleClass('blankCheck');

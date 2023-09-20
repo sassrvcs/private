@@ -345,13 +345,14 @@ class CompanyFormController extends Controller
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 
         $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
-
+        $company_type  = Companie::where('order_id', $_GET['order'])->pluck('companie_type')->first();
+        // dd($company_type);
         $appointmentsList = [];
         if (!empty($personAppointments)) {
             $appointmentsList = $personAppointments;
         }
 
-        return view('frontend.company_form.appointments', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
+        return view('frontend.company_form.appointments', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList', 'company_type'));
     }
 
     public function appointments_open_corporate()
@@ -373,13 +374,14 @@ class CompanyFormController extends Controller
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 
         $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
+        $company_type  = Companie::where('order_id', $_GET['order'])->pluck('companie_type')->first();
 
         $appointmentsList = [];
         if (!empty($personAppointments)) {
             $appointmentsList = $personAppointments;
         }
 
-        return view('frontend.company_form.appointments_corporate', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
+        return view('frontend.company_form.appointments_corporate', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','company_type'));
     }
 
 
@@ -610,6 +612,7 @@ class CompanyFormController extends Controller
             'sh_quantity' => $request->sh_quantity,
             'sh_currency' => $request->sh_currency,
             'sh_pps' => $request->sh_pps,
+            'amount_guarantee' => $request->amount_guarantee,
             'perticularsTextArea' => $request->perticularsTextArea,
             'appointment_type' => $request->appointment_type
         ]);
@@ -672,6 +675,7 @@ class CompanyFormController extends Controller
                 'sh_quantity' => $request->sh_quantity,
                 'sh_currency' => $request->sh_currency,
                 'sh_pps' => $request->sh_pps,
+                'amount_guarantee' => $request->amount_guarantee,
                 'perticularsTextArea' => $request->perticularsTextArea,
                 'appointment_type' => $request->appointment_type
             ]);
@@ -738,6 +742,7 @@ class CompanyFormController extends Controller
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 
         $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
+        $company_type  = Companie::where('order_id', $_GET['order'])->pluck('companie_type')->first();
 
         $appointmentsList = [];
         if (!empty($personAppointments)) {
@@ -746,15 +751,15 @@ class CompanyFormController extends Controller
         // dd($appointment_details);
         if($appointment_details['appointment_type']=='corporate')
         {
-            return view('frontend.company_form.edit_appointments_corporate', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
+            return view('frontend.company_form.edit_appointments_corporate', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details','company_type'));
         }
         if($appointment_details['appointment_type']=='other_legal_entity')
         {
-        return view('frontend.company_form.edit_appointments_otherLegalEntity', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
+        return view('frontend.company_form.edit_appointments_otherLegalEntity', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details','company_type'));
 
         }
 
-        return view('frontend.company_form.edit_appointments', compact('used_address', 'countries','nationalities', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details'));
+        return view('frontend.company_form.edit_appointments', compact('used_address', 'countries','nationalities', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details','company_type'));
     }
 
 }
