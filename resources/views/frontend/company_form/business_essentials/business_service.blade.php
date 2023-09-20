@@ -32,6 +32,11 @@ ul.ef-16-benefits-list {
                 <div class="col-md-12">
                     <div class="particulars-form-wrap">
                         <div class="particulars-top-step">
+                            @php
+                                $company_form = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','company_formation')->first();
+                                $buisness_ess = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','BusinessEssential')->first();
+                                $summary = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','Review')->first();
+                            @endphp
                             <div class="top-step-items">
                                 <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}" >
                                 <strong>1.Company Formation</strong>
@@ -39,13 +44,22 @@ ul.ef-16-benefits-list {
                                 </a>
                             </div>
                             <div class="top-step-items active">
-                                <strong>2.Business Essentials</strong>
-                                <span>Products & Services</span>
+                                <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" > <strong>2.Business Essentials</strong>
+                                    <span>Products & Services</span>
+                                </a>
                             </div>
-                            <div class="top-step-items ">
-                                <strong>3.Summary</strong>
-                                <span>Details about your order</span>
-                            </div>
+                            @if ($summary)
+                                <div class="top-step-items ">
+                                <a href="{{route('review.index', ['order' => $_GET['order'] ?? '', 'section' => 'Review', 'step' => 'review'])}}"> <strong>3.Summary</strong>
+                                    <span>Details about your order</span>
+                                </a>
+                                </div>
+                            @else
+                                <div class="top-step-items ">
+                                    <strong>3.Summary</strong>
+                                    <span>Details about your order</span>
+                                </div>
+                            @endif
                             <div class="top-step-items">
                                 <strong>4.Delivery & Partner Services</strong>
                                 <span>Delivery & Partner Details</span>

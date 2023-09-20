@@ -23,16 +23,16 @@
                         <div class="particulars-form-wrap">
                             <div class="particulars-top-step">
                                 <div class="top-step-items">
-                                    <a
-                                        href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}">
+                                    <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}">
                                         <strong>1.Company Formation</strong>
                                         <span>Details about your company</span>
                                     </a>
                                 </div>
                                 <div class="top-step-items">
-                                    <a href="route('business-essential.index', ['order' => $request->order_id, 'section' => 'BusinessEssential', 'step' => 'business-banking'])" >
+                                    <a href="{{route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking'])}}" >
                                     <strong>2.Business Essentials</strong>
                                     <span>Products & Services</span>
+                                    </a>
                                 </div>
                                 <div class="top-step-items active">
                                     <strong>3.Summary</strong>

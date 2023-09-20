@@ -50,8 +50,9 @@
                             </div>
                             @if ($buisness_ess)
                                 <div class="top-step-items">
-                                    <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" > <strong>2.Business Essentials</strong>  </a>
-                                    <span>Products & Services</span>
+                                    <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" > <strong>2.Business Essentials</strong>
+                                        <span>Products & Services</span>
+                                    </a>
                                 </div>
 
                             @else
@@ -63,8 +64,9 @@
 
                             @if ($summary)
                                 <div class="top-step-items ">
-                                   <a href="{{route('review.index', ['order' => $_GET['order'] ?? '', 'section' => 'Review', 'step' => 'review'])}}"> <strong>3.Summary</strong></a>
+                                   <a href="{{route('review.index', ['order' => $_GET['order'] ?? '', 'section' => 'Review', 'step' => 'review'])}}"> <strong>3.Summary</strong>
                                     <span>Details about your order</span>
+                                </a>
                                 </div>
                             @else
                                 <div class="top-step-items ">

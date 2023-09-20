@@ -901,6 +901,10 @@
                         $("#post_address_blk").html(result);
                         $('#findAddress').html('Find Address');
 
+                    }else{
+                        alert('No Record Found! Choose another.');
+                        $('#findAddress').html('Find Address');
+
                     }
 
                 }

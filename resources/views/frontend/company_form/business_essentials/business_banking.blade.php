@@ -31,13 +31,22 @@ ul.ef-16-benefits-list {
                                 </a>
                             </div>
                             <div class="top-step-items active">
-                                <strong>2.Business Essentials</strong>
-                                <span>Products & Services</span>
+                                <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" > <strong>2.Business Essentials</strong>
+                                    <span>Products & Services</span>
+                                </a>
                             </div>
-                            <div class="top-step-items ">
-                                <strong>3.Summary</strong>
-                                <span>Details about your order</span>
-                            </div>
+                            @if ($summary)
+                                <div class="top-step-items ">
+                                <a href="{{route('review.index', ['order' => $_GET['order'] ?? '', 'section' => 'Review', 'step' => 'review'])}}"> <strong>3.Summary</strong>
+                                    <span>Details about your order</span>
+                                </a>
+                                </div>
+                            @else
+                                <div class="top-step-items ">
+                                    <strong>3.Summary</strong>
+                                    <span>Details about your order</span>
+                                </div>
+                            @endif
                             <div class="top-step-items">
                                 <strong>4.Delivery & Partner Services</strong>
                                 <span>Delivery & Partner Details</span>
@@ -91,7 +100,7 @@ ul.ef-16-benefits-list {
                                 <div class="bottom-step-items active">
                                     <img src="{{ asset('frontend/assets/images/active-tick.svg') }}" alt="">
                                     <p>
-                                        <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'optional-extras']) }}" >Optional Extras </a>
+                                        <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'optional-extras']) }}" style="color: #ffffff;">Optional Extras </a>
                                     </p>
                                 </div>
                             @else
