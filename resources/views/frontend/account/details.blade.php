@@ -895,10 +895,22 @@
                     post_code: post_code
                 },
                 success: function(result) {
+                    console.log('result',result);
+                    if(result!=''){
+                        $("#exampleModalCenterAddress").show();
+                        $("#post_address_blk").html(result);
+                        $('#findAddress').html('Find Address');
 
-                    $("#exampleModalCenterAddress").show();
-                    $("#post_address_blk").html(result);
-                    $('#findAddress').html('Find Address');
+                    }else{
+                        alert('No Record Found! Choose another.');
+                        $('#findAddress').html('Find Address');
+
+                    }
+
+                },
+                error: function(){
+                    alert('No Record Found! Choose another.');
+                        $('#findAddress').html('Find Address');
                 }
             });
         });

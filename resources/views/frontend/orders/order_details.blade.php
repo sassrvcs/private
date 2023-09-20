@@ -87,13 +87,13 @@
                                         <tbody>
                                             <tr>
                                                 <td>{{ $all_order->cart->package->package_name }} </td>
-                                                <td>1</td>                                                
-                                                <td>${{ $all_order->cart->package->package_price }}</td>
+                                                <td>1</td>
+                                                <td>£{{ $all_order->cart->package->package_price }}</td>
                                                 <td>
-                                                    ${{ ($all_order->cart->package->package_price * 20) / 100 }}
+                                                    £{{ ($all_order->cart->package->package_price * 20) / 100 }}
                                                 </td>
                                                 <td>
-                                                    ${{ ($all_order->cart->package->package_price) + (($all_order->cart->package->package_price * 20) / 100) }} 
+                                                    £{{ ($all_order->cart->package->package_price) + (($all_order->cart->package->package_price * 20) / 100) }}
                                                 </td>
                                             </tr>
                                             @foreach ($all_order->cart->addonCartServices as $item)
@@ -105,30 +105,30 @@
                                                 <tr>
                                                     <td>{{ $item->service->service_name }}</td>
                                                     <td>1</td>
-                                                    <!-- <td><span class="status accepted">Accepted</span></td> -->                                                    
-                                                    <td>${{ $item->service->price }}</td>
-                                                    <td>${{ $vat }}</td>
-                                                    <td>${{ ($item->service->price) + $vat }}</td>
-                                                </tr> 
-                                            @endforeach                                           
+                                                    <!-- <td><span class="status accepted">Accepted</span></td> -->
+                                                    <td>£{{ $item->service->price }}</td>
+                                                    <td>£{{ $vat }}</td>
+                                                    <td>£{{ ($item->service->price) + $vat }}</td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                         <tfoot>
-                                            <tr>                                                
+                                            <tr>
                                                 <td></td>
                                                 <td>Totals :</td>
-                                                <td>${{ $net_total + $all_order->cart->package->package_price }}</td>
-                                                <td>${{ $total_vat + ($all_order->cart->package->package_price * 20) / 100 }}</td>
+                                                <td>£{{ $net_total + $all_order->cart->package->package_price }}</td>
+                                                <td>£{{ $total_vat + ($all_order->cart->package->package_price * 20) / 100 }}</td>
                                                 <td>
                                                     @php
                                                         $total_price = $net_total + $all_order->cart->package->package_price + ($total_vat + ($all_order->cart->package->package_price * 20) / 100);
                                                     @endphp
-                                                    ${{ $total_price }}
+                                                    £{{ $total_price }}
                                                 </td>
                                             </tr>
                                         </tfoot>
                                     </table>
                                 </div>
-                                
+
                                 @if($transactions->count() > 0)
                                     <h3 class="mt-5 mb-4 orde-pyment-ttl">Payments</h3>
                                     <div class="table-responsive">
@@ -149,7 +149,7 @@
                                                         <td>{{ 'DEBIT' }}</td>
                                                         <td>{{ ($trans->step == 0) ? 'Initial' : 'Fulfillment' }} of Order {{ $order->order_id }}</td>
                                                     </tr>
-                                                @endforeach                                            
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

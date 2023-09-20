@@ -37,24 +37,50 @@
                     @include('layouts.navbar')
                     <div class="col-md-12">
                         <div class="particulars-form-wrap">
-                            <div class="particulars-top-step">
-                                <div class="top-step-items active">
-                                    <strong>1.Company Formation</strong>
-                                    <span>Details about your company</span>
-                                </div>
-                                <div class="top-step-items">
-                                    <strong>2.Business Essentials</strong>
-                                    <span>Products & Services</span>
-                                </div>
-                                <div class="top-step-items active">
-                                    <strong>3.Summary</strong>
-                                    <span>Details about your order</span>
-                                </div>
-                                <div class="top-step-items">
-                                    <strong>4.Delivery & Partner Services</strong>
-                                    <span>Delivery & Partner Details</span>
-                                </div>
-                            </div>
+                            @php
+                            $company_form = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','company_formation')->first();
+                            $buisness_ess = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','BusinessEssential')->first();
+                            $summary = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','Review')->first();
+
+
+                        @endphp
+            <div class="particulars-form-wrap">
+                <div class="particulars-top-step">
+                    <div class="top-step-items active">
+                        <strong>1.Company Formation</strong>
+                        <span>Details about your company</span>
+                    </div>
+                    @if ($buisness_ess)
+                        <div class="top-step-items">
+                            <a href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}" > <strong>2.Business Essentials</strong>  </a>
+                            <span>Products & Services</span>
+                        </div>
+
+                    @else
+                        <div class="top-step-items">
+                            <strong>2.Business Essentials</strong>
+                            <span>Products & Services</span>
+                        </div>
+                    @endif
+
+                    @if ($summary)
+                        <div class="top-step-items ">
+                           <a href="{{route('review.index', ['order' => $_GET['order'] ?? '', 'section' => 'Review', 'step' => 'review'])}}"> <strong>3.Summary</strong></a>
+                            <span>Details about your order</span>
+                        </div>
+                    @else
+                        <div class="top-step-items ">
+                            <strong>3.Summary</strong>
+                            <span>Details about your order</span>
+                        </div>
+                    @endif
+
+
+                    <div class="top-step-items">
+                        <strong>4.Delivery & Partner Services</strong>
+                        <span>Delivery & Partner Details</span>
+                    </div>
+                </div>
                             <div class="particulars-bottom-step">
                                 @php
                                     $particular_step = App\Models\companyFormStep::where('order',$_GET['order'])->where('section','company_formation')->where('step','particulars')->first();

@@ -99,19 +99,24 @@ class AuthController extends Controller
                 $string = implode(",",$refineArr);
                 array_push($refineFullAddrArr, $string);;
             }
-
-            $html .='<p>Select your address from the options below:</p>';
-            foreach($refineFullAddrArr as $key=>$value) {
-                $html .='<div class="postcode_option mb-3 row">';
-                $html .= '<div class="col-md-10">'.$value.'&nbsp;</div>';
-                $html .='<div class="col-md-2"><span class="postcode_select_btn btn btn-dark btn-sm select-postal" onclick="selectPostalAddrApp(\''.$value.'\',\''.$type.'\',\''.$res.'\')">Select</span></div>';
-                $html .='</div>';
+            if($refineFullAddrArr!=[]){
+                $html .='<p>Select your address from the options below:</p>';
+                foreach($refineFullAddrArr as $key=>$value) {
+                    $html .='<div class="postcode_option mb-3 row">';
+                    $html .= '<div class="col-md-10">'.$value.'&nbsp;</div>';
+                    $html .='<div class="col-md-2"><span class="postcode_select_btn btn btn-dark btn-sm select-postal" onclick="selectPostalAddrApp(\''.$value.'\',\''.$type.'\',\''.$res.'\')">Select</span></div>';
+                    $html .='</div>';
+                }
+            }else{
+                $html='';
             }
+
+
         } else {
             $html='<div class="mb-3 errorRes"><h5>'.$response['Message'].' , Please try again later.</h5></div>';
         }
-
         return  $html;
+
     }
 
     /**
@@ -231,7 +236,7 @@ class AuthController extends Controller
     }
 
     public function registerNewAddess(Request $request) {
-
+        
         $validate = Validator::make($request->all(), [
             'house_noNew' => 'required',
             'post_codeNew' => 'required',

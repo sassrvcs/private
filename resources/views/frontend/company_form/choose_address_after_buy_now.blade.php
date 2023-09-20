@@ -427,14 +427,15 @@
                                                     class="btn btn-primary">Submit</button>
                                                 <!-- <button type="submit" onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';" class="btn btn-primary">Submit</button> -->
                                             </div>
-                                            <div class="step-btn-wrap mt-4">
-                                                @if ($forwardingAddVal !== null)
-                                                    <button class="btn prev-btn" onclick="cancelPage()">Cancel</button>
-                                                @else
-                                                    <button class="btn prev-btn" onclick="cancelPageTwo()">Cancel</button>
-                                                @endif
-                                            </div>
+
                                         </form>
+                                        <div class="step-btn-wrap mt-4">
+                                            {{-- @if ($forwardingAddVal !== null)
+                                                <button class="btn prev-btn" onclick="window.location.reload()">Cancel</button>
+                                            @else --}}
+                                                <button type="button" class="btn prev-btn" onclick="cancelPage()">Cancel</button>
+                                            {{-- @endif --}}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -654,12 +655,14 @@
         }
 
         const cancelPage = function() {
+            
             window.location.href = "{{ route('choose-address-after-buy-now', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'registered-address']) }}"
         }
         const cancelPageTwo = function() {
             window.location.href = "{{ route('registered-address', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'registered-address']) }}"
         }
 
+        var contactformValidator = $('#contactform').validate({ });
         const AddMoreAddSave = function(ths) {
             const requiredFields = document.querySelectorAll('.blankCheckForNewEntry');
             const requiredFieldsArr = [...requiredFields];
