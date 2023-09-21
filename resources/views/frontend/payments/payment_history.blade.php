@@ -13,7 +13,7 @@
         </div>
         <div class="center-info">
             <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a>Digital Packages</a></li>
             </ul>
         </div>
@@ -33,7 +33,7 @@
         <div class="companies-wrap">
             <div class="row woo-account">
                 @include('layouts.navbar')
-                <div class="MyAccount-content col-md-12">                    
+                <div class="MyAccount-content col-md-12">
                     <div class="MyAccount-content col-md-12">
                         <div class="companies-topbar">
                             <h3>Payment History</h3>
@@ -48,7 +48,7 @@
                                                 <th>Amount</th>
                                                 <th>Notes</th>
                                                 <th>Payment Ref.</th>
-                                                <th>Order</th>                                                
+                                                <th>Order</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -57,14 +57,14 @@
                                                 <td>{{ \Carbon\Carbon::parse($order_payment->created_at)->format('d/m/Y') }}</td>
                                                 <td>{{ $order_payment->amount }}</td>
                                                 <td></td>
-                                                <td>{{ $order_payment->invoice_id }}</td>                                                
-                                                <td> 
+                                                <td>{{ $order_payment->invoice_id }}</td>
+                                                <td>
                                                     <a href="{{ route('order-details', ['order' => $order_payment->order_id]) }}">
                                                         {{ $order_payment->order_id }}
-                                                    </a>                                 
+                                                    </a>
                                                 </td>
-                                            </tr> 
-                                            @endforeach                                       
+                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 @else

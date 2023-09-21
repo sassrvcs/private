@@ -292,7 +292,7 @@
                         <tr>
                             <td style="height:60px;">&nbsp;</td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <td style="padding: 0;">
                                 <table width="100%" cellpadding="0" cellspacing="0"
                                     style="background:#fff; font-family: 'Poppins', sans-serif; border:1px solid #000;">
@@ -304,8 +304,8 @@
                                     </tr>
                                 </table>
                             </td>
-                        </tr>
-                        <tr>
+                        </tr> --}}
+                        {{-- <tr>
                             <td style="height:80px;">&nbsp;</td>
                         </tr>
                         <tr>
@@ -316,7 +316,7 @@
                             <td style="padding:0;text-align:center;font-size:12px;color: #646464;"><strong><i>71-75,
                                         Shelton Street, Covent Garden, London, WC2H 9JQ, UNITED KINGDOM</i></strong>
                             </td>
-                        </tr>
+                        </tr> --}}
                     </table>
                 </td>
             </tr>

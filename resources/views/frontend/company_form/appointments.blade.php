@@ -346,7 +346,7 @@
 
                                 <div class="office-address">
                                     <div class="top-block">
-                                        <h3>Add An Offer</h3>
+                                        <h3>Add An Officer</h3>
                                     </div>
                                     <div class="add-an-offer">
                                         <p>Click on one of the buttons below to add an officer to your company.</p>
@@ -3720,6 +3720,7 @@
                     },
                     success: function(data) {
                         $("#ChossenResAdd").html(data);
+                        $("#residentialAddrValidation").addClass('d-none');
                         $("#ChossenResAdd").removeClass('d-none');
                         $(".res_choose_another_cl").removeClass('d-none');
 
@@ -4297,10 +4298,12 @@
                     const address_post_code = $(`.${id}_address_post_code`).val();
 
                     $('#ChossenResAdd').html(
-                        `${house_number},${add_street},${add_locality},${add_town},${user_county},${address_post_code}`)
+                        `${house_number},${add_street},${add_locality},${add_town},${user_county},${address_post_code}`);
+
                 } else {
                     $('#ChossenResAdd').html(ths.value)
                 }
+                $("#residentialAddrValidation").addClass('d-none');
 
                 $('#ChossenResAdd_id').val(id)
                 $('#ChossenResAdd').removeClass('d-none');
@@ -4325,6 +4328,7 @@
                 } else {
                     $('#ChossenServiceAdd').html(ths.value)
                 }
+                $("#serviceAddrValidation").addClass('d-none');
 
                 $('#ChossenServiceAdd_id').val(id)
 
@@ -4350,6 +4354,7 @@
                 } else {
                     $('#ChossenForwarding_Add').html(ths.value)
                 }
+                
 
                 $('.forwarding_add_after_buy_now_select').removeClass('d-none')
                 $("#serviceAddLandingSection").removeClass('d-none')

@@ -13,7 +13,7 @@
         </div>
         <div class="center-info">
             <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a>Digital Packages</a></li>
             </ul>
         </div>
@@ -36,21 +36,30 @@
                 <div class="MyAccount-content col-md-12">
                     <div class="companies-topbar">
                         <h3>Companies List</h3>
-                        <div class="rt-side">
-                            <div class="field-box">
-                                <label for="">Sort By :</label>
-                                <select name="" id="" class="field">
-                                    <option value="">Incorporation Date</option>
-                                </select>
+
+                            <div class="rt-side">
+                                <div class="field-box">
+                                    <label for="">Sort By :</label>
+                                    <select name="sort_by" id="sort_by" class="field">
+                                        <option value="Incorporation Date">Incorporation Date</option>
+
+                                    </select>
+                                </div>
+                                <div class="field-box">
+                                    <label for="">Show Only :</label>
+                                    <select name="status_value" id="status_value" class="field">
+                                        <option value="All">All</option>
+                                        <option value="0">Incomplete</option>
+                                        <option value="1">Pending</option>
+                                        <option value="2">Processing</option>
+                                        <option value="3">Approved</option>
+                                        <option value="4">Rejected</option>
+
+                                    </select>
+                                </div>
+                                <button type="submite" class="btn btn-primary">Submit</button>
                             </div>
-                            <div class="field-box">
-                                <label for="">Show Only :</label>
-                                <select name="" id="" class="field">
-                                    <option value="">Incorporation Date</option>
-                                </select>
-                            </div>
-                            <button type="submite" class="btn btn-primary">Submit</button>
-                        </div>
+
                     </div>
                     <div class="companies-table-wrap">
                         <div class="table-responsive">
@@ -97,7 +106,7 @@
                                             @else
                                                 Company Name Not Present
                                             @endif --}}
-                                            <td>
+                                            <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" >
                                                 {{ strtoupper($order->company_name) ?? "-" }}
                                                 {{-- @php $orderCompanyNameWithoutSuffix = preg_replace('/\b(?:LTD|LIMITED)\b/i', '', strtoupper($order->company_name)); @endphp --}}
                                                 {{-- @dump($orderCompanyNameWithoutSuffix) --}}
@@ -106,6 +115,7 @@
                                                 @else
                                                     Company Name Not Present
                                                 @endif --}}
+                                                </a>
                                             </td>
                                             {{-- <td>
                                                 {{ strtoupper($order->company_name) ?? "-" }}

@@ -325,11 +325,13 @@
                                                     </li>
                                                     <li>
                                                         <label>Contact Phone : </label>
+                                                        <span style="background-color : #efefef; display : inline-block; padding : 3px 4px; border: 1px solid #CCCCCC; border-right : none;">+44</span>
                                                         <input type="number" class="form-control" name="contact_phone"
                                                             id="contact_phone" minlength="10" maxlength="10">
                                                     </li>
                                                     <li>
                                                         <label>Contact Mobile : </label>
+                                                        <span style="background-color : #efefef; display : inline-block; padding : 3px 4px; border: 1px solid #CCCCCC; border-right : none;">+44</span>
                                                         <input type="number" class="form-control" name="contact_mobile"
                                                             id="contact_mobile" minlength="10" maxlength="10">
                                                     </li>
