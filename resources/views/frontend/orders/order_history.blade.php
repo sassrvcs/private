@@ -68,7 +68,7 @@
                                                 <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}"> {{ $order->order_id }}</a></td>
                                                 <td>-</td>
                                                 <td>{{ $order->cart->package->package_name }}</td>
-                                                <td>{{ $order->company_name }}</td>
+                                                <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" >{{ $order->company_name }}</a></td>
                                                 <td>
                                                     <span class="status accepted">
                                                         {{ ($order->order_status == 'pending') ? 'Incomplete' : (($order->order_status == 'progress') ? 'Inprogress' : 'Complete') }}

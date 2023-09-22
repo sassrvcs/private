@@ -36,12 +36,12 @@
                 <div class="MyAccount-content col-md-12">
                     <div class="companies-topbar">
                         <h3>Companies List</h3>
-
+                        <form action="{{route('companies-list')}}" method="get">
                             <div class="rt-side">
                                 <div class="field-box">
                                     <label for="">Sort By :</label>
                                     <select name="sort_by" id="sort_by" class="field">
-                                        <option value="Incorporation Date">Incorporation Date</option>
+                                        <option value="Incorporation_Date">Incorporation Date</option>
 
                                     </select>
                                 </div>
@@ -49,17 +49,17 @@
                                     <label for="">Show Only :</label>
                                     <select name="status_value" id="status_value" class="field">
                                         <option value="All">All</option>
-                                        <option value="0">Incomplete</option>
-                                        <option value="1">Pending</option>
-                                        <option value="2">Processing</option>
-                                        <option value="3">Approved</option>
-                                        <option value="4">Rejected</option>
+                                        <option value="0" {{ (isset($_GET['status_value']) && $_GET['status_value'] == "0") ? 'selected' : '' }}>Incomplete</option>
+                                        <option value="1" {{ (isset($_GET['status_value']) && $_GET['status_value'] == "1") ? 'selected' : '' }}>Pending</option>
+                                        <option value="2" {{ (isset($_GET['status_value']) && $_GET['status_value'] == "2") ? 'selected' : '' }}>Processing</option>
+                                        <option value="3" {{ (isset($_GET['status_value']) && $_GET['status_value'] == "3") ? 'selected' : '' }}>Approved</option>
+                                        <option value="4" {{ (isset($_GET['status_value']) && $_GET['status_value'] == "4") ? 'selected' : '' }}>Rejected</option>
 
                                     </select>
                                 </div>
-                                <button type="submite" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
-
+                        </form>
                     </div>
                     <div class="companies-table-wrap">
                         <div class="table-responsive">
@@ -94,66 +94,78 @@
                                     {{-- @dump(json_decode($companyNames)) --}}
 
                                     @foreach($companies->orders as $key => $order)
-                                        {{-- @dump($order) --}}
-                                        <tr>
 
-                                            <td>{{ $order->order_id }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
-                                            {{-- <td>{{ strtoupper($order->company_name) ?? "-" }}</td> --}}
-                                            {{-- {{ strtoupper($order->company_name) ?? "-" }}
-                                            @if ($companyNames->contains(strtoupper($order->company_name)))
-                                                Company Name Present
-                                            @else
-                                                Company Name Not Present
-                                            @endif --}}
-                                            <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" >
-                                                {{ strtoupper($order->company_name) ?? "-" }}
-                                                {{-- @php $orderCompanyNameWithoutSuffix = preg_replace('/\b(?:LTD|LIMITED)\b/i', '', strtoupper($order->company_name)); @endphp --}}
-                                                {{-- @dump($orderCompanyNameWithoutSuffix) --}}
-                                                {{-- @if (in_array(strtoupper($order->company_name), json_decode($companyNames)))
+                                        @if (!isset($_GET['status_value']) || $_GET['status_value']=='All' || (@$order->myCompany->status == $_GET['status_value']))
+                                            <tr>
+
+                                                <td>{{ $order->order_id }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
+                                                {{-- <td>{{ strtoupper($order->company_name) ?? "-" }}</td> --}}
+                                                {{-- {{ strtoupper($order->company_name) ?? "-" }}
+                                                @if ($companyNames->contains(strtoupper($order->company_name)))
                                                     Company Name Present
                                                 @else
                                                     Company Name Not Present
                                                 @endif --}}
-                                                </a>
-                                            </td>
-                                            {{-- <td>
-                                                {{ strtoupper($order->company_name) ?? "-" }}
-                                                @if ($companies->companies->pluck('companie_name')->contains(strtoupper($order->company_name)))
-                                                    Company Name Present
+                                                <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" >
+                                                    {{ strtoupper($order->company_name) ?? "-" }}
+                                                    {{-- @php $orderCompanyNameWithoutSuffix = preg_replace('/\b(?:LTD|LIMITED)\b/i', '', strtoupper($order->company_name)); @endphp --}}
+                                                    {{-- @dump($orderCompanyNameWithoutSuffix) --}}
+                                                    {{-- @if (in_array(strtoupper($order->company_name), json_decode($companyNames)))
+                                                        Company Name Present
+                                                    @else
+                                                        Company Name Not Present
+                                                    @endif --}}
+                                                    </a>
+                                                </td>
+                                                {{-- <td>
+                                                    {{ strtoupper($order->company_name) ?? "-" }}
+                                                    @if ($companies->companies->pluck('companie_name')->contains(strtoupper($order->company_name)))
+                                                        Company Name Present
+                                                    @else
+                                                        Company Name Not Present
+                                                    @endif
+                                                </td> --}}
+                                                <td>{{ $order->company_number ?? "-" }}</td>
+                                                <td>{{ $order->auth_code ?? "-" }}</td>
+
+                                                {{--<td><span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">{{ ($order->order_status == 'pending') ? 'INCOMPLETE' : 'ACCEPTED' }}</span></td>--}}
+
+
+                                                @php
+
+                                                    $company_status = \App\Models\Companie::where('companie_name',$order->company_name)->pluck('status')->first();
+
+                                                @endphp
+
+                                                <td><span class="status @if($company_status == '0' || $company_status == '1' || $company_status == '2') incomplete @elseif ($company_status == '3')accepted @else Rejected @endif ">
+                                                    
+                                                    @if ($company_status == '0' || $company_status == '1' || $company_status == '2')
+                                                        INCOMPLETE
+                                                    @elseif ($company_status == '3')
+                                                        APPROVED
+                                                    @else
+                                                        REJECTED
+                                                    @endif</span>
+                                                </td>
+                                                @if($company_status == '3')
+                                                    <td>
+                                                        <a href="{{ route('accepted-company', ['order' => $order->order_id,'c_id'=>$order->myCompany->id]) }}" class="view-btn">
+                                                            View
+                                                            <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt="">
+                                                        </a>
+                                                    </td>
                                                 @else
-                                                    Company Name Not Present
+                                                    <td>
+                                                        <a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" class="view-btn">
+                                                            View
+                                                            <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt="">
+                                                        </a>
+                                                    </td>
                                                 @endif
-                                            </td> --}}
-                                            <td>{{ $order->company_number ?? "-" }}</td>
-                                            <td>{{ $order->auth_code ?? "-" }}</td>
+                                            </tr>
 
-                                            {{--<td><span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">{{ ($order->order_status == 'pending') ? 'INCOMPLETE' : 'ACCEPTED' }}</span></td>--}}
-
-                                            <td><span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">
-                                                {{ ($order->order_status == 'pending') ? 'INCOMPLETE' : 'ACCEPTED' }}</span>
-                                            </td>
-                                            @php
-
-                                                $company_status = \App\Models\Companie::where('companie_name',$order->company_name)->pluck('status')->first();
-
-                                            @endphp
-                                            @if($company_status == '3')
-                                                <td>
-                                                    <a href="{{ route('accepted-company', ['order' => $order->order_id,'c_id'=>$order->myCompany->id]) }}" class="view-btn">
-                                                        View
-                                                        <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt="">
-                                                    </a>
-                                                </td>
-                                            @else
-                                                <td>
-                                                    <a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" class="view-btn">
-                                                        View
-                                                        <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt="">
-                                                    </a>
-                                                </td>
-                                            @endif
-                                        </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

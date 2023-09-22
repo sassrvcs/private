@@ -52,7 +52,7 @@
                                         </div>
                                         <div class="panel">
                                             <p><strong>Company: </strong></p>
-                                            <p><a href="#">{{ $deliveryPartner->companie_name ?? '' }}</a></p>
+                                            <p><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" >{{ $deliveryPartner->companie_name ?? '' }}</a></p>
                                         </div>
                                         <div class="panel">
                                             <p><strong>Package: </strong></p>

@@ -34,10 +34,9 @@ class CompaniesListController extends Controller
      */
     public function __invoke(Request $request)
     {
+        // dd($request);
         $authID = auth()->user()->id;
         $companies = $this->userService->show($authID);
-
-        
         return view('frontend.companies.company', compact('companies'));
     }
 
