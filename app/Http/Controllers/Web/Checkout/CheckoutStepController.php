@@ -196,9 +196,13 @@ class CheckoutStepController extends Controller
         $order_transaction = new orderTransaction;
         if($company){
             $order_transaction->step = 1;
+
         }else{
             $order_transaction->step = 0;
         }
+        $company->status = '1';
+        $company->save();
+        dd($company);
         $order_transaction->order_id =$order_id;
         $order_transaction->uuid =$request->query('orderID');
         $order_transaction->status=$request->query('STATUS');
