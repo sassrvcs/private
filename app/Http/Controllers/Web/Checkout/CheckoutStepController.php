@@ -202,7 +202,7 @@ class CheckoutStepController extends Controller
         }
         $company->status = '1';
         $company->save();
-        dd($company);
+     
         $order_transaction->order_id =$order_id;
         $order_transaction->uuid =$request->query('orderID');
         $order_transaction->status=$request->query('STATUS');
