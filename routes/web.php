@@ -88,6 +88,9 @@ Route::get('send-mail-attach',[MailTestController::class,'TestMail'])->name('sen
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/package', WebPackageController::class)->name('package');
 
+Route::get('/guarantee-package', [WebPackageController::class,'guarantee_package'])->name('guarantee_package');
+
+
 //contact us page
 Route::get('/contact-us',[ContactController::class,'view'])->name('contact.view');
 Route::post('/contact-us',[ContactController::class,'store'])->name('contact.store');

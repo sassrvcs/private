@@ -353,7 +353,7 @@
 
                                 <div class="office-address">
                                     <div class="top-block">
-                                        <h3>Add An Offer</h3>
+                                        <h3>Add An Officer</h3>
                                     </div>
                                     <div class="add-an-offer">
                                         <p>Click on one of the buttons below to add an officer to your company.</p>
@@ -488,10 +488,11 @@
                                             if (in_array('Director', $positionArray)) {
                                                 $directorCheck++;
                                             }
-                                            if (in_array('Guarantor', $positionArray)) {
-                                                $guarantorCheck++;
-                                                array_push($guarantorId, ['p_id'=>$val['person_officer_id'],'amount_guarantee'=>$val['amount_guarantee']]);
-                                            }
+                                           if ($company_type=='Limited By Guarantee') {
+                                               $guarantorCheck++;
+                                               array_push($guarantorId, ['p_id'=>$val['person_officer_id'],'amount_guarantee'=>$val['amount_guarantee']]);
+                                           }
+
 
                                         @endphp
                                         @if (in_array('Shareholder', $positionArray))
@@ -1128,7 +1129,11 @@
                                                             @php
                                                             $officerDetails = officer_details_for_appointments_list($val['p_id']);
                                                             $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
-                                                            echo $fullName;
+                                                            if ($officerDetails['first_name']!='' && $officerDetails['last_name']!='') {
+                                                                echo $fullName;
+                                                            }else{
+                                                                echo $officerDetails['legal_name'];
+                                                            }
                                                         @endphp
                                                         </td>
                                                         <td>{{$val['amount_guarantee']}} GBP</td>
@@ -1382,10 +1387,10 @@
                                                             select a Position.</div>
 
                                                     </div>
-                                                    <div id="gurantee-amount-div" class="row d-none">
+                                                    <div id="gurantee-amount-div" class="row d-none mt-2">
                                                         <div class="col-sm-2">
                                                             <label for="Amount Guaranteed" class="form-label">Amount Guaranteed</label>
-                                                            <input type="text" class="form-control" id="amount_guarantee" name="amount_guarantee" step="0.01">
+                                                            <input type="text" class="form-control" id="amount_guarantee" name="amount_guarantee" value="0" step="0.01" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1506,12 +1511,12 @@
 
                                                         @if (!empty($person_officers))
                                                             @foreach ($person_officers as $offVal)
+                                                            @if ($offVal['first_name']!='')
                                                                 <div class="row">
                                                                     <div class="col-md-12 col-sm-12">
                                                                         <div class="used-addresses-panel">
                                                                             <div class="text">
-                                                                                <p>{{ $offVal['title'] }},{{ $offVal['dob_day'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}
-                                                                                </p>
+                                                                                    {{ $offVal['title'] }},{{ $offVal['dob_day'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}
                                                                             </div>
                                                                             <div class="btn-wrap">
                                                                                 <button type="button"
@@ -1521,6 +1526,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                @endif
                                                             @endforeach
                                                         @endif
 
@@ -4385,7 +4391,7 @@
                 $("#gurantee-amount-div").removeClass('d-none');
             }else{
                 $("#gurantee-amount-div").addClass('d-none');
-                $("#amount_guarantee").val('')
+                $("#amount_guarantee").val('0')
 
             }
             $('#authenticationSection').toggleClass('d-none');

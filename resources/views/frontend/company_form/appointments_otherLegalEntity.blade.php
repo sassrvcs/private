@@ -1435,8 +1435,11 @@
                                                                     <div class="col-md-12 col-sm-12">
                                                                         <div class="used-addresses-panel">
                                                                             <div class="text">
-                                                                                <p>{{ $offVal['title'] }},{{ $offVal['dob_day'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}
-                                                                                </p>
+                                                                                    @if ($offVal['first_name']!='')
+                                                                                    {{ $offVal['title'] }},{{ $offVal['dob_day'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}
+                                                                                    @else
+                                                                                    {{ $offVal['legal_name'] }}
+                                                                                    @endif
                                                                             </div>
                                                                             <div class="btn-wrap">
                                                                                 <button type="button"
@@ -2031,7 +2034,7 @@
                                                     <h5>Does this officer have a controlling interest in this company?
                                                     </h5>
                                                     <div class="authe-qu-block">
-                                                        <div class="row">
+                                                        <div class="row {{$company_type=='Limited By Guarantee'?'d-none':''}}">
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="qu-block block">
                                                                     <label for="" class="d-flex"><span
@@ -2177,7 +2180,7 @@
                                                             company in their capacity within the Firm(s) ?
                                                         </h5>
                                                         <div class="authe-qu-block">
-                                                            <div class="row">
+                                                            <div class="row {{$company_type=='Limited By Guarantee'?'d-none':''}}">
                                                                 <div class="col-md-6 col-sm-12">
                                                                     <div class="qu-block block">
                                                                         <label for="" class="d-flex">
@@ -2326,7 +2329,7 @@
                                                         company in their capacity within the Trust(s) ?
                                                     </h5>
                                                     <div class="authe-qu-block">
-                                                        <div class="row">
+                                                        <div class="row {{$company_type=='Limited By Guarantee'?'d-none':''}}">
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="qu-block block">
                                                                     <label for="" class="d-flex">
@@ -2364,8 +2367,7 @@
                                                                             Rights</span>
                                                                     </label>
 
-                                                                    <select class="form-control"
-                                                                        onchange="selectingNoc()" id="t_voting"
+                                                                    <select class="form-control" id="t_voting"
                                                                         onchange="show_hide_t_other_sig()">
                                                                         <option value="">N/A</option>
                                                                         <option value="More than 25% but not more than 50%">More than 25% but not
@@ -2396,8 +2398,7 @@
                                                                             majority of the board of directors</span>
                                                                     </label>
 
-                                                                    <select class="form-control"
-                                                                        onchange="selectingNoc()" id="t_appoint"
+                                                                    <select class="form-control" id="t_appoint"
                                                                         onchange="show_hide_t_other_sig()">
                                                                         <option value="No">No</option>
                                                                         <option value="Yes">Yes</option>
@@ -2955,7 +2956,7 @@
             const perticularsTextArea = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $(
                 "#perticularsTextArea").val() : '';
             const appointment_type = $("#appointment_type").val();
-
+            const amount_guarantee = 0;
             const requiredFields = document.querySelectorAll('.blankCheckFinalSubmit');
             const requiredFieldsArr = [...requiredFields];
 
@@ -3021,6 +3022,7 @@
                         sh_quantity,
                         sh_currency,
                         sh_pps,
+                        amount_guarantee,
                         perticularsTextArea,
                         appointment_type
                     },
@@ -3067,9 +3069,11 @@
             const F_Voting = $('#F_voting').find(":selected").val();
             const F_appoint = $('#F_appoint').find(":selected").val();
 
-            if (F_ownership === '25' || F_ownership === '50' || F_ownership === '75' || F_Voting === '25' || F_Voting ===
-                '50' || F_Voting === '75' || F_appoint === 'Yes') {
+            if (F_ownership != '' || F_ownership != '' || F_ownership != '' || F_Voting != '' || F_Voting !=
+                '' || F_Voting != '' || F_appoint === 'Yes') {
                 $("#F_other_sig").addClass('d-none')
+                $("#F_other_sig_select_id option[value='No']").attr('selected', true);
+
             } else {
                 $("#F_other_sig").removeClass('d-none')
             }
@@ -3080,9 +3084,11 @@
             const s_voting = $('#s_voting').find(":selected").val();
             const s_appoint = $('#s_appoint').find(":selected").val();
 
-            if (s_ownership === '25' || s_ownership === '50' || s_ownership === '75' || s_voting === '25' || s_voting ===
-                '50' || s_voting === '75' || s_appoint === 'Yes') {
+            if (s_ownership != '' || s_ownership != '' || s_ownership != '' || s_voting != '' || s_voting !=
+                '' || s_voting != '' || s_appoint === 'Yes') {
                 $("#s_other_sig").addClass('d-none')
+                $("#s_other_sig_select_id option[value='No']").attr('selected', true);
+
             } else {
                 $("#s_other_sig").removeClass('d-none')
             }
@@ -3092,10 +3098,11 @@
             const t_ownership = $('#t_ownership').find(":selected").val();
             const t_voting = $('#t_voting').find(":selected").val();
             const t_appoint = $('#t_appoint').find(":selected").val();
-
-            if (t_ownership === '25' || t_ownership === '50' || t_ownership === '75' || t_voting === '25' || t_voting ===
-                '50' || t_voting === '75' || t_appoint === 'Yes') {
+            console.log("s_other_sig")
+            if (t_ownership != ''  || t_voting !=''  || t_appoint === 'Yes') {
+                    console.log('yes');
                 $("#t_other_sig").addClass('d-none')
+                $("#t_other_sig_select_id option[value='No']").attr('selected', true);
             } else {
                 $("#t_other_sig").removeClass('d-none')
             }
@@ -4115,14 +4122,14 @@
 
             // From NoC to Forward Tabs starts==========================>
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'nature-control') {
-                if ($("#F_ownership").val() === '' || $("#F_voting").val() === '')
-                {
-                    $("#NOC_validation_error").removeClass('d-none')
-                    return false;
-                }
-                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' &&
-                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&
-                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No') {
+                // if ($("#F_ownership").val() === '' || $("#F_voting").val() === '')
+                // {
+                //     $("#NOC_validation_error").removeClass('d-none')
+                //     return false;
+                // }
+                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' && $("#F_other_sig_select_id").val() === 'No' &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' && $("#s_other_sig_select_id").val() === 'No' &&
+                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' && $("#t_other_sig_select_id").val() === 'No') {
                     $("#NOC_validation_error").removeClass('d-none')
                     return false
                 }

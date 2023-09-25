@@ -171,7 +171,7 @@
                                                             style="padding:10px; border-right: 1px solid #000; border-bottom: 1px solid #000;width: 50%;">
                                                             Roles</td>
                                                         <td style="padding:10px; border-bottom: 1px solid #000;width: 50%;">
-                                                            {{ in_array('Director', $positionArray) ? 'Director,' : '' }} {{ in_array('Shareholder', $positionArray) ? 'Shareholder,' : '' }} {{ in_array('Secretary', $positionArray) ? 'Secretary,' : '' }} {{ in_array('PSC', $positionArray) ? 'PSC' : '' }}</td>
+                                                            {{ in_array('Director', $positionArray) ? 'Director,' : '' }} {{ in_array('Guarantor', $positionArray) ? 'Guarantor,' : '' }} {{ in_array('Shareholder', $positionArray) ? 'Shareholder,' : '' }} {{ in_array('Secretary', $positionArray) ? 'Secretary,' : '' }} {{ in_array('PSC', $positionArray) ? 'PSC' : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td
@@ -210,7 +210,7 @@
                                                             @php
                                                             $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
                                                             $nationality = $officerDetails['nationality'];
-                                                           
+
                                                             $nationality_name = \App\Models\Nationality::where('id',$nationality)->pluck('nationality')->first();
                                                             echo $nationality_name;
                                                         @endphp</td>

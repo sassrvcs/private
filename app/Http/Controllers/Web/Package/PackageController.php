@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Package;
 
 use App\Http\Controllers\Controller;
+use App\Models\Package;
 use App\Services\Facility\FacilityService;
 use App\Services\Package\PackageService;
 use Illuminate\Support\Facades\Session;
@@ -33,5 +34,18 @@ class PackageController extends Controller
         };
 
         return view('frontend.package.package',compact('packages', 'facilitys', 'facilityList'));
+    }
+    public function guarantee_package()
+    {
+        $package  = Package::where('package_type','guarantee')->first();
+        if($package)
+        {
+            $package_details = ['price'=>$package->package_price,'package_id'=>$package->id];
+        }else{
+            $package_details = ['price'=>'-','package_id'=>''];
+
+        }
+        // dd($packages);
+        return view('frontend.package.guarantee_package',compact('package_details'));
     }
 }

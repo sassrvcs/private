@@ -9,7 +9,7 @@
             </figure>
             <div class="d-flex">
                 <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{route('index')}}">Home</a></li>
                     <li><a>Compare Package</a></li>
                 </ul>
            </div>
@@ -48,7 +48,7 @@
                         <a href="#">LLP</a>
                     </li>
                     <li data-aos="fade-up" data-aos-delay="250" data-aos-duration="500" data-aos-once="true">
-                        <a href="#">Guarantee</a>
+                        <a href="{{route('guarantee_package')}}">Guarantee</a>
                     </li>
                     <li data-aos="fade-up" data-aos-delay="300" data-aos-duration="500" data-aos-once="true">
                         <a href="#">eSeller</a>

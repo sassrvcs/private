@@ -189,6 +189,53 @@
                             </div>
                             <div class="form-wrap">
                                 <div class="form-info-block">
+                                    <h4>How would you like to receive your company documents? </h4>
+                                    <div class="docu-info">
+                                        <p>The paper industry is the 5th biggest consumer of energy in the world. As a Carbon Neutral Business, we provide our customers with a green option and a standard option with regards how they receive their company documents.</p>
+                                        <p>Please select your delivery preference below:</p>
+                                    </div>
+                                    <div class="document-list-wrap">
+                                        <div class="document-list">
+                                            <div class="box">
+                                                <p><strong style="color: green;">GREEN:</strong> Deliver my documents digitally by email only </p>
+                                            </div>
+                                            <div class="box text-center">
+                                                <p><strong>FREE</strong></p>
+                                            </div>
+                                            <div class="box text-right">
+                                                <div class="switch-slider-wrap">
+                                                    <label class="toggleSwitch large" onclick="">
+                                                        <input type="checkbox" name="green" value="green" id="green" {{ (empty($legalDocument)) ? 'checked' : '' }} {{ (!empty($legalDocument) && $legalDocument == 'generic_article|green') ? 'checked' : '' }} />
+                                                        <span>
+                                                            <span>Select</span>
+                                                            <span>Select</span>
+                                                        </span>
+                                                        <a></a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="document-list">
+                                            <div class="box">
+                                                <p><strong style="color: #0070c0;">STANDARD:</strong> Deliver my documents digitally by email and a printed copy by post </p>
+                                            </div>
+                                            <div class="box text-center"></div>
+                                            <div class="box text-right">
+                                                <div class="switch-slider-wrap">
+                                                    <label class="toggleSwitch large" onclick="">
+                                                        <input type="checkbox" name="standard" value="standard" id="standard" {{ (!empty($legalDocument) && $legalDocument == 'generic_article|standard') ? 'checked' : '' }}  />
+                                                        <span>
+                                                            <span>Select</span>
+                                                            <span>Select</span>
+                                                        </span>
+                                                        <a></a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-info-block pt-4">
                                     <h4>Legal Documents</h4>
                                     <div class="docu-info">
                                         <p>
@@ -207,7 +254,7 @@
                                                 <div class="box text-right">
                                                     <div class="switch-slider-wrap">
                                                         <label class="toggleSwitch large">
-                                                            <input type="checkbox" name="generic_article" value="generic_article" id="toggle1" {{ (empty($legalDocument) || $legalDocument == 'generic_article') ? 'checked' : '' }} />
+                                                            <input type="checkbox" name="generic_article" value="generic_article" id="toggle1" checked/>
                                                             <span>
                                                                 <span>Select</span>
                                                                 <span>Select</span>
@@ -217,15 +264,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             @csrf
                                             <input type="hidden" name="order_id" id="order_id" value="{{ $orderId }}">
                                             <input type="hidden" name="company_id" id="company_id" value="{{ $companyId }}">
-                                            <input type="hidden" name="legal_document" id="legal_document" value="{{ (empty($legalDocument) || $legalDocument == 'generic_article') ? 'generic_article' : 'byspoke_article' }}">
+                                            <input type="hidden" name="legal_document" id="legal_document" value="{{ (empty($legalDocument) || $legalDocument == 'generic_article|green') ? 'generic_article|green' : 'generic_article|standard' }}">
                                             <input type="hidden" name="section_name" value="company_formation">
                                             <input type="hidden" name="step_name" value="document">
 
-                                            <div class="document-list">
+                                            <div class="document-list" hidden>
                                                 <div class="box">
                                                     <p>Byspoke article of association</p>
                                                 </div>
@@ -245,7 +291,7 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <div class="byspoke-upload-file" id="file-upload" style="display: {{ (!empty($legalDocument) && $legalDocument == 'byspoke_article') ? 'block' : 'none' }}">
+                                    <div hidden class="byspoke-upload-file" id="file-upload" style="display: {{ (!empty($legalDocument) && $legalDocument == 'byspoke_article') ? 'block' : 'none' }}">
                                         <h3>Byspoke article of association</h3>
                                         <div class="field-wrap">
                                             <input type="file" name="document" id="fileInput" class="fiel">
@@ -280,17 +326,7 @@
     $(document).ready(function() {
         // When the first toggle is clicked
         $("#toggle1").click(function() {
-            // alert($(this).prop("checked"));
-            // If it's turned on, turn off the second toggle
-            if ($(this).prop("checked") == false) {
-                $("#toggle2").prop("checked", true);
-                $("#legal_document").val('byspoke_article');
-                $("#file-upload").show();
-            } else {
-                $("#toggle2").prop("checked", false);
-                $("#legal_document").val('generic_article');
-                $("#file-upload").hide();
-            }
+            $(this).prop("checked",true)
         });
 
         // When the second toggle is clicked
@@ -305,6 +341,34 @@
                 $("#legal_document").val('byspoke_article');
                 $("#file-upload").show();
             }
+        });
+
+        $("#green").click(function() {
+            // alert($(this).prop("checked"));
+            // If it's turned on, turn off the second toggle
+            if ($(this).prop("checked") == false) {
+                $("#standard").prop("checked", true);
+                $("#legal_document").val('generic_article|standard');
+            } else {
+                $("#standard").prop("checked", false);
+                $("#legal_document").val('generic_article|green');
+            }
+            // console.log($("#legal_document").val());
+        });
+
+        // When the second toggle is clicked
+        $("#standard").click(function() {
+            // If it's turned on, turn off the first toggle
+            if ($(this).prop("checked") == false) {
+                $("#green").prop("checked", true);
+                $("#legal_document").val('generic_article|green');
+            } else {
+                $("#green").prop("checked", false);
+                $("#legal_document").val('generic_article|standard');
+
+            }
+            // console.log($("#legal_document").val());
+
         });
 
         $(".attach_file").click(function() {

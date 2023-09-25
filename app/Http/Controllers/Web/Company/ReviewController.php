@@ -70,6 +70,9 @@ class ReviewController extends Controller
         // return $pdf->download('pdf_file.pdf');
 
         // $pdf = PDF::loadView('frontend.company_form.review_form.review', $data);
+        // return view('PDF.review_index',$data);
+        // $pdf = PDF::loadView('PDF.TestAttachment',$data);
+
         $pdf = PDF::loadView('PDF.review_index',$data);
 
         // return view('PDF.review_index',$data);

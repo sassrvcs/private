@@ -298,10 +298,18 @@
                                         </div>
 
                                         <div class="col-lg-6 col-md-6 col-sm-12">
+                                            @php
+                                                $package_type = $orders->cart->package->package_type
+                                            @endphp
                                             <div class="form-group">
                                                 <label for="companie_type">Type of Company</label>
                                                 <select class="form-control" name="companie_type">
+                                                    @if ($package_type=="shares")
                                                     <option value="Limited By Shares">Limited By Shares</option>
+                                                    @endif
+                                                    @if ($package_type=="guarantee")
+                                                    <option value="Limited By Guarantee">Limited By Guarantee</option>
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>

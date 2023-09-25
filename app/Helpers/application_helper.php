@@ -8,10 +8,39 @@ function officer_details_for_appointments_list($id){
     if(isset($id)){
 
         $officer_details = PersonOfficer::where('id',$id)->get()->toArray();
-    
+
         if(!empty($officer_details)){
             return $officer_details[0];
         }
     }
+}
+function construct_address($address)
+{
+    @$con_address = '';
+        if(@isset($address['house_number']) && @$address['house_number']!='')
+        {
+            @$con_address .= $address['house_number'].', ';
+        }
+        if(isset($address['street']) && @$address['street']!='')
+        {
+            @$con_address .= $address['street'].', ';
+        }
+        if(isset($address['locality'])&& @$address['locality']!='')
+        {
+            @$con_address .= $address['locality'].', ';
+        }
+        if(isset($address['town'])&&@$address['town']!='')
+        {
+            @$con_address .= $address['town'].', ';
+        }
+        if(isset($address['county'])&&@$address['county']!='')
+        {
+            @$con_address .= $address['county'].', ';
+        }
+        if(isset($address['post_code'])&&@$address['post_code']!='')
+        {
+            @$con_address .= $address['post_code'];
+        }
+        return $con_address;
 }
 ?>

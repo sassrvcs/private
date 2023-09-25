@@ -1333,10 +1333,10 @@
                                                             select a Position.</div>
 
                                                     </div>
-                                                    <div id="gurantee-amount-div" class="row d-none">
+                                                    <div id="gurantee-amount-div" class="row d-none mt-2">
                                                         <div class="col-sm-2">
                                                             <label for="Amount Guaranteed" class="form-label">Amount Guaranteed</label>
-                                                            <input type="text" class="form-control" id="amount_guarantee" name="amount_guarantee" step="0.01">
+                                                            <input type="text" class="form-control" id="amount_guarantee" name="amount_guarantee" value="0" step="0.01" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1411,6 +1411,36 @@
                                                                         class="offValIdauthenticate_three_ans_{{ $offVal['id'] }}"
                                                                         value="{{ $offVal['authenticate_three_ans'] }}"
                                                                         readonly>
+
+                                                                        <input type="hidden"
+                                                                        class="law_governed_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['law_governed'] }}"
+                                                                        readonly>
+                                                                        <input type="hidden"
+                                                                        class="legal_form_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['legal_form'] }}"
+                                                                        readonly>
+                                                                        <input type="hidden"
+                                                                        class="legal_name_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['legal_name'] }}"
+                                                                        readonly>
+                                                                        <input type="hidden"
+                                                                        class="uk_registered_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['uk_registered'] }}"
+                                                                        readonly>
+                                                                        <input type="hidden"
+                                                                        class="registration_number_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['registration_number'] }}"
+                                                                        readonly>
+                                                                        <input type="hidden"
+                                                                        class="place_registered_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['place_registered'] }}"
+                                                                        readonly>
+                                                                        <input type="hidden"
+                                                                        class="registry_held_{{ $offVal['id'] }}"
+                                                                        value="{{ $offVal['registry_held'] }}"
+                                                                        readonly>
+
                                                                     <a
                                                                         href="#
                                                                         ">
@@ -1433,7 +1463,14 @@
                                                                     <div class="col-md-12 col-sm-12">
                                                                         <div class="used-addresses-panel">
                                                                             <div class="text">
-                                                                                <p>{{ $offVal['title'] }},{{ $offVal['dob_day'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}
+                                                                                <p>
+
+                                                                                    @if ($offVal['first_name']!='')
+                                                                                    {{ $offVal['title'] }},{{ $offVal['dob_day'] }},{{ $offVal['first_name'] }},{{ $offVal['last_name'] }}
+                                                                                    @else
+                                                                                    {{ $offVal['legal_name'] }}
+                                                                                    @endif
+
                                                                                 </p>
                                                                             </div>
                                                                             <div class="btn-wrap">
@@ -3835,6 +3872,27 @@
             const offValIdauthenticate_three = $(`.offValIdauthenticate_three_${id}`).val();
             const offValIdauthenticate_three_ans = $(`.offValIdauthenticate_three_ans_${id}`).val();
 
+            const law_governed = $(`.law_governed_${id}`).val();
+            const legal_form = $(`.legal_form_${id}`).val();
+            const legal_name = $(`.legal_name_${id}`).val();
+            const uk_registered = $(`.uk_registered_${id}`).val();
+            const registration_number = $(`.registration_number_${id}`).val();
+            const place_registered = $(`.place_registered_${id}`).val();
+            const registry_held = $(`.registry_held_${id}`).val();
+            if(legal_name=='')
+            {
+                // $("#legal_name").val(offVallast_name+' '+offValfirst_name);
+                $("#legal_name").val(offValfirst_name+' '+offVallast_name);
+            }else{
+                $('#legal_name').val(legal_name);
+            }
+            $("#law_governed").val(law_governed);
+            $("#legal_form").val(legal_form);
+            $("#uk_registered").val(uk_registered);
+            $("#registration_number").val(registration_number);
+            $("#place_registered").val(place_registered);
+            $("#registry_held").val(registry_held);
+
             $('#personOfficerEditId').val(offValId);
             $('#choosedPersonOfficerId').val(offValId);
             $('#person_tittle_id').val(offValtitle);
@@ -4420,7 +4478,7 @@
                 $("#gurantee-amount-div").removeClass('d-none');
             }else{
                 $("#gurantee-amount-div").addClass('d-none');
-                $("#amount_guarantee").val('')
+                $("#amount_guarantee").val('0')
 
             }
             $('#authenticationSection').toggleClass('d-none');

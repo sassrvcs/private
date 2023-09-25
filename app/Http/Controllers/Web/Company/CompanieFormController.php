@@ -191,7 +191,7 @@ class CompanieFormController extends Controller
             $documentName = '';
             $documentUrl = '';
         }
-
+        $company_type = Companie::where('order_id', $request->order)->pluck('companie_type')->first();
         // $documentName   = $companieName->getFirstMedia('documents')->file_name ?? '';
         // $documentUrl    = $companieName->getFirstMedia('documents')->getUrl() ?? '';
 
@@ -200,6 +200,10 @@ class CompanieFormController extends Controller
             'url'  => $documentUrl,
         ];
 
+        if($company_type=="Limited By Guarantee")
+        {
+        return view('frontend.company_form.document_guarantee', compact('orderId', 'companyId', 'legalDocument', 'mediaDoc'));
+        }
         return view('frontend.company_form.document', compact('orderId', 'companyId', 'legalDocument', 'mediaDoc'));
     }
 

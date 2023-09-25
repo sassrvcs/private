@@ -21,7 +21,7 @@ class PackageService
      */
     public function index($search = "")
     {
-        $packages = Package::with('features')->whereNull('deleted_at');
+        $packages = Package::with('features')->where('package_type','shares')->whereNull('deleted_at');
 
         if (!empty($search)) {
             $packages = $packages->where('package_name', 'like', "%{$search}%");

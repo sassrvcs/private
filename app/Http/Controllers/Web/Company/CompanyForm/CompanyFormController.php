@@ -708,13 +708,14 @@ class CompanyFormController extends Controller
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 
         $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
+        $company_type  = Companie::where('order_id', $_GET['order'])->pluck('companie_type')->first();
 
         $appointmentsList = [];
         if (!empty($personAppointments)) {
             $appointmentsList = $personAppointments;
         }
 
-        return view('frontend.company_form.appointments_otherLegalEntity', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList'));
+        return view('frontend.company_form.appointments_otherLegalEntity', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList', 'company_type'));
     }
 
     public function person_appointment_edit(Request $request)

@@ -184,8 +184,8 @@
                                             $positionString = $val['position'];
                                             $positionArray = explode(', ', $val['position']);
                                         @endphp
-                                        <li><strong>Roles : </strong>{{ in_array('Director', $positionArray) ? 'Director,' : '' }} {{ in_array('Shareholder', $positionArray) ? 'Shareholder,' : '' }} {{ in_array('Secretary', $positionArray) ? 'Secretary,' : '' }} {{ in_array('PSC', $positionArray) ? 'PSC' : '' }}</li>
-                                        <li><strong>Holdings : </strong>@if($val['sh_quantity']) {{$val['sh_quantity']}} x ORDINARY at {{$val['sh_pps']}} {{$val['sh_currency']}} @endif</li>
+                                        <li><strong>Roles : </strong>{{ in_array('Director', $positionArray) ? 'Director,' : '' }} {{ in_array('Shareholder', $positionArray) ? 'Shareholder,' : '' }} {{ in_array('Secretary', $positionArray) ? 'Secretary,' : '' }} {{ in_array('Guarantor', $positionArray) ? 'Guarantor,' : '' }} {{ in_array('PSC', $positionArray) ? 'PSC' : '' }}</li>
+                                        <li><strong>Holdings : </strong>@if($val['sh_quantity']) {{$val['sh_quantity']}} x ORDINARY at {{$val['sh_pps']}} {{$val['sh_currency']}} @endif @if($val['amount_guarantee']&&$review->companie_type=="Limited By Guarantee") {{$val['amount_guarantee']. ' GBP'}}@endif</li>
                                         <li><strong>DOB : </strong>@php
                                             $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
                                             $dob = $officerDetails['dob_day'];
@@ -242,7 +242,6 @@
                                                 {{$service_add->town ?? ''}},
                                                 {{$service_add->country ?? ''}},
                                                 {{$service_add->post_code ?? ''}}
-
                                             @endif
 
                                         </li>
@@ -264,7 +263,16 @@
                                         {{-- Generic Limited by Shares Articles --}}
                                         <li>
                                             <strong>Memorandum and Articles : </strong>
-                                            {{ $review->legal_document == 'generic_article' ? 'Generic Limited by Share Articles' : 'Byspoke article of association' }}
+                                            @if ($review->legal_document == 'generic_article')
+                                                {{'Generic Limited by Share Articles'}}
+                                            @endif
+                                            @if ($review->legal_document == 'byspoke_article')
+                                                {{"Byspoke article of association"}}
+                                            @endif
+                                            @if ($review->companie_type=="Limited By Guarantee")
+                                                {{'Limited by Guarantee Articles'}}
+                                            @endif
+
                                         </li>
                                     </ul>
                                     <a href="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'document']) }}"

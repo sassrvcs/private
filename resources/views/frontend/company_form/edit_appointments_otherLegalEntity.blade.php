@@ -1980,7 +1980,7 @@
                                                     <h5>Does this officer have a controlling interest in this company?
                                                     </h5>
                                                     <div class="authe-qu-block">
-                                                        <div class="row">
+                                                        <div class="row {{$company_type=='Limited By Guarantee'?'d-none':''}}">
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="qu-block block">
                                                                     <label for="" class="d-flex"><span
@@ -2155,7 +2155,7 @@
                                                             company in their capacity within the Firm(s) ?
                                                         </h5>
                                                         <div class="authe-qu-block">
-                                                            <div class="row">
+                                                            <div class="row {{$company_type=='Limited By Guarantee'?'d-none':''}}">
                                                                 <div class="col-md-6 col-sm-12">
                                                                     <div class="qu-block block">
                                                                         <label for="" class="d-flex">
@@ -2303,7 +2303,7 @@
                                                         company in their capacity within the Trust(s) ?
                                                     </h5>
                                                     <div class="authe-qu-block">
-                                                        <div class="row">
+                                                        <div class="row {{$company_type=='Limited By Guarantee'?'d-none':''}}">
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="qu-block block">
                                                                     <label for="" class="d-flex">
@@ -3299,7 +3299,8 @@
             const sh_pps = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $("#sh_pps").val() : '';
             const perticularsTextArea = $("#share-holder-tab").closest('li').hasClass('d-none') === false ? $(
                 "#perticularsTextArea").val() : '';
-                const appointment_type = $("#appointment_type").val();
+            const appointment_type = $("#appointment_type").val();
+            const amount_guarantee = 0;
 
             const requiredFields = document.querySelectorAll('.blankCheckFinalSubmit');
             const requiredFieldsArr = [...requiredFields];
@@ -3367,6 +3368,7 @@
                         sh_quantity,
                         sh_currency,
                         sh_pps,
+                        amount_guarantee,
                         perticularsTextArea,
                         appointment_type
                     },
@@ -4439,11 +4441,11 @@
 
             // From NoC to Forward Tabs starts==========================>
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'nature-control') {
-                if ($("#F_ownership").val() === '' || $("#F_voting").val() === '')
-                {
-                    $("#NOC_validation_error").removeClass('d-none')
-                    return false;
-                }
+                // if ($("#F_ownership").val() === '' || $("#F_voting").val() === '')
+                // {
+                //     $("#NOC_validation_error").removeClass('d-none')
+                //     return false;
+                // }
                 if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' &&$("#F_other_sig_select_id").val() === 'No' &&
                     $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&$("#s_other_sig_select_id").val() === 'No' &&
                     $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' &&$("#t_other_sig_select_id").val() === 'No') {

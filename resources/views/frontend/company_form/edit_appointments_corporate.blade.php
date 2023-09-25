@@ -1245,11 +1245,11 @@
                                                             select a Position.</div>
 
                                                     </div>
-                                                    <div id="gurantee-amount-div" class="row d-none">
+                                                    <div id="gurantee-amount-div" class="row d-none mt-3">
                                                         {{-- @dd($appointment_details) --}}
                                                         <div class="col-sm-2">
                                                             <label for="Amount Guaranteed" class="form-label">Amount Guaranteed</label>
-                                                            <input type="text" class="form-control" id="amount_guarantee" name="amount_guarantee" step="0.01" value="{{@$appointment_details['amount_guarantee']}}">
+                                                            <input type="text" class="form-control" id="amount_guarantee" name="amount_guarantee" step="0.01" value="{{@$appointment_details['amount_guarantee']}}" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -4809,11 +4809,11 @@
         function guaranteeTab() {
             // $('.shareholderLinksCls').toggleClass('d-none');
             if($("#guarantor_checkbox").is(":checked")){
-                // $("#amount_guarantee").val('1.0')
+                $("#amount_guarantee").val('1.0')
                 $("#gurantee-amount-div").removeClass('d-none');
             }else{
                 $("#gurantee-amount-div").addClass('d-none');
-                $("#amount_guarantee").val('')
+                $("#amount_guarantee").val('0')
 
             }
             $('#authenticationSection').toggleClass('d-none');
