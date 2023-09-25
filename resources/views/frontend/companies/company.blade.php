@@ -138,14 +138,20 @@
 
                                                 @endphp
 
-                                                <td><span class="status @if($company_status == '0' || $company_status == '1' || $company_status == '2') incomplete @elseif ($company_status == '3')accepted @else Rejected @endif ">
-                                                    
-                                                    @if ($company_status == '0' || $company_status == '1' || $company_status == '2')
+                                                <td><span class="status @if($company_status == '0' || $company_status == '1' || $company_status == '2') incomplete @elseif ($company_status == '3')accepted @elseif ($company_status == '4') Rejected @else incomplete @endif ">
+
+                                                    @if ($company_status == '0' )
                                                         INCOMPLETE
+                                                    @elseif ($company_status == '1')
+                                                        PENDING
+                                                    @elseif ($company_status == '2')
+                                                        PROCESSING
                                                     @elseif ($company_status == '3')
                                                         APPROVED
-                                                    @else
+                                                    @elseif ($company_status == '4')
                                                         REJECTED
+                                                    @else
+                                                        INCOMPLETE
                                                     @endif</span>
                                                 </td>
                                                 @if($company_status == '3')
