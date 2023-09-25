@@ -194,7 +194,7 @@
                                 <h4>Particulars</h4>
                                 <div class="desc">
                                     <div class="icon">
-                                        <img src="{{ asset('frontend/assets/images/form-icon.png') }}" alt="Companie name">
+                                       <img src="{{ asset('frontend/assets/images/form-icon.png') }}" alt="Companie name">
                                     </div>
                                     <div class="text">
                                         <h5>Company Name</h5>
@@ -209,7 +209,13 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Company Name <span><img src="{{ asset('frontend/assets/images/in-icon.png') }}" alt=""></span></label>
+                                                <label>Company Name
+                                                    <span data-toggle="modal" data-target="#exampleModalCenter" style="cursor: pointer;">
+
+                                                            <img src="{{ asset('frontend/assets/images/in-icon.png') }}" alt="">
+
+                                                    </span>
+                                                </label>
                                                 <span class="nb-text">Your requested company name is displayed below. If you wish to change this, insert another name and click.</span>
                                                 <div class="check-another-name">
                                                     {{-- <input type="text" class="form-control" name="companie_name" id="companie_name" value="{{ (isset($companyFormationStep->companie_name) && !empty($companyFormationStep->companie_name)) ? strtoupper($companyFormationStep->companie_name) : strtoupper($orders->company_name ?? '' ) }}" oninput="this.value = this.value.toUpperCase();"> --}}
@@ -408,9 +414,34 @@
         </div>
     </div>
 </div>
+
+<!--Company Name Modal-->
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle"><b>Company Name</b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Please enter your desired company name. This is the name that will appear on your certificate of incorporation and also appear on the public record at Companies House.
+
+            Please also include any relevant company name ending, such as LTD, LIMITED, etc
+        </div>
+        {{-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> --}}
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('script')
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>

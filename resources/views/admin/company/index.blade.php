@@ -56,6 +56,8 @@
                                         <th>Order ID</th>
                                         <th>Incorporated</th>
                                         <th>Title</th>
+                                        <th>View XML</th>
+                                        <th>Download Summary</th>
                                         <th>Action</th>
                                         <th>Action</th>
                                         <th>Comp. No.</th>
@@ -78,11 +80,22 @@
                                             <td>
                                                 {{ strtoupper($order->company_name) ?? "-" }}
                                             </td>
+                                            <td><a class="btn btn_baseColor btn-sm mt-2"  id="viewXML" onClick="viewXML('{{ $order->order_id }}')">
+                                                View
+                                            </a></td>
+                                            <td width="167">
+                                                @php
+                                                        $summary_step_exist = \App\Models\companyFormStep::where('order',$order->order_id)->where('step','review')->first();
+                                                @endphp
+                                                @if ( $summary_step_exist)
+
+                                                <button class=" btn btn_baseColor btn-sm mt-2" onclick="window.location.href='/review/create?order={{$order->order_id}}&section=Review&step=download'" ><img src="assets/images/download-icon.svg" alt="" >Download</button>
+                                                @endif
+                                            </td>
+
                                             <td>
                                                 <div class="d-flex">
-                                                        <a class="btn btn_baseColor btn-sm mt-2 d-none" style="margin:6px;"  id="viewXML" onClick="viewXML('{{ $order->order_id }}')">
-                                                            View XML
-                                                        </a>
+
                                                         @php
                                                             $submitted = \App\Models\companyXmlDetail::where('order_id',$order->order_id)->pluck('submitted')->first();
 
@@ -225,6 +238,29 @@
         </div>
     </div>
 </div>
+
+<!-- ===View XML === -->
+<div class="modal fade" id="modalViewXml" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"> Check Status</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: black!important" onclick="xmlViewmodalOff()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                <p id="xml_data"></p>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="xmlViewmodalOff()">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
@@ -279,6 +315,38 @@
 
     function modalOff(){
         $("#modalCheckStatus").modal('hide');
+    }
+
+    function viewXML(order_id){
+        console.log('order_id',order_id);
+        $.ajax({
+            url: "{{ route('admin.view_xml') }}",
+            type: "post",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                order_id: order_id,
+            },
+            success: function(res) {
+                console.log(res);
+                if(res.status == 'success'){
+                    console.log(res.xml);
+                    $("#modalViewXml").modal('show');
+                    $('#xml_data').text(res.xml);
+
+                }else{
+                    Swal.fire(
+                            'Opps!',
+                            'There are some technical issues. Maybe Company form has not been completed.',
+                            'error'
+                            )
+                }
+            }
+        });
+    }
+
+    function xmlViewmodalOff(){
+        $("#modalViewXml").modal('hide');
+
     }
 
     function CheckStatus(order_id) {

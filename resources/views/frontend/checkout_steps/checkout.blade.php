@@ -219,7 +219,7 @@
 
                             @else
                                 <form action="{{ route('save-register-form')}}" method="POST">
-                                    <input type="text" name="indx" id="indx" value="{{$indx}}">
+                                    <input type="hidden" name="indx" id="indx" value="{{$indx}}">
                             @endif
                                 @csrf
                                 <div id="customer_details">
@@ -461,7 +461,7 @@
                         @guest
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="login-tab">
                                 <form action="{{ route('clientlogin') }}" method="POST" novalidate="novalidate">
-                                    <input type="text" name="indx" id="indx" value="{{$indx}}">
+                                    <input type="hidden" name="indx" id="indx" value="{{$indx}}">
 
                                     @csrf
                                     <fieldset class="border p-3">

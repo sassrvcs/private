@@ -13,7 +13,7 @@
         </div>
         <div class="center-info">
             <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a>Digital Packages</a></li>
             </ul>
         </div>
@@ -56,18 +56,19 @@
                                                 <th>Order ID</th>
                                                 <th>Invoiced</th>
                                                 <th>Package / Type</th>
-                                                <th>Description</th>
+                                                <th>Company Name</th>
                                                 <th>Status</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($orders as $order)
+
                                             <tr>
-                                                <td><a href="{{ route('order-details', ['order' => $order->order_id]) }}"> {{ $order->order_id }}</a></td>
+                                                <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}"> {{ $order->order_id }}</a></td>
                                                 <td>-</td>
                                                 <td>{{ $order->cart->package->package_name }}</td>
-                                                <td>{{ $order->cart->package->short_description }}</td>
+                                                <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" >{{ $order->company_name }}</a></td>
                                                 <td>
                                                     <span class="status accepted">
                                                         {{ ($order->order_status == 'pending') ? 'Incomplete' : (($order->order_status == 'progress') ? 'Inprogress' : 'Complete') }}

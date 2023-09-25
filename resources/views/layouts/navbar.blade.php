@@ -8,7 +8,7 @@
                         <i class="_mi _before fa fa-user" aria-hidden="true"></i><span>My Account</span></a>
                     <ul class="dropdown-menu depth_0">
                         <li id="menu-item-2337" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-15 current_page_item nav-item nav-item-2337">
-                            <a href="#" class="dropdown-item active"><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Overview</span></a>
+                            <a href="{{ route('my-account')}}" class="dropdown-item active"><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Overview</span></a>
                         </li>
                         <li id="menu-item-2338" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-2338"><a href="{{ route('my_details')}}" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>My Details</span></a></li>
                         <li id="menu-item-2339" class="menu-item menu-item-type-custom menu-item-object-custom nav-item nav-item-2339"><a href="{{ route('clientlogout')}}" class="dropdown-item " onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Logout</span></a></li>

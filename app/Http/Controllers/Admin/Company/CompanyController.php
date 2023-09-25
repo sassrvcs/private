@@ -124,6 +124,18 @@ class CompanyController extends Controller
 
     }
 
+    public function viewXML(Request $request){
+        $xml_details = companyXmlDetail::where('order_id',$request->order_id)->first();
+        if($xml_details){
+            $data = ['status' => 'success','xml'=>$xml_details->xml_body];
+            return response()->json($data, 200);
+        }else{
+            $data = ['status' => 'error'];
+            return response()->json($data, 200);
+        }
+
+    }
+
     /**
      *
      * @param string $id

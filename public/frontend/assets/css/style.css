@@ -8772,6 +8772,24 @@ margin: 0;
     margin: 0 15px 0 0;
 }
 
+.your-details-info ul.feild-list li.uk_phone span {
+    background-color: #efefef;
+    display: flex;
+    padding: 0px 4px;
+    border: 1px solid #CCCCCC;
+    border-right: none;
+    margin: 0;
+    height: 37.6px;
+    align-items: center;
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+.your-details-info ul.feild-list li.uk_phone .form-control{
+    border-radius:0 0.25rem  0.25rem 0;
+}
+.your-details-info ul.feild-list li.uk_phone .form-control.my-error-class{
+    margin-left: 0 !important;
+}
+
 .your-details-info ul.feild-list li .btn{
     Padding:8px 16px 8px 16px;
     background: #87CB28;

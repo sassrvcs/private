@@ -259,7 +259,7 @@
 
                                 <div class="office-address">
                                     <div class="top-block">
-                                        <h3>Add An Offer</h3>
+                                        <h3>Add An Officer</h3>
                                     </div>
                                     <div class="add-an-offer">
                                         <p>Click on one of the buttons below to add an officer to your company.</p>

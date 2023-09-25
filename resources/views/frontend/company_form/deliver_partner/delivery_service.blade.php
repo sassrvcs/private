@@ -11,7 +11,7 @@
 
         .my-error-class {
             color: #FF0000 !important;
-            margin-left: 2px;
+            margin-left: 6px!important;
             /* red */
         }
 
@@ -323,13 +323,15 @@
                                                         <label>Contact Email : </label>
                                                         <input type="email" class="form-control" name="contact_email">
                                                     </li>
-                                                    <li>
+                                                    <li class="uk_phone">
                                                         <label>Contact Phone : </label>
+                                                        <span>+44</span>
                                                         <input type="number" class="form-control" name="contact_phone"
                                                             id="contact_phone" minlength="10" maxlength="10">
                                                     </li>
-                                                    <li>
+                                                    <li class="uk_phone">
                                                         <label>Contact Mobile : </label>
+                                                        <span>+44</span>
                                                         <input type="number" class="form-control" name="contact_mobile"
                                                             id="contact_mobile" minlength="10" maxlength="10">
                                                     </li>
