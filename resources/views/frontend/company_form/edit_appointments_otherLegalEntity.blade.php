@@ -1971,7 +1971,7 @@
 
                                                     <div class="own-address mt-3 d-none" style="color:red;"
                                                         id="NOC_validation_error">
-                                                        You must answer atleast first two PSC question.
+                                                        You must answer atleast first one PSC question.
                                                     </div>
 
                                                     <h4>Natural of Control</h4>

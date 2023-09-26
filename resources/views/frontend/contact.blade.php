@@ -73,7 +73,7 @@
                                     @enderror
                                 </div>
                                 <div class="group form-group col-md-6">
-                                    <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" placeholder="Phone *" value={{old('phone')}}>
+                                    <input class="form-control @error('phone') is-invalid @enderror" type="number" name="phone" placeholder="Phone *" value={{old('phone')}}>
                                     @error('phone')
                                         <div class="error" style="color:red;">{{ $message }}</div>
                                     @enderror
@@ -114,7 +114,13 @@
                                         <p>0 of 150 max characters
                                         </p>
                                     </div>
-                                </div>
+                                    <div class="mt-4">
+                                        {!! app('captcha')->display() !!}
+                                    </div>
+                                    @error('g-recaptcha-response')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                     @enderror
+                                    </div>
                                 <div class="col-md-12">
                                     <button type="submit" id="submit-btn" class="wpcf7-submit custom-btn btn-primary wow zoomIn">Submit</button>
                                 </div>

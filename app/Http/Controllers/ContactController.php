@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 
 class ContactController extends Controller
@@ -17,9 +19,21 @@ class ContactController extends Controller
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
+            'g-recaptcha-response' => 'required|captcha',
             'first_name' => 'required',
             'last_name' => 'required',
-            'phone' => 'required|numeric|digits_between:8,13',
+            'phone' => [
+                'required',
+                'numeric',
+                'digits:10',
+                'digits_between:8,13',
+                function ($attribute, $value, $fail) {
+                    $startsWith = '0'; // Specify the value you want to exclude as the starting characters
+                    if (strpos($value, $startsWith) === 0) {
+                        $fail($attribute . ' cannot start with ' . $startsWith);
+                    }
+                },
+            ],
             'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email',
             'address_line1' => 'required',
             'comment' => 'required|string|min:1|max:150',
@@ -52,6 +66,15 @@ class ContactController extends Controller
             $contact->message = $request->comment;
             $contact->save();
 
+            $contactDetails = $contact;
+
+            $country_name = Country::where('id', $request->country)->pluck('name')->first();
+            // return view('frontend.mail.contactMailBlade',compact('contactDetails','country_name'));
+            try {
+                Mail::to('debasish.ghosh@technoexponent.co.in')->send(new ContactMail($contactDetails,$country_name));
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
             return redirect()->route('contact.view')->withSuccess('Contact details submitted successfully');
         }
     }

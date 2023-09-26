@@ -2025,7 +2025,7 @@
                                                     </div>
                                                     <div class="own-address mt-3 d-none" style="color:red;"
                                                         id="NOC_validation_error">
-                                                        You must answer atleast first two PSC question.
+                                                        You must answer atleast one PSC question.
                                                     </div>
 
                                                     <h4>Natural of Control</h4>
@@ -4128,11 +4128,19 @@
                 //     $("#NOC_validation_error").removeClass('d-none')
                 //     return false;
                 // }
-                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' && $("#F_other_sig_select_id").val() === 'No' &&
-                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' && $("#s_other_sig_select_id").val() === 'No' &&
-                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' && $("#t_other_sig_select_id").val() === 'No') {
+                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&
+                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' ) {
                     $("#NOC_validation_error").removeClass('d-none')
                     return false
+                }
+                //auto select no if the radio button value is yes but no data altered
+                if($("#f_radio_check_id").val()!="no" &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&$("#s_other_sig_select_id").val() === 'No') {
+                    $("#no").click();
+                }
+                if($("#s_radio_check_id").val()!="no"&& $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' &&$("#t_other_sig_select_id").val() === 'No') {
+                    $("#no2").click();
                 }
                 $("#NOC_validation_error").addClass('d-none')
 

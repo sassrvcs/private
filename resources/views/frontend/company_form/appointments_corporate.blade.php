@@ -2073,7 +2073,7 @@
                                                     </div>
                                                     <div class="own-address mt-3 d-none" style="color:red;"
                                                         id="NOC_validation_error">
-                                                        You must answer atleast first two PSC question.
+                                                        You must answer atleast one PSC question.
                                                     </div>
 
                                                     <h4>Natural of Control</h4>
@@ -2213,7 +2213,7 @@
                                                     <ul>
                                                         <li>
                                                             <input type="radio" id="no"
-                                                                onclick="f_radio_check()" value="no" checked
+                                                                onclick="f_radio_check()" value="No" checked
                                                                 name="com-qu">
                                                             <label for="no">No</label>
                                                         </li>
@@ -2363,7 +2363,7 @@
                                                 <ul>
                                                     <li>
                                                         <input type="radio" id="no2" onclick="s_radio_check()"
-                                                            value="no" checked name="com-qu2">
+                                                            value="No" checked name="com-qu2">
                                                         <label for="no2">No</label>
                                                     </li>
                                                     <li>
@@ -3198,11 +3198,17 @@
             const radio_ele = document.querySelector('input[name="com-qu"]:checked');
 
             if (radio_ele.getAttribute("id") === 'yes') {
-                $("#firmDD").removeClass('d-none')
-                $("#f_radio_check_id").val('yes')
+            $("#firmDD").removeClass('d-none')
+            $("#f_radio_check_id").val('yes')
             } else {
-                $("#firmDD").addClass('d-none')
-                $("#f_radio_check_id").val('no')
+            $("#s_ownership").first().val('')
+            $("#s_voting").first().val('')
+            $("#s_appoint").first().val('No')
+            $("#s_other_sig").removeClass('d-none')
+
+
+            $("#firmDD").addClass('d-none')
+            $("#f_radio_check_id").val('no')
             }
         }
 
@@ -3213,6 +3219,12 @@
                 $("#trustDD").removeClass('d-none')
                 $("#s_radio_check_id").val('yes')
             } else {
+
+                $("#t_ownership").first().val('')
+                $("#t_voting").first().val('')
+                $("#t_appoint").first().val('No')
+                $("#t_other_sig").removeClass('d-none')
+
                 $("#trustDD").addClass('d-none')
                 $("#s_radio_check_id").val('no')
             }
@@ -4322,11 +4334,19 @@
                 //     $("#NOC_validation_error").removeClass('d-none')
                 //     return false;
                 // }
-                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' && $("#F_other_sig_select_id").val() === 'No' &&
-                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' && $("#s_other_sig_select_id").val() === 'No' &&
-                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' && $("#t_other_sig_select_id").val() === 'No') {
+                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&
+                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' ) {
                     $("#NOC_validation_error").removeClass('d-none')
                     return false
+                }
+                //auto select no if the radio button value is yes but no data altered
+                if($("#f_radio_check_id").val()!="no" &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&$("#s_other_sig_select_id").val() === 'No') {
+                    $("#no").click();
+                }
+                if($("#s_radio_check_id").val()!="no"&& $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' &&$("#t_other_sig_select_id").val() === 'No') {
+                    $("#no2").click();
                 }
                 $("#NOC_validation_error").addClass('d-none')
 
@@ -4414,7 +4434,8 @@
             }
 
             if ($('.occLinkCls').hasClass('d-none') === false && $('#occ').is(":checked") === false) {
-                $("#consentSelectionDiv").toggleClass('d-none')
+                console.log('hit')
+                $("#consentSelectionDiv").removeClass('d-none')
                 return false
             } else {
                 $("#consentSelectionDiv").addClass('d-none')

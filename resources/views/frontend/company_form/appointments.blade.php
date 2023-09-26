@@ -1178,33 +1178,47 @@
                                 <div class="appointment-tab">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="position-tab" onclick="currentTab('position')"
+                                            {{-- <a class="nav-link active" id="position-tab" onclick="currentTab('position')"
                                                 data-toggle="tab" href="#position" role="tab"
+                                                aria-controls="position" aria-selected="true">Position</a> --}}
+                                                <a class="nav-link active" id="position-tab" role="tab"
                                                 aria-controls="position" aria-selected="true">Position</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="currentTab('officer')" id="officer-tab"
+                                            {{-- <a class="nav-link" onclick="currentTab('officer')" id="officer-tab"
                                                 data-toggle="tab" href="#officer" role="tab" aria-controls="officer"
+                                                aria-selected="false">Officer</a> --}}
+                                                <a class="nav-link"  id="officer-tab" role="tab" aria-controls="officer"
                                                 aria-selected="false">Officer</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="currentTab('details')" id="details-tab"
+                                            {{-- <a class="nav-link" onclick="currentTab('details')" id="details-tab"
                                                 data-toggle="tab" href="#details" role="tab" aria-controls="details"
-                                                aria-selected="false">Details</a>
+                                                aria-selected="false">Details</a> --}}
+                                                <a class="nav-link" id="details-tab"  role="tab" aria-controls="details"
+                                                aria-selected="false" >Details</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" onclick="currentTab('addressing')" id="addressing-tab"
+                                            {{-- <a class="nav-link" onclick="currentTab('addressing')" id="addressing-tab"
                                                 data-toggle="tab" href="#addressing" role="tab"
+                                                aria-controls="addressing" aria-selected="false">Addressing</a> --}}
+                                                <a class="nav-link"  id="addressing-tab" role="tab"
                                                 aria-controls="addressing" aria-selected="false">Addressing</a>
                                         </li>
                                         <li class="nav-item nocLinkCls d-none">
-                                            <a class="nav-link" onclick="currentTab('nature-control')"
+                                            {{-- <a class="nav-link" onclick="currentTab('nature-control')"
                                                 id="nature-control-tab" data-toggle="tab" href="#nature-control"
                                                 role="tab" aria-controls="nature-control"
+                                                aria-selected="false">Nature of Control</a> --}}
+                                                <a class="nav-link" id="nature-control-tab" role="tab" aria-controls="nature-control"
                                                 aria-selected="false">Nature of Control</a>
                                         </li>
                                         <li class="nav-item shareholderLinksCls d-none">
-                                            <a class="nav-link" onclick="currentTab('share-holder')"
+                                            {{-- <a class="nav-link" onclick="currentTab('share-holder')"
+                                                id="share-holder-tab" data-toggle="tab" href="#share-holder"
+                                                role="tab" aria-controls="share-holder" aria-selected="false">Share
+                                                Holder</a> --}}
+                                                <a class="nav-link"
                                                 id="share-holder-tab" data-toggle="tab" href="#share-holder"
                                                 role="tab" aria-controls="share-holder" aria-selected="false">Share
                                                 Holder</a>
@@ -2084,7 +2098,7 @@
                                                     </div>
                                                     <div class="own-address mt-3 d-none" style="color:red;"
                                                         id="NOC_validation_error">
-                                                        You must answer atleast first two PSC question.
+                                                        You must answer atleast one PSC question.
                                                     </div>
 
                                                     <h4>Natural of Control</h4>
@@ -2224,7 +2238,7 @@
                                                     <ul>
                                                         <li>
                                                             <input type="radio" id="no"
-                                                                onclick="f_radio_check()" value="no" checked
+                                                                onclick="f_radio_check()" value="No" checked
                                                                 name="com-qu">
                                                             <label for="no">No</label>
                                                         </li>
@@ -2374,7 +2388,7 @@
                                                 <ul>
                                                     <li>
                                                         <input type="radio" id="no2" onclick="s_radio_check()"
-                                                            value="no" checked name="com-qu2">
+                                                            value="No" checked name="com-qu2">
                                                         <label for="no2">No</label>
                                                     </li>
                                                     <li>
@@ -3133,6 +3147,12 @@
                 $("#firmDD").removeClass('d-none')
                 $("#f_radio_check_id").val('yes')
             } else {
+                $("#s_ownership").first().val('')
+                $("#s_voting").first().val('')
+                $("#s_appoint").first().val('No')
+                $("#s_other_sig").removeClass('d-none')
+
+
                 $("#firmDD").addClass('d-none')
                 $("#f_radio_check_id").val('no')
             }
@@ -3145,6 +3165,12 @@
                 $("#trustDD").removeClass('d-none')
                 $("#s_radio_check_id").val('yes')
             } else {
+
+                $("#t_ownership").first().val('')
+                $("#t_voting").first().val('')
+                $("#t_appoint").first().val('No')
+                $("#t_other_sig").removeClass('d-none')
+
                 $("#trustDD").addClass('d-none')
                 $("#s_radio_check_id").val('no')
             }
@@ -4233,16 +4259,30 @@
 
             // From NoC to Forward Tabs starts==========================>
             if ($('#appointmentType').val() === 'person' && $('#currentTab').val() === 'nature-control') {
+
+                console.log( 'hit psc')
                 // if ($("#F_ownership").val() === '' || $("#F_voting").val() === '')
                 // {
                 //     $("#NOC_validation_error").removeClass('d-none')
                 //     return false;
                 // }
-                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No' && $("#F_other_sig_select_id").val() === 'No' &&
-                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' && $("#s_other_sig_select_id").val() === 'No' &&
-                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' && $("#t_other_sig_select_id").val() === 'No') {
+
+
+
+                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No'  &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No'  &&
+                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' ) {
                     $("#NOC_validation_error").removeClass('d-none')
                     return false
+                }
+                //auto select no if the radio button value is yes but no data altered
+
+                if($("#f_radio_check_id").val()!="no" &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No' &&$("#s_other_sig_select_id").val() === 'No') {
+                    $("#no").click();
+                }
+                if($("#s_radio_check_id").val()!="no"&& $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' &&$("#t_other_sig_select_id").val() === 'No') {
+                    $("#no2").click();
                 }
                 $("#NOC_validation_error").addClass('d-none')
 
@@ -4330,7 +4370,7 @@
             }
 
             if ($('.occLinkCls').hasClass('d-none') === false && $('#occ').is(":checked") === false) {
-                $("#consentSelectionDiv").toggleClass('d-none')
+                $("#consentSelectionDiv").removeClass('d-none')
                 return false
             } else {
                 $("#consentSelectionDiv").addClass('d-none')
@@ -4507,7 +4547,7 @@
                 } else {
                     $('#ChossenForwarding_Add').html(ths.value)
                 }
-                
+
 
                 $('.forwarding_add_after_buy_now_select').removeClass('d-none')
                 $("#serviceAddLandingSection").removeClass('d-none')
