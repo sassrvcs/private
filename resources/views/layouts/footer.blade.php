@@ -44,32 +44,31 @@
                     <h3>Company Services</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a href="#">Confirmation Statement Service</a>
+                            <a href="{{route('company_services', 'confirmation-statement-service')}}">Confirmation Statement Service</a>
                         </li>
                         <li>
-                            <a href="#">Company Dissolution</a>
+                            <a href="{{route('company_services', 'company-dissolution')}}">Company Dissolution</a>
                         </li>
                         <li>
-                            <a href="#">Company Name Change</a>
+                            <a href="{{route('company_services', 'company-name-change')}}">Company Name Change</a>
                         </li>
                         <li>
-                            <a href="#">Director Appointment &
-                                Resignation</a>
+                            <a href="{{route('company_services', 'director-appointment-resignation')}}">Director Appointment Resignation</a>
                         </li>
                         <li>
-                            <a href="#">Full Company Secretary Service</a>
+                            <a href="{{route('company_services', 'full-company-secretary-service')}}">Full Company Secretary Service</a>
                         </li>
                         <li>
-                            <a href="#">Issue of Share Services</a>
+                            <a href="{{route('company_services', 'issue-of-share-services')}}">Issue of Share Services</a>
                         </li>
                         <li>
-                            <a href="#">Transfer of Share Services</a>
+                            <a href="{{route('company_services', 'transfer-of-share-services')}}">Transfer of Share Services</a>
                         </li>
                         <li>
-                            <a href="#">Apostilled Documents Service</a>
+                            <a href="{{route('company_services', 'apostilled-documents-service')}}">Apostilled Documents Service</a>
                         </li>
                         <li>
-                            <a href="#">Business Telephone Services</a>
+                            <a href="{{route('company_services', 'business-telephone-services')}}">Business Telephone Services</a>
                         </li>
                     </ul>
                 </div>
@@ -79,19 +78,19 @@
                     <h3>Address Services</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a href="#">Directors Service Address</a>
+                            <a href="{{route('company_services', 'directors-service-address')}}">Directors Service Address</a>
                         </li>
                         <li>
-                            <a href="#">Registered Office Address</a>
+                            <a href="{{route('company_services', 'registered-office-address')}}">Registered Office Address</a>
                         </li>
                         <li>
-                            <a href="#">Renewals</a>
+                            <a href="{{route('company_services', 'renewals')}}">Renewals</a>
                         </li>
                     </ul>
                     <h3>Help & Advice</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a href="#">Our Online Company Manager</a>
+                            <a href="{{route('company_services', 'our-online-company-manager')}}">Our Online Company Manager</a>
                         </li>
                         <li>
                             <a href="#">Information Required To Set Up

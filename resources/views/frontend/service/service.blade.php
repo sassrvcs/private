@@ -114,16 +114,15 @@
         </section>
         <div class="logo-center-stamp"></div>
         <section class="whatmakedifferent-sec">
-            <div class="image-container" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500"
-                data-aos-once="true">
-                <img src="{{ asset('frontend/assets/images/services-packages-list-pic3.png')}}">
-            </div>
-            <div class="text-container" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000"
-                data-aos-once="true">
-                <h2>Courier Charges: £35 (Takes 3-5 working days)</h2>
-            </div>
+            <div class="text-container aos-init aos-animate" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
+               <h2>Courier Charges: £35 (Takes 3-5 working days)</h2>
+                           </div>
+           <div class="image-container aos-init aos-animate" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+               <img src="{{ asset('frontend/assets/images/services-packages-list-pic3.png')}}">
+           </div>
 
-        </section>
+
+       </section>
     </div>
     <!-- ================ end: whatmakedifferent-sec ================ -->
 
