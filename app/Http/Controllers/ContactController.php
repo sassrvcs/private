@@ -22,6 +22,9 @@ class ContactController extends Controller
             'g-recaptcha-response' => 'required|captcha',
             'first_name' => 'required',
             'last_name' => 'required',
+            'zip' => 'required',
+            'city' => 'required',
+            'state' => 'required',
             'phone' => [
                 'required',
                 'numeric',
@@ -47,6 +50,9 @@ class ContactController extends Controller
                 'email.email' => 'Please provide valid email',
                 'address_line1.required' => 'Address line1 is required',
                 'comment.required' => 'This field is required.',
+                'state.required'=>'State field is required',
+                'city.required'=>'City field is required',
+                'zip.required'=>'Zip field is required',
             ]);
         if($validate->fails()){
             return back()->withErrors($validate->errors())->withInput();

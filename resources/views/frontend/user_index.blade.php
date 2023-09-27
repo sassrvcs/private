@@ -111,22 +111,22 @@
                 <div class="tab-menus">
                     <ul>
                         <li data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" data-aos-once="true">
-                            <a href="#" class="active">Limited Company</a>
+                            <a href="{{route('index')}}" class="active">Limited Company</a>
                         </li>
                         <li data-aos="fade-up" data-aos-delay="150" data-aos-duration="500" data-aos-once="true">
-                            <a href="#">Non-Residents</a>
+                            <a href="{{route('non_residents_package')}}">Non-Residents</a>
                         </li>
                         <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="500" data-aos-once="true">
-                            <a href="#">LLP</a>
+                            <a href="{{route('llp_package')}}">LLP</a>
                         </li>
                         <li data-aos="fade-up" data-aos-delay="250" data-aos-duration="500" data-aos-once="true">
-                            <a href="#">Guarantee</a>
+                            <a href="{{route('guarantee_package')}}">Guarantee</a>
                         </li>
                         <li data-aos="fade-up" data-aos-delay="300" data-aos-duration="500" data-aos-once="true">
-                            <a href="#">eSeller</a>
+                            <a href="{{route('e_seller_package')}}">eSeller</a>
                         </li>
                         <li data-aos="fade-up" data-aos-delay="350" data-aos-duration="500" data-aos-once="true">
-                            <a href="#">PLC</a>
+                            <a href="{{route('plc_package')}}">PLC</a>
                         </li>
                     </ul>
                 </div>

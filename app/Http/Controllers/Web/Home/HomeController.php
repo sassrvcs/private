@@ -20,7 +20,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $packages = $this->packageService->index();
+        $packages = $this->packageService->LimitedPackages();
         return view('frontend.user_index', compact('packages'));
     }
 

@@ -28,25 +28,35 @@
                             <form action="{{ route('admin.package.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <x-Forms.Input type="text" mandate="*" label="Name" id="name"
                                             name="name" value="{{ old('name') }}"
                                             placeholder="Enter package name"
                                             class="{{ $errors->has('name') ? 'is-invalid' : '' }}" />
                                     </div>
 
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <x-Forms.Input type="text" mandate="*" label="Short Description" id="short_desc"
                                             name="short_desc" value="{{ old('short_desc') }}"
                                             class="{{ $errors->has('short_desc') ? 'is-invalid' : '' }}"  />
                                     </div>
 
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <x-Forms.Input type="number" mandate="*" label="Price" id="price"
                                             name="price" value="{{ old('price') }}"
                                             class="{{ $errors->has('price') ? 'is-invalid' : '' }}"  />
                                     </div>
-
+                                    <div class="col-sm-3">
+                                        <label for="">Package Type&nbsp;<span class="mandetory">* </span></label>
+                                        <select name="package_type" id="package_type" class="form-control">
+                                            <option value="shares">Limited By Shares</option>
+                                            <option value="Guarantee">Limited By Guarantee</option>
+                                            <option value="Non_Residents">Non Residents</option>
+                                            <option value="LLP">LLP</option>
+                                            <option value="Eseller">Eseller</option>
+                                            <option value="PLC_Package">PLC Package</option>
+                                        </select>
+                                    </div>
                                 </div>
 
 

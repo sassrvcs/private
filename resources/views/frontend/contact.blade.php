@@ -73,7 +73,7 @@
                                     @enderror
                                 </div>
                                 <div class="group form-group col-md-6">
-                                    <input class="form-control @error('phone') is-invalid @enderror" type="number" name="phone" placeholder="Phone *" value={{old('phone')}}>
+                                    <input class="form-control @error('phone') is-invalid @enderror" type="number" name="phone" placeholder="Phone *" value="{{old('phone')}}" maxlength="10">
                                     @error('phone')
                                         <div class="error" style="color:red;">{{ $message }}</div>
                                     @enderror
@@ -88,10 +88,16 @@
                                     <input type="text" name="address_line2" placeholder="Address Line2 " class="form-control" value="{{old('address_line2')}}">
                                 </div>
                                 <div class="group form-group col-md-6">
-                                    <input type="text" placeholder="City" name="city" class="form-control" value="{{old('city')}}">
+                                    <input type="text" " class="form-control @error('city') is-invalid @enderror" placeholder="City" name="city" class="form-control" value="{{old('city')}}">
+                                    @error('city')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="group form-group col-md-6">
-                                    <input type="text" name="state" placeholder="State / Province / Region" class="form-control" value="{{old('state')}}">
+                                    <input type="text" name="state" " class="form-control @error('state') is-invalid @enderror" placeholder="State / Province / Region" class="form-control" value="{{old('state')}}">
+                                    @error('state')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="group form-group col-md-6">
                                     <select class="form-control" name="country">
@@ -103,7 +109,10 @@
                                     </select>
                                 </div>
                                 <div class="group form-group col-md-6">
-                                    <input type="text" name="zip" placeholder="ZIP/Postal Code" class="form-control" value="{{old('zip')}}">
+                                    <input type="text" name="zip" " class="form-control @error('zip') is-invalid @enderror" placeholder="ZIP/Postal Code" class="form-control" value="{{old('zip')}}">
+                                    @error('zip')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="text-group mb-3">
                                     <textarea class="form-control @error('comment') is-invalid @enderror" name="comment" placeholder="How can we help you? *">{{old('comment')}}</textarea>

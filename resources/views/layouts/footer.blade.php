@@ -7,34 +7,34 @@
                     <h3>Packages</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a href="#">Compare Packages</a>
+                            <a href="{{ route('package')}}">Compare Packages</a>
                         </li>
                         <li>
-                            <a href="#">Digital Package</a>
+                            <a href="{{ route('digital_package')}}">Digital Package</a>
                         </li>
                         <li>
-                            <a href="#">Professional</a>
+                            <a href="{{route('professional_package')}}">Professional</a>
                         </li>
                         <li>
-                            <a href="#">Prestige</a>
+                            <a href="{{route('prestige_package')}}">Prestige</a>
                         </li>
                         <li>
-                            <a href="#">All Inclusive</a>
+                            <a href="{{route('all_inclusive_package')}}">All Inclusive</a>
                         </li>
                         <li>
-                            <a href="#">Non Residents</a>
+                            <a href="{{route('non_residents_package')}}">Non Residents</a>
                         </li>
                         <li>
-                            <a href="#">LLP</a>
+                            <a href="{{route('llp_package')}}">LLP</a>
                         </li>
                         <li>
-                            <a href="#">Guarantee</a>
+                            <a href="{{route('guarantee_package')}}">Guarantee</a>
                         </li>
                         <li>
-                            <a href="#">Eseller</a>
+                            <a href="{{route('e_seller_package')}}">Eseller</a>
                         </li>
                         <li>
-                            <a href="#">PLC Package</a>
+                            <a href="{{route('plc_package')}}">PLC Package</a>
                         </li>
                     </ul>
                 </div>
@@ -133,7 +133,7 @@
                             <a href="{{ route('page', ['slug' => 'share-business-ideas'] ) }}">Share Business Ideas</a>
                         </li>
                         <li>
-                            <a href="{{ route('page', ['slug' => 'helping-startups'] ) }}">Helping Startups</a> 
+                            <a href="{{ route('page', ['slug' => 'helping-startups'] ) }}">Helping Startups</a>
                         </li>
                     </ul>
                     <div class="bottom-logo">

@@ -15,14 +15,14 @@
                     <div class="icon-container">
                         <span><img src="{{ asset('frontend/assets/images/ic_round-mail.svg')}}"></span>
                     </div>
-                    <figcaption>{{ $packages->package_name}} <span>Package</span></figcaption>
+                    <figcaption>{{ $services->service_name}} <span></span></figcaption>
                 </figure>
             </div>
             <div class="center-info">
                 <ul class="prev-nav-menu"  data-aos="fade-up" data-aos-delay="100"
                 data-aos-duration="1000" data-aos-once="true">
                     <li><a href="index.html">Home</a></li>
-                    <li><a>{{ $packages->package_name}} Package</a></li>
+                    <li><a>{{ $services->service_name}} Package</a></li>
                 </ul>
             </div>
             <div class="call-info"  data-aos="fade-up" data-aos-delay="150"
@@ -44,35 +44,26 @@
         <div class="custom-container">
             <div class="left-information" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
                 data-aos-once="true">
-                <h2>{{$packages->package_name}} <span>Package</span></h2>
+
                 {{-- <p>{{$packages->short_description}}</p> --}}
-                {!!$packages->description!!}
-                <div class="next-package-bar-s1" data-aos="fade-right" data-aos-delay="200" data-aos-duration="2000"
+                {!!$services->long_desc!!}
+                {{-- <div class="next-package-bar-s1" data-aos="fade-right" data-aos-delay="200" data-aos-duration="2000"
                     data-aos-once="true">
                     <h4>Go to our next package to find what’s missing ➤</h4>
-                </div>
+                </div> --}}
             </div>
             <div class="right-information" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
                 data-aos-once="true">
-                <a href="{{ route('index') }}" class="view-all-btn theme-btn-primary ">View all Packages</a>
+                {{-- <a href="{{ route('index') }}" class="view-all-btn theme-btn-primary ">View all Packages</a> --}}
 
-                <div class="companyFormationPackages-lists">
+                <div class="companyFormationPackages-lists" style="padding-top: 10px">
                     <div class="cfp-list-col mw-100" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500"
                         data-aos-once="true">
-                        <div class="cfp-list-box">
-                            <div class="top-icon-box">
-                                <div class="inner-box">
+                        <div class="cfp-list-box pt-4">
 
-                                    @if ($icon!='')
-                                    <img src="{{$icon}}">
-                                    @else
-                                    <img src="{{ asset('frontend/assets/images/companyFormationPackages1.svg')}}">
-                                    @endif
-                                </div>
-                            </div>
                             <div class="text-info1">
-                                <h4>{{$packages->package_name}}</h4>
-                                <h3>£{{$packages->package_price}}</h3>
+                                <h4>{{$services->service_name}}</h4>
+                                <h3>£{{$services->price}}</h3>
                             </div>
                             <ul class="list-info">
                                 @foreach ($features as $feature)
@@ -84,9 +75,9 @@
                                 @endforeach
                             </ul>
                             <div class="bottom-actions">
-                                {{-- <a href="#" class="theme-btn-primary buy-btn">Buy Now</a> --}}
+                                <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
                                 {{-- @if ($package_details['package_id']!='') --}}
-                                <a href="{{ route('add-cart', ['id' => $packages->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+                                {{-- <a href="{{ route('add-cart', ['id' => $packages->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a> --}}
                                 {{-- <a href="#" class="read-more-btn">Read More</a> --}}
                             </div>
                         </div>
@@ -102,19 +93,11 @@
         <section class="whatmakedifferent-sec">
             <div class="image-container" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500"
                 data-aos-once="true">
-                <img src="{{ asset('frontend/assets/images/whatmakedifferent-pic.png')}}">
+                <img src="{{ asset('frontend/assets/images/services-packages-list-pic1.png')}}">
             </div>
             <div class="text-container" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000"
                 data-aos-once="true">
-                <h2>Take a look at our Full secretary services £159.99</h2>
-
-                <p>At Formationhunt, you can avail of the best full company secretary service that includes a company
-                    secretary and a dedicated and efficient account manager who will take care of the entire statutory
-                    registers, make changes in the company as per your instructions and prepare and file company’s
-                    confirmation statement.</p>
-                <p>This service proves extremely helpful for companies as it provides peace of mind that the company’s
-                    secretarial aspects are well taken care of as well as ensures the company’s records are up-to-date
-                    and compliant. </p>
+                <h2>Free Royal Mail Normal Delivery (only within UK)</h2>
             </div>
 
         </section>
@@ -122,16 +105,24 @@
         <section class="whatmakedifferent-sec">
             <div class="image-container" data-aos="fade-left" data-aos-delay="150" data-aos-duration="1500"
                 data-aos-once="true">
-                <img src="{{ asset('frontend/assets/images/whatmakedifferent-pic2.png')}}">
+                <img src="{{ asset('frontend/assets/images/services-packages-list-pic2.png')}}">
             </div>
             <div class="text-container" data-aos="fade-right" data-aos-delay="200" data-aos-duration="2000"
                 data-aos-once="true">
-                <h2>Not a UK resident? take a look at our Non-residents package</h2>
-
-                <p>Our idea is to help our non-UK clients set up their businesses effortlessly and without any hassle.
-                    Thus, we provide them with a range of services to ensure a streamlined working experience with us.
-                </p>
+                <h2>DHL Delivery £50.00 (Subject to international tracking and mailing service avalability)</h2>
             </div>
+        </section>
+        <div class="logo-center-stamp"></div>
+        <section class="whatmakedifferent-sec">
+            <div class="image-container" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500"
+                data-aos-once="true">
+                <img src="{{ asset('frontend/assets/images/services-packages-list-pic3.png')}}">
+            </div>
+            <div class="text-container" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000"
+                data-aos-once="true">
+                <h2>Courier Charges: £35 (Takes 3-5 working days)</h2>
+            </div>
+
         </section>
     </div>
     <!-- ================ end: whatmakedifferent-sec ================ -->
@@ -174,33 +165,7 @@
             </ul>
 
 
-            <div class="faq-sec">
 
-                <div class="sec-title1 text-center">
-                    <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">FAQ’s</h2>
-                </div>
-                <div id="faq-accordion" class="faq-accordion">
-                    @foreach ($faqs as $faq)
-                    <div class="card"  data-aos="fade-up" data-aos-delay="50"
-                    data-aos-duration="500" data-aos-once="true">
-
-                            <div class="card-header" id="faqHeading{{ $faq->id }}">
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#faq{{ $faq->id }}" aria-expanded="true"
-                                    aria-controls="faq{{ $faq->id }}">
-                                   {{ $faq->question }}
-                                </button>
-                            </div>
-
-                            <div id="faq{{ $faq->id }}" class="collapse show" aria-labelledby="faqHeading{{ $faq->id }}" data-parent="#faq-accordion">
-                                <div class="card-body">
-                                    <p>{{ $faq->answer }}</p>
-
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
 
             <div class="need-little-help">
                 <div class="left-box" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000"

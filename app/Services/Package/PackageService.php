@@ -21,7 +21,7 @@ class PackageService
      */
     public function index($search = "")
     {
-        $packages = Package::with('features')->where('package_type','shares')->whereNull('deleted_at');
+        $packages = Package::with('features')->whereNull('deleted_at');
 
         if (!empty($search)) {
             $packages = $packages->where('package_name', 'like', "%{$search}%");
@@ -30,13 +30,24 @@ class PackageService
         $packages = $packages->paginate(10);
         return $packages;
     }
+    public function LimitedPackages($search = "")
+    {
+        $packages = Package::with('features')->where('package_type','shares')->whereNull('deleted_at');
 
+        if (!empty($search)) {
+            $packages = $packages->where('package_type','shares')->where('package_name', 'like', "%{$search}%");
+        }
+
+        $packages = $packages->paginate(10);
+        return $packages;
+    }
     public function store($request)
     {
         $package = new Package();
         $package->package_name = $request['name'];
         $package->package_price = $request['price'];
         $package->short_description = $request['short_desc'];
+        $package->package_type = $request['package_type'];
         $package->description = $request['description'];
         $package->notes = $request['notes'];
         $package->online_formation_within = $request['online_formation_within'];
@@ -72,6 +83,7 @@ class PackageService
         $package->package_price = $request['price'];
         $package->short_description = $request['short_desc'];
         $package->description = $request['description'];
+        $package->package_type = $request['package_type'];
         $package->notes = $request['notes'];
         $package->online_formation_within = $request['online_formation_within'];
         $package->facilities = (isset($request['facility'])) ? json_encode($request['facility']) : '';

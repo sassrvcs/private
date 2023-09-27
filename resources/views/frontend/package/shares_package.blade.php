@@ -84,9 +84,9 @@
                                 @endforeach
                             </ul>
                             <div class="bottom-actions">
-                                {{-- <a href="#" class="theme-btn-primary buy-btn">Buy Now</a> --}}
+                                <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
                                 {{-- @if ($package_details['package_id']!='') --}}
-                                <a href="{{ route('add-cart', ['id' => $packages->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+                                {{-- <a href="{{ route('add-cart', ['id' => $packages->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a> --}}
                                 {{-- <a href="#" class="read-more-btn">Read More</a> --}}
                             </div>
                         </div>

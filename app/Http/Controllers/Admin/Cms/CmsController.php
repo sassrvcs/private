@@ -26,7 +26,7 @@ class CmsController extends Controller
         //print_r($customerlist['address']);exit;
         return view('admin.cms.index',compact('cmslist','search'));
     }
-    
+
 
     /**
      *
@@ -59,6 +59,9 @@ class CmsController extends Controller
     }
 
 
-
+    public function blogDetails()
+    {
+        return view('admin.cms.blog-details');
+    }
 
 }

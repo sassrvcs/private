@@ -56,6 +56,7 @@
                                         <th>Serial No</th>
                                         <th>Name</th>
                                         <th>Description</th>
+                                        <th>Package Type</th>
                                         <th>Price</th>
                                         <th>Action</th>
                                     </tr>
@@ -67,6 +68,7 @@
                                             <td> {{ $index+1 }}</td>
                                             <td> {{ $package->package_name}}</td>
                                             <td> {{ $package->short_description }}</td>
+                                            <td> {{ $package->package_type }}</td>
                                             <td> {{ $package->package_price }}</td>
                                             <td>
                                                 <div class="form-group">

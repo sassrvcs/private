@@ -17,12 +17,16 @@ class Package extends Model implements HasMedia
         'features', 'faqs', 'notes'
     ];
 
-    /* 
+    /*
      *Add a method to retrieve the featured image media
      */
     public function getFeaturedImage()
     {
         return $this->getFirstMedia('featured_image');
+    }
+    public function getImageIcon()
+    {
+        return $this->getFirstMedia('package_icon');
     }
 
     /**

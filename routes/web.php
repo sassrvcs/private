@@ -89,6 +89,19 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/package', WebPackageController::class)->name('package');
 
 Route::get('/guarantee-package', [WebPackageController::class,'guarantee_package'])->name('guarantee_package');
+Route::get('/package/digital', [WebPackageController::class,'digital'])->name('digital_package');
+Route::get('/package/privacy', [WebPackageController::class,'privacy'])->name('privacy_package');
+Route::get('/package/professional', [WebPackageController::class,'professional'])->name('professional_package');
+Route::get('/package/prestige', [WebPackageController::class,'prestige'])->name('prestige_package');
+Route::get('/package/all-inclusive', [WebPackageController::class,'all_inclusive'])->name('all_inclusive_package');
+Route::get('/package/non-residents', [WebPackageController::class,'non_residents'])->name('non_residents_package');
+Route::get('/package/llp', [WebPackageController::class,'llp'])->name('llp_package');
+Route::get('/package/e-seller', [WebPackageController::class,'e_seller'])->name('e_seller_package');
+Route::get('/package/plc', [WebPackageController::class,'plc'])->name('plc_package');
+
+Route::get('/company-services/{service_name}', [WebPackageController::class,'get_services'])->name('company_services');
+
+
 
 
 //contact us page
@@ -202,6 +215,7 @@ Route::get('invoice-history', [InvoiceController::class, 'index'])->name('invoic
 Route::get('order-invoice', [InvoiceController::class, 'orderInvoice'])->name('order-invoice')->middleware('auth');
 //===========payment section========//
 Route::get('payment-history', [PaymentController::class, 'index'])->name('payment-history')->middleware('auth');
+Route::get('blog-details',[CmsController::class,'blogDetails'])->name('blog-details');
 
 Route::prefix('admin')->middleware(['auth', 'auth.session'])
 ->group(function () {

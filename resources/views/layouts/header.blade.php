@@ -13,17 +13,17 @@
                             Packages
                         </a>
                         <div class="dropdown-menu" aria-labelledby="cn-packages-more">
-                            <a class="dropdown-item" href="#">Compare Packages</a>
-                            <a class="dropdown-item" href="#">Digital Package</a>
-                            <a class="dropdown-item" href="#">Privacy</a>
-                            <a class="dropdown-item" href="#">Professional</a>
-                            <a class="dropdown-item" href="#">Prestige</a>
-                            <a class="dropdown-item" href="#">All Inclusive</a>
-                            <a class="dropdown-item" href="#">Non Residents</a>
-                            <a class="dropdown-item" href="#">LLP</a>
-                            <a class="dropdown-item" href="#">Limited by Guarantee</a>
-                            <a class="dropdown-item" href="#">Eseller</a>
-                            <a class="dropdown-item" href="#">PLC Package</a>
+                            <a class="dropdown-item" href="{{route('package')}}">Compare Packages</a>
+                            <a class="dropdown-item" href="{{route('digital_package')}}">Digital Package</a>
+                            <a class="dropdown-item" href="{{route('privacy_package')}}">Privacy</a>
+                            <a class="dropdown-item" href="{{route('professional_package')}}">Professional</a>
+                            <a class="dropdown-item" href="{{route('prestige_package')}}">Prestige</a>
+                            <a class="dropdown-item" href="{{route('all_inclusive_package')}}">All Inclusive</a>
+                            <a class="dropdown-item" href="{{route('non_residents_package')}}">Non Residents</a>
+                            <a class="dropdown-item" href="{{route('llp_package')}}">LLP</a>
+                            <a class="dropdown-item" href="{{route('guarantee_package')}}">Limited by Guarantee</a>
+                            <a class="dropdown-item" href="{{route('e_seller_package')}}">Eseller</a>
+                            <a class="dropdown-item" href="{{route('plc_package')}}">PLC Package</a>
                         </div>
                     </div>
                 </li>
@@ -37,10 +37,10 @@
                                 <div class="custom-row">
                                     <div class="custom-col">
                                         <h5><span>Company Services</span></h5>
-                                        <a class="dropdown-item" href="#">Apostilled Documents Service</a>
-                                        <a class="dropdown-item" href="#">Confirmation Statement Service</a>
-                                        <a class="dropdown-item" href="#">Company Dissolution</a>
-                                        <a class="dropdown-item" href="#">Company Registration</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'apostilled-documents-service')}}">Apostilled Documents Service</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'confirmation-statement-services')}}">Confirmation Statement Service</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'company-dissolution')}}">Company Dissolution</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'company-registration')}}">Company Registration</a>
                                         <a class="dropdown-item" href="#">Certification of Good Standing</a>
                                         <a class="dropdown-item" href="#">Company Name Change</a>
                                         <a class="dropdown-item" href="#">Dormant Company Accounts</a>
