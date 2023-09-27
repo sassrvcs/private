@@ -166,9 +166,18 @@ class DeliverPartnerServiceController extends Controller
         $save_order_details->contact_address = $request->res_address;
         // dd($save_order_details);
         $save_order_details->save();
+
         if($save_order_details->save())
         {
-            $this->xmlService->index($request->order_id);
+            $company_details = $this->companyFormService->getCompanieName($request->order_id);
+           
+            if($company_details->companie_type=='Limited By Shares'){
+                $this->xmlService->bySHRModel($request->order_id);
+
+            }elseif($company_details->companie_type=='Limited By Guarantee'){
+                $this->xmlService->byGURModel($request->order_id);
+
+            }
 
 
             return redirect( route('checkout', ['order' => $request->order_id,'step'=>'final_payment']) );
