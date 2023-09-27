@@ -18,6 +18,7 @@ use App\Http\Controllers\Web\Company\DeliverPartnerServiceController;
 use App\Http\Controllers\Web\Home\HomeController;
 use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
 use App\Http\Controllers\Admin\BusinessBanking\BusinessBankingController;
+
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\Company\CompaniesListController;
 use App\Http\Controllers\Admin\Subadmin\SubadminController;
@@ -101,6 +102,12 @@ Route::get('/package/plc', [WebPackageController::class,'plc'])->name('plc_packa
 
 Route::get('/company-services/{service_name}', [WebPackageController::class,'get_services'])->name('company_services');
 Route::get('/company-services/business/logo', [WebPackageController::class,'business_logo'])->name('service_business_logo');
+
+Route::get('/company-services/business/share-business-idea', [WebPackageController::class,'share_business_idea'])->name('share_business_idea');
+Route::get('/company-services/business/helping-startups', [WebPackageController::class,'helping_startups'])->name('helping_startups');
+Route::get('/company-services/business/business-help', [WebPackageController::class,'business_help'])->name('business_help');
+Route::get('/company-services/business/info-require-to-set-company', [WebPackageController::class,'info_to_set'])->name('info-require-to-set-company');
+
 
 
 
@@ -226,7 +233,6 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
 
         Route::get('/dashboard', DashboardController::class)->name('dashboard');
         // Route::resource('change-password', ChangePasswordController::class);
-
         Route::resource('package', PackageController::class);
         Route::resource('addonservice', AddonController::class);
 

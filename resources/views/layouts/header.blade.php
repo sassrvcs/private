@@ -65,7 +65,7 @@
                                     <div class="custom-col">
 
                                         <h5><span>Business Banking</span></h5>
-                                        <a class="dropdown-item" href="{{route('company_services', 'barclays-business-account')}}">>Barclays Bank Account</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'barclays-bank-account')}}">>Barclays Bank Account</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'cashplus-business-account')}}">Cashplus Business Account</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'wise-business-account-for-non-uk-residents')}}">Wise Business Account for Non UK-Residents</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'payoneer-business-account-for-non-uk-residents')}}">Payoneer Business Account for Non UK – Residents</a>
@@ -83,16 +83,16 @@
 
                                     <div class="custom-col">
                                         <h5><span>Resources</span></h5>
-                                        <a class="dropdown-item" href="">Share Business Ideas</a>
-                                        <a class="dropdown-item" href="#">Helping Startups</a>
-                                        <a class="dropdown-item" href="#">Business Help</a>
+                                        <a class="dropdown-item" href="{{route('share_business_idea')}}">Share Business Ideas</a>
+                                        <a class="dropdown-item" href="{{route('helping_startups')}}">Helping Startups</a>
+                                        <a class="dropdown-item" href="{{route('business_help')}}">Business Help</a>
 
                                     </div>
 
                                     <div class="custom-col">
                                         <h5><span>Help &amp; Advice</span></h5>
                                         <a class="dropdown-item" href="{{route('company_services', 'our-online-company-manager')}}">Our Online Company Manager</a>
-                                        <a class="dropdown-item" href="#">Information Required To Set Up A Company</a>
+                                        <a class="dropdown-item" href="{{route("info-require-to-set-company")}}">Information Required To Set Up A Company</a>
                                     </div>
                                 </div>
                             </div>

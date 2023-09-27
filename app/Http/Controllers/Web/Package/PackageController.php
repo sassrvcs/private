@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Controller;
 use App\Models\Addonservice as ModelsAddonservice;
+use App\Models\Cms;
 use App\Models\Facility;
 use App\Models\Package;
 use App\Services\Facility\FacilityService;
@@ -178,9 +179,38 @@ class PackageController extends Controller
     }
     public function business_logo()
     {
-        $services = ModelsAddonservice::with('features')->where('service_name', 'like', "%Wise Business Account For Non UK Residents%")->first();
-        // dd($services);
-        $features = $services->features;
-        return view('frontend.service.business_logo',compact('services', 'features',));
+        $content = Cms::where('title','business-logo')->first();
+        if(!$content)return redirect('/404');
+        $content = $content->description;
+        return view('frontend.service.business_logo',compact('content',));
+    }
+    public function share_business_idea()
+    {
+        $content = Cms::where('title','share-ideas')->first();
+        if(!$content)return redirect('/');
+        $content = $content->description;
+        return view('frontend.service.share-business-idea',compact( 'content',));
+    }
+
+    public function helping_startups()
+    {
+        $content = Cms::where('title','helping-startups-new')->first();
+        if(!$content)return redirect('/');
+        $content = $content->description;
+        return view('frontend.service.helping-startups',compact( 'content',));
+    }
+    public function business_help()
+    {
+        $content = Cms::where('title','business-help-new')->first();
+        if(!$content)return redirect('/');
+        $content = $content->description;
+        return view('frontend.service.business-help',compact( 'content',));
+    }
+    public function info_to_set()
+    {
+        $content = Cms::where('title','info-to-set-new')->first();
+        if(!$content)return redirect('/');
+        $content = $content->description;
+        return view('frontend.service.info-to-set',compact( 'content',));
     }
 }
