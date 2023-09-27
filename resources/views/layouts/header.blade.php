@@ -41,13 +41,13 @@
                                         <a class="dropdown-item" href="{{route('company_services', 'confirmation-statement-services')}}">Confirmation Statement Service</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'company-dissolution')}}">Company Dissolution</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'company-registration')}}">Company Registration</a>
-                                        <a class="dropdown-item" href="#">Certification of Good Standing</a>
-                                        <a class="dropdown-item" href="#">Company Name Change</a>
-                                        <a class="dropdown-item" href="#">Dormant Company Accounts</a>
-                                        <a class="dropdown-item" href="#">Director Appointment &amp; Resignation</a>
-                                        <a class="dropdown-item" href="#">Full Company Secretary Service</a>
-                                        <a class="dropdown-item" href="#">Issue of Share Services</a>
-                                        <a class="dropdown-item" href="#">Transfer of Share Services</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'certificate-of-good-standing')}}">Certification of Good Standing</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'company-name-change')}}">Company Name Change</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'dormant-company-accounts')}}">Dormant Company Accounts</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'director-appointment-resignation')}}">Director Appointment Resignation</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'full-company-secretary-service')}}">Full Company Secretary Service</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'issue-of-share-services')}}">Issue of Share Services</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'transfer-of-share-services')}}">Transfer of Share Services</a>
                                     </div>
 
                                     <div class="custom-col">
