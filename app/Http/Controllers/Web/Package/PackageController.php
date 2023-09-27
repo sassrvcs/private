@@ -168,11 +168,19 @@ class PackageController extends Controller
             $secondPath = $package_name;
             $secondPath = str_replace('-', ' ', $secondPath);
             $secondPath = ucfirst($secondPath);
+            // dd($secondPath);
             $services = ModelsAddonservice::with('features')->where('service_name', 'like', "%{$secondPath}%")->first();
             if (!$services) return redirect('/404');
 
             $features = $services->features;
             return view('frontend.service.service',compact('services', 'features',));
 
+    }
+    public function business_logo()
+    {
+        $services = ModelsAddonservice::with('features')->where('service_name', 'like', "%Wise Business Account For Non UK Residents%")->first();
+        // dd($services);
+        $features = $services->features;
+        return view('frontend.service.business_logo',compact('services', 'features',));
     }
 }

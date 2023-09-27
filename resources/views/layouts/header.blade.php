@@ -41,7 +41,7 @@
                                         <a class="dropdown-item" href="{{route('company_services', 'confirmation-statement-service')}}">Confirmation Statement Service</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'company-dissolution')}}">Company Dissolution</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'company-registration')}}">Company Registration</a>
-                                        <a class="dropdown-item" href="{{route('company_services', 'certificate-of-good-standing')}}">Certification of Good Standing</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'certification-of-good-standing')}}">Certification of Good Standing</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'company-name-change')}}">Company Name Change</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'dormant-company-accounts')}}">Dormant Company Accounts</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'director-appointment-resignation')}}">Director Appointment Resignation</a>
@@ -52,7 +52,7 @@
 
                                     <div class="custom-col">
                                         <h5><span>Business Services</span></h5>
-                                        <a class="dropdown-item" href="#">Business Logo Design</a>
+                                        <a class="dropdown-item" href="{{route('service_business_logo')}}">Business Logo Design</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'business-email')}}">Business Email</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'vat-registration')}}">VAT Registration</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'paye-registration')}}">PAYE Registration</a>

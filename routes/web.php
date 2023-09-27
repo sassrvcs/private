@@ -100,6 +100,8 @@ Route::get('/package/e-seller', [WebPackageController::class,'e_seller'])->name(
 Route::get('/package/plc', [WebPackageController::class,'plc'])->name('plc_package');
 
 Route::get('/company-services/{service_name}', [WebPackageController::class,'get_services'])->name('company_services');
+Route::get('/company-services/business/logo', [WebPackageController::class,'business_logo'])->name('service_business_logo');
+
 
 
 
