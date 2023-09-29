@@ -48,7 +48,7 @@
                         <a href="{{route('llp_package')}}">LLP</a>
                     </li>
                     <li data-aos="fade-up" data-aos-delay="250" data-aos-duration="500" data-aos-once="true">
-                        <a href="{{route('guarantee_package')}}">Guarantee</a>
+                        <a href="{{route('guarantee_package',['step'=>'choose-package'])}}">Guarantee</a>
                     </li>
                     <li data-aos="fade-up" data-aos-delay="300" data-aos-duration="500" data-aos-once="true">
                         <a href="{{route('e_seller_package')}}">eSeller</a>

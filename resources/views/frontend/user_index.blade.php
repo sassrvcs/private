@@ -51,7 +51,7 @@
                                   <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
                                   <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
                                </div>
-                               <div class="col-md-4 "><a href="{{ route('package') }}" class="btn btn-primary wow zoomIn">Choose Package<i class="fa fa-long-arrow-right ms-2"></i></a></div>
+                               <div class="col-md-4 "><a href="{{ route('package',['step'=>'choose-package']) }}" class="btn btn-primary wow zoomIn">Choose Package<i class="fa fa-long-arrow-right ms-2"></i></a></div>
                             </div>
                             <div class="hhr-text">Search for another name</div>
                         </div>
