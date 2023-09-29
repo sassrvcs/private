@@ -27,6 +27,7 @@ class CartService
     public function addCompany($companyName, $updateParam = false)
     {
         $cart = Session::get('cart', []);
+
         // dd( $cart[0] );
         // dump($companyName);
         // if( isset($cart[0]['company_name']) && !empty($cart[0]['company_name'])) {
@@ -44,6 +45,7 @@ class CartService
 
         $cart[] = $cartItem;
         Session::put('cart', $cart);
+        // dd(Session::get('cart'));
     }
 
     /**
@@ -136,6 +138,7 @@ class CartService
                 $cart[$existingCartItem]['package_id']      = $package->id;
                 $cart[$existingCartItem]['package_name']    = $package->package_name;
                 $cart[$existingCartItem]['package_description']    = $package->description;
+                $cart[$existingCartItem]['package_features'] =$package->features;
                 $cart[$existingCartItem]['package_status']  = 1;
                 $cart[$existingCartItem]['step_complete']   = 1;
                 $cart[$existingCartItem]['addon_service'][] = [
@@ -154,6 +157,7 @@ class CartService
                     'product_id'     => $package->id,
                     'package_name'   => $package->package_name,
                     'package_description'   => $package->description,
+                    'package_features' =>$package->features,
                     'package_status' => 1,
                     'addon_service'  => []
                 ];

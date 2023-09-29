@@ -106,12 +106,34 @@
                                        </thead>
                                        <tbody id="item-tbody">
                                           <tr class="cart_item">
-                                             <td class="product-name" colspan="3">
+                                            <td class="product-name" colspan="3">
                                                 {{ isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' : end($sessionCart)['package_name'] ?? '' }}
                                                 &nbsp;
-                                                {!! isset($indx) ? $sessionCart[$indx]['package_description'] ?? '' : end($sessionCart)['package_description'] ?? '' !!}
-                                             </td>
+                                                <p style="margin-top: 10px; margin-bottom:10px ">
 
+                                                    <span style="font-weight: 800">Features:</span>
+                                                </p>
+                                                @if (isset($indx))
+                                                    @if ($sessionCart[$indx]['package_features']!=null)
+                                                        @foreach ($sessionCart[$indx]['package_features'] as $item)
+                                                            <p>
+
+                                                                {{($item->feature)}}
+                                                            </p>
+                                                        @endforeach
+                                                    @endif
+                                                @else
+                                                    @if (end($sessionCart)['package_features']!=null)
+                                                        @foreach (end($sessionCart)['package_features'] as $item)
+                                                            <p>
+                                                                {{($item->feature)}}
+                                                            </p>
+                                                        @endforeach
+                                                    @endif
+                                                @endif
+                                                {{-- {!! isset($indx) ?  ?? '' :  ?? '' !!} --}}
+
+                                            </td>
                                              <td class="text-end">&nbsp;</td>
                                              <td class="product-total text-end">
                                                 <span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ isset($indx) ? $sessionCart[$indx]['price'] ?? '0' : end($sessionCart)['price'] ?? '0' }}</bdi></span>
@@ -161,7 +183,7 @@
                                                 @endforeach
                                              @endif
                                           @endif
-                                        
+
                                        </tbody>
                                        <tbody id="tax-tbody">
                                           <tr class="cart-subtotal text-end">

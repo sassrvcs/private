@@ -516,7 +516,6 @@
         $(document).ready(function() {
             $('#search').click(function() {
                 var companyName = $('#company-name').val();
-
                 var searchButton = $(this);
                 searchButton.prop('disabled', true).text('Searching...');
 

@@ -24,6 +24,7 @@ class CompanieController extends Controller
      */
     public function __invoke(SearchCompanyRequest $request)
     {
+
         $requestParam = $request->validated();
 
         if($requestParam['same_as'] === 'true') {
@@ -35,7 +36,13 @@ class CompanieController extends Controller
 
         if($response['message'] === CompanieSearchService::COMPANY_AVAILABLE) {
             // Add the item to the cart
-            $this->cartService->addCompany($requestParam['search']);
+            if($request->query('package_id')!=null){
+
+                $this->cartService->addCompany($requestParam['search']);
+            }else{
+
+                $this->cartService->addCompany($requestParam['search']);
+            }
 
             // $cart = Session::get('cart', []);
             // $cartItem = [
@@ -47,7 +54,7 @@ class CompanieController extends Controller
             return $response;
         } else if($response['message'] === CompanieSearchService::COMPANY_NOT_AVAILABLE) {
             return $response;
-        } 
+        }
         // else {
 
         // }

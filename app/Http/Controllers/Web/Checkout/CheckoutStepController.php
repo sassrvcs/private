@@ -69,6 +69,7 @@ class CheckoutStepController extends Controller
         $sessionCart    = $this->cartService->getCartViaSession();
 
         $addonServices  = $this->addonService->index();
+        
         $total_amount =0;
         // dump($sessionCart);
         $indx = $request->indx;
@@ -202,7 +203,7 @@ class CheckoutStepController extends Controller
         }
         $company->status = '1';
         $company->save();
-     
+
         $order_transaction->order_id =$order_id;
         $order_transaction->uuid =$request->query('orderID');
         $order_transaction->status=$request->query('STATUS');
