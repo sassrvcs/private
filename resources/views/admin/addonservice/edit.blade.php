@@ -64,7 +64,7 @@
                                             <option value="Non_Residents" @if(!empty(json_decode($service->add_on_type)) && in_array('Non_Residents',json_decode($service->add_on_type))) selected  @endif>Non Residents</option>
                                             <option value="LLP" @if(!empty(json_decode($service->add_on_type)) && in_array('LLP',json_decode($service->add_on_type))) selected  @endif>LLP</option>
                                             <option value="Eseller" @if(!empty(json_decode($service->add_on_type)) && in_array('Eseller',json_decode($service->add_on_type))) selected  @endif>Eseller</option>
-                                            <option value="PLC" @if(!empty(json_decode($service->add_on_type)) && in_array('PLC_Package',json_decode($service->add_on_type))) selected  @endif>PLC Package</option>
+                                            <option value="PLC_Package" @if(!empty(json_decode($service->add_on_type)) && in_array('PLC_Package',json_decode($service->add_on_type))) selected  @endif>PLC Package</option>
                                         </select>
                                     </div>
 

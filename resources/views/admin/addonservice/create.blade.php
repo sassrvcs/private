@@ -64,7 +64,7 @@
                                             <option value="Non_Residents">Non Residents</option>
                                             <option value="LLP">LLP</option>
                                             <option value="Eseller">Eseller</option>
-                                            <option value="PLC">PLC Package</option>
+                                            <option value="PLC_Package">PLC Package</option>
                                         </select>
                                     </div>
 
