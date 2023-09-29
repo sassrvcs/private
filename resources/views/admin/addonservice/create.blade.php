@@ -59,7 +59,7 @@
                                             <option value="Privacy">Privacy</option>
                                             <option value="Professional">Professional</option>
                                             <option value="Prestige">Prestige</option>
-                                            <option value="All-inclusive">All-Inclusive</option>
+                                            <option value="All_Inclusive">All-Inclusive</option>
                                             <option value="Guarantee">Limited By Guarantee</option>
                                             <option value="Non_Residents">Non Residents</option>
                                             <option value="LLP">LLP</option>
