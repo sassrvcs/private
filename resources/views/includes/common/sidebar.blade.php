@@ -64,12 +64,12 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.package.create')}}" class="nav-link {{ request()->routeIs('admin.package.create') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add New</p>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             @endcan
@@ -93,12 +93,12 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.addonservice.create')}}" class="nav-link {{ request()->routeIs('admin.addonservice.create') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add New</p>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             @endcan
@@ -122,12 +122,12 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.business-banking.create')}}" class="nav-link {{ request()->routeIs('admin.business-banking.create') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add New</p>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             @endcan
@@ -150,12 +150,12 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.accounting.create')}}" class="nav-link {{ request()->routeIs('admin.accounting.create') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add New</p>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             @endcan
@@ -240,7 +240,7 @@
                         Company
                         <i class="right fas fa-angle-left"></i>
                     </p>
-                </a>                
+                </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ route('admin.company.index')}}"
