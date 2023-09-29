@@ -67,7 +67,15 @@
                                             <tr>
                                                 <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}"> {{ $order->order_id }}</a></td>
                                                 <td>-</td>
-                                                <td>{{ $order->cart->package->package_name }}</td>
+                                                @php
+                                                if ($order->cart->package!=null) {
+                                                    $package_type = $order->cart->package->package_type;
+                                                }else{
+                                                    $package_type = $order->getCompanyByOrderId->companie_type;
+                                                    // $package_type = '-';
+                                                }
+                                                @endphp
+                                                <td>{{$package_type}}</td>
                                                 <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" >{{ $order->company_name }}</a></td>
                                                 <td>
                                                     <span class="status accepted">

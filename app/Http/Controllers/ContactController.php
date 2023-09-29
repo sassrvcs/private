@@ -77,7 +77,7 @@ class ContactController extends Controller
             $country_name = Country::where('id', $request->country)->pluck('name')->first();
             // return view('frontend.mail.contactMailBlade',compact('contactDetails','country_name'));
             try {
-                Mail::to('debasish.ghosh@technoexponent.co.in')->send(new ContactMail($contactDetails,$country_name));
+                Mail::to('contact@formationshunt.co.uk')->send(new ContactMail($contactDetails,$country_name));
             } catch (\Throwable $th) {
                 //throw $th;
             }
