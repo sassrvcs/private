@@ -30,7 +30,7 @@
                                 <hr>
                                 <p class="h6">{{ isset($checkout) ? $checkout->cart->package->package_name : (isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' :  '') }}</p>
 
-                                <p>{!!isset($checkout) ? $checkout->cart->package->description : (isset($indx) ? $sessionCart[$indx]['package_description'] ?? '' :  '') !!}</p>
+                                {{-- <p>{!!isset($checkout) ? $checkout->cart->package->package_features : (isset($indx) ? $sessionCart[$indx]['package_features'] ?? '' :  '') !!}</p> --}}
                                 <ul class="list-group list-group-flush fa-ul ms-3">
                                     @if($package)
                                     @foreach($package->features as $feature)
