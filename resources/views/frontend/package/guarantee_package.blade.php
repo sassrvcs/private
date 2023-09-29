@@ -278,7 +278,7 @@
     <!-- ================ end: our-banking-sec ================ -->
 
     <!--=============Modal For Company Name ====================--->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade company-check" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -327,12 +327,14 @@
                                     <div class="search-result" id="available-company" style="display: none">
                                         <div class="mb-4 align-items-center">
                                            <div class="col-md-12">
-                                              <span class="icon"><i class="fa fa-check-circle-o"></i></span>
-                                              <h2 class="search-company-name"></h2>
+                                            <div class="d-flex align-items-center">
+                                                <span class="icon"><i class="fa fa-check-circle-o"></i>&nbsp;</span>
+                                                <h2 class="search-company-name"></h2>
+                                            </div>
                                               <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
                                               <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
                                            </div>
-                                           <div class="col-md-4 "><a href="{{ route('add-cart', ['id' => $packages->id]) }}" class="btn btn-primary wow zoomIn">Choose Package<i class="fa fa-long-arrow-right ms-2"></i></a></div>
+                                           <div class="col-md-6 "><a href="{{ route('add-cart', ['id' => $packages->id]) }}" class="btn btn-primary wow zoomIn">Choose Package<i class="fa fa-long-arrow-right ms-2"></i></a></div>
                                         </div>
                                         <div class="hhr-text">Search for another name</div>
                                     </div>
@@ -348,14 +350,14 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-7" style="padding-left: 0px; padding-right: 0px;">
+                                <div class="col-md-9" style="padding-left: 0px; padding-right: 0px;">
                                     <div class="search-box mt-3 mb-2" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true" style="max-width: 100%">
                                         <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
                                         <input type="hidden" name="package_id" id="package_id" value="{{$packages->id}}">
                                         <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
                                     </div>
                                     <p class="text-capitalize mt-2" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true" style="font-size:13px">14+years of experience in helping thousands of people to start their business in UK</p>
-                                    <div class="image-stamp" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
+                                    <div class="image-stamp mt-5" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
                                         <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg')}}"></a>
                                     </div>
                                 </div>
@@ -382,10 +384,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-            </div>
           </div>
         </div>
       </div>

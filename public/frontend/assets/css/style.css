@@ -9117,3 +9117,17 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     outline: none;
     padding: 10px 20px;
 }
+
+.company-check .main-banner .caption-box{
+    padding: 30px 0px 0 0;
+    min-height: 400px;
+
+}
+.company-check .main-banner #result_show{
+    padding: 0 0 20px;
+    min-height: 234px;
+}
+.company-check .main-banner .caption-box h1{
+    font-size: 28px;
+    line-height: 1.2;
+}
