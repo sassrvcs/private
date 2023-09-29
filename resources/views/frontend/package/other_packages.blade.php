@@ -21,7 +21,7 @@
             <div class="center-info">
                 <ul class="prev-nav-menu"  data-aos="fade-up" data-aos-delay="100"
                 data-aos-duration="1000" data-aos-once="true">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{route('index')}}">Home</a></li>
                     <li><a>{{ $packages->package_name}} Package</a></li>
                 </ul>
             </div>
@@ -77,9 +77,11 @@
                             <ul class="list-info">
                                 @foreach ($features as $feature)
                                 <li>
+                                    @if ($feature->feature!='')
                                     <div class="icon-container">
                                     </div>
                                     <p>{{$feature->feature}}</p>
+                                    @endif
                                 </li>
                                 @endforeach
                             </ul>
@@ -173,7 +175,7 @@
                 </li>
             </ul>
 
-
+            @if (@$faqs[0]->question!=null)
             <div class="faq-sec">
 
                 <div class="sec-title1 text-center">
@@ -201,7 +203,7 @@
                     @endforeach
                 </div>
             </div>
-
+            @endif
             <div class="need-little-help">
                 <div class="left-box" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000"
                     data-aos-once="true">

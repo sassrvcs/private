@@ -47,9 +47,28 @@
                                             class="{{ $errors->has('price') ? 'is-invalid' : '' }}"  />
                                     </div>
 
+
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">Add-On Type</label>
+                                        <select name="add_on_type[]" data-placeholder="Choose anything" id="multiple-select-field" class="form-select" multiple>
+                                            <option value="Others">Others</option>
+                                            <option value="Digital">Digital</option>
+                                            <option value="Privacy">Privacy</option>
+                                            <option value="Professional">Professional</option>
+                                            <option value="Prestige">Prestige</option>
+                                            <option value="All-inclusive">All-Inclusive</option>
+                                            <option value="Guarantee">Limited By Guarantee</option>
+                                            <option value="Non_Residents">Non Residents</option>
+                                            <option value="LLP">LLP</option>
+                                            <option value="Eseller">Eseller</option>
+                                            <option value="PLC">PLC Package</option>
+                                        </select>
+                                    </div>
 
+                                </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="">Description <span class="mandetory">*</span></label>
@@ -86,12 +105,20 @@
 <script type="text/javascript">
     $(document).ready(function() {
        $('.ckeditor').ckeditor();
-
     });
+    $(document).ready(function(){
+     $( '#multiple-select-field' ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+            closeOnSelect: false,
+        } );
+    } );
+
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
-        var maxField = 10; //Input fields increment limitation
+        var maxField = 30; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
         var fieldHTML = '<div class="field-with-btn mb-2"><input type="text" class="form-control" name="features[]" value=""/><a href="javascript:void(0);" class="btn btn-danger remove_button">Remove</a></div>'; //New input field html

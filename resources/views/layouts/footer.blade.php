@@ -93,7 +93,7 @@
                             <a href="{{route('company_services', 'our-online-company-manager')}}">Our Online Company Manager</a>
                         </li>
                         <li>
-                            <a href="#">Information Required To Set Up
+                            <a href="{{route("info-require-to-set-company")}}">Information Required To Set Up
                                 A Company</a>
                         </li>
                     </ul>
@@ -126,13 +126,13 @@
                     <h3>Resources</h3>
                     <ul class="nav-lists">
                         <li>
-                            <a href="{{ route('page', ['slug' => 'business-help'] ) }}">Business Help</a>
+                            <a href="{{route('business_help')}}">Business Help</a>
                         </li>
                         <li>
-                            <a href="{{ route('page', ['slug' => 'share-business-ideas'] ) }}">Share Business Ideas</a>
+                            <a href="{{route('share_business_idea')}}">Share Business Ideas</a>
                         </li>
                         <li>
-                            <a href="{{ route('page', ['slug' => 'helping-startups'] ) }}">Helping Startups</a>
+                            <a href="{{route('helping_startups')}}">Helping Startups</a>
                         </li>
                     </ul>
                     <div class="bottom-logo">

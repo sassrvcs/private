@@ -39,7 +39,10 @@ class Order extends Model implements HasMedia
     {
         return $this->belongsTo(Companie::class, 'company_name', 'companie_name');
     }
-
+    public function getCompanyByOrderId()
+    {
+        return $this->belongsTo(Companie::class, 'order_id', 'order_id');
+    }
     /**
      * @return hasMany
      */

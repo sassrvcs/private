@@ -174,7 +174,7 @@
     $(document).ready(function(){
         //$('.ckeditor').ckeditor();
 
-        var maxField = 10; //Input fields increment limitation
+        var maxField = 30; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
         var fieldHTML = '<div class="field-with-btn mb-2"><input type="text" class="form-control" name="features[]" value=""/><a href="javascript:void(0);" class="btn btn-danger remove_button"><i class="fa fa-minus"></i></a></div>'; //New input field html

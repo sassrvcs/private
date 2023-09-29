@@ -305,15 +305,20 @@
 
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             @php
-                                                $package_type = $orders->cart->package->package_type
+                                            if ($orders->cart->package==null) {
+                                                $package_type = $orders->getCompanyByOrderId->companie_type;
+                                            }else{
+                                                $package_type = $orders->cart->package->package_type;
+                                            }
                                             @endphp
+                                           {{-- @dd($package_type) --}}
                                             <div class="form-group">
                                                 <label for="companie_type">Type of Company</label>
                                                 <select class="form-control" name="companie_type">
-                                                    @if ($package_type=="shares")
+                                                    @if (stripos($package_type, 'shares') !== false)
                                                     <option value="Limited By Shares">Limited By Shares</option>
                                                     @endif
-                                                    @if ($package_type=="guarantee")
+                                                    @if (stripos($package_type, 'Guarantee') !== false)
                                                     <option value="Limited By Guarantee">Limited By Guarantee</option>
                                                     @endif
                                                 </select>

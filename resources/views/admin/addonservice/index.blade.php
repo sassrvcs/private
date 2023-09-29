@@ -56,6 +56,7 @@
                                         <th>Name</th>
                                         <th>Description</th>
                                         <th>Price</th>
+                                        <th>Add-On Type</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -67,6 +68,13 @@
                                             <td> {{ $service->service_name}}</td>
                                             <td> {{ $service->short_desc }}</td>
                                             <td> {{ $service->price }}</td>
+                                            @php
+                                                if ($service->add_on_type!=null) {
+                                                    $addOnArr = json_decode($service->add_on_type);
+                                                    $service->add_on_type = implode(', ', $addOnArr);
+                                                }
+                                            @endphp
+                                            <td> {{ $service->add_on_type}}</td>
                                             <td>
                                                 <div class="form-group">
                                                     <a href="{{ route('admin.addonservice.edit', $service->id) }}" class="" style="color: #1c55ad; padding-right: 6px;">
