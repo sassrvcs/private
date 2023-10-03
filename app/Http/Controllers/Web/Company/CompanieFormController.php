@@ -178,6 +178,7 @@ class CompanieFormController extends Controller
         $orderId        = $request->order ?? '';
         $companyId      = $companieName->id ?? '';
         $legalDocument  = $companieName->legal_document ?? '';
+        $other_legal_Document = $companieName->other_legal_document ?? '';
 
         // $document = $companieName->getFirstMedia('documents');
         $document = $companieName->getMedia('documents')
@@ -202,7 +203,7 @@ class CompanieFormController extends Controller
 
         if($company_type=="Limited By Guarantee")
         {
-        return view('frontend.company_form.document_guarantee', compact('orderId', 'companyId', 'legalDocument', 'mediaDoc'));
+        return view('frontend.company_form.document_guarantee', compact('orderId','other_legal_Document', 'companyId', 'legalDocument', 'mediaDoc'));
         }
         return view('frontend.company_form.document', compact('orderId', 'companyId', 'legalDocument', 'mediaDoc'));
     }
@@ -227,6 +228,7 @@ class CompanieFormController extends Controller
         // dd($company);
 
         $company->legal_document = $request->legal_document;
+        $company->other_legal_document = $request->other_legal_document ?? null;
 
         $exist_order = companyFormStep::where('order', $request->order_id)->where('section', 'company_formation')->where('step', 'document')->first();
         if(!$exist_order){
