@@ -32,7 +32,11 @@ class CompanyFormController extends Controller
         //$recent_addr  = $this->regAddrService->getRecentAddress();
         // if company table has office add id
         $order = Order::where('order_id', $_GET['order'])->first();
-
+        if ($order->cart->package!=null) {
+        $package_type = $order->cart->package->package_type;
+        }else{
+            $package_type = '';
+        }
         $office_address = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->pluck('office_address')->first();
         $fwd_office_address = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->pluck('forwarding_registered_office_address')->first();
 
@@ -44,7 +48,7 @@ class CompanyFormController extends Controller
             // &section=Company_formaction&step=register-address
             return redirect()->route('choose-address-after-buy-now', ['order' =>  $_GET['order'],'section'=>'Company_formaction','step'=>'register-address']);
         }
-        return view('frontend.company_form.register_address', compact('recent_addr', 'countries','fwd_office_address'));
+        return view('frontend.company_form.register_address', compact('recent_addr', 'countries','fwd_office_address', 'package_type'));
     }
 
     public function registerAddressStoreStep(Request $request)
@@ -183,7 +187,11 @@ class CompanyFormController extends Controller
     {
         $countries = Country::all()->toArray();
         $order = Order::where('order_id',$_GET['order'])->first();
-
+        if ($order->cart->package!=null) {
+            $package_type = $order->cart->package->package_type;
+        }else{
+            $package_type = '';
+        }
         $used_address = Address::where('user_id', Auth::user()->id)->get();
 
         $forwardingAdd = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->first()->toArray();
@@ -195,7 +203,7 @@ class CompanyFormController extends Controller
             $address = [];
         }
 
-        return view('frontend.company_form.choose_address_after_buy_now', compact('used_address', 'countries', 'forwardingAddVal', 'address'));
+        return view('frontend.company_form.choose_address_after_buy_now', compact('used_address', 'countries', 'forwardingAddVal', 'address', 'package_type'));
     }
 
     public function chooseBusinessAddress()
@@ -203,7 +211,11 @@ class CompanyFormController extends Controller
         $order = Order::where('order_id',$_GET['order'])->first();
 
         $countries = Country::all()->toArray();
-
+        if ($order->cart->package!=null) {
+            $package_type = $order->cart->package->package_type;
+        }else{
+            $package_type = '';
+        }
         $used_address = Address::where('user_id', Auth::user()->id)->get();
 
         $forwardingAdd = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->first()->toArray();
@@ -223,7 +235,7 @@ class CompanyFormController extends Controller
             $cartInfoId = '';
         }
 
-        return view('frontend.company_form.business_address', compact('used_address', 'countries', 'forwardingAddVal', 'address', 'cartInfoId'));
+        return view('frontend.company_form.business_address', compact('used_address', 'countries', 'forwardingAddVal', 'address', 'cartInfoId', 'package_type'));
     }
     public function updateRegisterAddress(Request $request)
     {
@@ -268,8 +280,8 @@ class CompanyFormController extends Controller
 
         $id = $request->id;
         $user_id = Auth::user()->id;
-
-        Companie::where('user_id', $user_id)->update(['forwarding_business_office_address' => $id]);
+        $order_id = $request->order_id;
+        Companie::where('order_id', $order_id)->update(['forwarding_business_office_address' => $id]);
 
         $addData = Address::where('id', $id)->first()->toArray();
 
@@ -279,16 +291,16 @@ class CompanyFormController extends Controller
     public function removeForwardingAddressSection(Request $request)
     {
         $user_id = Auth::user()->id;
-
-        Companie::where('user_id', $user_id)->update(['forwarding_registered_office_address' => NULL]);
+        $order_id = $request->order_id;
+        Companie::where('order_id', $order_id)->update(['forwarding_registered_office_address' => NULL]);
 
         return 1;
     }
     public function removeForwardingBusinessAddressSection(Request $request)
     {
         $user_id = Auth::user()->id;
-
-        Companie::where('user_id', $user_id)->update(['forwarding_business_office_address' => NULL]);
+        $order_id = $request->order_id;
+        Companie::where('order_id', $order_id)->update(['forwarding_business_office_address' => NULL]);
 
         return 1;
     }

@@ -321,6 +321,9 @@
                                                     @if (stripos($package_type, 'Guarantee') !== false)
                                                     <option value="Limited By Guarantee">Limited By Guarantee</option>
                                                     @endif
+                                                    @if (stripos($package_type, 'Residents') !== false)
+                                                    <option value="Limited By Shares">Limited By Shares</option>
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>

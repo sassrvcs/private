@@ -200,10 +200,19 @@ class CompanieFormController extends Controller
             'name' => $documentName,
             'url'  => $documentUrl,
         ];
-
+        $order_details = Order::where('order_id', $request->order)->first();
+        $package_type =null;
+        if ($order_details->cart->package!=null) {
+            $package_type = $order_details->cart->package->package_type;
+        }
+        // dd($package_type);
         if($company_type=="Limited By Guarantee")
         {
         return view('frontend.company_form.document_guarantee', compact('orderId','other_legal_Document', 'companyId', 'legalDocument', 'mediaDoc'));
+        }
+        if($company_type!=null && $package_type == "Non_Residents")
+        {
+            return view('frontend.company_form.document_non_residents', compact('orderId','other_legal_Document', 'companyId', 'legalDocument', 'mediaDoc'));
         }
         return view('frontend.company_form.document', compact('orderId', 'companyId', 'legalDocument', 'mediaDoc'));
     }

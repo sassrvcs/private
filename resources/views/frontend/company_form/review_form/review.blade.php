@@ -263,13 +263,13 @@
                                         {{-- Generic Limited by Shares Articles --}}
                                         <li>
                                             <strong>Memorandum and Articles : </strong>
-                                            @if ($review->legal_document == 'generic_article')
+                                            @if ($review->legal_document == 'generic_article' && $review->companie_type=="Limited By Shares")
                                                 {{'Generic Limited by Share Articles'}}
                                             @endif
                                             @if ($review->legal_document == 'byspoke_article')
                                                 {{"Byspoke article of association"}}
                                             @endif
-                                            @if ($review->companie_type=="Limited By Guarantee")
+                                            @if ($review->companie_type=="Limited By Guarantee" && $review->legal_document == 'generic_article')
                                                 {{'Limited by Guarantee Articles'}}
                                             @endif
 

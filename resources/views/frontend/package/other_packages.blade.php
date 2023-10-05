@@ -86,10 +86,14 @@
                                 @endforeach
                             </ul>
                             <div class="bottom-actions">
-                                <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                {{-- @if ($package_details['package_id']!='') --}}
-                                {{-- <a href="{{ route('add-cart', ['id' => $packages->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a> --}}
-                                {{-- <a href="#" class="read-more-btn">Read More</a> --}}
+
+                                @if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
+                                    <a href="{{ route('add-cart', ['id' => $packages->id]) }}"
+                                        class="theme-btn-primary buy-btn">Buy Now</a>
+                                @else
+                                    <a href="#" class="theme-btn-primary buy-btn" data-toggle="modal"
+                                        data-target="#exampleModal" data-whatever="@fat">Buy Now</a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -276,6 +280,202 @@
         </div>
     </section>
     <!-- ================ end: our-banking-sec ================ -->
+    <div class="modal fade company-check" id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Company Name Check</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="position-relative overflow-hidden main-banner-outer">
+                    <div class="main-banner home-banner-src"
+                        style="background-image: url({{ asset('frontend/assets/images/main-banner.png') }});">
+                        <div class="custom-container">
+                            <div class="caption-box" style="padding-right: 0px;">
+                                <div id="response-class">
+                                    <h1 data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000"
+                                        data-aos-once="true">Formations made easier starting from <span>£12.99</span>
+                                    </h1>
+                                    <p data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000"
+                                        data-aos-once="true">Form a UK limited company in minutes</p>
+                                </div>
 
+                                {{-- <div id="available-company" style="display: none">
+                                <div class=" align-items-center">
+                                    <div class="col-md-6">
+                                        <span class="icon"><i class="fa-regular fa-circle-check"></i></span>
+                                        <h2 id="search-company-name"></h2>
+                                        <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
+                                        <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
+                                    </div>
+                                </div>
 
+                                <div class="col-md-4">
+                                    <a href="#" class="btn btn-primary wow zoomIn">Choose Package<i class="fas fa-long-arrow-alt-right ms-2"></i></a>
+                                </div>
+                                <div class="hhr-text">Search for another name</div>
+                            </div>
+
+                            <div id="not-available-company" style="display: none">
+                                <div class="search-result-error mb-4">
+                                    <span class="icon"><i class="fa-regular fa-circle-xmark"></i></span>
+                                    <h2 id="search-company-name"></h2>
+                                    <h3 style="color:white;">Error! This company name is Not available.</h3>
+                                </div>
+                                <div class="hhr-text">Search for another name</div>
+                            </div> --}}
+
+                                <div class="col-md-7" id="result_show" style="display: none">
+                                    {{-- Available Message --}}
+                                    <div class="search-result" id="available-company" style="display: none">
+                                        <div class="mb-4 align-items-center">
+                                            <div class="col-md-12">
+                                                <div class="d-flex align-items-center">
+                                                    <span class="icon"><i
+                                                            class="fa fa-check-circle-o"></i>&nbsp;</span>
+                                                    <h2 class="search-company-name"></h2>
+                                                </div>
+                                                <h3 style="color:#87CB28;">Congratulations! This company name is
+                                                    available.</h3>
+                                                <h3 style="color:#87CB28;" id="is_sensitive_word_row"
+                                                    style="display: none">Please note: The word(s) <span
+                                                        id="is_sensitive_word"></span> is deemed sensitive. You may
+                                                    need to supply additional information to use it.</h3>
+                                            </div>
+                                            <div class="col-md-6 "><a
+                                                    href="{{ route('add-cart', ['id' => $packages->id]) }}"
+                                                    class="btn btn-primary wow zoomIn">Choose Package<i
+                                                        class="fa fa-long-arrow-right ms-2"></i></a></div>
+                                        </div>
+                                        <div class="hhr-text">Search for another name</div>
+                                    </div>
+
+                                    {{-- Not Available Message --}}
+                                    <div id="not-available-company" style="display: none">
+                                        <div class="search-result-error mb-4">
+                                            <span class="icon"><i class="fa fa-times-circle-o"></i></span>
+                                            <h2 class="search-company-name"></h2>
+                                            <h3 style="color:white;">Error! This company name is Not available.</h3>
+                                        </div>
+                                        <div class="hhr-text">Search for another name</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-9" style="padding-left: 0px; padding-right: 0px;">
+                                    <div class="search-box mt-3 mb-2" data-aos="fade-right" data-aos-delay="150"
+                                        data-aos-duration="1000" data-aos-once="true" style="max-width: 100%">
+                                        <input type="text" id="company-name" class="search-input"
+                                            placeholder="Enter a company name to check if its available">
+                                        <input type="hidden" name="package_id" id="package_id"
+                                            value="{{ $packages->id }}">
+                                        <button type="button" id="search"
+                                            class="search-btn theme-btn-primary">Search</button>
+                                    </div>
+                                    <p class="text-capitalize mt-2" data-aos="fade-right" data-aos-delay="200"
+                                        data-aos-duration="1000" data-aos-once="true" style="font-size:13px">14+years
+                                        of experience in helping thousands of people to start their business in UK</p>
+                                    <div class="image-stamp mt-5" data-aos="fade-right" data-aos-delay="250"
+                                        data-aos-duration="1000" data-aos-once="true">
+                                        <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg') }}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-banner-left-floating">
+                        <div class="text-box">
+                            <p>Free Consultations 24/7</p>
+                            <p><a href="tel:020 3002 0032">020 3002 0032</a></p>
+                        </div>
+                        <div class="icon-box" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500"
+                            data-aos-once="true">
+                            <img src="{{ asset('frontend/assets/images/consultations-phone-icon.svg') }}">
+                        </div>
+                    </div>
+                    <div class="main-banner-right-floating">
+                        <div class="icon-box" data-aos="fade-left" data-aos-delay="50" data-aos-duration="500"
+                            data-aos-once="true">
+                            <img src="{{ asset('frontend/assets/images/hand-holding-globe-svgrepo-com.svg') }}">
+                        </div>
+                        <div class="text-box">
+                            <p>Full Company</p>
+                            <p>Secretary Services</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $('#search').click(function() {
+                var companyName = $('#company-name').val();
+                var package_id = $('#package_id').val();
+                var searchButton = $(this);
+                searchButton.prop('disabled', true).text('Searching...');
+
+                // Make the GET request using Axios
+                axios.get('/search-companie', {
+                        params: {
+                            'search': companyName,
+                            'same_as': 'true',
+                            'package_id': package_id,
+                        }
+                    })
+                    .then(function(response) {
+                        // Handle the response data here
+                        console.log(response.data);
+
+                        if (response.data.message == 'This company name is available.') {
+                            $('#response-class').hide();
+                            $('#result_show').hide();
+                            $('#not-available-company').hide();
+                            $('.search-company-name').text(companyName);
+
+                            if (response.data.is_sensitive == 1) {
+                                $('#is_sensitive_word_row').show();
+                                $('#is_sensitive_word').text(response.data.is_sensitive_word);
+                            } else {
+                                $('#is_sensitive_word_row').hide();
+                                $('#is_sensitive_word').text('');
+                            }
+
+                            $('#result_show').show();
+                            $('#available-company').show();
+                            $('.image-stamp').hide();
+                            $('.search-input').val('');
+                        } else {
+                            $('#result_show').hide();
+                            $('#available-company').hide();
+                            $('#response-class').hide();
+
+                            // Show data
+                            $('.search-company-name').text(companyName);
+                            $('#result_show').show();
+                            $('#not-available-company').show();
+                            $('.image-stamp').hide();
+                            $('.search-input').val('');
+                        }
+                    })
+                    .catch(function(error) {
+                        // Handle any errors that occurred during the request
+                        console.error(error);
+                    })
+                    .finally(function() {
+                        // Re-enable the button and change the text back to "Search"
+                        searchButton.prop('disabled', false).text('Search');
+                    });
+            });
+        });
+    </script>
 @endsection

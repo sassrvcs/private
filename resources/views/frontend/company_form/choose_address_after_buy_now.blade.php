@@ -537,7 +537,7 @@
                                         </div>
                                         <div class="btn-block">
                                             <button class="btn" onclick="DetailsSection()">Details</button>
-                                            <button class="btn buy-now-btn" onclick="gotoPage()">Remove</button>
+                                            <button class="btn buy-now-btn @if (stripos($package_type, 'Residents') !== false) d-none @endif" onclick="gotoPage()">Remove</button>
                                         </div>
                                         <div class="details-desc d-none" id="DetailsSection_div">
                                             <h3>Why would I use your WC2 London Business Address Services?</h3>
@@ -696,6 +696,9 @@
             $.ajax({
                 url: "{!! route('remove-forwarding-address-section') !!}",
                 type: 'get',
+                data: {
+                    order_id: {{$_GET['order']}},
+                },
                 success: function(result) {
                     setTimeout(function() {
                         $('.selc-addr').text('Select');

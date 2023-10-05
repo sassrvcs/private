@@ -336,7 +336,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="own-address">
+                                {{-- {{$package_type}} --}}
+                                @if (stripos($package_type, 'Residents') !== false)
+                                <div class="error d-none address_selection_cl" style="color:red;">Please Choose a Forwarding Address</div>
+                                @endif
+                                <div class="own-address @if (stripos($package_type, 'Residents') !== false) d-none @endif">
                                     @if (!empty($recent_addr))
                                         <div class="info">
 
@@ -406,7 +410,11 @@
                                     </div>
                                     <div class="btn-block">
                                         <button class="btn" onclick="DetailsSection()">Details</button>
+                                        @if (stripos($package_type, 'Residents') !== false)
+                                        <button class="btn buy-now-btn" onclick="gotoPage()">Choose Forwarding Address</button>
+                                        @else
                                         <button class="btn buy-now-btn" onclick="gotoPage()">Buy Now</button>
+                                        @endif
                                     </div>
                                     <div class="details-desc d-none" id="DetailsSection_div">
                                         <h3>Why would I use your WC2 London Business Address Services?</h3>
@@ -473,7 +481,6 @@
 
 @section('script')
     <script>
-
         function DetailsSection() {
             $('#DetailsSection_div').toggleClass('d-none')
         }

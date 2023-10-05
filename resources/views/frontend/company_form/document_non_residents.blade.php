@@ -254,7 +254,7 @@
                                         <div class="document-list-wrap">
                                             <div class="document-list">
                                                 <div class="box">
-                                                    <p>Generic Limited by Guarantee Articles</p>
+                                                    <p>Generic Limited by Share Articles</p>
                                                 </div>
                                                 <div class="box text-center">
                                                     <p><strong>FREE</strong></p>
@@ -262,7 +262,7 @@
                                                 <div class="box text-right">
                                                     <div class="switch-slider-wrap">
                                                         <label class="toggleSwitch large">
-                                                            <input type="checkbox" name="generic_article" value="generic_article" id="toggle1" {{ (empty($legalDocument) || $legalDocument == 'generic_article') ? 'checked' : '' }} />
+                                                            <input type="checkbox" name="generic_article" value="generic_article" id="toggle1" checked readonly />
                                                             <span>
                                                                 <span>Select</span>
                                                                 <span>Select</span>
@@ -280,7 +280,7 @@
                                             <input type="hidden" name="section_name" value="company_formation">
                                             <input type="hidden" name="step_name" value="document">
 
-                                            <div class="document-list">
+                                            <div class="document-list d-none">
                                                 <div class="box">
                                                     <p>Byspoke article of association</p>
                                                 </div>
@@ -333,6 +333,9 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
+        $("#toggle1").click(function() {
+            $(this).prop("checked",true)
+        });
         // When the first toggle is clicked
         $("#toggle1").click(function() {
             // alert($(this).prop("checked"));

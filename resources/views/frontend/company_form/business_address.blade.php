@@ -591,6 +591,9 @@
                                     <?php
                                 }
                                 ?>
+                                 @if (stripos($package_type, 'Residents') !== false)
+                                 <div class="error d-none address_selection_cl" style="color:red;">Please Choose a Forwarding Address.</div>
+                                 @endif
                                     <div class="office-address ">
                                         <div class="top-block">
                                             <h3>Business Address (Post)</h3>
@@ -627,20 +630,22 @@
                                         </div>
                                         <div class="btn-block">
                                             <button class="btn" onclick="DetailsSection()">Details</button>
-                                            <?php
-                                        if ($forwardingAddVal !== null) {
-                                        ?>
+                                            @if ($forwardingAddVal !== null)
+                                            @if (stripos($package_type, 'Residents') === false)
                                             <button class="btn buy-now-btn" onclick="gotoPage()">Remove</button>
+                                            @endif
                                             <input type="hidden" id="takingBusiness" value="yes">
-                                            <?php
-                                        }else {
-                                            ?>
+                                            @else
+                                            @if (stripos($package_type, 'Residents') !== false)
+                                            <button class="btn buy-now-btn" onclick="anotherForwardingAdd()">Choose Forwarding address</button>
+                                            <input type="hidden" id="takingBusiness" value="no">
+                                            @else
                                             <button class="btn buy-now-btn" onclick="anotherForwardingAdd()">Buy
                                                 Now</button>
                                             <input type="hidden" id="takingBusiness" value="no">
-                                            <?php
-                                        }
-                                        ?>
+                                            @endif
+
+                                            @endif
                                         </div>
                                         <div class="details-desc d-none" id="DetailsSection_div">
                                             <h3>Why would I use your WC2 London Business Address Services?</h3>
@@ -701,6 +706,7 @@
                 </div>
             </div>
             <input type="hidden" name="shoppingCartId" value="{{ $cartInfoId }}" id="shoppingCartId_id">
+            <input type="hidden" name="package_type" id="package_type" value="{{ $package_type }}">
     </section>
     <!-- ================ end: Particulars sec ================ -->
 
@@ -789,9 +795,13 @@
         }
 
         function gotoPage() {
+
             $.ajax({
                 url: "{!! route('remove-forwarding-business-address-section') !!}",
                 type: 'get',
+                data: {
+                    order_id : {{$_GET['order']}},
+                },
                 success: function(result) {
                     setTimeout(function() {
                         $('.selc-addr').text('Select');
@@ -802,7 +812,12 @@
         };
 
         function go_to_the_next_page() {
+            if ($('#takingBusiness').val() != 'yes' && $("#package_type").val()=='Non_Residents' ) {
+                $('.own-address').addClass('validation')
+                $('.address_selection_cl').removeClass('d-none')
 
+                return false;
+            }
             if ($('#takingBusiness').val() == 'yes') {
                 const price = $('#business_office_price').val();
                 const shoppingCartId_id = $('#shoppingCartId_id').val();
@@ -870,7 +885,8 @@
                 url: "{!! route('update-forwarding-business-office-address') !!}",
                 type: 'get',
                 data: {
-                    id
+                    id:id,
+                    order_id : {{$_GET['order']}},
                 },
                 success: function(result) {
                     console.log(result);

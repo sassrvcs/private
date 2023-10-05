@@ -42,7 +42,7 @@
                         <a href="#" class="active">Limited Company</a>
                     </li>
                     <li data-aos="fade-up" data-aos-delay="150" data-aos-duration="500" data-aos-once="true">
-                        <a href="{{route('non_residents_package')}}">Non-Residents</a>
+                        <a href="{{route('non_residents_package',['step'=>'choose-package'])}}">Non-Residents</a>
                     </li>
                     <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="500" data-aos-once="true">
                         <a href="{{route('llp_package')}}">LLP</a>
