@@ -331,7 +331,6 @@ class CompanyController extends Controller
         $company_number = $request->company_number;
         $auth_code = $request->auth_code;
         $status = $request->status;
-
         $order = $this->orderService->getOrder($order_id);
 
         if($order){
@@ -352,6 +351,12 @@ class CompanyController extends Controller
                 $xml_details = companyXmlDetail::where('order_id',$order_id)->first();
                 $xml_details->company_no = $company_number;
                 $xml_details->authentication_code =$auth_code;
+                $xml_details->save();
+            }
+            if($status=='4'){
+                $xml_details = companyXmlDetail::where('order_id',$order_id)->first();
+                
+                $xml_details->admin_comment = $request->admin_comment;
                 $xml_details->save();
             }
 

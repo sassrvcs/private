@@ -29,6 +29,7 @@ use App\Services\Company\BusinessEssentialSteps\BusinessEssentialsService;
 use PDF;
 use App\Models\Address;
 use App\Models\Companie;
+use Redirect;
 
 class CheckoutStepController extends Controller
 {
@@ -69,7 +70,7 @@ class CheckoutStepController extends Controller
         $sessionCart    = $this->cartService->getCartViaSession();
 
         $addonServices  = $this->addonService->index();
-        
+
         $total_amount =0;
         // dump($sessionCart);
         $indx = $request->indx;
@@ -308,7 +309,7 @@ class CheckoutStepController extends Controller
 
         $sessionCart = Session::get('cart');
 
-        //return view('frontend.checkout_steps.search_compant', compact('sessionCart'));
-        return true;
+        // return view('frontend.checkout_steps.search_compant', compact('sessionCart'));
+        return Redirect::back();
     }
 }

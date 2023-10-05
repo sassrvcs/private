@@ -138,7 +138,7 @@
 
                                                 @endphp
 
-                                                <td><span class="status @if($company_status == '0' || $company_status == '1' || $company_status == '2') incomplete @elseif ($company_status == '3')accepted @elseif ($company_status == '4') Rejected @else incomplete @endif ">
+                                                <td><span class="status @if($company_status == '0' || $company_status == '1' || $company_status == '2') incomplete @elseif ($company_status == '3')accepted @elseif ($company_status == '4') rejected @else incomplete @endif ">
 
                                                     @if ($company_status == '0' )
                                                         INCOMPLETE
@@ -150,6 +150,11 @@
                                                         APPROVED
                                                     @elseif ($company_status == '4')
                                                         REJECTED
+                                                        <small data-toggle="modal" data-target="#adminComment-{{ $order->order_id }}" style="cursor: pointer; color:white">
+
+                                                            <img src="{{ asset('frontend/assets/images/in-icon.png') }}" alt="">
+
+                                                    </small>
                                                     @else
                                                         INCOMPLETE
                                                     @endif</span>
@@ -172,6 +177,27 @@
                                             </tr>
 
                                         @endif
+
+                                        <div class="modal" id="adminComment-{{ $order->order_id }}" tabindex="-1" role="dialog" aria-labelledby="adminCommentTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                                                <div class="modal-content border-0 ">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="adminCommentTitle">Admin Comment</h5>
+                                                        <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div id="post_address_blk">
+                                                            @php
+
+                                                                $admin_status = \App\Models\companyXmlDetail::where('order_id',$order->order_id)->pluck('admin_comment')->first();
+
+                                                            @endphp
+                                                            {{$admin_status}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -181,6 +207,7 @@
             </div>
         </div>
     </div>
+
 </section>
 @endsection
 
