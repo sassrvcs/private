@@ -291,39 +291,13 @@
               </button>
             </div>
             <div class="modal-body">
-                <div class="position-relative overflow-hidden main-banner-outer">
-                    <div class="main-banner home-banner-src" style="background-image: url({{ asset('frontend/assets/images/main-banner.png')}});">
+                <div class="position-relative overflow-hidden main-banner-outer pb-0">
+                    <div class="main-banner home-banner-src" style="background:#313C4E;">
                         <div class="custom-container">
-                            <div class="caption-box" style="padding-right: 0px;">
-                                <div id="response-class">
-                                    <h1 data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000" data-aos-once="true">Formations made easier starting from <span>£12.99</span></h1>
-                                    <p data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">Form a UK limited company in minutes</p>
-                                </div>
+                            <div class="caption-box pb-4" style="padding-right: 0px;">
 
-                                {{-- <div id="available-company" style="display: none">
-                                    <div class=" align-items-center">
-                                        <div class="col-md-6">
-                                            <span class="icon"><i class="fa-regular fa-circle-check"></i></span>
-                                            <h2 id="search-company-name"></h2>
-                                            <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
-                                            <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-4">
-                                        <a href="#" class="btn btn-primary wow zoomIn">Choose Package<i class="fas fa-long-arrow-alt-right ms-2"></i></a>
-                                    </div>
-                                    <div class="hhr-text">Search for another name</div>
-                                </div>
 
-                                <div id="not-available-company" style="display: none">
-                                    <div class="search-result-error mb-4">
-                                        <span class="icon"><i class="fa-regular fa-circle-xmark"></i></span>
-                                        <h2 id="search-company-name"></h2>
-                                        <h3 style="color:white;">Error! This company name is Not available.</h3>
-                                    </div>
-                                    <div class="hhr-text">Search for another name</div>
-                                </div> --}}
 
                                 <div class="col-md-7" id="result_show" style="display: none">
                                     {{-- Available Message --}}
@@ -353,38 +327,19 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-9" style="padding-left: 0px; padding-right: 0px;">
+                                <div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
                                     <div class="search-box mt-3 mb-2" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true" style="max-width: 100%">
                                         <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
                                         <input type="hidden" name="package_id" id="package_id" value="{{$packages->id}}">
                                         <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
                                     </div>
-                                    <p class="text-capitalize mt-2" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true" style="font-size:13px">14+years of experience in helping thousands of people to start their business in UK</p>
-                                    <div class="image-stamp mt-5" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
-                                        <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg')}}"></a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="main-banner-left-floating">
-                        <div class="text-box">
-                            <p>Free Consultations 24/7</p>
-                            <p><a href="tel:020 3002 0032">020 3002 0032</a></p>
-                        </div>
-                        <div class="icon-box" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                            <img src="{{ asset('frontend/assets/images/consultations-phone-icon.svg')}}">
-                        </div>
-                    </div>
-                    <div class="main-banner-right-floating">
-                        <div class="icon-box" data-aos="fade-left" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                            <img src="{{ asset('frontend/assets/images/hand-holding-globe-svgrepo-com.svg')}}">
-                        </div>
-                        <div class="text-box">
-                            <p>Full Company</p>
-                            <p>Secretary Services</p>
-                        </div>
-                    </div>
+
+
                 </div>
             </div>
 

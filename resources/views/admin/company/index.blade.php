@@ -62,6 +62,7 @@
                                         <th>Action</th>
                                         <th>Comp. No.</th>
                                         <th>Auth. Code</th>
+                                        <th>Admin Comment</th>
                                         <th>Approval</th>
                                         <th>Action</th>
                                         <th>Action</th>
@@ -124,12 +125,17 @@
                                             </td>
                                             @php
                                                 $auth_code = \App\Models\companyXmlDetail::where('order_id',$order->order_id)->pluck('authentication_code')->first();
+                                                $admin_comment = \App\Models\companyXmlDetail::where('order_id',$order->order_id)->pluck('admin_comment')->first();
 
 
                                             @endphp
                                             <td>
                                                 <input type="text" name="auth_code_{{ $order->order_id }}" id="auth_code_{{ $order->order_id }}" value="{{ $auth_code ?? '' }}">
                                                 <span class="error" id="error_auth_code_{{ $order->order_id }}"></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="admin_comment_{{ $order->order_id }}" id="admin_comment_{{ $order->order_id }}" value="{{ $admin_comment ?? '' }}" >
+                                                <span class="error" id="error_admin_comment_{{ $order->order_id }}"></span>
                                             </td>
                                             <td>
                                                 {{--<span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">
@@ -384,6 +390,7 @@
         var company_number = $("#company_number_" + order_id).val();
         var auth_code = $("#auth_code_" + order_id).val();
         var status = $("#status_" + order_id).val();
+        var admin_comment = $("#admin_comment_" + order_id).val();
 
         // alert(auth_code);
 
@@ -403,6 +410,16 @@
             }
         }
 
+        if(status == 4){
+            if(admin_comment==""){
+                $("#error_admin_comment_" + order_id).html("Comment is required")
+                setTimeout(function(){
+                }, 5000);
+                return false
+            }
+
+        }
+
         $.ajax({
             url: "{{ route('admin.update_status') }}",
             type: "post",
@@ -411,7 +428,8 @@
                 order_id: order_id,
                 company_number: company_number,
                 auth_code: auth_code,
-                status: status
+                status: status,
+                admin_comment:admin_comment
             },
             success: function(res) {
                 console.log(res);

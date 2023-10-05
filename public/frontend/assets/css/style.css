@@ -6701,12 +6701,19 @@ span.optional {
     line-height: 1.2;
 }
 .companies-table-wrap table td span.status.accepted{
-    background: rgba(14, 183, 122, 0.1);
-    color: #0EB77A;
+    background: #0EB77A;
+    color: white;
+}
+
+.companies-table-wrap table td span.status.rejected{
+    background: red;
+    color: white;
 }
 .companies-table-wrap table td span.status.incomplete{
-    background: rgba(255, 15, 0, 0.1);
-    color: #B70E0E;
+    /* background: rgba(255, 15, 0, 0.1); */
+    /* color: #B70E0E; */
+    background:orange;
+    color: white;
 }
 
 .woocommerce form .form-row {
@@ -9120,14 +9127,34 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .company-check .main-banner .caption-box{
     padding: 30px 0px 0 0;
-    min-height: 400px;
+    min-height: 160px;
 
 }
 .company-check .main-banner #result_show{
     padding: 0 0 20px;
-    min-height: 234px;
+    min-height: auto;
 }
 .company-check .main-banner .caption-box h1{
     font-size: 28px;
     line-height: 1.2;
+}
+.company-check .modal-lg{
+    max-width: 1000px;
+}
+.company-check .main-banner .caption-box .search-box .search-input{
+    background: #fff;
+    color:#313C4E;
+}
+
+.company-check .main-banner .caption-box .search-box .search-input::placeholder {
+  color: #313C4E;
+  opacity: 1; / Firefox /
+}
+
+.company-check .main-banner .caption-box .search-box .search-input:-ms-input-placeholder {
+  color: #313C4E;
+}
+
+.company-check .main-banner .caption-box .search-box .search-input::-ms-input-placeholder {
+  color: #313C4E;
 }
