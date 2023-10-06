@@ -247,7 +247,7 @@
                                         </li>
                                         @if (in_array('PSC', $positionArray))
 
-                                            <li><strong>Name Of Control : </strong> {{$val['noc_vr']}} </li>
+                                            <li><strong>Nature Of Control : </strong> {{$val['noc_vr']}} </li>
                                         @endif
 
                                     </ul>

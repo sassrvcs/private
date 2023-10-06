@@ -74,8 +74,21 @@
                                                     $package_type = $order->getCompanyByOrderId->companie_type;
                                                     // $package_type = '-';
                                                 }
+                                                $full_pkg_type = '-';
+                                                if (stripos($package_type, 'shares') !== false) {
+                                                    $full_pkg_type = 'Limited By Shares';
+                                                }
+                                                if (stripos($package_type, 'Guarantee') !== false) {
+                                                    $full_pkg_type = 'Limited By Guarantee';
+                                                }
+                                                if (stripos($package_type, 'Residents') !== false) {
+                                                    $full_pkg_type = 'Non Residents';
+                                                }
+                                                if (stripos($package_type, 'PLC') !== false) {
+                                                    $full_pkg_type = 'Public Limited Company';
+                                                }
                                                 @endphp
-                                                <td>{{$package_type}}</td>
+                                                <td>{{$full_pkg_type}}</td>
                                                 <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" >{{ $order->company_name }}</a></td>
                                                 <td>
                                                     <span class="status accepted">

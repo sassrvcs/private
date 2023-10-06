@@ -141,13 +141,15 @@ class CartService
                 $cart[$existingCartItem]['package_features'] =$package->features;
                 $cart[$existingCartItem]['package_status']  = 1;
                 $cart[$existingCartItem]['step_complete']   = 1;
-                $cart[$existingCartItem]['addon_service'][] = [
-                    'price' => '4.99',
-                    'quantity' => 1,
-                    'service_id' => (int)100,
-                    'service_name' => 'Pre-Submission Review (we check your company details to avoid mistakes)',
-                    'service_status' => 1,
-                ];
+                if(!isset($cart[$existingCartItem]['addon_service'])) {
+                    $cart[$existingCartItem]['addon_service'][] = [
+                        'price' => '4.99',
+                        'quantity' => 1,
+                        'service_id' => (int)100,
+                        'service_name' => 'Pre-Submission Review (we check your company details to avoid mistakes)',
+                        'service_status' => 1,
+                    ];
+                }
 
             } else {
 

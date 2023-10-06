@@ -223,7 +223,7 @@
                             @endif
                                 @csrf
                                 <div id="customer_details">
-                                     <input type="text" name="order" value=" @if (auth()->check()){{$checkout->order_id}} @endif">
+                                     <input type="hidden" name="order" value=" @if (auth()->check()){{$checkout->order_id}} @endif">
 
                                     @guest
                                         <fieldset class="border p-3">
@@ -422,7 +422,7 @@
                                                         class="input-radio" name="payment_method"
                                                         value="epdq_checkout" checked="checked" data-order_button_text="">
                                                     <label for="payment_method_epdq_checkout">
-                                                        AG ePDQ Checkout<br>
+                                                        Barclays Checkout<br>
                                                         <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/mastercard.png') }}" alt="mastercard">
                                                         <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/amex.png') }}" alt="amex">
                                                         <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/maestro.png') }}" alt="maestro">

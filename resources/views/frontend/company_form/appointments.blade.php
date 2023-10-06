@@ -398,7 +398,8 @@
                                                     <tr>
                                                         <th>Name</th>
                                                         <th>Director</th>
-                                                        <th>{{$company_type=='Limited By Shares'?'Shareholder':''}}{{$company_type=='Limited By Guarantee'?'Guarantor':''}}</th>
+                                                        <th>{{$company_type=='Limited By Shares' || $company_type=='Public Limited Company'?'Shareholder':''}}
+                                                            {{$company_type=='Limited By Guarantee'?'Guarantor':''}}</th>
                                                         <th>Secretary</th>
                                                         <th>PSC</th>
                                                         <th></th>
@@ -425,7 +426,7 @@
                                                                     alt=""><img src="{{ asset('frontend/assets/images/cross.svg') }}"
                                                                     class="{{ in_array('Director', $positionArray) ? 'd-none' : '' }}"
                                                                     alt=""></td>
-                                                            <td class ="{{$company_type=='Limited By Shares'?"d-none":''}}"><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                            <td class ="{{$company_type=='Limited By Shares'||$company_type=='Public Limited Company'?"d-none":''}}"><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
                                                                     class="{{ in_array('Guarantor', $positionArray) ? '' : 'd-none' }}"
                                                                     alt="">
                                                                     <img src="{{ asset('frontend/assets/images/cross.svg') }}"
@@ -1316,7 +1317,7 @@
                                                                     day-to-day management of the business.</span>
                                                             </li>
 
-                                                            <li class="{{ $company_type == 'Limited By Shares' ? '' : 'd-none'}}">
+                                                            <li class="{{ $company_type == 'Limited By Shares' || $company_type == 'Public Limited Company' ? '' : 'd-none'}}">
 
                                                                 <input type="checkbox" class="checkBoxPos"
                                                                     value="Shareholder" id="shareholder"
@@ -1382,7 +1383,7 @@
                                                             <li class="occLinkCls d-none">
                                                                 <input type="checkbox" id="occ">
                                                                 <label for="occ" id="consentText_id">
-                                                                    @if ($company_type == 'Limited By Shares')
+                                                                    @if ($company_type == 'Limited By Shares' || $company_type == 'Public Limited Company')
                                                                     The officers
                                                                     confirm they have
                                                                     consented to act as a Director or Secretary
@@ -2869,7 +2870,7 @@
             // Appointment to Document section Movement starts
             const company_type = $("#company_type").val();
 
-                if ($("#share_holding_table_id").length === 0 && company_type=='Limited By Shares') {
+                if ($("#share_holding_table_id").length === 0 && (company_type=='Limited By Shares' || company_type=='Public Limited Company')) {
                     $("#positionValidation").removeClass('d-none')
                     $("#positionValidation").html('You have to select ateast one shareholder!')
                     return false
@@ -2890,15 +2891,24 @@
                 $("#positionValidation").html('You have to select a PSC!')
                 return false
             }
-
-            if ($("#director_check").val() == 0) {
+            console.log($("#director_check").val())
+            if(company_type=='Public Limited Company'){
+                if ($("#director_check").val() != 2) {
+                $("#positionValidation").removeClass('d-none')
+                $("#positionValidation").html('You have to select at least two Director!')
+                return false
+                }
+            }else{
+                if ($("#director_check").val() == 0) {
                 $("#positionValidation").removeClass('d-none')
                 $("#positionValidation").html('You have to select a Director!')
 
                 return false
+                }
             }
 
-            if(company_type=='Limited By Shares')
+
+            if(company_type=='Limited By Shares' || company_type=='Public Limited Company')
             {
             // company_type=='Limited By Shares'
             if ($("#listed_shareHolderContaining_ids").val() !== '' && $("#psc_check").val() !== 0 && $("#director_check").val() !== 0) {

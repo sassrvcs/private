@@ -1157,7 +1157,7 @@
                                                                     aged 16 years or over. A director is responsible for the
                                                                     day-to-day management of the business.</span>
                                                             </li>
-                                                            <li class="{{ $company_type == 'Limited By Shares' ? '' : 'd-none'}}">
+                                                            <li class="{{ $company_type == 'Limited By Shares' || $company_type == 'Public Limited Company' ? '' : 'd-none'}}">
                                                                 <input type="checkbox" @if (in_array("Shareholder", $positions))checked
                                                                 @endif class="checkBoxPos"
                                                                     value="Shareholder" id="shareholder"
@@ -1226,7 +1226,7 @@
                                                                 <input type="checkbox" id="occ" @if ((in_array("Secretary", $positions))||(in_array("Director", $positions)))checked
                                                                 @endif>
                                                                 <label for="occ" id="consentText_id">
-                                                                    @if ($company_type == 'Limited By Shares')
+                                                                    @if ($company_type == 'Limited By Shares' || $company_type == 'Public Limited Company')
                                                                     The officers
                                                                     confirm they have
                                                                     consented to act as a Director or Secretary
