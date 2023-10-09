@@ -102,7 +102,7 @@
     <!-- ================ end: main-banner ================ -->
 
     <!-- ================ start: companyFormationPackages-sec ================ -->
-    <section class="companyFormationPackages-sec">
+    <section class="companyFormationPackages-sec" id="compare-package-section">
         <div class="custom-container">
             <div class="sec-title1 text-center">
                 <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Company <span>Formation Packages</span></h2>
@@ -493,7 +493,8 @@
             </ul>
         </div>
     </section>
-    <!-- ================ end: our-banking-sec ================ -->
+    <!-- ================ end
+        : our-banking-sec ================ -->
 
     <!-- ================ start: formationsMade-easier-sec ================ -->
     <section class="formationsMade-easier-sec">

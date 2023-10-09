@@ -272,6 +272,9 @@
                                             @if ($review->companie_type=="Limited By Guarantee" && $review->legal_document == 'generic_article')
                                                 {{'Limited by Guarantee Articles'}}
                                             @endif
+                                            @if ($review->companie_type=="Public Limited Company" && $review->legal_document == 'generic_article')
+                                                {{'Generic PLC Articles'}}
+                                            @endif
 
                                         </li>
                                     </ul>

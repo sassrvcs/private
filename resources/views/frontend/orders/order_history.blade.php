@@ -82,10 +82,16 @@
                                                     $full_pkg_type = 'Limited By Guarantee';
                                                 }
                                                 if (stripos($package_type, 'Residents') !== false) {
-                                                    $full_pkg_type = 'Non Residents';
+                                                    $full_pkg_type = 'Non Residents Package';
                                                 }
                                                 if (stripos($package_type, 'PLC') !== false) {
                                                     $full_pkg_type = 'Public Limited Company';
+                                                }
+                                                if (stripos($package_type, 'Eseller') !== false) {
+                                                    $full_pkg_type = 'Eseller Package';
+                                                }
+                                                if (stripos($package_type, 'LLP') !== false) {
+                                                    $full_pkg_type = 'LLP Package';
                                                 }
                                                 @endphp
                                                 <td>{{$full_pkg_type}}</td>
