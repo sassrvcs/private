@@ -30,6 +30,12 @@
 <!-- ================ end: common-inner-page-banner ================ -->
 
 <!-- ================ start: comparePackages-sec ================ -->
+@php
+    $choose_pkg_step=false;
+     if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
+    $choose_pkg_step = true;
+
+@endphp
 <section class="companyFormationPackages-sec">
     <div class="custom-container">
         <div class="sec-title1 text-center">
@@ -42,19 +48,37 @@
                         <a href="#" class="active">Limited Company</a>
                     </li>
                     <li data-aos="fade-up" data-aos-delay="150" data-aos-duration="500" data-aos-once="true">
+
+                        @if ($choose_pkg_step)
+
                         <a href="{{route('non_residents_package',['step'=>'choose-package'])}}">Non-Residents</a>
+                        @else
+                        <a href="{{route('non_residents_package')}}">Non-Residents</a>
+
+                        @endif
                     </li>
                     <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="500" data-aos-once="true">
                         <a href="{{route('llp_package')}}">LLP</a>
                     </li>
                     <li data-aos="fade-up" data-aos-delay="250" data-aos-duration="500" data-aos-once="true">
+                        @if ($choose_pkg_step)
+
                         <a href="{{route('guarantee_package',['step'=>'choose-package'])}}">Guarantee</a>
+                        @else
+                        <a href="{{route('guarantee_package')}}">Guarantee</a>
+
+                        @endif
                     </li>
                     <li data-aos="fade-up" data-aos-delay="300" data-aos-duration="500" data-aos-once="true">
                         <a href="{{route('e_seller_package')}}">eSeller</a>
                     </li>
                     <li data-aos="fade-up" data-aos-delay="350" data-aos-duration="500" data-aos-once="true">
+                        @if ($choose_pkg_step)
+
+                        <a href="{{route('plc_package',['step'=>'choose-package'])}}">PLC</a>
+                        @else
                         <a href="{{route('plc_package')}}">PLC</a>
+                        @endif
                     </li>
                 </ul>
             </div>
