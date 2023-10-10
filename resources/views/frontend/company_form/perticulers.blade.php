@@ -247,9 +247,21 @@
                                         <div class="text">
                                             <h5>Company Name</h5>
                                             <p>This is the name that will appear on your certificate of incorporation and
-                                                will also appear on the public record at Company House. Remember to add
+                                                will also appear on the public record at Company House.
+                                                @if (stripos($raw_pkg_type, 'PLC') !== false)
+                                                Remember to add
+                                                <strong>PLC</strong> to the end of your company
+                                                name.
+                                            @endif
+                                            @if (stripos($raw_pkg_type, 'shares') !== false ||
+                                                    stripos($raw_pkg_type, 'Guarantee') !== false ||
+                                                    stripos($raw_pkg_type, 'Residents') !== false)
+                                                Remember to add
                                                 <strong>LTD</strong> or <strong>LIMITED</strong> to the end of your company
                                                 name.
+                                            @endif
+
+
                                             </p>
                                         </div>
                                     </div>
@@ -421,6 +433,9 @@
                                                         @if (stripos($raw_pkg_type, 'Residents') !== false)
                                                             <option value="Limited By Shares">Limited By Shares</option>
                                                         @endif
+                                                        @if (stripos($raw_pkg_type, 'Eseller') !== false)
+                                                            <option value="Limited By Shares">Limited By Shares</option>
+                                                        @endif
                                                         @if (stripos($raw_pkg_type, 'PLC') !== false)
                                                             <option value="Public Limited Company">Public Limited Company
                                                             </option>
@@ -473,7 +488,7 @@
 
                                             <div class="col-lg-6 col-md-6 col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="sic_name">What are yur business activities (SIC Codes)
+                                                    <label for="sic_name">What are your business activities (SIC Codes)
                                                         <span><img src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                 alt=""></span></label>
                                                     <select class="form-control" name="sic_name" id="sic_name">

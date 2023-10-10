@@ -86,10 +86,13 @@
                                 @endforeach
                             </ul>
                             <div class="bottom-actions">
-                                <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                {{-- @if ($package_details['package_id']!='') --}}
-                                {{-- <a href="{{ route('add-cart', ['id' => $packages->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a> --}}
-                                {{-- <a href="#" class="read-more-btn">Read More</a> --}}
+                                @if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
+                                <a href="{{ route('add-cart', ['id' => $packages->id]) }}"
+                                    class="theme-btn-primary buy-btn">Buy Now</a>
+                            @else
+                                <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
+                                data-target="#exampleModal" data-whatever="@fat" data-id = "{{$packages->id}}">Buy Now</a>
+                            @endif
                             </div>
                         </div>
                     </div>
@@ -97,6 +100,8 @@
             </div>
         </div>
     </section>
+    <x-company_name_check />
+
     <!-- ================ end: digitalPackage-sec ================ -->
 
     <!-- ================ start: whatmakedifferent-sec ================ -->

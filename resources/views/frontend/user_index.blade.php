@@ -133,11 +133,15 @@
                 <div class="companyFormationPackages-lists">
                     @foreach($packages as $key => $package)
                         <div class="cfp-list-col" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000" data-aos-once="true">
-                            <div class="cfp-list-box active">
+                            <div class="cfp-list-box {{$package->package_name=="Digital"?'active':''}}">
                                 <div class="top-icon-box">
                                     <div class="inner-box">
-                                        <img src="{{ asset('frontend/assets/images/companyFormationPackages2.svg')}}">
-                                    </div>
+                                        @if ($package->getMedia('package_icon')->isNotEmpty())
+                                        <img src="{{ $package->getFirstMedia('package_icon')->getUrl() }}" alt="{{ $package->name }}">
+                                    @else
+                                        {{-- Default image if no media in the "package_icon" collection --}}
+                                        <img src="{{ asset('frontend/assets/images/companyFormationPackages1.svg')}}" alt="Default Image">
+                                    @endif                                    </div>
                                 </div>
                                 <div class="text-info1">
                                     <h4>{{ $package->package_name }}</h4>
@@ -152,22 +156,35 @@
                                     <li>
                                         <div class="icon-container">
                                         </div>
-                                        <p>24-72 Hour Online Formation</p>
+                                        <p>Online formation within{{ $package->online_formation_within }}</p>
                                     </li>
-                                    <li>
-                                        <div class="icon-container">
-                                        </div>
-                                        <p>Digital Certificate(s)</p>
-                                    </li>
-                                    <li>
-                                        <div class="icon-container">
-                                        </div>
-                                        <p>Free Business Bank Account</p>
-                                    </li>
+                                    {{-- {{$package->id}} --}}
+                                    {{-- @dd($facilityList); --}}
+                                    @foreach($facilitys as $key => $facility)
+                                        {{-- @foreach($facilityList as $key => $assignFacilitys) --}}
+                                            @if(in_array($facility->id, $facilityList[$package->id]))
+                                            <li>
+                                                <div class="icon-container">
+                                                </div>
+                                                <p>{{ $facility->name }}</p>
+                                            </li>
+                                            @endif
+                                         {{-- @endforeach --}}
+
+                                    @endforeach
+
                                 </ul>
                                 <div class="bottom-actions">
-                                    <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
-                                    <a href="#" class="read-more-btn">Read More</a>
+                                    @php
+                                        $read_more_route=explode(' ',strtolower($package->package_name));
+                                        $read_more_route = implode('_', $read_more_route);
+                                        $read_more_route.='_package';
+
+                                    @endphp
+
+                                     <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
+                                     data-target="#exampleModal" data-whatever="@fat" data-id = "{{$package->id}}">Buy Now</a>
+                                    <a href="{{route($read_more_route)}}" class="read-more-btn">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -509,6 +526,7 @@
             </div>
         </div>
     </section>
+    <x-company_name_check />
     <!-- ================ end: formationsMade-easier-sec ================ -->
 @endsection
 

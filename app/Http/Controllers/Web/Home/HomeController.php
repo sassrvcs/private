@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Web\Home;
 use App\Http\Controllers\Controller;
 use App\Services\Package\PackageService;
 use App\Models\Package;
+use App\Services\Facility\FacilityService;
 use Illuminate\Http\Request;
 
 
 class HomeController extends Controller
 {
-    public function __construct(protected PackageService $packageService)
+    public function __construct(protected PackageService $packageService,
+    protected FacilityService $facilityService)
     { }
 
     /**
@@ -21,7 +23,14 @@ class HomeController extends Controller
     public function index()
     {
         $packages = $this->packageService->LimitedPackages();
-        return view('frontend.user_index', compact('packages'));
+        $facilitys = $this->facilityService->getFacilitys();
+
+        // dd($packages);
+        $facilityList = [];
+        foreach ($packages as $package) {
+            $facilityList[$package->id] = (!empty($package->facilities)) ? json_decode($package->facilities) : [];
+        };
+        return view('frontend.user_index', compact('packages', 'facilitys', 'facilityList'));
     }
 
     /**
