@@ -33,7 +33,7 @@
                                         <x-Forms.Input type="text" mandate="*" label="Name" id="name"
                                             name="name" value="{{ $package->package_name }}"
                                             placeholder="Enter package name"
-                                            class="{{ $errors->has('name') ? 'is-invalid' : '' }}" />
+                                            class="{{ $errors->has('name') ? 'is-invalid' : '' }}" readonly />
                                     </div>
 
                                     <div class="col-sm-3">

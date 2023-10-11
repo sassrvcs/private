@@ -55,15 +55,6 @@ class CheckoutStepController extends Controller
     public function reviewCompanyPackage()
     {
         $sessionCart = Session::get('cart');
-        if (count($sessionCart) > 0) {
-            $updated_sessioncart = [];
-            foreach ($sessionCart as $key => $value) {
-                if (isset($value['price'])) {
-                   $updated_sessioncart[] = $value;
-                }
-            }
-            $sessionCart = $updated_sessioncart;
-        }
         // dd( $sessionCart );
         return view('frontend.checkout_steps.search_compant', compact('sessionCart'));
     }
@@ -309,15 +300,6 @@ class CheckoutStepController extends Controller
                 unset($sessionCart1[$key]);
             }
         }*/
-        if (count($sessionCart1) > 0) {
-            $updated_sessioncart = [];
-            foreach ($sessionCart1 as $key => $value) {
-                if (isset($value['price'])) {
-                   $updated_sessioncart[] = $value;
-                }
-            }
-            $sessionCart1 = $updated_sessioncart;
-        }
         unset($sessionCart1[$session_indx]);
         $sessionCart1 = array_values ($sessionCart1 );
         Session::put('cart', $sessionCart1);
