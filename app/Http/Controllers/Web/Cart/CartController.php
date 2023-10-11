@@ -43,7 +43,15 @@ class CartController extends Controller
     public function show($id)
     {
         $sessionCart = Session::get('cart');
-
+        if (count($sessionCart) > 0) {
+            $updated_sessioncart = [];
+            foreach ($sessionCart as $key => $value) {
+                if (isset($value['price'])) {
+                   $updated_sessioncart[] = $value;
+                }
+            }
+            $sessionCart = $updated_sessioncart;
+        }
         if(auth()->check()) {
            // dd('!!!Authorised...');
            $this->cartService->addToCartViaSession($id);
@@ -52,7 +60,7 @@ class CartController extends Controller
             $this->cartService->addToCartViaSession($id);
         }
         // dd($data);
-        if( isset($sessionCart) && count($sessionCart) >= 2){
+        if( isset($sessionCart) && count($sessionCart) >= 1){
             return redirect(route('review-company-package'));
         }else{
             return redirect(route('addon-services',['indx'=>'0']));

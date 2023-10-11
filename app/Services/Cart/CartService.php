@@ -215,6 +215,15 @@ class CartService
     public function getCartViaSession()
     {
         $sessionCart = Session::get('cart');
+        if (count($sessionCart) > 0) {
+            $updated_sessioncart = [];
+            foreach ($sessionCart as $key => $value) {
+                if (isset($value['price'])) {
+                   $updated_sessioncart[] = $value;
+                }
+            }
+            $sessionCart = $updated_sessioncart;
+        }
         // dd($sessionCart);
         return $sessionCart;
     }

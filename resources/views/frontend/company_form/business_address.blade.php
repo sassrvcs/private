@@ -591,12 +591,17 @@
                                     <?php
                                 }
                                 ?>
-                                 @if (stripos($package_type, 'Residents') !== false)
+                                 @if (stripos($package_type, 'Residents') !== false || stripos($package_type, 'Eseller') !== false)
                                  <div class="error d-none address_selection_cl" style="color:red;">Please Choose a Forwarding Address.</div>
                                  @endif
                                     <div class="office-address ">
                                         <div class="top-block">
-                                            <h3>Business Address (Post)</h3>
+                                            <h3>Business Address (Post
+                                                @if (stripos($package_type, 'Eseller') !== false || stripos($package_type, 'Residents') !== false)
+                                                    - Included
+                                                @endif
+                                                )
+                                            </h3>
                                             <div class="price-block">
                                                 <strong>$96.00</strong>
                                                 <p>Reserved annually at $96.00</p>
@@ -631,12 +636,12 @@
                                         <div class="btn-block">
                                             <button class="btn" onclick="DetailsSection()">Details</button>
                                             @if ($forwardingAddVal !== null)
-                                            @if (stripos($package_type, 'Residents') === false)
+                                            @if (stripos($package_type, 'Residents') === false && stripos($package_type, 'Eseller') === false)
                                             <button class="btn buy-now-btn" onclick="gotoPage()">Remove</button>
                                             @endif
                                             <input type="hidden" id="takingBusiness" value="yes">
                                             @else
-                                            @if (stripos($package_type, 'Residents') !== false)
+                                            @if (stripos($package_type, 'Residents') !== false || stripos($package_type, 'Eseller') !== false)
                                             <button class="btn buy-now-btn" onclick="anotherForwardingAdd()">Choose Forwarding address</button>
                                             <input type="hidden" id="takingBusiness" value="no">
                                             @else
@@ -812,7 +817,7 @@
         };
 
         function go_to_the_next_page() {
-            if ($('#takingBusiness').val() != 'yes' && $("#package_type").val()=='Non_Residents' ) {
+            if ($('#takingBusiness').val() != 'yes' && ($("#package_type").val()=='Non_Residents' || $("#package_type").val()=='Eseller') ) {
                 $('.own-address').addClass('validation')
                 $('.address_selection_cl').removeClass('d-none')
 

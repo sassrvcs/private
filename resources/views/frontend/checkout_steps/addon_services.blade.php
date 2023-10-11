@@ -12,7 +12,7 @@
                 </div>
             <div class="center-info">
                 <ul class="prev-nav-menu aos-init aos-animate" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li><a href="https://formationshunt.co.uk">Home</a></li>
+                <li><a href="{{route('index')}}">Home</a></li>
                 <li><a>Checkout</a></li>
             </ul>
             </div>

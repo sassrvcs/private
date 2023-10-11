@@ -337,10 +337,10 @@
                                     </div>
                                 </div>
                                 {{-- {{$package_type}} --}}
-                                @if (stripos($package_type, 'Residents') !== false)
+                                @if (stripos($package_type, 'Residents') !== false || stripos($package_type, 'Eseller') !== false)
                                 <div class="error d-none address_selection_cl" style="color:red;">Please Choose a Forwarding Address</div>
                                 @endif
-                                <div class="own-address @if (stripos($package_type, 'Residents') !== false) d-none @endif">
+                                <div class="own-address @if (stripos($package_type, 'Residents') !== false || stripos($package_type, 'Eseller') !== false) d-none @endif">
                                     @if (!empty($recent_addr))
                                         <div class="info">
 
@@ -377,7 +377,9 @@
                                 </div>
                                 <div class="office-address ">
                                     <div class="top-block">
-                                        <h3>Registered Office - London</h3>
+                                        <h3>Registered Office - London @if ( stripos($package_type, 'Residents') !== false|| stripos($package_type, 'Eseller') !== false)
+                                            (Included)
+                                        @endif</h3>
                                         <div class="price-block">
                                             <strong>$39.00</strong>
                                             <p>Reserved annually at $39.00</p>
@@ -410,7 +412,7 @@
                                     </div>
                                     <div class="btn-block">
                                         <button class="btn" onclick="DetailsSection()">Details</button>
-                                        @if (stripos($package_type, 'Residents') !== false)
+                                        @if (stripos($package_type, 'Residents') !== false || stripos($package_type, 'Eseller') !== false)
                                         <button class="btn buy-now-btn" onclick="gotoPage()">Choose Forwarding Address</button>
                                         @else
                                         <button class="btn buy-now-btn" onclick="gotoPage()">Buy Now</button>

@@ -210,7 +210,7 @@ class CompanieFormController extends Controller
         {
         return view('frontend.company_form.document_guarantee', compact('orderId','other_legal_Document', 'companyId', 'legalDocument', 'mediaDoc'));
         }
-        if($package_type!=null && $package_type == "Non_Residents")
+        if($package_type!=null && ($package_type == "Non_Residents" || $package_type == "Eseller"))
         {
             return view('frontend.company_form.document_non_residents', compact('orderId','other_legal_Document', 'companyId', 'legalDocument', 'mediaDoc'));
         }

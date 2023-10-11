@@ -234,6 +234,9 @@
                                 if (stripos($package_type, 'PLC') !== false) {
                                     $raw_pkg_type = 'PLC';
                                 }
+                                if (stripos($package_type, 'Eseller') !== false) {
+                                    $raw_pkg_type = 'Eseller';
+                                }
                             @endphp
                             <input type="hidden" id="raw_pkg_type" value="{{ $raw_pkg_type }}">
                             <div class="form-wrap">
@@ -249,17 +252,19 @@
                                             <p>This is the name that will appear on your certificate of incorporation and
                                                 will also appear on the public record at Company House.
                                                 @if (stripos($raw_pkg_type, 'PLC') !== false)
-                                                Remember to add
-                                                <strong>PLC</strong> to the end of your company
-                                                name.
-                                            @endif
-                                            @if (stripos($raw_pkg_type, 'shares') !== false ||
-                                                    stripos($raw_pkg_type, 'Guarantee') !== false ||
-                                                    stripos($raw_pkg_type, 'Residents') !== false)
-                                                Remember to add
-                                                <strong>LTD</strong> or <strong>LIMITED</strong> to the end of your company
-                                                name.
-                                            @endif
+                                                    Remember to add
+                                                    <strong>PLC</strong> to the end of your company
+                                                    name.
+                                                @endif
+                                                @if (stripos($raw_pkg_type, 'shares') !== false ||
+                                                        stripos($raw_pkg_type, 'Guarantee') !== false ||
+                                                        stripos($raw_pkg_type, 'Residents') !== false ||
+                                                        stripos($raw_pkg_type, 'Eseller') !== false)
+                                                    Remember to add
+                                                    <strong>LTD</strong> or <strong>LIMITED</strong> to the end of your
+                                                    company
+                                                    name.
+                                                @endif
 
 
                                             </p>
@@ -307,7 +312,8 @@
                                                         @endif
                                                         @if (stripos($raw_pkg_type, 'shares') !== false ||
                                                                 stripos($raw_pkg_type, 'Guarantee') !== false ||
-                                                                stripos($raw_pkg_type, 'Residents') !== false)
+                                                                stripos($raw_pkg_type, 'Residents') !== false ||
+                                                                stripos($raw_pkg_type, 'Eseller') !== false)
                                                             <p id="paragraph"> You need to put a valid Company ending: LTD,
                                                                 LIMITED, CYF, CYFYNGEDIG, LTD. etc. to proceed further.</p>
                                                         @endif
@@ -643,7 +649,8 @@
             var companyName = $('#companie_name').val();
             var raw_pkg_type = $('#raw_pkg_type').val();
             if (raw_pkg_type.indexOf('Guarantee') !== -1 || raw_pkg_type.indexOf('shares') !== -1 || raw_pkg_type
-                .indexOf('Residents') !== -1) {
+                .indexOf('Residents') !== -1 || raw_pkg_type
+                .indexOf('Eseller') !== -1) {
                 if (companyName.indexOf('LTD') !== -1 || companyName.indexOf('LIMITED') !== -1 || companyName
                     .indexOf('CYF') !== -1 || companyName.indexOf('CYFYNGEDIG') !== -1) {
 
@@ -686,15 +693,14 @@
                 }
             }
 
-            var lastword='';
-            if(companyName!=='')
-            {
+            var lastword = '';
+            if (companyName !== '') {
                 var n = companyName.split(" ");
-                lastword =  n[n.length - 1];
+                lastword = n[n.length - 1];
             }
             if (raw_pkg_type.indexOf('PLC') !== -1) {
 
-                if (lastword==='PLC' || companyName.indexOf('PUBLIC LIMITED COMPANY') !== -1) {
+                if (lastword === 'PLC' || companyName.indexOf('PUBLIC LIMITED COMPANY') !== -1) {
 
                     if ($('#is_sensetibe').val() == 'true' && $("#sesitive-documents").val() == 'false') {
                         Swal.fire({
@@ -756,7 +762,9 @@
             console.log('companyName', companyName);
             var raw_pkg_type = $('#raw_pkg_type').val();
 
-            if (raw_pkg_type.indexOf('Guarantee') !== -1 || raw_pkg_type.indexOf('shares') !== -1 || raw_pkg_type.indexOf('Residents') !== -1) {
+            if (raw_pkg_type.indexOf('Guarantee') !== -1 || raw_pkg_type.indexOf('shares') !== -1 || raw_pkg_type
+                .indexOf('Residents') !== -1 || raw_pkg_type
+                .indexOf('Eseller') !== -1) {
                 if (companyName.indexOf('LTD') !== -1 || companyName.indexOf('LIMITED') !== -1 || companyName
                     .indexOf('CYF') !== -1 || companyName.indexOf('CYFYNGEDIG') !== -1) {
                     console.log(companyName.indexOf('LTD') !== -1);
@@ -774,13 +782,12 @@
             }
 
             if (raw_pkg_type.indexOf('PLC') !== -1) {
-                lastword='';
-                if(companyName!=='')
-                {
+                lastword = '';
+                if (companyName !== '') {
                     var n = companyName.split(" ");
-                    lastword =  n[n.length - 1];
+                    lastword = n[n.length - 1];
                 }
-                if (lastword==='PLC' || companyName.indexOf('PUBLIC LIMITED COMPANY') !== -1) {
+                if (lastword === 'PLC' || companyName.indexOf('PUBLIC LIMITED COMPANY') !== -1) {
                     $('#srchfld-error').hide();
                     $('#srchfld-success').show();
                     $('.companie-name').text(companyName);

@@ -70,7 +70,12 @@
                         @endif
                     </li>
                     <li data-aos="fade-up" data-aos-delay="300" data-aos-duration="500" data-aos-once="true">
+                        @if ($choose_pkg_step)
+                        <a href="{{route('e_seller_package',['step'=>'choose-package'])}}">eSeller</a>
+
+                        @else
                         <a href="{{route('e_seller_package')}}">eSeller</a>
+                        @endif
                     </li>
                     <li data-aos="fade-up" data-aos-delay="350" data-aos-duration="500" data-aos-once="true">
                         @if ($choose_pkg_step)
