@@ -237,6 +237,9 @@
                                 if (stripos($package_type, 'Eseller') !== false) {
                                     $raw_pkg_type = 'Eseller';
                                 }
+                                if (stripos($package_type, 'LLP') !== false) {
+                                    $raw_pkg_type = 'LLP';
+                                }
                             @endphp
                             <input type="hidden" id="raw_pkg_type" value="{{ $raw_pkg_type }}">
                             <div class="form-wrap">
@@ -254,6 +257,11 @@
                                                 @if (stripos($raw_pkg_type, 'PLC') !== false)
                                                     Remember to add
                                                     <strong>PLC</strong> to the end of your company
+                                                    name.
+                                                @endif
+                                                @if (stripos($raw_pkg_type, 'LLP') !== false)
+                                                    Remember to add
+                                                    <strong>LLP</strong> to the end of your company
                                                     name.
                                                 @endif
                                                 @if (stripos($raw_pkg_type, 'shares') !== false ||
@@ -309,6 +317,10 @@
                                                         @if (stripos($raw_pkg_type, 'PLC') !== false)
                                                             <p id="paragraph"> You need to put a valid Company ending: PLC,
                                                                 PUBLIC LIMITED COMPANY etc. to proceed further.</p>
+                                                        @endif
+                                                        @if (stripos($raw_pkg_type, 'LLP') !== false)
+                                                            <p id="paragraph"> You need to put a valid Company ending: LLP,
+                                                                LIMITED LIABILITY PARTNERSHIP etc. to proceed further.</p>
                                                         @endif
                                                         @if (stripos($raw_pkg_type, 'shares') !== false ||
                                                                 stripos($raw_pkg_type, 'Guarantee') !== false ||
@@ -446,6 +458,11 @@
                                                             <option value="Public Limited Company">Public Limited Company
                                                             </option>
                                                         @endif
+                                                        @if (stripos($raw_pkg_type, 'LLP') !== false)
+                                                            <option value="Limited Liability Partnership">Limited Liability
+                                                                Partnership
+                                                            </option>
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -534,7 +551,20 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                               <div class="form-check @if (stripos($raw_pkg_type, 'LLP') === false) d-none @endif">
+                                                   <label for="llp_designated">Always designated members</label>
+                                                   <br>
+                                                   <input class="form-check-input" name="llp_designated" id="llp_designated" type="checkbox" value="" id="flexCheckDefault" @if (isset($_COOKIE['llp_designated_check'.$_GET['order']]) && $_COOKIE['llp_designated_check'.$_GET['order']] == 'true')
+                                                       checked
+                                                   @endif>
+                                                   <label class="form-check-label" for="flexCheckDefault">
+                                                       Please check the box if all members in this LLP, now and in the future, are to be designated.
+                                                   </label>
+                                               </div>
+
                                                 <div class="btn-wrap">
+
                                                     <button type="submit" class="btn btn-success save-continue">Save &
                                                         Continue <img
                                                             src="{{ asset('frontend/assets/images/btn-right-arrow.png') }}"
@@ -597,6 +627,7 @@
 @endsection
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js" integrity="sha512-aUhL2xOCrpLEuGD5f6tgHbLYEXRpYZ8G5yD+WlFrXrPy2IrWBlu6bih5C9H6qGsgqnU6mgx6KtU8TreHpASprw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
@@ -742,6 +773,50 @@
 
             }
 
+            if (raw_pkg_type.indexOf('LLP') !== -1) {
+
+                if (lastword === 'LLP' || companyName.indexOf('LIMITED LIABILITY PARTNERSHIP') !== -1) {
+
+                    if ($('#is_sensetibe').val() == 'true' && $("#sesitive-documents").val() == 'false') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please upload document',
+                        })
+                        return false;
+                    }
+
+                    if ($('#same_as_name').val() == 'true' && $("#same-as-name-documents").val() == 'false') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please upload document',
+                        })
+                        return false;
+                    }
+
+                    // const selectElement = document.querySelector('.selected_sic');
+                    // // Check if there are selected options
+                    // if (selectElement && selectElement.options.length > 0) {
+                    //     // There are selected options
+                    //     console.log('Selected options exist');
+                    //     return;
+                    // } else {
+                    //     // No selected options
+                    //     console.log('No selected options');
+                    //     return;
+                    // }
+
+                    $('#srchfld-error').hide();
+                    $("#perticulars").submit();
+                } else {
+                    $('#srchfld-error').show();
+                    $('.companie-name').text(companyName);
+                    return;
+                }
+
+            }
+
 
         });
 
@@ -788,6 +863,25 @@
                     lastword = n[n.length - 1];
                 }
                 if (lastword === 'PLC' || companyName.indexOf('PUBLIC LIMITED COMPANY') !== -1) {
+                    $('#srchfld-error').hide();
+                    $('#srchfld-success').show();
+                    $('.companie-name').text(companyName);
+
+                    return;
+                } else {
+                    $('#srchfld-error').show();
+                    $('#srchfld-success').hide();
+                    $('.companie-name').text(companyName);
+
+                }
+            }
+            if (raw_pkg_type.indexOf('LLP') !== -1) {
+                lastword = '';
+                if (companyName !== '') {
+                    var n = companyName.split(" ");
+                    lastword = n[n.length - 1];
+                }
+                if (lastword === 'LLP' || companyName.indexOf('LIMITED LIABILITY PARTNERSHIP') !== -1) {
                     $('#srchfld-error').hide();
                     $('#srchfld-success').show();
                     $('.companie-name').text(companyName);
@@ -1015,5 +1109,15 @@
         //         console.log("No file selected.");
         //     }
         // });
+        $(document).ready(function(){
+            $("#llp_designated").click(function(){
+                if($("#llp_designated").is(":checked"))
+                {
+                    $.cookie('llp_designated_check'+{{$_GET['order']}}, 'true', { expires: 7, path: '/' });
+                }else{
+                    $.cookie('llp_designated_check'+{{$_GET['order']}}, 'false', { expires: 7, path: '/' });
+                }
+            })
+        })
     </script>
 @endsection

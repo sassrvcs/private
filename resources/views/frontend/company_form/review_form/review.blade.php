@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-<meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     {{-- Include Inner Header View --}}
     @include('layouts.inner_header')
@@ -23,15 +23,17 @@
                         <div class="particulars-form-wrap">
                             <div class="particulars-top-step">
                                 <div class="top-step-items">
-                                    <a href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}">
+                                    <a
+                                        href="{{ route('companie-formation', ['order' => $_GET['order'] ?? '', 'section' => 'company_formation', 'step' => 'particulars', 'data' => 'previous']) }}">
                                         <strong>1.Company Formation</strong>
                                         <span>Details about your company</span>
                                     </a>
                                 </div>
                                 <div class="top-step-items">
-                                    <a href="{{route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking'])}}" >
-                                    <strong>2.Business Essentials</strong>
-                                    <span>Products & Services</span>
+                                    <a
+                                        href="{{ route('business-essential.index', ['order' => $_GET['order'] ?? '', 'section' => 'BusinessEssential', 'step' => 'business-banking']) }}">
+                                        <strong>2.Business Essentials</strong>
+                                        <span>Products & Services</span>
                                     </a>
                                 </div>
                                 <div class="top-step-items active">
@@ -61,7 +63,8 @@
                                                 Summary </a>
                                         </span>
 
-                                        <a href="#" onclick="saveNext({{$_GET['order']}},event)"><button class="btn">Save &
+                                        <a href="#" onclick="saveNext({{ $_GET['order'] }},event)"><button
+                                                class="btn">Save &
                                                 Continue</button></a>
                                     </div>
                                 </div>
@@ -89,7 +92,7 @@
                                         <h3>Registered Office</h3>
                                         <ul>
                                             <li>
-                                                <strong>Address : </strong>  52 Danes Court, North End Road, Wembley,
+                                                <strong>Address : </strong> 52 Danes Court, North End Road, Wembley,
                                                 Middlesex, HAQ OAE, United Kingdom
                                             </li>
                                         </ul>
@@ -152,17 +155,17 @@
                                     </ul> --}}
 
                                         <h3>Buisness Address</h3>
-                                        @if($review->business_address)
-                                        <ul>
-                                            <li>
-                                                <strong>Address : </strong>
-                                                {{ $review->businessAddressWithoutForwAddress->house_number ?? '' }},
-                                                {{ $review->businessAddressWithoutForwAddress->street ?? '' }},
-                                                {{ $review->businessAddressWithoutForwAddress->locality ?? '' }},
-                                                {{ $review->businessAddressWithoutForwAddress->town ?? '' }},
-                                                {{ $review->businessAddressWithoutForwAddress->post_code ?? '' }}
-                                            </li>
-                                        </ul>
+                                        @if ($review->business_address)
+                                            <ul>
+                                                <li>
+                                                    <strong>Address : </strong>
+                                                    {{ $review->businessAddressWithoutForwAddress->house_number ?? '' }},
+                                                    {{ $review->businessAddressWithoutForwAddress->street ?? '' }},
+                                                    {{ $review->businessAddressWithoutForwAddress->locality ?? '' }},
+                                                    {{ $review->businessAddressWithoutForwAddress->town ?? '' }},
+                                                    {{ $review->businessAddressWithoutForwAddress->post_code ?? '' }}
+                                                </li>
+                                            </ul>
                                         @endif
                                     @endif
 
@@ -172,89 +175,105 @@
                                 <div class="review-panel">
                                     <h3>Appointments</h3>
                                     @foreach ($appointmentsList as $val)
-
-
-                                    <ul>
-                                        <li><strong>Name : </strong><span style="text-transform:uppercase;">@php
-                                            $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
-                                            $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
-                                            echo $fullName;
-                                        @endphp</span> </li>
-                                        @php
-                                            $positionString = $val['position'];
-                                            $positionArray = explode(', ', $val['position']);
-                                        @endphp
-                                        <li><strong>Roles : </strong>{{ in_array('Director', $positionArray) ? 'Director,' : '' }} {{ in_array('Shareholder', $positionArray) ? 'Shareholder,' : '' }} {{ in_array('Secretary', $positionArray) ? 'Secretary,' : '' }} {{ in_array('Guarantor', $positionArray) ? 'Guarantor,' : '' }} {{ in_array('PSC', $positionArray) ? 'PSC' : '' }}</li>
-                                        <li><strong>Holdings : </strong>@if($val['sh_quantity']) {{$val['sh_quantity']}} x ORDINARY at {{$val['sh_pps']}} {{$val['sh_currency']}} @endif @if($val['amount_guarantee']&&$review->companie_type=="Limited By Guarantee") {{$val['amount_guarantee']. ' GBP'}}@endif</li>
-                                        <li><strong>DOB : </strong>@php
-                                            $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
-                                            $dob = $officerDetails['dob_day'];
-                                            echo $dob;
-                                        @endphp</li>
-                                        <li><strong>Occupation : </strong>@php
-                                            $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
-                                            $occupation = $officerDetails['occupation'];
-                                            echo $occupation;
-                                        @endphp</li>
-                                        <li><strong>Nationality : </strong>
-                                        @php
-                                            $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
-                                            $nationality = $officerDetails['nationality'];
-                                            $nationality_name = \App\Models\Nationality::where('id',$nationality)->pluck('nationality')->first();
-                                                            echo $nationality_name;
-                                        @endphp</li>
-                                        <li><strong>Residential Address : </strong> @php
-                                            $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
-                                            $add_id = $officerDetails['add_id'];
-                                            $address = \App\Models\Address::where('id',$add_id)->first();
-
-                                        @endphp
-                                        {{$address->house_number ?? ''}},
-                                        {{$address->street ?? ''}},
-                                        {{$address->locality ?? ''}},
-                                        {{$address->town ?? ''}},
-                                        {{$address->country ?? ''}},
-                                        {{$address->post_code ?? ''}}
-                                        </li>
-                                        <li><strong>Service Address : </strong>
-                                            @if (isset($val['own_address_id']))
+                                        <ul>
+                                            <li><strong>Name : </strong><span
+                                                    style="text-transform:uppercase;">@php
+                                                        $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
+                                                        $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
+                                                        if ($officerDetails['first_name']!='' && $officerDetails['last_name']!='') {
+                                                                echo $fullName;
+                                                            }else{
+                                                                echo $officerDetails['legal_name'];
+                                                            }
+                                                    @endphp</span> </li>
+                                            @php
+                                                $positionString = $val['position'];
+                                                $positionArray = explode(', ', $val['position']);
+                                            @endphp
+                                            <li><strong>Roles :
+                                                </strong>
+                                                {{ in_array('Member', $positionArray) ? 'Member,' : '' }}
+                                                {{ in_array('Designated Member', $positionArray) ? 'Designated Member,' : '' }}
+                                                {{ in_array('Director', $positionArray) ? 'Director,' : '' }}
+                                                {{ in_array('Shareholder', $positionArray) ? 'Shareholder,' : '' }}
+                                                {{ in_array('Secretary', $positionArray) ? 'Secretary,' : '' }}
+                                                {{ in_array('Guarantor', $positionArray) ? 'Guarantor,' : '' }}
+                                                {{ in_array('PSC', $positionArray) ? 'PSC' : '' }}</li>
+                                            <li><strong>Holdings : </strong>
+                                                @if ($val['sh_quantity'])
+                                                    {{ $val['sh_quantity'] }} x ORDINARY at {{ $val['sh_pps'] }}
+                                                    {{ $val['sh_currency'] }}
+                                                    @endif @if ($val['amount_guarantee'] && $review->companie_type == 'Limited By Guarantee')
+                                                        {{ $val['amount_guarantee'] . ' GBP' }}
+                                                    @endif
+                                            </li>
+                                            <li><strong>DOB : </strong>@php
+                                                $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
+                                                $dob = $officerDetails['dob_day'];
+                                                echo $dob;
+                                            @endphp</li>
+                                            <li><strong>Occupation : </strong>@php
+                                                $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
+                                                $occupation = $officerDetails['occupation'];
+                                                echo $occupation;
+                                            @endphp</li>
+                                            <li><strong>Nationality : </strong>
                                                 @php
-                                                    $service_add = \App\Models\Address::where('id',$val['own_address_id'])->first();
-                                                    // dd($service_add);
+                                                    $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
+                                                    $nationality = $officerDetails['nationality'];
+                                                    $nationality_name = \App\Models\Nationality::where('id', $nationality)
+                                                        ->pluck('nationality')
+                                                        ->first();
+                                                    echo $nationality_name;
+                                                @endphp</li>
+                                            <li><strong>Residential Address : </strong> @php
+                                                $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
+                                                $add_id = $officerDetails['add_id'];
+                                                $address = \App\Models\Address::where('id', $add_id)->first();
 
-                                                @endphp
-                                                 {{$service_add->house_number ?? ''}},
-                                                 {{$service_add->street ?? ''}},
-                                                 {{$service_add->locality ?? ''}},
-                                                 {{$service_add->town ?? ''}},
-                                                 {{$service_add->country ?? ''}},
-                                                 {{$service_add->post_code ?? ''}}
+                                            @endphp
+                                                {{ $address->house_number ?? '' }},
+                                                {{ $address->street ?? '' }},
+                                                {{ $address->locality ?? '' }},
+                                                {{ $address->town ?? '' }},
+                                                {{ $address->country ?? '' }},
+                                                {{ $address->post_code ?? '' }}
+                                            </li>
+                                            <li><strong>Service Address : </strong>
+                                                @if (isset($val['own_address_id']))
+                                                    @php
+                                                        $service_add = \App\Models\Address::where('id', $val['own_address_id'])->first();
+                                                        // dd($service_add);
+                                                    @endphp
+                                                    {{ $service_add->house_number ?? '' }},
+                                                    {{ $service_add->street ?? '' }},
+                                                    {{ $service_add->locality ?? '' }},
+                                                    {{ $service_add->town ?? '' }},
+                                                    {{ $service_add->country ?? '' }},
+                                                    {{ $service_add->post_code ?? '' }}
+                                                @else
+                                                    @php
+                                                        $service_add = \App\Models\Address::where('id', $val['forwarding_address_id'])->first();
+                                                        // dd($service_add);
+                                                    @endphp
+                                                    {{ $service_add->house_number ?? '' }},
+                                                    {{ $service_add->street ?? '' }},
+                                                    {{ $service_add->locality ?? '' }},
+                                                    {{ $service_add->town ?? '' }},
+                                                    {{ $service_add->country ?? '' }},
+                                                    {{ $service_add->post_code ?? '' }}
+                                                @endif
 
-                                            @else
-                                                @php
-                                                    $service_add = \App\Models\Address::where('id',$val['forwarding_address_id'])->first();
-                                                    // dd($service_add);
-
-                                                 @endphp
-                                                {{$service_add->house_number ?? ''}},
-                                                {{$service_add->street ?? ''}},
-                                                {{$service_add->locality ?? ''}},
-                                                {{$service_add->town ?? ''}},
-                                                {{$service_add->country ?? ''}},
-                                                {{$service_add->post_code ?? ''}}
+                                            </li>
+                                            @if (in_array('PSC', $positionArray))
+                                                <li><strong>Nature Of Control : </strong> {{ $val['noc_vr'] }} </li>
                                             @endif
 
-                                        </li>
-                                        @if (in_array('PSC', $positionArray))
-
-                                            <li><strong>Nature Of Control : </strong> {{$val['noc_vr']}} </li>
-                                        @endif
-
-                                    </ul>
+                                        </ul>
                                     @endforeach
 
 
-                                    <a href="{{  route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}"
+                                    <a href="{{ route('appointments', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'appointments']) }}"
                                         class="btn">Edit</a>
                                 </div>
                                 <div class="review-panel">
@@ -263,17 +282,20 @@
                                         {{-- Generic Limited by Shares Articles --}}
                                         <li>
                                             <strong>Memorandum and Articles : </strong>
-                                            @if ($review->legal_document == 'generic_article' && $review->companie_type=="Limited By Shares")
-                                                {{'Generic Limited by Share Articles'}}
+                                            @if ($review->legal_document == 'generic_article' && $review->companie_type == 'Limited By Shares')
+                                                {{ 'Generic Limited by Share Articles' }}
+                                            @endif
+                                            @if ($review->legal_document == 'generic_article' && $review->companie_type == 'Limited Liability Partnership')
+                                                {{ 'Generic Limited by LLP Articles' }}
                                             @endif
                                             @if ($review->legal_document == 'byspoke_article')
-                                                {{"Byspoke article of association"}}
+                                                {{ 'Byspoke article of association' }}
                                             @endif
-                                            @if ($review->companie_type=="Limited By Guarantee" && $review->legal_document == 'generic_article')
-                                                {{'Limited by Guarantee Articles'}}
+                                            @if ($review->companie_type == 'Limited By Guarantee' && $review->legal_document == 'generic_article')
+                                                {{ 'Limited by Guarantee Articles' }}
                                             @endif
-                                            @if ($review->companie_type=="Public Limited Company" && $review->legal_document == 'generic_article')
-                                                {{'Generic PLC Articles'}}
+                                            @if ($review->companie_type == 'Public Limited Company' && $review->legal_document == 'generic_article')
+                                                {{ 'Generic PLC Articles' }}
                                             @endif
 
                                         </li>
@@ -305,7 +327,8 @@
                                         src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}" alt="">
                                     Previous : Optional Extras</a>
                                 {{-- <a href="{{ route('delivery-partner.index', ['order' => $_GET['order'] ?? '', 'section' => 'Deliver_Part', 'step' => 'download']) }}"><button class="btn">Save & Continue</button></a> --}}
-                                <a href="#" onclick="saveNext({{$_GET['order']}},event)"><button class="btn">Save & Continue</button></a>
+                                <a href="#" onclick="saveNext({{ $_GET['order'] }},event)"><button
+                                        class="btn">Save & Continue</button></a>
 
                             </div>
                         </div>
@@ -318,37 +341,40 @@
     </section>
 @endsection
 
-    @section('script')
+@section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script>
-        function saveNext(order,e){
+        function saveNext(order, e) {
             e.preventDefault();
 
-            $order_id = {{$_GET['order']}};
+            $order_id = {{ $_GET['order'] }};
 
-                console.log('Under Save Success',$order_id);
+            console.log('Under Save Success', $order_id);
 
-                $.ajax({
+            $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url : "{{ url('review-step') }}",
-                data : {
+                url: "{{ url('review-step') }}",
+                data: {
                     'order_id': $order_id
                 },
-                type : 'POST',
-                dataType : 'json',
-                success : function(result){
+                type: 'POST',
+                dataType: 'json',
+                success: function(result) {
 
-                    window.location.href = "{!! route('delivery-partner.index', ['order' => $_GET['order'] ?? '', 'section' => 'Deliver_Partner', 'step' => 'deliver_partner']) !!}"
+                    window.location.href = "{!! route('delivery-partner.index', [
+                        'order' => $_GET['order'] ?? '',
+                        'section' => 'Deliver_Partner',
+                        'step' => 'deliver_partner',
+                    ]) !!}"
 
 
-                          }
-                 });
+                }
+            });
         }
     </script>
-
 @endsection

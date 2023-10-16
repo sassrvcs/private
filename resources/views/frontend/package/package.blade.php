@@ -58,7 +58,13 @@
                         @endif
                     </li>
                     <li data-aos="fade-up" data-aos-delay="200" data-aos-duration="500" data-aos-once="true">
+                        @if ($choose_pkg_step)
+
+                        <a href="{{route('llp_package',['step'=>'choose-package'])}}">LLP</a>
+                        @else
                         <a href="{{route('llp_package')}}">LLP</a>
+
+                        @endif
                     </li>
                     <li data-aos="fade-up" data-aos-delay="250" data-aos-duration="500" data-aos-once="true">
                         @if ($choose_pkg_step)

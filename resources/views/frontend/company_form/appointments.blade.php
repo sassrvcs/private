@@ -25,6 +25,19 @@
             position: absolute;
         }
 
+        .member_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+        .designated_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
         .secretary_i_tooltip {
             display: none;
             background-color: white;
@@ -387,6 +400,7 @@
                                 </div>
                                 @php
                                     $guarantorCheck = 0;
+                                    $anyGuarantorThere=0;
                                 @endphp
                                 @if (!empty($appointmentsList))
                                     <div class="shareholdings-table-wrap" id="appointment_officer_listing">
@@ -396,6 +410,13 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
+                                                        @if ($company_type=='Limited Liability Partnership')
+                                                            <th>Name</th>
+                                                            <th>Member</th>
+                                                            <th>Designated Member</th>
+                                                            <th>PSC</th>
+                                                            <th></th>
+                                                        @else
                                                         <th>Name</th>
                                                         <th>Director</th>
                                                         <th>{{$company_type=='Limited By Shares' || $company_type=='Public Limited Company'?'Shareholder':''}}
@@ -403,61 +424,112 @@
                                                         <th>Secretary</th>
                                                         <th>PSC</th>
                                                         <th></th>
+                                                        @endif
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($appointmentsList as $val)
-                                                        <tr>
-                                                            <td>@php
-                                                                $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
-                                                                $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
-                                                                if ($officerDetails['first_name']!='' && $officerDetails['last_name']!='') {
-                                                                    echo $fullName;
-                                                                }else{
-                                                                    echo $officerDetails['legal_name'];
-                                                                }
-                                                            @endphp</td>
+                                                    @php
+                                                        $positionString = $val['position'];
+                                                        $positionArray = explode(', ', $val['position']);
+                                                     @endphp
+                                                    @if ($company_type=="Limited Liability Partnership")
+
+                                                    <tr>
+                                                        <td>
                                                             @php
-                                                                $positionString = $val['position'];
-                                                                $positionArray = explode(', ', $val['position']);
-                                                            @endphp
-                                                            <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
-                                                                    class="{{ in_array('Director', $positionArray) ? '' : 'd-none' }}"
-                                                                    alt=""><img src="{{ asset('frontend/assets/images/cross.svg') }}"
-                                                                    class="{{ in_array('Director', $positionArray) ? 'd-none' : '' }}"
-                                                                    alt=""></td>
-                                                            <td class ="{{$company_type=='Limited By Shares'||$company_type=='Public Limited Company'?"d-none":''}}"><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
-                                                                    class="{{ in_array('Guarantor', $positionArray) ? '' : 'd-none' }}"
-                                                                    alt="">
-                                                                    <img src="{{ asset('frontend/assets/images/cross.svg') }}"
-                                                                    class="{{ in_array('Guarantor', $positionArray) ? 'd-none' : '' }}"
-                                                                    alt=""></td>
-                                                            <td class="{{$company_type=='Limited By Guarantee'?"d-none":''}}"><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
-                                                                class="{{ in_array('Shareholder', $positionArray) ? '' : 'd-none' }}"
+                                                            $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
+                                                            $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
+                                                            if ($officerDetails['first_name']!='' && $officerDetails['last_name']!='') {
+                                                                echo $fullName;
+                                                            }else{
+                                                                echo $officerDetails['legal_name'];
+                                                            }
+                                                        @endphp
+                                                        </td>
+                                                        <td>
+                                                            <img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                            class="{{ in_array('Member', $positionArray) ? '' : 'd-none' }}"
+                                                            alt=""><img src="{{ asset('frontend/assets/images/cross.svg') }}"
+                                                            class="{{ in_array('Member', $positionArray) ? 'd-none' : '' }}"
+                                                            alt="">
+                                                        </td>
+                                                        <td>
+                                                            <img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                                class="{{ in_array('Designated Member', $positionArray) ? '' : 'd-none' }}"
+                                                                alt=""><img src="{{ asset('frontend/assets/images/cross.svg') }}"
+                                                                class="{{ in_array('Designated Member', $positionArray) ? 'd-none' : '' }}"
+                                                                alt="">
+                                                        </td>
+                                                        <td>
+                                                            <img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                                class="{{ in_array('PSC', $positionArray) ? '' : 'd-none' }}"
+                                                                alt=""><img src="{{ asset('frontend/assets/images/cross.svg') }}"
+                                                                class="{{ in_array('PSC', $positionArray) ? 'd-none' : '' }}"
+                                                                alt="">
+                                                        </td>
+                                                        <td>
+                                                            <div class="tb-btn-wrap d-flex justify-content-end">
+                                                                <button class="remove-btn"
+                                                                    onclick="removeOfficerList('{{ isset($val['id']) ? $val['id'] : '' }}')">Remove</button>
+                                                                <a class="edit-btn" href="{{route('person_appointment_edit').'?id='.$val['id'].'&order='.$_GET['order'].'&section=Company_formaction&step=appointments&mode=edit_person_appointment'}}">Edit</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    @else
+                                                    <tr>
+                                                        <td>
+                                                            @php
+                                                            $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id']:'');
+                                                            $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
+                                                            if ($officerDetails['first_name']!='' && $officerDetails['last_name']!='') {
+                                                                echo $fullName;
+                                                            }else{
+                                                                echo $officerDetails['legal_name'];
+                                                            }
+                                                        @endphp
+                                                        </td>
+                                                        <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                                class="{{ in_array('Director', $positionArray) ? '' : 'd-none' }}"
+                                                                alt=""><img src="{{ asset('frontend/assets/images/cross.svg') }}"
+                                                                class="{{ in_array('Director', $positionArray) ? 'd-none' : '' }}"
+                                                                alt=""></td>
+                                                        <td class ="{{$company_type=='Limited By Shares'||$company_type=='Public Limited Company'?"d-none":''}}"><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                                class="{{ in_array('Guarantor', $positionArray) ? '' : 'd-none' }}"
                                                                 alt="">
                                                                 <img src="{{ asset('frontend/assets/images/cross.svg') }}"
-                                                                class="{{ in_array('Shareholder', $positionArray) ? 'd-none' : '' }}"
+                                                                class="{{ in_array('Guarantor', $positionArray) ? 'd-none' : '' }}"
                                                                 alt=""></td>
-                                                            <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
-                                                                    class="{{ in_array('Secretary', $positionArray) ? '' : 'd-none' }}"
-                                                                    alt="">
-                                                                    <img src="{{ asset('frontend/assets/images/cross.svg') }}"
-                                                                    class="{{ in_array('Secretary', $positionArray) ? 'd-none' : '' }}"
-                                                                    alt=""></td>
-                                                            <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
-                                                                    class="{{ in_array('PSC', $positionArray) ? '' : 'd-none' }}"
-                                                                    alt="">
-                                                                    <img src="{{ asset('frontend/assets/images/cross.svg') }}"
-                                                                    class="{{ in_array('PSC', $positionArray) ? 'd-none' : '' }}"
-                                                                    alt=""></td>
-                                                            <td>
-                                                                <div class="tb-btn-wrap d-flex justify-content-end">
-                                                                    <button class="remove-btn"
-                                                                        onclick="removeOfficerList('{{ isset($val['id']) ? $val['id'] : '' }}')">Remove</button>
-                                                                    <a class="edit-btn" href="{{route('person_appointment_edit').'?id='.$val['id'].'&order='.$_GET['order'].'&section=Company_formaction&step=appointments&mode=edit_person_appointment'}}">Edit</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                        <td class="{{$company_type=='Limited By Guarantee'?"d-none":''}}"><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                            class="{{ in_array('Shareholder', $positionArray) ? '' : 'd-none' }}"
+                                                            alt="">
+                                                            <img src="{{ asset('frontend/assets/images/cross.svg') }}"
+                                                            class="{{ in_array('Shareholder', $positionArray) ? 'd-none' : '' }}"
+                                                            alt=""></td>
+                                                        <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                                class="{{ in_array('Secretary', $positionArray) ? '' : 'd-none' }}"
+                                                                alt="">
+                                                                <img src="{{ asset('frontend/assets/images/cross.svg') }}"
+                                                                class="{{ in_array('Secretary', $positionArray) ? 'd-none' : '' }}"
+                                                                alt=""></td>
+                                                        <td><img src="{{ asset('frontend/assets/images/table-checkmark-icon.svg') }}"
+                                                                class="{{ in_array('PSC', $positionArray) ? '' : 'd-none' }}"
+                                                                alt="">
+                                                                <img src="{{ asset('frontend/assets/images/cross.svg') }}"
+                                                                class="{{ in_array('PSC', $positionArray) ? 'd-none' : '' }}"
+                                                                alt=""></td>
+                                                        <td>
+                                                            <div class="tb-btn-wrap d-flex justify-content-end">
+                                                                <button class="remove-btn"
+                                                                    onclick="removeOfficerList('{{ isset($val['id']) ? $val['id'] : '' }}')">Remove</button>
+                                                                <a class="edit-btn" href="{{route('person_appointment_edit').'?id='.$val['id'].'&order='.$_GET['order'].'&section=Company_formaction&step=appointments&mode=edit_person_appointment'}}">Edit</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    @endif
+
                                                     @endforeach
 
                                                 </tbody>
@@ -472,7 +544,7 @@
                                         $listed_idArry = [];
                                         $pscCheck = 0;
                                         $directorCheck = 0;
-
+                                        $designatedMemberCheck = 0;
                                         $guarantorId = []
                                     @endphp
                                     @foreach ($appointmentsList as $val)
@@ -489,9 +561,15 @@
                                             if (in_array('Director', $positionArray)) {
                                                 $directorCheck++;
                                             }
+                                            if (in_array('Designated Member', $positionArray)) {
+                                                $designatedMemberCheck++;
+                                            }
                                            if ($company_type=='Limited By Guarantee') {
                                                $guarantorCheck++;
                                                array_push($guarantorId, ['p_id'=>$val['person_officer_id'],'amount_guarantee'=>$val['amount_guarantee']]);
+                                               if (in_array('Guarantor', $positionArray)) {
+                                                $anyGuarantorThere++;
+                                            }
                                            }
 
 
@@ -1162,6 +1240,8 @@
                                         readonly>
                                     <input type="hidden" id="director_check" value="{{ isset($directorCheck) ? $directorCheck : 0 }}"
                                         readonly>
+                                    <input type="hidden" id="designated_member_check" value="{{ isset($designatedMemberCheck) ? $designatedMemberCheck : 0 }}"
+                                    readonly>
                                     <button class="btn prev-btn" onclick="gotToBusinessAddressPage()"><img
                                             src="{{ asset('frontend/assets/images/btn-left-arrow.png') }}"
                                             alt=""> Previous: Business Address</button>
@@ -1304,7 +1384,7 @@
                                                         porta enim ut interdum.</p>
                                                     <div class="choose-possition-option">
                                                         <ul>
-                                                            <li>
+                                                            <li class={{$company_type=="Limited Liability Partnership"?'d-none':''}}>
                                                                 <input type="checkbox" class="checkBoxPos" id="director"
                                                                     value="Director" onclick="consentSection()"
                                                                     value="">
@@ -1317,7 +1397,7 @@
                                                                     day-to-day management of the business.</span>
                                                             </li>
 
-                                                            <li class="{{ $company_type == 'Limited By Shares' || $company_type == 'Public Limited Company' ? '' : 'd-none'}}">
+                                                            <li class="{{ $company_type == 'Limited By Shares' || $company_type == 'Public Limited Company' ? '' : 'd-none'}} {{$company_type=="Limited Liability Partnership"?'d-none':''}}">
 
                                                                 <input type="checkbox" class="checkBoxPos"
                                                                     value="Shareholder" id="shareholder"
@@ -1343,7 +1423,32 @@
                                                                     id="guarantor_i"></span></label>
                                                                     <span class="guarantor_i_tooltip">If this officer is to guarantee an amount in this company, please check this box. You will be asked about the amount guaranteed later.</span>
                                                             </li>
-                                                            <li>
+                                                            <li class="{{$company_type == 'Limited Liability Partnership' ? '' : 'd-none'}}">
+
+                                                                <input type="checkbox" class="checkBoxPos"
+                                                                value="Member" id="member_checkbox" onclick="llpConsent()">
+                                                                <label for="member">Member <span><img
+                                                                src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                alt=""
+                                                                id="member_i"></span></label>
+                                                                <span class="member_i_tooltip">Is this officer to be a member of this LLP?  .</span>
+                                                        </li>
+                                                            <li class="{{$company_type == 'Limited Liability Partnership' ? '' : 'd-none'}}">
+
+                                                                <input type="checkbox" class="checkBoxPos"
+                                                                value="Designated Member"  id="designated_checkbox" onclick="designatedTab(),llpConsent()" @if (isset($_COOKIE['llp_designated_check'.$_GET['order']]) && $_COOKIE['llp_designated_check'.$_GET['order']] == 'true')
+                                                                checked  @endif>
+                                                                <label for="designated">Designated <span><img
+                                                                src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                alt=""
+                                                                id="designated_i"></span></label>
+                                                                <span class="designated_i_tooltip">An LLP must have a minimum of two Designated Members. If this officer is to be a Designated Member, please check this box.
+
+                                                                    A Designated Member has all the responsibilities as a non-Designated Member, along with the following additional responsibilities:
+
+                                                                    If an auditor is required, they will be appointed by the designated member. Notifying the required parties of any changes to the membership, name or address of the partnership. Signing and delivering accounts on behalf of the partnership.</span>
+                                                        </li>
+                                                            <li class="{{$company_type=="Limited Liability Partnership"?'d-none':''}}">
                                                                 <input type="checkbox" class="checkBoxPos" id="secretary"
                                                                     value="Secretary" onclick="consentSection()">
                                                                 <label for="secretary">Secretary <span><img
@@ -1379,7 +1484,12 @@
                                                             </li>
 
                                                             <br class="brCls d-none">
+                                                            <li class="pt-2 member_consent_checkbox_li d-none">
 
+                                                                <input type="checkbox" class=""
+                                                                value="1" id="member_consent_checkbox">
+                                                                <label for="member_consent_checkbox">The LLP confirms that the named officer has consented to act as a member of the LLP. </label>
+                                                            </li>
                                                             <li class="occLinkCls d-none">
                                                                 <input type="checkbox" id="occ">
                                                                 <label for="occ" id="consentText_id">
@@ -2104,6 +2214,14 @@
 
                                                     <h4>Natural of Control</h4>
                                                 </div>
+                                                @php
+                                                    $share_text = "Ownership of shares";
+                                                    $appoint_or_remove_text = "Appoint or remove the majority of the board of directors";
+                                                    if ($company_type=='Limited Liability Partnership') {
+                                                        $share_text = "Right to share surplus assets";
+                                                        $appoint_or_remove_text = "Appoint and remove members";
+                                                    }
+                                                @endphp
                                                 <div class="natural-of-control-block mb-4">
                                                     <h5>Does this officer have a controlling interest in this company?
                                                     </h5>
@@ -2115,8 +2233,9 @@
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                                 alt="" id="own_i"></span>
-                                                                        <span class="text">Ownership of
-                                                                            shares</span></label>
+                                                                        <span class="text">
+                                                                           {{$share_text}}
+                                                                        </span></label>
                                                                     <select class="form-control" id="F_ownership"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="">N/A</option>
@@ -2176,9 +2295,9 @@
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                                 alt="" id="appo_i"></span>
-                                                                        <span class="text">Appoint or remove the
-                                                                            majority
-                                                                            of the board of directors</span></label>
+                                                                        <span class="text">
+                                                                            {{$appoint_or_remove_text}}
+                                                                        </span></label>
                                                                     <select class="form-control" id="F_appoint"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="No">No</option>
@@ -2250,7 +2369,7 @@
                                                         </li>
                                                     </ul>
                                                     <div class="mt-4 mb-4 d-none" id="firmDD">
-                                                        <h5>What influence or control does this officer have over this
+                                                        <h5 class="mb-2">What influence or control does this officer have over this
                                                             company in their capacity within the Firm(s) ?
                                                         </h5>
                                                         <div class="authe-qu-block">
@@ -2258,8 +2377,9 @@
                                                                 <div class="col-md-6 col-sm-12">
                                                                     <div class="qu-block block ">
                                                                         <label for="" class="d-flex">
-                                                                            <span class="text">Ownership of
-                                                                                shares</span>
+                                                                            <span class="text">
+                                                                                {{$share_text}}
+                                                                            </span>
                                                                         </label>
 
                                                                         <select class="form-control" id="s_ownership"
@@ -2320,9 +2440,9 @@
                                                                 <div class="col-md-6 col-sm-12">
                                                                     <div class="qu-block block">
                                                                         <label for="" class="d-flex">
-                                                                            <span class="text">Appoint or remove the
-                                                                                majority
-                                                                                of the board of directors</span>
+                                                                            <span class="text">
+                                                                                {{$appoint_or_remove_text}}
+                                                                            </span>
                                                                         </label>
 
                                                                         <select class="form-control" id="s_appoint"
@@ -2355,7 +2475,7 @@
                                                                             <span class="text">Other Significant
                                                                                 influences or control</span></label>
                                                                         <select class="form-control"
-                                                                            value="s_other_sig_select_id">
+                                                                            id="s_other_sig_select_id">
                                                                             <option value="No">No</option>
                                                                             <option value="Yes">Yes</option>
                                                                         </select>
@@ -2399,7 +2519,7 @@
                                                     </li>
                                                 </ul>
                                                 <div class="mt-4 mb-4 d-none" id="trustDD">
-                                                    <h5>What control or influence does this officer have over this
+                                                    <h5 class="mb-2">What control or influence does this officer have over this
                                                         company in their capacity within the Trust(s) ?
                                                     </h5>
                                                     <div class="authe-qu-block">
@@ -2407,8 +2527,9 @@
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="qu-block block ">
                                                                     <label for="" class="d-flex">
-                                                                        <span class="text">Ownership of
-                                                                            shares</span>
+                                                                        <span class="text">
+                                                                          {{$share_text}}
+                                                                        </span>
                                                                     </label>
 
                                                                     <select class="form-control" id="t_ownership"
@@ -2468,8 +2589,9 @@
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="qu-block block">
                                                                     <label for="" class="d-flex">
-                                                                        <span class="text">Appoint or remove the
-                                                                            majority of the board of directors</span>
+                                                                        <span class="text">
+                                                                           {{$appoint_or_remove_text}}
+                                                                        </span>
                                                                     </label>
 
                                                                     <select class="form-control" id="t_appoint"
@@ -2830,8 +2952,8 @@
         <input type="hidden" id="actionType" value="" readonly>
 
         {{-- Nature of Control radio btn val --}}
-        <input type="hidden" id="f_radio_check_id" value="" readonly>
-        <input type="hidden" id="s_radio_check_id" value="" readonly>
+        <input type="text" id="f_radio_check_id" value="" readonly>
+        <input type="text" id="s_radio_check_id" value="" readonly>
         <input type="hidden" id="appointment_type" value="person" hidden readonly>
 
 
@@ -2851,11 +2973,28 @@
 
 @section('script')
     <script>
+        $(document).ready(function()
+        {
+            if($("#designated_checkbox").is(':checked'))
+            {
+                designatedTab();
+            }
+        })
         // Scroll to the top of the page
         function scrollToTop() {
-            window.scrollTo(0, 0);
+            window.scrollTo(0, 600);
         }
 
+        function llpConsent() {
+            if($("#designated_checkbox").is(':checked')==true||$("#member_checkbox").is(':checked')==true) {
+                $(".member_consent_checkbox_li").removeClass('d-none')
+            }
+            if($("#designated_checkbox").is(':checked')==false&&$("#member_checkbox").is(':checked')==false) {
+                $(".member_consent_checkbox_li").addClass('d-none')
+                $("#member_consent_checkbox").prop('checked', false)
+            }
+        }
+    llpConsent()
         // DOB Future not select date
         function dob_onclick(ths) {
             const today = new Date().toISOString().split('T')[0];
@@ -2877,15 +3016,16 @@
                 }
 
 
-                if ({{$guarantorCheck}} == 0 && company_type=='Limited By Guarantee') {
+                if ({{$anyGuarantorThere}} == 0 && company_type=='Limited By Guarantee') {
                     $("#positionValidation").removeClass('d-none')
                     $("#positionValidation").html('You have to select ateast one Guarantor!')
                     return false
                 }
 
 
-            // Appointment to Document section Movement ends
 
+            // Appointment to Document section Movement ends
+            if(company_type!="Limited Liability Partnership"){
             if ($("#psc_check").val() == 0) {
                 $("#positionValidation").removeClass('d-none')
                 $("#positionValidation").html('You have to select a PSC!')
@@ -2906,6 +3046,14 @@
                 return false
                 }
             }
+        }else{
+            console.log($("#designated_member_check").val());
+            if ($("#designated_member_check").val()<2) {
+                $("#positionValidation").removeClass('d-none')
+                $("#positionValidation").html('You must have to select at least two Designated members!')
+                return false
+            }
+        }
 
 
             if(company_type=='Limited By Shares' || company_type=='Public Limited Company')
@@ -2996,7 +3144,7 @@
             }
                 // Shareholder edit section ends
             }
-            if(company_type=='Limited By Guarantee'){
+            if(company_type=='Limited By Guarantee' || company_type=='Limited Liability Partnership'){
                 console.log('hit')
                 window.location.href ="{{ route('companyname.document', ['order' => $_GET['order'] ?? '', 'section' => 'Company_formaction', 'step' => 'documents']) }}"
             }
@@ -3557,6 +3705,15 @@
         guarantor_i.addEventListener("mouseout", guarantorhideTooltip);
 
 
+        const member_i = document.getElementById("member_i");
+        member_i.addEventListener("mouseover", membershowTooltip);
+        member_i.addEventListener("mouseout", memberhideTooltip);
+
+        const designated_i = document.getElementById("designated_i");
+        designated_i.addEventListener("mouseover", designatedshowTooltip);
+        designated_i.addEventListener("mouseout", designatedhideTooltip);
+
+
         function ShareshowTooltip() {
             const tooltip = document.querySelector(".shareholder_i_tooltip");
             tooltip.style.display = "block";
@@ -3565,6 +3722,22 @@
 
         function SharehideTooltip() {
             const tooltip = document.querySelector(".shareholder_i_tooltip");
+            tooltip.style.display = "none";
+        }
+        function membershowTooltip() {
+            const tooltip = document.querySelector(".member_i_tooltip");
+            tooltip.style.display = "block";
+        }
+        function memberhideTooltip() {
+            const tooltip = document.querySelector(".member_i_tooltip");
+            tooltip.style.display = "none";
+        }
+        function designatedshowTooltip() {
+            const tooltip = document.querySelector(".designated_i_tooltip");
+            tooltip.style.display = "block";
+        }
+        function designatedhideTooltip() {
+            const tooltip = document.querySelector(".designated_i_tooltip");
             tooltip.style.display = "none";
         }
         function guarantorshowTooltip() {
@@ -4379,6 +4552,13 @@
                 $("#positionSelectionDiv").addClass('d-none')
             }
 
+            if(($("#member_checkbox").is(":checked")||$("#designated_checkbox").is(":checked"))&&($("#member_consent_checkbox").is(":checked")===false)){
+                $("#consentSelectionDiv").removeClass('d-none')
+                return false
+            }else{
+                $("#consentSelectionDiv").addClass('d-none')
+            }
+
             if ($('.occLinkCls').hasClass('d-none') === false && $('#occ').is(":checked") === false) {
                 $("#consentSelectionDiv").removeClass('d-none')
                 return false
@@ -4401,6 +4581,9 @@
                         }
                     }
                 })
+                if (posiArr.includes('Designated Member')&& !(posiArr.includes('Member'))) {
+                    posiArr.push('Member')
+                }
                 $("#positionSelected").val(posiArr.join(', '))
 
                 $('#currentTab').val('officer')
@@ -4433,6 +4616,15 @@
             $('#person_aqone_ans_id').toggleClass('blankCheck');
             $('#person_aqtwo_ans_id').toggleClass('blankCheck');
             $('#person_aqthree_ans_id').toggleClass('blankCheck');
+        }
+
+        function designatedTab()
+        {
+                $('#authenticationSection').toggleClass('d-none');
+
+                $('#person_aqone_ans_id').toggleClass('blankCheck');
+                $('#person_aqtwo_ans_id').toggleClass('blankCheck');
+                $('#person_aqthree_ans_id').toggleClass('blankCheck');
         }
 
         function guaranteeTab() {

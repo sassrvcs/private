@@ -2030,6 +2030,14 @@
 
                                                     <h4>Natural of Control</h4>
                                                 </div>
+                                                @php
+                                                $share_text = "Ownership of shares";
+                                                $appoint_or_remove_text = "Appoint or remove the majority of the board of directors";
+                                                if ($company_type=='Limited Liability Partnership') {
+                                                    $share_text = "Right to share surplus assets";
+                                                    $appoint_or_remove_text = "Appoint and remove members";
+                                                }
+                                                @endphp
                                                 <div class="natural-of-control-block mb-4">
                                                     <h5>Does this officer have a controlling interest in this company?
                                                     </h5>
@@ -2041,8 +2049,9 @@
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                                 alt="" id="own_i"></span>
-                                                                        <span class="text">Ownership of
-                                                                            shares</span></label>
+                                                                        <span class="text">
+                                                                           {{$share_text}}
+                                                                        </span></label>
                                                                     <select class="form-control" id="F_ownership"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="">N/A</option>
@@ -2102,9 +2111,9 @@
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                                 alt="" id="appo_i"></span>
-                                                                        <span class="text">Appoint or remove the
-                                                                            majority
-                                                                            of the board of directors</span></label>
+                                                                        <span class="text">
+                                                                           {{$appoint_or_remove_text}}
+                                                                        </span></label>
                                                                     <select class="form-control" id="F_appoint"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="No">No</option>
@@ -2184,8 +2193,9 @@
                                                                 <div class="col-md-6 col-sm-12">
                                                                     <div class="qu-block block">
                                                                         <label for="" class="d-flex">
-                                                                            <span class="text">Ownership of
-                                                                                shares</span>
+                                                                            <span class="text">
+                                                                                {{$share_text}}
+                                                                            </span>
                                                                         </label>
 
                                                                         <select class="form-control" id="s_ownership"
@@ -2246,9 +2256,9 @@
                                                                 <div class="col-md-6 col-sm-12">
                                                                     <div class="qu-block block">
                                                                         <label for="" class="d-flex">
-                                                                            <span class="text">Appoint or remove the
-                                                                                majority
-                                                                                of the board of directors</span>
+                                                                            <span class="text">
+                                                                                {{$appoint_or_remove_text}}
+                                                                            </span>
                                                                         </label>
 
                                                                         <select class="form-control" id="s_appoint"
@@ -2281,7 +2291,7 @@
                                                                             <span class="text">Other Significant
                                                                                 influences or control</span></label>
                                                                         <select class="form-control"
-                                                                            value="s_other_sig_select_id">
+                                                                            id="s_other_sig_select_id">
                                                                             <option value="No">No</option>
                                                                             <option value="Yes">Yes</option>
                                                                         </select>
@@ -2333,8 +2343,9 @@
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="qu-block block">
                                                                     <label for="" class="d-flex">
-                                                                        <span class="text">Ownership of
-                                                                            shares</span>
+                                                                        <span class="text">
+                                                                            {{$share_text}}
+                                                                        </span>
                                                                     </label>
 
                                                                     <select class="form-control" id="t_ownership"
@@ -2394,8 +2405,9 @@
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="qu-block block">
                                                                     <label for="" class="d-flex">
-                                                                        <span class="text">Appoint or remove the
-                                                                            majority of the board of directors</span>
+                                                                        <span class="text">
+                                                                            {{$appoint_or_remove_text}}
+                                                                        </span>
                                                                     </label>
 
                                                                     <select class="form-control" id="t_appoint"
@@ -2777,7 +2789,7 @@
     <script>
         // Scroll to the top of the page
         function scrollToTop() {
-            window.scrollTo(0, 0);
+            window.scrollTo(0, 600);
         }
 
         // DOB Future not select date
@@ -3953,7 +3965,7 @@
                 const person_aqthree_ans = $('#person_aqthree_ans_id').val();
 
                 const legal_name = $('#legal_name').val();
-                const uk_registered = $('input[name="uk_registered"]:checked').val();
+                const uk_registered = $('#uk_registered').val();
                 console.log(uk_registered)
                 const registration_number = $('#registration_number').val();
                 const place_registered = $('#place_registered').val();

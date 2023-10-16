@@ -171,6 +171,8 @@
                                                             style="padding:10px; border-right: 1px solid #000; border-bottom: 1px solid #000;width: 50%;">
                                                             Roles</td>
                                                         <td style="padding:10px; border-bottom: 1px solid #000;width: 50%;">
+                                                            {{ in_array('Member', $positionArray) ? 'Member,' : '' }}
+                                                            {{ in_array('Designated Member', $positionArray) ? 'Designated Member,' : '' }}
                                                             {{ in_array('Director', $positionArray) ? 'Director,' : '' }} {{ in_array('Guarantor', $positionArray) ? 'Guarantor,' : '' }} {{ in_array('Shareholder', $positionArray) ? 'Shareholder,' : '' }} {{ in_array('Secretary', $positionArray) ? 'Secretary,' : '' }} {{ in_array('PSC', $positionArray) ? 'PSC' : '' }}</td>
                                                     </tr>
                                                     <tr>
@@ -302,7 +304,21 @@
                                                     <td style="padding:10px; border-right: 1px solid #000;width: 50%;">
                                                         Memorandum and Articles:</td>
                                                     <td style="padding:10px;width: 50%;">
-                                                        {{ $review->legal_document == 'generic_article' ? 'Generic Limited by Share Articles' : 'Byspoke article of association' }}
+                                                        @if ($review->legal_document == 'generic_article' && $review->companie_type=="Limited By Shares")
+                                                            {{'Generic Limited by Share Articles'}}
+                                                        @endif
+                                                        @if ($review->legal_document == 'generic_article' && $review->companie_type=="Limited Liability Partnership")
+                                                        {{'Generic Limited by LLP Articles'}}
+                                                        @endif
+                                                        @if ($review->legal_document == 'byspoke_article')
+                                                            {{"Byspoke article of association"}}
+                                                        @endif
+                                                        @if ($review->companie_type=="Limited By Guarantee" && $review->legal_document == 'generic_article')
+                                                            {{'Limited by Guarantee Articles'}}
+                                                        @endif
+                                                        @if ($review->companie_type=="Public Limited Company" && $review->legal_document == 'generic_article')
+                                                            {{'Generic PLC Articles'}}
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             </table>

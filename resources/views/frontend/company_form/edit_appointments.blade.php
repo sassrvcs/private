@@ -23,7 +23,18 @@
             color: black;
             position: absolute;
         }
-
+        .member_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+        .designated_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
         .secretary_i_tooltip {
             display: none;
             background-color: white;
@@ -1140,7 +1151,7 @@
                                                         porta enim ut interdum.</p>
                                                     <div class="choose-possition-option">
                                                         <ul>
-                                                            <li>
+                                                            <li class={{$company_type=="Limited Liability Partnership"?'d-none':''}}>
                                                                 @php
                                                                 $positions = explode(',',$appointment_details['position']);
                                                                 $positions = array_map('trim', $positions);
@@ -1157,7 +1168,7 @@
                                                                     aged 16 years or over. A director is responsible for the
                                                                     day-to-day management of the business.</span>
                                                             </li>
-                                                            <li class="{{ $company_type == 'Limited By Shares' || $company_type == 'Public Limited Company' ? '' : 'd-none'}}">
+                                                            <li class="{{ $company_type == 'Limited By Shares' || $company_type == 'Public Limited Company' ? '' : 'd-none'}} {{$company_type=="Limited Liability Partnership"?'d-none':''}}">
                                                                 <input type="checkbox" @if (in_array("Shareholder", $positions))checked
                                                                 @endif class="checkBoxPos"
                                                                     value="Shareholder" id="shareholder"
@@ -1183,7 +1194,18 @@
                                                                 id="guarantor_i"></span></label>
                                                                 <span class="guarantor_i_tooltip">If this officer is to guarantee an amount in this company, please check this box. You will be asked about the amount guaranteed later.</span>
                                                             </li>
-                                                            <li>
+                                                            <li class="{{$company_type == 'Limited Liability Partnership' ? '' : 'd-none'}}">
+
+                                                                <input type="checkbox" class="checkBoxPos"
+                                                                value="Member" id="member_checkbox" onclick="llpConsent()" @if (in_array("Member", $positions))checked
+                                                                @endif>
+                                                                <label for="member">Member <span><img
+                                                                src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                alt=""
+                                                                id="member_i"></span></label>
+                                                                <span class="member_i_tooltip">Is this officer to be a member of this LLP?  .</span>
+                                                        </li>
+                                                            <li class="{{$company_type=="Limited Liability Partnership"?'d-none':''}}">
                                                                 <input type="checkbox" @if (in_array("Secretary", $positions))checked
                                                                 @endif class="checkBoxPos" id="secretary"
                                                                     value="Secretary"  onclick="consentSection()">
@@ -1200,6 +1222,20 @@
                                                                     accordance with and in compliance with the Companies
                                                                     Act, and keeps the statutory records up to date.</span>
                                                             </li>
+                                                            <li class="{{$company_type == 'Limited Liability Partnership' ? '' : 'd-none'}}">
+
+                                                                <input type="checkbox" class="checkBoxPos"
+                                                                value="Designated Member"  id="designated_checkbox" onclick="designatedTab(),llpConsent()" @if (in_array("Designated Member", $positions))checked @endif>
+                                                                <label for="designated">Designated <span><img
+                                                                src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                                alt=""
+                                                                id="designated_i"></span></label>
+                                                                <span class="designated_i_tooltip">An LLP must have a minimum of two Designated Members. If this officer is to be a Designated Member, please check this box.
+
+                                                                    A Designated Member has all the responsibilities as a non-Designated Member, along with the following additional responsibilities:
+
+                                                                    If an auditor is required, they will be appointed by the designated member. Notifying the required parties of any changes to the membership, name or address of the partnership. Signing and delivering accounts on behalf of the partnership.</span>
+                                                        </li>
                                                             <li>
                                                                 <input type="checkbox" @if (in_array("PSC", $positions))checked
                                                                 @endif class="checkBoxPos" id="psc"
@@ -1221,7 +1257,12 @@
                                                             </li>
 
                                                             <br class="brCls d-none">
+                                                            <li class="pt-2 member_consent_checkbox_li d-none">
 
+                                                                <input type="checkbox" class=""
+                                                                value="1" id="member_consent_checkbox">
+                                                                <label for="member_consent_checkbox">The LLP confirms that the named officer has consented to act as a member of the LLP. </label>
+                                                            </li>
                                                             <li class="occLinkCls d-none">
                                                                 <input type="checkbox" id="occ" @if ((in_array("Secretary", $positions))||(in_array("Director", $positions)))checked
                                                                 @endif>
@@ -1991,6 +2032,14 @@
 
                                                     <h4>Natural of Control</h4>
                                                 </div>
+                                                @php
+                                                    $share_text = "Ownership of shares";
+                                                    $appoint_or_remove_text = "Appoint or remove the majority of the board of directors";
+                                                    if ($company_type=='Limited Liability Partnership') {
+                                                        $share_text = "Right to share surplus assets";
+                                                        $appoint_or_remove_text = "Appoint and remove members";
+                                                    }
+                                                @endphp
                                                 <div class="natural-of-control-block mb-4">
                                                     <h5>Does this officer have a controlling interest in this company?
                                                     </h5>
@@ -2002,8 +2051,9 @@
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                                 alt="" id="own_i"></span>
-                                                                        <span class="text">Ownership of
-                                                                            shares</span></label>
+                                                                        <span class="text">
+                                                                            {{$share_text}}
+                                                                        </span></label>
                                                                     <select class="form-control" id="F_ownership"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="">N/A</option>
@@ -2064,9 +2114,9 @@
                                                                             class="icon"><img
                                                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                                 alt="" id="appo_i"></span>
-                                                                        <span class="text">Appoint or remove the
-                                                                            majority
-                                                                            of the board of directors</span></label>
+                                                                        <span class="text">
+                                                                            {{$appoint_or_remove_text}}
+                                                                        </span></label>
                                                                     <select class="form-control" id="F_appoint"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="No" {{stripos($appointment_details['noc_appoint'], 'No') !== false ? 'selected' : ''}}>No</option>
@@ -2174,8 +2224,9 @@
                                                                 <div class="col-md-6 col-sm-12">
                                                                     <div class="qu-block block ">
                                                                         <label for="" class="d-flex">
-                                                                            <span class="text">Ownership of
-                                                                                shares</span>
+                                                                            <span class="text">
+                                                                                {{$share_text}}
+                                                                            </span>
                                                                         </label>
                                                                             {{-- {{$appointment_details['fci_os']}} --}}
                                                                         <select class="form-control" id="s_ownership"
@@ -2235,9 +2286,9 @@
                                                                 <div class="col-md-6 col-sm-12">
                                                                     <div class="qu-block block">
                                                                         <label for="" class="d-flex">
-                                                                            <span class="text">Appoint or remove the
-                                                                                majority
-                                                                                of the board of directors</span>
+                                                                            <span class="text">
+                                                                                {{$appoint_or_remove_text}}
+                                                                            </span>
                                                                         </label>
 
                                                                         <select class="form-control" id="s_appoint"
@@ -2322,8 +2373,9 @@
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="qu-block block ">
                                                                     <label for="" class="d-flex">
-                                                                        <span class="text">Ownership of
-                                                                            shares</span>
+                                                                        <span class="text">
+                                                                            {{$share_text}}
+                                                                        </span>
                                                                     </label>
                                                                     {{-- {{{$appointment_details['tci_os']}}} --}}
                                                                     <select class="form-control" id="t_ownership"
@@ -2385,8 +2437,8 @@
                                                             <div class="col-md-6 col-sm-12">
                                                                 <div class="qu-block block">
                                                                     <label for="" class="d-flex">
-                                                                        <span class="text">Appoint or remove the
-                                                                            majority of the board of directors</span>
+                                                                        <span class="text">
+                                                                            {{$appoint_or_remove_text}}
                                                                     </label>
 
                                                                     <select class="form-control"
@@ -3141,10 +3193,28 @@
             {
                 consentSection()
             }
+            if($("#designated_checkbox").is(':checked'))
+            {
+                designatedTab();
+            }
+
         })
+        function llpConsent() {
+
+            if($("#designated_checkbox").is(':checked')==true||$("#member_checkbox").is(':checked')==true) {
+                $(".member_consent_checkbox_li").removeClass('d-none')
+                $("#member_consent_checkbox").prop('checked', true)
+
+            }
+            if($("#designated_checkbox").is(':checked')==false&&$("#member_checkbox").is(':checked')==false) {
+                $(".member_consent_checkbox_li").addClass('d-none')
+                $("#member_consent_checkbox").prop('checked', false)
+            }
+        }
+        llpConsent();
         // Scroll to the top of the page
         function scrollToTop() {
-            window.scrollTo(0, 0);
+            window.scrollTo(0, 600);
         }
 
         // DOB Future not select date
@@ -3807,6 +3877,14 @@
         guarantor_i.addEventListener("mouseover", guarantorshowTooltip);
         guarantor_i.addEventListener("mouseout", guarantorhideTooltip);
 
+        const member_i = document.getElementById("member_i");
+        member_i.addEventListener("mouseover", membershowTooltip);
+        member_i.addEventListener("mouseout", memberhideTooltip);
+
+        const designated_i = document.getElementById("designated_i");
+        designated_i.addEventListener("mouseover", designatedshowTooltip);
+        designated_i.addEventListener("mouseout", designatedhideTooltip);
+
         function guarantorshowTooltip() {
             const tooltip = document.querySelector(".guarantor_i_tooltip");
             tooltip.style.display = "block";
@@ -3821,6 +3899,22 @@
             tooltip.style.display = "none";
         }
 
+        function membershowTooltip() {
+            const tooltip = document.querySelector(".member_i_tooltip");
+            tooltip.style.display = "block";
+        }
+        function memberhideTooltip() {
+            const tooltip = document.querySelector(".member_i_tooltip");
+            tooltip.style.display = "none";
+        }
+        function designatedshowTooltip() {
+            const tooltip = document.querySelector(".designated_i_tooltip");
+            tooltip.style.display = "block";
+        }
+        function designatedhideTooltip() {
+            const tooltip = document.querySelector(".designated_i_tooltip");
+            tooltip.style.display = "none";
+        }
 
         const secretary_i = document.getElementById("secretary_i");
         secretary_i.addEventListener("mouseover", SecshowTooltip);
@@ -4585,6 +4679,13 @@
                 $("#positionSelectionDiv").addClass('d-none')
             }
 
+            if(($("#member_checkbox").is(":checked")||$("#designated_checkbox").is(":checked"))&&($("#member_consent_checkbox").is(":checked")===false)){
+                $("#consentSelectionDiv").removeClass('d-none')
+                return false
+            }else{
+                $("#consentSelectionDiv").addClass('d-none')
+            }
+
             if ($('.occLinkCls').hasClass('d-none') === false && $('#occ').is(":checked") === false) {
                 $("#consentSelectionDiv").toggleClass('d-none')
                 return false
@@ -4607,6 +4708,10 @@
                         }
                     }
                 })
+                if (posiArr.includes('Designated Member')&& !(posiArr.includes('Member'))) {
+                    posiArr.push('Member')
+                }
+                console.log(posiArr)
                 $("#positionSelected").val(posiArr.join(', '))
 
                 $('#currentTab').val('details')
@@ -4639,6 +4744,14 @@
             $('#person_aqone_ans_id').toggleClass('blankCheck');
             $('#person_aqtwo_ans_id').toggleClass('blankCheck');
             $('#person_aqthree_ans_id').toggleClass('blankCheck');
+        }
+        function designatedTab()
+        {
+                $('#authenticationSection').toggleClass('d-none');
+
+                $('#person_aqone_ans_id').toggleClass('blankCheck');
+                $('#person_aqtwo_ans_id').toggleClass('blankCheck');
+                $('#person_aqthree_ans_id').toggleClass('blankCheck');
         }
         function guaranteeTab() {
             // $('.shareholderLinksCls').toggleClass('d-none');
