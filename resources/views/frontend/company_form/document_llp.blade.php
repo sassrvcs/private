@@ -254,7 +254,7 @@
                                         <div class="document-list-wrap">
                                             <div class="document-list">
                                                 <div class="box">
-                                                    <p>Generic PLC Articles</p>
+                                                    <p>Generic Limited by LLP Articles</p>
                                                 </div>
                                                 <div class="box text-center">
                                                     <p><strong>FREE</strong></p>

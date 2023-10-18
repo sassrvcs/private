@@ -552,15 +552,23 @@
                                             </div>
                                             <div class="col-lg-12 col-md-12 col-sm-12">
 
-                                               <div class="form-check @if (stripos($raw_pkg_type, 'LLP') === false) d-none @endif">
-                                                   <label for="llp_designated">Always designated members</label>
-                                                   <br>
-                                                   <input class="form-check-input" name="llp_designated" id="llp_designated" type="checkbox" value="" id="flexCheckDefault" @if (isset($_COOKIE['llp_designated_check'.$_GET['order']]) && $_COOKIE['llp_designated_check'.$_GET['order']] == 'true')
-                                                       checked
-                                                   @endif>
-                                                   <label class="form-check-label" for="flexCheckDefault">
-                                                       Please check the box if all members in this LLP, now and in the future, are to be designated.
-                                                   </label>
+                                               <div class="form-group @if (stripos($raw_pkg_type, 'LLP') === false) d-none @endif">
+                                                   <label for="sic_name">Always designated members</label>
+                                                   <span data-toggle="modal" data-target="#exampleModalDesignated"
+                                                   style="cursor: pointer;">
+
+                                                   <img src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                       alt="">
+
+                                               </span>
+                                                   <div class="ml-3">
+                                                       <input class="form-check-input" name="llp_designated" id="llp_designated" type="checkbox" value="" id="flexCheckDefault" @if (isset($_COOKIE['llp_designated_check'.$_GET['order']]) && $_COOKIE['llp_designated_check'.$_GET['order']] == 'true')
+                                                           checked
+                                                       @endif>
+                                                       <label class="form-check-label" for="flexCheckDefault">
+                                                           Please check the box if all members in this LLP, now and in the future, are to be designated.
+                                                       </label>
+                                                   </div>
                                                </div>
 
                                                 <div class="btn-wrap">
@@ -615,7 +623,30 @@
                     Please enter your desired company name. This is the name that will appear on your certificate of
                     incorporation and also appear on the public record at Companies House.
 
-                    Please also include any relevant company name ending, such as LTD, LIMITED, etc
+                    Please also include any relevant company name ending, such as LTD, LIMITED, PLC, etc
+                </div>
+                {{-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> --}}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModalDesignated" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalDesignated" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><b>Designated Member</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Please confirm if all members in this LLP, now and in the future, are to be designated.
+
+                    You must have at least 2 ‘designated members’ at all times - they have more responsibilities, eg keeping company accounts. You can have any number of ordinary members.
                 </div>
                 {{-- <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

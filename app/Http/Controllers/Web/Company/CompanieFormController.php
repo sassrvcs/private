@@ -218,6 +218,10 @@ class CompanieFormController extends Controller
         {
             return view('frontend.company_form.document_plc', compact('orderId','other_legal_Document', 'companyId', 'legalDocument', 'mediaDoc'));
         }
+        if($package_type!=null && stripos($package_type, "LLP") !== false)
+        {
+            return view('frontend.company_form.document_llp', compact('orderId','other_legal_Document', 'companyId', 'legalDocument', 'mediaDoc'));
+        }
         return view('frontend.company_form.document', compact('orderId', 'companyId', 'legalDocument', 'mediaDoc'));
     }
 
