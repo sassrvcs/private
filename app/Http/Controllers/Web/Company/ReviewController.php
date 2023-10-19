@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Company;
 
 use App\Http\Controllers\Controller;
+use App\Models\Companie;
 use App\Models\Person_appointment;
 use App\Models\PersonOfficer;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
@@ -21,7 +22,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $review = $this->companyFormService->getCompanieName($_GET['order']);
+        $review =    $this->companyFormService->getCompanieNameWithOrderID($_GET['order']);
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 
         $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
@@ -52,7 +53,7 @@ class ReviewController extends Controller
     {
         // ini_set('memory_limit', '64000000000000M');
 
-        $review = $this->companyFormService->getCompanieName($_GET['order']);
+        $review = $this->companyFormService->getCompanieNameWithOrderID($_GET['order']);
 
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 

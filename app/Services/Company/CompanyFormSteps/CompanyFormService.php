@@ -137,7 +137,21 @@ class CompanyFormService
 
         return $companyFormationStep;
     }
-
+    public function getCompanieNameWithOrderID($orderId)
+    {
+        $companyFormationStep = Companie::with(
+            'businessBanking',
+            'businessBanking.businessBanking',
+            'businessBanking.accountingSoftware',
+            'sicCodes',
+            'jurisdiction',
+            'officeAddressWithoutForwAddress',
+            'officeAddressWithForwAddress',
+            'businessAddressWithoutForwAddress',
+            'businessAddressWithForwAddress',
+        )->where('order_id', $orderId)->first();
+        return $companyFormationStep;
+    }
     /**
      * Company form step 5 | Legal documents step
      * @param array $request
