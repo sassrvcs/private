@@ -46,7 +46,7 @@
     </a>
 
     <div class="dropdown-menu dropdown-menu-right">
-      <a href="#" class="dropdown-item"><i class="fas fa-user"></i> My Profile</a>
+      <a href="#" class="dropdown-item d-none"><i class="fas fa-user"></i> My Profile</a>
       {{-- {{ route('admin.my-profile.index') }} --}}
       {{-- @if (auth()->user()->isA('dean')) --}}
       {{-- @endif --}}

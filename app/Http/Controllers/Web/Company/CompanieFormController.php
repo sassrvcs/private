@@ -32,8 +32,8 @@ class CompanieFormController extends Controller
         $userID = auth()->user()->id;
         $orders = Order::with('user')->where('order_id', $request->order)->first();
 
-        // dd($orders);
-        $companyFormationStep = Companie::with('sicCodes')->where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
+        $companyFormationStep = Companie::with('sicCodes')->where('order_id', $orders->order_id)->first();
+      
 
         // dd($companyFormationStep);
         $jurisdictions = Jurisdiction::get();

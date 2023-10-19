@@ -122,12 +122,12 @@
                         </a>
                     </li>
 
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('admin.business-banking.create')}}" class="nav-link {{ request()->routeIs('admin.business-banking.create') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add New</p>
                         </a>
-                    </li> --}}
+                    </li>
                 </ul>
             </li>
             @endcan
@@ -150,12 +150,12 @@
                         </a>
                     </li>
 
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('admin.accounting.create')}}" class="nav-link {{ request()->routeIs('admin.accounting.create') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add New</p>
                         </a>
-                    </li> --}}
+                    </li>
                 </ul>
             </li>
             @endcan

@@ -142,13 +142,13 @@
             </div>
         </div>
         <div class="main-footer-cpy-right">
-            <div class="left-info" data-aos="fade-right" data-aos-delay="200" data-aos-duration="2000" data-aos-once="true">
+            <div class="left-info" >
                 <p>7, Thurlow Gardens , Wembley , Middlesex , HA0 2AH , United Kingdom</p>
                 <p>Phone: <a href="tel:020 3002 0032">020 3002 0032</a></p>
                 <p>Email: <a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></p>
                 <p>Copyright © 2023 Formationshunt. |  All Rights Reserved. Company Nr: 14177067 VAT Registration Nr: ICO Registration Reference</p>
             </div>
-            <div class="right-info" data-aos="fade-left" data-aos-delay="200" data-aos-duration="2000" data-aos-once="true">
+            <div class="right-info" >
                 <ul class="footer-social-icons">
                     <li>
                         <a href="#">

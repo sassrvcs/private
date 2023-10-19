@@ -133,7 +133,7 @@ class CompanyFormService
             'officeAddressWithForwAddress',
             'businessAddressWithoutForwAddress',
             'businessAddressWithForwAddress',
-        )->where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
+        )->where('order_id', $orders->order_id )->first();
 
         return $companyFormationStep;
     }

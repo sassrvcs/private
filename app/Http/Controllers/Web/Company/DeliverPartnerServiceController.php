@@ -164,7 +164,7 @@ class DeliverPartnerServiceController extends Controller
         $save_order_details->contact_mobile = $request->contact_mobile;
         $save_order_details->contact_calltime = $request->call_time;
         $save_order_details->contact_address = $request->res_address;
-        // dd($save_order_details);
+
         $save_order_details->save();
 
         if($save_order_details->save())
@@ -181,6 +181,10 @@ class DeliverPartnerServiceController extends Controller
             }
             elseif($company_details->companie_type=='Public Limited Company'){
                 $this->xmlService->byPLCModel($request->order_id);
+
+            }
+            elseif($company_details->companie_type=='Limited Liability Partnership'){
+                $this->xmlService->byLLPModel($request->order_id);
 
             }
 
