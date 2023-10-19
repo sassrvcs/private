@@ -2309,7 +2309,7 @@ class GenerateXmlService
                                     <Member>
                                         <DesignatedInd>true</DesignatedInd>
                                         <Corporate>
-                                            <CorporateName>Company ltd</CorporateName>
+                                            <CorporateName>'.$officerDetails['legal_name'].'</CorporateName>
                                             <Address>
                                                     <Premise>'.$address->house_number.'</Premise>
                                                     <Street>'.$address->street.'</Street>
@@ -2375,7 +2375,7 @@ class GenerateXmlService
                                         <Member>
                                         <DesignatedInd>false</DesignatedInd>
                                         <Corporate>
-                                            <CorporateName>company ltd</CorporateName>
+                                            <CorporateName>'.$officerDetails['legal_name'].'</CorporateName>
                                             <Address>
                                                     <Premise>'.$address->house_number.'</Premise>
                                                     <Street>'.$address->street.'</Street>
@@ -2684,7 +2684,7 @@ class GenerateXmlService
                     $all_psc.='<PSC>
                                     <PSCNotification>
                                         <Corporate>
-                                            <CorporateName>Korporatny LLP</CorporateName>
+                                            <CorporateName>'.$officerDetails['legal_name'].'</CorporateName>
                                             <Address>
                                                 <Premise>'.$address->house_number.'</Premise>
                                                 <Street>'.$address->street.'</Street>
@@ -2953,7 +2953,7 @@ class GenerateXmlService
                     </Body>
                 </GovTalkMessage>';
 
-              
+
                 $xml_details = companyXmlDetail::where('order_id',$id)->first();
                 if($xml_details){
                     $xml_details->xml_body=$xml;
