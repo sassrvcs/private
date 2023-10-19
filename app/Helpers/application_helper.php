@@ -2,6 +2,8 @@
 
 // To get the details of Person Officer from "person_appointments" table "person_officer_id" column.
 
+use App\Models\Address;
+use App\Models\Country;
 use App\Models\PersonOfficer;
 
 function officer_details_for_appointments_list($id){
@@ -40,6 +42,11 @@ function construct_address($address)
         if(isset($address['post_code'])&&@$address['post_code']!='')
         {
             @$con_address .= $address['post_code'];
+        }
+        if(isset($address['billing_country'])&&@$address['billing_country']!='')
+        {
+            $billing_country = Country::where('id',$address['billing_country'])->first();
+            @$con_address .= ','.$billing_country->name;
         }
         return $con_address;
 }

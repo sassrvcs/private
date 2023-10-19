@@ -13,6 +13,13 @@
         .terms-condition {
             cursor: pointer;
         }
+        .nature_of_control p{
+            margin-top: 10px;
+        }
+        .nature_of_control p span{
+            font-weight: 500;
+            color: #3f63ed;
+        }
     </style>
     <section class="sectiongap legal rrr fix-container-width ">
         <div class="container">
@@ -100,11 +107,7 @@
                                         <ul>
                                             <li>
                                                 <strong>Address : </strong>
-                                                {{ $review->officeAddressWithForwAddress->house_number ?? '' }},
-                                                {{ $review->officeAddressWithForwAddress->street ?? '' }},
-                                                {{ $review->officeAddressWithForwAddress->locality ?? '' }},
-                                                {{ $review->officeAddressWithForwAddress->town ?? '' }},
-                                                {{ $review->officeAddressWithForwAddress->post_code ?? '' }},
+                                                {{construct_address($review->officeAddressWithForwAddress)}}
                                             </li>
                                         </ul>
                                     @else
@@ -116,11 +119,7 @@
                                         <ul>
                                             <li>
                                                 <strong>Address : </strong>
-                                                {{ $review->officeAddressWithoutForwAddress->house_number ?? '' }},
-                                                {{ $review->officeAddressWithoutForwAddress->street ?? '' }},
-                                                {{ $review->officeAddressWithoutForwAddress->locality ?? '' }},
-                                                {{ $review->officeAddressWithoutForwAddress->town ?? '' }},
-                                                {{ $review->officeAddressWithoutForwAddress->post_code ?? '' }}
+                                                {{construct_address($review->officeAddressWithoutForwAddress)}}
                                             </li>
                                         </ul>
                                     @endif
@@ -141,11 +140,7 @@
                                         <ul>
                                             <li>
                                                 <strong>Address : </strong>
-                                                {{ $review->businessAddressWithForwAddress->house_number ?? '' }},
-                                                {{ $review->businessAddressWithForwAddress->street ?? '' }},
-                                                {{ $review->businessAddressWithForwAddress->locality ?? '' }},
-                                                {{ $review->businessAddressWithForwAddress->town ?? '' }},
-                                                {{ $review->businessAddressWithForwAddress->post_code ?? '' }},
+                                                {{construct_address(($review->businessAddressWithForwAddress))}}
                                             </li>
                                         </ul>
                                     @else
@@ -154,16 +149,12 @@
                                         <li><strong>Address : </strong>9 Raglan Court, Empire Way, WEMBLEY, HA9 0RE, SCOTLAND</li>
                                     </ul> --}}
 
-                                        <h3>Buisness Address</h3>
-                                        @if ($review->business_address)
+                                    <h3>Buisness Address</h3>
+                                    @if ($review->business_address)
                                             <ul>
                                                 <li>
                                                     <strong>Address : </strong>
-                                                    {{ $review->businessAddressWithoutForwAddress->house_number ?? '' }},
-                                                    {{ $review->businessAddressWithoutForwAddress->street ?? '' }},
-                                                    {{ $review->businessAddressWithoutForwAddress->locality ?? '' }},
-                                                    {{ $review->businessAddressWithoutForwAddress->town ?? '' }},
-                                                    {{ $review->businessAddressWithoutForwAddress->post_code ?? '' }}
+                                                {{construct_address(($review->businessAddressWithoutForwAddress))}}
                                                 </li>
                                             </ul>
                                         @endif
@@ -180,11 +171,15 @@
                                                     style="text-transform:uppercase;">@php
                                                         $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
                                                         $fullName = $officerDetails['first_name'] . ' ' . $officerDetails['last_name'];
-                                                        if ($officerDetails['first_name']!='' && $officerDetails['last_name']!='') {
+
+                                                        if($val['appointment_type']=='other_legal_entity'||$val['appointment_type']=='corporate'){
+                                                            echo $officerDetails['legal_name'];
+
+                                                        }else{
+                                                            if ($officerDetails['first_name']!='' && $officerDetails['last_name']!='') {
                                                                 echo $fullName;
-                                                            }else{
-                                                                echo $officerDetails['legal_name'];
                                                             }
+                                                        }
                                                     @endphp</span> </li>
                                             @php
                                                 $positionString = $val['position'];
@@ -199,74 +194,210 @@
                                                 {{ in_array('Secretary', $positionArray) ? 'Secretary,' : '' }}
                                                 {{ in_array('Guarantor', $positionArray) ? 'Guarantor,' : '' }}
                                                 {{ in_array('PSC', $positionArray) ? 'PSC' : '' }}</li>
-                                            <li><strong>Holdings : </strong>
+                                                {{-- holdings --}}
+                                                @if (in_array('Shareholder', $positionArray)||in_array('Guarantor', $positionArray))
+                                                <li><strong>Holdings : </strong>
                                                 @if ($val['sh_quantity'])
-                                                    {{ $val['sh_quantity'] }} x ORDINARY at {{ $val['sh_pps'] }}
-                                                    {{ $val['sh_currency'] }}
-                                                    @endif @if ($val['amount_guarantee'] && $review->companie_type == 'Limited By Guarantee')
-                                                        {{ $val['amount_guarantee'] . ' GBP' }}
-                                                    @endif
+                                                {{ $val['sh_quantity'] }} x ORDINARY at {{ $val['sh_pps'] }}
+                                                {{ $val['sh_currency'] }}
+                                                @endif
+                                                @if ($val['amount_guarantee'] && $review->companie_type == 'Limited By Guarantee')
+                                                    {{ $val['amount_guarantee'] . ' GBP' }}
+                                                @endif
                                             </li>
-                                            <li><strong>DOB : </strong>@php
-                                                $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
+                                            @endif
+                                                {{-- endholdings --}}
+
+                                            @php
+                                                // $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
                                                 $dob = $officerDetails['dob_day'];
-                                                echo $dob;
-                                            @endphp</li>
-                                            <li><strong>Occupation : </strong>@php
-                                                $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
+
+                                            @endphp
+                                             @if ($dob&&($val['appointment_type']!='other_legal_entity'&&$val['appointment_type']!='corporate'))
+                                             <li><strong>DOB : </strong>
+                                                 {{$dob}}
+                                             </li>
+                                             @endif
+
+                                            @php
+                                                // $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
                                                 $occupation = $officerDetails['occupation'];
-                                                echo $occupation;
-                                            @endphp</li>
-                                            <li><strong>Nationality : </strong>
+                                            @endphp
+                                             @if ($occupation&&($val['appointment_type']!='other_legal_entity'&&$val['appointment_type']!='corporate'))
+                                             <li><strong>Occupation : </strong>
+                                                 {{$occupation}}
+                                             </li>
+                                             @endif
                                                 @php
-                                                    $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
+                                                    // $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
                                                     $nationality = $officerDetails['nationality'];
                                                     $nationality_name = \App\Models\Nationality::where('id', $nationality)
                                                         ->pluck('nationality')
                                                         ->first();
-                                                    echo $nationality_name;
-                                                @endphp</li>
+                                                @endphp
+                                            @if ($nationality_name&&($val['appointment_type']!='other_legal_entity'&&$val['appointment_type']!='corporate'))
+                                            <li><strong>Nationality : </strong>
+                                                {{$nationality_name}}
+                                            </li>
+                                            @endif
+                                            @if ($val['appointment_type']=='other_legal_entity'||$val['appointment_type']=='corporate')
+                                            <li><strong>Registration Number : </strong>
+                                                {{$officerDetails['registration_number']??'-'}}
+                                            </li>
+                                            <li><strong>Place Registered : </strong>
+                                                {{$officerDetails['place_registered']??'-'}}
+                                            </li>
+                                            <li><strong>UK entity : </strong>
+                                                @if ($val['appointment_type']=='other_legal_entity')
+                                                    No
+                                                @else
+                                                {{$officerDetails['uk_registered']??'-'}}
+                                                @endif
+                                            </li>
+                                            <li><strong>Law Governed : </strong>
+                                                {{$officerDetails['law_governed']??'-'}}
+                                            </li>
+                                            <li><strong>Legal Form : </strong>
+                                                {{$officerDetails['legal_form']??'-'}}
+                                            </li>
+
+                                            @endif
                                             <li><strong>Residential Address : </strong> @php
-                                                $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
+                                                // $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
                                                 $add_id = $officerDetails['add_id'];
                                                 $address = \App\Models\Address::where('id', $add_id)->first();
 
                                             @endphp
-                                                {{ $address->house_number ?? '' }},
-                                                {{ $address->street ?? '' }},
-                                                {{ $address->locality ?? '' }},
-                                                {{ $address->town ?? '' }},
-                                                {{ $address->country ?? '' }},
-                                                {{ $address->post_code ?? '' }}
+                                            {{construct_address($address)}}
+
                                             </li>
+                                            @if ($val['appointment_type']!='corporate')
+
                                             <li><strong>Service Address : </strong>
                                                 @if (isset($val['own_address_id']))
                                                     @php
                                                         $service_add = \App\Models\Address::where('id', $val['own_address_id'])->first();
                                                         // dd($service_add);
                                                     @endphp
-                                                    {{ $service_add->house_number ?? '' }},
-                                                    {{ $service_add->street ?? '' }},
-                                                    {{ $service_add->locality ?? '' }},
-                                                    {{ $service_add->town ?? '' }},
-                                                    {{ $service_add->country ?? '' }},
-                                                    {{ $service_add->post_code ?? '' }}
+                                                    {{construct_address($service_add)}}
+
                                                 @else
-                                                    @php
-                                                        $service_add = \App\Models\Address::where('id', $val['forwarding_address_id'])->first();
-                                                        // dd($service_add);
-                                                    @endphp
-                                                    {{ $service_add->house_number ?? '' }},
-                                                    {{ $service_add->street ?? '' }},
-                                                    {{ $service_add->locality ?? '' }},
-                                                    {{ $service_add->town ?? '' }},
-                                                    {{ $service_add->country ?? '' }},
-                                                    {{ $service_add->post_code ?? '' }}
+                                                52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United Kingdom
                                                 @endif
 
                                             </li>
+                                            @php
+                                            $service_add_fwd = \App\Models\Address::where('id', $val['forwarding_address_id'])->first();
+                                            // dd($service_add);
+                                             @endphp
+                                             @if ($service_add_fwd)
+                                             <li><strong>Forwarding Address : </strong>
+                                                {{construct_address($service_add_fwd)}}
+                                             </li>
+                                             @endif
+                                            @endif
+
                                             @if (in_array('PSC', $positionArray))
-                                                <li><strong>Nature Of Control : </strong> {{ $val['noc_vr'] }} </li>
+                                                <li style="display: flex"><strong>Nature Of Control : </strong>
+
+                                                        <span class="nature_of_control">
+                                                            {{-- Individual/Company --}}
+                                                            @if ($val['noc_os']!=null||$val['noc_vr']!=null||($val['noc_appoint']=='Yes'||$val['noc_others']=='Yes'))
+                                                           <b>(Individual/Company)</b>
+                                                           @if ( $val['noc_os']!=null)
+                                                           <p>
+                                                            <span>Ownership of shares:   </span>{{ $val['noc_os'] }}
+                                                           </p>
+                                                           <p>
+                                                           @endif
+                                                           @if ($val['noc_vr']!=null)
+                                                           <span>Voting Rights:  </span>
+                                                            {{ $val['noc_vr'] }}
+                                                          </p>
+                                                           @endif
+
+                                                           @if ($val['noc_appoint']!='No')
+                                                           <p>
+                                                            <span>Appoint or remove the majority of the board of directors:</span>
+                                                             {{$val['noc_appoint']}}
+                                                           </p>
+                                                           @endif
+                                                           @if ($val['noc_others']!='No')
+                                                           <p>
+                                                            <span>Other Significant influences or control:</span>
+                                                             {{$val['noc_others']}}
+                                                           </p>
+                                                           @endif
+                                                           @endif
+                                                            {{-- Individual/Company end --}}
+
+                                                            {{-- Firm  --}}
+                                                           @if (strtolower($val['fci'])=='yes')
+                                                           <br>
+                                                           <b>(Firm)</b>
+                                                           @if ( $val['fci_os']!=null)
+                                                           <p>
+                                                            <span>Ownership of shares:   </span>{{ $val['fci_os'] }}
+                                                           </p>
+                                                           <p>
+                                                           @endif
+                                                           @if ($val['fci_vr']!=null)
+                                                           <span>Voting Rights:  </span>
+                                                            {{ $val['fci_vr'] }}
+                                                          </p>
+                                                           @endif
+
+                                                           @if ($val['fci_appoint']!='No')
+                                                           <p>
+                                                            <span>Appoint or remove the majority of the board of directors:</span>
+                                                             {{$val['fci_appoint']}}
+                                                           </p>
+                                                           @endif
+                                                           @if ($val['fci_others']!='No')
+                                                           <p>
+                                                            <span>Other Significant influences or control:</span>
+                                                             {{$val['fci_others']}}
+                                                           </p>
+                                                           @endif
+                                                           @endif
+                                                            {{-- Firm end --}}
+                                                            {{-- Trust --}}
+                                                           @if (strtolower($val['tci'])=='yes')
+                                                           <br>
+                                                           <b>(Trust)</b>
+                                                           @if ( $val['tci_os']!=null)
+                                                           <p>
+                                                            <span>Ownership of shares:   </span>{{ $val['fci_os'] }}
+                                                           </p>
+                                                           <p>
+                                                           @endif
+                                                           @if ($val['tci_vr']!=null)
+                                                           <span>Voting Rights:  </span>
+                                                            {{ $val['tci_vr'] }}
+                                                          </p>
+                                                           @endif
+
+                                                           @if ($val['tci_appoint']!='No')
+                                                           <p>
+                                                            <span>Appoint or remove the majority of the board of directors:</span>
+                                                             {{$val['tci_appoint']}}
+                                                           </p>
+                                                           @endif
+                                                           @if ($val['tci_others']!='No')
+                                                           <p>
+                                                            <span>Other Significant influences or control:</span>
+                                                             {{$val['tci_others']}}
+                                                           </p>
+                                                           @endif
+                                                           @endif
+                                                            {{-- Trust end --}}
+
+                                                        </span>
+
+
+
+
+                                                </li>
                                             @endif
 
                                         </ul>
