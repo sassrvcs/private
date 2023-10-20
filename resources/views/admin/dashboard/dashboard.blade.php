@@ -29,6 +29,7 @@ Dashboard
     <div class="row">
       <div class="col-lg-3 col-6">
           <!-- small box -->
+
           <div class="small-box bg-info">
               <div class="inner">
                   <h3>17</h3>
@@ -46,8 +47,10 @@ Dashboard
           <!-- small box -->
           <div class="small-box bg-success">
               <div class="inner">
-
-                  <h3>19</h3>
+                @php
+                    $total_companies = \App\Models\Companie::count();
+                @endphp
+                  <h3>{{$total_companies}}</h3>
 
                   <p>Number of Companies</p>
               </div>
@@ -63,7 +66,10 @@ Dashboard
           <!-- small box -->
           <div class="small-box bg-warning">
               <div class="inner">
-                  <h3>10</h3>
+                @php
+                    $total_package = \App\Models\Package::count();
+                @endphp
+                  <h3>{{$total_package}}</h3>
                   <p>Number of Packages</p>
               </div>
               <div class="icon">
@@ -77,7 +83,10 @@ Dashboard
           <!-- small box -->
           <div class="small-box bg-danger">
               <div class="inner">
-                  <h3>34</h3>
+                @php
+                    $total_service = \App\Models\Addonservice::count();
+                @endphp
+                  <h3>{{$total_service}}</h3>
                   <p>Number of Services</p>
               </div>
               <div class="icon">
