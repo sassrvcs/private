@@ -66,7 +66,7 @@
                                     </div>
 
                                     <div class="col-sm-4">
-                                        <x-Forms.Input type="email" name="email" id="email" mandate="*" label="Email" value="{{ $customerDetails->email }}" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"  />
+                                        <x-Forms.Input type="email" name="email" id="email" mandate="*" label="Email" value="{{ $customerDetails->email }}" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" readonly />
                                     </div>
 
                                     <div class="col-sm-4">

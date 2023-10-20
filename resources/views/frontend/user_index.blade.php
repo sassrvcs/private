@@ -477,36 +477,15 @@
                 <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our Banking <span>Partners</span></h2>
             </div>
             <ul class="our-banking-slider" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/barclays-logo.png')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/cashplus-logo.png')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/wise-logo.png')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/payoneer-logo.png')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/anna-logo.png')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/cardone-Logo.png')}}">
-                    </div>
-                </li>
+                @foreach ($businessdata as $index => $data)
+                    <li>
+                        <div class="our-banking-item">
+                            <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
+                        </div>
+                    </li>
+                @endforeach
+
+
             </ul>
         </div>
     </section>
