@@ -40,7 +40,7 @@
                                 &nbsp;
                                 <div class="input-group-append">
                                     {{--<button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button>--}}
-                                    <a href="{{ route('admin.customer.index') }}" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a> 
+                                    <a href="{{ route('admin.customer.index') }}" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a>
                                 </div>
                             </div>
                         </form>
@@ -71,8 +71,8 @@
                                             <td> <?php echo($customer->forename." ".$customer->surname); ?></td>
                                             <td> {{ $customer->email }}</td>
                                             <td> {{ $customer->phone_no }}</td>
-                                            <td> <?php echo($customer['address']->house_number." ".$customer['address']->street." ".$customer['address']->town); ?></td>
-                                            <td> {{ $customer['address']->post_code }}</td>
+                                            <td> {{@$customer->address->values()->get(0)->house_number." ".@$customer->address->values()->get(0)->street." ".@$customer->address->values()->get(0)->town }}</td>
+                                            <td> {{ @$customer->address->values()->get(0)->post_code ?? 'N/A' }}</td>
                                             <td> {{ $customer->organisation }}</td>
                                             <td>
                                                 <div class="form-group">

@@ -1,4 +1,8 @@
 @extends('layouts.app')
 @section('content')
-{!! $page->description !!}
+<section class="fix-container-width cms-page" >
+    <div class="container">
+        {!! $page->description !!}
+    </div>
+</section>
 @endsection

@@ -37,12 +37,12 @@ class ChangePasswordController extends Controller
     public function store(ChangePasswordRequest $request)
     {
         //
-            
-     
+
+
             $old_password = auth()->user()->password;
             $email_id = auth()->user()->email;
 
-     
+
            if (Hash::check($request->old_password, $old_password) ) {
 
                 if (!Hash::check($request->new_password, $old_password)) {
@@ -87,7 +87,7 @@ class ChangePasswordController extends Controller
     {
         //
         //dd($request->all());
-        
+
     }
 
     /**

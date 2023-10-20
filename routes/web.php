@@ -20,6 +20,7 @@ use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
 use App\Http\Controllers\Admin\BusinessBanking\BusinessBankingController;
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Web\Company\CompaniesListController;
 use App\Http\Controllers\Admin\Subadmin\SubadminController;
 use App\Http\Controllers\ContactController;
@@ -142,9 +143,6 @@ Route::get('companies/pdf/efilling_pdf', [CompaniesListController::class, 'efill
 Route::get('companies/pdf/certificate', [CompaniesListController::class, 'generateCertificate'])->middleware('auth')->name('generate_certificate');
 Route::get('companies/pdf/incorporate-certificate', [CompaniesListController::class, 'incorporateCertificate'])->middleware('auth')->name('incorporate_certificate');
 Route::get('companies/pdf/memo-articles-full', [CompaniesListController::class, 'memoArticlesFull'])->middleware('auth')->name('memoArticlesFull');
-
-
-
 
 
 Route::get('/search-companie', CompanieController::class);

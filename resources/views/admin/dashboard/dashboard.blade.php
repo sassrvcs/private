@@ -31,14 +31,14 @@ Dashboard
           <!-- small box -->
           <div class="small-box bg-info">
               <div class="inner">
-                  <h3>0</h3>
-                  <p>Number of Active Plans</p>
+                  <h3>17</h3>
+                  <p>Number of Customers</p>
               </div>
               <div class="icon">
-                  <i class="ion ion-bag"></i>
+                  <i class="on ion-person-add"></i>
               </div>
               {{-- {{ route('admin.agent.index', ['form' => 'approved']) }} --}}
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('admin.customer.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
       </div>
       <!-- ./col -->
@@ -46,18 +46,16 @@ Dashboard
           <!-- small box -->
           <div class="small-box bg-success">
               <div class="inner">
-                @if($pending > 0)
-                  <h3><?php echo $pending; ?></h3>
-                  @else
-                  <h3><?php echo "0"; ?></h3>
-                  @endif
-                  <p>-</p>
+
+                  <h3>19</h3>
+
+                  <p>Number of Companies</p>
               </div>
               <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
+                  <i class="ion ion-pie-graph"></i>
               </div>
               {{-- {{ route('admin.agent.index', ['form' => 'received']) }} --}}
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('admin.company.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
       </div>
       <!-- ./col -->
@@ -65,13 +63,13 @@ Dashboard
           <!-- small box -->
           <div class="small-box bg-warning">
               <div class="inner">
-                  <h3><?php echo $totalproducts; ?></h3>
-                  <p>--</p>
+                  <h3>10</h3>
+                  <p>Number of Packages</p>
               </div>
               <div class="icon">
-                  <i class="ion ion-person-add"></i>
+                  <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('admin.package.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
       </div>
       <!-- ./col -->
@@ -79,13 +77,13 @@ Dashboard
           <!-- small box -->
           <div class="small-box bg-danger">
               <div class="inner">
-                  <h3>0</h3>
-                  <p>-</p>
+                  <h3>34</h3>
+                  <p>Number of Services</p>
               </div>
               <div class="icon">
-                  <i class="ion ion-pie-graph"></i>
+                  <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('admin.addonservice.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
       </div>
       <!-- ./col -->
@@ -117,11 +115,11 @@ Dashboard
               </p>
             </div>
             <!-- /.d-flex -->
-            
+
             <div class="position-relative mb-4">
               <canvas id="barChart"></canvas>
             </div>
-            
+
           </div>
         </div>
       </div> --}}

@@ -23,9 +23,10 @@ class CustomerController extends Controller
     {
         $search     = ($request->search) ? $request->search : '';
         $customerlist = $this->userService->index($search);
+
         return view('admin.customer.index',compact('customerlist','search'));
     }
-    
+
 
     /**
      *
