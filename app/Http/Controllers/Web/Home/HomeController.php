@@ -8,6 +8,7 @@ use App\Models\Package;
 use App\Models\BusinessBanking;
 use App\Services\Facility\FacilityService;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 
 class HomeController extends Controller
@@ -23,6 +24,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(auth()->user()){
+
+            if (auth()->user()->hasRole(User::SUPERADMIN) || auth()->user()->hasRole(User::SUBADMIN) ){
+                return redirect()->route('admin.dashboard');
+
+              }
+        }
         $packages = $this->packageService->LimitedPackages();
         $facilitys = $this->facilityService->getFacilitys();
         $businessdata = BusinessBanking::get();

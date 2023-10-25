@@ -224,36 +224,39 @@ Route::get('order-invoice', [InvoiceController::class, 'orderInvoice'])->name('o
 Route::get('payment-history', [PaymentController::class, 'index'])->name('payment-history')->middleware('auth');
 Route::get('blog-details',[CmsController::class,'blogDetails'])->name('blog-details');
 
-Route::prefix('admin')->middleware(['auth', 'auth.session'])
-->group(function () {
-    Route::name('admin.')
+Route::group([ 'middleware' => 'isAdmin'], function() {
+    Route::prefix('admin')->middleware(['auth', 'auth.session'])
     ->group(function () {
+        Route::name('admin.')
+        ->group(function () {
 
-        Route::get('/dashboard', DashboardController::class)->name('dashboard');
-        // Route::resource('change-password', ChangePasswordController::class);
-        Route::resource('package', PackageController::class);
-        Route::resource('addonservice', AddonController::class);
+            Route::get('/dashboard', DashboardController::class)->name('dashboard');
+            // Route::resource('change-password', ChangePasswordController::class);
+            Route::resource('package', PackageController::class);
+            Route::resource('addonservice', AddonController::class);
 
-        Route::resource('business-banking', BusinessBankingController::class);
-        Route::resource('accounting', AccountingController::class);
+            Route::resource('business-banking', BusinessBankingController::class);
+            Route::resource('accounting', AccountingController::class);
 
 
-        Route::resource('sub-admin', SubadminController::class);
-        Route::resource('customer', CustomerController::class);
-        Route::resource('cms', CmsController::class);
+            Route::resource('sub-admin', SubadminController::class);
+            Route::resource('customer', CustomerController::class);
+            Route::resource('cms', CmsController::class);
 
-        // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
+            // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
 
-        // Route::resource('product', ProductController::class);
-        // Route::resource('category', CategoryController::class);
-        Route::resource('change-password', ChangePasswordController::class);
+            // Route::resource('product', ProductController::class);
+            // Route::resource('category', CategoryController::class);
+            Route::resource('change-password', ChangePasswordController::class);
 
-        Route::resource('company', CompanyController::class);
-        Route::any('/company/submit_company_house',[CompanyController::class,'submitCompanyHouse'])->name('submit_company_house');
-        Route::any('/company/view-xml',[CompanyController::class,'viewXML'])->name('view_xml');
-        Route::any('/company/check_status',[CompanyController::class,'checkStatus'])->name('check_status');
-        Route::any('/company/update_status',[CompanyController::class,'updateStatus'])->name('update_status');
+            Route::resource('company', CompanyController::class);
+            Route::any('/company/submit_company_house',[CompanyController::class,'submitCompanyHouse'])->name('submit_company_house');
+            Route::any('/company/view-xml',[CompanyController::class,'viewXML'])->name('view_xml');
+            Route::any('/company/check_status',[CompanyController::class,'checkStatus'])->name('check_status');
+            Route::any('/company/update_status',[CompanyController::class,'updateStatus'])->name('update_status');
+        });
     });
 });
+
 
 require __DIR__ . '/auth.php';

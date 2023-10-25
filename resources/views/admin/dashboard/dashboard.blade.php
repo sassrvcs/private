@@ -32,6 +32,11 @@ Dashboard
 
           <div class="small-box bg-info">
               <div class="inner">
+                @php
+
+
+                    $total_companies = \App\Models\User::role( \App\Models\User::SUBADMIN)->count();
+                @endphp
                   <h3>17</h3>
                   <p>Number of Customers</p>
               </div>
@@ -48,9 +53,9 @@ Dashboard
           <div class="small-box bg-success">
               <div class="inner">
                 @php
-                    $total_companies = \App\Models\Companie::count();
+                    $total_user = \App\Models\Companie::count();
                 @endphp
-                  <h3>{{$total_companies}}</h3>
+                  <h3>{{$total_user}}</h3>
 
                   <p>Number of Companies</p>
               </div>
