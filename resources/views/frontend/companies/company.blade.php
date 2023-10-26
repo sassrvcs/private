@@ -42,6 +42,7 @@
                                     <label for="">Sort By :</label>
                                     <select name="sort_by" id="sort_by" class="field">
                                         <option value="Incorporation_Date">Incorporation Date</option>
+                                        <option value="status">Status</option>
 
                                     </select>
                                 </div>

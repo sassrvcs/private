@@ -97,6 +97,25 @@
                             </div>
                             <!-- <div class="hr-text"><span>Search for another name</span></div> -->
                         </div>
+                        <div class="particulars-form-wrap p-0 m-0">.
+                            <div class="form-wrap p-0 m-0">
+                                <div class="form-info-block">
+                                    <div class="desc mb-0">
+                                        <div class="icon">
+                                            <span class="excl-icon" style="font-size: 30px; color:#3B566F;"><i class="fa fa-exclamation"></i></span>
+                                        </div>
+                                        <div class="text">
+                                            <h5>What happens next?</h5>
+                                            <ul>
+                                                <li>After checkout, you will be asked to enter your new company details and you can select a business bank account (optional).</li>
+                                                <li>Our staff will then send your new company application to Companies House for approval.</li>
+                                                <li>Most companies are registered within 3 to 6 working hours.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         {{--<div class="search mb-4">
                             <form id="homeSrchFrm-three" name="homeSrchFrm-three" onsubmit="submitForm(event)">
                                 <input type="hidden" name="action" value="search_comp">

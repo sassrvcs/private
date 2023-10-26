@@ -9,6 +9,8 @@ class Ticket_replie extends Model
 {
 
     use HasFactory;
+    protected $table = 'Ticket_Replies';
+
     Protected $fillable=[
         'replies'
     ];
