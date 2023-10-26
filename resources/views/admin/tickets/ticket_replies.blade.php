@@ -86,8 +86,8 @@
                                     <input type="text" name="refId" hidden value="{{$ticket_details->refId}}">
                                     <textarea class="form-control" placeholder="Comments" name="replies" required></textarea>
                                     <div class="d-flex justify-content-between pt-3">
-                                        <button class="btn"  type="submit">Submit</button>
                                         <button class="bck-btn" type="button" onclick="window.location.href='{{ route('admin.view-tickets-admin') }}'">Back</button>
+                                        <button class="btn"  type="submit">Submit</button>
                                     </div>
                                 </div>
                             </div>
