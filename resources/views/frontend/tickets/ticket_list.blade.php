@@ -66,7 +66,7 @@
                                     Phone: {{ $ticket->phone }}
                                 </div></td>
                                 <td> {{ $ticket->description}}</td>
-                                <td><button class="btn btn-primary" type="button" onclick="window.location.href='{{ route('view-ticket-replies', $ticket->id) }}'">Replay
+                                <td><button class="btn btn-primary" type="button" onclick="window.location.href='{{ route('view-ticket-replies', $ticket->id) }}'">Reply
                                     @if (count($ticket->ticket_replie)>0)
                                     <span class="badge badge-light ml-2"> {{count($ticket->ticket_replie)}} new</span>
                                     @endif

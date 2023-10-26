@@ -250,6 +250,15 @@
                         </a>
                     </li>
                 </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.order-history')}}"
+                            class="nav-link {{ request()->routeIs('admin.company.order-history') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Order History</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             {{-- <li class="nav-item {{ request()->routeIs('admin.view-tickets-admin.*') ? 'menu-is-opening menu-open' : '' }}">

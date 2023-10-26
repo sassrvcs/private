@@ -33,11 +33,11 @@
             </tr>
 
             <tr>
-                <th style="text-align: left; padding: 10px 10px 10px 50px; font-size: 28px;">You got a replay! (RefID- {{$refId}})</th>
+                <th style="text-align: left; padding: 10px 10px 10px 50px; font-size: 28px;">You got a reply! (RefID- {{$refId}})</th>
             </tr>
             <tr>
                 <td style="text-align: left; padding: 20px 50px; font-size: 18px; line-height: 26px;">
-                Replay: {{$replay}}
+                Reply: {{$replay}}
                 </td>
             </tr>
         </tbody>

@@ -259,6 +259,9 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
             Route::resource('change-password', ChangePasswordController::class);
 
             Route::resource('company', CompanyController::class);
+            Route::get('/order-history', [OrderController::class, 'adminOrderHistory'])->name('order-history');
+            Route::get('/order-history/report', [OrderController::class, 'adminOrderHistory'])->name('order-history-report');
+
             Route::any('/company/submit_company_house',[CompanyController::class,'submitCompanyHouse'])->name('submit_company_house');
             Route::any('/company/view-xml',[CompanyController::class,'viewXML'])->name('view_xml');
             Route::any('/company/check_status',[CompanyController::class,'checkStatus'])->name('check_status');

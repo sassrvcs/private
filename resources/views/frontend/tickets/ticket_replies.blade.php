@@ -76,9 +76,9 @@
                     <div class="ticket-view-text-area">
                         <textarea class="form-control" placeholder="Comments" name="replies" required></textarea>
                         <div class="d-flex justify-content-between pt-3">
-                            <button class="btn" type="submit">Submit</button>
                             <button class="bck-btn" type="button"
-                                onclick="window.location.href='{{ route('ticket.index') }}'">Back</button>
+                            onclick="window.location.href='{{ route('ticket.index') }}'">Back</button>
+                            <button class="btn" type="submit">Submit</button>
                         </div>
                     </div>
                 </div>

@@ -18,11 +18,25 @@
     <table>
         <tr>
             <td style="padding:0 0 10px; border-bottom:3px solid #000;">
-                <a href="#" title="logo" target="_blank">
-
-                    <img src="{{ storage_path('app/public/logo.png') }}" title="logo" alt="logo"
-                        style="width:300px;height:50px">
-                </a>
+                <table>
+                    <tr>
+                        <td style="">
+                            <a href="#" title="logo" target="_blank">
+                                <img src="{{ storage_path('app/public/logo.png') }}" title="logo" alt="logo"
+                                    style="width:300px;height:50px">
+                            </a>
+                        </td>
+                        <td style="padding: 0 0 0 115px;">
+                            <p style="font-size: 16px;line-height: 1.4;color: #646467;font-weight: 500;padding: 0 0 0px;margin: 0;">Formations Hunt</p>
+                            <p style="font-size: 16px;line-height: 1.4;color: #646467;font-weight: 500;padding: 0 0 0px;margin: 0;">7, Thurlow Gardens, Wembley</p>
+                            <p style="font-size: 16px;line-height: 1.4;color: #646467;font-weight: 500;padding: 0 0 0px;margin: 0;">Middlesex, HA0 2AH</p>
+                            <p style="font-size: 16px;line-height: 1.4;color: #646467;font-weight: 500;padding: 0 0 0px;margin: 0;">United Kingdom</p>
+                            <p style="font-size: 16px;line-height: 1.4;color: #646467;font-weight: 500;padding: 0 0 0px;margin: 0;">Tel: 0203 002 0032</p>
+                            <p style="font-size: 16px;line-height: 1.4;color: #646467;font-weight: 500;padding: 0 0 0px;margin: 0;">Email: contact@formationshunt.co.uk</p>
+                            <p style="font-size: 16px;line-height: 1.4;color: #646467;font-weight: 500;padding: 0 0 0px;margin: 0;">Web: https://formationshunt.co.uk/</p>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
         <tr>
@@ -82,38 +96,40 @@
                 <table width="100%" cellpadding="0" cellspacing="0"
                     style="background:#fff; font-family: 'Poppins', sans-serif; border:1px solid #000;">
                     <tr>
-                        @php
-                            // dd($review);
-                        @endphp
-                        @if (!empty($review->forwarding_registered_office_address))
-                            <h3>Registered Office</h3>
-                            <ul>
-                                <li>
-                                    <strong>Address : </strong> 52 Danes Court, North End Road, Wembley,
-                                    Middlesex, HAQ OAE, United Kingdom
-                                </li>
-                            </ul>
-                            <h3>Forwarding Address</h3>
-                            <ul>
-                                <li>
-                                    <strong>Address : </strong>
-                                    {{ construct_address($review->officeAddressWithForwAddress) }}
-                                </li>
-                            </ul>
-                        @else
-                            <h3>Registered Office</h3>
-                            <ul>
-                                <li>
-                                    <strong>Address : </strong>
-                                    {{ construct_address($review->officeAddressWithoutForwAddress) }}
-                                </li>
-                            </ul>
-                        @endif
+                        <td style="padding:10px">
+                            @php
+                                // dd($review);
+                            @endphp
+                            @if (!empty($review->forwarding_registered_office_address))
+                                <h3 style="padding:0;margin:0;">Registered Office</h3>
+                                <ul>
+                                    <li>
+                                        <strong>Address : </strong> 52 Danes Court, North End Road, Wembley,
+                                        Middlesex, HAQ OAE, United Kingdom
+                                    </li>
+                                </ul>
+                                <h3>Forwarding Address</h3>
+                                <ul>
+                                    <li>
+                                        <strong>Address : </strong>
+                                        {{ construct_address($review->officeAddressWithForwAddress) }}
+                                    </li>
+                                </ul>
+                            @else
+                                <h3 style="padding:0;margin:0;">Registered Office</h3>
+                                <ul>
+                                    <li>
+                                        <strong>Address : </strong>
+                                        {{ construct_address($review->officeAddressWithoutForwAddress) }}
+                                    </li>
+                                </ul>
+                            @endif
+                        </td>
                     </tr>
 
                     <tr>
                         @if (!empty($review->forwarding_business_office_address))
-                            <h3>Buisness Address</h3>
+                            <h3 style="padding:0;margin:0;">Buisness Address</h3>
                             <ul>
                                 <li>
                                     <strong>Address : </strong>52 Danes Court, North End Road, Wembley,
@@ -129,7 +145,7 @@
                             </ul>
                         @else
                             @if ($review->business_address)
-                                <h3>Buisness Address</h3>
+                                <h3 style="padding:0;margin:0;">Buisness Address</h3>
                                 <ul>
                                     <li>
                                         <strong>Address : </strong>
@@ -546,6 +562,15 @@
                         <td style="padding:10px;width: 50%;">
                             {{ $review->businessBanking->accountingSoftware->accounting_software_name ?? 'No Accounting Software Product Selected' }}
                         </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff; font-family: 'Poppins', sans-serif;">
+                    <tr>
+                        <td style="padding:15px;"><p style="text-align: center; font-size: 14px;line-height: 1.2;color: #000;font-weight: 500;padding: 0 0 0px;margin: 0;">Copyright © 2023 Formationshunt. | All Rights Reserved.</p></td>
                     </tr>
                 </table>
             </td>

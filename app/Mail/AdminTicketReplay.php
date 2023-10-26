@@ -37,7 +37,7 @@ class AdminTicketReplay extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Admin Ticket Replay',
+            subject: 'Admin Ticket Reply',
         );
     }
 

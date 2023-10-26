@@ -305,7 +305,7 @@
                                 <div class="caption-box pb-4" style="padding-right: 0px;">
 
                                     <div class="logo_container">
-                                        <img src="http://127.0.0.1:8000/frontend/assets/images/logo.svg" class="logo">
+                                        <img src="/frontend/assets/images/logo.svg" class="logo">
                                     </div>
 
 

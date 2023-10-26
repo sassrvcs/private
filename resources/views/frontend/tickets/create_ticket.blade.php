@@ -80,8 +80,8 @@
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <div class="sub-btn-block d-flex justify-content-between">
-                            <button class="btn" type="submit">Submit</button>
                             <button class="bck-btn" type="button" onclick="window.location.href='{{ route('ticket.index') }}'">Back</button>
+                            <button class="btn" type="submit">Submit</button>
                         </div>
                     </div>
                 </div>
