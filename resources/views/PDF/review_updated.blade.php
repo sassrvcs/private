@@ -10,7 +10,7 @@
 <style>
     .nature_of_control p span {
         font-weight: 500;
-        color: #3f63ed;
+        color: #1352d8;
     }
 </style>
 
@@ -365,9 +365,9 @@
                                                 <p>
                                                     <span>Ownership of shares: </span>{{ $val['noc_os'] }}
                                                 </p>
-                                                <p>
                                             @endif
                                             @if ($val['noc_vr'] != null)
+                                                <p>
                                                 <span>Voting Rights: </span>
                                                 {{ $val['noc_vr'] }}
                                                 </p>
@@ -397,8 +397,8 @@
                                                 <p>
                                                     <span>Ownership of shares: </span>{{ $val['fci_os'] }}
                                                 </p>
+                                                @endif
                                                 <p>
-                                            @endif
                                             @if ($val['fci_vr'] != null)
                                                 <span>Voting Rights: </span>
                                                 {{ $val['fci_vr'] }}
@@ -428,9 +428,9 @@
                                                 <p>
                                                     <span>Ownership of shares: </span>{{ $val['fci_os'] }}
                                                 </p>
+                                                @endif
+                                                @if ($val['tci_vr'] != null)
                                                 <p>
-                                            @endif
-                                            @if ($val['tci_vr'] != null)
                                                 <span>Voting Rights: </span>
                                                 {{ $val['tci_vr'] }}
                                                 </p>

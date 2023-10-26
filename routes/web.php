@@ -34,6 +34,7 @@ use App\Http\Controllers\Web\Payment\PaymentController;
 
 use App\Http\Controllers\Admin\Company\CompanyController;
 use App\Http\Controllers\MailTestController;
+use App\Http\Controllers\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -225,6 +226,10 @@ Route::get('order-invoice', [InvoiceController::class, 'orderInvoice'])->name('o
 //===========payment section========//
 Route::get('payment-history', [PaymentController::class, 'index'])->name('payment-history')->middleware('auth');
 Route::get('blog-details',[CmsController::class,'blogDetails'])->name('blog-details');
+Route::resource('ticket', TicketController::class)->middleware('auth');
+Route::get('ticket-replies/{id}', [TicketController::class,'view_ticket_replies'])->name('view-ticket-replies')->middleware('auth');
+Route::post('add-ticket-replies', [TicketController::class,'add_ticket_replies'])->name('add-ticket-replies')->middleware('auth');
+
 
 Route::prefix('admin')->middleware(['auth', 'auth.session'])
 ->group(function () {
@@ -243,6 +248,10 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
         Route::resource('sub-admin', SubadminController::class);
         Route::resource('customer', CustomerController::class);
         Route::resource('cms', CmsController::class);
+        Route::get('view-tickets', [TicketController::class,'view_tickets_admin'])->name('view-tickets-admin');
+
+        Route::get('ticket-replies/{id}', [TicketController::class,'view_ticket_replies'])->name('view-ticket-replies-admin')->middleware('auth');
+        Route::post('add-ticket-replies', [TicketController::class,'add_ticket_replies'])->name('add-ticket-replies-admin')->middleware('auth');
 
         // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
 

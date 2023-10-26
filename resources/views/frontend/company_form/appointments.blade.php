@@ -2952,8 +2952,8 @@
         <input type="hidden" id="actionType" value="" readonly>
 
         {{-- Nature of Control radio btn val --}}
-        <input type="text" id="f_radio_check_id" value="" readonly>
-        <input type="text" id="s_radio_check_id" value="" readonly>
+        <input type="hidden" id="f_radio_check_id" value="" readonly>
+        <input type="hidden" id="s_radio_check_id" value="" readonly>
         <input type="hidden" id="appointment_type" value="person" hidden readonly>
 
 
@@ -2984,6 +2984,9 @@
         function scrollToTop() {
             window.scrollTo(0, 600);
         }
+        function scrollToTopDynamic(val) {
+            window.scrollTo(0, val);
+        }
 
         function llpConsent() {
             if($("#designated_checkbox").is(':checked')==true||$("#member_checkbox").is(':checked')==true) {
@@ -3012,6 +3015,7 @@
                 if ($("#share_holding_table_id").length === 0 && (company_type=='Limited By Shares' || company_type=='Public Limited Company')) {
                     $("#positionValidation").removeClass('d-none')
                     $("#positionValidation").html('You have to select ateast one shareholder!')
+                    scrollToTopDynamic(700)
                     return false
                 }
 
@@ -3019,6 +3023,8 @@
                 if ({{$anyGuarantorThere}} == 0 && company_type=='Limited By Guarantee') {
                     $("#positionValidation").removeClass('d-none')
                     $("#positionValidation").html('You have to select ateast one Guarantor!')
+                    scrollToTopDynamic(700)
+
                     return false
                 }
 
@@ -3029,6 +3035,7 @@
             if ($("#psc_check").val() == 0) {
                 $("#positionValidation").removeClass('d-none')
                 $("#positionValidation").html('You have to select a PSC!')
+                scrollToTopDynamic(700)
                 return false
             }
             console.log($("#director_check").val())
@@ -3036,13 +3043,14 @@
                 if ($("#director_check").val() != 2) {
                 $("#positionValidation").removeClass('d-none')
                 $("#positionValidation").html('You have to select at least two Director!')
+                scrollToTopDynamic(700)
                 return false
                 }
             }else{
                 if ($("#director_check").val() == 0) {
                 $("#positionValidation").removeClass('d-none')
                 $("#positionValidation").html('You have to select a Director!')
-
+                scrollToTopDynamic(700)
                 return false
                 }
             }
@@ -3051,6 +3059,7 @@
             if ($("#designated_member_check").val()<2) {
                 $("#positionValidation").removeClass('d-none')
                 $("#positionValidation").html('You must have to select at least two Designated members!')
+                scrollToTopDynamic(700)
                 return false
             }
         }

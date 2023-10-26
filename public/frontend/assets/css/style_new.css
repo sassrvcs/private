@@ -7497,3 +7497,208 @@ form.woocommerce-form-login.login{
     height: 36px;
     margin: auto 0;
 }
+
+
+.add-ticket-sec{
+    padding: 0 0 40px;
+    margin: 0;
+}
+.add-ticket-sec .add-ticket-wrap{
+    max-width: 650px;
+    margin: 0 auto;
+    border: 1px solid #CECECE;
+    border-radius: 10px;
+    padding: 30px;
+}
+.add-ticket-sec .add-ticket-wrap h2{
+    text-align: center;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1.2;
+    text-transform: capitalize;
+    color: #313c4e;
+    padding: 0 0 20px;
+}
+.add-ticket-sec .add-ticket-wrap h2 span{
+    color: #6EB012;
+}
+.add-ticket-sec .sub-btn-block{
+    padding: 0;
+    margin: 0;
+}
+.add-ticket-sec .sub-btn-block .btn{
+    border-radius: 7px;
+    font-style: normal;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition: all 300ms ease-in-out;
+    padding: 10px 34px;
+    background-color: #87CB28;
+    color: #fff;
+}
+.add-ticket-sec .sub-btn-block .btn:hover{
+    background-color: #313C4E;
+}
+
+.add-ticket-sec .sub-btn-block .bck-btn{
+    border-radius: 5px;
+    font-style: normal;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition: all 300ms ease-in-out;
+    padding: 10px 34px;
+    background-color:#313C4E;
+    color: #fff;
+}
+.add-ticket-sec .sub-btn-block .bck-btn:hover{
+    background-color:  #87CB28;
+}
+
+.ticket-list-sec{
+    margin: 0;
+    padding: 0 0 40px;
+}
+
+.ticket-list-wrap{
+    padding: 0;
+    margin: 0;
+}
+.ticket-list-wrap h2{
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1.2;
+    text-transform: capitalize;
+    color: #313c4e;
+    padding: 0 0 30px;
+}
+
+.ticket-list-wrap h2 span{
+    color: #6EB012;
+}
+
+.ticket-list-wrap .table th,
+.ticket-list-wrap .table td{
+    max-width: 200px;
+}
+
+.ticket-view-sec {
+    margin: 0;
+    padding: 0 0 40px;
+}
+
+
+.ticket-connent-box{
+    padding: 0;
+    margin: 0;
+}
+.ticket-connent-box .main-connent{
+    padding: 13px;
+    margin: 0 0 15px;
+    border-radius: 10px;
+    border: black;
+    background-color: #c2eebd;
+}
+.ticket-connent-box .main-connent h3{
+    color: #000;
+    font-size: 21px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 150%;
+    text-transform: capitalize;
+    margin: 0px 0 10;
+}
+.ticket-connent-box .main-connent p{
+    color: #1A1A1A;
+    font-size: 18px;
+    font-family: Nunito Sans;
+    line-height: 150%;
+    letter-spacing: 0.216px;
+    margin: 0px 0 15px;
+}
+
+.ticket-connent-box .rply-comment{
+    padding: 15px;
+    margin: 0 0 15px 50px;
+    background: #f8f9fa;
+    border-radius: 7px;
+}
+
+.ticket-connent-box .rply-comment h3{
+    color: #000;
+    font-size: 18px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 150%;
+    text-transform: capitalize;
+    margin: 0px 0 10px;
+}
+
+.ticket-connent-box .rply-comment p{
+    color: #1A1A1A;
+    font-size: 16px;
+    font-family: Nunito Sans;
+    line-height: 150%;
+    letter-spacing: 0.216px;
+    margin: 0px 0 0px;
+}
+
+.ticket-view-text-area{
+    padding: 15px 0 0;
+    margin: 0;
+}
+.ticket-view-text-area textarea.form-control{
+    height: 100px;
+}
+.ticket-view-text-area .bck-btn{
+    border-radius: 5px;
+    font-style: normal;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition: all 300ms ease-in-out;
+    padding: 10px 34px;
+    background-color: #313C4E;
+    color: #fff;
+}
+.ticket-view-text-area .bck-btn:hover{
+    background-color: #87CB28;
+}
+
+.ticket-view-text-area .btn{
+    border-radius: 7px;
+    font-style: normal;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition: all 300ms ease-in-out;
+    padding: 10px 34px;
+    background-color: #87CB28;
+    color: #fff;
+}
+.ticket-view-text-area .btn:hover{
+    background-color: #313C4E;
+}
+.rply-comment.admin-css {
+    background-color: #eaeaea!important;
+}
+.rply-comment.customer-css {
+    background-color: #e0eefa!important;
+}

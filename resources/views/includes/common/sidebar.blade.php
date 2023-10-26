@@ -251,6 +251,25 @@
                     </li>
                 </ul>
             </li>
+
+            {{-- <li class="nav-item {{ request()->routeIs('admin.view-tickets-admin.*') ? 'menu-is-opening menu-open' : '' }}">
+                <a href="#" class="nav-link  {{ request()->routeIs('admin.view-tickets-admin.*') ? ' active' : '' }}">
+                    <i class="nav-icon fas fa-graduation-cap"></i>
+                    <p>
+                        Tickets
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.view-tickets-admin')}}"
+                            class="nav-link {{ request()->routeIs('admin.view-tickets-admin') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>List</p>
+                        </a>
+                    </li>
+                </ul>
+            </li> --}}
             {{--@endcan--}}
         </ul>
     </nav>

@@ -1,5 +1,11 @@
 @extends('layouts.master')
 @section('content')
+<style>
+     .logo_container {
+    /* text-align: center; */
+    margin-bottom: 25px;
+    }
+</style>
     <!-- ================ start: main-header ================ -->
 
     <!-- ================ end: main-header ================ -->
@@ -301,7 +307,9 @@
                         <div class="custom-container">
                             <div class="caption-box pb-4" style="padding-right: 0px;">
 
-
+                                <div class="logo_container">
+                                    <img src="http://127.0.0.1:8000/frontend/assets/images/logo.svg" class="logo">
+                                </div>
 
 
                                     <div class="col-md-7" id="result_show" style="display: none">

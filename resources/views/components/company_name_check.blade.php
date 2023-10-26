@@ -14,6 +14,10 @@
     color: #706969;
     padding: 0 116px 0 23px;
     }
+    .logo_container {
+    /* text-align: center; */
+    margin-bottom: 25px;
+    }
 </style>
 
 
@@ -33,7 +37,9 @@
                         <div class="custom-container">
                             <div class="caption-box pb-4" style="padding-right: 0px;">
 
-
+                                <div class="logo_container">
+                                    <img src="http://127.0.0.1:8000/frontend/assets/images/logo.svg" class="logo">
+                                </div>
 
 
                                 <div class="col-md-7" id="result_show_modal" style="display: none">

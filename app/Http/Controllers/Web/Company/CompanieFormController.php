@@ -9,6 +9,7 @@ use App\Models\Companie;
 use App\Models\Jurisdiction;
 use App\Models\Order;
 use App\Models\companyFormStep;
+use App\Models\User;
 use App\Services\CompanieSearchService;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use App\Services\MediaUploadService;
@@ -33,7 +34,7 @@ class CompanieFormController extends Controller
         $orders = Order::with('user')->where('order_id', $request->order)->first();
 
         $companyFormationStep = Companie::with('sicCodes')->where('order_id', $orders->order_id)->first();
-      
+
 
         // dd($companyFormationStep);
         $jurisdictions = Jurisdiction::get();
@@ -202,8 +203,19 @@ class CompanieFormController extends Controller
         ];
         $order_details = Order::where('order_id', $request->order)->first();
         $package_type =null;
+        $package_name = null;
         if ($order_details->cart->package!=null) {
             $package_type = $order_details->cart->package->package_type;
+            $package_name = $order_details->cart->package->package_name;
+        }
+        if(empty($other_legal_Document)&&$package_name!=null)
+        {
+            $package_name = strtolower(trim($package_name));
+            if(stripos($package_name,"PLC")!==false||stripos($package_name,'LLP')!==false||stripos($package_name,'Professional')!==false||stripos($package_name,"Prestige")!==false||stripos($package_name,"Guarantee")!==false||stripos($package_name,"Non Residents")!==false||stripos($package_name,"All Inclusive")!==false)
+            {
+                $other_legal_Document = 'standard';
+            }
+
         }
         // dd($package_type);
         if($company_type!=null && $company_type=="Limited By Guarantee")
@@ -222,7 +234,9 @@ class CompanieFormController extends Controller
         {
             return view('frontend.company_form.document_llp', compact('orderId','other_legal_Document', 'companyId', 'legalDocument', 'mediaDoc'));
         }
-        return view('frontend.company_form.document', compact('orderId', 'companyId', 'legalDocument', 'mediaDoc'));
+        // return view('frontend.company_form.document', compact('orderId', 'companyId', 'legalDocument', 'mediaDoc'));
+
+        return view('frontend.company_form.document_non_residents', compact('orderId','other_legal_Document', 'companyId', 'legalDocument', 'mediaDoc'));
     }
 
     /**

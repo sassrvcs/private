@@ -11,6 +11,9 @@
                             <a href="{{ route('my-account')}}" class="dropdown-item active"><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Overview</span></a>
                         </li>
                         <li id="menu-item-2338" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-2338"><a href="{{ route('my_details')}}" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>My Details</span></a></li>
+
+                        {{-- <li id="menu-item-2340" class="menu-item menu-item-type-post_type menu-item-object-page nav-item nav-item-2338"><a href="{{ route('ticket.index')}}" class="dropdown-item "><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Raise Ticket</span></a></li> --}}
+
                         <li id="menu-item-2339" class="menu-item menu-item-type-custom menu-item-object-custom nav-item nav-item-2339"><a href="{{ route('clientlogout')}}" class="dropdown-item " onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="_mi _before fa fa-angle-right" aria-hidden="true"></i><span>Logout</span></a></li>
                         <form id="logout-form" action="{{ route('clientlogout') }}" method="POST" style="display: none;">
                             @csrf
