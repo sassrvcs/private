@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cms;
+use App\Models\BusinessBanking;
 
 
 class PageController extends Controller
@@ -25,7 +26,8 @@ class PageController extends Controller
     public function show($slug)
     {
         $page = Cms::where('title','like',$slug)->first();
-        return view('frontend.cmspage', compact('page'));
+        $businessdata = BusinessBanking::get();
+        return view('frontend.cmspage', compact('page','businessdata'));
     }
-    
+
 }
