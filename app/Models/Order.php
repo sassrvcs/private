@@ -48,6 +48,6 @@ class Order extends Model implements HasMedia
      */
     public function transactions()
     {
-        return $this->hasMany(orderTransaction::class,'order_id');
+        return $this->hasMany(orderTransaction::class,'order_id','order_id');
     }
 }

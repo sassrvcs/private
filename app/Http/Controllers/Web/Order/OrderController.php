@@ -47,14 +47,13 @@ class OrderController extends Controller
             // dd($request);
 
 
-            $orders = Order::with('cart.package')->when($request->query('search')!=null,function($query) use ($search){
+            $orders = Order::with('transactions')->with('cart.package')->when($request->query('search')!=null,function($query) use ($search){
                return $query->where('order_id', 'like', '%'.$search.'%')->orWhere('company_name', 'like', '%'.$search.'%');
             })->when($request->query('dateRange')!=null,function($query)  use ($dateRange){
                 return $query->whereDate('created_at', '>=', $dateRange[0])->whereDate('created_at', '<=', $dateRange[1]);
             })->orderBy('created_at','desc')->when(!$request->routeIs('admin.order-history-report'),function($query)
             { return $query->paginate(50)->withQueryString();}
         );
-
         if($request->routeIs('admin.order-history-report')){
             $orders = ($orders->get());
 

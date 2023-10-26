@@ -66,7 +66,12 @@
 
                                             <tr>
                                                 <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}"> {{ $order->order_id }}</a></td>
-                                                <td>-</td>
+                                                <td> @if (isset($order->transactions[0]->invoice_id))
+                                                    {{$order->transactions[0]->invoice_id}}
+                                                @else
+                                                -
+                                                @endif
+                                            </td>
                                                 @php
                                                 if ($order->cart->package!=null) {
                                                     $package_type = $order->cart->package->package_type;

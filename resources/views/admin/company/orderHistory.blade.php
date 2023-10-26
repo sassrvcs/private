@@ -95,7 +95,13 @@
                                         @forelse ($orders as $index => $order)
                                             <tr>
                                                 <td>{{ $order->order_id }}</td>
-                                                <td> - </td>
+
+                                                <td> @if (isset($order->transactions[0]->invoice_id))
+                                                    {{$order->transactions[0]->invoice_id}}
+                                                @else
+                                                -
+                                                @endif
+                                            </td>
                                                 @php
                                                     if ($order->cart->package != null) {
                                                         $package_type = $order->cart->package->package_type;
