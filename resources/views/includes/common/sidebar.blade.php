@@ -1,7 +1,7 @@
 <!-- Brand Logo -->
 <a href="{{ route('admin.dashboard') }}" class="brand-link">
     <img src="{{ asset('images/template-logo.svg') }}" alt="#" class="brand-image">
-    <span class="brand-text font-weight-light">{{ Str::title(config('app.name')) }}</span>
+    <span class="brand-text font-weight-light" style="font-size: 16px;">{{ Str::title(config('app.name')) }}</span>
 </a>
 
 <!-- Sidebar -->
@@ -20,7 +20,7 @@
     </div>
 
     <!-- SidebarSearch Form -->
-    <div class="form-inline">
+    <div class="form-inline d-none">
         <div class="input-group" data-widget="sidebar-search">
             <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">

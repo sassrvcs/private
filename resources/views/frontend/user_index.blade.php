@@ -477,36 +477,15 @@
                 <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our Banking <span>Partners</span></h2>
             </div>
             <ul class="our-banking-slider" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/barclays-logo.png')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/cashplus-logo.png')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/wise-logo.png')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/payoneer-logo.png')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/anna-logo.png')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/cardone-Logo.png')}}">
-                    </div>
-                </li>
+                @foreach ($businessdata as $index => $data)
+                    <li>
+                        <div class="our-banking-item">
+                            <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
+                        </div>
+                    </li>
+                @endforeach
+
+
             </ul>
         </div>
     </section>
@@ -521,8 +500,8 @@
                 <p data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">To check for availability and view our packages, enter the name of your organization.</p>
             </div>
             <div class="search-box" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500" data-aos-once="true">
-                <input type="text" class="search-input" placeholder="Enter a company name to check if its available">
-                <button type="button" class="search-btn theme-btn-primary">Search</button>
+                <input type="text" class="search-input" id='searchCompanyName' placeholder="Enter a company name to check if its available">
+                <button type="button" id="searchInputanother" class="search-btn theme-btn-primary">Search</button>
             </div>
         </div>
     </section>
@@ -539,7 +518,23 @@
                 searchButton.prop('disabled', true).text('Searching...');
 
                 // Make the GET request using Axios
-                axios.get('/search-companie', {
+                searchSubmit(companyName);
+            });
+
+
+            $('#searchInputanother').click(function() {
+                var companyName = $('#searchCompanyName').val();
+                var searchButton = $(this);
+                searchButton.prop('disabled', true).text('Searching...');
+
+                // Make the GET request using Axios
+                searchSubmit(companyName);
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            });
+        });
+
+        function searchSubmit(companyName){
+            axios.get('/search-companie', {
                     params: {
                         'search': companyName,
                         'same_as': 'true',
@@ -588,7 +583,6 @@
                     // Re-enable the button and change the text back to "Search"
                     searchButton.prop('disabled', false).text('Search');
                 });
-            });
-        });
+        }
     </script>
 @endsection

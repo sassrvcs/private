@@ -20,9 +20,9 @@ class SubadminController extends Controller
                             ->orWhere('surname', 'like', "%{$search}%")
                             ->orWhere(DB::raw('CONCAT_WS(" ", forename, surname)'), 'like', "%{$search}%")
                             ->orWhere('phone_no', 'like', "%{$search}%")
-                            ->paginate(2);
+                            ->paginate(10);
         }else{
-            $users = User::role('subadmin')->paginate(2);
+            $users = User::role('subadmin')->paginate(10);
         }
         return view('admin.sub-admin.index',compact('users','search'));
     }

@@ -167,4 +167,12 @@ class UserService
         $customer = User::FindOrFail($id)->delete();
         return $customer;
     }
+
+    public function updatePassword($email,$new_password){
+        $user = User::where('email',$email)->first();
+        $user->password= bcrypt($new_password);
+        $user->save();
+        return true;
+
+    }
 }

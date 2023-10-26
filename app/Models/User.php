@@ -24,6 +24,7 @@ class User extends Authenticatable
     const SUPERADMIN = 'superadmin';
     const CUSTOMER = 'customer';
     protected $with = ['roles'];
+
     protected $fillable = [
         'organisation', 'title', 'forename', 'surname',
         'email', 'phone_no', 'password', 'business_email','business_phone','primary_email','newsletter','confirmation_statements','accounts'

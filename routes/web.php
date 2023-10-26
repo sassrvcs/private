@@ -20,6 +20,7 @@ use App\Http\Controllers\Web\Package\PackageController as WebPackageController;
 use App\Http\Controllers\Admin\BusinessBanking\BusinessBankingController;
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Web\Company\CompaniesListController;
 use App\Http\Controllers\Admin\Subadmin\SubadminController;
 use App\Http\Controllers\ContactController;
@@ -145,9 +146,6 @@ Route::get('companies/pdf/incorporate-certificate', [CompaniesListController::cl
 Route::get('companies/pdf/memo-articles-full', [CompaniesListController::class, 'memoArticlesFull'])->middleware('auth')->name('memoArticlesFull');
 
 
-
-
-
 Route::get('/search-companie', CompanieController::class);
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
 // Route::get('refund-cancellation', [PageController::class, 'refundcancellation'])->name('page.refundcancellation');
@@ -231,18 +229,19 @@ Route::get('ticket-replies/{id}', [TicketController::class,'view_ticket_replies'
 Route::post('add-ticket-replies', [TicketController::class,'add_ticket_replies'])->name('add-ticket-replies')->middleware('auth');
 
 
-Route::prefix('admin')->middleware(['auth', 'auth.session'])
-->group(function () {
-    Route::name('admin.')
+Route::group([ 'middleware' => 'isAdmin'], function() {
+    Route::prefix('admin')->middleware(['auth', 'auth.session'])
     ->group(function () {
+        Route::name('admin.')
+        ->group(function () {
 
-        Route::get('/dashboard', DashboardController::class)->name('dashboard');
-        // Route::resource('change-password', ChangePasswordController::class);
-        Route::resource('package', PackageController::class);
-        Route::resource('addonservice', AddonController::class);
+            Route::get('/dashboard', DashboardController::class)->name('dashboard');
+            // Route::resource('change-password', ChangePasswordController::class);
+            Route::resource('package', PackageController::class);
+            Route::resource('addonservice', AddonController::class);
 
-        Route::resource('business-banking', BusinessBankingController::class);
-        Route::resource('accounting', AccountingController::class);
+            Route::resource('business-banking', BusinessBankingController::class);
+            Route::resource('accounting', AccountingController::class);
 
 
         Route::resource('sub-admin', SubadminController::class);
@@ -253,18 +252,20 @@ Route::prefix('admin')->middleware(['auth', 'auth.session'])
         Route::get('ticket-replies/{id}', [TicketController::class,'view_ticket_replies'])->name('view-ticket-replies-admin')->middleware('auth');
         Route::post('add-ticket-replies', [TicketController::class,'add_ticket_replies'])->name('add-ticket-replies-admin')->middleware('auth');
 
-        // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
+            // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
 
-        // Route::resource('product', ProductController::class);
-        // Route::resource('category', CategoryController::class);
-        Route::resource('change-password', ChangePasswordController::class);
+            // Route::resource('product', ProductController::class);
+            // Route::resource('category', CategoryController::class);
+            Route::resource('change-password', ChangePasswordController::class);
 
-        Route::resource('company', CompanyController::class);
-        Route::any('/company/submit_company_house',[CompanyController::class,'submitCompanyHouse'])->name('submit_company_house');
-        Route::any('/company/view-xml',[CompanyController::class,'viewXML'])->name('view_xml');
-        Route::any('/company/check_status',[CompanyController::class,'checkStatus'])->name('check_status');
-        Route::any('/company/update_status',[CompanyController::class,'updateStatus'])->name('update_status');
+            Route::resource('company', CompanyController::class);
+            Route::any('/company/submit_company_house',[CompanyController::class,'submitCompanyHouse'])->name('submit_company_house');
+            Route::any('/company/view-xml',[CompanyController::class,'viewXML'])->name('view_xml');
+            Route::any('/company/check_status',[CompanyController::class,'checkStatus'])->name('check_status');
+            Route::any('/company/update_status',[CompanyController::class,'updateStatus'])->name('update_status');
+        });
     });
 });
+
 
 require __DIR__ . '/auth.php';
