@@ -3,6 +3,10 @@
     Company List
 @endsection
 @section('content')
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" defer></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -26,8 +30,11 @@
                 <div class="card pdb-75">
                     <div class="card-header">
 
-                        <form action="">
-                            <div class="input-group w-25 float-right">
+                        <form action="" id="searchForm">
+                            <div class="input-group w-50 float-right">
+
+                                <input type="text" name="dateRange" value="{{ $fullDate }}"
+                                placeholder="Select Date Range" class="form-control form-control-sm" id="dateRange" />
 
                                 <input type="text" value="{{ $search }}" name="search" placeholder="Find by name" id="search"
                                     class="form-control form-control-sm">
@@ -41,6 +48,20 @@
                                 <div class="input-group-append">
                                     {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
                                     <a href="{{ route('admin.company.index') }}" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a>
+                                </div>
+                                &nbsp;
+                                <div class="input-group-append">
+                                    {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
+
+                                    @if ($request->has('dateRange'))
+                                    <a href="{{ route('admin.order-history-report',['dateRange' => $request->get('dateRange'),'search' => $request->get('search')]) }}" class="btn btn-sm btn_baseColor"
+                                    id="clear-search" type="button"><i class="fa-solid fa-download"></i> Report &nbsp;</a>
+                                    @else
+                                    <a href="{{ route('admin.order-history-report') }}" class="btn btn-sm btn_baseColor"
+                                    id="clear-search" type="button"><i class="fa-solid fa-download"></i> Report &nbsp;</a>
+                                    @endif
+
+
                                 </div>
                             </div>
                         </form>
@@ -440,10 +461,46 @@
         });
     }
 </script>
+<script>
+    $(document).ready(function() {
+        $('input[name="dateRange"]').daterangepicker({
+            opens: 'left',
+            autoUpdateInput: false,
+            // endDate: '+0d',
+            // autoclose: true
+            maxDate: new Date(),
+
+        }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
+                .format('YYYY-MM-DD'));
+        });
+        $('input[name="dateRange"]').on('apply.daterangepicker', function(ev, picker) {
+              $(this).val(picker.startDate.format('YYYY-MM-DD') + ' / ' + picker.endDate.format('YYYY-MM-DD'));
+     });
+
+
+    });
+    $("#searchForm").submit(function(e){
+        var dateRange= $("#dateRange").val();
+     var search = $("#search").val();
+        if(dateRange==''&&search==''){
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Please select date range or search!',
+            })
+            e.preventDefault();
+        }
+    })
+
+</script>
 <style type="text/css">
     .error{
         color: red;
     }
+    .cancelBtn {
+            background-color: #d03333 !important;
+        }
 </style>
 @include('admin.commonScript.script')
 @endsection

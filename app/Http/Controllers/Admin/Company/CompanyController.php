@@ -35,7 +35,9 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         $search     = ($request->search) ? $request->search : '';
-        $companies = $this->companyService->index($search);
+        $fullDate = $request->query('dateRange');
+        $dateRange = $request->query('dateRange')!=null?explode('/',$request->query('dateRange')):null;
+        $companies = $this->companyService->index($request);
 
         $statuses = [
             '1' => 'Pending',
@@ -46,7 +48,7 @@ class CompanyController extends Controller
 
         //echo "<pre>";
         //print_r($companies);die;
-        return view('admin.company.index',compact('companies','search', 'statuses'));
+        return view('admin.company.index',compact('companies','search', 'statuses','fullDate','request'));
     }
 
     /**
@@ -355,7 +357,7 @@ class CompanyController extends Controller
             }
             if($status=='4'){
                 $xml_details = companyXmlDetail::where('order_id',$order_id)->first();
-                
+
                 $xml_details->admin_comment = $request->admin_comment;
                 $xml_details->save();
             }
