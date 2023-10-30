@@ -45,11 +45,6 @@ class CompanyFormService
             $companyFormStep->save();
         }
 
-
-
-
-
-
             if($company) {
                 // Delete previous data before insert data into database
                 if($request['sic_code']) {

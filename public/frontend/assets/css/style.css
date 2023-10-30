@@ -800,14 +800,14 @@ body .show > .btn-primary.dropdown-toggle {
 .companyFormationPackages-lists {
     display: flex;
     flex-wrap: wrap;
-    margin: -13px;
+    margin: -10px;
     padding-top: 120px;
-    row-gap: 80px;
+/*    row-gap: 80px;*/
 }
 
 .companyFormationPackages-lists .cfp-list-col {
 /*    padding: 13px;*/
-    padding: 13px 0;
+    padding: 13px 10px;
     width: 100%;
     max-width: 20%;
 }
@@ -816,9 +816,9 @@ body .show > .btn-primary.dropdown-toggle {
     background: #FFFFFF;
     box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.13);
     /*border-radius: 25px;*/
-    border-radius: 0 0 10px 10px;
+    border-radius: 5px;
 /*    padding: 0 22px 22px;*/
-    padding: 0 15px 20px;
+    padding: 0 10px 20px;
     transition: .5s;
     height: auto;
     display: flex;
@@ -944,10 +944,10 @@ body .show > .btn-primary.dropdown-toggle {
 
 /*.companyFormationPackages-lists .cfp-list-box:hover .bottom-actions .buy-btn,*/
 .companyFormationPackages-lists .cfp-list-box.active .bottom-actions .buy-btn {
-    /*background-color: #fff;
-    color: #87CB28;*/
-/*    background-color: #313C4E;*/
-    color: #fff;
+    background-color: #fff;
+    color: #87CB28;
+    /*background-color: #313C4E;
+    color: #fff;*/
 }
 .companyFormationPackages-lists .cfp-list-box:hover .bottom-actions .buy-btn:hover,
 .companyFormationPackages-lists .cfp-list-box.active .bottom-actions .buy-btn:hover{
@@ -972,7 +972,7 @@ body .show > .btn-primary.dropdown-toggle {
 .companyFormationPackages-lists .cfp-list-box .bottom-actions .buy-btn {
     height: 48px;
     /*border-radius: 15px;*/
-    border-radius: 8px;
+    border-radius: 5px;
     width: 100%;
     max-width: 182px;
 
@@ -1683,6 +1683,7 @@ body .show > .btn-primary.dropdown-toggle {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
 }
 
 .formationsMade-easier-sec .sec-title1 h2 {
@@ -1764,9 +1765,12 @@ body .show > .btn-primary.dropdown-toggle {
 /* =========== end: formationsMade-easier-sec =========== */
 /* =========== start: main-footer =========== */
 .main-footer {
-    background: #171A1A;
+    /*background: #171A1A;
     padding: 60px 0 35px;
-    overflow: hidden;
+    overflow: hidden;*/
+    background-image: linear-gradient(#262c2c, #262c2c);
+    padding: 40px 0 0 0;
+    border-top: 3px solid #87cb28;
 }
 
 .main-footer .main-footer-row {
@@ -1804,32 +1808,53 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .main-footer .main-footer-box h3 {
-    font-weight: 600;
+    /*font-weight: 600;
     font-size: 18px;
     line-height: 20px;
     text-transform: capitalize;
-    color: #FFFFFF;
+    color: #FFFFFF;*/
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 0 0 10px 0;
+    margin-bottom: 14px;
+    color: #fff;
 }
 
 .main-footer .main-footer-box .nav-lists {
-    margin-top: 20px;
+    /*margin-top: 20px;
     display: flex;
     flex-direction: column;
-    row-gap: 16px;
+    row-gap: 6px;*/
+    margin-left: 0;
 }
 
 .main-footer .main-footer-box .nav-lists li {
-    display: flex;
+/*    display: flex;*/
+    margin-bottom: 6px;
+    color: #ddd;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .main-footer .main-footer-box .nav-lists li a {
-    font-weight: 400;
+    /*font-weight: 400;
     font-size: 14px;
     line-height: 24px;
     color: #DDDDDD;
-    transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;*/
+    color: #ddd;
+    font-weight: 400!important;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
 }
 .main-footer .main-footer-box .nav-lists li a:hover{
+    /*color: #87cb28;
+    margin-left: 5px;*/
     color: #87cb28;
     margin-left: 5px;
 }
