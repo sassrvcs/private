@@ -41,8 +41,8 @@
                                 <div class="field-box">
                                     <label for="">Sort By :</label>
                                     <select name="sort_by" id="sort_by" class="field">
-                                        <option value="Incorporation_Date">Incorporation Date</option>
-                                        <option value="status">Status</option>
+                                        <option value="Incorporation_Date" {{ (isset($_GET['sort_by']) && $_GET['sort_by'] == "Incorporation_Date") ? 'selected' : '' }}>Incorporation Date</option>
+                                        <option value="status" {{ (isset($_GET['sort_by']) && $_GET['sort_by'] == "status") ? 'selected' : '' }}>Status</option>
 
                                     </select>
                                 </div>
@@ -96,9 +96,10 @@
 
                                     @foreach($companies->orders as $key => $order)
 
-                                        @if (!isset($_GET['status_value']) || $_GET['status_value']=='All' || (@$order->myCompany->status == $_GET['status_value']))
-                                            <tr>
 
+                                        @if (!isset($_GET['status_value']) || $_GET['status_value']=='All' || (@$order->myCompany->status == $_GET['status_value']) )
+                                            <tr>
+                                               
                                                 <td>{{ $order->order_id }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
                                                 {{-- <td>{{ strtoupper($order->company_name) ?? "-" }}</td> --}}
