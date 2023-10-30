@@ -43,7 +43,12 @@ class OrderController extends Controller
             $search  = $request->query('search');
             $fullDate = $request->query('dateRange');
             $dateRange = $request->query('dateRange')!=null?explode('/',$request->query('dateRange')):null;
-
+            $order_status = [
+                'success',
+                'pending',
+                'progress'
+            ];
+            $orderStatus = $request->query('orderStatus');
             // dd($request);
 
 
@@ -51,6 +56,8 @@ class OrderController extends Controller
                return $query->where('order_id', 'like', '%'.$search.'%')->orWhere('company_name', 'like', '%'.$search.'%');
             })->when($request->query('dateRange')!=null,function($query)  use ($dateRange){
                 return $query->whereDate('created_at', '>=', $dateRange[0])->whereDate('created_at', '<=', $dateRange[1]);
+            })->when($orderStatus!=null,function($query) use($orderStatus){
+                return $query->where('order_status', $orderStatus);
             })->orderBy('created_at','desc')->when(!$request->routeIs('admin.order-history-report'),function($query)
             { return $query->paginate(50)->withQueryString();}
         );
@@ -58,9 +65,13 @@ class OrderController extends Controller
             $orders = ($orders->get());
 
             $csv = Writer::createFromString('');
-            $csv->insertOne(['order ID', 'Invoiced','Package Type','Company Name','Status']);
+            $csv->insertOne(['order ID','Created At', 'Invoiced','Package Type','Company Name','Status']);
 
             foreach ($orders as $key => $order) {
+                if (isset($order->transactions[0]->invoice_id))
+                    $invoiceId =$order->transactions[0]->invoice_id;
+                else
+                    $invoiceId = '-';
                 if ($order->cart->package != null) {
                     $package_type = $order->cart->package->package_type;
                 } else {
@@ -87,7 +98,7 @@ class OrderController extends Controller
                     $full_pkg_type = 'LLP Package';
                 }
                 $status = $order->order_status == 'pending' ? 'Incomplete' : ($order->order_status == 'progress' ? 'Inprogress' : 'Complete');
-                $csv->insertOne([$order->order_id, '-',$full_pkg_type,$order->company_name,$status]);
+                $csv->insertOne([$order->order_id,date('d-m-Y', strtotime($order->created_at)), $invoiceId ,$full_pkg_type,$order->company_name,$status]);
             }
             $headers = [
                 'Content-Type' => 'text/csv',
@@ -96,7 +107,7 @@ class OrderController extends Controller
         return response($csv->getContent(), 200, $headers);
         }
 
-        return view('admin.company.orderHistory', compact('orders','search','fullDate','request'));
+        return view('admin.company.orderHistory', compact('orders','search','fullDate','request','order_status','orderStatus'));
     }
     /**
      * Delete order item

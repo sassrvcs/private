@@ -17,6 +17,7 @@ use App\Models\Person_appointment;
 use App\Models\PersonOfficer;
 use App\Models\companyXmlDetail;
 use Redirect;
+use League\Csv\Writer;
 use App\Models\Companie;
 
 class CompanyController extends Controller
@@ -36,9 +37,9 @@ class CompanyController extends Controller
     {
         $search     = ($request->search) ? $request->search : '';
         $fullDate = $request->query('dateRange');
+        $companyStatus  = $request->query('company_status');
         $dateRange = $request->query('dateRange')!=null?explode('/',$request->query('dateRange')):null;
         $companies = $this->companyService->index($request);
-
         $statuses = [
             '1' => 'Pending',
             '2' => 'In progress',
@@ -46,9 +47,32 @@ class CompanyController extends Controller
             '4' => 'Reject'
         ];
 
+        if ($request->routeIs('admin.company-download-report')) {
+
+            $csv = Writer::createFromString('');
+            $csv->insertOne(['order ID','Incorporated', 'Company Name','Company No','Auth code','Approval Status']);
+            foreach ($companies as $key => $company) {
+                $company_status = $company->company_status!=0?$statuses[$company->company_status]:'Pending';
+                $csv->insertOne([
+                    $company->order_id,
+                    date('d-m-Y',strtotime($company->created_at)),
+                    $company->company_name,
+                    $company->company_number,
+                    $company_status=='Approved'?companyXmlDetail::where('order_id',$company->order_id)->pluck('authentication_code')->first():'',
+                    $company_status
+                ]);
+            }
+            $headers = [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename="OrderHistoryReport.csv"',
+            ];
+        return response($csv->getContent(), 200, $headers);
+
+        }
+
         //echo "<pre>";
         //print_r($companies);die;
-        return view('admin.company.index',compact('companies','search', 'statuses','fullDate','request'));
+        return view('admin.company.index',compact('companies','search', 'statuses','fullDate','request','companyStatus'));
     }
 
     /**

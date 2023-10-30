@@ -11,6 +11,9 @@
         .cancelBtn {
             background-color: #d03333 !important;
         }
+        .selectOrderStatus{
+            border: 1px solid #ccc !important
+        }
     </style>
     <section class="content-header">
         <div class="container-fluid">
@@ -37,6 +40,16 @@
 
                             <form action="" id="searchForm">
                                 <div class="input-group w-50 float-right">
+
+                                    <select class="select form-control-sm selectOrderStatus" name="orderStatus" id="orderStatus">
+                                        <option value="">Select</option>
+
+                                        @foreach($order_status as $key => $value)
+
+                                        <option value={{ $value }} @if ($orderStatus == $value)selected @endif>{{ $value == 'pending' ? 'Incomplete' : ($value == 'progress' ? 'Inprogress' : 'Complete') }}</option>
+                                        @endforeach
+                                    </select>
+
                                     <input type="text" name="dateRange" value="{{ $fullDate }}"
                                         placeholder="Select Date Range" class="form-control form-control-sm" id="dateRange" />
 
@@ -63,7 +76,7 @@
                                         {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
 
                                         @if ($request->has('dateRange'))
-                                        <a href="{{ route('admin.order-history-report',['dateRange' => $request->get('dateRange'),'search' => $request->get('search')]) }}" class="btn btn-sm btn_baseColor"
+                                        <a href="{{ route('admin.order-history-report',['orderStatus'=>$request->get('orderStatus'),'dateRange' => $request->get('dateRange'),'search' => $request->get('search')]) }}" class="btn btn-sm btn_baseColor"
                                         id="clear-search" type="button"><i class="fa-solid fa-download"></i> Report &nbsp;</a>
                                         @else
                                         <a href="{{ route('admin.order-history-report') }}" class="btn btn-sm btn_baseColor"
@@ -84,6 +97,7 @@
                                     <thead>
                                         <tr>
                                             <th>Order Id</th>
+                                            <th>Created At</th>
                                             <th>Invoiced</th>
                                             <th>Package/Type</th>
                                             <th>Company Name</th>
@@ -95,6 +109,7 @@
                                         @forelse ($orders as $index => $order)
                                             <tr>
                                                 <td>{{ $order->order_id }}</td>
+                                                <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
 
                                                 <td> @if (isset($order->transactions[0]->invoice_id))
                                                     {{$order->transactions[0]->invoice_id}}
@@ -142,7 +157,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5">No Record Found.</td>
+                                                <td colspan="6">No Record Found.</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -198,11 +213,14 @@
         $("#searchForm").submit(function(e){
             var dateRange= $("#dateRange").val();
          var search = $("#search").val();
-            if(dateRange==''&&search==''){
+         var orderStatus = $("#orderStatus").val();
+         console.log(orderStatus);
+        //  e.preventDefault()
+            if(dateRange==''&&search==''&&orderStatus==''){
                 Swal.fire({
                     icon: 'warning',
                     title: 'Warning',
-                    text: 'Please select date range or search!',
+                    text: 'Please select at-least one filter',
                 })
                 e.preventDefault();
             }

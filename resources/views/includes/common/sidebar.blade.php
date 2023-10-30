@@ -233,7 +233,7 @@
             @endcan
 
             {{--@can('Companies')--}}
-            <li class="nav-item {{ request()->routeIs('admin.company.*') ? 'menu-is-opening menu-open' : '' }}">
+            <li class="nav-item {{ request()->routeIs('admin.company.*') ? 'menu-is-opening menu-open' : '' }} {{ request()->routeIs('admin.order-history') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link  {{ request()->routeIs('admin.company.*') ? ' active' : '' }}">
                     <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
@@ -253,7 +253,7 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ route('admin.order-history')}}"
-                            class="nav-link {{ request()->routeIs('admin.company.order-history') ? 'active' : '' }}">
+                            class="nav-link {{ request()->routeIs('admin.order-history') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Order History</p>
                         </a>

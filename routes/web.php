@@ -259,6 +259,7 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
             Route::resource('change-password', ChangePasswordController::class);
 
             Route::resource('company', CompanyController::class);
+            Route::get('/company-report/download', [CompanyController::class, 'index'])->name('company-download-report');
             Route::get('/order-history', [OrderController::class, 'adminOrderHistory'])->name('order-history');
             Route::get('/order-history/report', [OrderController::class, 'adminOrderHistory'])->name('order-history-report');
 

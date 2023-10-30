@@ -19,8 +19,21 @@ class CompanyFormService
     {
         // dd($request);
         return DB::transaction(function () use ($request) {
+            // $company = Companie::updateOrCreate([
+            //     'companie_name'     => $request['companie_name'],
+            //     'user_id'           => auth()->user()->id,
+            // ],[
+            //     'user_id'           => auth()->user()->id,
+            //     'order_id'          => $request['order'],
+            //     'jurisdiction_id'   => $request['jurisdiction_id'],
+            //     'companie_name'     => $request['companie_name'],
+            //     'companie_type'     => $request['companie_type'],
+            //     'section_name'      => $request['section_name'],
+            //     'step_name'         => $request['step_name'],
+            // ]);
+
             $company = Companie::updateOrCreate([
-                'companie_name'     => $request['companie_name'],
+                'order_id'     => $request['order'],
                 'user_id'           => auth()->user()->id,
             ],[
                 'user_id'           => auth()->user()->id,
@@ -33,6 +46,8 @@ class CompanyFormService
             ]);
 
         $company = Companie::where('companie_name', 'LIKE', '%' . $request['companie_name'] . '%')->first();
+        // $company = Companie::where('order_id',$request['order'])->first();
+
         $exist= companyFormStep::where('order',$request['order'])->where('section','company_formation')->where('step','particulars')->first();
         if(!$exist){
             $companyFormStep = new companyFormStep;
