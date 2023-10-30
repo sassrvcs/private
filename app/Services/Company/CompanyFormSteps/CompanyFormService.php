@@ -45,9 +45,8 @@ class CompanyFormService
                 'step_name'         => $request['step_name'],
             ]);
 
-        $company = Companie::where('companie_name', 'LIKE', '%' . $request['companie_name'] . '%')->first();
-        // $company = Companie::where('order_id',$request['order'])->first();
-
+        // $company = Companie::where('companie_name', 'LIKE', '%' . $request['companie_name'] . '%')->first();
+        $company = Companie::where('order_id',$request['order'])->first();
         $exist= companyFormStep::where('order',$request['order'])->where('section','company_formation')->where('step','particulars')->first();
         if(!$exist){
             $companyFormStep = new companyFormStep;

@@ -37,8 +37,12 @@ class CompanyFormController extends Controller
         }else{
             $package_type = '';
         }
-        $office_address = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->pluck('office_address')->first();
-        $fwd_office_address = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->pluck('forwarding_registered_office_address')->first();
+        // $office_address = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->pluck('office_address')->first();
+        // $fwd_office_address = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->pluck('forwarding_registered_office_address')->first();
+
+
+        $office_address = Companie::where('order_id', $_GET['order'])->pluck('office_address')->first();
+        $fwd_office_address = Companie::where('order_id', $_GET['order'])->pluck('forwarding_registered_office_address')->first();
 
         $recent_addr  = $this->regAddrService->getRecentAddress($office_address);
 
@@ -194,7 +198,9 @@ class CompanyFormController extends Controller
         }
         $used_address = Address::where('user_id', Auth::user()->id)->get();
 
-        $forwardingAdd = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->first()->toArray();
+        // $forwardingAdd = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->first()->toArray();
+        $forwardingAdd = Companie::where('order_id',$_GET['order'])->first()->toArray();
+
         $forwardingAddVal = $forwardingAdd['forwarding_registered_office_address'];
 
         if ($forwardingAddVal !== null) {
@@ -218,7 +224,8 @@ class CompanyFormController extends Controller
         }
         $used_address = Address::where('user_id', Auth::user()->id)->get();
 
-        $forwardingAdd = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->first()->toArray();
+        // $forwardingAdd = Companie::where('companie_name', 'LIKE', '%' . $order->company_name . '%')->first()->toArray();
+        $forwardingAdd = Companie::where('order_id',$_GET['order'])->first()->toArray();
         $forwardingAddVal = $forwardingAdd['forwarding_business_office_address'];
 
         if ($forwardingAddVal !== null) {
@@ -247,12 +254,14 @@ class CompanyFormController extends Controller
 
 
         $Company = Companie::updateOrCreate(
-            ['companie_name' =>  $company_name],
+            // ['companie_name' =>  $company_name],
+            ['order_id' =>  $order->order_id],
             ['office_address' => $address_id]
         );
 
         $Company = Companie::updateOrCreate(
-            ['companie_name' =>  $company_name],
+            // ['companie_name' =>  $company_name],
+            ['order_id' =>  $order->order_id],
             ['forwarding_registered_office_address' => null]
         );
         return 1;
@@ -267,8 +276,8 @@ class CompanyFormController extends Controller
         $id = $request->address_id;
         // $user_id = Auth::user()->id;
 
-        Companie::where('companie_name', $company_name)->update(['forwarding_registered_office_address' => $id]);
-        Companie::where('companie_name', $company_name)->update(['office_address' => null]);
+        Companie::where('order_id', $request->order_id)->update(['forwarding_registered_office_address' => $id]);
+        Companie::where('order_id', $request->order_id)->update(['office_address' => null]);
 
         $addData = Address::where('id', $id)->first()->toArray();
 

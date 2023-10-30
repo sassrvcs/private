@@ -73,7 +73,15 @@ class CheckoutService
      */
     private function generateOrderId()
     {
-        $orderId = date('ims')-rand(10,99);
+        // $orderId = date('ims')-rand(10,99);
+       list($usec, $sec) = explode(" ", microtime());
+        $id =  ($usec+$sec);
+        $id = explode(".", $id);
+        $orderId = @$id[0].@$id[1];
+        $dupOrder = Order::where('order_id', $orderId)->first();
+        if ($dupOrder) {
+            $this->generateOrderId();
+        }
         return $orderId;
     }
 }
