@@ -125,7 +125,7 @@
                                             <tr>
 
                                                 <td>{{ $order->order_id }}</td>
-                                                <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
+                                                <td>{{ date('Y-m-d', strtotime($order->created_at)) }}</td>
                                                 <td>
                                                     {{ strtoupper($order->company_name) ?? '-' }}
                                                 </td>

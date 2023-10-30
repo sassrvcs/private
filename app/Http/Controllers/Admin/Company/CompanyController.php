@@ -55,7 +55,7 @@ class CompanyController extends Controller
                 $company_status = $company->company_status!=0?$statuses[$company->company_status]:'Pending';
                 $csv->insertOne([
                     $company->order_id,
-                    date('d-m-Y',strtotime($company->created_at)),
+                    date('Y-m-d',strtotime($company->created_at)),
                     $company->company_name,
                     $company->company_number,
                     $company_status=='Approved'?companyXmlDetail::where('order_id',$company->order_id)->pluck('authentication_code')->first():'',
