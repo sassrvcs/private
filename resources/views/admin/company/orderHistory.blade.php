@@ -145,7 +145,7 @@
                                                     }
                                                 @endphp
                                                 <td>{{ $full_pkg_type }}</td>
-                                                <td>{{ $order->company_name }}</td>
+                                                <td>{{strtoupper( $order->company_name) }}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-primary">
                                                         {{ $order->order_status == 'pending' ? 'Incomplete' : ($order->order_status == 'progress' ? 'Inprogress' : 'Complete') }}
