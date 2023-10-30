@@ -66,18 +66,17 @@
 
                                     {{-- <input type="text" name="agent_id" value="{{ $filter['agent_id'] }}" placeholder="Find by agent id" id="agent_id" class="form-control form-control-sm" required > --}}
 
-                                    <div class="input-group-append">
-                                        <button class="btn btn-sm btn_baseColor" type="submit">Search</button>
-                                    </div>
-                                    &nbsp;
-                                    <div class="input-group-append">
-                                        {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
-                                        <a href="{{ route('admin.company.index') }}" class="btn btn-sm btn_baseColor"
-                                            id="clear-search" type="button">Clear &nbsp;</a>
-                                    </div>
-                                    &nbsp;
-                                    <div class="input-group-append">
-                                        {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
+                                <div class="input-group-append">
+                                    <button class="btn btn-sm btn_baseColor" type="submit">Search</button>
+                                </div>
+                                &nbsp;
+                                <div class="input-group-append">
+                                    {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
+                                    <a href="{{ route('admin.company.index') }}" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Reset &nbsp;</a>
+                                </div>
+                                &nbsp;
+                                <div class="input-group-append">
+                                    {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
 
                                         @if ($request->has('dateRange'))
                                             <a href="{{ route('admin.company-download-report', ['company_status'=>$request->get('company_status'),'dateRange' => $request->get('dateRange'), 'search' => $request->get('search')]) }}"

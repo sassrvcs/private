@@ -68,7 +68,7 @@
                                         {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
 
                                         <a href="{{ route('admin.order-history') }}" class="btn btn-sm btn_baseColor"
-                                            id="clear-search" type="button">Clear &nbsp;</a>
+                                            id="clear-search" type="button">Reset &nbsp;</a>
 
                                     </div>
                                     &nbsp;

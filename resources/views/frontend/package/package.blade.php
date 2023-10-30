@@ -10,7 +10,7 @@
             <div class="d-flex">
                 <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
                     <li><a href="{{route('index')}}">Home</a></li>
-                    <li><a>Compare Package</a></li>
+                    <li><a href="{{route('package')}}">Compare Package</a></li>
                 </ul>
            </div>
         </div>
@@ -125,19 +125,17 @@
                                     <h2>£{{ $package->package_price }}</h2>
                                     <div class="bottom-actions">
                                         <a href="{{ route('add-cart', ['id' => $package->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
-                                        {{-- @if ()
-
-                                        @elseif()
-
-                                        @elseif()
-
-                                        @elseif()
-
-                                        @elseif()
-
-
-                                        @endif --}}
-                                        <a href="" class="read-more-btn">Read More</a>
+                                        @if ($package->package_name == 'Digital')
+                                            <a href="{{route('digital_package')}}" class="read-more-btn">Read More</a>
+                                        @elseif($package->package_name == 'Privacy')
+                                            <a href="{{route('privacy_package')}}" class="read-more-btn">Read More</a>
+                                        @elseif($package->package_name == 'Professional')
+                                            <a href="{{route('professional_package')}}" class="read-more-btn">Read More</a>
+                                        @elseif($package->package_name == 'Prestige')
+                                            <a href="{{route('prestige_package')}}" class="read-more-btn">Read More</a>
+                                        @elseif($package->package_name == 'All Inclusive')
+                                            <a href="{{route('all_inclusive_package')}}" class="read-more-btn">Read More</a>
+                                        @endif
                                     </div>
                                 </div>
                             </th>

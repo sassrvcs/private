@@ -36,7 +36,7 @@
                                     </div>
 
                                     <div class="col-sm-3">
-                                        <x-Forms.Input type="text" mandate="*" label="Short Description" id="short_desc"
+                                        <x-Forms.Input type="text"  label="Short Description" id="short_desc"
                                             name="short_desc" value="{{ old('short_desc') }}"
                                             class="{{ $errors->has('short_desc') ? 'is-invalid' : '' }}"  />
                                     </div>

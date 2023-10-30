@@ -54,7 +54,7 @@
             </div>
             <div class="right-information" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
                 data-aos-once="true">
-                <a href="{{ route('index') }}" class="view-all-btn theme-btn-primary ">View all Packages</a>
+                <a href="{{ route('package') }}" class="view-all-btn theme-btn-primary ">View all Packages</a>
 
                 <div class="companyFormationPackages-lists">
                     <div class="cfp-list-col mw-100" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500"
