@@ -125,7 +125,7 @@
                                     <h2>£{{ $package->package_price }}</h2>
                                     <div class="bottom-actions">
                                         <a href="{{ route('add-cart', ['id' => $package->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
-                                        @if ()
+                                        {{-- @if ()
 
                                         @elseif()
 
@@ -136,7 +136,7 @@
                                         @elseif()
 
 
-                                        @endif
+                                        @endif --}}
                                         <a href="" class="read-more-btn">Read More</a>
                                     </div>
                                 </div>
