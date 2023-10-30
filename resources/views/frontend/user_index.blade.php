@@ -192,7 +192,7 @@
                 </div>
 
                 <div class="compare-actions" data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" data-aos-once="true">
-                    <a href="#" class="theme-btn-primary compare-btn">Compare All Packages</a>
+                    <a href="{{ route('package') }}" class="theme-btn-primary compare-btn">Compare All Packages</a>
                 </div>
             </div>
         </div>

@@ -47,7 +47,7 @@
                                 &nbsp;
                                 <div class="input-group-append">
                                     {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
-                                    <a href="{{ route('admin.company.index') }}" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a>
+                                    <a href="{{ route('admin.company.index') }}" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Reset &nbsp;</a>
                                 </div>
                                 &nbsp;
                                 <div class="input-group-append">

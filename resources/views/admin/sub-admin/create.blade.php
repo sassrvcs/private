@@ -80,7 +80,15 @@
                                         <label for="">Menu list</label>
                                             <select class="form-select" name="menu[]" id="multiple-select-field" data-placeholder="Choose anything" multiple>
                                                 @foreach($menu_list as $key => $value)
+                                                @if($value->name == 'Business Banking')
                                                 <option value={{$value->id}}>{{$value->name}}</option>
+                                                @endif
+                                                @if($value->name == 'Accounting Software')
+                                                <option value={{$value->id}}>{{$value->name}}</option>
+                                                @endif
+                                                @if($value->name == 'Customer')
+                                                <option value={{$value->id}}>{{$value->name}}</option>
+                                                @endif
                                                 @endforeach
                                             </select>
                                     </div>

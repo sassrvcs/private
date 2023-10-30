@@ -43,13 +43,11 @@ class PackageController extends Controller
         $input = $request->all();
         $validate = Validator::make($request->all(), [
             'name' => 'required',
-            'short_desc' => 'required',
             'price' => 'required|numeric|min:1',
             'description' => 'required'
 
             ],[
                 'name.required' =>'Name field is required.',
-                'short_desc.required' => 'Short description field is required.',
                 'price.required' => 'Price field is required.',
                 'description.required' => 'Description field is required.'
 
@@ -102,13 +100,11 @@ class PackageController extends Controller
         $input = $request->all();
         $validate = Validator::make($request->all(), [
             'name' => 'required',
-            'short_desc' => 'required',
             'price' => 'required|numeric|min:1',
             'description' => 'required'
 
             ],[
                 'name.required' =>'Name field is required.',
-                'short_desc.required' => 'Short description field is required.',
                 'price.required' => 'Price field is required.',
                 'description.required' => 'Description field is required.'
 
