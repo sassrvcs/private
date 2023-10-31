@@ -485,6 +485,14 @@
                     </li>
                 @endforeach
 
+                @foreach ($accounting as $item => $data)
+                    <li>
+                        <div class="our-banking-item">
+                            <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
+                        </div>
+                    </li>
+                @endforeach
+
 
             </ul>
         </div>

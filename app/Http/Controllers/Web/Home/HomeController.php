@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Package\PackageService;
 use App\Models\Package;
 use App\Models\BusinessBanking;
+use App\Models\Accounting;
 use App\Services\Facility\FacilityService;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -34,13 +35,14 @@ class HomeController extends Controller
         $packages = $this->packageService->LimitedPackages();
         $facilitys = $this->facilityService->getFacilitys();
         $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
 
         // dd($packages);
         $facilityList = [];
         foreach ($packages as $package) {
             $facilityList[$package->id] = (!empty($package->facilities)) ? json_decode($package->facilities) : [];
         };
-        return view('frontend.user_index', compact('packages', 'facilitys', 'facilityList','businessdata'));
+        return view('frontend.user_index', compact('packages', 'facilitys', 'facilityList','businessdata','accounting'));
     }
 
     /**
