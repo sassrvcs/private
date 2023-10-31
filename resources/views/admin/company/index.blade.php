@@ -112,8 +112,11 @@
                                         <th>Auth. Code</th>
                                         <th>Admin Comment</th>
                                         <th>Approval</th>
-                                        <th>Action</th>
                                         {{-- <th>Action</th> --}}
+                                        <th>Action</th>
+                                        <th>Action</th>
+                                        <th>Action</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -241,6 +244,19 @@
                                                             alt="">
                                                 </a>
                                             </td> --}}
+                                            <td>
+                                                <a href="{{ route('admin.company.sendEmail', $order->order_id) }}"
+                                                    class="btn btn_baseColor btn-sm mt-2">
+                                                    Send Email To User
+                                                </a>
+
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('admin.company.sendEmailAgent', $order->order_id) }}"
+                                                    class="btn btn_baseColor btn-sm mt-2">
+                                                    Send Email To Bank Agent
+                                                </a>
+                                            </td>
                                         </tr>
                                     @empty
                                         <tr>
