@@ -99,7 +99,7 @@
 
                                         @if (!isset($_GET['status_value']) || $_GET['status_value']=='All' || (@$order->myCompany->status == $_GET['status_value']) )
                                             <tr>
-                                               
+
                                                 <td>{{ $order->order_id }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
                                                 {{-- <td>{{ strtoupper($order->company_name) ?? "-" }}</td> --}}
@@ -152,14 +152,18 @@
                                                         APPROVED
                                                     @elseif ($company_status == '4')
                                                         REJECTED
-                                                        <small data-toggle="modal" data-target="#adminComment-{{ $order->order_id }}" style="cursor: pointer; color:white">
 
-                                                            <img src="{{ asset('frontend/assets/images/in-icon.png') }}" alt="">
-
-                                                    </small>
                                                     @else
                                                         INCOMPLETE
                                                     @endif</span>
+
+                                                    @if ($company_status == '4')
+                                                        <button data-toggle="modal" data-target="#adminComment-{{ $order->order_id }}" style="cursor: pointer; color:white">
+
+                                                            <img src="{{ asset('frontend/assets/images/information-button.png') }}" alt="">
+
+                                                        </button>
+                                                    @endif
                                                 </td>
                                                 @if($company_status == '3')
                                                     <td>

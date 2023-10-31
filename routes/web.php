@@ -267,6 +267,9 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
             Route::any('/company/view-xml',[CompanyController::class,'viewXML'])->name('view_xml');
             Route::any('/company/check_status',[CompanyController::class,'checkStatus'])->name('check_status');
             Route::any('/company/update_status',[CompanyController::class,'updateStatus'])->name('update_status');
+            Route::get('/company/send-email/{id}', [CompanyController::class,'sendEmail'])->name('company.sendEmail');
+            Route::post('/company/sent_email',[CompanyController::class, 'sendEmailUpdate'])->name('company.sent_email_user');
+            Route::get('/company/agent-email/{id}', [CompanyController::class,'sendEmailAgent'])->name('company.sendEmailAgent');
         });
     });
 });

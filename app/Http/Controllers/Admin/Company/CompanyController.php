@@ -19,6 +19,9 @@ use App\Models\companyXmlDetail;
 use Redirect;
 use League\Csv\Writer;
 use App\Models\Companie;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendEmailCompany;
 
 class CompanyController extends Controller
 {
@@ -388,5 +391,36 @@ class CompanyController extends Controller
 
         $data = ['status' => 'success'];
         return response()->json($data, 200);
+    }
+
+    public function sendEmail(string $id)
+    {
+        // return $id;
+        $company = Companie::where('order_id', $id)->first();
+        $user = User::find($company->user_id);
+        return view('admin.company.companyEmail', compact('user', 'company'));
+    }
+
+    public function sendEmailUpdate(Request $request)
+    {
+        $request->validate([
+            'body' => 'required',
+            'email' => 'required|email',
+            'user_name' => 'required|max:255',
+        ]);
+
+        $userEmail = $request->input('email');
+        $body = $request->input('body');
+        $name = $request->input('user_name');
+
+        Mail::to($userEmail)->send(new SendEmailCompany($body, $name));
+
+        return redirect()->back()->with('success', 'Email sent successfully!');
+
+    }
+
+    public function sendEmailAgent(string $id)
+    {
+        return view('admin.company.companyEmailAgent');
     }
 }
