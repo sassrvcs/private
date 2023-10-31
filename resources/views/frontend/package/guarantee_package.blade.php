@@ -253,39 +253,61 @@
                     <span>Partners</span>
                 </h2>
             </div>
-            <ul class="our-banking-slider" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
-                data-aos-once="true">
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/barclays-logo.png') }}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/cashplus-logo.png') }}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/wise-logo.png') }}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/payoneer-logo.png') }}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/anna-logo.png') }}">
-                    </div>
-                </li>
-                <li>
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/cardone-Logo.png') }}">
-                    </div>
-                </li>
-            </ul>
+            <div class="our-banking-slider aos-init aos-animate" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
+
+                <div class="our-banking-item">
+                    <img src="http://formationshunt.technoexponent.net/storage/62/Barclays-Logo.png">
+                </div>
+
+
+                <div class="our-banking-item">
+                    <img src="http://formationshunt.technoexponent.net/storage/57/Wise-logo.png">
+                </div>
+
+
+                <div class="our-banking-item">
+                    <img src="http://formationshunt.technoexponent.net/storage/58/Cashplus-logo.png">
+                </div>
+
+
+                <div class="our-banking-item">
+                    <img src="http://formationshunt.technoexponent.net/storage/78/Payoneer-logo.png">
+                </div>
+
+
+                <div class="our-banking-item">
+                    <img src="http://formationshunt.technoexponent.net/storage/60/cardone-Logo.png">
+                </div>
+
+
+                <div class="our-banking-item">
+                    <img src="http://formationshunt.technoexponent.net/storage/61/Anna-logo.png">
+                </div>
+
+
+                <div class="our-banking-item">
+                    <img src="http://formationshunt.technoexponent.net/storage/109/Barclays-Logo.png.png">
+                </div>
+
+
+
+                <div class="our-banking-item">
+                    <img src="http://formationshunt.technoexponent.net/storage/63/freeagent-blue.png">
+                </div>
+
+
+                <div class="our-banking-item">
+                    <img src="http://formationshunt.technoexponent.net/storage/64/1st-Formations-Order-1.png">
+                </div>
+
+
+                <div class="our-banking-item">
+                    <img src="http://formationshunt.technoexponent.net/storage/65/Anna-logo-(1).png">
+                </div>
+
+
+
+    </div>
         </div>
     </section>
     <!-- ================ end: our-banking-sec ================ -->
