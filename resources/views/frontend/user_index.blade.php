@@ -476,25 +476,25 @@
             <div class="sec-title1 text-center">
                 <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our Banking <span>Partners</span></h2>
             </div>
-            <ul class="our-banking-slider" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
+            <div class="our-banking-slider" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
                 @foreach ($businessdata as $index => $data)
-                    <li>
+
                         <div class="our-banking-item">
                             <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
                         </div>
-                    </li>
+
                 @endforeach
 
                 @foreach ($accounting as $item => $data)
-                    <li>
+
                         <div class="our-banking-item">
                             <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
                         </div>
-                    </li>
+
                 @endforeach
 
 
-            </ul>
+            </div>
         </div>
     </section>
     <!-- ================ end
