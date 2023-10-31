@@ -67,7 +67,7 @@ class CompanyController extends Controller
             }
             $headers = [
                 'Content-Type' => 'text/csv',
-                'Content-Disposition' => 'attachment; filename="OrderHistoryReport.csv"',
+                'Content-Disposition' => 'attachment; filename="CompanyReport.csv"',
             ];
         return response($csv->getContent(), 200, $headers);
 
