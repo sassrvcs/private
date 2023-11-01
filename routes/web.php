@@ -88,7 +88,6 @@ Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showRese
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 Route::get('send-mail-attach',[MailTestController::class,'TestMail'])->name('send-mail-attach');
 Route::get('generate_slug',[MailTestController::class,'generateSlug'])->name('generate_slug')->middleware('auth');
-
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/package', WebPackageController::class)->name('package');
 
@@ -104,7 +103,6 @@ Route::get('/package/e-seller', [WebPackageController::class,'e_seller'])->name(
 Route::get('/package/plc', [WebPackageController::class,'plc'])->name('plc_package');
 
 Route::get('/company-services/{service_name}', [WebPackageController::class,'get_services'])->name('company_services');
-Route::get('/company-services/{service_slug}/{service_id}',[WebPackageController::class,'loadCompanyService'])->name('load_company_service');
 Route::get('/company-services/business/logo', [WebPackageController::class,'business_logo'])->name('service_business_logo');
 
 Route::get('/company-services/business/share-business-idea', [WebPackageController::class,'share_business_idea'])->name('share_business_idea');
@@ -275,3 +273,6 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
         });
     });
 });
+
+
+require __DIR__ . '/auth.php';
