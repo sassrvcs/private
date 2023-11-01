@@ -102,6 +102,13 @@ class FacilitorController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $facility = Facility::where('id',$id)->first();
+        $facility->delete();
+        if($facility) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

@@ -724,7 +724,7 @@ body .show>.btn-primary.dropdown-toggle {
 .main-banner-left-floating,
 
 .main-banner-right-floating {
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	background: #E6F9CC;
 	display: flex;
@@ -9880,7 +9880,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 	font-size: 14px;
 	line-height: 1.2;
 	padding: 8px 12px;
-	border-radius: 10px;
+	border-radius: 6px;
 	border: 1px solid #6e737c;
 	background: #fff;
 	color: #ff4646;
@@ -10166,7 +10166,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 	max-width: 650px;
 	margin: 0 auto;
 	border: 1px solid #CECECE;
-	border-radius: 10px;
+	border-radius: 6px;
 	padding: 30px;
 }
 
@@ -10190,7 +10190,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 .add-ticket-sec .sub-btn-block .btn {
-	border-radius: 7px;
+	border-radius: 6px;
 	font-style: normal;
 	font-family: 'Poppins';
 	font-weight: 500;
@@ -10210,7 +10210,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 .add-ticket-sec .sub-btn-block .bck-btn {
-	border-radius: 5px;
+	border-radius: 6px;
 	font-style: normal;
 	font-family: 'Poppins';
 	font-weight: 500;
@@ -10271,7 +10271,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .ticket-connent-box .main-connent {
 	padding: 13px;
 	margin: 0 0 15px;
-	border-radius: 10px;
+	border-radius: 6px;
 	border: black;
 	background-color: #c2eebd;
 }
@@ -10299,7 +10299,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 	padding: 15px;
 	margin: 0 0 15px 50px;
 	background: #f8f9fa;
-	border-radius: 7px;
+	border-radius: 6px;
 }
 
 .ticket-connent-box .rply-comment h3 {
@@ -10331,7 +10331,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 .ticket-view-text-area .bck-btn {
-	border-radius: 5px;
+	border-radius: 6px;
 	font-style: normal;
 	font-family: 'Poppins';
 	font-weight: 500;
@@ -10351,7 +10351,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 .ticket-view-text-area .btn {
-	border-radius: 7px;
+	border-radius: 6px;
 	font-style: normal;
 	font-family: 'Poppins';
 	font-weight: 500;

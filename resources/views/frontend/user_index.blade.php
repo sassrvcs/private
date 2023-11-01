@@ -243,16 +243,18 @@
                     </div>
                 </div>
                 <div class="makeCompanyFE-step-col" data-aos="fade-up" data-aos-delay="250" data-aos-duration="2000" data-aos-once="true">
-                    <div class="makeCompanyFE-step-box">
-                        <div class="inner-border">
-                            <div class="icon-box">
-                                <img src="{{ asset('frontend/assets/images/document-white-icon.png')}}">
+                    <a href="">
+                        <div class="makeCompanyFE-step-box">
+                            <div class="inner-border">
+                                <div class="icon-box">
+                                    <img src="{{ asset('frontend/assets/images/document-white-icon.png')}}">
+                                </div>
+                                <h3>STEP-4</h3>
+                                <h4>Share Company Details</h4>
+                                <p>Share all the necessary details about your firm and leave the rest to us.</p>
                             </div>
-                            <h3>STEP-4</h3>
-                            <h4>Share Company Details</h4>
-                            <p>Share all the necessary details about your firm and leave the rest to us.</p>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

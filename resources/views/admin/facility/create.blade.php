@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <form action="{{ route('admin.facilitor.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <div class="row">
+                                <div class="row" style="align-items: flex-end;">
                                     <div class="col-sm-8">
                                         <x-Forms.Input type="text" mandate="*" label="Name" id="name"
                                             name="name" value="{{ old('name') }}"
@@ -37,7 +37,7 @@
 
 
 
-                                <button class="btn btn_baseColor btn-sm mt-2" type="submit"
+                                <button class="btn btn_baseColor btn-sm mt-2" type="submit" style="padding: 10px;"
                                     onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';"> &nbsp;&nbsp; Save &nbsp;&nbsp;
                                 </button>
                             </form>

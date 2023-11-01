@@ -54,10 +54,10 @@
                                                         <i class="fas fa-edit"></i>
                                                     </a>
 
-                                                    {{-- <a href="javascript:{}" class="delete-user" data-id={{ $package->id }}  data-user="Package "
-                                                            data-route="{{ route('admin.package.destroy', $package->id) }}" style="color: #f30031">
+                                                    <a href="javascript:{}" class="delete-user" data-id={{ $package->id }}  data-user="Facility "
+                                                            data-route="{{ route('admin.facilitor.destroy', $package->id) }}" style="color: #f30031">
                                                         <i class="fa fa-trash"></i>
-                                                    </a> --}}
+                                                    </a>
 
                                                     {{-- <a href="#" class="btn btn_baseColor btn-sm"> View </a> --}}
                                                 </div>

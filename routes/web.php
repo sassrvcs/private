@@ -245,6 +245,7 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
             Route::post('/facilitor/create',[FacilitorController::class,'store'])->name('facilitor.store');
             Route::get('/facilitor/edit/{id}',[FacilitorController::class,'edit'])->name('facilitor.edit');
             Route::put('/facilitor/edit/{id}',[FacilitorController::class,'update'])->name('facilitor.update');
+            Route::delete('/facilitor/{id}',[FacilitorController::class,'destroy'])->name('facilitor.destroy');
 
             Route::resource('addonservice', AddonController::class);
 
