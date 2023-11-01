@@ -576,11 +576,11 @@
                             </span>
 
                         </div>
+                        <input type="hidden" class="address_type" name="address_type" value="primary_address">
+                        <div class="modal-footer">
+                            <button type="button" id="primary_submit" class="btn btn-primary billingAddrSubmit" data-dismiss="modal" onclick="editPrimaryAddressfn({{$v['addrees_id']}})">Submit Changes</button>
+                        </div>
                     @endforeach
-                    <input type="hidden" class="address_type" name="address_type" value="primary_address">
-                    <div class="modal-footer">
-                        <button type="button" id="primary_submit" class="btn btn-primary billingAddrSubmit" data-dismiss="modal" onclick="editPrimaryAddressfn({{$v['addrees_id']}})">Submit Changes</button>
-                      </div>
                 </form>
 
             </div>

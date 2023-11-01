@@ -150,7 +150,7 @@
                                                 @endif
                                             </td>
 
-                                            <td>
+                                            <td class="submit-xml">
                                                 <div class="d-flex">
 
                                                         @php
@@ -168,7 +168,7 @@
                                                 </div>
 
                                             </td>
-                                            <td>
+                                            <td class="check-status">
                                                 <a class="btn btn_baseColor btn-sm mt-2" id="checkStatus"
                                                         onClick="CheckStatus('{{ $order->order_id }}')">
                                                     Check Status
@@ -244,14 +244,14 @@
                                                             alt="">
                                                 </a>
                                             </td> --}}
-                                            <td>
+                                            <td class="send-mail-user">
                                                 <a href="{{ route('admin.company.sendEmail', $order->order_id) }}"
                                                     class="btn btn_baseColor btn-sm mt-2">
                                                     Send Email To User
                                                 </a>
 
                                             </td>
-                                            <td>
+                                            <td class="send-mail-agent">
                                                 <a href="{{ route('admin.company.sendEmailAgent', $order->order_id) }}"
                                                     class="btn btn_baseColor btn-sm mt-2">
                                                     Send Email To Bank Agent

@@ -182,9 +182,9 @@
 
                                     @endphp
 
-                                     <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
-                                     data-target="#exampleModal" data-whatever="@fat" data-id = "{{$package->id}}">Buy Now</a>
-                                    <a href="{{route($read_more_route)}}" class="read-more-btn">Read More</a>
+                                <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
+                                data-target="#exampleModal" data-whatever="@fat" data-id = "{{$package->id}}" data-name= "{{strtoupper($package->package_name)}}">Buy Now</a>
+                                 <a href="{{route($read_more_route)}}" class="read-more-btn">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -476,17 +476,25 @@
             <div class="sec-title1 text-center">
                 <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our Banking <span>Partners</span></h2>
             </div>
-            <ul class="our-banking-slider" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
+            <div class="our-banking-slider" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
                 @foreach ($businessdata as $index => $data)
-                    <li>
+
                         <div class="our-banking-item">
                             <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
                         </div>
-                    </li>
+
+                @endforeach
+
+                @foreach ($accounting as $item => $data)
+
+                        <div class="our-banking-item">
+                            <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
+                        </div>
+
                 @endforeach
 
 
-            </ul>
+            </div>
         </div>
     </section>
     <!-- ================ end

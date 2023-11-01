@@ -98,7 +98,7 @@ class OrderController extends Controller
                     $full_pkg_type = 'LLP Package';
                 }
                 $status = $order->order_status == 'pending' ? 'Incomplete' : ($order->order_status == 'progress' ? 'Inprogress' : 'Complete');
-                $csv->insertOne([$order->order_id,date('Y-m-d', strtotime($order->created_at)), $invoiceId ,$full_pkg_type,strtoupper($order->company_name),$status]);
+                $csv->insertOne([$order->order_id,date('d-m-Y', strtotime($order->created_at)), $invoiceId ,$full_pkg_type,strtoupper($order->company_name),$status]);
             }
             $headers = [
                 'Content-Type' => 'text/csv',

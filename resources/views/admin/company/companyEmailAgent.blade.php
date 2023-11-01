@@ -52,8 +52,14 @@
                                         </textarea>
                                     </div>
                                 </div>
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="">Attachments</label>
+                                        <input type="file" name="attachments[]" multiple>
+                                    </div>
+                                </div>
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit"
-                                    onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';"> &nbsp;&nbsp; Save &nbsp;&nbsp;
+                                    onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';"> &nbsp;&nbsp; Send &nbsp;&nbsp;
                                 </button>
                             </form>
                         </div>

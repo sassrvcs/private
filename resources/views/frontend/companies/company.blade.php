@@ -160,7 +160,7 @@
                                                     @if ($company_status == '4')
                                                         <button data-toggle="modal" data-target="#adminComment-{{ $order->order_id }}" style="cursor: pointer; color:white">
 
-                                                            <img src="{{ asset('frontend/assets/images/information-button.png') }}" alt="">
+                                                            <img src="{{ asset('frontend/assets/images/alert-triangle.svg') }}" alt="">
 
                                                         </button>
                                                     @endif

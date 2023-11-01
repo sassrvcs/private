@@ -25,22 +25,38 @@
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Company Name Check</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
             <div class="modal-body">
                 <div class="position-relative overflow-hidden main-banner-outer pb-0">
-                    <div class="main-banner home-banner-src" style="background:#313C4E;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="modal-hd">
+                        <div class="custom-container">
+                            <div class="logo_container">
+                                <img src="/frontend/assets/images/logo.svg" class="logo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-step">
+                        <div class="custom-container">
+                            <div class="package-steps text-center">
+                                <ol class="list-inline">
+                                    <li class="list-inline-item active">1. Name Check</li>
+                                    <li class="list-inline-item">2. Select Package</li>
+                                    <li class="list-inline-item">3. Additional Services</li>
+                                    <li class="list-inline-item">4. Checkout</li>
+                                    <li class="list-inline-item">5. Company Details</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-banner home-banner-src">
                         <div class="custom-container">
                             <div class="caption-box pb-4" style="padding-right: 0px;">
-
-                                <div class="logo_container">
-                                    <img src="/frontend/assets/images/logo.svg" class="logo">
+                                <div class="ttl-box">
+                                    <h2>You have chosen the <span id="package_name"> XXX </span> PACKAGE.</h2>
+                                    <h3>Now choose your company name.</h3>
                                 </div>
-
 
                                 <div class="col-md-7" id="result_show_modal" style="display: none">
                                     {{-- Available Message --}}
@@ -89,10 +105,44 @@
 
                                 </div>
                             </div>
+
+                            <div class="modal-our-banking">
+                                <h3>Business bank accounts available with this order.</h3>
+                                <div class="our-banking-slider">
+                                   <div class="our-banking-item">
+                                      <img src="http://formationshunt.technoexponent.net/storage/62/Barclays-Logo.png">
+                                   </div>
+                                   <div class="our-banking-item">
+                                      <img src="http://formationshunt.technoexponent.net/storage/57/Wise-logo.png">
+                                   </div>
+                                   <div class="our-banking-item">
+                                      <img src="http://formationshunt.technoexponent.net/storage/58/Cashplus-logo.png">
+                                   </div>
+                                   <div class="our-banking-item">
+                                      <img src="http://formationshunt.technoexponent.net/storage/78/Payoneer-logo.png">
+                                   </div>
+                                   <div class="our-banking-item">
+                                      <img src="http://formationshunt.technoexponent.net/storage/60/cardone-Logo.png">
+                                   </div>
+                                   <div class="our-banking-item">
+                                      <img src="http://formationshunt.technoexponent.net/storage/61/Anna-logo.png">
+                                   </div>
+                                   <div class="our-banking-item">
+                                      <img src="http://formationshunt.technoexponent.net/storage/109/Barclays-Logo.png.png">
+                                   </div>
+                                   <div class="our-banking-item">
+                                      <img src="http://formationshunt.technoexponent.net/storage/63/freeagent-blue.png">
+                                   </div>
+                                   <div class="our-banking-item">
+                                      <img src="http://formationshunt.technoexponent.net/storage/64/1st-Formations-Order-1.png">
+                                   </div>
+                                   <div class="our-banking-item">
+                                      <img src="http://formationshunt.technoexponent.net/storage/65/Anna-logo-(1).png">
+                                   </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
 
@@ -105,6 +155,8 @@
         $(document).ready(function() {
             $(".buy-btn-multiple").click(function() {
                 other_package_id = $(this).data('id');
+                package_name = $(this).data('name');
+                $('#package_name').html(package_name);
                 $("#package_id").val(other_package_id);
                 $("#choose_package_modal_btn").attr('href', '/cart/' + other_package_id);
             })
