@@ -87,6 +87,7 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 Route::get('send-mail-attach',[MailTestController::class,'TestMail'])->name('send-mail-attach');
+Route::get('generate_slug',[MailTestController::class,'generateSlug'])->name('generate_slug')->auth();
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/package', WebPackageController::class)->name('package');

@@ -160,17 +160,11 @@ class PackageController extends Controller
     }
     public function get_services($package_name)
     {
-
-            // $url = url()->current();
-            // $parsedUrl = parse_url($url);
-            // $pathSegments = explode('/', trim($parsedUrl['path'], '/'));
-            // if (count($pathSegments) >= 2) {
-            // $secondPath = $pathSegments[1];/
-            $secondPath = $package_name;
-            $secondPath = str_replace('-', ' ', $secondPath);
-            $secondPath = ucfirst($secondPath);
+            // $secondPath = $package_name;
+            // $secondPath = str_replace('-', ' ', $secondPath);
+            // $secondPath = ucfirst($secondPath);
             // dd($secondPath);
-            $services = ModelsAddonservice::with('features')->where('service_name', 'like', "%{$secondPath}%")->first();
+            $services = ModelsAddonservice::with('features')->where('slug', 'like', "%{$package_name}%")->first();
             if (!$services) return redirect('/404');
 
             $features = $services->features;

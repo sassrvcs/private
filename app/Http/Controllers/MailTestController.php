@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\MailWithAttachmentTest;
+use App\Models\Addonservice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -44,4 +45,16 @@ class MailTestController extends Controller
         return $pdf->output();
         // return $pdf->download('_efilling.pdf');
     }
+    public function generateSlug()
+    {
+        $package_name = Addonservice::where('id','>','100')->get();
+                foreach ($package_name as $key => $value) {
+                    $name = explode(' ', $value->service_name);
+                    $name = implode('-', $name);
+                    $name = strtolower($name);
+                    Addonservice::where('id',$value->id)->update([
+                        'slug'=>$name
+                    ]);
+                }
+            }
 }
