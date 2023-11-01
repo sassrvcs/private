@@ -182,9 +182,9 @@
 
                                     @endphp
 
-                                     <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
-                                     data-target="#exampleModal" data-whatever="@fat" data-id = "{{$package->id}}">Buy Now</a>
-                                    <a href="{{route($read_more_route)}}" class="read-more-btn">Read More</a>
+                                <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
+                                data-target="#exampleModal" data-whatever="@fat" data-id = "{{$package->id}}" data-name= "{{strtoupper($package->package_name)}}">Buy Now</a>
+                                 <a href="{{route($read_more_route)}}" class="read-more-btn">Read More</a>
                                 </div>
                             </div>
                         </div>

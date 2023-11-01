@@ -12,9 +12,9 @@
                 </ol>
             </div>
             {{-- @dump($sessionCart) --}}
-            <div class="col-md-12">
+            <div class="">
                 <div class="search_area mb-5">
-                    <div class="container">
+                    <div class="">
                         <div id="contdiv">
                             <div class="search-result mb-4">
                                 <div class="row align-items-center">
@@ -44,7 +44,7 @@
                                                                 </a>
                                                             </td>
 
-                                                            <td style="">
+                                                            <td style="width:122px;" >
                                                             <!-- proceed to payment -->
                                                                 <form method="post" action="{{ route('addon-services',["indx" => $key]) }}" id="buyForm">
                                                                     @csrf

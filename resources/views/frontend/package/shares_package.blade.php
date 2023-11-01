@@ -90,8 +90,8 @@
                                 <a href="{{ route('add-cart', ['id' => $packages->id]) }}"
                                     class="theme-btn-primary buy-btn">Buy Now</a>
                             @else
-                                <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
-                                data-target="#exampleModal" data-whatever="@fat" data-id = "{{$packages->id}}">Buy Now</a>
+                            <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
+                            data-target="#exampleModal" data-whatever="@fat" data-id = "{{$packages->id}}" data-name= "{{strtoupper($packages->package_name)}}">Buy Now</a>
                             @endif
                             </div>
                         </div>

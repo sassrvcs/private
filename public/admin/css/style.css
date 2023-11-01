@@ -422,3 +422,13 @@ body:not(.layout-fixed) .main-sidebar {position: fixed !important;}
 .rply-comment.customer-css {
     background-color: #e0eefa!important;
 }
+
+.table-striped  td.submit-xml a{
+    width: 135px;
+}
+.table-striped td.send-mail-user a{
+    width: 150px;
+}
+.table-striped td.send-mail-agent a {
+    width: 180px;
+}

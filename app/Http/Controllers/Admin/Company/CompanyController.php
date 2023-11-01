@@ -32,7 +32,8 @@ class CompanyController extends Controller
         protected CompanyService $companyService,
         protected CompanyFormService $companyFormService,
         protected OrderService $orderService,
-    ){}
+    ) {
+    }
     /**
      * Display a listing of the resource.
      */
@@ -41,7 +42,7 @@ class CompanyController extends Controller
         $search     = ($request->search) ? $request->search : '';
         $fullDate = $request->query('dateRange');
         $companyStatus  = $request->query('company_status');
-        $dateRange = $request->query('dateRange')!=null?explode('/',$request->query('dateRange')):null;
+        $dateRange = $request->query('dateRange') != null ? explode('/', $request->query('dateRange')) : null;
         $companies = $this->companyService->index($request);
         $statuses = [
             '1' => 'Pending',
@@ -53,15 +54,15 @@ class CompanyController extends Controller
         if ($request->routeIs('admin.company-download-report')) {
 
             $csv = Writer::createFromString('');
-            $csv->insertOne(['order ID','Incorporated', 'Company Name','Company No','Auth code','Approval Status']);
+            $csv->insertOne(['order ID', 'Incorporated', 'Company Name', 'Company No', 'Auth code', 'Approval Status']);
             foreach ($companies as $key => $company) {
-                $company_status = $company->company_status!=0?$statuses[$company->company_status]:'Pending';
+                $company_status = $company->company_status != 0 ? $statuses[$company->company_status] : 'Pending';
                 $csv->insertOne([
                     $company->order_id,
-                    date('d-m-Y',strtotime($company->created_at)),
+                    date('d-m-Y', strtotime($company->created_at)),
                     $company->company_name,
                     $company->company_number,
-                    $company_status=='Approved'?companyXmlDetail::where('order_id',$company->order_id)->pluck('authentication_code')->first():'',
+                    $company_status == 'Approved' ? companyXmlDetail::where('order_id', $company->order_id)->pluck('authentication_code')->first() : '',
                     $company_status
                 ]);
             }
@@ -69,13 +70,12 @@ class CompanyController extends Controller
                 'Content-Type' => 'text/csv',
                 'Content-Disposition' => 'attachment; filename="CompanyReport.csv"',
             ];
-        return response($csv->getContent(), 200, $headers);
-
+            return response($csv->getContent(), 200, $headers);
         }
 
         //echo "<pre>";
         //print_r($companies);die;
-        return view('admin.company.index',compact('companies','search', 'statuses','fullDate','request','companyStatus'));
+        return view('admin.company.index', compact('companies', 'search', 'statuses', 'fullDate', 'request', 'companyStatus'));
     }
 
     /**
@@ -107,12 +107,12 @@ class CompanyController extends Controller
     {
         $order_id = $request->order_id;
 
-        $xml_details = companyXmlDetail::where('order_id',$order_id)->first();
-        if($xml_details){
+        $xml_details = companyXmlDetail::where('order_id', $order_id)->first();
+        if ($xml_details) {
             $xml_body = $xml_details->xml_body;
             $curl = curl_init();
 
-                curl_setopt_array($curl, array(
+            curl_setopt_array($curl, array(
                 CURLOPT_URL => 'https://xmlgw.companieshouse.gov.uk/v1-0/xmlgw/Gateway',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
@@ -121,48 +121,45 @@ class CompanyController extends Controller
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS =>$xml_body,
+                CURLOPT_POSTFIELDS => $xml_body,
                 CURLOPT_HTTPHEADER => array(
                     'Content-Type: application/xml'
                 ),
-                ));
+            ));
 
             $response = curl_exec($curl);
 
             curl_close($curl);
             $xml = simplexml_load_string($response, "SimpleXMLElement", LIBXML_NOCDATA);
             $json = json_encode($xml);
-            $array = json_decode($json,TRUE);
+            $array = json_decode($json, TRUE);
 
-            if(isset($array['GovTalkDetails']['GovTalkErrors'])){
+            if (isset($array['GovTalkDetails']['GovTalkErrors'])) {
 
-                $data = ['status' => 'error_xml','data'=>$array['GovTalkDetails']];
+                $data = ['status' => 'error_xml', 'data' => $array['GovTalkDetails']];
                 return response()->json($data, 200);
-            }else{
+            } else {
                 $xml_details->submitted = 1;
                 $xml_details->save();
                 $data = ['status' => 'success'];
                 return response()->json($data, 200);
             }
-
-
-        }else{
+        } else {
             $data = ['status' => 'error'];
             return response()->json($data, 200);
         }
-
     }
 
-    public function viewXML(Request $request){
-        $xml_details = companyXmlDetail::where('order_id',$request->order_id)->first();
-        if($xml_details){
-            $data = ['status' => 'success','xml'=>$xml_details->xml_body];
+    public function viewXML(Request $request)
+    {
+        $xml_details = companyXmlDetail::where('order_id', $request->order_id)->first();
+        if ($xml_details) {
+            $data = ['status' => 'success', 'xml' => $xml_details->xml_body];
             return response()->json($data, 200);
-        }else{
+        } else {
             $data = ['status' => 'error'];
             return response()->json($data, 200);
         }
-
     }
 
     /**
@@ -174,20 +171,20 @@ class CompanyController extends Controller
     {
         $order_id = $request->order_id;
 
-        $xml_details = companyXmlDetail::where('order_id',$order_id)->first();
-        if($xml_details){
+        $xml_details = companyXmlDetail::where('order_id', $order_id)->first();
+        if ($xml_details) {
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://xmlgw.companieshouse.gov.uk/v1-0/xmlgw/Gateway',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS =>'<GovTalkMessage xsi:schemaLocation="http://www.govtalk.gov.uk/CM/envelope http://xmlbeta.companieshouse.gov.uk:80/v1-0/schema/Egov_ch-v2-0.xsd" xmlns ="http://www.govtalk.gov.uk/CM/envelope"
+                CURLOPT_URL => 'https://xmlgw.companieshouse.gov.uk/v1-0/xmlgw/Gateway',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => '<GovTalkMessage xsi:schemaLocation="http://www.govtalk.gov.uk/CM/envelope http://xmlbeta.companieshouse.gov.uk:80/v1-0/schema/Egov_ch-v2-0.xsd" xmlns ="http://www.govtalk.gov.uk/CM/envelope"
                 xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
                 xmlns:gt="http://www.govtalk.gov.uk/schemas/govtalk/core"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -196,7 +193,7 @@ class CompanyController extends Controller
                     <MessageDetails>
                         <Class>GetSubmissionStatus</Class>
                         <Qualifier>request</Qualifier>
-                        <TransactionID>'.$xml_details->tans_no.'</TransactionID>
+                        <TransactionID>' . $xml_details->tans_no . '</TransactionID>
                         <GatewayTest>1</GatewayTest>
                     </MessageDetails>
                     <SenderDetails>
@@ -215,14 +212,14 @@ class CompanyController extends Controller
                 <Body>
 
                     <GetSubmissionStatus>
-                        <SubmissionNumber>'.$xml_details->submission_no.'</SubmissionNumber>
+                        <SubmissionNumber>' . $xml_details->submission_no . '</SubmissionNumber>
                     </GetSubmissionStatus>
                 </Body>
             </GovTalkMessage>',
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/xml',
-                'Authorization: Basic MmU2NjJmODMtMTA4NS00NWFkLWEyMTMtNzM4YWJjMThhNGFiOg=='
-            ),
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/xml',
+                    'Authorization: Basic MmU2NjJmODMtMTA4NS00NWFkLWEyMTMtNzM4YWJjMThhNGFiOg=='
+                ),
             ));
 
             $response = curl_exec($curl);
@@ -231,21 +228,21 @@ class CompanyController extends Controller
             // echo $response;
             $xml = simplexml_load_string($response, "SimpleXMLElement", LIBXML_NOCDATA);
             $json = json_encode($xml);
-            $array = json_decode($json,TRUE);
+            $array = json_decode($json, TRUE);
 
 
-            if(isset($array['Body']['SubmissionStatus']['Status'])){
+            if (isset($array['Body']['SubmissionStatus']['Status'])) {
 
-                if($array['Body']['SubmissionStatus']['Status']['StatusCode']=='ACCEPT'){
+                if ($array['Body']['SubmissionStatus']['Status']['StatusCode'] == 'ACCEPT') {
 
 
-                   $status = $array['Body']['SubmissionStatus']['Status']['StatusCode'];
-                   $company_number = $array['Body']['SubmissionStatus']['Status']['CompanyNumber'];
-                   $doc_req_key = $array['Body']['SubmissionStatus']['Status']['IncorporationDetails']['DocRequestKey'];
-                   $comment =$array['Body']['SubmissionStatus']['Status']['Examiner']['Comment'];
-                   $auth_code =$array['Body']['SubmissionStatus']['Status']['IncorporationDetails']['AuthenticationCode'];
-                   $date = $array['Body']['SubmissionStatus']['Status']['IncorporationDetails']['IncorporationDate'];
-                    $xml_details->doc_request_key= $doc_req_key;
+                    $status = $array['Body']['SubmissionStatus']['Status']['StatusCode'];
+                    $company_number = $array['Body']['SubmissionStatus']['Status']['CompanyNumber'];
+                    $doc_req_key = $array['Body']['SubmissionStatus']['Status']['IncorporationDetails']['DocRequestKey'];
+                    $comment = $array['Body']['SubmissionStatus']['Status']['Examiner']['Comment'];
+                    $auth_code = $array['Body']['SubmissionStatus']['Status']['IncorporationDetails']['AuthenticationCode'];
+                    $date = $array['Body']['SubmissionStatus']['Status']['IncorporationDetails']['IncorporationDate'];
+                    $xml_details->doc_request_key = $doc_req_key;
                     $xml_details->form_date = $date;
                     $xml_details->save();
 
@@ -254,15 +251,15 @@ class CompanyController extends Controller
                     $curl = curl_init();
 
                     curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://xmlgw.companieshouse.gov.uk/v1-0/xmlgw/Gateway',
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'POST',
-                    CURLOPT_POSTFIELDS =>'<GovTalkMessage
+                        CURLOPT_URL => 'https://xmlgw.companieshouse.gov.uk/v1-0/xmlgw/Gateway',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POSTFIELDS => '<GovTalkMessage
                         xmlns="http://www.govtalk.gov.uk/CM/envelope"
                         xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
                         xmlns:gt="http://www.govtalk.gov.uk/schemas/govtalk/core"
@@ -272,7 +269,7 @@ class CompanyController extends Controller
                                 <MessageDetails>
                                     <Class>GetDocument</Class>
                                     <Qualifier>request</Qualifier>
-                                    <TransactionID>'.$xml_details->tans_no.'</TransactionID>
+                                    <TransactionID>' . $xml_details->tans_no . '</TransactionID>
                                     <GatewayTest>1</GatewayTest>
                                 </MessageDetails>
                                 <SenderDetails>
@@ -293,59 +290,51 @@ class CompanyController extends Controller
 
 
                                 <GetDocument>
-                                    <DocRequestKey>'.$doc_req_key.'</DocRequestKey>
+                                    <DocRequestKey>' . $doc_req_key . '</DocRequestKey>
                                 </GetDocument>
 
                             </Body>
                         </GovTalkMessage>',
-                    CURLOPT_HTTPHEADER => array(
-                        'Content-Type: application/xml'
-                    ),
+                        CURLOPT_HTTPHEADER => array(
+                            'Content-Type: application/xml'
+                        ),
                     ));
 
                     $response = curl_exec($curl);
                     $xml = simplexml_load_string($response, "SimpleXMLElement", LIBXML_NOCDATA);
                     $json = json_encode($xml);
-                    $array = json_decode($json,TRUE);
+                    $array = json_decode($json, TRUE);
                     $document = $array['Body']['DocumentData'];
-                    if($document){
+                    if ($document) {
                         $xml_details->pdf_content = $document;
                         $xml_details->dave();
                     }
-
-
-
-                }else if($array['Body']['SubmissionStatus']['Status']['StatusCode']=='PENDING'){
+                } else if ($array['Body']['SubmissionStatus']['Status']['StatusCode'] == 'PENDING') {
                     $comment = $array['Body']['SubmissionStatus']['Status']['Examiner']['Comment'];
                     $status = $array['Body']['SubmissionStatus']['Status']['StatusCode'];
                     $company_number = $array['Body']['SubmissionStatus']['Status']['CompanyNumber'];
                     $doc_req_key = null;
-                    $auth_code =null;
+                    $auth_code = null;
                     $date = null;
-                }else{
+                } else {
 
                     $comment = $array['Body']['SubmissionStatus']['Status']['Rejections']['Reject']['Description'];
                     $status = $array['Body']['SubmissionStatus']['Status']['StatusCode'];
                     $company_number = $array['Body']['SubmissionStatus']['Status']['CompanyNumber'];
                     $doc_req_key = null;
-                    $auth_code =null;
+                    $auth_code = null;
                     $date = null;
-
                 }
-                    $data = ['status' => 'success','comment'=>$comment,'xml_status'=>$status,'company_number'=>$company_number,'doc_key'=>$doc_req_key,'auth_code'=>$auth_code,'date'=>$date];
-                    return response()->json($data, 200);
-            }else{
+                $data = ['status' => 'success', 'comment' => $comment, 'xml_status' => $status, 'company_number' => $company_number, 'doc_key' => $doc_req_key, 'auth_code' => $auth_code, 'date' => $date];
+                return response()->json($data, 200);
+            } else {
                 $data = ['status' => 'error'];
                 return response()->json($data, 200);
             }
-        }else{
+        } else {
             $data = ['status' => 'error'];
-                return response()->json($data, 200);
+            return response()->json($data, 200);
         }
-
-
-
-
     }
 
     /**
@@ -362,7 +351,7 @@ class CompanyController extends Controller
         $status = $request->status;
         $order = $this->orderService->getOrder($order_id);
 
-        if($order){
+        if ($order) {
             $order->company_number = $company_number;
             $order->auth_code = $auth_code;
             $order->order_status = $status;
@@ -371,23 +360,23 @@ class CompanyController extends Controller
             // $order->save();
         }
 
-            $company = Companie::where('order_id',$order_id)->first();
-            if($company){
-                $company->status = $status ;
-                $company->save();
-            }
-            if($status=='3'){
-                $xml_details = companyXmlDetail::where('order_id',$order_id)->first();
-                $xml_details->company_no = $company_number;
-                $xml_details->authentication_code =$auth_code;
-                $xml_details->save();
-            }
-            if($status=='4'){
-                $xml_details = companyXmlDetail::where('order_id',$order_id)->first();
+        $company = Companie::where('order_id', $order_id)->first();
+        if ($company) {
+            $company->status = $status;
+            $company->save();
+        }
+        if ($status == '3') {
+            $xml_details = companyXmlDetail::where('order_id', $order_id)->first();
+            $xml_details->company_no = $company_number;
+            $xml_details->authentication_code = $auth_code;
+            $xml_details->save();
+        }
+        if ($status == '4') {
+            $xml_details = companyXmlDetail::where('order_id', $order_id)->first();
 
-                $xml_details->admin_comment = $request->admin_comment;
-                $xml_details->save();
-            }
+            $xml_details->admin_comment = $request->admin_comment;
+            $xml_details->save();
+        }
 
         $data = ['status' => 'success'];
         return response()->json($data, 200);
@@ -402,21 +391,36 @@ class CompanyController extends Controller
     }
 
     public function sendEmailUpdate(Request $request)
-    {
-        $request->validate([
-            'body' => 'required',
-            'email' => 'required|email',
-            'user_name' => 'required|max:255',
-        ]);
+    { {
+            $request->validate([
+                'body' => 'required',
+                'email' => 'required|email',
+                'user_name' => 'required|max:255',
+            ]);
 
-        $userEmail = $request->input('email');
-        $body = $request->input('body');
-        $name = $request->input('user_name');
+            $userEmail = $request->input('email');
+            $body = $request->input('body');
+            $name = $request->input('user_name');
+            $attachments = $request->file('attachments');
 
-        Mail::to($userEmail)->send(new SendEmailCompany($body, $name));
+            $email = new SendEmailCompany($body, $name);
 
-        return redirect()->back()->with('success', 'Email sent successfully!');
+            // Attach the selected PDF files
+            if ($attachments) {
+                foreach ($attachments as $attachment) {
+                    $email->attach($attachment, [
+                        'as' => $attachment->getClientOriginalName(),
+                    ]);
+                }
+            }
 
+            // Send the email
+            Mail::to($userEmail)->send($email);
+
+            // Mail::to($userEmail)->send(new SendEmailCompany($body, $name));
+
+            return redirect()->back()->with('success', 'Email sent successfully!');
+        }
     }
 
     public function sendEmailAgent(string $id)

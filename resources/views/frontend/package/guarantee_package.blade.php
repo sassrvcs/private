@@ -97,8 +97,8 @@
                                     <a href="{{ route('add-cart', ['id' => $packages->id]) }}"
                                         class="theme-btn-primary buy-btn">Buy Now</a>
                                 @else
-                                    <a href="#" class="theme-btn-primary buy-btn" data-toggle="modal"
-                                        data-target="#exampleModal" data-whatever="@fat">Buy Now</a>
+                                <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
+                                data-target="#exampleModal" data-whatever="@fat" data-id = "{{$packages->id}}" data-name= "{{strtoupper($packages->package_name)}}">Buy Now</a>
                                 @endif
                             </div>
                         </div>
@@ -107,6 +107,7 @@
             </div>
         </div>
     </section>
+    <x-company_name_check />
     <!-- ================ end: digitalPackage-sec ================ -->
 
     <!-- ================ start: whatmakedifferent-sec ================ -->
@@ -313,82 +314,7 @@
     <!-- ================ end: our-banking-sec ================ -->
 
     <!--=============Modal For Company Name ====================--->
-    <div class="modal fade company-check" id="exampleModal" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Company Name Check</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <div class="position-relative overflow-hidden main-banner-outer pb-0">
-                    <div class="main-banner home-banner-src" style="background:#313C4E;">
-                        <div class="custom-container">
-                            <div class="caption-box pb-4" style="padding-right: 0px;">
 
-                                <div class="logo_container">
-                                    <img src="/frontend/assets/images/logo.svg" class="logo">
-                                </div>
-
-
-                                    <div class="col-md-7" id="result_show" style="display: none">
-                                        {{-- Available Message --}}
-                                        <div class="search-result" id="available-company" style="display: none">
-                                            <div class="mb-4 align-items-center">
-                                                <div class="col-md-12">
-                                                    <div class="d-flex align-items-center">
-                                                        <span class="icon"><i
-                                                                class="fa fa-check-circle-o"></i>&nbsp;</span>
-                                                        <h2 class="search-company-name"></h2>
-                                                    </div>
-                                                    <h3 style="color:#87CB28;">Congratulations! This company name is
-                                                        available.</h3>
-                                                    <h3 style="color:#87CB28;" id="is_sensitive_word_row"
-                                                        style="display: none">Please note: The word(s) <span
-                                                            id="is_sensitive_word"></span> is deemed sensitive. You may
-                                                        need to supply additional information to use it.</h3>
-                                                </div>
-                                                <div class="col-md-6 "><a
-                                                        href="{{ route('add-cart', ['id' => $packages->id]) }}"
-                                                        class="btn btn-primary wow zoomIn">Choose Package<i
-                                                            class="fa fa-long-arrow-right ms-2"></i></a></div>
-                                            </div>
-                                            <div class="hhr-text">Search for another name</div>
-                                        </div>
-
-                                        {{-- Not Available Message --}}
-                                        <div id="not-available-company" style="display: none">
-                                            <div class="search-result-error mb-4">
-                                                <span class="icon"><i class="fa fa-times-circle-o"></i></span>
-                                                <h2 class="search-company-name"></h2>
-                                                <h3 style="color:white;">Error! This company name is Not available.</h3>
-                                            </div>
-                                            <div class="hhr-text">Search for another name</div>
-                                        </div>
-                                    </div>
-
-                                <div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
-                                    <div class="search-box mt-3 mb-2" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true" style="max-width: 100%">
-                                        <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
-                                        <input type="hidden" name="package_id" id="package_id" value="{{$packages->id}}">
-                                        <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-            </div>
-        </div>
-    </div>
 
 @endsection
 @section('script')
