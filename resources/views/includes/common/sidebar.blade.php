@@ -63,6 +63,19 @@
                             <p>List</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.facilitor.index')}}"
+                            class="nav-link {{ request()->routeIs('admin.facilitor.index') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Facilities</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.facilitor.create')}}" class="nav-link {{ request()->routeIs('admin.facilitor.create') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add New Facility</p>
+                        </a>
+                    </li>
 
                     {{-- <li class="nav-item">
                         <a href="{{ route('admin.package.create')}}" class="nav-link {{ request()->routeIs('admin.package.create') ? 'active' : '' }}">

@@ -24,7 +24,7 @@ class AddonService
         if (!empty($search)) {
             $addonservices = $addonservices->where('service_name', 'like', "%{$search}%");
         }
-        $addonservices = $addonservices->paginate(5);
+        $addonservices = $addonservices->paginate(25);
         return $addonservices;
     }
 

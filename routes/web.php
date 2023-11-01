@@ -36,6 +36,7 @@ use App\Http\Controllers\Web\Payment\PaymentController;
 use App\Http\Controllers\Admin\Company\CompanyController;
 use App\Http\Controllers\MailTestController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\Admin\FacilitorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -238,6 +239,13 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
             Route::get('/dashboard', DashboardController::class)->name('dashboard');
             // Route::resource('change-password', ChangePasswordController::class);
             Route::resource('package', PackageController::class);
+
+            Route::get('/facilitor',[FacilitorController::class,'index'])->name('facilitor.index');
+            Route::get('/facilitor/create',[FacilitorController::class,'create'])->name('facilitor.create');
+            Route::post('/facilitor/create',[FacilitorController::class,'store'])->name('facilitor.store');
+            Route::get('/facilitor/edit/{id}',[FacilitorController::class,'edit'])->name('facilitor.edit');
+            Route::put('/facilitor/edit/{id}',[FacilitorController::class,'update'])->name('facilitor.update');
+
             Route::resource('addonservice', AddonController::class);
 
             Route::resource('business-banking', BusinessBankingController::class);
