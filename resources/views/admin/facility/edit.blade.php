@@ -32,9 +32,19 @@
                                     <div class="col-sm-8">
                                         <x-Forms.Input type="text" mandate="*" label="Name" id="name"
                                             name="name" value="{{ $facility->name }}"
-                                            placeholder="Enter facility name"
-                                            class="{{ $errors->has('name') ? 'is-invalid' : '' }}"  />
+                                            placeholder="Enter package name"
+                                            class="{{ $errors->has('name') ? 'is-invalid' : '' }}" readonly />
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">Description</label>
+                                        <textarea class="ckeditor form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description">
+                                            {!! $facility->description !!}
+                                        </textarea>
+                                    </div>
+                                </div>
+
 
 
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit" style="padding: 10px;"

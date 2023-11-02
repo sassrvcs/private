@@ -28,12 +28,22 @@
                             <form action="{{ route('admin.facilitor.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row" style="align-items: flex-end;">
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-6">
                                         <x-Forms.Input type="text" mandate="*" label="Name" id="name"
                                             name="name" value="{{ old('name') }}"
                                             placeholder="Enter faility name"
                                             class="{{ $errors->has('name') ? 'is-invalid' : '' }}" />
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">Description&nbsp;<span class="mandetory">* </span></label>
+                                        <textarea class="ckeditor form-control {{ $errors->has('desc') ? 'is-invalid' : '' }}" name="description"></textarea>
+                                        @error('descriptiodn')
+                                        <div class="error" style="color:red;">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
 
 
 

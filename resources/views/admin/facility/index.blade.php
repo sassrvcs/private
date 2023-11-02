@@ -38,6 +38,7 @@
                                     <tr>
                                         <th>Serial No</th>
                                         <th>Name</th>
+                                        <th>Description</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -47,6 +48,8 @@
                                         <tr>
                                             <td> {{ $index+1 }}</td>
                                             <td> {{ $package->name}}</td>
+                                            <td> {{ $package->description}}</td>
+
 
                                             <td>
                                                 <div class="form-group">

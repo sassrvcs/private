@@ -45,11 +45,26 @@ class FacilitorController extends Controller
      */
     public function store(Request $request)
     {
-        $facility = new Facility;
-        $facility->name = $request->name;
-        $facility->save();
-        return Redirect::to("admin/facilitor")->withSuccess('Facility saved');
+        // dd($request);
+        $input = $request->all();
+        $validate = Validator::make($request->all(), [
+            'name' => 'required',
+            'description' => 'required'
 
+            ],[
+                'name.required' =>'Name field is required.',
+                'description.required' => 'Description field is required.'
+
+            ]);
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }else{
+            $facility = new Facility;
+            $facility->name = $request->name;
+            $facility->description = $request->description;
+            $facility->save();
+            return Redirect::to("admin/facilitor")->withSuccess('Facility saved');
+        }
     }
 
     /**
@@ -85,11 +100,25 @@ class FacilitorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $input = $request->all();
+        $validate = Validator::make($request->all(), [
+            'name' => 'required',
+            'description' => 'required'
 
-        $facility = Facility::where('id',$id)->first();
-        $facility->name = $request->name;
-        $facility->save();
-        return Redirect::to("admin/facilitor")->withSuccess('Facility updated');
+            ],[
+                'name.required' =>'Name field is required.',
+                'description.required' => 'Description field is required.'
+
+            ]);
+        if($validate->fails()){
+            return back()->withErrors($validate->errors())->withInput();
+        }else{
+            $facility = Facility::where('id',$id)->first();
+            $facility->name = $request->name;
+            $facility->description = $request->description;
+            $facility->save();
+            return Redirect::to("admin/facilitor")->withSuccess('Facility updated');
+        }
 
 
     }
@@ -102,7 +131,6 @@ class FacilitorController extends Controller
      */
     public function destroy($id)
     {
-
         $facility = Facility::where('id',$id)->first();
         $facility->delete();
         if($facility) {
