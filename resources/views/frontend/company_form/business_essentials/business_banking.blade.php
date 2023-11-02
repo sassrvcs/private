@@ -156,9 +156,9 @@ ul.ef-16-benefits-list {
                                                                 <p><span style="color: black;">{{ $businessBank->short_description }}</span></p>
                                                             </div>
                                                         </div>
-                                                        <div class="info">
+                                                        {{-- <div class="info">
                                                             <p>{{ $businessBank->long_description }}</p>
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                     {{-- <div class="main-img">
                                                         <img src="{{ asset('frontend/assets/images/card-one-img.png') }}" alt="">

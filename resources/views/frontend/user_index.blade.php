@@ -93,10 +93,12 @@
             <div class="icon-box" data-aos="fade-left" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <img src="{{ asset('frontend/assets/images/hand-holding-globe-svgrepo-com.svg')}}">
             </div>
-            <div class="text-box">
-                <p>Full Company</p>
-                <p>Secretary Services</p>
-            </div>
+            <a href="{{route('company_services', 'full-company-secretary-service')}}">
+                <div class="text-box">
+                    <p>Full Company</p>
+                    <p>Secretary Services</p>
+                </div>
+            </a>
         </div>
     </div>
     <!-- ================ end: main-banner ================ -->
@@ -242,17 +244,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="makeCompanyFE-step-col" data-aos="fade-up" data-aos-delay="250" data-aos-duration="2000" data-aos-once="true">
-                    <div class="makeCompanyFE-step-box">
-                        <div class="inner-border">
-                            <div class="icon-box">
-                                <img src="{{ asset('frontend/assets/images/document-white-icon.png')}}">
+                <div class="makeCompanyFE-step-col step-4-box" data-aos="fade-up" data-aos-delay="250" data-aos-duration="2000" data-aos-once="true" style="cursor: pointer;">
+
+                        <div class="makeCompanyFE-step-box">
+                            <div class="inner-border">
+                                <div class="icon-box">
+                                    <img src="{{ asset('frontend/assets/images/document-white-icon.png')}}">
+                                </div>
+                                <h3>STEP-4</h3>
+                                <h4>Share Company Details</h4>
+                                <p>Share all the necessary details about your firm and leave the rest to us.</p>
                             </div>
-                            <h3>STEP-4</h3>
-                            <h4>Share Company Details</h4>
-                            <p>Share all the necessary details about your firm and leave the rest to us.</p>
                         </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -519,7 +523,16 @@
 
 @section('script')
     <script>
+
         $(document).ready(function() {
+
+            $(".step-4-box").click(function() {
+                $('html, body').animate({
+                    scrollTop: $(".main-banner").offset().top
+                }, 500);
+                $('#company-name').focus();
+            });
+
             $('#search').click(function() {
                 var companyName = $('#company-name').val();
                 var searchButton = $(this);

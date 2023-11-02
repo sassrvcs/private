@@ -66,7 +66,7 @@
                                  <div class="row align-items-center mb-3 pb-2 addons">
                                     <div class="col-md-8 mb-2 mb-md-0">
                                        <h6 class="mt-0">{{ $addonService->service_name }}</h6>
-                                       <p class="mt-0">{{ $addonService->short_desc }}</p>
+                                       {{-- <p class="mt-0">{{ $addonService->short_desc }}</p> --}}
                                     </div>
                                     <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $addonService->price }}</bdi></span></div>
                                     <div class="col-md-2 col-6 text-md-end">

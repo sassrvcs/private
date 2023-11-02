@@ -145,8 +145,29 @@
                 <tbody>
                     <tr>
                         <td>
-                            <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                <p>Online formation within</p>
+                            <div class="compare-packages-grid__column">
+                                <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                    <p>Online formation within</p>
+                                </div>
+                                <div class="compare-packages-grid__tooltip">
+                                   <span class="infobox-btn">
+                                      <svg class="svg-inline--fa fa-info-circle fc-bcbcbc" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                         <path fill="currentColor" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path>
+                                      </svg>
+                                      <!-- <i class="fa fa-info-circle fc-bcbcbc"></i> -->
+                                   </span>
+                                   <div class="infobox">
+                                      <div class="infobox__wrapper">
+                                        <div class="infobox__triangle"></div>
+                                         <!-- <a class="infobox__close">×</a>  -->
+                                         <div class="infobox__content">
+                                            <h3>Limited Company</h3>
+                                            <p>Your new company will usually be formed within 3 to 6 working hours; however, this timescale is subject to Companies House workload and it may take longer. If it is of great importance that your company is incorporated as soon as possible or on the same day, we always recommend you add the Guaranteed Same Day Service to your order.</p>
+                                            <p>Once your new company has been approved by Companies House, you can start trading immediately.</p>
+                                         </div>
+                                      </div>
+                                   </div>
+                                </div>
                             </div>
                         </td>
                         @foreach($packages as $key => $package)
@@ -157,8 +178,27 @@
                     @foreach($facilitys as $key => $facility)
                         <tr>
                             <td>
-                                <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                    <p>{{ $facility->name }}</p>
+                                <div class="compare-packages-grid__column">
+                                    <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                        <p>{{ $facility->name }}</p>
+                                    </div>
+                                    <div class="compare-packages-grid__tooltip">
+                                       <span class="infobox-btn">
+                                          <svg class="svg-inline--fa fa-info-circle fc-bcbcbc" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                             <path fill="currentColor" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path>
+                                          </svg>
+                                          <!-- <i class="fa fa-info-circle fc-bcbcbc"></i> -->
+                                       </span>
+                                       <div class="infobox">
+                                          <div class="infobox__wrapper">
+                                            <div class="infobox__triangle"></div>
+                                             <!-- <a class="infobox__close">×</a>  -->
+                                             <div class="infobox__content">
+                                               {{$facility->description}}
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
                                 </div>
                             </td>
 
