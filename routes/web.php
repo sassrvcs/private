@@ -87,7 +87,7 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 Route::get('send-mail-attach',[MailTestController::class,'TestMail'])->name('send-mail-attach');
-Route::get('generate_slug',[MailTestController::class,'generateSlug'])->name('generate_slug')->middleware('auth');
+// Route::get('generate_slug',[MailTestController::class,'generateSlug'])->name('generate_slug')->middleware('auth');
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/package', WebPackageController::class)->name('package');
@@ -105,6 +105,8 @@ Route::get('/package/plc', [WebPackageController::class,'plc'])->name('plc_packa
 
 Route::get('/company-services/{service_name}', [WebPackageController::class,'get_services'])->name('company_services');
 Route::get('/company-services/{service_slug}/{service_id}',[WebPackageController::class,'loadCompanyService'])->name('load_company_service');
+Route::post('/company-services/{service_slug}/{service_id}',[WebPackageController::class,'submitCompanyService'])->name('submit_company_service');
+
 Route::get('/company-services/business/logo', [WebPackageController::class,'business_logo'])->name('service_business_logo');
 
 Route::get('/company-services/business/share-business-idea', [WebPackageController::class,'share_business_idea'])->name('share_business_idea');

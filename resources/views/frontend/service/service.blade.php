@@ -77,9 +77,8 @@
                                 @endforeach
                             </ul>
                             <div class="bottom-actions">
-                                <a href="#" class="theme-btn-primary buy-btn">Buy Now</a>
                                 {{-- @if ($package_details['package_id']!='') --}}
-                                {{-- <a href="{{ route('', ['id' => $packages->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a> --}}
+                                <a href="{{ route('load_company_service', [$services->slug,$services->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
 
                             </div>
                         </div>
