@@ -469,8 +469,9 @@
 
                                             <div class="col-lg-6 col-md-6 col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="jurisdiction_id">Jurisdiction <span><img
-                                                                src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                    <label for="jurisdiction_id">Jurisdiction
+                                                        <span data-toggle="modal" data-target="#exampleModalCenterForJuridiction"
+                                                        style="cursor: pointer;" ><img src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                 alt=""></span></label>
 
                                                     <select
@@ -512,7 +513,8 @@
                                             <div class="col-lg-6 col-md-6 col-sm-12">
                                                 <div class="form-group">
                                                     <label for="sic_name">What are your business activities (SIC Codes)
-                                                        <span><img src="{{ asset('frontend/assets/images/in-icon.png') }}"
+                                                        <span data-toggle="modal" data-target="#exampleModalCenterForSic"
+                                                        style="cursor: pointer;"><img src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                 alt=""></span></label>
                                                     <select class="form-control" name="sic_name" id="sic_name">
                                                         <option value="">Select Category</option>
@@ -609,7 +611,7 @@
 
     <!--Company Name Modal-->
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+    <div class="modal fade modal-particular" id="exampleModalCenter" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -620,11 +622,69 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Please enter your desired company name. This is the name that will appear on your certificate of
-                    incorporation and also appear on the public record at Companies House.
+                    <p>
+                        Please enter your desired company name. This is the name that will appear on your certificate of
+                        incorporation and also appear on the public record at Companies House.
 
-                    Please also include any relevant company name ending, such as LTD, LIMITED, PLC, etc
+                        Please also include any relevant company name ending, such as LTD, LIMITED, PLC, etc
+                    </p>
                 </div>
+                {{-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> --}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Juridiction -->
+    <div class="modal fade modal-particular" id="exampleModalCenterForJuridiction" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><b>Jurisdiction</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <p>Please specify the company's jurisdiction. This can be either England &amp; Wales, Wales, Northern Ireland or Scotland.</p>
+                    </div>
+                {{-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> --}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal For SIC -->
+    <div class="modal fade modal-particular" id="exampleModalCenterForSic" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><b>What is a SIC Code?</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <p> A ‘SIC code’ is a Standard Industrial Classification code. These are used by Companies House to classify the type of business activity (or activities) in which a company or other type of business is engaged.</p>
+
+                    <h3 class="modal-title">How do I choose a code?</h3>
+
+                    <p> First of all select a category, then use the 'filter' box to enter a keyword which describes your business activity, e.g. plumbing. You can choose between 1-4 codes for your company. Please note, SIC codes are used simply for statistical purposes and your business’ activities are not strictly limited to the SIC codes selected.</p>
+
+                    <h3 class="modal-title"> What happens if I select the wrong code?</h3>
+
+                    <p> If you provide the wrong SIC code(s), or your main business activities change after company formation, you can provide the correct code(s) when you file your next annual confirmation statement. If you would rather change your SIC code(s) immediately, you can simply update the confirmation statement early.</p>
+
+                    <p> <a target="__BLANK" href="http://resources.companieshouse.gov.uk/sic/">A full list of SIC Codes can be found on the Government website here.</a></p>
+                    </div>
                 {{-- <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">Save changes</button>

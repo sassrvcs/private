@@ -5,7 +5,7 @@ return [
     'sic_details' => [
         0  => [
             "id"   => "0",
-            "name" => "all",
+            "name" => "All",
         ],
         1  => [
             "id"   => "1",

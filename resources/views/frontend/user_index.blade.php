@@ -80,17 +80,17 @@
                 </div>
             </div>
         </div>
-        <div class="main-banner-left-floating">
+        <div class="main-banner-left-floating" >
             <div class="text-box">
                 <p>Free Consultations 24/7</p>
                 <p><a href="tel:020 3002 0032">020 3002 0032</a></p>
             </div>
-            <div class="icon-box" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            <div class="icon-box" >
                 <img src="{{ asset('frontend/assets/images/consultations-phone-icon.svg')}}">
             </div>
         </div>
-        <div class="main-banner-right-floating">
-            <div class="icon-box" data-aos="fade-left" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+        <div class="main-banner-right-floating" >
+            <div class="icon-box" >
                 <img src="{{ asset('frontend/assets/images/hand-holding-globe-svgrepo-com.svg')}}">
             </div>
             <a href="{{route('company_services', 'full-company-secretary-service')}}">
