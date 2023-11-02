@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Models\Addonservice as ModelsAddonservice;
 use App\Models\Cms;
+use App\Models\Country;
 use App\Models\Facility;
 use App\Models\Package;
 use App\Services\Facility\FacilityService;
@@ -228,5 +229,17 @@ class PackageController extends Controller
         if(!$content)return redirect('/');
         $content = $content->description;
         return view('frontend.service.info-to-set',compact( 'content',));
+    }
+    public function loadCompanyService($slug,$id)
+    {
+        $countries = Country::all();
+        if($slug=="apostilled-documents-service")
+        {
+            return view('frontend.service.load_services.apostilled-docuemnts-service',compact('countries','slug','id'));
+        }
+    }
+    public function submitCompanyService(Request $request)
+    {
+        dd($request->all());
     }
 }
