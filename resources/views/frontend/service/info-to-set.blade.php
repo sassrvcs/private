@@ -162,29 +162,21 @@
             <div class="our-banking-slider" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
                 data-aos-once="true">
 
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/barclays-logo.png')}}">
-                    </div>
+                @foreach ($businessdata as $index => $data)
 
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/cashplus-logo.png')}}">
-                    </div>
+                        <div class="our-banking-item">
+                            <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
+                        </div>
 
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/wise-logo.png')}}">
-                    </div>
+                @endforeach
 
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/payoneer-logo.png')}}">
-                    </div>
+                @foreach ($accounting as $item => $data)
 
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/anna-logo.png')}}">
-                    </div>
+                        <div class="our-banking-item">
+                            <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
+                        </div>
 
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/cardone-Logo.png')}}">
-                    </div>
+                @endforeach
 
                 </div>
         </div>

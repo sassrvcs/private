@@ -191,7 +191,9 @@ class PackageController extends Controller
             if (!$services) return redirect('/404');
 
             $features = $services->features;
-            return view('frontend.service.service',compact('services', 'features',));
+            $businessdata = BusinessBanking::get();
+            $accounting = Accounting::get();
+            return view('frontend.service.service',compact('services', 'features','businessdata','accounting'));
 
     }
     public function business_logo()
@@ -199,14 +201,19 @@ class PackageController extends Controller
         $content = Cms::where('title','business-logo')->first();
         if(!$content)return redirect('/404');
         $content = $content->description;
-        return view('frontend.service.business_logo',compact('content',));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.service.business_logo',compact('content','businessdata','accounting'));
     }
     public function share_business_idea()
     {
         $content = Cms::where('title','share-ideas')->first();
         if(!$content)return redirect('/');
         $content = $content->description;
-        return view('frontend.service.share-business-idea',compact( 'content',));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+
+        return view('frontend.service.share-business-idea',compact( 'content','businessdata','accounting'));
     }
 
     public function helping_startups()
@@ -214,21 +221,27 @@ class PackageController extends Controller
         $content = Cms::where('title','helping-startups-new')->first();
         if(!$content)return redirect('/');
         $content = $content->description;
-        return view('frontend.service.helping-startups',compact( 'content',));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.service.helping-startups',compact( 'content','businessdata','accounting'));
     }
     public function business_help()
     {
         $content = Cms::where('title','business-help-new')->first();
         if(!$content)return redirect('/');
         $content = $content->description;
-        return view('frontend.service.business-help',compact( 'content',));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.service.business-help',compact( 'content','businessdata','accounting'));
     }
     public function info_to_set()
     {
         $content = Cms::where('title','info-to-set-new')->first();
         if(!$content)return redirect('/');
         $content = $content->description;
-        return view('frontend.service.info-to-set',compact( 'content',));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.service.info-to-set',compact( 'content','businessdata','accounting'));
     }
     public function loadCompanyService($slug,$id)
     {

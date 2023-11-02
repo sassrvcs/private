@@ -10528,3 +10528,133 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 	margin-bottom: 10px;
 	font-weight: 500;
 }
+
+/*start: service-request*/
+.wizard > .content > .title, .tabcontrol > .content > .title {
+    line-height: 37px;
+}
+.wizard > .content > h3.current,
+.tabcontrol > .content > h3.current {
+    display: block;
+}
+
+.total_priceAmnt {
+    color: #87cb28;
+}
+
+.total_priceAmnt {
+    float: right;
+}
+
+.wizard > .content > .title::after,
+
+.tabcontrol > .content > .title::after {
+    content: '';
+    border-bottom: 3px solid #87CB28;
+    display: block;
+}
+.service-request {
+    padding: 15px 0 30px;
+}
+
+.wizard > .steps .current-info,
+.tabcontrol > .steps .current-info {
+    position: absolute;
+    left: -999em;
+}
+
+#service-formDetails .wizard .steps ul li {
+    float: left;
+    max-width: calc(100%/3) !important;
+    text-align: center !important;
+    padding: 0;
+}
+
+#service-formDetails .wizard > .steps .current a,
+.wizard > .steps .current a:hover,
+.wizard > .steps .current a:active {
+    background: #313C4E;
+    color: #79B42E;
+    cursor: default;
+    font-size: 18px !important;
+    padding: 12px 0;
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+}
+
+#service-formDetails .wizard > .steps .disabled a,
+.wizard > .steps .disabled a:hover,
+.wizard > .steps .disabled a:active {
+    background: #4f5c70;
+    padding: 14px 0;
+}
+
+#service-formDetails .wizard > .steps {
+    padding: 0;
+}
+
+#service-formDetails .wizard .steps .number {
+    height: auto;
+}
+
+#service-formDetails .steps ul li a {
+    font-size: 16px !important;
+    font-weight: 600;
+
+}
+
+.service-request h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    color: #000;
+    padding: 0;
+    margin: 0 0 6px 0;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+.service-request p {
+    color: #111;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.doc_chk {
+    position: absolute;
+    right: 10px;
+}
+
+.bc-f0f0f0 {
+    background-color: #F0F0F0 !important;
+}
+
+.service-request tbody,
+.service-request td,
+.service-request tfoot,
+.service-request th,
+.service-request thead,
+.service-request tr {
+    border-style: none;
+}
+
+.service-request .table > :not(caption) >  >  {
+    padding: 0.5rem 0.5rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+.btn-check {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+}
+
+.me-3 {
+    margin-right: 1rem !important;
+}
+
+/*end: service-request*/

@@ -6,7 +6,8 @@
 
 
     <!-- ================ start: common-inner-page-banner ================ -->
-    <section class="common-inner-page-banner" style="background-image: url(/frontend/assets/images/digital-package-banner.png)">
+    <section class="common-inner-page-banner"
+        style="background-image: url(/frontend/assets/images/digital-package-banner.png)">
         <div class="custom-container">
             <div class="left-info">
                 <figure data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
@@ -17,7 +18,8 @@
                 </figure>
             </div>
             <div class="center-info">
-                <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
+                <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
+                    data-aos-once="true">
                     <li><a href="/">Home</a></li>
                     <li><a>Helping Startups</a></li>
                 </ul>
@@ -36,8 +38,9 @@
 
     <section class="digitalPackage-sec">
         <div class="custom-container">
-            <div class="left-information max-w-unset aos-init aos-animate" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                {!!$content!!}
+            <div class="left-information max-w-unset aos-init aos-animate" data-aos="fade-up" data-aos-delay="50"
+                data-aos-duration="500" data-aos-once="true">
+                {!! $content !!}
             </div>
 
         </div>
@@ -50,7 +53,7 @@
         <section class="whatmakedifferent-sec">
             <div class="image-container" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500"
                 data-aos-once="true">
-                <img src="{{ asset('frontend/assets/images/services-packages-list-pic1.png')}}">
+                <img src="{{ asset('frontend/assets/images/services-packages-list-pic1.png') }}">
             </div>
             <div class="text-container" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000"
                 data-aos-once="true">
@@ -62,7 +65,7 @@
         <section class="whatmakedifferent-sec">
             <div class="image-container" data-aos="fade-left" data-aos-delay="150" data-aos-duration="1500"
                 data-aos-once="true">
-                <img src="{{ asset('frontend/assets/images/services-packages-list-pic2.png')}}">
+                <img src="{{ asset('frontend/assets/images/services-packages-list-pic2.png') }}">
             </div>
             <div class="text-container" data-aos="fade-right" data-aos-delay="200" data-aos-duration="2000"
                 data-aos-once="true">
@@ -71,15 +74,17 @@
         </section>
         <div class="logo-center-stamp"></div>
         <section class="whatmakedifferent-sec">
-            <div class="text-container aos-init aos-animate" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-               <h2>Courier Charges: £35 (Takes 3-5 working days)</h2>
-                           </div>
-           <div class="image-container aos-init aos-animate" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-               <img src="{{ asset('frontend/assets/images/services-packages-list-pic3.png')}}">
-           </div>
+            <div class="text-container aos-init aos-animate" data-aos="fade-left" data-aos-delay="100"
+                data-aos-duration="1000" data-aos-once="true">
+                <h2>Courier Charges: £35 (Takes 3-5 working days)</h2>
+            </div>
+            <div class="image-container aos-init aos-animate" data-aos="fade-right" data-aos-delay="50"
+                data-aos-duration="500" data-aos-once="true">
+                <img src="{{ asset('frontend/assets/images/services-packages-list-pic3.png') }}">
+            </div>
 
 
-       </section>
+        </section>
     </div>
     <!-- ================ end: whatmakedifferent-sec ================ -->
 
@@ -91,31 +96,30 @@
                     <span>For Your Business</span>
                 </h2>
             </div>
-            <ul class="toolkit-lists" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
-                data-aos-once="true">
+            <ul class="toolkit-lists" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
                 <li>
                     <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit1.svg')}}">
+                        <img src="{{ asset('frontend/assets/images/toolkit1.svg') }}">
                     </div>
                 </li>
                 <li>
                     <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit2.svg')}}">
+                        <img src="{{ asset('frontend/assets/images/toolkit2.svg') }}">
                     </div>
                 </li>
                 <li>
                     <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit3.svg')}}">
+                        <img src="{{ asset('frontend/assets/images/toolkit3.svg') }}">
                     </div>
                 </li>
                 <li>
                     <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit4.svg')}}">
+                        <img src="{{ asset('frontend/assets/images/toolkit4.svg') }}">
                     </div>
                 </li>
                 <li>
                     <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit5.svg')}}">
+                        <img src="{{ asset('frontend/assets/images/toolkit5.svg') }}">
                     </div>
                 </li>
             </ul>
@@ -135,11 +139,11 @@
                     data-aos-once="true">
                     <ul>
                         <li>
-                            <img src="{{ asset('frontend/assets/images/ic_round-phone.svg')}}">
+                            <img src="{{ asset('frontend/assets/images/ic_round-phone.svg') }}">
                             <div class="text-box">Call Us: <a href="tel:020 3002 0032">020 3002 0032</a></div>
                         </li>
                         <li>
-                            <img src="{{ asset('frontend/assets/images/ic_round-mail.svg')}}">
+                            <img src="{{ asset('frontend/assets/images/ic_round-mail.svg') }}">
                             <div class="text-box">
                                 mail to: <a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a>
                             </div>
@@ -162,34 +166,20 @@
             <div class="our-banking-slider" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
                 data-aos-once="true">
 
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/barclays-logo.png')}}">
+                @foreach ($businessdata as $index => $data)
+
+                <div class="our-banking-item">
+                    <img src="{{ $data->getFirstMediaUrl('business_banking_images') }}">
+                </div> @endforeach
+
+            @foreach ($accounting as $item => $data)
+
+                <div class="our-banking-item">
+                    <img src="{{ $data->getFirstMediaUrl('accounting_software_images') }}">
+                </div> @endforeach
+
                     </div>
-
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/cashplus-logo.png')}}">
-                    </div>
-
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/wise-logo.png')}}">
-                    </div>
-
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/payoneer-logo.png')}}">
-                    </div>
-
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/anna-logo.png')}}">
-                    </div>
-
-                    <div class="our-banking-item">
-                        <img src="{{ asset('frontend/assets/images/cardone-Logo.png')}}">
-                    </div>
-
-                </div>
-        </div>
-    </section>
-    <!-- ================ end: our-banking-sec ================ -->
-
-
+            </div>
+        </section>
+        <!-- ================ end: our-banking-sec ================ -->
 @endsection
