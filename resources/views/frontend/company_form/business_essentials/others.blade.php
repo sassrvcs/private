@@ -137,8 +137,8 @@ button.btn.btn-danger {
                                             </div>
                                         </div>
                                         <div class="desc">
-                                            <p><strong>{{$service->short_desc}}</strong></p>
-                                            <p>{!!$service->long_desc!!}</p>
+                                            {{-- <p><strong>{{$service->short_desc}}</strong></p> --}}
+                                            {{-- <p>{!!$service->long_desc!!}</p> --}}
                                         </div>
                                         {{-- <input type="hidden" name="order" id="order" value="{{ $_GET['order'] }}"> --}}
                                     </div>

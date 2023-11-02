@@ -12,6 +12,8 @@ use App\Services\Facility\FacilityService;
 use App\Services\Package\PackageService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use App\Models\BusinessBanking;
+use App\Models\Accounting;
 
 class PackageController extends Controller
 {
@@ -54,7 +56,9 @@ class PackageController extends Controller
         $features = $packages->features;
         $faqs = $packages->faqs;
         $icon = @$packages->getFirstMedia('package_icon')->getUrl();
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon'));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
 
     }
     public function privacy()
@@ -66,7 +70,9 @@ class PackageController extends Controller
         $faqs = $packages->faqs;
         $icon = @$packages->getFirstMedia('package_icon')->getUrl();
         // dd($icon);
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon'));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
     }
     public function professional()
     {
@@ -77,7 +83,9 @@ class PackageController extends Controller
         $faqs = $packages->faqs;
         $icon = @$packages->getFirstMedia('package_icon')?->getUrl();
         // dd($icon);
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon'));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
     }
     public function prestige()
     {
@@ -87,8 +95,10 @@ class PackageController extends Controller
         $features = $packages->features;
         $faqs = $packages->faqs;
         $icon = @$packages->getFirstMedia('package_icon')?->getUrl();
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
         // dd($icon);
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon'));
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
     }
     public function all_inclusive()
     {
@@ -99,7 +109,9 @@ class PackageController extends Controller
         $faqs = $packages->faqs;
         $icon = @$packages->getFirstMedia('package_icon')?->getUrl();
         // dd($icon);
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon'));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
     }
     public function non_residents()
     {
@@ -110,7 +122,9 @@ class PackageController extends Controller
         $faqs = $packages->faqs;
         $icon = @$packages->getFirstMedia('package_icon')?->getUrl();
         // dd($icon);
-        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon'));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
     }
     public function llp()
     {
@@ -121,7 +135,9 @@ class PackageController extends Controller
         $faqs = $packages->faqs;
         $icon = @$packages->getFirstMedia('package_icon')?->getUrl();
         // dd($icon);
-        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon'));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
     }
     public function guarantee_package()
     {
@@ -132,7 +148,9 @@ class PackageController extends Controller
         $faqs = $packages->faqs;
         $icon = @$packages->getFirstMedia('package_icon')?->getUrl();
         // dd($icon);
-        return view('frontend.package.guarantee_package',compact('packages', 'features', 'faqs','icon'));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.package.guarantee_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
         // dd($packages);
         // return view('frontend.package.guarantee_package',compact('package_details'));
     }
@@ -145,7 +163,9 @@ class PackageController extends Controller
         $faqs = $packages->faqs;
         $icon = @$packages->getFirstMedia('package_icon')?->getUrl();
         // dd($icon);
-        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon'));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
     }
     public function plc()
     {
@@ -155,8 +175,10 @@ class PackageController extends Controller
         $features = $packages->features;
         $faqs = $packages->faqs;
         $icon = @$packages->getFirstMedia('package_icon')?->getUrl();
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
         // dd($icon);
-        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon'));
+        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
     }
     public function get_services($package_name)
     {

@@ -172,9 +172,9 @@ ul.ef-16-benefits-list {
                                                                 <p><span style="color: black;">{{ $businessService->short_desc  ?? ''}}</span></p>
                                                             </div>
                                                         </div>
-                                                        <div class="info">
+                                                        {{-- <div class="info">
                                                             {!! $businessService->long_desc !!}
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
 
                                                 </div>
