@@ -243,13 +243,16 @@ class PackageController extends Controller
         $accounting = Accounting::get();
         return view('frontend.service.info-to-set',compact( 'content','businessdata','accounting'));
     }
-    public function loadCompanyService($slug,$id)
+    public function loadCompanyService($slug,$id)//
     {
         $countries = Country::all();
+
         if($slug=="apostilled-documents-service")
         {
-            return view('frontend.service.load_services.apostilled-docuemnts-service',compact('countries','slug','id'));
+            $prices = ['doc_service_price'=>99.99,'royal_mail'=>0,'courier'=>17.50,'royal_mail_international'=>13.00,'international_courier'=>40.00];
+            return view('frontend.service.load_services.apostilled-docuemnts-service',compact('countries','slug','id','prices'));
         }
+        // if()
     }
     public function submitCompanyService(Request $request)
     {

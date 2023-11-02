@@ -64,7 +64,7 @@
                                             name="apostill_doc[]" id="certificate_of_incorporation"
                                             value=" Certificate of Incorporation" required="" checked>
                                         <label class="form-check-label" for="certificate_of_incorporation">
-                                            Certificate of Incorporation<span id="coi_price" class="doc_chk ">£99.99</span>
+                                            Certificate of Incorporation<span id="coi_price" class="doc_chk ">£{{$prices['doc_service_price']}}</span>
                                         </label>
                                     </div>
                                     <div class="form-check">
@@ -73,7 +73,7 @@
                                             value=" Memorandum &amp; Articles of Association" required="">
                                         <label class="form-check-label" for="memorandum_articles">
                                             Memorandum &amp; Articles of Association<span id="coi_price"
-                                                class="doc_chk ">£99.99</span>
+                                                class="doc_chk ">£{{$prices['doc_service_price']}}</span>
                                         </label>
                                     </div>
                                     <div class="form-check">
@@ -82,7 +82,7 @@
                                             required="">
                                         <label class="form-check-label" for="IN01_form">
                                             IN01 form from Companies House<span id="coi_price"
-                                                class="doc_chk ">£99.99</span>
+                                                class="doc_chk ">£{{$prices['doc_service_price']}}</span>
                                         </label>
                                     </div>
                                     <div class="form-check">
@@ -91,7 +91,7 @@
                                             value=" Certificate of Good Standing (CoGS)" required="">
                                         <label class="form-check-label" for="Good_Standing_Cert">
                                             Certificate of Good Standing (CoGS)<span id="coi_price"
-                                                class="doc_chk ">£99.99</span>
+                                                class="doc_chk ">£{{$prices['doc_service_price']}}</span>
                                         </label>
                                     </div>
                                     <div class="form-check">
@@ -99,7 +99,7 @@
                                             name="apostill_doc[]" id="option4" value=" Other documents1"
                                             required="">
                                         <label class="form-check-label" for="option4">
-                                            Other documents1<span id="coi_price" class="doc_chk ">£99.99</span>
+                                            Other documents1<span id="coi_price" class="doc_chk ">£{{$prices['doc_service_price']}}</span>
                                         </label>
                                         <div class="mb-3 row option4_other" style="display:none;">
                                             <label for="option4_input" class="col-sm-2 col-form-label">Please specify<span
@@ -115,7 +115,7 @@
                                             name="apostill_doc[]" id="option5" value=" Other documents2"
                                             required="">
                                         <label class="form-check-label" for="option5">
-                                            Other documents2<span id="coi_price" class="doc_chk ">£99.99</span>
+                                            Other documents2<span id="coi_price" class="doc_chk ">£{{$prices['doc_service_price']}}</span>
                                         </label>
                                         <div class="mb-3 row option5_other" style="display:none;">
                                             <label for="option5_input" class="col-sm-2 col-form-label">Please specify<span
@@ -131,7 +131,7 @@
                                             name="apostill_doc[]" id="option6" value=" Other documents3"
                                             required="">
                                         <label class="form-check-label" for="option6">
-                                            Other documents3<span id="coi_price" class="doc_chk ">£99.99</span>
+                                            Other documents3<span id="coi_price" class="doc_chk ">£{{$prices['doc_service_price']}}</span>
                                         </label>
                                         <div class="mb-3 row option6_other" style="display:none;">
                                             <label for="option6_input" class="col-sm-2 col-form-label">Please specify<span
@@ -171,44 +171,44 @@
                                     <p>Please specify your chosen method for delivery of your service:</p>
                                     <h5><strong>UK &amp; International Deliveries</strong></h5>
                                     <div class="form-check">
-                                        <input class="form-check-input " type="radio" name="delivery_options"
+                                        <input class="form-check-input hasprice" type="radio" name="delivery_options"
                                             id="rm_uk" value="rm_uk" required="" checked>
                                         <label class="form-check-label" for="rm_uk">
                                             Royal Mail Recorded Delivery<span id="od3_price" class="doc_chk ">Free</span>
                                         </label>
                                         <input type="hidden" name="rm_uk" value="Royal Mail Recorded Delivery">
-                                        <input type="hidden" name="rm_uk_price" value="0">
+                                        <input type="hidden" name="rm_uk_price" value="{{$prices['royal_mail']}}">
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input hasprice" type="radio" name="delivery_options"
                                             id="courier_uk" value="courier_uk" required="">
                                         <label class="form-check-label" for="courier_uk">
-                                            Courier (next business day)<span id="od3_price" class="doc_chk ">£17.50</span>
+                                            Courier (next business day)<span id="od3_price" class="doc_chk ">£{{$prices['courier']}}</span>
                                         </label>
                                         <input type="hidden" name="courier_uk" value="Courier (next business day)">
-                                        <input type="hidden" name="courier_uk_price" value="17.50">
+                                        <input type="hidden" name="courier_uk_price" value="{{$prices['courier']}}">
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input hasprice" type="radio" name="delivery_options"
                                             id="rm_int" value="rm_int" required="">
                                         <label class="form-check-label" for="rm_int">
                                             Royal Mail International Tracked &amp; Signed* (5 to 15 business days)<span
-                                                id="od3_price" class="doc_chk ">£13.00</span>
+                                                id="od3_price" class="doc_chk ">£{{$prices['royal_mail_international']}}</span>
                                         </label>
                                         <input type="hidden" name="rm_int"
                                             value="Royal Mail International Tracked &amp; Signed* (5 to 15 business days)">
-                                        <input type="hidden" name="rm_int_price" value="13.00">
+                                        <input type="hidden" name="rm_int_price" value="{{$prices['royal_mail_international']}}">
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input hasprice" type="radio" name="delivery_options"
                                             id="courier_int" value="courier_int" required="">
                                         <label class="form-check-label" for="courier_int">
                                             International Courier (1 to 5 business days)<span id="od3_price"
-                                                class="doc_chk ">£40.00</span>
+                                                class="doc_chk ">£{{$prices['international_courier']}}</span>
                                         </label>
                                         <input type="hidden" name="courier_int"
                                             value="International  Courier (1 to 5 business days)">
-                                        <input type="hidden" name="courier_int_price" value="40.00">
+                                        <input type="hidden" name="courier_int_price" value="{{$prices['international_courier']}}">
                                     </div>
                                 </div>
                                 <p><strong>Please note:</strong></p>
@@ -303,7 +303,7 @@
 
                                             <input type="tel" class="form-control required_yourdetails"
                                                 name="phone_no" id="phone_no" value="" required=""
-                                                maxlength="10">
+                                                maxlength="10" onkeyup="phone_no_validation(this)">
 
                                         </div>
 
@@ -411,7 +411,33 @@
                                         </div>
 
                                     </div>
+                                    <div class="mb-3 row">
 
+                                        <label for="street" class="col-sm-3 col-form-label ">Address Line 1 <span
+                                                class="starred">*</span></label>
+
+                                        <div class="col-sm-8">
+
+                                            <input type="text" class="form-control required_yourdetails"
+                                                name="address_line_1" id="address_line_1"
+                                                value="">
+
+                                        </div>
+
+                                    </div>
+                                    <div class="mb-3 row">
+
+                                        <label for="street" class="col-sm-3 col-form-label">Address Line 2 </label>
+
+                                        <div class="col-sm-8">
+
+                                            <input type="text" class="form-control "
+                                                name="ddress_line_2" id="address_line_2"
+                                                value="">
+
+                                        </div>
+
+                                    </div>
                                     <div class="mb-3 row">
 
                                         <label for="street" class="col-sm-3 col-form-label">House Name/Number <span
@@ -567,6 +593,33 @@
 
                                                 <input type="text" class="form-control invoice_address"
                                                     name="invoice_name_or_company" id="invoice_name_or_company"
+                                                    value="">
+
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3 row">
+
+                                            <label for="street" class="col-sm-3 col-form-label">Address Line 1 <span
+                                                    class="starred">*</span></label>
+
+                                            <div class="col-sm-8">
+
+                                                <input type="text" class="form-control invoice_address"
+                                                    name="invoice_address_line_1" id="invoice_address_line_1"
+                                                    value="">
+
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3 row">
+
+                                            <label for="street" class="col-sm-3 col-form-label">Address Line 2 </label>
+
+                                            <div class="col-sm-8">
+
+                                                <input type="text" class="form-control "
+                                                    name="invoice_address_line_2" id="invoice_address_line_2"
                                                     value="">
 
                                             </div>
@@ -900,7 +953,14 @@
 
     //     });
     // });
+    function phone_no_validation(input)
+        {
 
+        var phoneNumber = $("#phone_no").val();
+        phoneNumber = phoneNumber.replace(/^0\D*|\D/g, '');
+        console.log(phoneNumber);
+        $("#phone_no").val(phoneNumber);
+        }
     $("document").ready(function() {
 
         function scrollToTopDynamic(val) {
@@ -938,14 +998,14 @@
 
         function updatePrices() {
             var sum = 0.00;
-            var coi = parseFloat(99.99);
-            var ma = parseFloat(99.99);
-            var in01 = parseFloat(99.99);
-            var gs = parseFloat(99.99);
-            var rmuk = parseFloat(0);
-            var courieruk = parseFloat(17.5);
-            var rmint = parseFloat(13);
-            var courierint = parseFloat(40);
+            var coi = parseFloat({{$prices['doc_service_price']}});
+            var ma = parseFloat({{$prices['doc_service_price']}});
+            var in01 = parseFloat({{$prices['doc_service_price']}});
+            var gs = parseFloat({{$prices['doc_service_price']}});
+            var rmuk = parseFloat({{$prices['royal_mail']}});
+            var courieruk = parseFloat({{$prices['courier']}});
+            var rmint = parseFloat({{$prices['royal_mail_international']}});
+            var courierint = parseFloat({{$prices['international_courier']}});
 
             if ($("#option4").is(":checked")) {
                 $('.option4_other').show();
@@ -975,51 +1035,52 @@
                 $('.option6_other').hide();
             }
 
-            tr = `<tr><td>Apostilled Documents</td><td></td><td></td></tr>`
+            // tr = `<tr><td>Apostilled Documents</td><td></td><td></td></tr>`
+            tr = '';
             if ($("#certificate_of_incorporation").is(":checked"))
                 {sum += coi;
-                tr+="<tr><td></td><td>Certificate of incorporation</td><td>£" + parseFloat(coi).toFixed(2) + "</td></tr>";
+                tr+="<tr><td>Apostilled Documents</td><td>Certificate of incorporation</td><td>£" + parseFloat(coi).toFixed(2) + "</td></tr>";
                 }
             if ($("#memorandum_articles").is(":checked"))
                 {sum += ma;
-                tr+="<tr><td></td><td>Memorandum and Articles of Association</td><td>£" + parseFloat(ma).toFixed(2) + "</td></tr>";
+                tr+="<tr><td>Apostilled Documents</td><td>Memorandum and Articles of Association</td><td>£" + parseFloat(ma).toFixed(2) + "</td></tr>";
                 }
             if ($("#IN01_form").is(":checked"))
                 {sum += in01;
-                tr+="<tr><td></td><td>IN01 form from Companies House</td><td>£" + parseFloat(in01).toFixed(2) + "</td></tr>";
+                tr+="<tr><td>Apostilled Documents</td><td>IN01 form from Companies House</td><td>£" + parseFloat(in01).toFixed(2) + "</td></tr>";
                 }
             if ($("#Good_Standing_Cert").is(":checked"))
                 {sum += gs;
-                tr+="<tr><td></td><td>Certificate of Good Standing (CoGS)</td><td>£" + parseFloat(gs).toFixed(2) + "</td></tr>";
+                tr+="<tr><td>Apostilled Documents</td><td>Certificate of Good Standing (CoGS)</td><td>£" + parseFloat(gs).toFixed(2) + "</td></tr>";
                 }
             if ($("#option4").is(":checked"))
                 {sum += coi;
-                tr+="<tr><td></td><td>" + $('#option4_input').val() + "</td><td>£" + parseFloat(coi).toFixed(2) + "</td></tr>";
+                tr+="<tr><td>Apostilled Documents</td><td>" + $('#option4_input').val() + "</td><td>£" + parseFloat(coi).toFixed(2) + "</td></tr>";
                 }
             if ($("#option5").is(":checked"))
                 {sum += coi;
-                tr+="<tr><td></td><td>" + $('#option5_input').val() + "</td><td>£" + parseFloat(coi).toFixed(2) + "</td></tr>";
+                tr+="<tr><td>Apostilled Documents</td><td>" + $('#option5_input').val() + "</td><td>£" + parseFloat(coi).toFixed(2) + "</td></tr>";
                 }
             if ($("#option6").is(":checked"))
                 {sum += coi;
-                tr+="<tr><td></td><td>" + $('#option6_input').val() + "</td><td>£" + parseFloat(coi).toFixed(2) + "</td></tr>";
+                tr+="<tr><td>Apostilled Documents</td><td>" + $('#option6_input').val() + "</td><td>£" + parseFloat(coi).toFixed(2) + "</td></tr>";
                 }
             if ($("#rm_uk").is(":checked"))
                 {sum += rmuk;
-                tr+="<tr><td></td><td>Royal Mail Recorded DeliveryFree</td><td>£" + parseFloat(rmuk).toFixed(2) + "</td></tr>";
+                tr+="<tr><td>Delivery Options</td><td>Royal Mail Recorded DeliveryFree</td><td>£" + parseFloat(rmuk).toFixed(2) + "</td></tr>";
                 }
             if ($("#courier_uk").is(":checked"))
                 {sum += courieruk;
-                tr+="<tr><td></td><td>Courier (next business day)</td><td>£" + parseFloat(courieruk).toFixed(2) + "</td></tr>";
+                tr+="<tr><td>Delivery Options</td><td>Courier (next business day)</td><td>£" + parseFloat(courieruk).toFixed(2) + "</td></tr>";
                 }
             if ($("#rm_int").is(":checked"))
                 {sum += rmint;
-                tr+="<tr><td></td><td>Royal Mail International Tracked & Signed* (5 to 15 business days)</td><td>£" + parseFloat(rmint).toFixed(2) + "</td></tr>";
+                tr+="<tr><td>Delivery Options</td><td>Royal Mail International Tracked & Signed* (5 to 15 business days)</td><td>£" + parseFloat(rmint).toFixed(2) + "</td></tr>";
                 }
             if ($("#courier_int").is(":checked"))
             {
                 sum += courierint;
-                tr+="<tr><td>International Courier (1 to 5 business days)</td><td>£" + parseFloat(rmint).toFixed(2) + "</td></tr>";
+                tr+="<tr><td>Delivery Options</td><td>International Courier (1 to 5 business days)</td><td>£" + parseFloat(courierint).toFixed(2) + "</td></tr>";
             }
 
             if (sum == 0)
@@ -1058,6 +1119,27 @@
             if (required_check_error == false) {
                 scrollToTopDynamic(200)
             }
+            if($("#phone_no").val()!='')
+            {
+                let phone_no = $("#phone_no").val();
+                if(phone_no.length!=10)
+                {
+                    required_check_error = false;
+                    $("#phone_no").css({
+                        'border-color': 'red'
+                    })
+                    $("#phone_no").next("span").remove();
+                    $("#phone_no").after(`<span class="error">Please input valid phone number </span>`);
+                scrollToTopDynamic(200)
+
+                }else{
+                    $("#phone_no").next("span").remove();
+                    $("#phone_no").css({
+                        'border-color': '#ced4da'
+                    })
+                }
+            }
+
             return required_check_error;
         }
 
@@ -1282,6 +1364,10 @@
                         $('#own_find_address_btn').html('Find Address');
                         $("#exampleModalCenterAddress").show();
                         $("#post_address_blk").html(result);
+                    },
+                    error:function(result){
+                        $('#own_find_address_btn').html('Find Address');
+                        alert('Unable to get details from this pincode')
                     }
                 });
             }
@@ -1309,6 +1395,10 @@
                         $('#invoice_find_address_btn').html('Find Address');
                         $("#exampleModalCenterAddress").show();
                         $("#post_address_blk").html(result);
+                    },
+                    error:function(result){
+                        $('#invoice_find_address_btn').html('Find Address');
+                        alert('Unable to get details from this pincode')
                     }
                 });
             }
