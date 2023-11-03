@@ -116,6 +116,9 @@ Route::get('/company-services/business/business-help', [WebPackageController::cl
 Route::get('/company-services/business/info-require-to-set-company', [WebPackageController::class,'info_to_set'])->name('info-require-to-set-company');
 
 
+require __DIR__ . '/auth.php';
+
+
 
 
 
