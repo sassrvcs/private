@@ -358,7 +358,7 @@ class PackageController extends Controller
                 'SHASIGN'=>$request->query('SHASIGN'),
                 'service_payment_status'=>1
             ]);
-            if ($update) {
+            // if ($update) {
                 try {
                     $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new ServicePurchaseMail ($order_transaction,auth()->user()));
                  } catch (\Throwable $th) {
@@ -366,9 +366,9 @@ class PackageController extends Controller
                  }
                 return view('frontend.payment_getway.success');
 
-            }else{
-                echo "problem occur,please contact admin";
-            }
+            // }else{
+            //     echo "problem occur,please contact admin";
+            // }
         }
 
 
