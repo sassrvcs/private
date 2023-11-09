@@ -61,6 +61,8 @@ Route::get('/login', function () {
 })->name('frontend-login');
 
 Route::post('/login',[AuthController::class,'login'])->name('clientlogin');
+Route::post('/service-login-check',[WebPackageController::class,'service_login_check'])->name('service_login_check');
+
 
 Route::get('/register', [AuthController::class, 'viewRegisterForm'])->name('register-form');
 Route::post('/register',[AuthController::class,'saveRegisterForm'])->name('save-register-form');
@@ -235,7 +237,9 @@ Route::get('blog-details',[CmsController::class,'blogDetails'])->name('blog-deta
 Route::resource('ticket', TicketController::class)->middleware('auth');
 Route::get('ticket-replies/{id}', [TicketController::class,'view_ticket_replies'])->name('view-ticket-replies')->middleware('auth');
 Route::post('add-ticket-replies', [TicketController::class,'add_ticket_replies'])->name('add-ticket-replies')->middleware('auth');
-
+Route::get('pay/service-checkout/{id}', [WebPackageController::class, 'serviceValidateAuth'])->name('service-checkout');
+Route::post('pay/service-payment-now', [CheckoutStepController::class, 'servicePaymentNow'])->name('service-payment-now');
+Route::get('pay/service-payment-success', [WebPackageController::class, 'servicePaymentSuccess'])->name('service-payment-success');
 
 Route::group([ 'middleware' => 'isAdmin'], function() {
     Route::prefix('admin')->middleware(['auth', 'auth.session'])

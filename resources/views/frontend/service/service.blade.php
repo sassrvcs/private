@@ -63,7 +63,9 @@
 
                             <div class="text-info1">
                                 <h4>{{$services->service_name}}</h4>
-                                <h3>£{{$services->price}}</h3>
+                                @if ($services->price!=0.00&&$services->price!=''&&$services->price!='0')
+                                    <h3>£{{$services->price}}</h3>
+                                @endif
                             </div>
                             <ul class="list-info">
                                 @foreach ($features as $feature)
@@ -78,7 +80,10 @@
                             </ul>
                             <div class="bottom-actions">
                                 {{-- @if ($package_details['package_id']!='') --}}
+                                @if ($services->price!=0.00&&$services->price!=''&&$services->price!='0')
+
                                 <a href="{{ route('load_company_service', [$services->slug,$services->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+                                @endif
 
                             </div>
                         </div>

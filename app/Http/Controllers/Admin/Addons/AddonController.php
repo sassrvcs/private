@@ -54,7 +54,7 @@ class AddonController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
-            'price' => 'required|min:1|numeric',
+            'price' => 'required|numeric',
             'description' => 'required'
         ],[
             'name.required' =>'This name field is required.',
@@ -107,7 +107,7 @@ class AddonController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'short_desc' => 'required',
-            'price' => 'required|min:1|numeric',
+            'price' => 'required|numeric',
             'description' => 'required'
         ],[
             'name.required' =>'This name field is required.',

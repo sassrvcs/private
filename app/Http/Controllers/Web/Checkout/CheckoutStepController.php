@@ -185,6 +185,41 @@ class CheckoutStepController extends Controller
 
     }
 
+    public function servicePaymentNow(Request $request){
+        //service payment
+        $order = $request->order_id.'/'.uniqid().Str::random(10);
+
+        $paymentUrl = "https://mdepayments.epdq.co.uk/ncol/test/orderstandard_utf8.asp"; // Barclays payment gateway URL
+        $pspid = "epdq1638710";
+        $shaInPasscode = "";
+        $shaOutPasscode = "F&I4s97SdqEE(lDAaJ";
+        $amount = $request->total_amount *100;
+        $currency = "GBP";
+        // $orderID = "ORDER12356".time();
+        $formData = array(
+            "PSPID" => $pspid,
+            "orderID" => $order,
+            "amount" => $amount,
+            "order" => $request->order,
+            "currency" => $currency,
+            "ACCEPTURL" => route('service-payment-success'),
+            "DECLINEURL" => route('payment-declined'),
+            "EXCEPTIONURL" => route('payment-exception'),
+            "CANCELURL" => route('payment-cancelled')
+        );
+
+        ksort($formData);
+        // dd($formData);
+        $shaString = "";
+        foreach ($formData as $field => $value) {
+            $shaString .= strtoupper($field) . "=" . $value . $shaOutPasscode;
+        }
+
+        $shaOutSignature = hash('sha512',$shaString);
+        $formData["SHASIGN"] = $shaOutSignature;
+        // dd($formData);
+        return view('frontend.payment_getway.view', compact('formData', 'paymentUrl'));
+    }
     public function paymentSuccess(Request $request){
         // dd($request);
         $order_arr = explode('/',$request->query('orderID'));

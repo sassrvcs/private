@@ -132,9 +132,20 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+
                                 @else
                                     {{ 'No data found' }}
                                 @endif
+                            </div>
+                            <div class="card-footer">
+                                <nav aria-label="Contacts Page Navigation" class="pagenation-agent">
+                                   {{-- {{ $users->appends([
+                                        'form' => $filter['form'],
+                                    ])->links('pagination::bootstrap-5') }} --}}
+                                    @if($orders)
+                                        {!! $orders->withQueryString()->links('pagination::bootstrap-4') !!}
+                                    @endif
+                                </nav>
                             </div>
                         </div>
                     </div>
