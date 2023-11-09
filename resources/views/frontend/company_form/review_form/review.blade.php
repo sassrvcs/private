@@ -64,13 +64,13 @@
                                 <div class="review-ttl-block">
                                     <h5>Company Formation</h5>
                                     <div class="rt-side">
-                                        <span>
-                                            <a
-                                                href="{{ route('review.create', ['order' => $_GET['order'] ?? '', 'section' => 'Review', 'step' => 'download']) }}">Download
-                                                Summary </a>
-                                        </span>
 
-                                        <a href="#" onclick="saveNext({{ $_GET['order'] }},event)"><button
+                                            <a class="btn download_btn mr-2"
+                                                href="{{ route('review.create', ['order' => $_GET['order'] ?? '', 'section' => 'Review', 'step' => 'download']) }}"> <img src="{{ asset('frontend/assets/images/download.svg') }}" alt=""> Download
+                                                Summary </a>
+
+
+                                        <a  href="#" onclick="saveNext({{ $_GET['order'] }},event)"><button
                                                 class="btn">Save &
                                                 Continue</button></a>
                                     </div>

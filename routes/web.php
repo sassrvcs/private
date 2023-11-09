@@ -149,6 +149,12 @@ Route::get('payment-cancelled', [CheckoutStepController::class, 'paymentCancelle
 Route::get('/delete-cart-item/{indx}',[CheckoutStepController::class,'deleteCartItem'])->name('delete-cart-item');
 
 Route::get('companies', CompaniesListController::class)->middleware('auth')->name('companies-list');
+Route::get('import-companies', [CompaniesListController::class,'importCompany'])->middleware('auth')->name('import-companies');
+Route::post('import-companies', [CompaniesListController::class,'importCompany'])->middleware('auth')->name('import-companies-data');
+Route::post('import-companies/add', [CompaniesListController::class,'importCompanyAdd'])->middleware('auth')->name('import-companies-add');
+
+
+
 Route::get('companies/accepted', [CompaniesListController::class, 'acceptedCompanyDetails'])->middleware('auth')->name('accepted-company');
 Route::get('companies/pdf/efilling_pdf', [CompaniesListController::class, 'efillingPdf'])->middleware('auth')->name('efilling_pdf');
 Route::get('companies/pdf/certificate', [CompaniesListController::class, 'generateCertificate'])->middleware('auth')->name('generate_certificate');

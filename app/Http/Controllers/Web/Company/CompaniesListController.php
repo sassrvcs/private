@@ -16,15 +16,22 @@ use App\Models\Companie;
 use App\Models\companyXmlDetail;
 use App\Models\Country;
 use App\Models\Order;
+use App\Models\Package;
+use App\Models\Jurisdiction;
+use App\Models\Nationality;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 use Illuminate\Support\Str;
+use App\Services\XMLCreation\GenerateXmlService;
+
 class CompaniesListController extends Controller
 {
     public  function __construct(
         protected UserService $userService,
         protected CompanyFormService $companyFormService,
         protected OrderService $orderService,
+        protected GenerateXmlService $xmlService,
+
     ) { }
 
     /**
@@ -40,6 +47,284 @@ class CompaniesListController extends Controller
             // dd($companies->orders->toArray());
         return view('frontend.companies.company', compact('companies'));
     }
+
+    public function importCompany(Request $request){
+
+        if($request->isMethod('post')){
+
+            $fetch_result= $this->xmlService->importCompany($request);
+            $company_number=$request->company_number;
+            $company_authcode=$request->company_authcode;
+            return view('frontend.companies.import_company',compact('fetch_result','company_number','company_authcode','request'));
+        }else{
+            $fetch_result=[];
+            $company_number='';
+            $company_authcode='';
+            return view('frontend.companies.import_company',compact('fetch_result','company_number','company_authcode','request'));
+        }
+
+    }
+
+    public function importCompanyAdd(Request $request){
+
+        $fetch_result= $this->xmlService->importCompany($request);
+        dd($fetch_result);
+        if($fetch_result){
+            // Create Order
+            $company_name_exist = Companie::where('companie_name',$fetch_result['Body']['CompanyData']['CompanyName'])->first();
+            // if(!$company_name_exist){
+
+                if($fetch_result['Body']['CompanyData']['CompanyCategory']== 'BYSHR'){
+                    $package_type = 'shares';
+                }elseif($fetch_result['Body']['CompanyData']['CompanyCategory']== 'BYGUAR'){
+                    $package_type = 'Guarantee';
+
+                }elseif($fetch_result['Body']['CompanyData']['CompanyCategory']== 'LLP'){
+                    $package_type = 'LLP';
+
+                }elseif($fetch_result['Body']['CompanyData']['CompanyCategory']== 'PLC'){
+                    $package_type = 'PLC_Package';
+
+                }
+                // dd($package_type);
+                $package = Package::where('package_type',$package_type)->first();
+
+                // Cart add
+
+                $sopping_cart = new ShoppingCart;
+                $sopping_cart->user_id = auth()->user()->id;
+                $sopping_cart->package_id = $package->id;
+                $sopping_cart->quantity = '1';
+                $sopping_cart->price = $package->package_price;
+                // $sopping_cart->save();
+
+
+
+                $order =  new Order;
+                $order->order_id = $this->generateOrderId();
+                $order->user_id  = auth()->user()->id;
+                $order->cart_id = $sopping_cart->id;
+                $order->company_number = $request->company_number;
+                $order->company_name = $fetch_result['Body']['CompanyData']['CompanyName'];
+                $order->auth_code =$request->company_authcode;
+                // $order->save();
+
+                // Add Address
+
+                $juridiction_id = Jurisdiction::where('value',$fetch_result['Body']['CompanyData']['Jurisdiction'])->pluck('id')->first();
+                $Office_address = new Address;
+                $Office_address->user_id = auth()->user()->id;
+                $Office_address->address_type = 'office_address';
+                $Office_address->house_number = @$fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Premise'];
+                $Office_address->street = @$fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Street'];
+
+                $Office_address->locality = @$fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Thoroughfare'];
+                $Office_address->town = @$fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['PostTown'];
+                $Office_address->county = @$fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Country'];
+                $Office_address->post_code = @$fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Postcode'];
+                // $Office_address->save();
+
+                if($fetch_result['Body']['CompanyData']['CompanyCategory']== 'BYSHR'){
+                    $company_type = 'Limited By Shares';
+                }elseif($fetch_result['Body']['CompanyData']['CompanyCategory']== 'BYGUAR'){
+                    $company_type = 'Limited By Guarantee';
+
+                }elseif($fetch_result['Body']['CompanyData']['CompanyCategory']== 'LLP'){
+                    $company_type = 'Limited Liability Partnership';
+
+                }elseif($fetch_result['Body']['CompanyData']['CompanyCategory']== 'PLC'){
+                    $company_type = 'Public Limited Company';
+
+                }
+
+                // Add Company
+
+                $company = new Companie;
+                $company->user_id = auth()->user()->id;
+                $company->jurisdiction_id = $juridiction_id;
+                $company->order_id = $order->order_id;
+                $company->office_address = $Office_address->id;
+                $company->companie_name = $fetch_result['Body']['CompanyData']['CompanyName'];
+                $company->companie_type = $company_type;
+                // $company->save();
+
+                // Appointment Details
+
+                foreach ($fetch_result['Body']['CompanyData']['Officers']['Director'] as $key => $data) {
+
+                    if(isset($data['Person'])){
+
+                        // dd($data['Person']);
+                        // dd($data['Person']['ServiceAddress']['Address']['Premise']);
+                        $nationlity_id = Nationality::where('nationality',$data['Person']['Nationality'])->pluck('id')->first();
+                        // Resident Add for Person
+                        $residential_address = new Address;
+                        $residential_address->user_id = auth()->user()->id;
+                        $residential_address->address_type = 'primary_address';
+                        $residential_address->house_number = @$data['Person']['ResidentialAddress']['Address']['Premise'];
+                        $residential_address->street = @$data['Person']['ResidentialAddress']['Address']['Street'];
+                        $residential_address->locality = @$data['Person']['ResidentialAddress']['Address']['Thoroughfare'];
+                        $residential_address->town = @$data['Person']['ResidentialAddress']['Address']['PostTown'];
+                        $residential_address->county = @$data['Person']['ResidentialAddress']['Address']['Country'];
+                        $residential_address->post_code = @$data['Person']['ResidentialAddress']['Address']['Postcode'];
+                        // $residential_address->save();
+
+                        // create Person
+
+
+                        $person = new PersonOfficer;
+                        $person->order_id = $order->order_id;
+                        $person->user_id = auth()->user()->id;
+                        $person->dob_day = @$data['Person']['DOB'];
+
+                        if(is_array(@$data['Person']['Forename'])){
+                            $forname = implode(' ',@$data['Person']['Forename']);
+                        }else{
+                            $forname =@$data['Person']['Forename'];
+
+                        }
+
+                        $person->first_name = $forname;
+                        $person->last_name = @$data['Person']['Surname'];
+                        $person->nationality = $nationlity_id;
+                        $person->occupation = @$data['Person']['Occupation'];
+                        $person->add_id = $residential_address->id;
+
+                        // $person->save();
+
+                        // Create Appointment
+
+
+                            $service_address = new Address;
+                            $service_address->user_id = auth()->user()->id;
+                            $service_address->address_type = 'primary_address';
+                            $service_address->house_number = @$data['Person']['ServiceAddress']['Address']['Premise'];
+                            $service_address->street =@$data['Person']['ServiceAddress']['Address']['Street'];
+                            $service_address->locality =@$data['Person']['ServiceAddress']['Address']['Thoroughfare'];
+                            $service_address->town =@$data['Person']['ServiceAddress']['Address']['PostTown'];
+                            $service_address->county =@$data['Person']['ServiceAddress']['Address']['Country'];
+                            $service_address->post_code =@$data['Person']['ServiceAddress']['Address']['Postcode'];
+
+
+                        // $service_address->save();
+
+                        $appointment = new Person_appointment;
+                        $appointment->user_id = auth()->user()->id;
+                        $appointment->person_officer_id = $person->id;
+                        $appointment->own_address_id = $service_address->id;
+                        $appointment->position = 'Director';
+                        $appointment->order = $order->order_id;
+                        $appointment->appointment_type = 'person';
+                        // $appointment->save();
+
+                    }
+                    if(isset($data['Corporate'])){
+
+                        $residential_address = new Address;
+                        $residential_address->user_id = auth()->user()->id;
+                        $residential_address->address_type = 'primary_address';
+                        $residential_address->house_number = @$data['Corporate']['Address']['Premise'];
+                        $residential_address->street =@$data['Corporate']['Address']['Street'];
+                        $residential_address->town =@$data['Corporate']['Address']['PostTown'];
+                        $residential_address->county =@$data['Corporate']['Address']['Country'];
+                        $residential_address->post_code =@$data['Corporate']['Address']['Postcode'];
+
+                        // $residential_address->save();
+
+                        $person = new PersonOfficer;
+                        $person->order_id = $order->order_id;
+                        $person->user_id = auth()->user()->id;
+                        $person->legal_name = $data['Corporate']['CorporateName'];
+                        if(isset($data['Corporate']['CompanyIdentification']['NonEEA'])){
+                            $person->place_registered = @$data['Corporate']['CompanyIdentification']['NonEEA']['PlaceRegistered'];
+                            $person->registration_number = @$data['Corporate']['CompanyIdentification']['NonEEA']['RegistrationNumber'];
+                            $person->law_governed = @$data['Corporate']['CompanyIdentification']['NonEEA']['LawGoverned'];
+                            $person->legal_form = @$data['Corporate']['CompanyIdentification']['NonEEA']['LegalForm'];
+                        }
+
+                        $person->add_id = $residential_address->id;
+                        // $person->save();
+
+                        $appointment = new Person_appointment;
+                        $appointment->user_id = auth()->user()->id;
+                        $appointment->person_officer_id = $person->id;
+                        $appointment->position = 'Director';
+                        $appointment->order = $order->order_id;
+                        $appointment->appointment_type = 'corporate';
+                        $appointment->save();
+                    }
+                    // dd($data);
+                }
+
+
+                // if(isset($fetch_result['Body']['CompanyData']['Officers']['Secretary'])){
+
+                //     foreach($fetch_result['Body']['CompanyData']['Officers']['Secretary'] as $key => $data){
+                //         dd($data);
+                //         $name_exist = PersonOfficer::where('first_name',$data['Forename'])->where('last_name',$data['Surname'])->first();
+                //         if($name_exist){
+                //             dd('name Found');
+                //         }else{
+                //            // dd($data['Person']);
+
+
+                //         // create Person
+                //         $person = new PersonOfficer;
+                //         $person->order_id = $order->order_id;
+                //         $person->user_id = auth()->user()->id;
+                //         $person->first_name = $data['Person']['Forename'];
+                //         $person->last_name = $data['Person']['Surname'];
+                //         // $person->save();
+
+                //         // Create Appointment
+                //         $service_address = new Address;
+                //         $service_address->user_id = auth()->user()->id;
+                //         $service_address->address_type = 'primary_address';
+                //         $service_address->house_number = $data['Person']['ResidentialAddress']['Address']['Premise'];
+                //         $service_address->street =$data['Person']['ResidentialAddress']['Address']['Street'];
+                //         $service_address->locality =$data['Person']['ResidentialAddress']['Address']['Thoroughfare'];
+                //         $service_address->town =$data['Person']['ResidentialAddress']['Address']['PostTown'];
+                //         $service_address->county =$data['Person']['ResidentialAddress']['Address']['Country'];
+                //         $service_address->post_code =$data['Person']['ResidentialAddress']['Address']['Postcode'];
+
+                //         // $service_address->save();
+
+                //         $appointment = new Person_appointment;
+                //         $appointment->user_id = auth()->user()->id;
+                //         $appointment->person_officer_id = $person->id;
+                //         $appointment->own_address_id = $service_address->id;
+                //         $appointment->position = 'Director';
+                //         $appointment->order = $order->order_id;
+                //         $appointment->appointment_type = 'person';
+                //         // $appointment->save();
+
+                //         }
+                //     }
+                // }
+
+
+            // }
+
+
+
+
+        }
+    }
+
+    public function generateOrderId()
+    {
+        // $orderId = date('ims')-rand(10,99);
+       list($usec, $sec) = explode(" ", microtime());
+        $id =  ($usec+$sec);
+        $id = explode(".", $id);
+        $orderId = @$id[0].@$id[1];
+        $dupOrder = Order::where('order_id', $orderId)->first();
+        if ($dupOrder) {
+            $this->generateOrderId();
+        }
+        return $orderId;
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -242,4 +527,6 @@ class CompaniesListController extends Controller
         }
         return $con_address;
     }
+
+
 }

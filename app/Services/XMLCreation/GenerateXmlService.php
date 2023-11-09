@@ -17,6 +17,7 @@ use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use Spatie\PdfToText\Pdf;
 use App\Models\companyXmlDetail;
 use App\Models\Nationality;
+use Carbon\Carbon;
 
 
 /**
@@ -164,6 +165,7 @@ class GenerateXmlService
         // For Director
         $all_director = '';
         foreach ($appointmentsList as $val){
+
             if($val['appointment_type']=='corporate'){
                 $positionArray = explode(', ', $val['position']);
                     if(in_array('Director', $positionArray)){
@@ -194,32 +196,106 @@ class GenerateXmlService
                             $country = 'UNDEF';
                         }
 
+                        if($officerDetails['uk_registered']=='Yes'){
+                            $compantIdnty = '
+                                                <UK>
+                                                    <RegistrationNumber>'.$officerDetails['registration_number'].'</RegistrationNumber>
+                                                </UK>';
+                        }else{
+                            $compantIdnty = '
+                                                <NonUK>
+                                                    <PlaceRegistered>'.$officerDetails['place_registered'].'</PlaceRegistered>
+                                                    <RegistrationNumber>'.$officerDetails['registration_number'].'</RegistrationNumber>
+                                                    <LawGoverned>'.$officerDetails['law_governed'].'</LawGoverned>
+                                                    <LegalForm>'.$officerDetails['legal_form'].'</LegalForm>
+                                                </NonUK>';
+                        }
+
+                         // Question Three
+                $question_three='';
+                $question_two='';
+                $question_one='';
+
+                if($officerDetails['authenticate_three']=="Mother’s Maiden Name"){
+                    $question_three='MUM';
+
+                }else if($officerDetails['authenticate_three']=="Father's Forename"){
+                    $question_three='DAD';
+
+                }else if($officerDetails['authenticate_three']=='Town Of Birth'){
+                    $question_three='BIRTOWN';
+
+                }else if($officerDetails['authenticate_three']=='Telephone Number'){
+                    $question_three='TEL';
+
+                }else if($officerDetails['authenticate_three']=='National insurance'){
+                    $question_three='NATINS';
+
+                }else if($officerDetails['authenticate_three']=='Passport Number'){
+                    $question_three='PASSNO';
+                }
+                if($officerDetails['authenticate_two']=="Mother’s Maiden Name"){
+                    $question_two='MUM';
+                }else if($officerDetails['authenticate_two']=="Father's Forename"){
+                    $question_two='DAD';
+
+                }else if($officerDetails['authenticate_two']=='Town Of Birth'){
+                    $question_two='BIRTOWN';
+
+                }else if($officerDetails['authenticate_two']=='Telephone Number'){
+                    $question_two='TEL';
+
+                }else if($officerDetails['authenticate_two']=='National insurance'){
+                    $question_two='NATINS';
+
+                }else if($officerDetails['authenticate_two']=='Passport Number'){
+                    $question_two='PASSNO';
+                }
+                if($officerDetails['authenticate_one']=="Mother’s Maiden Name"){
+                    $question_one='MUM';
+                }else if($officerDetails['authenticate_one']=="Father's Forename"){
+                    $question_one='DAD';
+
+                }else if($officerDetails['authenticate_one']=='Town Of Birth'){
+                    $question_one='BIRTOWN';
+
+                }else if($officerDetails['authenticate_one']=='Telephone Number'){
+                    $question_one='TEL';
+
+                }else if($officerDetails['authenticate_one']=='National insurance'){
+                    $question_one='NATINS';
+
+                }else if($officerDetails['authenticate_one']=='Passport Number'){
+                    $question_one='PASSNO';
+                }
+
                         $all_director.='<Appointment>
                                             <ConsentToAct>true</ConsentToAct>
-                                            <Director>
-                                                <Person>
-                                                    <Title>'.$officerDetails['title'].'</Title>
-                                                    <Forename>'.$officerDetails['first_name'].'</Forename>
-                                                    <Surname>'.$officerDetails['last_name'].'</Surname>
-                                                    <ServiceAddress>
-                                                        <SameAsRegisteredOffice>'.$same_add.'</SameAsRegisteredOffice>
-                                                    </ServiceAddress>
-                                                    <DOB>'.$officerDetails['dob_day'].'</DOB>
-                                                    <Nationality>'.$nationality_name.'</Nationality>
-                                                    <Occupation>'.$officerDetails['occupation'].'</Occupation>
-                                                    <CountryOfResidence>United Kingdom</CountryOfResidence>
-                                                    <ResidentialAddress>
-                                                        <Address>
-                                                            <Premise>'.$address->house_number.'</Premise>
-                                                            <Street>'.$address->street.'</Street>
-                                                            <Thoroughfare>'.$address->locality.'</Thoroughfare>
-                                                            <PostTown>'.$address->town.'</PostTown>
-                                                            <Country>'.$country.'</Country>
-                                                            <Postcode>'.$address->post_code.'</Postcode>
-                                                        </Address>
-                                                    </ResidentialAddress>
-                                                </Person>
-                                            </Director>
+                                            <Authentication>
+                                    <PersonalAttribute>'.$question_three.'</PersonalAttribute>
+                                    <PersonalData>'.$officerDetails['authenticate_three_ans'].'</PersonalData>
+                                </Authentication>
+                                <Authentication>
+                                    <PersonalAttribute>'.$question_two.'</PersonalAttribute>
+                                    <PersonalData>'.$officerDetails['authenticate_two_ans'].'</PersonalData>
+                                </Authentication>
+                                <Authentication>
+                                    <PersonalAttribute>'.$question_one.'</PersonalAttribute>
+                                    <PersonalData>'.$officerDetails['authenticate_one_ans'].'</PersonalData>
+                                </Authentication>
+                                            <Corporate>
+                                            <CorporateName>'.$officerDetails['legal_name'].'</CorporateName>
+                                            <Address>
+                                                    <Premise>'.$address->house_number.'</Premise>
+                                                    <Street>'.$address->street.'</Street>
+                                                    <PostTown>'.$address->town.'</PostTown>
+                                                    <Country>'.$country.'</Country>
+                                                    <Postcode>'.$address->post_code.'</Postcode>
+                                            </Address>
+                                            <CompanyIdentification>
+                                            '.$compantIdnty.'
+                                            </CompanyIdentification>
+                                        </Corporate>
                                         </Appointment>';
                     }
             }else{
@@ -252,8 +328,77 @@ class GenerateXmlService
                         $country = 'UNDEF';
                     }
 
+                     // Question Three
+                $question_three='';
+                $question_two='';
+                $question_one='';
+
+                if($officerDetails['authenticate_three']=="Mother’s Maiden Name"){
+                    $question_three='MUM';
+
+                }else if($officerDetails['authenticate_three']=="Father's Forename"){
+                    $question_three='DAD';
+
+                }else if($officerDetails['authenticate_three']=='Town Of Birth'){
+                    $question_three='BIRTOWN';
+
+                }else if($officerDetails['authenticate_three']=='Telephone Number'){
+                    $question_three='TEL';
+
+                }else if($officerDetails['authenticate_three']=='National insurance'){
+                    $question_three='NATINS';
+
+                }else if($officerDetails['authenticate_three']=='Passport Number'){
+                    $question_three='PASSNO';
+                }
+                if($officerDetails['authenticate_two']=="Mother’s Maiden Name"){
+                    $question_two='MUM';
+                }else if($officerDetails['authenticate_two']=="Father's Forename"){
+                    $question_two='DAD';
+
+                }else if($officerDetails['authenticate_two']=='Town Of Birth'){
+                    $question_two='BIRTOWN';
+
+                }else if($officerDetails['authenticate_two']=='Telephone Number'){
+                    $question_two='TEL';
+
+                }else if($officerDetails['authenticate_two']=='National insurance'){
+                    $question_two='NATINS';
+
+                }else if($officerDetails['authenticate_two']=='Passport Number'){
+                    $question_two='PASSNO';
+                }
+                if($officerDetails['authenticate_one']=="Mother’s Maiden Name"){
+                    $question_one='MUM';
+                }else if($officerDetails['authenticate_one']=="Father's Forename"){
+                    $question_one='DAD';
+
+                }else if($officerDetails['authenticate_one']=='Town Of Birth'){
+                    $question_one='BIRTOWN';
+
+                }else if($officerDetails['authenticate_one']=='Telephone Number'){
+                    $question_one='TEL';
+
+                }else if($officerDetails['authenticate_one']=='National insurance'){
+                    $question_one='NATINS';
+
+                }else if($officerDetails['authenticate_one']=='Passport Number'){
+                    $question_one='PASSNO';
+                }
                     $all_director.='<Appointment>
                                         <ConsentToAct>true</ConsentToAct>
+                                        <Authentication>
+                                    <PersonalAttribute>'.$question_three.'</PersonalAttribute>
+                                    <PersonalData>'.$officerDetails['authenticate_three_ans'].'</PersonalData>
+                                </Authentication>
+                                <Authentication>
+                                    <PersonalAttribute>'.$question_two.'</PersonalAttribute>
+                                    <PersonalData>'.$officerDetails['authenticate_two_ans'].'</PersonalData>
+                                </Authentication>
+                                <Authentication>
+                                    <PersonalAttribute>'.$question_one.'</PersonalAttribute>
+                                    <PersonalData>'.$officerDetails['authenticate_one_ans'].'</PersonalData>
+                                </Authentication>
                                         <Director>
                                             <Person>
                                                 <Title>'.$officerDetails['title'].'</Title>
@@ -284,6 +429,8 @@ class GenerateXmlService
 
         }
 
+        echo($all_director);
+        die();
         // For Secretary
         // For Director
         $all_secretary = '';
@@ -2320,7 +2467,7 @@ class GenerateXmlService
                                             <CompanyIdentification>
                                             '.$compantIdnty.'
                                             </CompanyIdentification>
-                                            </Corporate>
+                                        </Corporate>
                                     </Member>
                                 </Appointment>';
                 }
@@ -2979,6 +3126,74 @@ class GenerateXmlService
 
 
                 }
+    }
+
+    public function importCompany($request){
+        $curl = curl_init();
+        $date = Carbon::now();
+        $today= $date->format('Y-m-d');
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://xmlgw.companieshouse.gov.uk/v1-0/xmlgw/Gateway',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS =>'<GovTalkMessage
+            xmlns="http://www.govtalk.gov.uk/CM/envelope"
+            xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
+            xmlns:gt="http://www.govtalk.gov.uk/schemas/govtalk/core"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.govtalk.gov.uk/CM/envelope http://xmlgw.companieshouse.gov.uk/v2-1/schema/Egov_ch-v2-0.xsd">
+            <EnvelopeVersion>1.0</EnvelopeVersion>
+            <Header>
+                <MessageDetails>
+                    <Class>CompanyDataRequest</Class>
+                    <Qualifier>request</Qualifier>
+                    <TransactionID>1</TransactionID>
+                    <GatewayTest>0</GatewayTest>
+                </MessageDetails>
+                <SenderDetails>
+                    <IDAuthentication>
+                        <SenderID>7db721e60d22d2b868d5c975cb19a74b</SenderID>
+                        <Authentication>
+                            <Method>clear</Method>
+                            <Value>658fd00434fdfb12569537cbc7205b4f</Value>
+                        </Authentication>
+                    </IDAuthentication>
+                </SenderDetails>
+            </Header>
+            <GovTalkDetails>
+                <Keys/>
+            </GovTalkDetails>
+            <Body>
+                <CompanyDataRequest
+                    xmlns="http://xmlgw.companieshouse.gov.uk"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlgw.companieshouse.gov.uk http://xmlgw.companieshouse.gov.uk/v2-1/schema/CompanyData-v3-3.xsd">
+                    <CompanyNumber>'.$request->company_number.'</CompanyNumber>
+                    <CompanyAuthenticationCode>'.$request->company_authcode.'</CompanyAuthenticationCode>
+                    <MadeUpDate>'.$today.'</MadeUpDate>
+                </CompanyDataRequest>
+            </Body>
+        </GovTalkMessage>',
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/xml'
+          ),
+        ));
+
+        // $response = curl_exec($curl);
+
+        // curl_close($curl);
+
+        $response = curl_exec($curl);
+                    $xml = simplexml_load_string($response, "SimpleXMLElement", LIBXML_NOCDATA);
+                    $json = json_encode($xml);
+                    $array = json_decode($json, TRUE);
+
+        return $array;
+
     }
 
 }
