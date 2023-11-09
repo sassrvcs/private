@@ -170,25 +170,17 @@ class DeliverPartnerServiceController extends Controller
         if($save_order_details->save())
         {
             $company_details = $this->companyFormService->getCompanieName($request->order_id);
-
-
             if($company_details->companie_type=='Limited By Shares'){
                 $this->xmlService->bySHRModel($request->order_id);
-
             }elseif($company_details->companie_type=='Limited By Guarantee'){
                 $this->xmlService->byGURModel($request->order_id);
-
             }
             elseif($company_details->companie_type=='Public Limited Company'){
                 $this->xmlService->byPLCModel($request->order_id);
-
             }
             elseif($company_details->companie_type=='Limited Liability Partnership'){
                 $this->xmlService->byLLPModel($request->order_id);
-
             }
-
-
             return redirect( route('checkout', ['order' => $request->order_id,'step'=>'final_payment']) );
 
 

@@ -34,7 +34,7 @@
             <div class="row woo-account">
                 @include('layouts.navbar')
                 <div class="MyAccount-content col-md-12">
-                    <div class="MyAccount-content col-md-12">
+                    
                         <div class="companies-topbar">
                             <h3>
                                 @if($status == '')
@@ -137,7 +137,7 @@
                                 @endif
                             </div>
                         </div>
-                    </div>
+
                 </div>
             </div>
         </div>
