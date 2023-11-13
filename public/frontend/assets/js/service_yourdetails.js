@@ -142,6 +142,38 @@ function validate_yourservice_email() {
 
 }
 
+function validateEmailField() {
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let test_email = true;
+
+    $(".required_app").each(function() {
+        let field_name = $(this).attr('name');
+        if ($(this).val() !== '' && (field_name === 'stat_email')) {
+            let email = $(this).val();
+
+            if (!emailPattern.test(email)) {
+                test_email = false;
+                $(this).next("span").remove();
+                $(this).css({
+                    'border-color': 'red'
+                });
+                $(this).after(`<span class="error">Please enter a valid email</span>`);
+            } else {
+                $(this).next("span").remove();
+                $(this).css({
+                    'border-color': '#ced4da'
+                });
+            }
+        }
+    });
+
+    if (!test_email) {
+        scrollToTopDynamic(300);
+    }
+
+    return test_email;
+}
+
 function validate_yourservice() {
     let required_check_error = true;
     $(".required_yourdetails").each(function() {
