@@ -12,6 +12,7 @@ use App\Http\Controllers\Web\Cart\CartController;
 use App\Http\Controllers\Web\Checkout\CheckoutStepController;
 // use App\Http\Controllers\Admin\AddonService\AddonServiceController;
 use App\Http\Controllers\Admin\Accounting\AccountingController;
+use App\Http\Controllers\Admin\Address\ManageAddress;
 use App\Http\Controllers\Admin\Customer\CustomerController;
 use App\Http\Controllers\Admin\Cms\CmsController;
 use App\Http\Controllers\Web\Company\DeliverPartnerServiceController;
@@ -66,6 +67,8 @@ Route::post('/service-login-check',[WebPackageController::class,'service_login_c
 
 Route::get('/register', [AuthController::class, 'viewRegisterForm'])->name('register-form');
 Route::post('/register',[AuthController::class,'saveRegisterForm'])->name('save-register-form');
+Route::post('/service-register-user',[WebPackageController::class,'serviceRegisterUser'])->name('service-register-user');
+
 
 Route::post('/registerNewAddess',[AuthController::class,'registerNewAddess'])->name('register-new-address');
 
@@ -268,6 +271,8 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
 
             Route::resource('business-banking', BusinessBankingController::class);
             Route::resource('accounting', AccountingController::class);
+            Route::resource('manage-address', ManageAddress::class);
+
 
 
         Route::resource('sub-admin', SubadminController::class);

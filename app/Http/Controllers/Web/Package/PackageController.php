@@ -5,10 +5,13 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ServicePurchaseMail;
+use App\Mail\UserRegistration;
 use App\Models\Addonservice as ModelsAddonservice;
 use App\Models\Cms;
 use App\Models\Country;
 use App\Models\Facility;
+use App\Services\User\UserService;
+
 use App\Models\Package;
 use App\Services\Facility\FacilityService;
 use App\Services\Package\PackageService;
@@ -28,7 +31,8 @@ class PackageController extends Controller
 {
     public function __construct(
         protected PackageService $packageService,
-        protected FacilityService $facilityService
+        protected FacilityService $facilityService,
+        protected UserService $userService,
     ) { }
 
     /**
@@ -319,6 +323,7 @@ class PackageController extends Controller
     }
     public function submitCompanyService(Request $request)
     {
+        // dd($request->all());
         $user_id =null;
         if(auth()->user())
         {
@@ -388,11 +393,9 @@ class PackageController extends Controller
             $user= [];
             if(auth()->user()) {
                 $user = User::with('address','orders','orders.myCompany', 'companies')->findOrFail(auth()->user()->id);
-                return view('frontend.service.checkout.service-checkout', compact('countries', 'user','service_id','service_transaction_details'));
-            }else
-            {
-                return view('frontend.service.checkout.service-checkout', compact('countries', 'user','service_id','service_transaction_details'));
+
             }
+            return view('frontend.service.checkout.service-checkout', compact('countries', 'user','service_id','service_transaction_details'));
         }else{
         return view('frontend.payment_getway.success');
 
@@ -424,7 +427,119 @@ class PackageController extends Controller
             }
         }
     }
+    public function serviceRegisterUser(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'title' => 'required',
+            'forename' => 'required|alpha',
+            'surname' => 'required|alpha',
+            'phone' => 'required|numeric|digits_between:8,13',
+            'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email|unique:users',
+            'confirm_email' => 'sometimes|same:email',
+            'password' => 'required|min:8|string',
+            'post_code' => 'required',
+            'house_no' => 'required',
+            'street' => 'required',
+            'town' => 'required',
+            'billing_country' => 'required',
+            'chek1' => 'required',
+            'chek2' => 'required',
+            'county' => 'required'
+        ],[
+            'title.required'    => 'Title is required.',
+            'forename.required' => 'Forename is required.',
+            'surname.required'  => 'Surname is required.',
+            'phone.required'    => 'Phone number is required.',
+            'phone.required'    => 'Phone number is required.',
+            'phone.numeric'     => 'Please enter valid phone number.',
+            'email.required'    => 'Email is required',
+            'email.email'       => 'Please provide valid email',
+            'confirm_email.required'  => 'Confirm email is required',
+            'password.required' => 'Password is required',
+            'street.required'   =>'This field is required.',
+            'town.required'     =>'This field is required.',
+            'post_code.required'=>'This field is required.',
+            'house_no.required' =>'This field is required.',
+            'billing_country.required' =>'This field is required.',
+            'chek1.required'    =>'This field is required.',
+            'chek2.required'    =>'This field is required.',
+            'county.required'   =>'This field is required.',
+        ]);
 
+        if(null !==($request->input('register_form')) && $request->input('register_form')=='registration'){
+            $validate = Validator::make($request->all(), [
+                'title' => 'required',
+                'forename' => 'required|alpha',
+                'surname' => 'required|alpha',
+                'phone' => 'required|numeric|digits_between:8,13',
+                'email' => 'required|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|email|unique:users',
+                'confirm_email' => 'sometimes|same:email',
+                'password' => 'required|min:8|string',
+                'post_code' => 'required',
+                'house_no' => 'required',
+                'street' => 'required',
+                'town' => 'required',
+                'billing_country' => 'required',
+                'chek1' => 'required',
+                'chek2' => 'required',
+                'county' => 'required'
+
+            ],[
+                'title.required'    => 'Title is required.',
+                'forename.required' => 'Forename is required.',
+                'surname.required'  => 'Surname is required.',
+                'phone.required'    => 'Phone number is required.',
+                'phone.required'    => 'Phone number is required.',
+                'phone.numeric'     => 'Please enter valid phone number.',
+                'email.required'    => 'Email is required',
+                'email.email'       => 'Please provide valid email',
+                'confirm_email.required'  => 'Confirm email is required',
+                'password.required' => 'Password is required',
+                'street.required'   =>'This field is required.',
+                'town.required'     =>'This field is required.',
+                'post_code.required'=>'This field is required.',
+                'house_no.required' =>'This field is required.',
+                'billing_country.required' =>'This field is required.',
+                'chek1.required'    =>'This field is required.',
+                'chek2.required'    =>'This field is required.',
+                'county.required'   =>'This field is required.',
+
+            ]);
+        }
+
+        if($validate->fails()) {
+            // dd($validate->errors());
+            return back()->withErrors($validate->errors())->withInput();
+        } else {
+
+            // Mail::send('frontend.mail.user_registration', ['name' => $request->forename], function($message) use($request){
+            //     $message->to($request->email);
+            //     $message->subject('Registration successful');
+            // });
+            try {
+                Mail::to($request->email)->send(new UserRegistration($request->forename));
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+
+            $response = $this->userService->store($request);
+            if ($response) {
+                // if(isset($request->checkout)) {
+                //     $checkout = $this->checkoutService->doCheckoutFinalStep($request, $response);
+                //     if ($checkout) {
+                        Auth::login($response);
+                        orderServiceTransaction::where('id',$request->service_transaction_id)->update(['user_id'=>auth()->user()->id]);
+                        // return redirect()->route('my-account');
+                        return redirect()->back();
+                    // }
+                // } else {
+                //     return redirect()->route('clientlogin')->with('message', 'Registration successfull');
+                // }
+            }else{
+                return redirect('/404');
+            }
+        }
+    }
     private function generateServiceOrderId()
     {
         // $orderId = date('ims')-rand(10,99);

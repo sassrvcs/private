@@ -99,8 +99,12 @@
                                         <h3>Registered Office</h3>
                                         <ul>
                                             <li>
-                                                <strong>Address : </strong> 52 Danes Court, North End Road, Wembley,
-                                                Middlesex, HAQ OAE, United Kingdom
+                                                <strong>Address : </strong>
+                                                @foreach ($purchase_address as $address)
+                                                    @if ($address->address_type=="registered_address")
+                                                    {{construct_address($address->toArray())}}
+                                                    @endif
+                                                @endforeach
                                             </li>
                                         </ul>
                                         <h3>Forwarding Address</h3>
@@ -132,8 +136,12 @@
                                         <h3>Buisness Address</h3>
                                         <ul>
                                             <li>
-                                                <strong>Address : </strong>52 Danes Court, North End Road, Wembley,
-                                                Middlesex, HAQ OAE, United Kingdom
+                                                <strong>Address : </strong>
+                                                @foreach ($purchase_address as $address)
+                                                @if ($address->address_type=="business_address")
+                                                {{construct_address($address->toArray())}}
+                                                @endif
+                                            @endforeach
                                             </li>
                                         </ul>
                                         <h3>Forwarding Address</h3>
@@ -282,7 +290,11 @@
                                                     {{construct_address($service_add)}}
 
                                                 @else
-                                                52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United Kingdom
+                                                    @foreach ($purchase_address as $address)
+                                                        @if ($address->address_type=="appointment_address")
+                                                        {{construct_address($address->toArray())}}
+                                                        @endif
+                                                    @endforeach
                                                 @endif
 
                                             </li>

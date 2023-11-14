@@ -596,39 +596,36 @@
                                  @endif
                                     <div class="office-address ">
                                         <div class="top-block">
-                                            <h3>Business Address (Post
+                                            <h3>{{$purchase_address->title}}
                                                 @if (stripos($package_type, 'Eseller') !== false || stripos($package_type, 'Residents') !== false)
                                                     - Included
                                                 @endif
-                                                )
+
                                             </h3>
                                             <div class="price-block">
-                                                <strong>$96.00</strong>
-                                                <p>Reserved annually at $96.00</p>
-                                                <input type="hidden" value="96" id="business_office_price">
+                                                <strong>£{{$purchase_address->price}}</strong>
+                                                <p>Reserved annually at £{{$purchase_address->price}}</p>
+                                                <input type="hidden" value="{{$purchase_address->price}}" id="business_office_price">
                                             </div>
                                         </div>
                                         <div class="desc">
                                             <div class="tham-img">
-                                                <img src="{{ asset('frontend/assets/images/address-img.png') }}"
+                                                <img src="{{  @$purchase_address->getFirstMediaUrl('manage_address_images')}}"
                                                     alt="">
                                                 <div class="tham-info">
                                                     <strong>London:</strong>
-                                                    <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United
-                                                        Kingdom</p>
+                                                    <p>{{construct_address($purchase_address->toArray())}}</p>
                                                 </div>
                                             </div>
                                             <div class="text-block">
                                                 <h3>Protect the privacy of your home address</h3>
-                                                <p>Mauris placerat ac lectus et bibendum. Aliquam tincidunt tristique
-                                                    vulputate quisque tincidunt nisl vel risus imperdiet feugiat.</p>
+                                                <p>{{$purchase_address->description}}</p>
                                                 <div class="location-block">
                                                     <div class="addr">
                                                         <strong>London: </strong>
                                                     </div>
                                                     <div class="info">
-                                                        <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE,
-                                                            United Kingdom</p>
+                                                        <p>{{construct_address($purchase_address->toArray())}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -891,6 +888,7 @@
                 type: 'get',
                 data: {
                     id:id,
+                    address_price:$('#business_office_price').val(),
                     order_id : {{$_GET['order']}},
                 },
                 success: function(result) {

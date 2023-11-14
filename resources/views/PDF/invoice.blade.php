@@ -175,7 +175,37 @@
                                                 £{{ $item->service->price + $vat }}</td>
                                         </tr>
                                     @endforeach
+                                    @if ($purchased_company_addresses!=null)
+                                    @foreach ($purchased_company_addresses as $item)
 
+                                       <tr>
+                                           <td style="padding: 4px 10px;border-left: 1px solid #000;border-right: 1px solid #000;font-size:14px;color:#646464;">{{$item->address_type=='registered_address'?'Registered Address':'Business Address'}}</td>
+                                           <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">1</td>
+                                           <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">{{$item->price}}</td>
+                                           <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">{{$item->price}}</td>
+
+                                           <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">{{(($item->price*20)/100)}}</td>
+                                           <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">{{($item->price)+(($item->price*20)/100)}}</td>
+                                       </tr>
+                                     @endforeach
+                                   @endif
+                                   @if ($purchased_appointment_addresses!=null)
+                                        @foreach ($purchased_appointment_addresses as $item)
+                                                @if ($item->total_sum!=0)
+
+                                            <tr>
+                                                <td style="padding: 4px 10px;border-left: 1px solid #000;border-right: 1px solid #000;font-size:14px;color:#646464;">Service Address</td>
+                                                <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">{{$item->qnt}}</td>
+                                                <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">{{$item->total_sum}}</td>
+                                                <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">{{$item->total_sum}}</td>
+                                                <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">{{(($item->total_sum*20)/100)}}</td>
+                                                <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">{{($item->total_sum)+(($item->total_sum*20)/100)}}</td>
+
+                                            </tr>
+                                            @endif
+                                        @endforeach
+
+                                   @endif
                                     {{-- <tr>
                                                 <td style="padding: 4px 10px;border-left: 1px solid #000;border-right: 1px solid #000;font-size:14px;color:#646464;">- Limited by Shares Company Formation</td>
                                                 <td style="padding: 4px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;color:#646464;">1</td>
@@ -272,16 +302,16 @@
                                         </td>
                                         <td
                                             style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
-                                            <strong>£{{ $net_total + $all_order->cart->package->package_price }}</strong>
+                                            <strong>£{{ $net_total + $all_order->cart->package->package_price + $total_purchased_address_amount }}</strong>
                                         </td>
                                         <td
                                             style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
-                                            <strong>£{{ $total_vat + ($all_order->cart->package->package_price * 20) / 100 }}</strong>
+                                            <strong>£{{ $total_vat + (($all_order->cart->package->package_price+ $total_purchased_address_amount) * 20) / 100 }}</strong>
                                         </td>
                                         <td
                                             style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
                                             @php
-                                                $total_price = $net_total + $all_order->cart->package->package_price + ($total_vat + ($all_order->cart->package->package_price * 20) / 100);
+                                                $total_price = $net_total + $all_order->cart->package->package_price  + $total_purchased_address_amount+($total_vat + (($all_order->cart->package->package_price+$total_purchased_address_amount) * 20) / 100);
                                             @endphp
                                             <strong>£{{ $total_price }}</strong>
                                         </td>

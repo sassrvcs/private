@@ -503,34 +503,37 @@
                                     </div>
                                     <div class="office-address ">
                                         <div class="top-block">
-                                            <h3>Registered Office - London</h3>
+                                            <h3>{{$purchase_address->title}}</h3>
                                             <div class="price-block">
-                                                <strong>$39.00</strong>
-                                                <p>Reserved annually at $39.00</p>
-                                                <input type="hidden" value="39" id="registered_office_price">
+                                                <strong>£{{$purchase_address->price}}</strong>
+                                                <p>Reserved annually at £{{$purchase_address->price}}</p>
+                                                <input type="hidden" value="{{$purchase_address->price}}" id="registered_office_price">
                                             </div>
                                         </div>
                                         <div class="desc">
                                             <div class="tham-img">
-                                                <img src="{{ asset('frontend/assets/images/address-img.png') }}"
-                                                    alt="">
+                                                <img src="{{@$purchase_address->getFirstMediaUrl('manage_address_images')}}"
+                                                    alt="image">
                                                 <div class="tham-info">
                                                     <strong>London:</strong>
-                                                    <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United
-                                                        Kingdom</p>
+                                                    {{-- <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE, United
+                                                        Kingdom</p> --}}
+                                                    <p>{{construct_address($purchase_address->toArray())}}</p>
+
                                                 </div>
                                             </div>
                                             <div class="text-block">
                                                 <h3>Protect the privacy of your home address</h3>
-                                                <p>Mauris placerat ac lectus et bibendum. Aliquam tincidunt tristique
-                                                    vulputate quisque tincidunt nisl vel risus imperdiet feugiat.</p>
+                                                <p>{{$purchase_address->description}}</p>
                                                 <div class="location-block">
                                                     <div class="addr">
                                                         <strong>London: </strong>
                                                     </div>
                                                     <div class="info">
-                                                        <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE,
-                                                            United Kingdom</p>
+                                                        {{-- <p>52 Danes Court, North End Road, Wembley, Middlesex, HAQ OAE,
+                                                            United Kingdom</p> --}}
+                                                    <p>{{construct_address($purchase_address->toArray())}}</p>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -732,7 +735,8 @@
                 type: 'GET',
                 data: {
                     order_id: order_id,
-                    address_id: addressId
+                    address_id: addressId,
+                    address_price:{{$purchase_address->price}}
                 },
                 success: function(result) {
                     console.log(result);

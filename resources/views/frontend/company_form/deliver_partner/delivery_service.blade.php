@@ -74,7 +74,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Product</th>
-                                                            <th>Quality</th>
+                                                            <th>Quantity</th>
                                                             <th>Unit Price</th>
                                                             <th>Net</th>
                                                             <th>VAT</th>
@@ -112,6 +112,38 @@
                                                                 <td>£{{ $vat }}</td>
                                                             </tr>
                                                         @endforeach
+                                                        @if ($purchased_company_addresses!=null)
+                                                         @foreach ($purchased_company_addresses as $item)
+                                                            {{-- @php
+                                                                $net_total = $net_total + $item->service->price;
+                                                                $vat = ($item->service->price * 20) / 100;
+                                                                $total_vat = $total_vat + $vat;
+                                                            @endphp --}}
+                                                            <tr>
+                                                                <td>{{$item->address_type=='registered_address'?'Registered Address':'Business Address'}}</td>
+                                                                <td>1</td>
+                                                                <td>{{$item->price}}</td>
+                                                                <td>{{$item->price}}</td>
+                                                                <td>{{($item->price*20)/100}}</td>
+                                                            </tr>
+                                                          @endforeach
+                                                        @endif
+                                                    @if ($purchased_appointment_addresses!=null)
+                                                    @foreach ($purchased_appointment_addresses as $item)
+                                                            @if ($item->total_sum!=0)
+
+                                                        <tr>
+                                                            <td>Service Address</td>
+                                                            <td>{{$item->qnt}}</td>
+                                                            <td>{{$item->total_sum}}</td>
+                                                            <td>{{$item->total_sum}}</td>
+                                                            <td>{{($item->total_sum*20)/100}}</td>
+                                                        </tr>
+                                                        @endif
+
+                                                    @endforeach
+
+                                                    @endif
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
@@ -125,12 +157,12 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td>
-                                                                <p>£{{ $net_total + $all_order->cart->package->package_price }}
+                                                                <p>£{{ $net_total + $total_purchased_address_amount+$all_order->cart->package->package_price }}
                                                                 </p>
-                                                                <p>£{{ $total_vat + ($all_order->cart->package->package_price * 20) / 100 }}
+                                                                <p>£{{ $total_vat + (($all_order->cart->package->package_price+$total_purchased_address_amount) * 20) / 100 }}
                                                                 </p>
                                                                 @php
-                                                                    $total_price = $net_total + $all_order->cart->package->package_price + ($total_vat + ($all_order->cart->package->package_price * 20) / 100);
+                                                                    $total_price = $net_total + $total_purchased_address_amount+$all_order->cart->package->package_price + ($total_vat + (($all_order->cart->package->package_price+$total_purchased_address_amount) * 20) / 100);
                                                                     $total_paid = \App\Models\orderTransaction::where('order_id', $_GET['order'])->sum('amount');
                                                                     $due_amount = $total_price - $total_paid;
                                                                 @endphp

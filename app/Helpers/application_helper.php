@@ -4,6 +4,7 @@
 
 use App\Models\Address;
 use App\Models\Country;
+use App\Models\Order;
 use App\Models\PersonOfficer;
 
 function officer_details_for_appointments_list($id){
@@ -49,5 +50,47 @@ function construct_address($address)
             @$con_address .= ','.$billing_country->name;
         }
         return $con_address;
+}
+function registered_address_included($order_id)
+{
+    $order = Order::where('order_id', $order_id)->first();
+        if ($order->cart->package!=null) {
+        $package_name = $order->cart->package->package_name;
+        }else{
+            $package_name = null;
+        }
+     if((stripos($package_name, 'Eseller') !== false || stripos($package_name, 'Residents') !== false))
+     {
+        return 1;
+     }
+     return 0;
+}
+function business_address_included($order_id)
+{
+        $order = Order::where('order_id', $order_id)->first();
+        if ($order->cart->package!=null) {
+        $package_name = $order->cart->package->package_name;
+        }else{
+            $package_name = null;
+        }
+        if((stripos($package_name, 'Eseller') !== false || stripos($package_name, 'Residents') !== false))
+        {
+        return 1;
+        }
+        return 0;
+}
+function appointment_address_included($order_id)
+{
+    $order = Order::where('order_id', $order_id)->first();
+        if ($order->cart->package!=null) {
+        $package_name = $order->cart->package->package_name;
+        }else{
+            $package_name = null;
+        }
+     if((stripos($package_name, 'Eseller') !== false || stripos($package_name, 'Residents') !== false))
+     {
+        return true;
+     }
+     return 0;
 }
 ?>

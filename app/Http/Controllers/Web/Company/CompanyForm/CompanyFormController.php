@@ -18,6 +18,8 @@ use App\Http\Requests\Company\CompanieStoreRequest;
 use App\Models\Jurisdiction;
 use App\Models\Nationality;
 use App\Models\Order;
+use App\Models\Purchase_address;
+use App\Models\purchaseAddressCart;
 use App\Services\CompanieSearchService;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 
@@ -45,14 +47,14 @@ class CompanyFormController extends Controller
         $fwd_office_address = Companie::where('order_id', $_GET['order'])->pluck('forwarding_registered_office_address')->first();
 
         $recent_addr  = $this->regAddrService->getRecentAddress($office_address);
-
+        $purchase_address = Purchase_address::where('address_type', 'registered_address')->first();
         $countries = Country::all();
         // dd($fwd_office_address);
         if($fwd_office_address!==null){
             // &section=Company_formaction&step=register-address
             return redirect()->route('choose-address-after-buy-now', ['order' =>  $_GET['order'],'section'=>'Company_formaction','step'=>'register-address']);
         }
-        return view('frontend.company_form.register_address', compact('recent_addr', 'countries','fwd_office_address', 'package_type'));
+        return view('frontend.company_form.register_address', compact('recent_addr', 'countries','fwd_office_address', 'package_type','purchase_address'));
     }
 
     public function registerAddressStoreStep(Request $request)
@@ -208,8 +210,9 @@ class CompanyFormController extends Controller
         } else {
             $address = [];
         }
+        $purchase_address = Purchase_address::where('address_type', 'registered_address')->first();
 
-        return view('frontend.company_form.choose_address_after_buy_now', compact('used_address', 'countries', 'forwardingAddVal', 'address', 'package_type'));
+        return view('frontend.company_form.choose_address_after_buy_now', compact('used_address', 'countries', 'forwardingAddVal', 'address', 'package_type','purchase_address'));
     }
 
     public function chooseBusinessAddress()
@@ -241,8 +244,10 @@ class CompanyFormController extends Controller
         } else {
             $cartInfoId = '';
         }
+        $purchase_address = Purchase_address::where('address_type', 'business_address')->first();
 
-        return view('frontend.company_form.business_address', compact('used_address', 'countries', 'forwardingAddVal', 'address', 'cartInfoId', 'package_type'));
+
+        return view('frontend.company_form.business_address', compact('used_address', 'countries', 'forwardingAddVal', 'address', 'cartInfoId', 'package_type','purchase_address'));
     }
     public function updateRegisterAddress(Request $request)
     {
@@ -278,6 +283,20 @@ class CompanyFormController extends Controller
 
         Companie::where('order_id', $request->order_id)->update(['forwarding_registered_office_address' => $id]);
         Companie::where('order_id', $request->order_id)->update(['office_address' => null]);
+        // dd(registered_address_included($request->order_id));
+        if (!(registered_address_included($request->order_id))) {
+        purchaseAddressCart::updateOrInsert([
+            'order_id'=>$request->order_id,
+            'address_type'=>'registered_address',
+        ],[
+            'order_id'=>$request->order_id,
+            'address_type'=>'registered_address',
+            'price'=>$request->address_price,
+            'qnt'=>1
+        ]);
+    }
+
+
 
         $addData = Address::where('id', $id)->first()->toArray();
 
@@ -291,6 +310,14 @@ class CompanyFormController extends Controller
         $user_id = Auth::user()->id;
         $order_id = $request->order_id;
         Companie::where('order_id', $order_id)->update(['forwarding_business_office_address' => $id]);
+        if (!(business_address_included($request->order_id))) {
+        purchaseAddressCart::updateOrInsert([
+            'order_id'=>$request->order_id,
+            'address_type'=>'business_address',
+            'price'=>$request->address_price,
+            'qnt'=>1
+        ]);
+     }
 
         $addData = Address::where('id', $id)->first()->toArray();
 
@@ -302,6 +329,7 @@ class CompanyFormController extends Controller
         $user_id = Auth::user()->id;
         $order_id = $request->order_id;
         Companie::where('order_id', $order_id)->update(['forwarding_registered_office_address' => NULL]);
+        purchaseAddressCart::where('order_id', $order_id)->where('address_type', 'registered_address')->delete();
 
         return 1;
     }
@@ -310,6 +338,7 @@ class CompanyFormController extends Controller
         $user_id = Auth::user()->id;
         $order_id = $request->order_id;
         Companie::where('order_id', $order_id)->update(['forwarding_business_office_address' => NULL]);
+        purchaseAddressCart::where('order_id', $order_id)->where('address_type', 'business_address')->delete();
 
         return 1;
     }
@@ -372,8 +401,9 @@ class CompanyFormController extends Controller
         if (!empty($personAppointments)) {
             $appointmentsList = $personAppointments;
         }
+        $purchase_address = Purchase_address::where('address_type', 'appointment_address')->first();
 
-        return view('frontend.company_form.appointments', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList', 'company_type'));
+        return view('frontend.company_form.appointments', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList', 'company_type','purchase_address'));
     }
 
     public function appointments_open_corporate()
@@ -401,6 +431,7 @@ class CompanyFormController extends Controller
         if (!empty($personAppointments)) {
             $appointmentsList = $personAppointments;
         }
+        $purchase_address = Purchase_address::where('address_type', 'appointment_address')->first();
 
         return view('frontend.company_form.appointments_corporate', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','company_type'));
     }
@@ -413,7 +444,7 @@ class CompanyFormController extends Controller
         $id = $request->id;
 
         $result = Person_appointment::where('id', $id)->delete();
-
+        purchaseAddressCart::where('appointment_id', $id)->delete();
         if ($result) {
             return 1;
         }
@@ -638,7 +669,20 @@ class CompanyFormController extends Controller
             'appointment_type' => $request->appointment_type
         ]);
 
+
         if ($inserted) {
+            if($request->forwarding_address_id){
+                if (!(appointment_address_included($request->order_id))) {
+                purchaseAddressCart::create([
+                    'order_id'=>$request->order_id,
+                    'address_type'=>'appointment_address',
+                    'appointment_id'=>$inserted->id,
+                    'price'=>$request->forwarding_address_price,
+                    'qnt'=>1
+                ]);
+                 }
+
+            }
             return 1;
         }
     }
@@ -705,6 +749,26 @@ class CompanyFormController extends Controller
         }
 
         if ($updated) {
+
+            if($request->forwarding_address_id!=null){
+                if (!(appointment_address_included($request->order_id))) {
+
+                purchaseAddressCart::updateOrInsert([
+                    'order_id'=>$request->order_id,
+                    'appointment_id'=>$appointment_id,
+                    'address_type'=>'appointment_address',
+                ],[
+                    'order_id'=>$request->order_id,
+                    'address_type'=>'appointment_address',
+                    'appointment_id'=>$appointment_id,
+                    'price'=>$request->forwarding_address_price,
+                    'qnt'=>1,
+                ]);
+            }
+
+            }else{
+                purchaseAddressCart::where('order_id', $request->order_id)->where('appointment_id', $appointment_id)->where('address_type', 'appointment_address')->delete();
+            }
             return 1;
         }else{
             return 0;
@@ -735,8 +799,9 @@ class CompanyFormController extends Controller
         if (!empty($personAppointments)) {
             $appointmentsList = $personAppointments;
         }
+        $purchase_address = Purchase_address::where('address_type', 'appointment_address')->first();
 
-        return view('frontend.company_form.appointments_otherLegalEntity', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList', 'company_type'));
+        return view('frontend.company_form.appointments_otherLegalEntity', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList', 'company_type','purchase_address'));
     }
 
     public function person_appointment_edit(Request $request)
@@ -755,6 +820,7 @@ class CompanyFormController extends Controller
                 $shoppingCartId = '';
             }
         }
+        $purchase_address = Purchase_address::where('address_type', 'appointment_address')->first();
 
         $used_address = Address::where('user_id', Auth::user()->id)->get();
         $countries = Country::all()->sortBy('name')->toArray();
@@ -777,11 +843,11 @@ class CompanyFormController extends Controller
         }
         if($appointment_details['appointment_type']=='other_legal_entity')
         {
-        return view('frontend.company_form.edit_appointments_otherLegalEntity', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details','company_type'));
+        return view('frontend.company_form.edit_appointments_otherLegalEntity', compact('used_address','nationalities', 'countries', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details','company_type','purchase_address'));
 
         }
 
-        return view('frontend.company_form.edit_appointments', compact('used_address', 'countries','nationalities', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details','company_type'));
+        return view('frontend.company_form.edit_appointments', compact('used_address', 'countries','nationalities', 'shoppingCartId', 'person_officers', 'appointmentsList','appointment_details','officer_details','company_type','purchase_address'));
     }
 
 }

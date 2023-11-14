@@ -29,7 +29,9 @@ use App\Services\Company\BusinessEssentialSteps\BusinessEssentialsService;
 use PDF;
 use App\Models\Address;
 use App\Models\Companie;
+use App\Models\purchaseAddressCart;
 use Redirect;
+use DB;
 
 class CheckoutStepController extends Controller
 {
@@ -83,6 +85,7 @@ class CheckoutStepController extends Controller
     public function validateAuthentication(Request $request)
     {
         // dd($request);
+
 
         $order_id=null;
         if($request){
@@ -298,7 +301,12 @@ class CheckoutStepController extends Controller
             ->where('addresses.user_id', $user->id)
             ->where('addresses.address_type','billing_address')
             ->first();
-
+        $purchased_company_addresses = purchaseAddressCart::where('order_id',$order_id)->whereIn('address_type',['registered_address','business_address'])->get();
+        $purchased_appointment_addresses = purchaseAddressCart::where('order_id',$order_id)->where('address_type','appointment_address')->select(DB::raw('SUM(price) as total_sum'), DB::raw('COUNT(*) as qnt'))->get();
+        $total_purchased_address_amount = purchaseAddressCart::where('order_id',$order_id)->sum('price');
+        if ($total_purchased_address_amount==null) {
+            $total_purchased_address_amount=0;
+        }
         $net_total = 0;
         $total_vat =0;
 
@@ -310,7 +318,10 @@ class CheckoutStepController extends Controller
             'net_total' => $net_total,
             'total_vat' => $total_vat,
             'transaction' => $transaction,
-            'billing_address' => $billing_address
+            'billing_address' => $billing_address,
+            'purchased_company_addresses' => $purchased_company_addresses,
+            'purchased_appointment_addresses' => $purchased_appointment_addresses,
+            'total_purchased_address_amount' => $total_purchased_address_amount
         ]; // Convert the model to an array
 
         $pdf = PDF::loadView('PDF.invoice', $data);
