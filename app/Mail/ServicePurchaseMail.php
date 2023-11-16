@@ -45,7 +45,7 @@ class ServicePurchaseMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'frontend.mail.servicePurchaseMail',
+            view: 'frontend.mail.ServicePurchaseMail',
             with: [
                 'serviceDetails' => $this->serviceDetails,
                 'userDetails' => $this->userDetails,
