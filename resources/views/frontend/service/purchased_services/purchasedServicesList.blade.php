@@ -40,13 +40,14 @@
                         </div>
                         <div class="companies-table-wrap">
                             <div class="table-responsive">
-                                @if($purchased_service)
+                                @if($purchased_service!=null)
                                     <table class="table">
                                         <thead>
                                             <tr>
                                                 <th>Order Id</th>
                                                 <th>Date</th>
                                                 <th>Service Name</th>
+                                                <th>Company Name.</th>
                                                 <th>Company No.</th>
                                                 <th>Status</th>
                                                 <th>Details</th>
@@ -58,6 +59,7 @@
                                                 <td>{{ $serviceList->order_id }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($serviceList->created_at)->format('d/m/Y') }}</td>
                                                 <td>{{ $serviceList->service_name }}</td>
+                                                <td>{{ $serviceList->company_name }}</td>
                                                 <td>{{ $serviceList->company_number }}</td>
                                                 <td>
                                                     <span class="status accepted">
@@ -76,11 +78,11 @@
                                                 <td>
 
                                                     <div class="d-flex justify-content-end align-items-center">
-                                                        {{-- <a href="{{ route('order-invoice', ['order' => $order->order_id]) }}" target="_blank">
+                                                        <a href="{{ route('purchased-service-invoice', ['id' => $serviceList->id,'service'=>$serviceList->service_slug]) }}" target="_blank">
                                                             Invoice
-                                                        </a> --}}
+                                                        </a>
 
-                                                        <a class="view-btn delet-btn" href="{{ route('purchased-service-details', ['id' => $serviceList->id,'service'=>$serviceList->service_slug]) }}">
+                                                        <a class="view-btn delet-btn ml-4" href="{{ route('purchased-service-details', ['id' => $serviceList->id,'service'=>$serviceList->service_slug]) }}">
                                                             <strong>Details</strong>
                                                         </a>
                                                     </div>

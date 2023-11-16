@@ -37,10 +37,7 @@
             </tr>
             <tr>
                 <td style="text-align: left; padding: 20px 50px; font-size: 18px; line-height: 26px;">
-                Service Name: {{$serviceDetails->service_name}}<br>
-                Net Amount: {{$serviceDetails->base_amount}}<br>
-                Vat: {{@$serviceDetails->vat}}<br>
-                Total Amount: {{@$serviceDetails->amount}}<br>
+                Thank you for your purchase. Please find the attached invoice.
 
                 </td>
             </tr>

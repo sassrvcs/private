@@ -250,6 +250,8 @@ Route::resource('ticket', TicketController::class)->middleware('auth');
 Route::get('ticket-replies/{id}', [TicketController::class,'view_ticket_replies'])->name('view-ticket-replies')->middleware('auth');
 Route::post('add-ticket-replies', [TicketController::class,'add_ticket_replies'])->name('add-ticket-replies')->middleware('auth');
 Route::get('pay/service-checkout/{id}', [WebPackageController::class, 'serviceValidateAuth'])->name('service-checkout');
+Route::get('purchased-service-invoice/{id}', [WebPackageController::class, 'purchasedServiceInvoice'])->name('purchased-service-invoice');
+
 Route::post('pay/service-payment-now', [CheckoutStepController::class, 'servicePaymentNow'])->name('service-payment-now');
 Route::get('pay/service-payment-success', [WebPackageController::class, 'servicePaymentSuccess'])->name('service-payment-success');
 

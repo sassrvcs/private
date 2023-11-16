@@ -1,7 +1,7 @@
 <h3 id="steps-uid-0-h-2" tabindex="-1" class="title">3.Confirmation</h3>
 <section id="steps-uid-0-p-2" role="tabpanel" aria-labelledby="steps-uid-0-h-2" class="body" aria-hidden="true"
     style="display: none;">
-    <input type="text" name="slug" value="{{$slug}}" id="slug_name">
+    <input type="text" hidden name="slug" value="{{$slug}}" id="slug_name">
     <div class="page-title">
         <h1>Order Confirmation</h1>
     </div>

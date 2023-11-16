@@ -54,6 +54,10 @@ function construct_address($address)
 function construct_service_address($address)
 {
     @$con_address = '';
+    if(@isset($address['name_or_company']) && @$address['name_or_company']!='')
+        {
+            @$con_address .= $address['name_or_company'].', ';
+        }
         if(@isset($address['house_no']) && @$address['house_no']!='')
         {
             @$con_address .= $address['house_no'].', ';
@@ -89,6 +93,10 @@ function construct_service_address($address)
 function construct_service_invoice_address($address)
 {
     @$con_address = '';
+    if(@isset($address['invoice_name_or_company']) && @$address['invoice_name_or_company']!='')
+        {
+            @$con_address .= $address['invoice_name_or_company'].', ';
+        }
         if(@isset($address['invoice_house_no']) && @$address['invoice_house_no']!='')
         {
             @$con_address .= $address['invoice_house_no'].', ';
