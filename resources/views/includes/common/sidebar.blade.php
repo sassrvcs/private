@@ -144,6 +144,7 @@
                 </ul>
             </li>
             @endcan
+
             @can('Accounting Software')
             <li class="nav-item {{ request()->routeIs('admin.accounting.*') ? 'menu-is-opening menu-open' : '' }}">
                 {{-- {{ request()->routeIs('admin.agent.*') ? ' active' : '' }} --}}
@@ -273,7 +274,34 @@
                     </li>
                 </ul>
             </li>
+        {{-- @can('Manage Address') --}}
+            <li class="nav-item {{ request()->routeIs('admin.manage-address.*') ? 'menu-is-opening menu-open' : '' }}">
+                <a href="#" class="nav-link  {{ request()->routeIs('admin.manage-address.*') ? ' active' : '' }}">
+                    <i class="nav-icon fas fa-graduation-cap"></i>
+                    <p>
+                        Manage Address
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                {{-- style="{{ request()->routeIs('admin.agent.*') ? ' display: block;' : 'display: none;' }}"" --}}
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.manage-address.index')}}"
+                            class="nav-link {{ request()->routeIs('admin.manage-address.index') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>List</p>
+                        </a>
+                    </li>
 
+                    {{-- <li class="nav-item">
+                        <a href="{{ route('admin.business-banking.create')}}" class="nav-link {{ request()->routeIs('admin.business-banking.create') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add New</p>
+                        </a>
+                    </li> --}}
+                </ul>
+            </li>
+            {{-- @endcan --}}
             {{-- <li class="nav-item {{ request()->routeIs('admin.view-tickets-admin.*') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link  {{ request()->routeIs('admin.view-tickets-admin.*') ? ' active' : '' }}">
                     <i class="nav-icon fas fa-graduation-cap"></i>

@@ -107,6 +107,8 @@
                             </ul>
                         </div> --}}
                     </div>
+                    <input type="text" hidden id="invoice_data" name="invoice_data">
+
                 </form>
             </div>
         </div>
@@ -145,7 +147,7 @@
 
             tr = "<tr><td>Certification of Good Standing</td><td>Company Dissolution Service</td><td>£" +
                 parseFloat({{ $prices['certification_price'] }}).toFixed(2) + "</td></tr>";
-            tr += "<tr><td>Delivrey Option</td><td>"+servTitle+"</td><td>£" +
+            tr += "<tr><td>Delivery Option</td><td>"+servTitle+"</td><td>£" +
             parseFloat(delivery_price).toFixed(2) + "</td></tr>";
             if (sum == 0) {
                 $(".total_priceAmnt").text("Online Application");
@@ -154,6 +156,8 @@
                 $("#allPriceAmnt").val(parseFloat(sum).toFixed(2));
 
                 $("#order_blk_details").html(tr);
+                $("#invoice_data").val(tr);
+
                 $(".total_priceAmnt").html("Price: £" + parseFloat(sum).toFixed(2) + " <small>+VAT</small>");
                 $("#allPriceAmnt").val(parseFloat(sum).toFixed(2));
                 calc_vat_total(sum);

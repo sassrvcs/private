@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Country;
 use App\Models\DeliveryPartnerDetail;
 use App\Models\Person_appointment;
+use App\Models\purchaseAddressCart;
 use Illuminate\Support\Facades\Session;
 use App\Services\XMLCreation\GenerateXmlService;
 
 use DB ;
-
 class DeliverPartnerServiceController extends Controller
 {
     public function __construct(
@@ -37,12 +37,16 @@ class DeliverPartnerServiceController extends Controller
     public function index()
     {
         $order_id = $_GET['order'];
-
         // $Order_details =
         $deliveryPartner = $this->companyFormService->getCompanieName($_GET['order']);
         // dd($deliveryPartner);
         $all_order = $this->businessEssentialsService->showOrder($order_id);
-
+        $purchased_company_addresses = purchaseAddressCart::where('order_id',$order_id)->whereIn('address_type',['registered_address','business_address'])->get();
+        $purchased_appointment_addresses = purchaseAddressCart::where('order_id',$order_id)->where('address_type','appointment_address')->select(DB::raw('SUM(price) as total_sum'), DB::raw('COUNT(*) as qnt'))->get();
+        $total_purchased_address_amount = purchaseAddressCart::where('order_id',$order_id)->sum('price');
+        if ($total_purchased_address_amount==null) {
+            $total_purchased_address_amount=0;
+        }
         $net_total = 0;
         $total_vat =0;
         $user = Auth::user();
@@ -122,7 +126,7 @@ class DeliverPartnerServiceController extends Controller
         if(empty($billing_address_list)){
             $billing_address_list = $primary_address_list ;
         }
-        return view('frontend.company_form.deliver_partner.delivery_service',compact('deliveryPartner','user','primary_address','billing_address','countries','primary_address_list','billing_address_list','all_order','net_total','total_vat','partner_services_contact_name'));
+        return view('frontend.company_form.deliver_partner.delivery_service',compact('deliveryPartner','user','primary_address','billing_address','countries','primary_address_list','billing_address_list','all_order','net_total','total_vat','partner_services_contact_name','purchased_company_addresses','purchased_appointment_addresses','total_purchased_address_amount'));
 
     }
     // public function fetchPartnerDetails()

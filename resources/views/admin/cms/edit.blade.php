@@ -32,6 +32,10 @@
                                     <div class="col-sm-12">
                                         <x-Forms.Input type="text" readonly label="Title" value="{{ $cmsDetails->title }}"/>
                                     </div>
+                                    <div class="col-sm-12">
+                                        <x-Forms.Input type="number" label="Price" hidden name="price" value="{{ $cmsDetails->price }}"/>
+                                            {{-- <input type="text" name="price" value="{{ $cmsDetails->price }}" hidden"> --}}
+                                    </div>
                                 </div>
 
 
@@ -44,8 +48,8 @@
                                         <span class="error invalid-feedback">{{ $errors->first('description') }}</span>
                                     </div>
                                 </div>
-                               
-                                
+
+
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit"
                                     onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';"> &nbsp;&nbsp; Save &nbsp;&nbsp;
                                 </button>
@@ -63,24 +67,24 @@
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 
 <script type="text/javascript">
-      
+
 $(document).ready(function(){
-   
+
    $('#image').change(function(){
-            
+
     let reader = new FileReader();
- 
-    reader.onload = (e) => { 
-      $('#preview-image-before-upload').attr('src', e.target.result); 
-      //$('#has_image').value(1); 
+
+    reader.onload = (e) => {
+      $('#preview-image-before-upload').attr('src', e.target.result);
+      //$('#has_image').value(1);
     }
- 
-    reader.readAsDataURL(this.files[0]); 
-   
+
+    reader.readAsDataURL(this.files[0]);
+
    });
-   
+
 });
- 
+
 </script>
 
 

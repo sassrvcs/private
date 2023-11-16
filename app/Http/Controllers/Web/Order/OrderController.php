@@ -11,8 +11,9 @@ use App\Models\Country;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\Person_appointment;
+use App\Models\purchaseAddressCart;
 use League\Csv\Writer;
-
+use DB;
 class OrderController extends Controller
 {
     public  function __construct(
@@ -147,7 +148,14 @@ class OrderController extends Controller
         $total_vat =0;
         $user = auth()->user();
 
+        $purchased_company_addresses = purchaseAddressCart::where('order_id',$order_id)->whereIn('address_type',['registered_address','business_address'])->get();
+        $purchased_appointment_addresses = purchaseAddressCart::where('order_id',$order_id)->where('address_type','appointment_address')->select(DB::raw('SUM(price) as total_sum'), DB::raw('COUNT(*) as qnt'))->get();
+        $total_purchased_address_amount = purchaseAddressCart::where('order_id',$order_id)->sum('price');
+        if ($total_purchased_address_amount==null) {
+            $total_purchased_address_amount=0;
+        }
+        
         return view('frontend.orders.order_details',compact(
-            'deliveryPartner','user','all_order','net_total','total_vat', 'order', 'transactions'));
+            'deliveryPartner','user','all_order','net_total','total_vat', 'order', 'transactions','purchased_company_addresses','purchased_appointment_addresses','total_purchased_address_amount'));
     }
 }

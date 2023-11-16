@@ -9,8 +9,9 @@ use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use App\Services\Company\BusinessEssentialSteps\BusinessEssentialsService;
 use Illuminate\Http\Request;
 use App\Models\Address;
+use App\Models\purchaseAddressCart;
 use PDF;
-
+use DB;
 class InvoiceController extends Controller
 {
     public  function __construct(
@@ -28,14 +29,14 @@ class InvoiceController extends Controller
     public function index(Request $request)
     {
         $authID = auth()->user()->id;
-        
-        $order_invoice  = $this->invoiceService->index();        
-        
+
+        $order_invoice  = $this->invoiceService->index();
+
         //echo "<pre>";
         //print_r($orders);
         //die;
         return view('frontend.invoice.invoice_history', compact('order_invoice'));
-    }     
+    }
 
     public function orderInvoice(Request $request)
     {
@@ -45,10 +46,10 @@ class InvoiceController extends Controller
 
         $order_id = $request->order;
 
-        $order = $this->orderService->getOrder($order_id);  
+        $order = $this->orderService->getOrder($order_id);
 
         $deliveryPartner = $this->companyFormService->getCompanieName( $order_id );
-        
+
         $all_order = $this->businessEssentialsService->showOrder( $order_id );
 
         $transaction = $this->orderService->getOrderFinalTransaction($order_id);
@@ -59,22 +60,31 @@ class InvoiceController extends Controller
             ->where('addresses.address_type','billing_address')
             ->first();
 
+            $purchased_company_addresses = purchaseAddressCart::where('order_id',$order_id)->whereIn('address_type',['registered_address','business_address'])->get();
+            $purchased_appointment_addresses = purchaseAddressCart::where('order_id',$order_id)->where('address_type','appointment_address')->select(DB::raw('SUM(price) as total_sum'), DB::raw('COUNT(*) as qnt'))->get();
+            $total_purchased_address_amount = purchaseAddressCart::where('order_id',$order_id)->sum('price');
+            if ($total_purchased_address_amount==null) {
+                $total_purchased_address_amount=0;
+            }
+
         $net_total = 0;
-        $total_vat =0;     
+        $total_vat =0;
 
         $data = [
-            'order' => $order, 
+            'order' => $order,
             'deliveryPartner' => $deliveryPartner,
             'user' => $user,
             'all_order' => $all_order,
             'net_total' => $net_total,
             'total_vat' => $total_vat,
             'transaction' => $transaction,
-            'billing_address' => $billing_address
-        ]; // Convert the model to an array        
-
+            'billing_address' => $billing_address,
+            'purchased_company_addresses' => $purchased_company_addresses,
+            'purchased_appointment_addresses' => $purchased_appointment_addresses,
+            'total_purchased_address_amount' => $total_purchased_address_amount
+        ]; // Convert the model to an array
         $pdf = PDF::loadView('PDF.invoice', $data);
-        
+
         return $pdf->stream();
-    }   
+    }
 }

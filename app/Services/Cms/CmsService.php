@@ -27,7 +27,7 @@ class CmsService
         $cms = $cms->paginate(5);
         return $cms;
     }
-    
+
 
     public function edit($id)
     {
@@ -39,9 +39,11 @@ class CmsService
         //print_r($request);exit;
         $cms = Cms::findOrFail($id);
         $cms->description = $request['description'];
+        $cms->price = $request['price'];
+
         $cms->save();
 
         return true;
     }
-    
+
 }

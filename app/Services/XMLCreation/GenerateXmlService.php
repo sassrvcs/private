@@ -429,8 +429,8 @@ class GenerateXmlService
 
         }
 
-        echo($all_director);
-        die();
+        // echo($all_director);
+        // die();
         // For Secretary
         // For Director
         $all_secretary = '';

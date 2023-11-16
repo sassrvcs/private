@@ -245,6 +245,7 @@
                             </ul>
                         </div> --}}
                     </div>
+                    <input type="text" hidden id="invoice_data" name="invoice_data">
                 </form>
             </div>
         </div>
@@ -426,11 +427,13 @@
                     "<tr><td>Delivery Options</td><td>International Courier (1 to 5 business days)</td><td>£" +
                     parseFloat(courierint).toFixed(2) + "</td></tr>";
             }
-
+            // console.log(tr);
             if (sum == 0) {
                 $(".total_priceAmnt").text("Online Application");
             } else {
                 $("#order_blk_details").html(tr);
+                $("#invoice_data").val(tr);
+
                 $(".total_priceAmnt").html("Price: £" + parseFloat(sum).toFixed(2) + " <small>+VAT</small>");
                 $("#allPriceAmnt").val(parseFloat(sum).toFixed(2));
                 calc_vat_total(sum);
@@ -483,6 +486,7 @@
         $("#next_step_1").click(function() {
             if ((validateApostilledDoc() == false) && (apostilled_required_check() == true)) {
                 $("#steps-uid-0-p-0").hide();
+                updatePrices()
                 // $(".service_heading").css({ //normal
                 //     "background": "#4f5c70",
                 //     "color": "white",

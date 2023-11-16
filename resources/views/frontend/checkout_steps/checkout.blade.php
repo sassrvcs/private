@@ -44,6 +44,7 @@
                                 <div class="border border-success p-2" style="border-color:#87CB28 !important;">
                                     <table class="table table-striped">
                                         <tbody>
+
                                             @if (auth()->check())
                                                         @php
                                                             $total_addon_price =0 ;
@@ -75,13 +76,28 @@
                                                             @if(isset($checkout->cart->addonCartServices))
                                                                 @foreach( $checkout->cart->addonCartServices as $key => $value)
                                                                     <tr class="fee" >
-                                                                        <td colspan="3">{{ $value->service->service_name }}</td>
+                                                                        <td colspan="3">{{ $value->service->service_name }}
+                                                                            <span style="float: right">£{{ $value->service->price }}</span>
+                                                                        </td>
                                                                         <td class="text-end" style="display:none;"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
                                                                         <td class="text-end" style="display:none;"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value->service->price }}</bdi></span></td>
                                                                     </tr>
                                                                 @endforeach
                                                         @endif
+                                                        @php
+                                                        $total_purchased_address_amount = \App\Models\purchaseAddressCart::where('order_id',$checkout->order_id)->sum('price');
+                                                           if ($total_purchased_address_amount==null) {
+                                                               $total_purchased_address_amount=0;
+                                                           }
 
+                                                        @endphp
+                                                        @if ($total_purchased_address_amount!=0)
+                                                            <tr class="fee" >
+                                                                <td colspan="3">Total Address services <span style="float: right">£{{ $total_purchased_address_amount }}</span></td>
+                                                                <td class="text-end" style="display:none;"><a href="javascript:void(0);" data-route="" dara-row="" data-service_id="" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
+                                                                <td class="text-end" style="display:none;"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $total_purchased_address_amount }}</bdi></span></td>
+                                                            </tr>
+                                                        @endif
                                                 @else
 
                                                     @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )

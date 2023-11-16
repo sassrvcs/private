@@ -12,6 +12,7 @@ use App\Http\Controllers\Web\Cart\CartController;
 use App\Http\Controllers\Web\Checkout\CheckoutStepController;
 // use App\Http\Controllers\Admin\AddonService\AddonServiceController;
 use App\Http\Controllers\Admin\Accounting\AccountingController;
+use App\Http\Controllers\Admin\Address\ManageAddress;
 use App\Http\Controllers\Admin\Customer\CustomerController;
 use App\Http\Controllers\Admin\Cms\CmsController;
 use App\Http\Controllers\Web\Company\DeliverPartnerServiceController;
@@ -66,6 +67,8 @@ Route::post('/service-login-check',[WebPackageController::class,'service_login_c
 
 Route::get('/register', [AuthController::class, 'viewRegisterForm'])->name('register-form');
 Route::post('/register',[AuthController::class,'saveRegisterForm'])->name('save-register-form');
+Route::post('/service-register-user',[WebPackageController::class,'serviceRegisterUser'])->name('service-register-user');
+
 
 Route::post('/registerNewAddess',[AuthController::class,'registerNewAddess'])->name('register-new-address');
 
@@ -232,6 +235,9 @@ Route::post('person-appointment-update', [CompanyFormController::class, 'person_
 
 //===========order section========//
 Route::get('order-history', [OrderController::class, 'index'])->name('order-history')->middleware('auth');
+Route::get('purchased-service-list', [WebPackageController::class, 'purchasedServiceList'])->name('purchased-service-list')->middleware('auth');
+Route::get('purchased-service-details', [WebPackageController::class, 'purchasedServiceDetails'])->name('purchased-service-details')->middleware('auth');
+
 Route::get('delete-order-item',[OrderController::class,'deleteOrderItem'])->name('delete-order-item')->middleware('auth');
 Route::get('order-details', [OrderController::class, 'getDetails'])->name('order-details')->middleware('auth');
 //===========invoice section========//
@@ -268,6 +274,8 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
 
             Route::resource('business-banking', BusinessBankingController::class);
             Route::resource('accounting', AccountingController::class);
+            Route::resource('manage-address', ManageAddress::class);
+
 
 
         Route::resource('sub-admin', SubadminController::class);

@@ -49,7 +49,7 @@
                                             </tr>
                                         </tbody>
                                         <tbody id="item-tbody" >
-                                            @if(auth()->check())
+                                            {{-- @if(auth()->check()) --}}
 
                                             <tr class="fee" >
                                                 <td>Service Name: </td>
@@ -57,7 +57,7 @@
 
                                                 <td class="text-end" style="display:none;"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>20</bdi></span></td>
                                             </tr>
-                                            @endif
+                                            {{-- @endif --}}
 
                                         </tbody>
 
@@ -169,7 +169,7 @@
                                 <form action="{{ route('service-payment-now')}}" method="POST">
 
                             @else
-                                <form action="{{ route('save-register-form')}}" method="POST">
+                                <form action="{{ route('service-register-user')}}" method="POST">
                                     <input type="hidden" name="indx" id="indx" value="">
                             @endif
                                 @csrf
@@ -266,7 +266,7 @@
                                                 <div class="form-row col-md-12 form-group">
                                                     <label class="">Phone&nbsp;<abbr class="required">*</abbr></label>
                                                     <span class="woocommerce-input-wrapper">
-                                                        <input type="text" class="input-text form-control @error('phone') is-invalid @enderror" name="phone" value="{{ ($user->phone_no) ?? old('phone_no')}}" >
+                                                        <input type="text" class="input-text form-control @error('phone') is-invalid @enderror" name="phone" value="{{ ($user->phone_no) ?? old('phone')}}" >
                                                         @error('phone')
                                                             <div class="error" style="color:red;">{{ $message }}</div>
                                                         @enderror
@@ -349,11 +349,15 @@
                                                         @enderror
                                                     </span>
                                                 </div>
+                                                <div class="form-row place-order">
+                                                    <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Place order" data-value="Place order">Register</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </fieldset>
 
-                                    <div id="payment" class="woocommerce-checkout-payment">
+
+                                    <div id="payment" class="woocommerce-checkout-payment @if (!auth()->check()) d-none @endif ">
                                         <fieldset class="border p-3">
                                             <legend class="float-none w-auto p-2">Payment Details</legend>
                                             <ul class="wc_payment_methods payment_methods methods">
@@ -406,6 +410,8 @@
                                             </div>
                                         </fieldset>
                                     </div>
+
+
                                 </div>
                             </form>
                         </div>
@@ -586,6 +592,12 @@
                             $('#findAddress').html('Find Address');
                             $("#exampleModalCenterAddress").show();
                             $("#post_address_blk").html(result);
+                        },
+                        error:function(result) {
+                            $('#findAddress').html('Find Address');
+                            alert('Invalid post code')
+                            // $("#exampleModalCenterAddress").show();
+                            // $("#post_address_blk").html(result);
                         }
                     });
                 }
@@ -601,6 +613,15 @@
         });
 
         // Set address in input field
+
+
+        // $('#place_order').on('click',function(event){
+        //     event.preventDefault();
+
+        //     console.log('under payment');
+
+
+        })
         function selectPostalAddrApp(val) {
 
             console.log(val);
@@ -616,14 +637,6 @@
 
             // Hide model
             $("#exampleModalCenterAddress").hide();
-        }
-
-        // $('#place_order').on('click',function(event){
-        //     event.preventDefault();
-
-        //     console.log('under payment');
-
-
-        // })
+            }
     </script>
 @endsection

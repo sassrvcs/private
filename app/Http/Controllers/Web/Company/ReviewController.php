@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Company;
 use App\Http\Controllers\Controller;
 use App\Models\Person_appointment;
 use App\Models\PersonOfficer;
+use App\Models\Purchase_address;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use Illuminate\Http\Request;
 use PDF;
@@ -25,13 +26,14 @@ class ReviewController extends Controller
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
 
         $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
+        $purchase_address = Purchase_address::all();
 
         $appointmentsList = [];
         if (!empty($personAppointments)) {
             $appointmentsList = $personAppointments;
         }
         // dd($review);
-        return view('frontend.company_form.review_form.review', compact('review', 'person_officers', 'appointmentsList'));
+        return view('frontend.company_form.review_form.review', compact('review', 'person_officers', 'appointmentsList', 'purchase_address'));
     }
 
     /**
@@ -55,6 +57,7 @@ class ReviewController extends Controller
         $review = $this->companyFormService->getCompanieName($_GET['order']);
 
         $person_officers = PersonOfficer::where('order_id', $_GET['order'])->get()->toArray();
+        $purchase_address = Purchase_address::all();
 
         $personAppointments = Person_appointment::where('order', $_GET['order'])->get()->toArray();
 
@@ -62,7 +65,7 @@ class ReviewController extends Controller
         if (!empty($personAppointments)) {
             $appointmentsList = $personAppointments;
         }
-        $data = ['review' => $review,'person_officers'=>$person_officers,'appointmentsList'=>$appointmentsList]; // Convert the model to an array
+        $data = ['review' => $review,'person_officers'=>$person_officers,'appointmentsList'=>$appointmentsList,'purchase_address'=>$purchase_address]; // Convert the model to an array
 
         // view()->share('review',$data);
         // $pdf = PDF::loadView('frontend.company_form.review_form.review', $data);
