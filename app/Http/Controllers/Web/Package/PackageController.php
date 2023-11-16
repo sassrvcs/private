@@ -544,7 +544,7 @@ class PackageController extends Controller
     }
     public function purchasedServiceList(Request $request)
     {
-       $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->orderBy('id','desc')->paginate(25);
+       $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->where('service_payment_status',1)->orderBy('id','desc')->paginate(25);
        return view('frontend.service.purchased_services.purchasedServicesList',compact('purchased_service'));
     }
     public function purchasedServiceDetails(Request $request)
