@@ -319,6 +319,42 @@ class PackageController extends Controller
             $prices = ['2_shares'=>79.99,'4_shares'=>89.99,'6_shares'=>99.99,'prepare_file'=>24.99,'prepare_file_myself'=>0.00];
             return view('frontend.service.load_services.transfer-of-share-services',compact('countries','slug','id','prices','service_name'));
         }
+        if($slug=="directors-service-address")
+        {
+            $service_name = "Directors Service Address";
+            $prices = ['directors_service_address_price'=>$get_price,'registered_address'=>35.00,'business_address'=>99.00,];
+            return view('frontend.service.load_services.directors-service-address',compact('countries','slug','id','prices','service_name'));
+        }
+        if($slug=="registered-office-address")
+        {
+            $service_name = "Registered Office Address Service";
+            $prices = ['registered_office_address_service_price'=>$get_price,'director_address'=>24.99,'business_address'=>99.00,];
+            return view('frontend.service.load_services.registered-office-address',compact('countries','slug','id','prices','service_name'));
+        }
+        if($slug=="business-telephone-services")
+        {
+            $service_name = "Business Telephone Services";
+            $prices = ['business_telephone_services_price'=>$get_price,'yearly_price'=>131.89,];
+            return view('frontend.service.load_services.business-telephone-services',compact('countries','slug','id','prices','service_name'));
+        }
+        if($slug=="data-protection-registration")
+        {
+            $service_name = "Data Protection Registration";
+            $prices = ['data_protection_registration_price'=>$get_price];
+            return view('frontend.service.load_services.data-protection-registration',compact('countries','slug','id','prices','service_name'));
+        }
+        if($slug=="vat-registration")
+        {
+            $service_name = "VAT Registration";
+            $prices = ['vat_registration_price'=>$get_price];
+            return view('frontend.service.load_services.vat-registration',compact('countries','slug','id','prices','service_name'));
+        }
+        if($slug=="paye-registration")
+        {
+            $service_name = "PAYE Registration";
+            $prices = ['vat_registration_price'=>$get_price];
+            return view('frontend.service.load_services.paye-registration',compact('countries','slug','id','prices','service_name'));
+        }
         return redirect('/404');
     }
     public function submitCompanyService(Request $request)
