@@ -342,6 +342,7 @@ class PackageController extends Controller
         $company_service->base_amount = $request->allPriceAmnt;
         $company_service->vat = $request->totalVatAmount;
         $company_service->amount = $request->totalGrandAmount;
+        $company_service->invoice_data = $request->invoice_data;
         $company_service->save();
         $service_id = $company_service->id;
         return redirect()->route('service-checkout',['id'=>$service_id]);
@@ -364,10 +365,11 @@ class PackageController extends Controller
                 'service_payment_status'=>1
             ]);
             // if ($update) {
+                $userDetails = (Auth::user());
                 try {
-                    $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new ServicePurchaseMail ($order_transaction,auth()->user()));
+                    $status =  Mail::to($userDetails->email)->send(new ServicePurchaseMail ($order_transaction,$userDetails));
                  } catch (\Throwable $th) {
-                     // throw $th;
+                     throw $th;
                  }
                 return view('frontend.payment_getway.success');
 
@@ -539,6 +541,23 @@ class PackageController extends Controller
                 return redirect('/404');
             }
         }
+    }
+    public function purchasedServiceList(Request $request)
+    {
+       $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->orderBy('id','desc')->paginate(25);
+       return view('frontend.service.purchased_services.purchasedServicesList',compact('purchased_service'));
+    }
+    public function purchasedServiceDetails(Request $request)
+    {   $id = $request->id;
+
+        $purchased_service =  orderServiceTransaction::where('id',$request->id)->first();
+        $slug = $purchased_service->service_slug;
+        $service_data = json_decode($purchased_service->service_data);
+        // dd($slug);
+        // if ($slug=="apostilled-documents-service") {
+            return view('frontend.service.purchased_services.details.service_purchased',compact('purchased_service','service_data','slug'));
+        // }
+        // return view('frontend.service.purchased_services.purchasedServiceDetails',compact('purchased_service'));
     }
     private function generateServiceOrderId()
     {

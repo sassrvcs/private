@@ -109,6 +109,8 @@
                             </ul>
                         </div> --}}
                     </div>
+                    <input type="text" hidden id="invoice_data" name="invoice_data">
+
                 </form>
             </div>
         </div>
@@ -212,6 +214,8 @@
                 $("#allPriceAmnt").val(parseFloat(sum).toFixed(2));
 
                 $("#order_blk_details").html(tr);
+                $("#invoice_data").val(tr);
+
                 $(".total_priceAmnt").html("Price: £" + parseFloat(sum).toFixed(2) + " <small>+VAT</small>");
                 $("#allPriceAmnt").val(parseFloat(sum).toFixed(2));
                 calc_vat_total(sum);

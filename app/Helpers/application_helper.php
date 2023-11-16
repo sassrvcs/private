@@ -51,6 +51,75 @@ function construct_address($address)
         }
         return $con_address;
 }
+function construct_service_address($address)
+{
+    @$con_address = '';
+        if(@isset($address['house_no']) && @$address['house_no']!='')
+        {
+            @$con_address .= $address['house_no'].', ';
+        }
+        if(isset($address['street']) && @$address['street']!='')
+        {
+            @$con_address .= $address['street'].', ';
+        }
+        if(isset($address['locality'])&& @$address['locality']!='')
+        {
+            @$con_address .= $address['locality'].', ';
+        }
+        if(isset($address['town'])&&@$address['town']!='')
+        {
+            @$con_address .= $address['town'].', ';
+        }
+        if(isset($address['county'])&&@$address['county']!='')
+        {
+            @$con_address .= $address['county'].', ';
+        }
+        if(isset($address['postal_code'])&&@$address['postal_code']!='')
+        {
+            @$con_address .= $address['postal_code'];
+        }
+        if(isset($address['personal_country_addr'])&&@$address['personal_country_addr']!='')
+        {
+            $billing_country = Country::where('id',$address['personal_country_addr'])->first();
+            @$con_address .= ','.$billing_country->name;
+        }
+        return $con_address;
+}
+
+function construct_service_invoice_address($address)
+{
+    @$con_address = '';
+        if(@isset($address['invoice_house_no']) && @$address['invoice_house_no']!='')
+        {
+            @$con_address .= $address['invoice_house_no'].', ';
+        }
+        if(isset($address['invoice_street']) && @$address['invoice_street']!='')
+        {
+            @$con_address .= $address['invoice_street'].', ';
+        }
+        if(isset($address['invoice_locality'])&& @$address['invoice_locality']!='')
+        {
+            @$con_address .= $address['invoice_locality'].', ';
+        }
+        if(isset($address['invoice_town'])&&@$address['invoice_town']!='')
+        {
+            @$con_address .= $address['invoice_town'].', ';
+        }
+        if(isset($address['invoice_county'])&&@$address['invoice_county']!='')
+        {
+            @$con_address .= $address['invoice_county'].', ';
+        }
+        if(isset($address['invoice_postal_code'])&&@$address['invoice_postal_code']!='')
+        {
+            @$con_address .= $address['invoice_postal_code'];
+        }
+        if(isset($address['invoice_country'])&&@$address['invoice_country']!='')
+        {
+            $billing_country = Country::where('id',$address['invoice_country'])->first();
+            @$con_address .= ','.$billing_country->name;
+        }
+        return $con_address;
+}
 function registered_address_included($order_id)
 {
     $order = Order::where('order_id', $order_id)->first();

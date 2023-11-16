@@ -185,7 +185,7 @@
 
             <div class="col-sm-8">
 
-                <input type="text" class="form-control " name="ddress_line_2" id="address_line_2"
+                <input type="text" class="form-control " name="address_line_2" id="address_line_2"
                     value="">
 
             </div>

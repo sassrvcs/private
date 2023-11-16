@@ -235,6 +235,9 @@ Route::post('person-appointment-update', [CompanyFormController::class, 'person_
 
 //===========order section========//
 Route::get('order-history', [OrderController::class, 'index'])->name('order-history')->middleware('auth');
+Route::get('purchased-service-list', [WebPackageController::class, 'purchasedServiceList'])->name('purchased-service-list')->middleware('auth');
+Route::get('purchased-service-details', [WebPackageController::class, 'purchasedServiceDetails'])->name('purchased-service-details')->middleware('auth');
+
 Route::get('delete-order-item',[OrderController::class,'deleteOrderItem'])->name('delete-order-item')->middleware('auth');
 Route::get('order-details', [OrderController::class, 'getDetails'])->name('order-details')->middleware('auth');
 //===========invoice section========//
