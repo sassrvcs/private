@@ -231,38 +231,43 @@ class CheckoutStepController extends Controller
         $order_details = Order::where('order_id',$order_id)->first();
 
         $company = Companie::where('order_id',$order_id)->first();
-        $order_transaction = new orderTransaction;
-        if($company){
-            $order_transaction->step = 1;
+        $exist_order = orderTransaction::where('PAYID',$request->query('PAYID'))->first();
+        if(!$exist_order){
+            $order_transaction = new orderTransaction;
+            if($company){
+                $order_transaction->step = 1;
+                $company->status = '1';
+                $company->save();
+            }else{
+                $order_transaction->step = 0;
+            }
 
-        }else{
-            $order_transaction->step = 0;
+
+            $order_transaction->order_id =$order_id;
+            $order_transaction->uuid =$request->query('orderID');
+            $order_transaction->status=$request->query('STATUS');
+            $order_transaction->PAYID=$request->query('PAYID');
+            $order_transaction->ACCEPTANCE=$request->query('ACCEPTANCE');
+            $order_transaction->SHASIGN=$request->query('SHASIGN');
+            $order_transaction->amount=null;
+            $order_transaction->save();
+
+            $filename = 'Invoice'.uniqid().Str::random(10).'.pdf';
+
+
+            $name = auth()->user()->title.' '.auth()->user()->forename.' '.auth()->user()->surname;
+            $pdf = $this->generatePdf($order_id);
+            $filePath = storage_path('app/public/attachments/'.$filename);
+            file_put_contents($filePath, $pdf );
+            $content = ['name'=>$name,'pdf'=>$filePath,'order_id'=>$order_id];
+            try {
+            $status =  Mail::to(auth()->user()->email)->send(new FinalSubmitMail ($content));
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+
         }
-        $company->status = '1';
-        $company->save();
 
-        $order_transaction->order_id =$order_id;
-        $order_transaction->uuid =$request->query('orderID');
-        $order_transaction->status=$request->query('STATUS');
-        $order_transaction->PAYID=$request->query('PAYID');
-        $order_transaction->ACCEPTANCE=$request->query('ACCEPTANCE');
-        $order_transaction->SHASIGN=$request->query('SHASIGN');
-        $order_transaction->amount=null;
-        $order_transaction->save();
-
-        $filename = 'Invoice'.uniqid().Str::random(10).'.pdf';
-
-
-        $name = auth()->user()->title.' '.auth()->user()->forename.' '.auth()->user()->surname;
-        $pdf = $this->generatePdf($order_id);
-        $filePath = storage_path('app/public/attachments/'.$filename);
-        file_put_contents($filePath, $pdf );
-        $content = ['name'=>$name,'pdf'=>$filePath,'order_id'=>$order_id];
-        try {
-           $status =  Mail::to(auth()->user()->email)->send(new FinalSubmitMail ($content));
-        } catch (\Throwable $th) {
-            throw $th;
-        }
 
 
         return view('frontend.payment_getway.success');
