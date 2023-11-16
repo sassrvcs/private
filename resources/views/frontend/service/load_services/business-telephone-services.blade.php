@@ -35,81 +35,24 @@
                                     <h1>{{ $service_name }} <span class="total_priceAmnt" style="font-size:24px;">Price: £<small>+VAT</small></span></h1>
                                 </div>
                                 <hr>
-                                    <div class="pageContent mb-3">
-                                        <p>Please complete our online application form and make your payment. We will send you our welcome email and your service will start immediately. </p>
-                                        <p>Please send ID and address proof within 7 days of service commencement.</p>
-                                        <p><strong>Fields marked with an asterisk (<span class="starred">*</span>) are required.</strong></p>
-                                        
-                                    </div>
                                     <div class="col-md-8 p-3 d-block mb-3 position-relative shadow">
+                                        <h5><strong>Select payment terms</strong></h5>
+                                        <p>Lock in your saving with annual term (get 12 months for the price of 11)</p>
                                         <br>
-                                        <div class="mb-3 row">
-                                            <label for="start_date" class="col-sm-4 col-form-label">Your start date <span class="starred">*</span></label>
-                                            <div class="col-sm-6 datefldarea">
-                                                <input type="date" class="form-control required_app hasDatepicker" name="start_date" id="start_date" value="" required=""><img class="ui-datepicker-trigger" src="https://formationshunt.co.uk/wp-content/themes/formationshunt/images/date_cal.png" alt="Select date" title="Select date">
+                                        <div id="servicetype mb-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input hasprice" type="radio" name="phone_pay_option" id="pay_month" value="99.00" data-title="Pay monthly (12-month contract)" required="" checked="">
+                                                <label class="form-check-label" for="pay_month">
+                                                    Pay monthly (12-month contract)<span id="od3_price" class="doc_chk ">£99.00</span>
+                                                </label>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8 p-3 d-block mb-3 position-relative shadow">
-                                        <h5><strong>Your date of birth</strong></h5>
-                                        <p>We require your date of birth to carry out a digital ID check to fulfil our obligations under the Money Laundering Regulations 2007, the London Local Authorities Act 2007, and Know Your Customer (KYC) requirements. You must be at least sixteen years old.</p>
-                                        <br>
-                                        <div class="mb-3 row">
-                                            <label for="date_of_birth" class="col-sm-4 col-form-label">Your date of birth<span class="starred">*</span></label>
-                                            <div class="col-sm-6 datefldarea">
-                                                <input type="date" max="{{ now()->subYears(16)->format('Y-m-d') }}" class="form-control required_app" name="date_of_birth" id="date_of_birth" value="" required=""><img class="ui-datepicker-trigger" src="/images/date_cal.png" alt="Select date" title="Select date">
+                                            <div class="form-check">
+                                                <input class="form-check-input hasprice" type="radio" name="phone_pay_option" id="pay_year" value="131.89" data-title="Yearly subscription (get 1 month free)" required="">
+                                                <label class="form-check-label" for="pay_year">
+                                                    Yearly subscription (get 1 month free)<span id="od3_price" class="doc_chk ">£131.89</span>
+                                                </label>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8 p-3 d-block mb-3 position-relative shadow">
-                                        <p><strong>Your email address for receiving statutory letters (Your statutory mails will be scanned and emailed to this id)</strong></p>
-                                        <br>
-                                        <div class="mb-3 row">
-                                            <label for="stat_email" class="col-sm-4 col-form-label">Email address<span class="starred">*</span></label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control required_app" name="stat_email" id="stat_email" value="" required="">
-                                            </div>
-                                        </div>            
-                                    </div>
-                                    <div class="col-md-8 p-3 d-block mb-3 position-relative shadow">
-                                        <h5><strong>Popular Add-ons with director's service address</strong></h5>
-                                        <br>
-                                        <div class="form-check">
-                                            <input class="form-check-input hasprice popupAmnt" type="checkbox" name="dir_serv_addr[]" id="directors-service-address" value="2289" data-title="Directors Service Address" data-serid="2289">
-                                            <label class="form-check-label" for="directors-service-address">
-                                                <strong>Directors Service Address</strong>
-                                                    <select class="addonSelect hasprice" name="no_of_officer" id="no_of_officer" autocomplete="off">
-                                                        <option value="1" selected="">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                        <option value="6">6</option>
-                                                        <option value="7">7</option>
-                                                        <option value="8">8</option>
-                                                        <option value="9">9</option>
-                                                    </select>
-                                                <strong><span id="od3_price_2289" class="doc_chk">£24.99</span></strong>
-                                            </label> 
-                                            <div class="col-md-10 p-1">
-                                                    <p>The use of our HA4 London address for directors, shareholders, secretaries and persons with significant control (PSCs) to keep their home address private.</p>
-                                                    <p>All statutory mail will be forwarded free of charge within the UK.</p>                        
-                                            </div> 
-                                            <input type="hidden" name="directors-service-address-price" id="directors-service-address-price" value="24.99">                
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input hasprice popupAmnt" type="checkbox" name="dir_serv_addr[]" id="london-business-address" value="3710" data-title="London business address" data-serid="3710">
-                                            <label class="form-check-label" for="london-business-address">
-                                                <strong>London business address</strong>
-                                                <strong><span id="od3_price_3710" class="doc_chk">£99.00</span></strong>
-                                            </label> 
-                                            <div class="col-md-10 p-1">
-                                                <p>The use of our SW4 London address as your business correspondence address for your company. You can hide your home address from your suppliers, contractors, customers and marketing agencies. We will receive your business mails on your behalf.</p>
-                                                <p>We will open, scan and forward all your mails to the email address given during the application. If you wish to receive them by post, we will not open and scan your letters.</p>
-                                                <p>Instead we will forward the mails to your postal address for additional charge of 50p+postage per item. As a FREE service, we will<br>
-                                                automatically eliminate mail that we deem to be junk mail and destroy it.</p>                       
-                                            </div> 
-                                            <input type="hidden" name="london-business-address-price" id="london-business-address-price" value="99.00">                
+                                            <input type="hidden" name="select_confirmStat_title" id="select_confirmStat_title" value="">
                                         </div>
                                     </div>
                                 <hr>
@@ -168,40 +111,24 @@
             updatePrices();
         });
 
-
         function updatePrices() {
 
-        var sum =  parseFloat({{ $prices['registered_office_address_service_price'] }});
-        var coi =  parseFloat({{ $prices['director_address'] }} * $('#no_of_officer :selected').val());
-        var ma  =  parseFloat({{ $prices['business_address'] }});
+        var sum =  0.00;
+        var coi =  parseFloat({{ $prices['business_telephone_services_price'] }});
+        var ma  =  parseFloat({{ $prices['yearly_price'] }});
 
-        var proPrice = parseFloat({{ $prices['registered_office_address_service_price'] }});
-        var shareVal = parseInt($('#no_of_officer :selected').val());
-        
         tr = '';
+            if ($("#pay_month").is(":checked")) {
+                sum += coi;
+                tr = "<tr><td>Business Telephone Services</td><td></td><td>£" +
+                    parseFloat(coi).toFixed(2) + "</td></tr>";
+            }
 
-       
-
-        if($("#no_of_officer :selected").val() !=''){
-            $('#od3_price_2289').html('£'+parseFloat(coi).toFixed(2));
-            tr += "<tr><td></td><td>Directors Service Address(number of officers:"+ shareVal +")</td><td>£" +
-                parseFloat(coi).toFixed(2) + "</td></tr>";
-            console.log('no_of_officer', coi, shareVal, tr);
-        }
-
-        if ($("#directors-service-address").is(":checked")) {
-            actual_price = sum;
-            sum += coi;
-            var tr_2 = "<tr><td>Registered Office Address Service</td><td></td><td>£" +
-                    parseFloat(actual_price).toFixed(2) + "</td></tr>";  
-                     
-        }
-        
-        if ($("#london-business-address").is(":checked")){
-            sum += ma;
-            tr += "<tr><td></td><td>London business address</td><td>£" +
+            if ($("#pay_year").is(":checked")) {
+                sum += ma;
+                tr = "<tr><td>Business Telephone Services</td><td>Yearly subscription (get 1 month free)</td><td>£" +
                     parseFloat(ma).toFixed(2) + "</td></tr>";
-        } 
+            }
 
         if (sum == 0)
           $(".total_priceAmnt").text("Online Application");
@@ -209,8 +136,8 @@
 
             $(".total_priceAmnt").html("Price: £" + parseFloat(sum).toFixed(2) + " <small>+VAT</small>");
             $("#allPriceAmnt").val(parseFloat(sum).toFixed(2));
-            $("#order_blk_details").html(tr_2+tr);
-            $("#invoice_data").val(tr_2+tr);
+            $("#order_blk_details").html(tr);
+            $("#invoice_data").val(tr);
             $(".total_priceAmnt").html("Price: £" + parseFloat(sum).toFixed(2) + " <small>+VAT</small>");
             $("#allPriceAmnt").val(parseFloat(sum).toFixed(2));
             calc_vat_total(sum);
@@ -218,7 +145,7 @@
         }
         updatePrices()
 
-        function address_app()
+        function telephone_app()
         {
             let input_err =true;
             $(".required_app").each(function(){
@@ -252,10 +179,9 @@
 
         $("#next_step_1").click(function() {
 
-            if(address_app()==true){
+            if(telephone_app()==true){
 
-                updatePrices();
-
+                updatePrices()
                 $("#steps-uid-0-p-0").hide();
                 // $(".service_heading").css({ //normal
                 //     "background": "#4f5c70",
