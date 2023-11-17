@@ -1,7 +1,198 @@
+@media (max-width: 1549px) {
+    .whatMakesDifferent-sec01-sec1 .text-container h2 {
+        font-size: 36px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .text-container h3 {
+        font-size: 18px;
+        margin-top: 27px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 {
+        padding: 90px 0 80px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .image-container img {
+        height: 745px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container h1 {
+        font-size: 65px;
+        line-height: 66px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container p {
+        font-size: 16px;
+        margin-top: 28px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn {
+        width: 120px;
+        height: 48px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h3 {
+        font-size: 24px;
+        line-height: 38px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h2 {
+        font-size: 35px;
+        line-height: 40px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn {
+        width: 120px;
+        height: 48px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper {
+        padding: 20px 45px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg img {
+        max-height: 190px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg {
+        bottom: -70px;
+    }
+
+    .whyneedbankaccUk-sec01 {
+        padding: 70px 0 0;
+    }
+
+    .whyneedbankaccUk-sec01 .whyneedbankaccUk-lists .whyneedbankaccUk-list-box {
+        padding: 24px 24px;
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box p {
+        font-size: 20px;
+    }
+
+    .clientReviews-sec01-wrapper .left_div {
+        max-width: 520px;
+        padding: 0 50px 26px;
+    }
+
+    .clientReviews-sec01-slider .slick-arrow.slick-prev {
+        left: -50px;
+    }
+
+    .clientReviews-sec01-slider .slick-arrow.slick-next {
+        right: -50px;
+    }
+
+    .clientReviews-sec01-wrapper .left_div::before {
+        width: calc(100% - calc(100px + 80px));
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box {
+        text-align: center;
+        padding: 54px 32px 24px;
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box figure .user-img-container {
+        width: 95px;
+        height: 95px;
+    }
+
+    .clientReviews-sec01 {
+        padding: 60px 0 90px;
+    }
+
+    .needLittleHelp-sec .right_div h1 {
+        font-size: 48px;
+        line-height: 50px;
+    }
+
+    .needLittleHelp-sec {
+        padding: 75px 0 50px;
+    }
+
+    .needLittleHelp-sec .left_div .contactUl li .icon-container img {
+        max-width: 24px;
+        max-height: 24px;
+    }
+
+    .needLittleHelp-sec .left_div .contactUl li .icon-container {
+        width: 55px;
+        height: 55px;
+    }
+
+    .needLittleHelp-sec .left_div .contactUl li .text-container h2 {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .needLittleHelp-sec .left_div .contactUl li .text-container h4 {
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .needLittleHelp-sec .right_div p {
+        font-size: 16px;
+    }
+
+    .ourNewsletters-01-lists .ourNewsletters-01-box .action-btns .read-more-btn {
+        width: 120px;
+        height: 48px;
+    }
+
+    .ourNewsletters-01-lists .ourNewsletters-01-box {
+        padding: 50px 32px;
+    }
+
+    .main-banner-bottom-steps .steps-box .text-container .left-border {
+        padding: 32px 20px 0 36px;
+    }
+
+    .main-banner-bottom-steps .steps-box .text-container .action-btns {
+        padding: 8px 20px;
+    }
+
+    .main-banner-bottom-steps .steps-box .text-container h3 {
+        font-size: 22px;
+        margin-top: 8px;
+    }
+
+    .main-banner-bottom-steps .steps-box .text-container p {
+        margin-top: 10px;
+    }
+
+    .callUs-floating {
+        width: 232px;
+        top: -108px;
+        padding: 70px 16px 65px;
+    }
+
+    .callUs-floating .icon-container {
+        width: 57px;
+        height: 57px;
+    }
+
+    .callUs-floating .icon-container img {
+        max-width: 25px;
+        max-height: 25px;
+    }
+
+    .callUs-floating h4 {
+        font-size: 28px;
+        line-height: 42px;
+    }
+
+    .callUs-floating h2 {
+        font-size: 24px;
+        line-height: 30px;
+    }
+}
+
 @media (max-width: 1449px) {
     .logo-lists li .image-container img {
         height: 22vw;
     }
+
+
 }
 
 @media (max-width: 1349px) {
@@ -65,6 +256,277 @@
     .custom-business-banking-sections .cbbs-body-part .cbbs-right-content {
         max-width: calc(100% - 254px);
     }
+
+    .ourServices-sec01 {
+        padding: 60px 0 85px;
+    }
+
+    .ourServices-sec01 .sec-title1 {
+        margin-bottom: 20px;
+    }
+
+    .ourServices-sec01 .text-box-lists .text-box {
+        padding: 30px 12px 18px;
+    }
+
+    .ourServices-sec01 .text-box-lists .text-box h3 {
+        font-size: 18px;
+        line-height: 25px;
+    }
+
+    .ourServices-sec01 .text-box-lists .text-box .more-actions .circle-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .custom-container {
+        column-gap: 50px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .image-container {
+        max-width: 490px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .text-container {
+        max-width: calc(100% - 490px);
+    }
+
+    .whatMakesDifferent-sec01-sec1 .text-container p {
+        font-size: 14px;
+        line-height: 23px;
+        margin-top: 10px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .text-container h2 {
+        font-size: 30px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .image-container img {
+        height: 650px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container h1 {
+        font-size: 55px;
+        line-height: 58px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container {
+        max-width: calc(100% - 450px);
+        padding: 100px 50px 100px 0;
+        min-height: 524px;
+    }
+
+    .whatWeOffer-sec02 ul li .image-container {
+        height: 28vw;
+    }
+
+    .whatWeOffer-sec02 ul li .text-container h3 {
+        width: 30px;
+    }
+
+    .whatWeOffer-sec02 ul li .text-container p {
+        font-size: 16px;
+        margin-top: 16px;
+    }
+
+    .ourBankingPartners-sec01 {
+        padding: 60px 0 70px;
+    }
+
+    .needLittleHelp-sec .right_div h1 {
+        font-size: 42px;
+        line-height: 42px;
+    }
+
+    .needLittleHelp-sec .right_div p {
+        font-size: 14px;
+        margin-top: 16px;
+        line-height: 24px;
+    }
+
+    .needLittleHelp-sec .custom-container {
+        column-gap: 32px;
+    }
+
+    .needLittleHelp-sec {
+        padding: 60px 0;
+    }
+
+    .needLittleHelp-sec .left_div .contactUl li .icon-container {
+        width: 48px;
+        height: 48px;
+    }
+
+    .needLittleHelp-sec .left_div .contactUl li .icon-container img {
+        max-width: 20px;
+        max-height: 20px;
+    }
+
+    .ourNewsletters-01-top-banner .custom-container {
+        min-height: 265px;
+    }
+
+    .ourNewsletters-01-lists .ourNewsletters-01-box {
+        padding: 32px 24px;
+    }
+
+    .ourNewsletters-01-lists .ourNewsletters-01-box h4 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .ourNewsletters-01-lists .ourNewsletters-01-box .action-btns {
+        padding-top: 30px;
+    }
+
+    .faq-002-sec {
+        padding: 65px 0;
+    }
+
+    .faq-002-sec .faq-002-accordion-sec {
+        margin-top: 32px;
+    }
+
+    .faq-002-accordion-sec .card-header .btn .textp {
+        padding: 8px 20px;
+        line-height: 26px;
+        font-size: 16px;
+    }
+
+    .faq-002-accordion-sec .card-body p {
+        font-size: 14px;
+    }
+
+    .faq-002-accordion-sec .card-body {
+        padding: 24px 20px 28px 65px;
+    }
+
+    .main-banner-bottom-steps .steps-box .text-container .left-border {
+        padding: 20px 15px 0 24px;
+    }
+
+    .main-banner-bottom-steps .steps-box .text-container .left-border::before {
+        left: 10px;
+        border-left: 2px solid #87CB28;
+        border-right: 2px solid #87CB28;
+        height: 88px;
+        top: 28px;
+    }
+
+    .main-banner-bottom-steps .steps-box .text-container h4 {
+        font-size: 16px;
+    }
+
+    .main-banner-bottom-steps .steps-box .text-container h3 {
+        font-size: 18px;
+        margin-top: 8px;
+    }
+
+    .main-banner-bottom-steps .steps-box .text-container p {
+        font-size: 14px;
+        line-height: 24px;
+        margin-top: 10px;
+    }
+
+    .main-banner-bottom-steps .steps-box .text-container .action-btns {
+        column-gap: 10px;
+        padding: 10px 12px;
+    }
+
+    .main-banner-bottom-steps .steps-box .text-container .action-btns .company-btn {
+        font-size: 14px;
+    }
+
+    .digital-packages-banner .custom-container {
+        min-height: 540px;
+    }
+
+    .digitalPackage-sec .right-information .digitalPackage-right-lists .digitalPackage-right-list-box.floatTop {
+        margin-top: -140%;
+    }
+
+    .digital-packages-banner .inner-wrapper .icon-container {
+        width: 80px;
+        height: 80px;
+    }
+
+    .digital-packages-banner .inner-wrapper .text-container h1 {
+        font-size: 36px;
+        line-height: 41px;
+    }
+
+    .digital-packages-banner .inner-wrapper .text-container h4 {
+        font-size: 18px;
+        line-height: 35px;
+        margin-top: 8px;
+    }
+
+    .digital-packages-banner .inner-wrapper .text-container .action-btns {
+        margin-top: 26px;
+    }
+
+    .digital-packages-banner .inner-wrapper .text-container .action-btns .buy-btn,
+    .digitalPackage-right-lists .digitalPackage-right-list-box .action-btns .buy-btn,
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn,
+    .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn,
+    .take-look-t-our-sec01 .action-btns .buy-now-btn {
+        width: 110px;
+        height: 45px;
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-box .floating-action-btns .view-btn {
+        height: 45px;
+        width: 165px;
+    }
+
+    .digitalPackage-sec .left-information,
+    .digital-packages-banner .inner-wrapper {
+        max-width: calc(100% - 345px);
+    }
+
+    .digitalPackage-sec .right-information {
+        max-width: 345px;
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-box .top-price-info h4 {
+        font-size: 19px;
+        line-height: 25px;
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-box .top-price-info h3 {
+        font-size: 40px;
+        margin-top: 22px;
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-box .top-price-info {
+        max-width: 180px;
+        margin: -64px auto 32px;
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-box .list-info li p {
+        font-size: 14px;
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-box .list-info li .icon-container {
+        width: 18px;
+        height: 18px;
+        margin: 3.5px 0 0 0;
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-box {
+        padding: 28px 32px 32px;
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-box h3 {
+        font-size: 24px;
+        line-height: 36px;
+    }
+
+    .digitalPackage-right-lists {
+        row-gap: 60px;
+    }
+
+
 }
 
 @media (max-width: 1249px) {
@@ -166,6 +628,49 @@
 
     .need-little-help .right-box ul {
         row-gap: 10px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container h1 {
+        font-size: 40px;
+        line-height: 44px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container p {
+        font-size: 14px;
+        margin-top: 24px;
+        line-height: 26px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container {
+        max-width: calc(100% - 400px);
+        padding: 60px 30px 60px 0;
+        min-height: 454px;
+    }
+
+    .whyneedbankaccUk-sec01 .whyneedbankaccUk-wrapper {
+        column-gap: 32px;
+        margin-top: 32px;
+    }
+
+    .whyneedbankaccUk-sec01 .whyneedbankaccUk-wrapper .image-container {
+        max-width: 310px;
+    }
+
+    .whyneedbankaccUk-sec01 .whyneedbankaccUk-wrapper .text-container {
+        max-width: calc(100% - 310px);
+        padding: 0 0 35px;
+    }
+
+    .whatWeOffer-sec02 .sec-title1 {
+        margin-bottom: 45px;
+    }
+
+    .faq-002-accordion-sec .card-header .btn {
+        min-height: 54px;
+    }
+
+    .faq-002-accordion-sec .card-header .btn .plus-minus-btn {
+        width: 52px;
     }
 }
 
@@ -553,6 +1058,116 @@
     .recent_article_custom_sec .div-ul .image-container {
         height: 160px;
     }
+
+    .companies-table-wrap table td {
+        padding: 20px 15px;
+    }
+
+    .digital-packages-banner .inner-wrapper .icon-container {
+        width: 70px;
+        height: 70px;
+    }
+
+    .digitalPackage-sec .left-information,
+    .digital-packages-banner .inner-wrapper {
+        max-width: calc(100% - 332px);
+    }
+
+    .digital-packages-banner .inner-wrapper {
+        column-gap: 14px;
+    }
+
+    .digitalPackage-sec .right-information {
+        max-width: 332px;
+    }
+
+    .digital-packages-banner .inner-wrapper .text-container h1 {
+        font-size: 32px;
+        line-height: 40px;
+    }
+
+    .digital-packages-banner .inner-wrapper .text-container h4 {
+        font-size: 16px;
+        line-height: 30px;
+    }
+
+    .digital-packages-banner .inner-wrapper .text-container .action-btns {
+        margin-top: 20px;
+    }
+
+    .digitalPackage-sec {
+        padding: 50px 0 55px;
+    }
+
+    .whatMakesDifferent-sec01-sec1.for-ourDifferent h1 {
+        font-size: 45px;
+        line-height: 52px;
+    }
+
+    .whatMakesDifferent-sec01-sec1.for-ourDifferent .left-border::before {
+        height: 82px;
+        top: 14px;
+    }
+
+    .whatMakesDifferent-sec01-sec1.for-ourDifferent .left-border {
+        padding: 0 0 10px 28px;
+    }
+
+    .whatMakesDifferent-sec01-sec1.for-ourDifferent .image-container img {
+        height: 535px !important;
+    }
+
+    .for-ourDifferent-text-lists .for-ourDifferent-list-box figure figcaption {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h3 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h2 {
+        font-size: 28px;
+        line-height: 35px;
+    }
+
+    .for-ourDifferent-text-lists .for-ourDifferent-list-box figure {
+        min-height: 100px;
+        padding: 8px 16px;
+        column-gap: 12px;
+    }
+
+    .callUs-floating .icon-container {
+        width: 52px;
+        height: 52px;
+    }
+
+    .callUs-floating .cancel-btn {
+        left: 8px;
+        top: 8px;
+        width: 18px;
+    }
+
+    .callUs-floating h2 {
+        font-size: 22px;
+        line-height: 28px;
+    }
+
+    .callUs-floating h4 {
+        font-size: 22px;
+        line-height: 35px;
+    }
+
+    .callUs-floating {
+        width: 210px;
+        top: -80px;
+        padding: 55px 10px 35px;
+    }
+
+    .take-look-t-our-sec01 h2 {
+        line-height: 42px;
+    }
 }
 
 @media (max-width: 1024.98px) {
@@ -758,7 +1373,8 @@
     }
 
     .digitalPackage-sec .custom-container {
-        flex-wrap: wrap;
+        flex-wrap: wrap-reverse;
+        row-gap: 32px;
     }
 
     .digitalPackage-sec .left-information {
@@ -767,7 +1383,7 @@
 
     .digitalPackage-sec .right-information {
         max-width: 576px;
-        margin: 42px auto 0;
+        margin: 0 auto 0;
     }
 
     .whatmakedifferent-sec .text-container h2 {
@@ -848,6 +1464,290 @@
 
     .blog_details_sec .blog_details_wrapper .right-div {
         margin: 0 auto;
+    }
+
+    .main-banner-bottom-steps .steps-row .steps-col {
+        max-width: 50%;
+    }
+
+    .ourServices-sec01 .ourServices-sec01-wrapper {
+        flex-wrap: wrap;
+    }
+
+    .ourServices-sec01 .ourServices-sec01-wrapper .text-container {
+        max-width: unset;
+    }
+
+    .ourServices-sec01 .ourServices-sec01-wrapper .image-container {
+        width: 100%;
+        max-width: unset;
+        position: absolute;
+        display: none;
+    }
+
+    .ourServices-sec01 .text-box-lists {
+        row-gap: 30px;
+    }
+
+    .ourServices-sec01 .text-box-lists .text-box p {
+        font-size: 14px;
+    }
+
+    .ourServices-sec01 {
+        padding: 40px 0;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .custom-container {
+        flex-wrap: wrap;
+        row-gap: 60px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .image-container {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .image-container img {
+        height: 320px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .text-container {
+        max-width: unset;
+        text-align: center;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .image-container:hover::before {
+        left: -20px;
+        bottom: -20px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .image-container::before {
+        left: -20px;
+        bottom: -20px;
+        width: 50%;
+        right: unset;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper {
+        padding: 15px 20px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h3 {
+        font-size: 18px;
+        line-height: 36px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h2 {
+        font-size: 28px;
+        line-height: 34px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg img {
+        max-height: 150px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg {
+        bottom: -60px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container {
+        max-width: 500px;
+        padding: 45px 23px 45px 0;
+        min-height: 430px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container h1 {
+        font-size: 32px;
+        line-height: 38px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container .action-btns {
+        margin-top: 28px;
+    }
+
+    .whyneedbankaccUk-sec01 .whyneedbankaccUk-wrapper {
+        flex-wrap: wrap-reverse;
+    }
+
+    .whyneedbankaccUk-sec01 .whyneedbankaccUk-wrapper .text-container {
+        max-width: unset;
+    }
+
+    .whyneedbankaccUk-sec01 .whyneedbankaccUk-wrapper .image-container {
+        max-width: 200px;
+        margin: 0 auto;
+    }
+
+    .clientReviews-sec01-wrapper .left_div {
+        max-width: 440px;
+        padding: 0 40px 20px;
+    }
+
+    .clientReviews-sec01-wrapper .right_div {
+        max-width: calc(100% - 440px);
+    }
+
+    .clientReviews-sec01-slider .slick-arrow {
+        width: 28px;
+        height: 20px;
+    }
+
+    .clientReviews-sec01-slider .slick-arrow.slick-prev {
+        left: -40px;
+    }
+
+    .clientReviews-sec01-slider .slick-arrow.slick-next {
+        right: -40px;
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box {
+        padding: 40px 20px 16px;
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box p {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box figure .user-img-container {
+        width: 80px;
+        height: 80px;
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box figure figcaption h3 {
+        font-size: 14px;
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box figure figcaption h4 {
+        font-size: 14px;
+    }
+
+    .clientReviews-sec01-wrapper {
+        column-gap: 24px;
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box figure figcaption {
+        padding-top: 12px;
+    }
+
+    .clientReviews-sec01-wrapper .right_div .clientReviews-sec01-f-Pic5 {
+        right: 16px;
+    }
+
+    .clientReviews-sec01-wrapper .right_div .clientReviews-sec01-f-Pic4 {
+        left: 16px;
+    }
+
+    .whatWeOffer-sec02 {
+        padding: 50px 0 0;
+    }
+
+    .whatWeOffer-sec02 .sec-title1 {
+        margin-bottom: 30px;
+    }
+
+    .ourBankingPartners-sec01 ul {
+        column-gap: 8px;
+        margin-top: 28px;
+    }
+
+    .ourBankingPartners-sec01 {
+        padding: 40px 0 50px;
+    }
+
+    .needLittleHelp-sec .custom-container {
+        flex-wrap: wrap;
+        row-gap: 32px;
+    }
+
+    .needLittleHelp-sec .left_div .contactUl {
+        row-gap: 24px;
+    }
+
+    .needLittleHelp-sec .left_div {
+        max-width: unset;
+    }
+
+    .needLittleHelp-sec .left_div .contactUl li .text-container h2 {
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    .needLittleHelp-sec .left_div .contactUl li .text-container h4 {
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    .needLittleHelp-sec .right_div {
+        max-width: unset;
+    }
+
+    .needLittleHelp-sec .right_div h1 {
+        font-size: 35px;
+        line-height: 37px;
+    }
+
+    .ourNewsletters-01-top-banner .custom-container {
+        min-height: 26vw;
+    }
+
+    .ourNewsletters-01-lists .ourNewsletters-01-col {
+        max-width: 50%;
+    }
+
+    .faq-002-sec {
+        padding: 32px 0 52px;
+    }
+
+    .digitalPackage-sec .right-information .digitalPackage-right-lists .digitalPackage-right-list-box.floatTop {
+        margin-top: -110px;
+    }
+
+    .digital-packages-banner .custom-container {
+        min-height: unset;
+        padding-top: 50px;
+        padding-bottom: 110px;
+    }
+
+    .digitalPackage-sec .left-information,
+    .digital-packages-banner .inner-wrapper {
+        max-width: unset;
+    }
+
+    .digitalPackage-sec .left-information {
+        text-align: center;
+    }
+
+    .whatMakesDifferent-sec01-sec1.for-ourDifferent .image-container img {
+        height: 370px !important;
+    }
+
+    .whatMakesDifferent-sec01-sec1.for-ourDifferent h1 {
+        font-size: 35px;
+        line-height: 42px;
+    }
+
+    .take-look-t-our-sec01 h2 {
+        line-height: 38px;
+    }
+
+    .take-look-t-our-sec01 p {
+        font-size: 16px;
+        line-height: 26px;
+    }
+
+    .callUs-floating {
+
+        top: -145px;
+    }
+
+    .additionalServices-lists {
+        column-gap: 50px;
+        row-gap: 32px;
+    }
+
+    .additionalServices-lists .additionalServices-list-col {
+        width: calc(50% - 25px);
     }
 }
 
@@ -1131,6 +2031,172 @@
 
     .blogDtls_compnt_lists .blog_dets_new_latte_box .input-box .form-control {
         font-size: 15px;
+    }
+
+    .banner-rating-sec .rating-lists .com-icon-container img {
+        max-height: 30px;
+    }
+
+    .banner-rating-sec .rating-lists .com-icon-container {
+        height: 32px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg img {
+        max-height: 130px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h2 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h3 {
+        font-size: 16px;
+        line-height: 30px;
+    }
+
+    .digital-packages-banner .inner-wrapper .icon-container {
+        width: 60px;
+        height: 60px;
+    }
+
+    .digital-packages-banner .custom-container {
+        padding-top: 42px;
+        padding-bottom: 95px;
+    }
+
+    .digital-packages-banner .inner-wrapper .text-container h1 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .digital-packages-banner .inner-wrapper .text-container h4 {
+        font-size: 15px;
+        line-height: 28px;
+    }
+
+    .digital-packages-banner .inner-wrapper .text-container .action-btns .buy-btn,
+    .digitalPackage-right-lists .digitalPackage-right-list-box .action-btns .buy-btn,
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn,
+    .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn,
+    .take-look-t-our-sec01 .action-btns .buy-now-btn {
+        width: 100px;
+        height: 38px;
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-box .list-info {
+        row-gap: 10px;
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-box .action-btns {
+        margin-top: 32px;
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-box .floating-action-btns {
+        margin: 34px auto -60px;
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-box h3 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .whatMakesDifferent-sec01-sec1.for-ourDifferent .image-container img {
+        height: 285px !important;
+    }
+
+    .whatMakesDifferent-sec01-sec1.for-ourDifferent .left-border::before {
+        height: 55px;
+        top: 6px;
+    }
+
+    .whatMakesDifferent-sec01-sec1.for-ourDifferent h1 {
+        font-size: 25px;
+        line-height: 32px;
+    }
+
+    .for-ourDifferent-text-lists .for-ourDifferent-list-box figure {
+        min-height: 90px;
+        padding: 6px 12px;
+        column-gap: 10px;
+    }
+
+    .for-ourDifferent-text-lists .for-ourDifferent-list-box figure figcaption {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .for-ourDifferent-text-lists .for-ourDifferent-list-box figure .icon-container {
+        width: 22px;
+    }
+
+    .take-look-t-our-sec01 .custom-container {
+        background-size: 40vw;
+        background-position: bottom right;
+    }
+
+    .callUs-floating {
+        top: -60px;
+        width: 175px;
+        padding: 32px 8px 20px;
+    }
+
+    .callUs-floating .icon-container {
+        width: 45px;
+        height: 45px;
+    }
+
+    .callUs-floating .icon-container img {
+        max-width: 20px;
+        max-height: 20px;
+    }
+
+    .callUs-floating h4 {
+        font-size: 18px;
+        line-height: 30px;
+        margin-top: 8px;
+    }
+
+    .callUs-floating h2 {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .take-look-t-our-sec01 {
+        padding: 20px 0 16px;
+    }
+
+    .additionalServices-lists {
+        row-gap: 24px;
+        margin-top: 20px;
+    }
+
+    .additionalServices-lists .additionalServices-list-col {
+        width: 100%;
+    }
+
+    .additionalServices-sec {
+        padding: 42px 0;
+    }
+
+    .additionalServices-lists .additionalServices-list-col p {
+        font-size: 14px;
+        line-height: 24px;
+        margin-top: 8px;
+    }
+
+    .additionalServices-lists .additionalServices-list-col .h3-with-text .icon-container {
+        margin: 6px 0 0;
+    }
+
+    .additionalServices-lists .additionalServices-list-col .h3-with-text h3 {
+        font-size: 16px;
+        line-height: 30px;
+    }
+
+    .additionalServices-lists .additionalServices-list-col .h3-with-text .icon-container {
+        margin: 4px 0 0;
+        width: 20px;
     }
 }
 
@@ -1876,6 +2942,290 @@
     .custom-blog-lists .text-container h3 {
         font-size: 16px;
         line-height: 24px;
+    }
+
+    .main-banner-bottom-steps .steps-row .steps-col {
+        max-width: unset;
+    }
+
+    .ourServices-sec01 .text-box-lists .text-box-col {
+        max-width: unset;
+    }
+
+    .whatMakesDifferent-sec01-sec1 {
+        padding: 50px 0 38px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .image-container {
+        max-width: 245px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .image-container img {
+        height: 270px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .text-container h2 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .text-container h3 {
+        font-size: 16px;
+        margin-top: 18px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .text-container h3 {
+        font-size: 15px;
+        margin-top: 13px;
+    }
+
+    .whatMakesDifferent-sec01-sec1 .text-container p {
+        font-size: 13px;
+        line-height: 22px;
+        margin-top: 8px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper {
+        padding: 10px 10px;
+        bottom: -23px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h3 {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h2 {
+        font-size: 15px;
+        line-height: 23px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg {
+        bottom: -34px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg img {
+        max-height: 100px;
+    }
+
+    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn,
+    .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn {
+        width: 100px;
+        height: 38px;
+        font-size: 14px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container h1 {
+        font-size: 22px;
+        line-height: 32px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container {
+        max-width: unset;
+        padding: 38px 0 24px 0;
+        min-height: 350px;
+        width: 100%;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container .action-btns {
+        margin-top: 20px;
+    }
+
+    .whatMakesDifferent-sec01-sec3 .text-container p {
+        font-size: 14px;
+        margin-top: 16px;
+        line-height: 23px;
+    }
+
+    .whyneedbankaccUk-sec01 {
+        padding: 40px 0 0;
+    }
+
+    .whyneedbankaccUk-sec01 .top-title h1 {
+        font-size: 20px;
+        line-height: 26px;
+    }
+
+    .whyneedbankaccUk-sec01 .top-title h4 {
+        font-size: 14px;
+        line-height: 24px;
+        margin-top: 12px;
+    }
+
+    .whyneedbankaccUk-sec01 .whyneedbankaccUk-lists .whyneedbankaccUk-list-col {
+        max-width: unset;
+    }
+
+    .whyneedbankaccUk-sec01 .whyneedbankaccUk-lists .whyneedbankaccUk-list-box {
+        padding: 10px 10px;
+    }
+
+    .whyneedbankaccUk-sec01 .whyneedbankaccUk-lists .whyneedbankaccUk-list-box .h3-with-icon .icon-container img {
+        max-width: 20px;
+        max-height: 20px;
+    }
+
+    .whyneedbankaccUk-sec01 .whyneedbankaccUk-lists .whyneedbankaccUk-list-box .h3-with-icon h3 {
+        font-size: 15px;
+        padding: 0px 0 0;
+    }
+
+    .whyneedbankaccUk-sec01 .whyneedbankaccUk-lists .whyneedbankaccUk-list-box p {
+        font-size: 14px;
+        line-height: 24px;
+        margin-top: 10px;
+    }
+
+    .clientReviews-sec01-wrapper .left_div {
+        max-width: unset;
+        padding: 0 28px 16px
+    }
+
+    .clientReviews-sec01-slider .slick-arrow.slick-prev {
+        left: -28px;
+    }
+
+    .clientReviews-sec01-slider .slick-arrow.slick-next {
+        right: -28px;
+    }
+
+    .clientReviews-sec01 .sec-title1 {
+        margin-bottom: 20px;
+    }
+
+    .clientReviews-sec01-wrapper .right_div {
+        display: none;
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box figure .user-img-container {
+        width: 65px;
+        height: 65px;
+    }
+
+    .ourBankingPartners-sec01 {
+        padding: 30px 0 35px;
+    }
+
+    .ourBankingPartners-sec01 ul {
+        margin-top: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 16px;
+    }
+
+    .ourBankingPartners-sec01 ul li .logo-container img {
+        max-height: 25px;
+    }
+
+    .whatWeOffer-sec02 ul li .image-container {
+        height: 56vw;
+    }
+
+    .whatWeOffer-sec02 ul li {
+        max-width: 100%;
+    }
+
+    .clientReviews-sec01 {
+        padding: 35px 0 65px;
+    }
+
+    .clientReviews-sec01-wrapper .left_div::before {
+        width: calc(100% - calc(50px + 80px));
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box p {
+        font-size: 15px;
+        line-height: 26px;
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box .qutes1 img {
+        max-width: 34px;
+    }
+
+    .clientReviews-sec01-slider .clientReviews-sec01-slider-box {
+        padding: 28px 16px 10px;
+    }
+
+    .clientReviews-sec01-slider .slick-arrow {
+        width: 20px;
+        height: 16px;
+    }
+
+    .needLittleHelp-sec .right_div h1 {
+        font-size: 26px;
+        line-height: 26px;
+    }
+
+    .needLittleHelp-sec .left_div .contactUl li .text-container h2 {
+        font-size: 17px;
+        line-height: 26px;
+    }
+
+    .ourNewsletters-01-lists .ourNewsletters-01-col {
+        max-width: unset;
+    }
+
+    .faq-002-sec {
+        padding: 16px 0 32px;
+    }
+
+    .needLittleHelp-sec {
+        padding: 40px 0;
+    }
+
+    .ourNewsletters-01-top-banner .custom-container {
+        min-height: 130px;
+    }
+
+    .faq-002-accordion-sec .card-header .btn .plus-minus-btn {
+        width: 45px;
+    }
+
+    .faq-002-accordion-sec .card-header .btn .textp {
+        padding: 6px 16px;
+        line-height: 24px;
+        font-size: 14px;
+    }
+
+    .ourNewsletters-01-lists .ourNewsletters-01-box .action-btns {
+        padding-top: 16px;
+    }
+
+    .ourNewsletters-01-lists .ourNewsletters-01-box {
+        padding: 24px 16px;
+    }
+
+    .ourNewsletters-01-lists .ourNewsletters-01-box h4 {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    .ourNewsletters-01-lists .ourNewsletters-01-box .action-btns .read-more-btn {
+        width: 100px;
+        height: 38px;
+        font-size: 14px;
+    }
+
+    .faq-002-sec .faq-002-accordion-sec {
+        margin-top: 16px;
+    }
+
+    .take-look-t-our-sec01 h2 {
+        line-height: 32px;
+    }
+
+    .take-look-t-our-sec01 p {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .for-ourDifferent-text-lists .for-ourDifferent-list-col {
+        max-width: unset;
+    }
+
+    .for-ourDifferent-text-lists {
+        row-gap: 12px;
+        padding-top: 20px;
     }
 }
 
