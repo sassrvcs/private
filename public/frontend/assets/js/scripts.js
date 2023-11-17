@@ -38,6 +38,7 @@ $('.blog-slider').slick({
     infinite: false,
     slidesToShow: 3,
     slidesToScroll: 3,
+    arrows: false,
     prevArrow: '<div class="previous-btn"><span class="fa fa-angle-left"></span><span class="sr-only">Prev</span></div>',
     nextArrow: '<div class="next-btn"><span class="fa fa-angle-right"></span><span class="sr-only">Next</span></div>',
     responsive: [
@@ -84,4 +85,28 @@ $(".woo-account .navbar .menu-item").hover(function () {
     $(this).children('.dropdown-menu').addClass('show');
 }, function () {
     $(this).children('.dropdown-menu').removeClass('show');
+});
+$(".ourServices-sec01-wrapper .text-box-col .text-box").on({
+    mouseenter: function () {
+        var rightImgUrl = $(this).attr("right-img-url");
+        console.log(rightImgUrl);
+        $('#ourServices-sec01-right-img').attr('src', rightImgUrl);
+    },
+    mouseleave: function () {
+        //stuff to do on mouse leave
+    }
+});
+
+$('.clientReviews-sec01-slider').slick({
+    slidesToScroll: 1,
+    arrows: true,
+    dots: false,
+    vertical: true,
+    verticalSwiping: true,
+    draggable: true,
+    speed: 800,
+
+});
+$('.callUs-floating .cancel-btn').click(function () {
+    $(this).parent('.callUs-floating').removeClass('show');
 });
