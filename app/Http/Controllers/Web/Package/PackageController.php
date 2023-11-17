@@ -72,7 +72,9 @@ class PackageController extends Controller
         $icon = @$packages->getFirstMedia('package_icon')->getUrl();
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
 
     }
     public function privacy()
@@ -86,7 +88,9 @@ class PackageController extends Controller
         // dd($icon);
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
     }
     public function professional()
     {
@@ -99,7 +103,9 @@ class PackageController extends Controller
         // dd($icon);
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
     }
     public function prestige()
     {
@@ -111,8 +117,10 @@ class PackageController extends Controller
         $icon = @$packages->getFirstMedia('package_icon')?->getUrl();
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
         // dd($icon);
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
     }
     public function all_inclusive()
     {
@@ -125,7 +133,9 @@ class PackageController extends Controller
         // dd($icon);
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
     }
     public function non_residents()
     {
@@ -138,7 +148,9 @@ class PackageController extends Controller
         // dd($icon);
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
+        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
     }
     public function llp()
     {
@@ -151,7 +163,9 @@ class PackageController extends Controller
         // dd($icon);
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
+        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
     }
     public function guarantee_package()
     {
@@ -164,7 +178,9 @@ class PackageController extends Controller
         // dd($icon);
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.package.guarantee_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
+        return view('frontend.package.guarantee_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
         // dd($packages);
         // return view('frontend.package.guarantee_package',compact('package_details'));
     }
@@ -179,7 +195,9 @@ class PackageController extends Controller
         // dd($icon);
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
+        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
     }
     public function plc()
     {
@@ -192,7 +210,9 @@ class PackageController extends Controller
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
         // dd($icon);
-        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
+        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
     }
     public function get_services($package_name)
     {
@@ -206,7 +226,10 @@ class PackageController extends Controller
             $features = $services->features;
             $businessdata = BusinessBanking::get();
             $accounting = Accounting::get();
-            return view('frontend.service.service',compact('services', 'features','businessdata','accounting'));
+            $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
+
+            return view('frontend.service.service',compact('services', 'features','businessdata','accounting','full_sec_price'));
 
     }
     public function business_logo()

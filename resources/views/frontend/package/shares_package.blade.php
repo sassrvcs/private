@@ -277,7 +277,7 @@
     <div class="custom-container">
         <div class="sec-title1 text-center">
             <h2 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Take a look at our <br>
-                <span>Full secretary services £159.99</span>
+                <span>Full secretary services £{{$full_sec_price}}</span>
             </h2>
         </div>
         <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At Formationhunt, you can avail of the best full company secretary service that includes a company secretary and a dedicated and efficient account manager who will take care of the entire statutory registers, make changes in the company as per your instructions and prepare and file company’s confirmation statement.</p>
@@ -399,36 +399,27 @@
             <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our Banking <span>Partners</span></h2>
         </div>
         <ul data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+
+            @foreach ($businessdata as $index => $data)
             <li>
                 <div class="logo-container">
-                    <img src="{{ asset('frontend/assets/images/ourBankingPartners-logo1.svg') }}">
+                    <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
                 </div>
             </li>
-            <li>
-                <div class="logo-container">
-                    <img src="{{ asset('frontend/assets/images/ourBankingPartners-logo2.svg') }}">
-                </div>
-            </li>
-            <li>
-                <div class="logo-container">
-                    <img src="{{ asset('frontend/assets/images/ourBankingPartners-logo3.svg') }}">
-                </div>
-            </li>
-            <li>
-                <div class="logo-container">
-                    <img src="{{ asset('frontend/assets/images/ourBankingPartners-logo4.svg') }}">
-                </div>
-            </li>
-            <li>
-                <div class="logo-container">
-                    <img src="{{ asset('frontend/assets/images/ourBankingPartners-logo5.svg') }}">
-                </div>
-            </li>
-            <li>
-                <div class="logo-container">
-                    <img src="{{ asset('frontend/assets/images/ourBankingPartners-logo6.svg') }}">
-                </div>
-            </li>
+
+
+            @endforeach
+
+            @foreach ($accounting as $item => $data)
+                <li>
+                    <div class="logo-container">
+                        <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
+                    </div>
+                </li>
+
+
+            @endforeach
+
         </ul>
     </div>
 </div>
