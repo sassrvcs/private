@@ -7,6 +7,6 @@
 
         <li role="tab" class="disabled last" aria-disabled="true"><a class="service_heading"
                 id="steps-uid-0-t-2" href="#steps-uid-0-h-2" aria-controls="steps-uid-0-p-2"><span
-                    class="number  steps-uid-0-t-2-tick">3.</span> 3.Confirmation</a></li>
+                    class="number  steps-uid-0-t-2-tick">2.</span> 2.Confirmation</a></li>
     </ul>
 </div>

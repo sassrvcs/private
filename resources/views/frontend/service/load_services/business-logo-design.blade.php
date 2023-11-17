@@ -66,9 +66,9 @@
         });
 
         function updatePrices() {
-        var sum =  parseFloat({{ $prices['vat_registration_price'] }});
+        var sum =  parseFloat({{ $prices['business_logo_design_price'] }});
 
-        tr = "<tr><td>VAT Registration</td><td>VAT Registration</td><td>£" +
+        tr = "<tr><td>Business Logo Design</td><td>Business Logo Design</td><td>£" +
                     parseFloat(sum).toFixed(2) + "</td></tr>";
 
         if (sum == 0)

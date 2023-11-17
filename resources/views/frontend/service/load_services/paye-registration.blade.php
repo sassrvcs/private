@@ -68,7 +68,7 @@
         function updatePrices() {
         var sum =  parseFloat({{ $prices['paye_registration_price'] }});
 
-        tr = "<tr><td></td><td>PAYE Registration</td><td>£" +
+        tr = "<tr><td>PAYE Registration</td><td>PAYE Registration</td><td>£" +
                     parseFloat(sum).toFixed(2) + "</td></tr>";
 
         if (sum == 0)
@@ -131,7 +131,7 @@
                 updatePrices();
                 $("#steps-uid-0-p-0").hide();
                 $("#steps-uid-0-p-2").show();
-                $("#steps-uid-0-h-0").html("3.Confirmation")
+                $("#steps-uid-0-h-0").html("2.Confirmation")
                 // $(".second").removeClass('current')
                 $(".last").addClass('current');
                 // $(".service_heading").css({ //normal
