@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
     <!-- ================ start: digital-packages-banner ================ -->
-    <div class="digital-packages-banner" style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png') }})">
+    <div class="digital-packages-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
         <div class="custom-container">
             <div class="inner-wrapper">
                 <div class="icon-container">

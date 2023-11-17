@@ -110,3 +110,22 @@ $('.clientReviews-sec01-slider').slick({
 $('.callUs-floating .cancel-btn').click(function () {
     $(this).parent('.callUs-floating').removeClass('show');
 });
+$(document).ready(function () {
+    // for progress bar
+    $('.skill_set_block .text_layer .skill_area .inner_row .right_side .skill_details .skill_item').each(function () {
+        var progress_width = $(this).find('.skill_progrss_bar').attr('data-percent') + '%';
+        $(this).find('.skill_progrss_bar').width(progress_width);
+    })
+    // tab block
+    var already_selected = '#' + $('.tab_block_area ul.tabs li.active').attr('data-tab');
+    $(already_selected).show();
+
+    $('.tab_block_area ul.tabs li').click(function () {
+        $('.tab_block_area ul.tabs li.active').removeClass('active');
+        $(this).addClass('active');
+        var tabsel = '#' + $(this).attr('data-tab');
+        console.log(tabsel);
+        $('.tab_block_area .tab_container .tab_content').hide();
+        $(tabsel).show();
+    })
+})

@@ -30,4 +30,10 @@ class PageController extends Controller
         return view('frontend.cmspage', compact('page','businessdata'));
     }
 
+    public function aboutUs(){
+        
+        return view('frontend.aboutUs');
+
+    }
+
 }

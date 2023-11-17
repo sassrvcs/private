@@ -167,6 +167,8 @@ Route::get('companies/pdf/memo-articles-full', [CompaniesListController::class, 
 
 Route::get('/search-companie', CompanieController::class);
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
+Route::get('about-us', [PageController::class, 'aboutUs'])->name('aboutUs');
+
 // Route::get('refund-cancellation', [PageController::class, 'refundcancellation'])->name('page.refundcancellation');
 
 Route::get('registered-address', [CompanyFormController::class, 'registerAddress'])->middleware('auth')->name('registered-address');
