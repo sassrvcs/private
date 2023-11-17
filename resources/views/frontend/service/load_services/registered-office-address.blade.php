@@ -39,7 +39,7 @@
                                         <p>Please complete our online application form and make your payment. We will send you our welcome email and your service will start immediately. </p>
                                         <p>Please send ID and address proof within 7 days of service commencement.</p>
                                         <p><strong>Fields marked with an asterisk (<span class="starred">*</span>) are required.</strong></p>
-                                        
+
                                     </div>
                                     <div class="col-md-8 p-3 d-block mb-3 position-relative shadow">
                                         <br>
@@ -69,7 +69,7 @@
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control required_app" name="stat_email" id="stat_email" value="" required="">
                                             </div>
-                                        </div>            
+                                        </div>
                                     </div>
                                     <div class="col-md-8 p-3 d-block mb-3 position-relative shadow">
                                         <h5><strong>Popular Add-ons with director's service address</strong></h5>
@@ -90,26 +90,26 @@
                                                         <option value="9">9</option>
                                                     </select>
                                                 <strong><span id="od3_price_2289" class="doc_chk">£24.99</span></strong>
-                                            </label> 
+                                            </label>
                                             <div class="col-md-10 p-1">
                                                     <p>The use of our HA4 London address for directors, shareholders, secretaries and persons with significant control (PSCs) to keep their home address private.</p>
-                                                    <p>All statutory mail will be forwarded free of charge within the UK.</p>                        
-                                            </div> 
-                                            <input type="hidden" name="directors-service-address-price" id="directors-service-address-price" value="24.99">                
+                                                    <p>All statutory mail will be forwarded free of charge within the UK.</p>
+                                            </div>
+                                            <input type="hidden" name="directors-service-address-price" id="directors-service-address-price" value="24.99">
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input hasprice popupAmnt" type="checkbox" name="dir_serv_addr[]" id="london-business-address" value="3710" data-title="London business address" data-serid="3710">
                                             <label class="form-check-label" for="london-business-address">
                                                 <strong>London business address</strong>
                                                 <strong><span id="od3_price_3710" class="doc_chk">£99.00</span></strong>
-                                            </label> 
+                                            </label>
                                             <div class="col-md-10 p-1">
                                                 <p>The use of our SW4 London address as your business correspondence address for your company. You can hide your home address from your suppliers, contractors, customers and marketing agencies. We will receive your business mails on your behalf.</p>
                                                 <p>We will open, scan and forward all your mails to the email address given during the application. If you wish to receive them by post, we will not open and scan your letters.</p>
                                                 <p>Instead we will forward the mails to your postal address for additional charge of 50p+postage per item. As a FREE service, we will<br>
-                                                automatically eliminate mail that we deem to be junk mail and destroy it.</p>                       
-                                            </div> 
-                                            <input type="hidden" name="london-business-address-price" id="london-business-address-price" value="99.00">                
+                                                automatically eliminate mail that we deem to be junk mail and destroy it.</p>
+                                            </div>
+                                            <input type="hidden" name="london-business-address-price" id="london-business-address-price" value="99.00">
                                         </div>
                                     </div>
                                 <hr>
@@ -177,10 +177,10 @@
 
         var proPrice = parseFloat({{ $prices['registered_office_address_service_price'] }});
         var shareVal = parseInt($('#no_of_officer :selected').val());
-        
+
         tr = '';
 
-       
+
 
         if($("#no_of_officer :selected").val() !=''){
             $('#od3_price_2289').html('£'+parseFloat(coi).toFixed(2));
@@ -192,16 +192,16 @@
         if ($("#directors-service-address").is(":checked")) {
             actual_price = sum;
             sum += coi;
-            var tr_2 = "<tr><td>Registered Office Address Service</td><td></td><td>£" +
-                    parseFloat(actual_price).toFixed(2) + "</td></tr>";  
-                     
+            var tr_2 = "<tr><td>Registered Office Address Service</td><td>Registered Office Address Service</td><td>£" +
+                    parseFloat(actual_price).toFixed(2) + "</td></tr>";
+
         }
-        
+
         if ($("#london-business-address").is(":checked")){
             sum += ma;
             tr += "<tr><td></td><td>London business address</td><td>£" +
                     parseFloat(ma).toFixed(2) + "</td></tr>";
-        } 
+        }
 
         if (sum == 0)
           $(".total_priceAmnt").text("Online Application");

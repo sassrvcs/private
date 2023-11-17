@@ -1,5 +1,5 @@
 <div class="companies-topbar">
-    <h3>Other Details</h3>
+    <h3>Customer Details & Address</h3>
 </div>
 <table class="table">
     <thead>

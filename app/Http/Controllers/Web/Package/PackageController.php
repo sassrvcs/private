@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\BusinessBanking;
 use App\Models\Accounting;
+use App\Models\Address;
 use App\Models\Nationality;
 use App\Models\orderServiceTransaction;
 use App\Models\User;
@@ -26,7 +27,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
-
+use PDF;
 class PackageController extends Controller
 {
     public function __construct(
@@ -402,8 +403,16 @@ class PackageController extends Controller
             ]);
             // if ($update) {
                 $userDetails = (Auth::user());
+                $filename = 'Invoice'.uniqid().Str::random(10).'.pdf';
+
+                $name = "Myname";
+                $pdf = $this->purchasedServiceInvoice($id=null,$order_transaction->id);
+                $filePath = storage_path('app/public/attachments/'.$filename);
+                file_put_contents($filePath, $pdf );
+                // dd($filePath);
                 try {
-                    $status =  Mail::to($userDetails->email)->send(new ServicePurchaseMail ($order_transaction,$userDetails));
+                    // $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
+                    $status =  Mail::to($userDetails->email)->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
                  } catch (\Throwable $th) {
                      throw $th;
                  }
@@ -581,12 +590,15 @@ class PackageController extends Controller
     public function purchasedServiceList(Request $request)
     {
        $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->where('service_payment_status',1)->orderBy('id','desc')->paginate(25);
+    //    $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->orderBy('id','desc')->paginate(25);
        return view('frontend.service.purchased_services.purchasedServicesList',compact('purchased_service'));
     }
     public function purchasedServiceDetails(Request $request)
-    {   $id = $request->id;
 
-        $purchased_service =  orderServiceTransaction::where('id',$request->id)->first();
+    {
+        $id = $request->id;
+
+        $purchased_service =  orderServiceTransaction::where('id',$id)->first();
         $slug = $purchased_service->service_slug;
         $service_data = json_decode($purchased_service->service_data);
         // dd($slug);
@@ -594,6 +606,62 @@ class PackageController extends Controller
             return view('frontend.service.purchased_services.details.service_purchased',compact('purchased_service','service_data','slug'));
         // }
         // return view('frontend.service.purchased_services.purchasedServiceDetails',compact('purchased_service'));
+    }
+    public function purchasedServiceInvoice($id,$pdf_id=null)
+    {
+        $user = auth()->user();
+        if($pdf_id!=null)
+        {
+            $id = $pdf_id;
+        }
+        $purchased_service =  orderServiceTransaction::where('id',$id)->first();
+        $slug = $purchased_service->service_slug;
+        $address = null;
+        $order_id = $purchased_service->order_id;
+        $service_data = json_decode($purchased_service->service_data);
+        if(isset($service_data->invoice_addr) && $service_data->invoice_addr=="Yes")
+        {
+            $address = construct_service_address((array)$service_data);
+
+        }else{
+            $address = construct_service_invoice_address((array)$service_data);
+        }
+        if($address==null){
+$billing_address = Address::join('countries','countries.id','=','addresses.billing_country')
+            ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+            ->where('addresses.user_id', $user->id)
+            ->where('addresses.address_type','billing_address')
+            ->first();
+            $address = construct_address($billing_address->toArray());
+        }
+
+
+
+        $total = $purchased_service->amount;
+        $base_amount = $purchased_service->base_amount;
+        $total_vat =$purchased_service->vat;
+        $invoice_data = $purchased_service->invoice_data;
+        $data = [
+            'order_id' => $order_id,
+            'user' => $user,
+            'invoice_date' => date('d/m/Y', strtotime($purchased_service->created_at)),
+            'invoice_ref' =>$purchased_service->uuid,
+            'billing_address'=>$address,
+            'total_amount' => $total,
+            'base_amount' => $base_amount,
+            'total_vat' => $total_vat,
+            'invoice_data' => $invoice_data
+        ]; // Convert the model to an array
+
+        // dd($data);
+        // return view('PDF.purchasedServiceInvoice', $data);
+        $pdf = PDF::loadView('PDF.purchasedServiceInvoice', $data);
+        if($pdf_id!=null)
+        {
+            $pdf->render();
+            return $pdf->output();
+        }
+        return $pdf->stream();
     }
     private function generateServiceOrderId()
     {
