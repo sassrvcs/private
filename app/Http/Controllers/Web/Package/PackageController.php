@@ -354,8 +354,20 @@ class PackageController extends Controller
         if($slug=="paye-registration")
         {
             $service_name = "PAYE Registration";
-            $prices = ['vat_registration_price'=>$get_price];
+            $prices = ['paye_registration_price'=>$get_price];
             return view('frontend.service.load_services.paye-registration',compact('countries','slug','id','prices','service_name'));
+        }
+        if($slug=="business-email")
+        {
+            $service_name = "Business Email";
+            $prices = ['business_email_price'=>$get_price];
+            return view('frontend.service.load_services.business-email',compact('countries','slug','id','prices','service_name'));
+        }
+        if($slug=="business-logo-design")
+        {
+            $service_name = "Business Logo Design";
+            $prices = ['business_logo_design_price'=>$get_price];
+            return view('frontend.service.load_services.business-logo-design',compact('countries','slug','id','prices','service_name'));
         }
         return redirect('/404');
     }
