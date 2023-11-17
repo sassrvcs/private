@@ -228,7 +228,7 @@
         </div>
     </div>
 
-    <div class="whatMakesDifferent-sec01-sec2">
+    <div class="whatMakesDifferent-sec01-sec2 d-none">
         <div class="to-see-all-sec">
             <div class="custom-container">
                 <div class="to-see-all-sec-youtube-bg" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><img src="{{ asset('frontend/assets/images/cardIcon.png') }}"></div>

@@ -239,7 +239,36 @@
                         <h2>Next package to find what’s missing </h2>
                     </div>
                     <div class="action-container" data-aos="fade-left" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                        <a href="#" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @if(request()->routeIs('digital_package'))
+                            <a href="{{route('privacy_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('privacy_package'))
+                            <a href="{{route('professional_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('professional_package'))
+                            <a href="{{route('prestige_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('prestige_package'))
+                            <a href="{{route('all_inclusive_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('all_inclusive_package'))
+                            <a href="{{route('non_residents_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('non_residents_package'))
+                            <a href="{{route('llp_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('llp_package'))
+                            <a href="{{route('guarantee_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('guarantee_package'))
+                            <a href="{{route('e_seller_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('e_seller_package'))
+                            <a href="{{route('plc_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('plc_package'))
+                            <a href="{{route('digital_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
                     </div>
                 </div>
             </div>
