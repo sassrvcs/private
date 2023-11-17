@@ -235,8 +235,7 @@ Route::post('person-appointment-update', [CompanyFormController::class, 'person_
 
 //===========order section========//
 Route::get('order-history', [OrderController::class, 'index'])->name('order-history')->middleware('auth');
-Route::get('purchased-service-list', [WebPackageController::class, 'purchasedServiceList'])->name('purchased-service-list')->middleware('auth');
-Route::get('purchased-service-details', [WebPackageController::class, 'purchasedServiceDetails'])->name('purchased-service-details')->middleware('auth');
+
 
 Route::get('delete-order-item',[OrderController::class,'deleteOrderItem'])->name('delete-order-item')->middleware('auth');
 Route::get('order-details', [OrderController::class, 'getDetails'])->name('order-details')->middleware('auth');
@@ -250,10 +249,17 @@ Route::resource('ticket', TicketController::class)->middleware('auth');
 Route::get('ticket-replies/{id}', [TicketController::class,'view_ticket_replies'])->name('view-ticket-replies')->middleware('auth');
 Route::post('add-ticket-replies', [TicketController::class,'add_ticket_replies'])->name('add-ticket-replies')->middleware('auth');
 Route::get('pay/service-checkout/{id}', [WebPackageController::class, 'serviceValidateAuth'])->name('service-checkout');
-Route::get('purchased-service-invoice/{id}', [WebPackageController::class, 'purchasedServiceInvoice'])->name('purchased-service-invoice');
 
-Route::post('pay/service-payment-now', [CheckoutStepController::class, 'servicePaymentNow'])->name('service-payment-now');
-Route::get('pay/service-payment-success', [WebPackageController::class, 'servicePaymentSuccess'])->name('service-payment-success');
+Route::get('purchased-service-invoice/{id}', [WebPackageController::class, 'purchasedServiceInvoice'])->name('purchased-service-invoice')->middleware('auth');
+
+Route::post('pay/service-payment-now', [CheckoutStepController::class, 'servicePaymentNow'])->name('service-payment-now')->middleware('auth');
+
+Route::get('pay/service-payment-success', [WebPackageController::class, 'servicePaymentSuccess'])->name('service-payment-success')->middleware('auth');
+
+Route::get('purchased-service-list', [WebPackageController::class, 'purchasedServiceList'])->name('purchased-service-list')->middleware('auth');
+Route::get('expired-service-list', [WebPackageController::class, 'expiredServiceList'])->name('expired-service-list')->middleware('auth');
+
+Route::get('purchased-service-details', [WebPackageController::class, 'purchasedServiceDetails'])->name('purchased-service-details')->middleware('auth');
 
 Route::group([ 'middleware' => 'isAdmin'], function() {
     Route::prefix('admin')->middleware(['auth', 'auth.session'])

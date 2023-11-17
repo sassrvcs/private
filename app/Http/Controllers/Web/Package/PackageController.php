@@ -23,6 +23,7 @@ use App\Models\Address;
 use App\Models\Nationality;
 use App\Models\orderServiceTransaction;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Str;
@@ -393,6 +394,8 @@ class PackageController extends Controller
         $order_transaction = orderServiceTransaction::where('order_id',$order_id)->first();
 
         if ($order_transaction) {
+            if($order_transaction->service_payment_status==0)
+            {
            $update =  orderServiceTransaction::where('order_id',$order_id)->update([
                 'uuid' =>$request->query('orderID'),
                 'status'=>$request->query('STATUS'),
@@ -400,7 +403,9 @@ class PackageController extends Controller
                 'ACCEPTANCE'=>$request->query('ACCEPTANCE'),
                 'SHASIGN'=>$request->query('SHASIGN'),
                 'service_payment_status'=>1
+
             ]);
+            }
             // if ($update) {
                 $userDetails = (Auth::user());
                 $filename = 'Invoice'.uniqid().Str::random(10).'.pdf';
@@ -414,7 +419,7 @@ class PackageController extends Controller
                     // $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
                     $status =  Mail::to($userDetails->email)->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
                  } catch (\Throwable $th) {
-                     throw $th;
+                    //  throw $th;
                  }
                 return view('frontend.payment_getway.success');
 
@@ -589,9 +594,17 @@ class PackageController extends Controller
     }
     public function purchasedServiceList(Request $request)
     {
-       $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->where('service_payment_status',1)->orderBy('id','desc')->paginate(25);
+       $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->where('service_payment_status',1)->orderBy('updated_at','desc')->paginate(25);
     //    $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->orderBy('id','desc')->paginate(25);
        return view('frontend.service.purchased_services.purchasedServicesList',compact('purchased_service'));
+    }
+    public function expiredServiceList(Request $request)
+    {
+       $oneYearAgo = Carbon::now()->subYear();
+       $expired_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->where('service_payment_status',1)->where('updated_at','<=',$oneYearAgo)->orderBy('updated_at','asc')->paginate(25);
+    //    dd($expired_service);
+    //    $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->orderBy('id','desc')->paginate(25);
+       return view('frontend.service.purchased_services.expiredServicesList',compact('expired_service'));
     }
     public function purchasedServiceDetails(Request $request)
 
@@ -644,7 +657,7 @@ $billing_address = Address::join('countries','countries.id','=','addresses.billi
         $data = [
             'order_id' => $order_id,
             'user' => $user,
-            'invoice_date' => date('d/m/Y', strtotime($purchased_service->created_at)),
+            'invoice_date' => date('d/m/Y', strtotime($purchased_service->updated_at)),
             'invoice_ref' =>$purchased_service->uuid,
             'billing_address'=>$address,
             'total_amount' => $total,

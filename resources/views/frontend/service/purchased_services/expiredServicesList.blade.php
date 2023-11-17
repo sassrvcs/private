@@ -36,7 +36,7 @@
                 <div class="MyAccount-content col-md-12">
                     <div class="MyAccount-content col-md-12">
                         <div class="companies-topbar">
-                            <h3>Service Purchased</h3>
+                            <h3>Expired Service</h3>
                         </div>
                         <div class="companies-table-wrap">
                             <div class="table-responsive">
@@ -53,9 +53,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                @if($purchased_service->count()>0)
+                                    @if($expired_service->count()>0)
 
-                                            @foreach($purchased_service as $serviceList)
+                                            @foreach($expired_service as $serviceList)
                                             <tr>
                                                 <td>{{ $serviceList->order_id }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($serviceList->updated_at)->format('d/m/Y') }}</td>
@@ -63,8 +63,8 @@
                                                 <td>{{ $serviceList->company_name }}</td>
                                                 <td>{{ $serviceList->company_number }}</td>
                                                 <td>
-                                                    <span class="status accepted">
-                                                        {{ $serviceList->service_payment_status==0?'Incomplete':'Completed' }}
+                                                    <span class="status rejected">
+                                                        Expired
                                                     </span>
                                                     </td>
                                                 {{--<td>
@@ -90,7 +90,7 @@
                                                 </td>
                                             </tr>
                                             @endforeach
-                                            @else
+                                                @else
                                                 <tr>
                                                     <td colspan="7">
                                                         <div class="text-center">
@@ -109,8 +109,8 @@
                                    {{-- {{ $users->appends([
                                         'form' => $filter['form'],
                                     ])->links('pagination::bootstrap-5') }} --}}
-                                    @if($purchased_service)
-                                        {!! $purchased_service->withQueryString()->links('pagination::bootstrap-4') !!}
+                                    @if($expired_service)
+                                        {!! $expired_service->withQueryString()->links('pagination::bootstrap-4') !!}
                                     @endif
                                 </nav>
                             </div>
