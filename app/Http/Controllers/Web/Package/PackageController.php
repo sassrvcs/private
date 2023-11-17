@@ -279,6 +279,11 @@ class PackageController extends Controller
         $accounting = Accounting::get();
         return view('frontend.service.info-to-set',compact( 'content','businessdata','accounting'));
     }
+
+    public function buisness_web_design(){
+        return view('frontend.service.buisness_web_design');
+
+    }
     public function loadCompanyService(Request $request,$slug,$id)//
     {
         $countries = Country::all();

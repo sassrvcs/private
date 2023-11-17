@@ -110,6 +110,8 @@ Route::get('/package/e-seller', [WebPackageController::class,'e_seller'])->name(
 Route::get('/package/plc', [WebPackageController::class,'plc'])->name('plc_package');
 
 Route::get('/company-services/{service_name}', [WebPackageController::class,'get_services'])->name('company_services');
+Route::get('/services/business-web-design-marketing', [WebPackageController::class,'buisness_web_design'])->name('buisness_web_design');
+
 Route::get('/load-company-services/{service_slug}/{service_id}',[WebPackageController::class,'loadCompanyService'])->name('load_company_service');
 Route::post('/submit-company-services/{service_slug}/{service_id}',[WebPackageController::class,'submitCompanyService'])->name('submit_company_service');
 
