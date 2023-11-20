@@ -38,6 +38,30 @@
         </div>
     </section>
 
+    <div class="pckg_bar border-0">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-6 text-left">
+                    <div class="wow zoomIn" style="visibility: visible; animation-name: zoomIn;">
+                        <h2>Business Logo Design</h2>
+                    </div>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="wow fadeInDown" style="visibility: visible; animation-name: fadeInDown;">
+                        <div class="d-flex float-right">
+                            <div> <a class="btn btn-primary me-2" href="{{route('load_company_service',[$title,$id])}}">Buy Now</a></div>
+                            <div><span class="price btn">  <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">£</span>49.99</bdi></span></span></div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+
 
     <!-- ================ end: recentProject-sec ================ -->
     <!-- ================ start: digitalPackage-sec ================ -->

@@ -293,7 +293,7 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
 
         Route::get('ticket-replies/{id}', [TicketController::class,'view_ticket_replies'])->name('view-ticket-replies-admin')->middleware('auth');
         Route::post('add-ticket-replies', [TicketController::class,'add_ticket_replies'])->name('add-ticket-replies-admin')->middleware('auth');
-
+        Route::get('purchased-service-details', [WebPackageController::class, 'purchasedServiceDetails'])->name('purchased-service-details')->middleware('auth');
             // Route::post('move-to-agent', [AgentController::class, 'moveToAgent'])->name('move-to-agent');
 
             // Route::resource('product', ProductController::class);

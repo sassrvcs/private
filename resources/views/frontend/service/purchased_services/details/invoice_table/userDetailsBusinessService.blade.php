@@ -1,5 +1,5 @@
 <div class="companies-topbar">
-    <h3>Customer Details & Address</h3>
+    <h3>Customer Details</h3>
 </div>
 <table class="table">
     <thead>
@@ -28,6 +28,24 @@
             <td>Email</td>
             <td>&nbsp;</td>
             <td>{{$service_data->stat_email}}</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Company Name</td>
+            <td>&nbsp;</td>
+            <td>{{$service_data->company_name}}</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Company number</td>
+            <td>&nbsp;</td>
+            <td>{{$service_data->company_number}}</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Details</td>
+            <td>&nbsp;</td>
+            <td>{{$service_data->details}}</td>
             <td>&nbsp;</td>
         </tr>
     </tbody>

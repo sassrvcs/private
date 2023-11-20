@@ -28,7 +28,7 @@ class AddonController extends Controller
     public function index(Request $request)
     {
         $search     = ($request->search) ? $request->search : '';
-        $addonservicelist = $this->addonService->index($search);
+        $addonservicelist = $this->addonService->index_without_price($search);
         return view('admin.addonservice.index',compact('addonservicelist','search'));
     }
 

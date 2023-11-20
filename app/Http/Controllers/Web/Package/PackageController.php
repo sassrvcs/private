@@ -214,10 +214,12 @@ class PackageController extends Controller
     {
         $content = Cms::where('title','business-logo')->first();
         if(!$content)return redirect('/404');
+        $id = $content->id;
+        $title = $content->title;
         $content = $content->description;
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.service.business_logo',compact('content','businessdata','accounting'));
+        return view('frontend.service.business_logo',compact('content','businessdata','accounting','id','title'));
     }
     public function share_business_idea()
     {
@@ -363,10 +365,11 @@ class PackageController extends Controller
             $prices = ['business_email_price'=>$get_price];
             return view('frontend.service.load_services.business-email',compact('countries','slug','id','prices','service_name'));
         }
-        if($slug=="business-logo-design")
+        if($slug=="business-logo")
         {
             $service_name = "Business Logo Design";
-            $prices = ['business_logo_design_price'=>$get_price];
+            $price = Cms::where('title','business-logo')->pluck('price')->first();
+            $prices = ['business_logo_design_price'=>$price ];
             return view('frontend.service.load_services.business-logo-design',compact('countries','slug','id','prices','service_name'));
         }
         return redirect('/404');
@@ -428,8 +431,8 @@ class PackageController extends Controller
                 file_put_contents($filePath, $pdf );
                 // dd($filePath);
                 try {
-                    // $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
-                    $status =  Mail::to($userDetails->email)->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
+                    $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
+                    // $status =  Mail::to($userDetails->email)->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
                  } catch (\Throwable $th) {
                     //  throw $th;
                  }
@@ -626,9 +629,15 @@ class PackageController extends Controller
         $purchased_service =  orderServiceTransaction::where('id',$id)->first();
         $slug = $purchased_service->service_slug;
         $service_data = json_decode($purchased_service->service_data);
+        $role = get_role();
         // dd($slug);
         // if ($slug=="apostilled-documents-service") {
+            if($role=='admin')
+        {
+            return view('frontend.service.purchased_services.details.service_purchased_admin',compact('purchased_service','service_data','slug'));
+        }else{
             return view('frontend.service.purchased_services.details.service_purchased',compact('purchased_service','service_data','slug'));
+        }
         // }
         // return view('frontend.service.purchased_services.purchasedServiceDetails',compact('purchased_service'));
     }
@@ -652,12 +661,34 @@ class PackageController extends Controller
             $address = construct_service_invoice_address((array)$service_data);
         }
         if($address==null){
-$billing_address = Address::join('countries','countries.id','=','addresses.billing_country')
+            $billing_address = Address::join('countries','countries.id','=','addresses.billing_country')
             ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
             ->where('addresses.user_id', $user->id)
             ->where('addresses.address_type','billing_address')
             ->first();
-            $address = construct_address($billing_address->toArray());
+        if ($billing_address==null) {
+                $billing_address = Address::join('countries','countries.id','=','addresses.billing_country')
+            ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+            ->where('addresses.user_id', $user->id)
+            ->where('addresses.address_type','office_address')
+            ->first();
+            }
+        if ($billing_address==null) {
+                $billing_address = Address::join('countries','countries.id','=','addresses.billing_country')
+            ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+            ->where('addresses.user_id', $user->id)
+            ->where('addresses.address_type','primary_address')
+            ->first();
+            }
+            if ($billing_address!=null) {
+                $address = construct_address($billing_address->toArray());
+            }else{
+                $address = null;
+
+            }
+            // $address = null;
+
+            // dd($user->id);
         }
 
 

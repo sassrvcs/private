@@ -20,11 +20,21 @@ class AddonService
      */
     public function index($search = "")
     {
+        $addonservices = Addon::with('features')->whereNot('price', '0')->whereNot('price', '0.00');
+        if (!empty($search)) {
+            $addonservices = $addonservices->where('service_name', 'like', "%{$search}%");
+        }
+        $addonservices = $addonservices->paginate(25);
+        return $addonservices;
+    }
+    public function index_without_price($search = "")
+    {
         $addonservices = Addon::with('features');
         if (!empty($search)) {
             $addonservices = $addonservices->where('service_name', 'like', "%{$search}%");
         }
         $addonservices = $addonservices->paginate(25);
+
         return $addonservices;
     }
 

@@ -32,9 +32,9 @@
                                     <div class="col-sm-12">
                                         <x-Forms.Input type="text" readonly label="Title" value="{{ $cmsDetails->title }}"/>
                                     </div>
-                                    <div class="col-sm-12">
-                                        <x-Forms.Input type="number" label="Price" hidden name="price" value="{{ $cmsDetails->price }}"/>
-                                            {{-- <input type="text" name="price" value="{{ $cmsDetails->price }}" hidden"> --}}
+                                    <div class="col-sm-12" {{$cmsDetails->title!="business-logo"?'hidden' : ''}}>
+                                        <x-Forms.Input type="number" label="Price"  name="price" value="{{ $cmsDetails->price }}"/>
+                                            {{-- <input type="text" name="price" value="{{ $cmsDetails->price }}" > --}}
                                     </div>
                                 </div>
 

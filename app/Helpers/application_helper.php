@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Country;
 use App\Models\Order;
 use App\Models\PersonOfficer;
+use App\Models\User;
 
 function officer_details_for_appointments_list($id){
     if(isset($id)){
@@ -170,4 +171,14 @@ function appointment_address_included($order_id)
      }
      return 0;
 }
+ function get_role()
+    {
+        if (auth()->user()->hasRole(User::CUSTOMER)) {
+            $role = 'customer';
+        }
+        if (auth()->user()->hasRole(User::SUPERADMIN) || auth()->user()->hasRole(User::SUBADMIN)) {
+            $role = 'admin';
+        }
+        return $role;
+    }
 ?>
