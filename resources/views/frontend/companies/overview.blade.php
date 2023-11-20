@@ -709,7 +709,7 @@
 
         <!-- Open Modal for -->
 
-        <div class="modal fade modal-particular" id="openRegisterOfficeAddress" tabindex="-1" role="dialog"
+        <!-- <div class="modal fade modal-particular" id="openRegisterOfficeAddress" tabindex="-1" role="dialog"
             aria-labelledby="openRegisterOfficeAddressTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
@@ -824,7 +824,430 @@
                     </div>
                 </div>
             </div>
+        </div> -->
+
+        <div class="modal fade modal-particular" id="openRegisterOfficeAddress" tabindex="-1" role="dialog"
+            aria-labelledby="openRegisterOfficeAddressTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"><b>Change Registered Office</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-10 col-sm-12">
+                            @foreach($purchase_address as $address)
+                                <div class="used-addresses-panel addr_{{ $address->id }}">
+                                    <div class="text">
+                                        <p>{{ $address->title }}</p>
+                                        <p>Price: {{ $address->price }}</p>
+                                    </div>
+                                    <div class="btn-wrap">
+                                        <input type="radio" id="address{{ $address->id }}" name="selectedAddress" value="{{ $address->id }}">
+                                        <input type="hidden" class="103_add_id" value="103">
+                                        <input type="hidden" class="103_add_house_number" value="40 new add">
+                                        <input type="hidden" class="103_add_street" value="North">
+                                        <input type="hidden" class="103_add_locality" value="">
+                                        <input type="hidden" class="103_add_town" value="Wembley">
+                                        <input type="hidden" class="103_user_county" value="Greater London">
+                                        <input type="hidden" class="103_address_post_code" value="ha90ae">
+                                        <input type="hidden" class="103_address_billing_country" value="72">
+                                        <label for="address{{ $address->id }}" class="btn select-btn selc-addr" fdprocessedid="rj9i{{ $address->id }}">Select</label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="col-md-10 col-sm-12">
+                            <div class="used-addresses-panel">
+                                <div class="text">
+                                    <p>Choose Another</p>
+                                </div>
+                                <div class="btn-wrap">
+                                    <input type="radio" id="address105" name="selectedAddress" value="0">
+                                    <label for="address105" class="btn select-btn selc-addr"
+                                         fdprocessedid="rj9ik">Select</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="new-address-section" style="display: none;">
+                            New Address
+                            <div class="col-md-10 col-sm-12">
+                                <div class="used-addresses-panel">
+                                    <div class="text">
+                                        <p id="selectedAddressDisplay"></p>
+                                    </div>
+                                    <div class="btn-wrap">
+                                        <input type="hidden" class="103_add_id" value="103">
+                                        <input type="hidden" class="103_add_house_number" value="40 new add">
+                                        <input type="hidden" class="103_add_street" value="North">
+                                        <input type="hidden" class="103_add_locality" value="">
+                                        <input type="hidden" class="103_add_town" value="Wembley">
+                                        <input type="hidden" class="103_user_county" value="Greater London">
+                                        <input type="hidden" class="103_address_post_code" value="ha90ae">
+                                        <input type="hidden" class="103_address_billing_country" value="72">
+
+                                        <button type="button" class="btn select-btn selc-addr"
+                                        id="chooseAddressButton" fdprocessedid="rj9ii">Choose Another</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <div class="modal custom-modal-s1" id="choosePrimaryAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content border-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Choose Address</h5>
+                        <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="choose_addr">
+                            <h3>Recently Used Addresses</h3>
+                            <div class="current_address_grp">
+                            @foreach($primary_address_list as $key => $value)
+                                <div class="addr_wrap">
+                                    <p>
+                                        @if($value['house_number']) {{ $value['house_number']}},@endif
+                                        @if($value['street']) {{$value['street']}}, @endif
+                                        @if($value['locality']) {{$value['locality']}}, @endif
+                                        @if($value['town']) {{ $value['town']}}, @endif
+                                        {{ $value['county']}}
+                                    </p>
+                                    <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
+                                </div>
+                                <div class="button_select">
+                                    <input type="hidden" class="address-house-number" value="{{ $value['house_number']}}">
+                                    <input type="hidden" class="address-street" value="{{ $value['street']}}">
+                                    <input type="hidden" class="address-locality" value="{{ $value['locality']}}">
+                                    <input type="hidden" class="address-town" value="{{ $value['town']}}">
+                                    <input type="hidden" class="address-county" value="{{ $value['county']}}">
+                                    <input type="hidden" class="address-post-code" value="{{ $value['post_code']}}">
+                                    <input type="hidden" class="address-country-name" value="{{ $value['country_name']}}">
+                                    <button class="btn btn-primary select-address" data-dismiss="modal" type="button">Select</button>
+                                </div>
+                            @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary addNewAddress" data-dismiss="modal">Add new address</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal custom-modal-s1" id="addNewAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content border-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Choose Address</h5>
+                        <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="p-3" style="padding-top: 0 !important;">
+                            <div class="form-row form-group">
+                                <label>Post Code:</label>
+                                <div class="input-wrapper with-rg-btn">
+                                    <input type="text" class="form-control" name="post_code" id="post_code">
+                                    <button type="button" class="btn btn-primary" id="findAddress">Find
+                                        Address</button>
+                                </div>
+                                <p class="adderr text-danger"></p>
+                            </div>
+                        <form class="billingAddrUpdateForm formInputModal" >
+                            <div class="form-row form-group ">
+                                <label>House Name / Number: &nbsp;<span class="optional">
+                                    </span>
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" id="house_no" name="house_no" class="input-text form-control house_no" value={{old('house_no')}}>
+                                </span>
+                            </div>
+                            <div class="form-row form-group ">
+                                <label for="billing_title">Street:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="street" id="street" class="input-text form-control steet_no @error('street') is-invalid @enderror" value={{old('street')}}>
+                                </span>
+                                @error('street')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row form-group">
+                                <label for="locality">Locality:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="locality" id="locality" class="input-text form-control locality @error('locality') is-invalid @enderror" value={{old('locality')}}>
+                                </span>
+                                @error('locality')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row form-group">
+                                <label for="town">Town:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="town" id="town" class="input-text form-control town @error('town') is-invalid @enderror" value={{old('town')}}>
+                                </span>
+                                @error('town')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row form-group">
+                                <label for="county">County:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="county" id="county" class="input-text form-control county @error('county') is-invalid @enderror" value="{{ old('county')}}">
+                                </span>
+                                @error('country')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row form-group">
+                                <label for="billing_first_name">Post Code:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="post_code" id="zip" class="input-text form-control zip @error('post_code') is-invalid @enderror" value={{old('post_code')}}>
+                                </span>
+                                @error('post_code')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row update_totals_on_change form-group">
+                                <label for="billing_country">Country&nbsp;</label>
+                                <span class="input-wrapper">
+                                    <select name="billing_country" id="billing_country" name="billing_country" class="contry  @error('billing_country') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
+                                        <option value="">Select a country / region…</option>
+                                        <option value="236" selected>United Kingdom</option>
+                                        @foreach ($countryList as $country)
+                                            <option value="{{$country->id}}">{{$country->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </span>
+                                @error('billing_country')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <input type="hidden" class="address_type" name="address_type" value="primary_address">
+                            <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="saveAddr">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal custom-modal-s1" id="exampleModalCenterAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content border-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Choose your address</h5>
+                        <button type="button" class="btn-close btn-address"  data-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="post_address_blk">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </section>
+@endsection
+@section('script')
+    <script>
+        $(document).ready(function () {
+            var demoRadios = $('[name="selectedAddress"]');
+            var newAddressSection = $('.new-address-section');
+            var selectedAddressDisplay = $('#selectedAddressDisplay');
+
+            function toggleNewAddressSection() {
+                if (demoRadios.is(':checked')) {
+
+                    var selectedRadio = demoRadios.filter(':checked');
+                    newAddressSection.show();
+
+                    if (selectedRadio.val() === '0') {
+                        selectedAddressDisplay.text('');
+                    } else {
+                        var selectedAddressDetails = {
+                            house_number: '{{ $address->house_number }}',
+                            street: '{{ $address->street }}',
+                            locality: '{{ $address->locality }}',
+                            town: '{{ $address->town }}',
+                            county: '{{ $address->county }}',
+                            billing_country: '{{ $address->billing_country }}',
+                            post_code: '{{ $address->post_code }}',
+                        };
+
+                        // Construct the address text
+                        var addressText = `${selectedAddressDetails.house_number ? selectedAddressDetails.house_number + ',' : ''} 
+                                            ${selectedAddressDetails.street ? selectedAddressDetails.street + ',' : ''} 
+                                            ${selectedAddressDetails.locality ? selectedAddressDetails.locality + ',' : ''} 
+                                            ${selectedAddressDetails.town ? selectedAddressDetails.town + ',' : ''} 
+                                            ${selectedAddressDetails.county}
+                                            ${selectedAddressDetails.billing_country ? ',' + selectedAddressDetails.billing_country : ''} 
+                                            ${selectedAddressDetails.post_code}`;
+
+                        // Set the text in the selectedAddressDisplay paragraph
+                        selectedAddressDisplay.text(addressText);
+                    }
+                } else {
+                    newAddressSection.hide();
+                    selectedAddressDisplay.text('');
+                }
+            }
+
+            // Attach the change event to all radio buttons with the name "selectedAddress"
+            demoRadios.on('change', toggleNewAddressSection);
+
+            // Trigger the change event on page load
+            toggleNewAddressSection();
+
+            // Show the choosePrimaryAddressModal on button click using Bootstrap's modal method
+            $('#chooseAddressButton').on('click', function () {
+                $('#choosePrimaryAddressModal').modal('show');
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var chooseAddressButton = document.getElementById("chooseAddressButton");
+            var choosePrimaryAddressModal = new bootstrap.Modal(document.getElementById('choosePrimaryAddressModal'));
+
+            chooseAddressButton.addEventListener("click", function () {
+                choosePrimaryAddressModal.show();
+            });
+        });
+
+        $(document).ready(function () {
+            $(".addNewAddress").click(function(){
+                    // $('.address_type').val('primary_address');
+                    $('#addNewAddressModal').modal('show');
+            }); 
+        });
+        
+        $('.select-address').click(function() {
+            var selectedAddressDetails = {
+                houseNumber: $(this).siblings('.address-house-number').val(),
+                street: $(this).siblings('.address-street').val(),
+                locality: $(this).siblings('.address-locality').val(),
+                town: $(this).siblings('.address-town').val(),
+                county: $(this).siblings('.address-county').val(),
+                postCode: $(this).siblings('.address-post-code').val(),
+                countryName: $(this).siblings('.address-country-name').val()
+            };
+
+            var addressText = `${selectedAddressDetails.houseNumber ? selectedAddressDetails.houseNumber + ',' : ''} 
+                            ${selectedAddressDetails.street ? selectedAddressDetails.street + ',' : ''} 
+                            ${selectedAddressDetails.locality ? selectedAddressDetails.locality + ',' : ''} 
+                            ${selectedAddressDetails.town ? selectedAddressDetails.town + ',' : ''} 
+                            ${selectedAddressDetails.county}
+                            ${selectedAddressDetails.countryName ? ',' + selectedAddressDetails.countryName : ''} 
+                            ${selectedAddressDetails.postCode}`;
+
+            $('#selectedAddressDisplay').text(addressText);
+            $('.new-address-section').show();
+        });
+
+        $('#findAddress').click(function(){
+            var post_code = $("#post_code").val();
+            console.log(post_code);
+            if(post_code==""){
+                $('.adderr').html('Please enter zipcode');
+                return false ;
+            }else{
+                $('#zip').val(post_code);
+                $('.adderr').html('');
+            }
+            $('#findAddress').html('Please Wait...');
+            $.ajax({
+                url: "{!! route('find-address') !!}",
+                type: 'GET',
+                data: {
+                    post_code: post_code
+                },
+                success: function(result) {
+                    console.log('result',result);
+                    if(result!=''){
+                        $("#exampleModalCenterAddress").show();
+                        $("#post_address_blk").html(result);
+                        $('#findAddress').html('Find Address');
+
+                    }else{
+                        alert('No Record Found! Choose another.');
+                        $('#findAddress').html('Find Address');
+
+                    }
+
+                },
+                error: function(){
+                    alert('No Record Found! Choose another.');
+                        $('#findAddress').html('Find Address');
+                }
+            });
+        });
+      
+        $("#saveAddr").click(function() {
+            $(".loader").show();
+            // Validation
+            $(".formInputModal").each(function() {
+                var number   = $(this).find(".house_no").val();
+                var steet    = $(this).find(".steet_no").val();
+                var locality = $(this).find(".locality").val();
+                var town     = $(this).find(".town").val();
+                var county   = $(this).find(".county").val();
+                if(county==undefined){
+                    county ="";
+                }
+
+                var postcode = $(this).find(".zip").val();
+                var contry   = $(this).find(".contry").val();
+                var address_type = $(this).find(".address_type").val();
+                var user_id   = $(this).find(".user_id").val();
+                //alert(number+steet+locality+town+postcode+contry+address_type+user_id);
+                if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
+                    //alert(number+"---"+address_type);
+                    $.ajax({
+                        url: "{!! route('new-address-save') !!}",
+                        type: 'POST',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            number: number,
+                            steet:steet,
+                            locality:locality,
+                            town:town,
+                            county:county,
+                            postcode:postcode,
+                            contry:contry,
+                            address_type:address_type,
+                            user_id:user_id
+                        },
+                        success: function(result) {
+                        $("#addNewAddressModal").modal('hide');
+                        setTimeout(function () {
+                            $(".loader").hide();
+                            location.reload(true);
+                        }, 2500);
+                        }
+                    });
+                }
+
+            });
+        });
+    </script>
 @endsection
