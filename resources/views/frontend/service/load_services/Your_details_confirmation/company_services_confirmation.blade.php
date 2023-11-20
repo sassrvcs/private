@@ -96,9 +96,9 @@
             <input class="form-check-input" type="checkbox" value="Yes" id="accept_terms" name="accept_terms"
                 required="">
             <label class="form-check-label" for="accept_terms">
-                I have read and accept the <a href="https://formationshunt.co.uk/terms-conditions/" class="link-primary"
+                I have read and accept the <a href="{{ route('page', ['slug' => 'terms-conditions'] ) }}" class="link-primary"
                     target="_blank">Terms and Conditions</a> &amp; <a
-                    href="https://formationshunt.co.uk/gdpr-privacy-policy/" class="link-primary"
+                    href="{{ route('page', ['slug' => 'refund-cancellation'] ) }}" class="link-primary"
                     target="_blank">Privacy Policy</a>.
             </label>
         </div>
