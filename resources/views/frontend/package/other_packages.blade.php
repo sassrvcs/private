@@ -239,7 +239,36 @@
                         <h2>Next package to find what’s missing </h2>
                     </div>
                     <div class="action-container" data-aos="fade-left" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                        <a href="#" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @if(request()->routeIs('digital_package'))
+                            <a href="{{route('privacy_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('privacy_package'))
+                            <a href="{{route('professional_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('professional_package'))
+                            <a href="{{route('prestige_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('prestige_package'))
+                            <a href="{{route('all_inclusive_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('all_inclusive_package'))
+                            <a href="{{route('non_residents_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('non_residents_package'))
+                            <a href="{{route('llp_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('llp_package'))
+                            <a href="{{route('guarantee_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('guarantee_package'))
+                            <a href="{{route('e_seller_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('e_seller_package'))
+                            <a href="{{route('plc_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('plc_package'))
+                            <a href="{{route('digital_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -277,7 +306,7 @@
     <div class="custom-container">
         <div class="sec-title1 text-center">
             <h2 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Take a look at our <br>
-                <span>Full secretary services £159.99</span>
+                <span>Full secretary services £{{$full_sec_price}}</span>
             </h2>
         </div>
         <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At Formationhunt, you can avail of the best full company secretary service that includes a company secretary and a dedicated and efficient account manager who will take care of the entire statutory registers, make changes in the company as per your instructions and prepare and file company’s confirmation statement.</p>
@@ -399,36 +428,26 @@
             <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our Banking <span>Partners</span></h2>
         </div>
         <ul data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            @foreach ($businessdata as $index => $data)
             <li>
                 <div class="logo-container">
-                    <img src="{{ asset('frontend/assets/images/ourBankingPartners-logo1.svg') }}">
+                    <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
                 </div>
             </li>
-            <li>
-                <div class="logo-container">
-                    <img src="{{ asset('frontend/assets/images/ourBankingPartners-logo2.svg') }}">
-                </div>
-            </li>
-            <li>
-                <div class="logo-container">
-                    <img src="{{ asset('frontend/assets/images/ourBankingPartners-logo3.svg') }}">
-                </div>
-            </li>
-            <li>
-                <div class="logo-container">
-                    <img src="{{ asset('frontend/assets/images/ourBankingPartners-logo4.svg') }}">
-                </div>
-            </li>
-            <li>
-                <div class="logo-container">
-                    <img src="{{ asset('frontend/assets/images/ourBankingPartners-logo5.svg') }}">
-                </div>
-            </li>
-            <li>
-                <div class="logo-container">
-                    <img src="{{ asset('frontend/assets/images/ourBankingPartners-logo6.svg') }}">
-                </div>
-            </li>
+
+
+            @endforeach
+
+            @foreach ($accounting as $item => $data)
+                <li>
+                    <div class="logo-container">
+                        <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
+                    </div>
+                </li>
+
+
+            @endforeach
+
         </ul>
     </div>
 </div>
