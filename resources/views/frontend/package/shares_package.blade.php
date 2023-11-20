@@ -1,272 +1,496 @@
 @extends('layouts.master')
 @section('content')
-    <!-- ================ start: main-header ================ -->
-
-    <!-- ================ end: main-header ================ -->
-
-
-    <!-- ================ start: common-inner-page-banner ================ -->
-
-    <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png') }}">
-        <div class="custom-container">
-            <div class="left-info">
-                <figure  data-aos="fade-up" data-aos-delay="50"
-                data-aos-duration="500" data-aos-once="true">
-                    <div class="icon-container">
-                        <span><img src="{{ asset('frontend/assets/images/ic_round-mail.svg')}}"></span>
-                    </div>
-                    <figcaption>{{ $packages->package_name}} <span>Package</span></figcaption>
-                </figure>
+    <!-- ================ start: digital-packages-banner ================ -->
+<div class="digital-packages-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
+    <div class="custom-container">
+        <div class="inner-wrapper">
+            <div class="icon-container">
+                <span><img src="{{ asset('frontend/assets/images/earch-icon.svg') }}"></span>
             </div>
-            <div class="center-info">
-                <ul class="prev-nav-menu"  data-aos="fade-up" data-aos-delay="100"
-                data-aos-duration="1000" data-aos-once="true">
-                    <li><a href="{{route('index')}}">Home</a></li>
-                    <li><a>{{ $packages->package_name}} Package</a></li>
-                </ul>
-            </div>
-            <div class="call-info"  data-aos="fade-up" data-aos-delay="150"
-            data-aos-duration="1500" data-aos-once="true">
-                <div class="icon-container">
-                    <img src="{{ asset('frontend/assets/images/ic_baseline-phone.svg')}}">
-                </div>
-                <div class="text-box">
-                    <p>Free Consultations 24/7</p>
-                    <h4><a href="tel:020 3002 0032">020 3002 0032</a></h4>
+            <div class="text-container">
+                <h1>{{ $packages->package_name}} <span>Package <br>
+                        Company Registration</span></h1>
+                <h4>LTD Company Package</h4>
+                <div class="action-btns">
+
+                    @if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
+                                <a href="{{ route('add-cart', ['id' => $packages->id]) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+                            @else
+                                <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
+                                data-target="#exampleModal" data-whatever="@fat" data-id = "{{$packages->id}}" data-name= "{{strtoupper($packages->package_name)}}">Buy Now</a>
+                    @endif
                 </div>
             </div>
         </div>
-    </section>
-    <!-- ================ end: common-inner-page-banner ================ -->
+    </div>
+</div>
+<!-- ================ end: digital-packages-banner ================ -->
 
-    <!-- ================ start: digitalPackage-sec ================ -->
-    <section class="digitalPackage-sec">
-        <div class="custom-container">
-            <div class="left-information" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
-                data-aos-once="true">
-                <h2>{{$packages->package_name}} <span>Package</span></h2>
-                {{-- <p>{{$packages->short_description}}</p> --}}
-                {!!$packages->description!!}
-                <div class="next-package-bar-s1" data-aos="fade-right" data-aos-delay="200" data-aos-duration="2000"
-                    data-aos-once="true">
-                    <h4>Go to our next package to find what’s missing ➤</h4>
-                </div>
-            </div>
-            <div class="right-information" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
-                data-aos-once="true">
-                <a href="{{ route('package') }}" class="view-all-btn theme-btn-primary ">View all Packages</a>
+<!-- ================ start: digitalPackage-sec ================ -->
+<section class="digitalPackage-sec">
+    <div class="custom-container">
+        <div class="left-information" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            <h2>{{ $packages->package_name}} <span>Package</span></h2>
+           {!!$packages->description!!}
 
-                <div class="companyFormationPackages-lists">
-                    <div class="cfp-list-col mw-100" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500"
-                        data-aos-once="true">
-                        <div class="cfp-list-box">
-                            <div class="top-icon-box">
-                                <div class="inner-box">
-
-                                    @if ($icon!='')
-                                    <img src="{{$icon}}">
-                                    @else
-                                    <img src="{{ asset('frontend/assets/images/companyFormationPackages1.svg')}}">
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="text-info1">
-                                <h4>{{$packages->package_name}}</h4>
-                                <h3>£{{$packages->package_price}}</h3>
-                            </div>
-                            <ul class="list-info">
-                                @foreach ($features as $feature)
-                                <li>
-                                    @if ($feature->feature!='')
+        </div>
+        <div class="right-information">
+            <div class="digitalPackage-right-lists">
+                <div class="digitalPackage-right-list-col">
+                    <div class="digitalPackage-right-list-box floatTop">
+                        <div class="top-price-info">
+                            <h4>{{ $packages->package_name}} <br> <span>Package</span></h4>
+                            <h3>£{{$packages->package_price}}</h3>
+                            <p>Includes</p>
+                        </div>
+                        <ul class="list-info">
+                            @foreach ($features as $feature)
+                            <li>
+                                @if ($feature->feature!='')
                                     <div class="icon-container">
                                     </div>
-                                    <p>{{$feature->feature}}</p>
-                                    @endif
-                                </li>
-                                @endforeach
-                            </ul>
-                            <div class="bottom-actions">
-                                @if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
-                                <a href="{{ route('add-cart', ['id' => $packages->id]) }}"
-                                    class="theme-btn-primary buy-btn">Buy Now</a>
+                                    <p>{{$feature->feature}} </p>
+                                @endif
+
+                            </li>
+                            @endforeach
+                        </ul>
+                        <div class="action-btns">
+                            @if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
+                                <a href="{{ route('add-cart', ['id' => $packages->id]) }}" class="buy-btn theme-btn-primary">Buy Now</a>
                             @else
-                            <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
-                            data-target="#exampleModal" data-whatever="@fat" data-id = "{{$packages->id}}" data-name= "{{strtoupper($packages->package_name)}}">Buy Now</a>
+                                <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
+                                data-target="#exampleModal" data-whatever="@fat" data-id = "{{$packages->id}}" data-name= "{{strtoupper($packages->package_name)}}">Buy Now</a>
                             @endif
-                            </div>
+                        </div>
+                        <div class="floating-action-btns">
+                            <a href="{{ route('package') }}" class="theme-btn-darkBlue view-btn">View All Packages</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="digitalPackage-right-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                    <div class="digitalPackage-right-list-box">
+                        <h3>Financial <span>Services</span></h3>
+                        <ul class="list-info">
+                            <li>
+                                <div class="icon-container icon-right-arow">
+                                </div>
+                                <p>Banking Services 01</p>
+                            </li>
+                            <li>
+                                <div class="icon-container icon-right-arow">
+                                </div>
+                                <p>Banking Services 02</p>
+                            </li>
+                            <li>
+                                <div class="icon-container icon-right-arow">
+                                </div>
+                                <p>Banking Services 03</p>
+                            </li>
+                            <li>
+                                <div class="icon-container icon-right-arow">
+                                </div>
+                                <p>Banking Services 04</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================ end: digitalPackage-sec ================ -->
+<x-company_name_check />
+{{-- <!-- ================ start: additionalServices-sec ================ -->
+<div class="additionalServices-sec">
+    <div class="custom-container">
+        <div class="sec-title1 text-center">
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Additional <span>Services</span>
+            </h2>
+        </div>
+        <div class="additionalServices-lists">
+            <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="h3-with-text">
+                    <div class="icon-container">
+                        <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
+                    </div>
+                    <h3>Banking Services 01</h3>
+                </div>
+                <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide professional support and advice, so that you are aware of the requirements of company formation.</p>
+            </div>
+            <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="h3-with-text">
+                    <div class="icon-container">
+                        <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
+                    </div>
+                    <h3>Banking Services 01</h3>
+                </div>
+                <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide professional support and advice, so that you are aware of the requirements of company formation.</p>
+            </div>
+            <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="h3-with-text">
+                    <div class="icon-container">
+                        <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
+                    </div>
+                    <h3>Banking Services 01</h3>
+                </div>
+                <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide professional support and advice, so that you are aware of the requirements of company formation.</p>
+            </div>
+            <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="h3-with-text">
+                    <div class="icon-container">
+                        <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
+                    </div>
+                    <h3>Banking Services 01</h3>
+                </div>
+                <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide professional support and advice, so that you are aware of the requirements of company formation.</p>
+            </div>
+            <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="h3-with-text">
+                    <div class="icon-container">
+                        <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
+                    </div>
+                    <h3>Banking Services 01</h3>
+                </div>
+                <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide professional support and advice, so that you are aware of the requirements of company formation.</p>
+            </div>
+            <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="h3-with-text">
+                    <div class="icon-container">
+                        <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
+                    </div>
+                    <h3>Banking Services 01</h3>
+                </div>
+                <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide professional support and advice, so that you are aware of the requirements of company formation.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ================ end: additionalServices-sec ================ --> --}}
+
+<!-- ================ start: whatMakesDifferent-sec01 ================ -->
+<div class="whatMakesDifferent-sec01">
+    <div class="whatMakesDifferent-sec01-sec1 for-ourDifferent">
+        <div class="custom-container">
+            <div class="image-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <img src="{{ asset('frontend/assets/images/for-ourDifferent-pic.png') }}">
+            </div>
+            <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="left-border">
+                    <h1>Our different <br />
+                        <span>Services</span>
+                    </h1>
+                </div>
+                <p>After dealing with so many companies and their problems we have established ourselves as an experienced company formation agent and become an authorised E-filing agent of Companies House, a body responsible for UK limited company formation.</p>
+                <div class="for-ourDifferent-text-lists">
+                    <div class="for-ourDifferent-list-col">
+                        <div class="for-ourDifferent-list-box">
+                            <figure>
+                                <div class="icon-container">
+                                    <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
+                                </div>
+                                <figcaption>Lorem ipsum dolor sit amet</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="for-ourDifferent-list-col">
+                        <div class="for-ourDifferent-list-box">
+                            <figure>
+                                <div class="icon-container">
+                                    <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
+                                </div>
+                                <figcaption>Lorem ipsum dolor sit amet</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="for-ourDifferent-list-col">
+                        <div class="for-ourDifferent-list-box">
+                            <figure>
+                                <div class="icon-container">
+                                    <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
+                                </div>
+                                <figcaption>Lorem ipsum dolor sit amet</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="for-ourDifferent-list-col">
+                        <div class="for-ourDifferent-list-box">
+                            <figure>
+                                <div class="icon-container">
+                                    <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
+                                </div>
+                                <figcaption>Lorem ipsum dolor sit amet</figcaption>
+                            </figure>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <x-company_name_check />
-
-    <!-- ================ end: digitalPackage-sec ================ -->
-
-    <!-- ================ start: whatmakedifferent-sec ================ -->
-    <div class="whatmakedifferent-sec-multiple-left-right">
-        <section class="whatmakedifferent-sec">
-            <div class="image-container" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500"
-                data-aos-once="true">
-                <img src="{{ asset('frontend/assets/images/whatmakedifferent-pic.png')}}">
-            </div>
-            <div class="text-container" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000"
-                data-aos-once="true">
-                <h2>Take a look at our Full secretary services £159.99</h2>
-
-                <p>At Formationhunt, you can avail of the best full company secretary service that includes a company
-                    secretary and a dedicated and efficient account manager who will take care of the entire statutory
-                    registers, make changes in the company as per your instructions and prepare and file company’s
-                    confirmation statement.</p>
-                <p>This service proves extremely helpful for companies as it provides peace of mind that the company’s
-                    secretarial aspects are well taken care of as well as ensures the company’s records are up-to-date
-                    and compliant. </p>
-            </div>
-
-        </section>
-        <div class="logo-center-stamp"></div>
-        <section class="whatmakedifferent-sec">
-            <div class="image-container" data-aos="fade-left" data-aos-delay="150" data-aos-duration="1500"
-                data-aos-once="true">
-                <img src="{{ asset('frontend/assets/images/whatmakedifferent-pic2.png')}}">
-            </div>
-            <div class="text-container" data-aos="fade-right" data-aos-delay="200" data-aos-duration="2000"
-                data-aos-once="true">
-                <h2>Not a UK resident? take a look at our Non-residents package</h2>
-
-                <p>Our idea is to help our non-UK clients set up their businesses effortlessly and without any hassle.
-                    Thus, we provide them with a range of services to ensure a streamlined working experience with us.
-                </p>
-            </div>
-        </section>
     </div>
-    <!-- ================ end: whatmakedifferent-sec ================ -->
 
-    <!-- ================ start: ourServices-sec ================ -->
-    <section class="ourServices-sec top-padding">
-        <div class="custom-container">
-            <div class="sec-title1 text-center">
-                <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Free Toolkits
-                    <span>For Your Business</span>
-                </h2>
+    <div class="whatMakesDifferent-sec01-sec2">
+        <div class="to-see-all-sec">
+            <div class="custom-container">
+                <div class="to-see-all-sec-youtube-bg" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><img src="{{ asset('frontend/assets/images/cardIcon.png') }}"></div>
+                <div class="box-wrapper">
+                    <div class="text-container" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                        <h3>Go to our </h3>
+                        <h2>Next package to find what’s missing </h2>
+                    </div>
+                    <div class="action-container" data-aos="fade-left" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                        @if(request()->routeIs('digital_package'))
+                            <a href="{{route('privacy_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('privacy_package'))
+                            <a href="{{route('professional_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('professional_package'))
+                            <a href="{{route('prestige_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('prestige_package'))
+                            <a href="{{route('all_inclusive_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('all_inclusive_package'))
+                            <a href="{{route('non_residents_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('non_residents_package'))
+                            <a href="{{route('llp_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('llp_package'))
+                            <a href="{{route('guarantee_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('guarantee_package'))
+                            <a href="{{route('e_seller_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('e_seller_package'))
+                            <a href="{{route('plc_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                        @if(request()->routeIs('plc_package'))
+                            <a href="{{route('digital_package')}}" class="theme-btn-darkBlue click-btn">Click here</a>
+                        @endif
+                    </div>
+                </div>
             </div>
-            <ul class="toolkit-lists" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
-                data-aos-once="true">
+        </div>
+    </div>
+
+    <div class="whatMakesDifferent-sec01-sec3">
+        <div class="custom-container">
+            <div class="text-container">
+                <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident Package</span></h1>
+                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec luctus urna, sed facilisis dolor. Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Nam laoreet vestibulum purus, sed suscipit odio convallis ac. In faucibus tincidunt est, </p>
+                <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                    <a href="{{route('non_residents_package')}}" class="theme-btn-primary read-more-btn">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- ================ end: whatMakesDifferent-sec01 ================ -->
+<div class="position-relative">
+    <div class="callUs-floating show">
+        <button type="button" class="cancel-btn"><img src="{{ asset('frontend/assets/images/cancel-icon.svg') }}"></button>
+        <div class="icon-container">
+            <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
+        </div>
+        <div class="text-container">
+            <h4>Call Us: </h4>
+            <h2><a href="tel:020 3002 0032">020 3002 0032</a></h2>
+        </div>
+    </div>
+</div>
+<!-- ================ start: take-look-t-our-sec01 ================ -->
+<div class="take-look-t-our-sec01">
+    <div class="custom-container">
+        <div class="sec-title1 text-center">
+            <h2 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Take a look at our <br>
+                <span>Full secretary services £{{$full_sec_price}}</span>
+            </h2>
+        </div>
+        <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At Formationhunt, you can avail of the best full company secretary service that includes a company secretary and a dedicated and efficient account manager who will take care of the entire statutory registers, make changes in the company as per your instructions and prepare and file company’s confirmation statement.</p>
+        <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            <a href="{{route('company_services', 'full-company-secretary-service')}}" class="theme-btn-primary buy-now-btn">Buy Now</a>
+        </div>
+    </div>
+</div>
+<!-- ================ end: take-look-t-our-sec01 ================ -->
+<!-- ================ start: needLittleHelp-sec ================ -->
+<div class="needLittleHelp-sec">
+    <div class="custom-container">
+        <div class="left_div">
+            <ul class="contactUl" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <li>
-                    <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit1.svg')}}">
+                    <div class="icon-container">
+                        <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
+                    </div>
+                    <div class="text-container">
+                        <h4>Call Us: </h4>
+                        <h2><a href="tel:020 3002 0032">020 3002 0032</a></h2>
                     </div>
                 </li>
                 <li>
-                    <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit2.svg')}}">
+                    <div class="icon-container">
+                        <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
                     </div>
-                </li>
-                <li>
-                    <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit3.svg')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit4.svg')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit5.svg')}}">
+                    <div class="text-container">
+                        <h4>Mail us: </h4>
+                        <h2><a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h2>
                     </div>
                 </li>
             </ul>
-
-            @if (@$faqs[0]->question!=null)
-            <div class="faq-sec">
-
-                <div class="sec-title1 text-center">
-                    <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">FAQ’s</h2>
-                </div>
-                <div id="faq-accordion" class="faq-accordion">
-                    @foreach ($faqs as $faq)
-                    <div class="card"  data-aos="fade-up" data-aos-delay="50"
-                    data-aos-duration="500" data-aos-once="true">
-
-                            <div class="card-header" id="faqHeading{{ $faq->id }}">
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#faq{{ $faq->id }}" aria-expanded="true"
-                                    aria-controls="faq{{ $faq->id }}">
-                                   {{ $faq->question }}
-                                </button>
+        </div>
+        <div class="right_div" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            <h1>Need a <br>little help?</h1>
+            <p>We love talking to you when it comes to creating something new. We want you to remember us always, let’s be good for good and for a good reason. Reach us through your voice or writing.</p>
+        </div>
+    </div>
+</div>
+<!-- ================ end: needLittleHelp-sec ================ -->
+<!-- ================ start: clientReviews-sec01 ================ -->
+<div class="clientReviews-sec01">
+    <div class="custom-container">
+        <div class="sec-title1 text-center">
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Client <span>Reviews</span></h2>
+        </div>
+        <div class="clientReviews-sec01-wrapper">
+            <div class="left_div">
+                <ul class="clientReviews-sec01-slider" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                    <li>
+                        <div class="clientReviews-sec01-slider-box">
+                            <div class="qutes1">
+                                <img src="{{ asset('frontend/assets/images/qutes1.svg') }}">
                             </div>
-
-                            <div id="faq{{ $faq->id }}" class="collapse show" aria-labelledby="faqHeading{{ $faq->id }}" data-parent="#faq-accordion">
-                                <div class="card-body">
-                                    <p>{{ $faq->answer }}</p>
-
+                            <p>Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit.Vestibulum ligula.</p>
+                            <figure>
+                                <div class="user-img-container">
+                                    <img src="{{ asset('frontend/assets/images/user-img-container1.png') }}">
                                 </div>
-                            </div>
+                                <figcaption>
+                                    <h3>David John</h3>
+                                    <h4>CEO, Our Company</h4>
+                                </figcaption>
+                            </figure>
                         </div>
-                    @endforeach
-                </div>
-            </div>
-            @endif
-            <div class="need-little-help">
-                <div class="left-box" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000"
-                    data-aos-once="true">
-                    <h3>Need a little help?</h3>
-                    <p>We love talking to you when it comes to creating something new. We want you to remember us
-                        always, let’s be good for good and for a good reason. Reach us through your voice or writing.
-                    </p>
-                </div>
-                <div class="right-box" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1500"
-                    data-aos-once="true">
-                    <ul>
-                        <li>
-                            <img src="{{ asset('frontend/assets/images/ic_round-phone.svg')}}">
-                            <div class="text-box">Call Us: <a href="tel:020 3002 0032">020 3002 0032</a></div>
-                        </li>
-                        <li>
-                            <img src="{{ asset('frontend/assets/images/ic_round-mail.svg')}}">
-                            <div class="text-box">
-                                mail to: <a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a>
+                    </li>
+                    <li>
+                        <div class="clientReviews-sec01-slider-box">
+                            <div class="qutes1">
+                                <img src="{{ asset('frontend/assets/images/qutes1.svg') }}">
                             </div>
-                        </li>
-                    </ul>
-                </div>
+                            <p>Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit.Vestibulum ligula.</p>
+                            <figure>
+                                <div class="user-img-container">
+                                    <img src="{{ asset('frontend/assets/images/user-img-container1.png') }}">
+                                </div>
+                                <figcaption>
+                                    <h3>David John</h3>
+                                    <h4>CEO, Our Company</h4>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="clientReviews-sec01-slider-box">
+                            <div class="qutes1">
+                                <img src="{{ asset('frontend/assets/images/qutes1.svg') }}">
+                            </div>
+                            <p>Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit.Vestibulum ligula.</p>
+                            <figure>
+                                <div class="user-img-container">
+                                    <img src="{{ asset('frontend/assets/images/user-img-container1.png') }}">
+                                </div>
+                                <figcaption>
+                                    <h3>David John</h3>
+                                    <h4>CEO, Our Company</h4>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="right_div" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="clientReviews-sec01-f-Pic1"><img src="{{ asset('frontend/assets/images/clientReviews-sec01-fPic1.png') }}"></div>
+                <div class="clientReviews-sec01-f-Pic2"><img src="{{ asset('frontend/assets/images/clientReviews-sec01-fPic2.png') }}"></div>
+                <div class="clientReviews-sec01-f-Pic3"><img src="{{ asset('frontend/assets/images/clientReviews-sec01-fPic3.png') }}"></div>
+                <div class="clientReviews-sec01-f-Pic4"><img src="{{ asset('frontend/assets/images/clientReviews-sec01-fPic4.png') }}"></div>
+                <div class="clientReviews-sec01-f-Pic5"><img src="{{ asset('frontend/assets/images/clientReviews-sec01-fPic5.png') }}"></div>
             </div>
         </div>
-    </section>
-    <!-- ================ end: ourServices-sec ================ -->
+    </div>
+</div>
+<!-- ================ end: clientReviews-sec01 ================ -->
+<!-- ================ start: ourBankingPartners-sec01 ================ -->
+<div class="ourBankingPartners-sec01">
+    <div class="custom-container">
+        <div class="sec-title1 text-center">
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our Banking <span>Partners</span></h2>
+        </div>
+        <ul data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
 
-    <!-- ================ start: our-banking-sec ================ -->
-    <section class="our-banking-sec">
-        <div class="custom-container">
-            <div class="sec-title1 text-center">
-                <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our Banking
-                    <span>Partners</span>
-                </h2>
-            </div>
-            <div class="our-banking-slider aos-init aos-animate" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
+            @foreach ($businessdata as $index => $data)
+            <li>
+                <div class="logo-container">
+                    <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
+                </div>
+            </li>
 
-                @foreach ($businessdata as $index => $data)
 
-                        <div class="our-banking-item">
-                            <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
+            @endforeach
+
+            @foreach ($accounting as $item => $data)
+                <li>
+                    <div class="logo-container">
+                        <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
+                    </div>
+                </li>
+
+
+            @endforeach
+
+        </ul>
+    </div>
+</div>
+<!-- ================ end: ourBankingPartners-sec01 ================ -->
+<!-- ================ start: faq-002-sec ================ -->
+@if (@$faqs[0]->question!=null)
+<div class="faq-002-sec">
+    <div class="custom-container">
+        <div class="sec-title1 text-center">
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="aos-init aos-animate">Frequently Asked <span>Questions</span></h2>
+        </div>
+
+        <div id="accordion" class="faq-002-accordion-sec">
+            @foreach ($faqs as $faq)
+                <div class="card" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                    <div class="card-header" id="headingOne{{ $faq->id }}">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne{{ $faq->id }}" aria-expanded="false" aria-controls="collapseOne{{ $faq->id }}">
+                            <div class="plus-minus-btn">
+                                <img src="{{ asset('frontend/assets/images/plus-whtie.svg') }}" class="plus">
+                                <img src="{{ asset('frontend/assets/images/plus-whtie.svg') }}" class="minus">
+                            </div>
+                            <div class="textp">{{ $faq->question }}</div>
+                        </button>
+                    </div>
+
+                    <div id="collapseOne{{ $faq->id }}" class="collapse" aria-labelledby="headingOne{{ $faq->id }}" data-parent="#accordion">
+                        <div class="card-body">
+                            <p>{{ $faq->answer }}</p>
                         </div>
+                    </div>
+                </div>
 
-                @endforeach
+            @endforeach
 
-                @foreach ($accounting as $item => $data)
-
-                        <div class="our-banking-item">
-                            <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
-                        </div>
-
-                @endforeach
+        </div>
 
     </div>
-        </div>
-    </section>
-    <!-- ================ end: our-banking-sec ================ -->
+</div>
+@endif
+
+
+
 
 
 @endsection

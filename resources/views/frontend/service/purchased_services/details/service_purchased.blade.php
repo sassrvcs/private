@@ -55,7 +55,21 @@
                                     @if ($slug=="director-appointment-resignation")
                                             @include('frontend.service.purchased_services.details.directorAppointmentResignation')
                                     @endif
+                                    @if ($slug=="full-company-secretary-service")
+                                             @include('frontend.service.purchased_services.details.fullSecraryService')
+                                    @endif
+                                    @if ($slug=="issue-of-share-services" || $slug=="transfer-of-share-services")
+                                             @include('frontend.service.purchased_services.details.issueOfShareServices')
+                                    @endif
+                                    @if ($slug=="directors-service-address" || $slug=="registered-office-address")
+                                             @include('frontend.service.purchased_services.details.directorServiceAddress')
+                                    @endif
+                                    @if ($slug=='vat-registration'||$slug=='business-email')
+                                    @include('frontend.service.purchased_services.details.invoice_table.userDetailsBusinessService')
+
+                                    @else
                                     @include('frontend.service.purchased_services.details.invoice_table.userDetails')
+                                    @endif
 
                                 </div>
                             </div>

@@ -40,7 +40,7 @@
                                         <p>The use of our HA4 London address is available for directors, shareholders, secretaries and persons with significant control (PSCs) to keep their home address private. </p>
                                         <p>All statutory mail will be scanned and emailed to you. Please send ID and address proof within 7 days of service commencement.</p>
                                         <p><strong>Fields marked with an asterisk (<span class="starred">*</span>) are required.</strong></p>
-                                        
+
                                     </div>
                                     <div class="col-md-8 p-3 d-block mb-3 position-relative shadow">
                                         <br>
@@ -86,7 +86,7 @@
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control required_app" name="stat_email" id="stat_email" value="" required="">
                                             </div>
-                                        </div>           
+                                        </div>
                                     </div>
                                     <div class="col-md-8 p-3 d-block mb-3 position-relative shadow">
                                         <h5><strong>Popular Add-ons with director's service address</strong></h5>
@@ -95,26 +95,26 @@
                                             <input class="form-check-input hasprice popupAmnt" type="checkbox" name="dir_serv_addr[]" id="london-registered-office-address" value="3709" data-title="London registered office address" data-serid="3709">
                                             <label class="form-check-label" for="london-registered-office-address">
                                             <strong>London registered office address<span id="od3_price" class="doc_chk">£35.00</span></strong>
-                                            </label> 
+                                            </label>
                                             <div class="col-md-10 p-1">
                                                 <p>Using this popular service, you can protect the privacy of your home address while enhancing the corporate image of your new company. You can use this registered office address in all your business stationery and websites.</p>
                                                 <p>We will receive all your official statutory mails at our office. Statutory mail for the purposes of this service is mail received from HMRC or Companies House. We will open, scan and forward all official mail to the email address given during the application. This service is renewable on an yearly basis for a small<br>
-                                                fee of £35.00+vat.</p>                        
-                                            </div> 
-                                            <input type="hidden" name="london-registered-office-address-price" id="london-registered-office-address-price" value="35.00">                
+                                                fee of £35.00+vat.</p>
+                                            </div>
+                                            <input type="hidden" name="london-registered-office-address-price" id="london-registered-office-address-price" value="35.00">
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input hasprice popupAmnt" type="checkbox" name="dir_serv_addr[]" id="london-business-address" value="3710" data-title="London business address" data-serid="3710">
                                             <label class="form-check-label" for="london-business-address">
                                             <strong>London business address<span id="od3_price" class="doc_chk">£99.00</span></strong>
-                                            </label> 
+                                            </label>
                                             <div class="col-md-10 p-1">
                                                 <p>The use of our SW4 London address as your business correspondence address for your company. You can hide your home address from your suppliers, contractors, customers and marketing agencies. We will receive your business mails on your behalf.</p>
                                                 <p>We will open, scan and forward all your mails to the email address given during the application. If you wish to receive them by post, we will not open and scan your letters.</p>
                                                 <p>Instead we will forward the mails to your postal address for additional charge of 50p+postage per item. As a FREE service, we will<br>
-                                                automatically eliminate mail that we deem to be junk mail and destroy it.</p>                        
-                                            </div> 
-                                            <input type="hidden" name="london-business-address-price" id="london-business-address-price" value="99.00">                
+                                                automatically eliminate mail that we deem to be junk mail and destroy it.</p>
+                                            </div>
+                                            <input type="hidden" name="london-business-address-price" id="london-business-address-price" value="99.00">
                                         </div>
                                     </div>
 
@@ -183,14 +183,14 @@
 
         var proPrice = parseFloat({{ $prices['directors_service_address_price'] }});
         var shareVal = parseInt($('#no_of_officer :selected').val());
-        
+
         tr = '';
 
         if($("#no_of_officer :selected").val() !=''){
-                console.log(sum+'--'+shareVal+'=='+proPrice); 
+                console.log(sum+'--'+shareVal+'=='+proPrice);
                 officer_sum = (proPrice * shareVal);
                 sum = officer_sum
-                tr += "<tr><td>Director Service Address</td><td>Number of officers</td><td>£" +
+                tr += "<tr><td>Director Service Address</td><td>Number of officers "+shareVal+"</td><td>£" +
                     parseFloat(officer_sum).toFixed(2) + "</td></tr>";
                 console.log(sum);
         }
@@ -198,13 +198,13 @@
         if ($("#london-registered-office-address").is(":checked")) {
             sum += coi;
             tr += "<tr><td></td><td>London registered office address</td><td>£" +
-                    parseFloat(coi).toFixed(2) + "</td></tr>";      
+                    parseFloat(coi).toFixed(2) + "</td></tr>";
         }
         if ($("#london-business-address").is(":checked")){
             sum += ma;
             tr += "<tr><td></td><td>London business address</td><td>£" +
                     parseFloat(ma).toFixed(2) + "</td></tr>";
-        } 
+        }
 
         if (sum == 0)
           $(".total_priceAmnt").text("Online Application");

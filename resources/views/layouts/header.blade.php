@@ -57,7 +57,7 @@
                                         <a class="dropdown-item" href="{{route('company_services', 'vat-registration')}}">VAT Registration</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'paye-registration')}}">PAYE Registration</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'business-telephone-services')}}">Business Telephone Services</a>
-                                        <a class="dropdown-item" href="{{route('company_services', 'business-web-design-marketing')}}">Business Web Design/Marketing</a>
+                                        <a class="dropdown-item" href="{{route('buisness_web_design')}}">Business Web Design/Marketing</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'data-protection-registration')}}">Data Protection Registration</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'gdpr-compliance-package')}}">GDPR Complaince Package</a>
                                     </div>
@@ -100,7 +100,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="{{ route('page', ['slug' => 'about-us'] ) }}">About Us</a>
+                    <a href="{{ route('aboutUs') }}">About Us</a>
                 </li>
                 <li>
                     <a href="#">Blogs</a>

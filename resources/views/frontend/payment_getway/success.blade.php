@@ -10,7 +10,14 @@
         <div class="text">
           <h2>Thank You!</h2>
           <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, vero dolorum fugit consectetur vel debitis laborum incidunt harum quis cum tempora dolorem reiciendis, possimus praesentium id quas ut assumenda. Vitae.</p>
-          <a href="{{route('companies-list')}}">Home</a>
+          @php
+              if (Route::is('service-payment-success')) {
+                $route = route('purchased-service-list');
+              }else{
+                $route = route('companies-list');
+              }
+          @endphp
+          <a href="{{$route}}">Home</a>
         </div>
       </div>
     </div>

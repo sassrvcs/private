@@ -110,6 +110,8 @@ Route::get('/package/e-seller', [WebPackageController::class,'e_seller'])->name(
 Route::get('/package/plc', [WebPackageController::class,'plc'])->name('plc_package');
 
 Route::get('/company-services/{service_name}', [WebPackageController::class,'get_services'])->name('company_services');
+Route::get('/services/business-web-design-marketing', [WebPackageController::class,'buisness_web_design'])->name('buisness_web_design');
+
 Route::get('/load-company-services/{service_slug}/{service_id}',[WebPackageController::class,'loadCompanyService'])->name('load_company_service');
 Route::post('/submit-company-services/{service_slug}/{service_id}',[WebPackageController::class,'submitCompanyService'])->name('submit_company_service');
 
@@ -167,6 +169,8 @@ Route::get('companies/pdf/memo-articles-full', [CompaniesListController::class, 
 
 Route::get('/search-companie', CompanieController::class);
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
+Route::get('about-us', [PageController::class, 'aboutUs'])->name('aboutUs');
+
 // Route::get('refund-cancellation', [PageController::class, 'refundcancellation'])->name('page.refundcancellation');
 
 Route::get('registered-address', [CompanyFormController::class, 'registerAddress'])->middleware('auth')->name('registered-address');
@@ -250,6 +254,8 @@ Route::resource('ticket', TicketController::class)->middleware('auth');
 Route::get('ticket-replies/{id}', [TicketController::class,'view_ticket_replies'])->name('view-ticket-replies')->middleware('auth');
 Route::post('add-ticket-replies', [TicketController::class,'add_ticket_replies'])->name('add-ticket-replies')->middleware('auth');
 Route::get('pay/service-checkout/{id}', [WebPackageController::class, 'serviceValidateAuth'])->name('service-checkout');
+Route::get('purchased-service-invoice/{id}', [WebPackageController::class, 'purchasedServiceInvoice'])->name('purchased-service-invoice');
+
 Route::post('pay/service-payment-now', [CheckoutStepController::class, 'servicePaymentNow'])->name('service-payment-now');
 Route::get('pay/service-payment-success', [WebPackageController::class, 'servicePaymentSuccess'])->name('service-payment-success');
 

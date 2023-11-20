@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -14,15 +15,18 @@ class ServicePurchaseMail extends Mailable
     use Queueable, SerializesModels;
     private $serviceDetails;
     private $userDetails;
+    private $pdf;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($serviceDetails,$userDetails)
+    public function __construct($serviceDetails,$userDetails,$pdf)
     {
         $this->serviceDetails = $serviceDetails;
         $this->userDetails = $userDetails;
+        $this->pdf = $pdf;
     }
 
     /**
@@ -61,6 +65,8 @@ class ServicePurchaseMail extends Mailable
      */
     public function attachments()
     {
-        return [];
+        return [Attachment::fromPath($this->pdf)
+        ->as('Invoice.pdf')
+        ->withMime('application/pdf'),];
     }
 }
