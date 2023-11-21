@@ -7,6 +7,7 @@ use App\Services\User\UserService;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use App\Services\Order\OrderService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Person_appointment;
 use App\Models\PersonOfficer;
@@ -15,10 +16,12 @@ use App\Models\Address;
 use App\Models\Companie;
 use App\Models\companyXmlDetail;
 use App\Models\Country;
+use App\Models\Purchase_address;
 use App\Models\Order;
 use App\Models\Package;
 use App\Models\Jurisdiction;
 use App\Models\Nationality;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 use Illuminate\Support\Str;
@@ -338,6 +341,17 @@ class CompaniesListController extends Controller
 
         $cartInfo = ShoppingCart::where(['user_id' => auth()->user()->id])->get()->first();
 
+        $user = Auth::user();
+        $countryList = Country::all();
+        $purchase_address = Purchase_address::where('address_type', 'registered_address')->get();
+        $primary_address_list = Address::join('countries','countries.id','=','addresses.billing_country')
+                                    ->select('addresses.house_number','countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+                                    ->where('addresses.user_id',Auth::user()->id)
+                                    ->orderBy('addresses.id','DESC')
+                                    ->distinct()
+                                    ->get()
+                                    ->toArray();
+
         $shoppingCartId = '';
         if (!empty($cartInfo)) {
             if (!empty($cartInfo['id'])) {
@@ -368,7 +382,7 @@ class CompaniesListController extends Controller
         }
 
         return view('frontend.companies.overview', compact('pdfcontent','used_address', 'countries', 'shoppingCartId', 'person_officers',
-            'appointmentsList','review','order'));
+            'appointmentsList','review','order','primary_address_list','countryList','user','purchase_address'));
     }
     public function efillingPdf(Request $request)
     {

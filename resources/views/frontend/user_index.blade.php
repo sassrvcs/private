@@ -401,8 +401,8 @@
                 <div class="text-box-lists">
                     <div class="text-box-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="text-box" right-img-url="{{ asset('frontend/assets/images/ourServices-sec01-img1.png')}}">
-                            <h3>Dormant Company <span>Accounts</span></h3>
-                            <p>Handle your dormant company’s accounts and file your annual confirmation statement with our professional team.</p>
+                            <h3>Payee<span>Registration </span></h3>
+                            <p>We help you to register Pay as you Earn (PAYE) for youself or your employees with the HMRC on your behalf.</p>
                             <div class="more-actions">
                                 <a href="#" class="circle-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" fill="none">
@@ -414,8 +414,8 @@
                     </div>
                     <div class="text-box-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="text-box" right-img-url="{{ asset('frontend/assets/images/ourServices-sec01-img2.png')}}">
-                            <h3>Company <span>Registration</span></h3>
-                            <p>When it comes to incorporating a limited company in UK, it becomes much easier than anyplace else in the world.</p>
+                            <h3>VAT<span>Registration </span></h3>
+                            <p>We povide your VAT registration number usually within 15days of application including all legal requirements with HRMC.</p>
                             <div class="more-actions">
                                 <a href="#" class="circle-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" fill="none">
@@ -428,9 +428,7 @@
                     <div class="text-box-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="text-box" right-img-url="{{ asset('frontend/assets/images/ourServices-sec01-img3.png')}}">
                             <h3>Confirmation Statement <span>Service</span></h3>
-                            <p>Are you looking for an efficient confirmation statement service? If your answer is yes, then
-                                you have landed at the
-                                right place.</p>
+                            <p>We help you file your cofirmation statement to keep your company up to date and compliant with the relevant regulations.</p>
                             <div class="more-actions">
                                 <a href="#" class="circle-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" fill="none">
@@ -442,8 +440,8 @@
                     </div>
                     <div class="text-box-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="text-box" right-img-url="{{ asset('frontend/assets/images/ourServices-sec01-img4.png')}}">
-                            <h3>Company <span>Dissolution</span></h3>
-                            <p>Closing a company, saves time and money on annual filings.We apply for dissolution to Companies House </p>
+                            <h3>Full Company Secretary <span>Service </span></h3>
+                            <p>A dedicated account manager handles everything related to all your company filings,maitaining register on your behalf under your supervision,taking the burden off your shoulder.</p>
                             <div class="more-actions">
                                 <a href="#" class="circle-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" fill="none">
@@ -508,7 +506,7 @@
         <div class="custom-container">
             <div class="text-container">
                 <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident Package</span></h1>
-                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec luctus urna, sed facilisis dolor. Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Nam laoreet vestibulum purus, sed suscipit odio convallis ac. In faucibus tincidunt est, </p>
+                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our aim is to provide International customers with everything they need for their business to remain complaint with UK regulations starting from London registered office address,directors service address along with GDPR,VAT and PAYE registeration for their business.</p>
                 <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                     <a href="{{route('non_residents_package')}}" class="theme-btn-primary read-more-btn">Read More</a>
                 </div>
@@ -522,8 +520,8 @@
 <div class="whyneedbankaccUk-sec01">
     <div class="custom-container">
         <div class="top-title">
-            <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Why you need a bank account in UK?</h1>
-            <h4 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">We love talking to you when it comes to creating something new. We want you to remember us always, let’s be good for good and for a good reason. Reach us through your voice or writing.</h4>
+            <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Why you need a bank account in UK? 4options</h1>
+            <h4 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Banking is an integral part of any business for trading in UK.A proper business bank account helps you to manage your finances with lot of options as per your business needs.</h4>
         </div>
         <div class="whyneedbankaccUk-wrapper">
             <div class="image-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
@@ -535,36 +533,36 @@
                         <div class="whyneedbankaccUk-list-box">
                             <div class="h3-with-icon">
                                 <span class="icon-container"><img src="{{ asset('frontend/assets/images/briefcase.svg')}}"></span>
-                                <h3>Business Consulting </h3>
+                                <h3>Smart App/Online banking </h3>
                             </div>
-                            <p>Aenean fermentum odio non vehicula mattis. Praesent nec blandit sapien. Nulla maximus risus ac dictum ornare. Proin non cursus enim. </p>
+                            <p>It helps you manage all banking needs on a single page with the single tap of your finger from anywhere around the world with ease.It helps to keep your financial information one handed,safe and secure from fraudlent activities. </p>
                         </div>
                     </div>
                     <div class="whyneedbankaccUk-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="whyneedbankaccUk-list-box">
                             <div class="h3-with-icon">
                                 <span class="icon-container"><img src="{{ asset('frontend/assets/images/briefcase.svg')}}"></span>
-                                <h3>Financial Consulting </h3>
+                                <h3>Business loans/Expansion </h3>
                             </div>
-                            <p>Aenean fermentum odio non vehicula mattis. Praesent nec blandit sapien. Nulla maximus risus ac dictum ornare. Proin non cursus enim. </p>
+                            <p>Banks offers wide range of services inlcuding business credit cards,business loans to help you set up your business and with a good track record they can assist you further for expansion in other countries to help you reach overseases market to help your business grow worldwide. </p>
                         </div>
                     </div>
                     <div class="whyneedbankaccUk-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="whyneedbankaccUk-list-box">
                             <div class="h3-with-icon">
                                 <span class="icon-container"><img src="{{ asset('frontend/assets/images/briefcase.svg')}}"></span>
-                                <h3>Market Research </h3>
+                                <h3>Foreign Currency  </h3>
                             </div>
-                            <p>Aenean fermentum odio non vehicula mattis. Praesent nec blandit sapien. Nulla maximus risus ac dictum ornare. Proin non cursus enim. </p>
+                            <p>Banks can help you in managing daytoday exchange rate fluctuations to simplify international payments, making it easier for your import export business,cross-border online selling business through payment gateways etc.  </p>
                         </div>
                     </div>
                     <div class="whyneedbankaccUk-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="whyneedbankaccUk-list-box">
                             <div class="h3-with-icon">
                                 <span class="icon-container"><img src="{{ asset('frontend/assets/images/briefcase.svg')}}"></span>
-                                <h3>Risk Management</h3>
+                                <h3>Ease of funds </h3>
                             </div>
-                            <p>Aenean fermentum odio non vehicula mattis. Praesent nec blandit sapien. Nulla maximus risus ac dictum ornare. Proin non cursus enim. </p>
+                            <p>Banks lets you handle your money with ease protecting you against any error or frauds.You can receive and send your money from anywhere sitting at one place and make online purchase and sell with a proper proof of payments.You get to access your funds faster even if you are in a rural or remote area.</p>
                         </div>
                     </div>
                 </div>
@@ -660,8 +658,8 @@
                     <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic1.png')}}">
                 </div>
                 <div class="text-container">
-                    <h3>Lorem ipsum dolor sit amet, consectetur elit</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec luctus urna, sed facilisis dolor. Vestibulum </p>
+                    <h3>London Registered Office Address</h3>
+                    <p>By selecting a distinguished London registered office address, you not only satisfy business registration criteria but also position your business at the core of the UK's commercial hub.</p>
                 </div>
             </div>
         </li>
@@ -671,8 +669,8 @@
                     <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic2.png')}}">
                 </div>
                 <div class="text-container">
-                    <h3>Lorem ipsum dolor sit amet, consectetur elit</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec luctus urna, sed facilisis dolor. Vestibulum </p>
+                    <h3>Business Mail Forwarding Address</h3>
+                    <p>Establish a designated business address for receiving mail and parcels, elevating the professionalism of your enterprise. Benefit from the freedom to manage your business globally, while we conscientiously forward your mail to your chosen address, saving you time and eliminating inconvenience.</p>
                 </div>
             </div>
         </li>
@@ -682,8 +680,8 @@
                     <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic3.png')}}">
                 </div>
                 <div class="text-container">
-                    <h3>Lorem ipsum dolor sit amet, consectetur elit</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec luctus urna, sed facilisis dolor. Vestibulum </p>
+                    <h3>Company Officer (Director) Address</h3>
+                    <p>For reasons of privacy or any other necessity, obtain a physical address to serve as the official registration address for your company directors and officials. </p>
                 </div>
             </div>
         </li>
@@ -693,8 +691,8 @@
                     <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic4.png')}}">
                 </div>
                 <div class="text-container">
-                    <h3>Lorem ipsum dolor sit amet, consectetur elit</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec luctus urna, sed facilisis dolor. Vestibulum </p>
+                    <h3>Business Call Answering Service</h3>
+                    <p>Our solution for business call answering services offers companies a dedicated and professional team to manage phone calls on their behalf. Inbound calls are answered by our team using your company's name, and they are handled in accordance with your bespoke instructions.</p>
                 </div>
             </div>
         </li>
