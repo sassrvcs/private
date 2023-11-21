@@ -76,16 +76,12 @@ class CompanyFormController extends Controller
             $companyFormStep->company_id  = $company_id;
             $companyFormStep->section  = 'company_formation';
             $companyFormStep->step  = 'register-address';
-
             $companyFormStep->save();
-
             $orders = Order::with('user')->where('order_id', $request->order_id)->first();
             $companyFormationStep = Companie::with('sicCodes')->where('companie_name', 'LIKE', '%' . $orders->company_name . '%')->first();
             $companyFormationStep->section_name = 'company_formation';
             $companyFormationStep->step_name = 'register-address';
             $companyFormationStep->save();
-
-
             return response()->json(['success' => 'true', 'message' => 'Successfully Done.'], 200);
         }
     }
