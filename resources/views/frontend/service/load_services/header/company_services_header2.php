@@ -1,3 +1,15 @@
+<style>
+    #service-formDetails .wizard>.steps .disabled.current a{
+        background: #313C4E;
+    color: #79B42E;
+    }
+    #service-formDetails .wizard .steps ul li{
+  max-width: calc(100%/2) !important;
+}
+.wizard .steps ul li a {
+    justify-content: center;
+}
+</style>
 <div class="steps clearfix">
     <ul role="tablist">
         <li role="tab" class="first current" aria-disabled="false" aria-selected="true"><a

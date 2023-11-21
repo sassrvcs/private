@@ -1,3 +1,12 @@
+<style>
+    #service-formDetails .wizard>.steps .disabled.current a{
+        background: #313C4E;
+    color: #79B42E;
+    }
+    .wizard .steps ul li a {
+    justify-content: center;
+}
+</style>
 <div class="steps clearfix">
     <ul role="tablist">
         <li role="tab" class="first current" aria-disabled="false" aria-selected="true"><a
