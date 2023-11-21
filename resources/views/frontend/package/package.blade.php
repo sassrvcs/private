@@ -124,7 +124,15 @@
                                     <h4>{{ $package->package_name }}</h4>
                                     <h2>£{{ $package->package_price }}</h2>
                                     <div class="bottom-actions">
+                                     @if ($choose_pkg_step)
+
                                         <a href="{{ route('add-cart', ['id' => $package->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+                                    @else
+                                        <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
+                                        data-target="#exampleModal" data-whatever="@fat" data-id = "{{$package->id}}" data-name= "{{strtoupper($package->package_name)}}">Buy Now</a>
+                                    @endif
+
+
                                         @if ($package->package_name == 'Digital')
                                             <a href="{{route('digital_package')}}" class="read-more-btn">Read More</a>
                                         @elseif($package->package_name == 'Privacy')
@@ -231,7 +239,13 @@
                                     <h4>{{ $package->package_name }}</h4>
                                     <h2>£{{ $package->package_price }}</h2>
                                     <div class="bottom-actions">
+                                    @if ($choose_pkg_step)
                                         <a href="{{ route('add-cart', ['id' => $package->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+                                    @else
+                                        <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
+                                        data-target="#exampleModal" data-whatever="@fat" data-id = "{{$package->id}}" data-name= "{{strtoupper($package->package_name)}}">Buy Now</a>
+                                    @endif
+
                                     </div>
                                 </div>
                             </th>
@@ -242,6 +256,8 @@
         </div>
     </div>
 </section>
+<x-company_name_check />
+
 <!-- ================ end: comparePackages-sec ================ -->
 
 @endsection
