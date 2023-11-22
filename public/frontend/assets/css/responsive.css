@@ -112,7 +112,7 @@
     }
 
     .needLittleHelp-sec {
-        padding: 75px 0 50px;
+        padding: 140px 0;
     }
 
     .needLittleHelp-sec .left_div .contactUl li .icon-container img {
@@ -806,6 +806,90 @@
     .beneath_banner {
         margin-top: -580px;
     }
+
+    .logo-portfolio-banner h1 {
+        font-size: 80px;
+        line-height: 90px;
+    }
+
+    .logo-portfolio-banner .custom-container {
+        padding-top: 132px;
+        padding-bottom: 132px;
+        min-height: 810px;
+    }
+
+    .logo-portfolio-banner .input-with-rg-btn .rg-btn {
+        width: 50px;
+    }
+
+    .logo-portfolio-banner .input-with-rg-btn {
+        max-width: 675px;
+        margin-top: 24px;
+    }
+
+    .myPortfolio-sec h1,
+    .ourWorks-sec h1,
+    .designTogether-02-sec .left-div h1,
+    .ourClients-02-sec h1 {
+        font-size: 65px;
+        line-height: 80px;
+    }
+
+    .myPortfolio-sec h1 {
+        margin-bottom: 80px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .logo-container {
+        max-width: 552px;
+        height: 552px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container {
+        max-width: calc(100% - 552px);
+        padding: 0 0 50px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec::before {
+        left: 8px;
+        font-size: 324px;
+        line-height: 360px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container h2 {
+        font-size: 42px;
+        line-height: 62px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container h4 {
+        font-size: 21px;
+        line-height: 32px;
+    }
+
+    .designTogether-02-sec .right-div .icon-container img {
+        max-width: 70px;
+    }
+
+    .designTogether-02-sec .right-div h2 {
+        font-size: 38px;
+        line-height: 54px;
+    }
+
+    .designTogether-02-sec .right-div p {
+        font-size: 22px;
+        line-height: 32px;
+    }
+
+    .ourWorks-sec {
+        padding: 90px 0 100px;
+    }
+
+    .ourWorks-lists {
+        margin: -8px;
+    }
+
+    .ourWorks-lists li {
+        padding: 8px;
+    }
 }
 
 @media (max-width: 1249px) {
@@ -922,7 +1006,7 @@
 
     .whatMakesDifferent-sec01-sec3 .text-container {
         max-width: calc(100% - 400px);
-        padding: 60px 30px 60px 0;
+        padding: 100px 30px 100px 0;
         min-height: 454px;
     }
 
@@ -1581,6 +1665,71 @@
     .digitalPackage-right-lists .digitalPackage-right-list-col.row {
         row-gap: 90px;
     }
+
+    .logo-portfolio-banner h1 {
+        font-size: 70px;
+        line-height: 85px;
+    }
+
+    .logo-portfolio-banner .custom-container {
+        padding-top: 90px;
+        padding-bottom: 90px;
+        min-height: 716px;
+    }
+
+    .myPortfolio-sec h1,
+    .ourWorks-sec h1,
+    .designTogether-02-sec .left-div h1,
+    .ourClients-02-sec h1 {
+        font-size: 55px;
+        line-height: 65px;
+    }
+
+    .myPortfolio-sec h1 {
+        margin-bottom: 60px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .logo-container {
+        max-width: 470px;
+        height: 470px;
+        padding: 10px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container {
+        max-width: calc(100% - 470px);
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .custom-container {
+        column-gap: 45px;
+    }
+
+    .myPortfolio-left-right-lists {
+        row-gap: 50px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec::before {
+        left: 0;
+        font-size: 250px;
+        line-height: 305px;
+    }
+
+    .myPortfolio-sec {
+        padding: 75px 0 100px;
+    }
+
+    .ourClients-02-sec .left-right-text-with-image {
+        padding: 50px 0;
+        margin-top: 50px;
+        column-gap: 50px;
+    }
+
+    .ourClients-02-sec .logo-with-text-lists ul li .text-container {
+        font-size: 32px;
+    }
+
+    .ourClients-02-sec .logo-with-text-lists {
+        padding: 50px 0;
+    }
 }
 
 @media (max-width: 1024.98px) {
@@ -1633,7 +1782,7 @@
         display: flex;
     }
 
-    .main-header .custom-navbar .cn-menu-lists.show~.cn-menu-lists-overlay {
+    .main-header .custom-navbar .cn-menu-lists.show ~ .cn-menu-lists-overlay {
         display: block;
     }
 
@@ -1969,7 +2118,7 @@
 
     .whatMakesDifferent-sec01-sec3 .text-container {
         max-width: 500px;
-        padding: 45px 23px 45px 0;
+        padding: 70px 23px 70px 0;
         min-height: 430px;
     }
 
@@ -2296,6 +2445,152 @@
         margin-bottom: 55px;
     }
 
+    .logo-portfolio-banner h1 {
+        font-size: 50px;
+        line-height: 64px;
+    }
+
+    .logo-portfolio-banner .custom-container {
+        padding-top: 45px;
+        padding-bottom: 45px;
+        min-height: 512px;
+    }
+
+    .logo-portfolio-banner .input-with-rg-btn .input {
+        height: 46px;
+    }
+
+    .logo-portfolio-banner .input-with-rg-btn .rg-btn {
+        width: 30px;
+    }
+
+    .myPortfolio-sec h1,
+    .ourWorks-sec h1,
+    .designTogether-02-sec .left-div h1,
+    .ourClients-02-sec h1 {
+        font-size: 42px;
+        line-height: 48px;
+    }
+
+    .myPortfolio-sec h1 {
+        margin-bottom: 42px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .logo-container {
+        max-width: 365px;
+        height: 365px;
+        padding: 8px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container {
+        max-width: calc(100% - 365px);
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container h2 {
+        font-size: 32px;
+        line-height: 42px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container h4 {
+        font-size: 16px;
+        line-height: 30px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec::before {
+        font-size: 180px;
+        line-height: 242px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .custom-container {
+        column-gap: 32px;
+    }
+
+    .myPortfolio-left-right-lists {
+        row-gap: 32px;
+    }
+
+    .myPortfolio-sec {
+        padding: 55px 0 70px;
+    }
+
+    .ourWorks-sec {
+        padding: 55px 0 62px;
+    }
+
+    .ourWorks-sec h1 {
+        margin-bottom: 20px;
+    }
+
+    .ourWorks-lists li .ourWorks-box {
+        padding: 6px;
+    }
+
+    .ourClients-02-sec .left-right-text-with-image {
+        flex-wrap: wrap-reverse;
+        row-gap: 38px;
+        padding: 35px 0;
+        margin-top: 28px;
+    }
+
+    .ourClients-02-sec .left-right-text-with-image .text-container {
+        max-width: unset;
+    }
+
+    .ourClients-02-sec .left-right-text-with-image .image-container {
+        margin: 0 auto;
+    }
+
+    .ourClients-02-sec .logo-with-text-lists {
+        padding: 35px 0;
+    }
+
+    .ourClients-02-sec .logo-with-text-lists ul li .icon-container {
+        max-width: 85px;
+        height: 100px;
+    }
+
+    .ourClients-02-sec .logo-with-text-lists ul li .text-container span {
+        line-height: inherit;
+    }
+
+    .ourClients-02-sec .logo-with-text-lists ul li .text-container {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .designTogether-02-sec .custom-container {
+        flex-wrap: wrap;
+        row-gap: 26px;
+    }
+
+    .designTogether-02-sec .left-div {
+        text-align: center;
+        width: 100%;
+    }
+
+    .designTogether-02-sec .right-div {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .designTogether-02-sec {
+        padding: 50px 0;
+    }
+
+    .designTogether-02-sec .right-div .icon-container img {
+        max-width: 52px;
+    }
+
+    .designTogether-02-sec .right-div h2 {
+        font-size: 30px;
+        line-height: 45px;
+    }
+
+    .designTogether-02-sec .right-div p {
+        font-size: 18px;
+        line-height: 32px;
+    }
 }
 
 @media (max-width: 767.98px) {
@@ -3085,46 +3380,141 @@
     .mobile-first-content .image {
         max-width: 320px;
         margin: 0 0 0 auto;
-    }.mobile-first-content .sec-title1 h2 {
+    }
+
+    .mobile-first-content .sec-title1 h2 {
         font-size: 24px;
         line-height: 32px;
         margin-bottom: 8px;
-    }.mobile-first-content .sec-title1 h2 small {
+    }
+
+    .mobile-first-content .sec-title1 h2 small {
         font-size: 20px;
         line-height: 32px;
-    }.mobile-first-content .sec-title1 p {
+    }
+
+    .mobile-first-content .sec-title1 p {
         font-size: 14px;
         line-height: 23px;
-    }.mobile-first-content {
+    }
+
+    .mobile-first-content {
         padding: 40px 0px 40px;
-    }.feature-of-seo .sec-title1 small {
+    }
+
+    .feature-of-seo .sec-title1 small {
         font-size: 24px;
         line-height: 30px;
-    }.feature-of-seo .sec-title1 h2 {
+    }
+
+    .feature-of-seo .sec-title1 h2 {
         font-size: 25px;
         line-height: 35px;
-    }.feature-of-seo-box h4 {
+    }
+
+    .feature-of-seo-box h4 {
         font-size: 18px;
         line-height: 27px;
         margin: 12px 0;
-    }.feature-of-seo-box p {
+    }
+
+    .feature-of-seo-box p {
         font-size: 14px;
         line-height: 23px;
-    }.feature-of-seo-box .icon img {
+    }
+
+    .feature-of-seo-box .icon img {
         max-width: 40px;
-    }.ourBankingPartners-sec01 ul li {
+    }
+
+    .ourBankingPartners-sec01 ul li {
         max-width: calc(50% - 24px);
-    }.service-we-provide ul li h4 {
+    }
+
+    .service-we-provide ul li h4 {
         font-size: 16px;
         line-height: 20px;
-    }.sales-through-website .sec-title1 h2 {
+    }
+
+    .sales-through-website .sec-title1 h2 {
         font-size: 24px;
         line-height: 38px;
         margin-bottom: 65px;
-    }.sales-through-website {
+    }
+
+    .sales-through-website {
         padding: 40px 0 38px;
-    }.digitalPackage-right-lists .digitalPackage-right-list-col.row {
+    }
+
+    .digitalPackage-right-lists .digitalPackage-right-list-col.row {
         row-gap: 70px;
+    }
+
+    .logo-portfolio-banner h1 {
+        font-size: 42px;
+        line-height: 55px;
+    }
+
+    .logo-portfolio-banner .input-with-rg-btn .rg-btn {
+        width: 22px;
+    }
+
+    .logo-portfolio-banner .custom-container {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        min-height: 414px;
+    }
+
+    .myPortfolio-sec h1,
+    .ourWorks-sec h1,
+    .designTogether-02-sec .left-div h1,
+    .ourClients-02-sec h1 {
+        font-size: 35px;
+        line-height: 40px;
+    }
+
+    .myPortfolio-sec h1 {
+        margin-bottom: 30px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .logo-container {
+        max-width: 282px;
+        height: 282px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container {
+        max-width: calc(100% - 282px);
+        padding: 0 0 35px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec::before {
+        font-size: 120px;
+        line-height: 124px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container h2 {
+        font-size: 28px;
+        line-height: 38px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container h4 {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .ourClients-02-sec .left-right-text-with-image .image-container .logo-lists {
+        row-gap: 40px;
+    }
+
+    .ourClients-02-sec .left-right-text-with-image .text-container h4 {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .ourClients-02-sec .left-right-text-with-image .text-container p {
+        font-size: 14px;
+        line-height: 26px;
+        margin-top: 15px;
     }
 }
 
@@ -3721,7 +4111,7 @@
     }
 
     .whatmakedifferent-sec-multiple-left-right .whatmakedifferent-sec:nth-child(2n) .text-container,
-    .whatmakedifferent-sec-multiple-left-right .whatmakedifferent-sec~.logo-center-stamp+.whatmakedifferent-sec .text-container {
+    .whatmakedifferent-sec-multiple-left-right .whatmakedifferent-sec ~ .logo-center-stamp + .whatmakedifferent-sec .text-container {
         padding-bottom: 20px;
     }
 
@@ -4155,6 +4545,119 @@
     .for-ourDifferent-text-lists {
         row-gap: 12px;
         padding-top: 20px;
+    }
+
+    .logo-portfolio-banner h1 {
+        font-size: 30px;
+        line-height: 40px;
+    }
+
+    .logo-portfolio-banner .custom-container {
+        padding-top: 24px;
+        padding-bottom: 24px;
+        min-height: unset;
+    }
+
+    .logo-portfolio-banner .input-with-rg-btn {
+        max-width: 673px;
+        margin-top: 10px;
+    }
+
+    .logo-portfolio-banner .input-with-rg-btn .rg-btn {
+        width: 20px;
+    }
+
+    .myPortfolio-sec {
+        padding: 40px 0 55px;
+    }
+
+    .myPortfolio-sec h1,
+    .ourWorks-sec h1,
+    .designTogether-02-sec .left-div h1,
+    .ourClients-02-sec h1 {
+        font-size: 25px;
+        line-height: 32px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .logo-container {
+        max-width: 145px;
+        height: 145px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container {
+        max-width: calc(100% - 145px);
+        padding: 0 0 25px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .custom-container {
+        column-gap: 20px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container h2 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container h4 {
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+    .myPortfolio-left-right-lists .myPortfolio-left-right-sec::before {
+        font-size: 60px;
+        line-height: 60px;
+    }
+
+    .myPortfolio-left-right-lists {
+        row-gap: 28px;
+    }
+
+    .ourWorks-sec {
+        padding: 40px 0 52px;
+    }
+
+    .ourWorks-lists li {
+        max-width: 50%;
+    }
+
+    .ourClients-02-sec .left-right-text-with-image {
+        flex-wrap: wrap-reverse;
+        row-gap: 24px;
+        padding: 22px 0;
+        margin-top: 20px;
+    }
+
+    .ourClients-02-sec .left-right-text-with-image .text-container h4 {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .ourClients-02-sec .left-right-text-with-image .text-container p {
+        font-size: 13px;
+        line-height: 24px;
+        margin-top: 10px;
+    }
+
+    .ourClients-02-sec .logo-with-text-lists ul li {
+        max-width: 50%;
+    }
+
+    .ourClients-02-sec .logo-with-text-lists {
+        padding: 30px 0;
+    }
+
+    .designTogether-02-sec .right-div h2 {
+        font-size: 20px;
+        line-height: 34px;
+    }
+
+    .designTogether-02-sec .right-div p {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .designTogether-02-sec {
+        padding: 40px 0;
     }
 }
 
