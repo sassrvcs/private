@@ -761,7 +761,7 @@ class PackageController extends Controller
             'order_id' => $order_id,
             'user' => $user,
             'invoice_date' => date('d/m/Y', strtotime($purchased_service->updated_at)),
-            'invoice_ref' =>$purchased_service->uuid,
+            'invoice_ref' =>$purchased_service->PAYID,
             'billing_address'=>$address,
             'total_amount' => $total,
             'base_amount' => $base_amount,

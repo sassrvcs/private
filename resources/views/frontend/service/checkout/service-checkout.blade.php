@@ -39,7 +39,16 @@
                                 <div class="border border-success p-2" style="border-color:#87CB28 !important;">
                                     <table class="table table-striped">
                                         <tbody>
+                                            <tr class="fee" >
+                                                <td> <strong>Service Name:</strong>  </td>
+                                                <td class="text-end"><span class="text-end">{{$service_transaction_details['service_name']}}</span> </td>
 
+                                                <td class="text-end" style="display:none;"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>20</bdi></span></td>
+                                            </tr>
+
+                                        </tbody>
+                                        <tbody id="item-tbody" >
+                                            {{-- @if(auth()->check()) --}}
                                             <tr class="cart-subtotal ">
                                                 <th>Net</th>
                                                 <td class="text-end">
@@ -47,16 +56,7 @@
                                                     class="woocommerce-Price-currencySymbol">£</span>{{$service_transaction_details['base_amount']}}</bdi></span>
                                                 </td>
                                             </tr>
-                                        </tbody>
-                                        <tbody id="item-tbody" >
-                                            {{-- @if(auth()->check()) --}}
 
-                                            <tr class="fee" >
-                                                <td>Service Name: </td>
-                                                <td colspan="3">{{$service_transaction_details['service_name']}}</td>
-
-                                                <td class="text-end" style="display:none;"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>20</bdi></span></td>
-                                            </tr>
                                             {{-- @endif --}}
 
                                         </tbody>

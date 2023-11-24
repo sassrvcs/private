@@ -56,7 +56,7 @@
                                         <div class="mb-3 row">
                                             <label for="company_number" class="col-sm-3 col-form-label">Your Company Number<span class="starred">*</span></label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control required_app name_test_form" name="company_number_first" id="company_number_first" value="" required="">
+                                                <input type="number" class="form-control required_app name_test_form" name="company_number_first" id="company_number_first" value="" required="">
                                             </div>
                                         </div>
                                     </div>
