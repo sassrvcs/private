@@ -74,7 +74,7 @@
                                     <div class="mb-3 row">
                                         <label for="director_dob" class="col-sm-3 col-form-label ">Date of Birth<span class="starred">*</span></label>
                                         <div class="col-sm-8 datefldarea">
-                                            <input type="date" max="{{ now()->subYears(16)->format('Y-m-d') }}" class="form-control required_app" name="director_dob" id="director_dob" value="" required=""><img class="ui-datepicker-trigger " src="/images/date_cal.png" alt="Select date" title="Select date">
+                                            <input type="date" max="{{ now()->subYears(16)->format('Y-m-d') }}" class="form-control required_app validateAge16" name="director_dob" id="director_dob" value="" required=""><img class="ui-datepicker-trigger " src="/images/date_cal.png" alt="Select date" title="Select date">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -258,6 +258,8 @@
                     })
                 }
             })
+            //validate16
+            let director_date = $("#director_dob").val();
             let name_test = validate_test_names();
             if (name_test==false) {
                 scrollToTopDynamic(500)
@@ -269,7 +271,7 @@
         }
 
         $("#next_step_1").click(function() {
-            if(director_app()==true){
+            if(director_app()==true&&validateAge16()==true){
 
 
             $("#steps-uid-0-p-0").hide();

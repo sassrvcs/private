@@ -247,9 +247,9 @@
             return diss_error
 
         }
-        $(".addDirectorbtn").click(function() {
-            validate_dissolution()
-        })
+        // $(".addDirectorbtn").click(function() {
+        //     validate_dissolution()
+        // })
         $("#next_step_1").click(function() {
             if(validate_dissolution()==true){
 

@@ -257,7 +257,41 @@ function validate_yourservice() {
     return required_check_error;
 }
 
+function validateAge16(){
+    let validateAge = true
+    $(".validateAge16").each(function(){
 
+        let birthday = $(this).val();
+        // console.log(birthday);
+        var optimizedBirthday = birthday.replace(/-/g, "/");
+        var myBirthday = new Date(optimizedBirthday);
+        var currentDate = new Date().toJSON().slice(0,10)+' 01:00:00';
+        var myAge = ~~((Date.now(currentDate) - myBirthday) / (31557600000));
+        if(myAge < 16) {
+            validateAge = false
+
+            $(this).next("span").remove();
+                    $(this).css({
+                        'border-color': 'red'
+                    })
+                    $(this).after(`<span class="error">Age must be greater than 16</span>`);
+       }else{
+        $(this).next("span").remove();
+        $(this).css({
+            'border-color': '#ced4da'
+        })
+       }
+    })
+    if (validateAge == false) {
+        scrollToTopDynamic(200)
+
+    }
+    return validateAge;
+    // birthday = birthday.split("-").reverse().join("-");
+
+
+
+ }
 
 
 

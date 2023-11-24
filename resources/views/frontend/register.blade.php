@@ -14,7 +14,7 @@
         </div>
         <div class="center-info">
             <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li><a href="{{ url('')}}">Home</a></li>
+                <li><a href="{{ url('/')}}">Home</a></li>
                 <li><a>Register</a></li>
             </ul>
         </div>
@@ -261,7 +261,7 @@
                     <div class=" px-0 col-md-12 col-12">
                         <div class="px-0 form-check">
                             <input class="" id="chek2" type="checkbox" name="chek2" value="1" {{ old('chek2') =="1" ? 'checked' : '' }}>
-                            <label for="chek2"> I agree to the <a href="#">Terms and Conditions</a>  & <a href="#">Privacy Policy</a></label>
+                            <label for="chek2"> I agree to the <a href="{{ route('page', ['slug' => 'terms-conditions'] ) }}">Terms and Conditions</a>  & <a href="{{ route('page', ['slug' => 'gdpr-privacy-policy'] ) }}">Privacy Policy</a></label>
                         </div>
                         @error('chek2')
                             <div class="error" style="color:red;">{{ $message }}</div>

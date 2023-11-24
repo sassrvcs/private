@@ -98,7 +98,7 @@
             <label class="form-check-label" for="accept_terms">
                 I have read and accept the <a href="{{ route('page', ['slug' => 'terms-conditions'] ) }}" class="link-primary"
                     target="_blank">Terms and Conditions</a> &amp; <a
-                    href="{{ route('page', ['slug' => 'refund-cancellation'] ) }}" class="link-primary"
+                    href="{{ route('page', ['slug' => 'gdpr-privacy-policy'] ) }}" class="link-primary"
                     target="_blank">Privacy Policy</a>.
             </label>
         </div>
@@ -106,7 +106,7 @@
             <input class="form-check-input" type="checkbox" value="Yes" id="provide_id" name="provide_id"
                 required="">
             <label class="form-check-label" for="provide_id">
-                I agree to provide the <a href="https://formationshunt.co.uk/id-requirements/" class="link-primary"
+                I agree to provide the <a href="{{ route('page', ['slug' => 'id-requirements'] ) }}" class="link-primary"
                     target="_blank">Required ID</a>.
             </label>
         </div>

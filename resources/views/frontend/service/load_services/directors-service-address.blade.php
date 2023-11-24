@@ -74,7 +74,7 @@
                                         <div class="mb-3 row">
                                             <label for="date_of_birth" class="col-sm-4 col-form-label">Your date of birth<span class="starred">*</span></label>
                                             <div class="col-sm-6 datefldarea">
-                                                <input type="date" max="{{ now()->subYears(16)->format('Y-m-d') }}" class="form-control required_app" name="date_of_birth" id="date_of_birth" value="" required=""><img class="ui-datepicker-trigger" src="/images/date_cal.png" alt="Select date" title="Select date">
+                                                <input type="date" max="{{ now()->subYears(16)->format('Y-m-d') }}" class="form-control required_app validateAge16" name="date_of_birth" id="date_of_birth" value="" required=""><img class="ui-datepicker-trigger" src="/images/date_cal.png" alt="Select date" title="Select date">
                                             </div>
                                         </div>
                                     </div>
@@ -255,7 +255,7 @@
 
         $("#next_step_1").click(function() {
 
-            if(address_app()==true){
+            if(address_app()==true&&validateAge16()==true){
 
                 updatePrices();
                 $("#steps-uid-0-p-0").hide();

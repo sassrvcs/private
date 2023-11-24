@@ -57,7 +57,7 @@
 
         <div class="mb-3 row">
 
-            <label for="phone_no" class="col-sm-3 col-form-label">Telephone Nr<span class="starred">*</span></label>
+            <label for="phone_no" class="col-sm-3 col-form-label">Telephone Number<span class="starred">*</span></label>
 
             <div class="col-sm-8">
 

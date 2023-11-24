@@ -459,8 +459,8 @@ class PackageController extends Controller
                 file_put_contents($filePath, $pdf );
                 // dd($filePath);
                 try {
-                    $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
-                    // $status =  Mail::to($userDetails->email)->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
+                    // $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
+                    $status =  Mail::to($userDetails->email)->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
                  } catch (\Throwable $th) {
                     //  throw $th;
                  }
@@ -635,6 +635,34 @@ class PackageController extends Controller
             }
         }
     }
+    public function purchasedServiceListAdmin(Request $request)
+    {
+        $search  = $request->query('search');
+        $fullDate = $request->query('dateRange');
+        $dateRange = $request->query('dateRange')!=null?explode('/',$request->query('dateRange')):null;
+       $purchased_service =  orderServiceTransaction::where('service_payment_status',1)->when($request->query('search')!=null,function($query) use ($search){
+        return $query->where('order_id', 'like', '%'.$search.'%')->orWhere('company_name', 'like', '%'.$search.'%');
+     })->when($request->query('dateRange')!=null,function($query)  use ($dateRange){
+         return $query->whereDate('updated_at', '>=', $dateRange[0])->whereDate('updated_at', '<=', $dateRange[1]);
+     })->orderBy('updated_at','desc')->paginate(25);
+    //    $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->orderBy('id','desc')->paginate(25);
+       return view('admin.service.purchased-service-list',compact('purchased_service','fullDate','search'));
+    }
+    public function expiredServiceListAdmin(Request $request)
+    {
+        $search  = $request->query('search');
+        $fullDate = $request->query('dateRange');
+        $dateRange = $request->query('dateRange')!=null?explode('/',$request->query('dateRange')):null;
+       $oneYearAgo = Carbon::now()->subYear();
+       $expired_service =  orderServiceTransaction::where('service_payment_status',1)->when($request->query('search')!=null,function($query) use ($search){
+        return $query->where('order_id', 'like', '%'.$search.'%')->orWhere('company_name', 'like', '%'.$search.'%');
+     })->when($request->query('dateRange')!=null,function($query)  use ($dateRange){
+         return $query->whereDate('updated_at', '>=', $dateRange[0])->whereDate('updated_at', '<=', $dateRange[1]);
+     })->where('updated_at','<=',$oneYearAgo)->orderBy('updated_at','asc')->paginate(25);
+    //    dd($expired_service);
+    //    $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->orderBy('id','desc')->paginate(25);
+       return view('admin.service.expired-service-list',compact('expired_service','fullDate','search'));
+    }
     public function purchasedServiceList(Request $request)
     {
        $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->where('service_payment_status',1)->orderBy('updated_at','desc')->paginate(25);
@@ -649,6 +677,7 @@ class PackageController extends Controller
     //    $purchased_service =  orderServiceTransaction::where('user_id',auth()->user()->id)->orderBy('id','desc')->paginate(25);
        return view('frontend.service.purchased_services.expiredServicesList',compact('expired_service'));
     }
+
     public function purchasedServiceDetails(Request $request)
 
     {
