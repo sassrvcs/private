@@ -21,7 +21,7 @@
         <tr>
             <td>Phone No</td>
             <td>&nbsp;</td>
-            <td>{{$service_data->phone_no}}</td>
+            <td>@if (isset($service_data->country_code)) +{{$service_data->country_code}} @endif {{$service_data->phone_no}}</td>
             <td>&nbsp;</td>
         </tr>
         <tr>

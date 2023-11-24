@@ -58,8 +58,20 @@
         <div class="mb-3 row">
 
             <label for="phone_no" class="col-sm-3 col-form-label">Telephone Number<span class="starred">*</span></label>
-
-            <div class="col-sm-8">
+            <div class="col-sm-2">
+                @php
+                    $codes = \App\Models\Phone_code::orderBy('phonecode','asc')->get()->pluck('phonecode')->toArray();
+                    $codes = array_unique($codes)
+                @endphp
+                <select name="country_code" id="country_code" class="form-control">
+                    @foreach ($codes as $code)
+                    @if ($code!=0)
+                    <option value="{{ $code }}" @if ($code==44)selected @endif >+{{ $code }}</option>
+                    @endif
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-sm-6">
 
                 <input type="tel" class="form-control required_yourdetails" name="phone_no" id="phone_no"
                     value="" required="" maxlength="10" onkeyup="phone_no_validation(this)">
@@ -123,7 +135,7 @@
 
             <div class="col-sm-8">
 
-                <input type="text" class="form-control name_test" name="company_number" id="company_number"
+                <input type="number" class="form-control name_test" name="company_number" id="company_number"
                     value="" required="">
 
             </div>
@@ -222,7 +234,7 @@
 
             <div class="col-sm-8">
 
-                <input type="text" class="form-control required_yourdetails" name="locality" id="locality"
+                <input type="text" class="form-control " name="locality" id="locality"
                     value="">
 
             </div>
@@ -401,7 +413,7 @@
 
                 <div class="col-sm-8">
 
-                    <input type="text" class="form-control invoice_address" name="invoice_locality"
+                    <input type="text" class="form-control " name="invoice_locality"
                         id="invoice_locality" value="">
 
                 </div>

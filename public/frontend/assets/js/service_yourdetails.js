@@ -15,7 +15,7 @@ function calc_vat_total(total) {
 function phone_no_validation(input) {
 
     var phoneNumber = $("#phone_no").val();
-    phoneNumber = phoneNumber.replace(/^0\D*|\D/g, '');
+    phoneNumber = phoneNumber.replace(/\D*|\D/g, '');
     // console.log(phoneNumber);
     $("#phone_no").val(phoneNumber);
 }
@@ -182,7 +182,7 @@ function validatePhoneField() {
         if ($(this).val() !== '' && (field_name === 'phone_no')) {
             let phone = $(this).val();
 
-            if (phone.length != 10) {
+            if (phone.length < 10) {
                 test_phone = false;
                 $(this).next("span").remove();
                 $(this).css({
