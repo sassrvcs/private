@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cms;
 use App\Models\BusinessBanking;
+use App\Models\Accounting;
+use App\Models\Addonservice as ModelsAddonservice;
 
 
 class PageController extends Controller
@@ -27,11 +29,14 @@ class PageController extends Controller
     {
         $page = Cms::where('title','like',$slug)->first();
         $businessdata = BusinessBanking::get();
-        return view('frontend.cmspage', compact('page','businessdata'));
+        $accounting = Accounting::get();
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
+        return view('frontend.cmspage', compact('page','businessdata','full_sec_price','accounting'));
     }
 
     public function aboutUs(){
-        
+
         return view('frontend.aboutUs');
 
     }

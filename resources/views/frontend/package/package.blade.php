@@ -202,7 +202,7 @@
                                             <div class="infobox__triangle"></div>
                                              <!-- <a class="infobox__close">×</a>  -->
                                              <div class="infobox__content">
-                                               {{$facility->description}}
+                                               {!!$facility->description!!}
                                              </div>
                                           </div>
                                        </div>

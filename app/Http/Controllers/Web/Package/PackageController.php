@@ -242,7 +242,8 @@ class PackageController extends Controller
         $content = $content->description;
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.service.business_logo',compact('content','businessdata','accounting','id','title'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+        return view('frontend.service.business_logo',compact('content','businessdata','accounting','id','title','full_sec_price'));
     }
     public function share_business_idea()
     {
@@ -251,8 +252,8 @@ class PackageController extends Controller
         $content = $content->description;
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-
-        return view('frontend.service.share-business-idea',compact( 'content','businessdata','accounting'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+        return view('frontend.service.share-business-idea',compact( 'content','businessdata','accounting','full_sec_price'));
     }
 
     public function helping_startups()
@@ -262,7 +263,8 @@ class PackageController extends Controller
         $content = $content->description;
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.service.helping-startups',compact( 'content','businessdata','accounting'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+        return view('frontend.service.helping-startups',compact( 'content','businessdata','accounting','full_sec_price'));
     }
     public function business_help()
     {
@@ -271,7 +273,8 @@ class PackageController extends Controller
         $content = $content->description;
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.service.business-help',compact( 'content','businessdata','accounting'));
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+        return view('frontend.service.business-help',compact( 'content','businessdata','accounting','full_sec_price'));
     }
     public function info_to_set()
     {
