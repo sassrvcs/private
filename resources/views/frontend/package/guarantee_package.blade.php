@@ -4,13 +4,13 @@
 <div class="digital-packages-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
     <div class="custom-container">
         <div class="inner-wrapper">
-            <div class="icon-container">
+            <div class="icon-container d-none">
                 <span><img src="{{ asset('frontend/assets/images/earch-icon.svg') }}"></span>
             </div>
             <div class="text-container">
                 <h1>{{ $packages->package_name}} <span>Package <br>
                         Company Registration</span></h1>
-                <h4>LTD Company Package</h4>
+                <h4></h4>
                 <div class="action-btns">
 
                     @if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
