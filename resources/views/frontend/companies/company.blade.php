@@ -135,11 +135,11 @@
 
 
                                                 @php
-
-                                                    $company_status = \App\Models\Companie::where('companie_name',$order->company_name)->pluck('status')->first();
+                                                   
+                                                    $company_status = \App\Models\Companie::where('order_id',$order->order_id)->pluck('status')->first();
 
                                                 @endphp
-
+                                                {{$company_status}}
                                                 <td><span class="status @if($company_status == '0' || $company_status == '1' || $company_status == '2') incomplete @elseif ($company_status == '3')accepted @elseif ($company_status == '4') rejected @else incomplete @endif ">
 
                                                     @if ($company_status == '0' )
