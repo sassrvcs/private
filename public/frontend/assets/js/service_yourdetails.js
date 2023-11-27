@@ -181,7 +181,6 @@ function validatePhoneField() {
         let field_name = $(this).attr('name');
         if ($(this).val() !== '' && (field_name === 'phone_no')) {
             let phone = $(this).val();
-
             if (phone.length < 10) {
                 test_phone = false;
                 $(this).next("span").remove();
@@ -228,7 +227,7 @@ function validate_yourservice() {
     }
     if ($("#phone_no").val() != '') {
         let phone_no = $("#phone_no").val();
-        if (phone_no.length != 10) {
+        if (phone_no.length < 10) {
             required_check_error = false;
             $("#phone_no").css({
                 'border-color': 'red'
