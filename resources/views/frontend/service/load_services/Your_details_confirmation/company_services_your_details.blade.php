@@ -74,7 +74,7 @@
             <div class="col-sm-6">
 
                 <input type="tel" class="form-control required_yourdetails" name="phone_no" id="phone_no"
-                    value="" required="" maxlength="10" onkeyup="phone_no_validation(this)">
+                    value="" required="" maxlength="11" onkeyup="phone_no_validation(this)">
 
             </div>
 
@@ -230,7 +230,7 @@
         </div>
         <div class="mb-3 row">
 
-            <label for="address2" class="col-sm-3 col-form-label">Locality <span class="starred">*</span></label>
+            <label for="address2" class="col-sm-3 col-form-label">Locality</label>
 
             <div class="col-sm-8">
 
@@ -409,7 +409,7 @@
             </div>
             <div class="mb-3 row">
 
-                <label for="address2" class="col-sm-3 col-form-label">Locality<span class="starred">*</span></label>
+                <label for="address2" class="col-sm-3 col-form-label">Locality</label>
 
                 <div class="col-sm-8">
 
