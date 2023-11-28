@@ -403,6 +403,12 @@ class PackageController extends Controller
             $prices = ['business_logo_design_price'=>$price ];
             return view('frontend.service.load_services.business-logo-design',compact('countries','slug','id','prices','service_name'));
         }
+        if($slug=="gdpr-compliance-package")
+        {
+            $service_name = "GDPR Compliance Package";
+            $prices = ['gdpr_price'=>$get_price];
+            return view('frontend.service.load_services.gdpr-compliance',compact('countries','slug','id','prices','service_name'));
+        }
         return redirect('/404');
     }
     public function submitCompanyService(Request $request)
