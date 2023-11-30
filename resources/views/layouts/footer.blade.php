@@ -56,7 +56,7 @@
                             <a href="{{route('company_services', 'director-appointment-resignation')}}">Director Appointment Resignation</a>
                         </li>
                         <li>
-                            <a href="{{route('company_services', 'full-company-secretary-service')}}">Full Company Secretary Service</a>
+                            <a href="{{route('company_services', 'full-company-secretary-service')}}">Company Secretary Service</a>
                         </li>
                         <li>
                             <a href="{{route('company_services', 'issue-of-share-services')}}">Issue of Share Services</a>

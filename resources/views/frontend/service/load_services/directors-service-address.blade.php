@@ -94,7 +94,7 @@
                                         <div class="form-check">
                                             <input class="form-check-input hasprice popupAmnt" type="checkbox" name="dir_serv_addr[]" id="london-registered-office-address" value="3709" data-title="London registered office address" data-serid="3709">
                                             <label class="form-check-label" for="london-registered-office-address">
-                                            <strong>London registered office address<span id="od3_price" class="doc_chk">£35.00</span></strong>
+                                            <strong>Directors Service Address<span id="od3_price" class="doc_chk">£35.00</span></strong>
                                             </label>
                                             <div class="col-md-10 p-1">
                                                 <p>Using this popular service, you can protect the privacy of your home address while enhancing the corporate image of your new company. You can use this registered office address in all your business stationery and websites.</p>
@@ -197,7 +197,7 @@
 
         if ($("#london-registered-office-address").is(":checked")) {
             sum += coi;
-            tr += "<tr><td></td><td>London registered office address</td><td>£" +
+            tr += "<tr><td></td><td>Directors Service Address</td><td>£" +
                     parseFloat(coi).toFixed(2) + "</td></tr>";
         }
         if ($("#london-business-address").is(":checked")){

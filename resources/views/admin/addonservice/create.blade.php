@@ -71,9 +71,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <label for="">Description <span class="mandetory">*</span></label>
+                                        <label for="">Description <span class="mandetory"></span></label>
                                         <textarea class="ckeditor form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" id="description" name="description">{{{ old('description') }}}</textarea>
                                         <span class="error invalid-feedback">{{ $errors->first('description') }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">How it works</label>
+                                        <textarea class="ckeditor form-control {{ $errors->has('howItworks') ? 'is-invalid' : '' }}" id="howItworks" name="howItworks">{{{ old('howItworks') }}}</textarea>
+                                        <span class="error invalid-feedback">{{ $errors->first('howItworks') }}</span>
                                     </div>
                                 </div>
                                 <div class="row">

@@ -81,6 +81,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
+                                        <label for="">How it works</label>
+                                        <textarea class="ckeditor form-control {{ $errors->has('howItworks') ? 'is-invalid' : '' }}" id="howItworks" name="howItworks"> {!! $service->how_it_works !!}</textarea>
+                                        <span class="error invalid-feedback">{{ $errors->first('howItworks') }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
                                         <label for="">Features</label>
                                         <div class="field_wrapper">
                                             <div class="features-wrap">

@@ -77,7 +77,7 @@
                                         <div class="form-check">
                                             <input class="form-check-input hasprice popupAmnt" type="checkbox" name="dir_serv_addr[]" id="directors-service-address" value="2289" data-title="Directors Service Address" data-serid="2289">
                                             <label class="form-check-label" for="directors-service-address">
-                                                <strong>Directors Service Address</strong>
+                                                <strong>London registered office address</strong>
                                                     <select class="addonSelect hasprice" name="no_of_officer" id="no_of_officer" autocomplete="off">
                                                         <option value="1" selected="">1</option>
                                                         <option value="2">2</option>
@@ -184,7 +184,7 @@
 
         if($("#no_of_officer :selected").val() !=''){
             $('#od3_price_2289').html('£'+parseFloat(coi).toFixed(2));
-            tr += "<tr><td></td><td>Directors Service Address(number of officers:"+ shareVal +")</td><td>£" +
+            tr += "<tr><td></td><td>London registered office address(number of officers:"+ shareVal +")</td><td>£" +
                 parseFloat(coi).toFixed(2) + "</td></tr>";
             // console.log('no_of_officer', coi, shareVal, tr);
         }

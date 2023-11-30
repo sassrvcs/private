@@ -220,7 +220,10 @@ class PackageController extends Controller
             // $secondPath = $package_name;
             // $secondPath = str_replace('-', ' ', $secondPath);
             // $secondPath = ucfirst($secondPath);
-            // dd($secondPath);
+            // dd($package_name);
+            $aditional_services_section = ModelsAddonservice::with('features')->whereNot('slug',['directors-service-address','registered-office-address','business-telephone-services'])->whereNot('slug', 'like', "%{$package_name}%")->whereNot('price',['0.00','0','0.0'])->get();
+
+
             $services = ModelsAddonservice::with('features')->where('slug', 'like', "%{$package_name}%")->first();
             if (!$services) return redirect('/404');
 
@@ -230,7 +233,7 @@ class PackageController extends Controller
             $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
 
-            return view('frontend.service.service',compact('services', 'features','businessdata','accounting','full_sec_price'));
+            return view('frontend.service.service',compact('services', 'features','businessdata','accounting','full_sec_price','package_name','aditional_services_section'));
 
     }
     public function business_logo()
@@ -247,43 +250,57 @@ class PackageController extends Controller
     }
     public function share_business_idea()
     {
+        $package_name = "share-business-idea";
+        $aditional_services_section = ModelsAddonservice::with('features')->whereNot('slug',['directors-service-address','registered-office-address','business-telephone-services'])->whereNot('price',['0.00','0','0.0'])->get();
+
         $content = Cms::where('title','share-ideas')->first();
         if(!$content)return redirect('/');
         $content = $content->description;
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
-        return view('frontend.service.share-business-idea',compact( 'content','businessdata','accounting','full_sec_price'));
+        return view('frontend.service.share-business-idea',compact( 'content','businessdata','accounting','full_sec_price','aditional_services_section','package_name'));
     }
 
     public function helping_startups()
     {
+        $package_name = "share-business-idea";
+        $aditional_services_section = ModelsAddonservice::with('features')->whereNot('slug',['directors-service-address','registered-office-address','business-telephone-services'])->whereNot('price',['0.00','0','0.0'])->get();
+
         $content = Cms::where('title','helping-startups-new')->first();
         if(!$content)return redirect('/');
         $content = $content->description;
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
-        return view('frontend.service.helping-startups',compact( 'content','businessdata','accounting','full_sec_price'));
+        return view('frontend.service.helping-startups',compact( 'content','businessdata','accounting','full_sec_price','aditional_services_section','package_name'));
     }
     public function business_help()
     {
+        $package_name = "share-business-idea";
+        $aditional_services_section = ModelsAddonservice::with('features')->whereNot('slug',['directors-service-address','registered-office-address','business-telephone-services'])->whereNot('price',['0.00','0','0.0'])->get();
+
         $content = Cms::where('title','business-help-new')->first();
         if(!$content)return redirect('/');
         $content = $content->description;
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
-        return view('frontend.service.business-help',compact( 'content','businessdata','accounting','full_sec_price'));
+        return view('frontend.service.business-help',compact( 'content','businessdata','accounting','full_sec_price','aditional_services_section','package_name'));
     }
     public function info_to_set()
     {
+        $package_name = "share-business-idea";
+        $aditional_services_section = ModelsAddonservice::with('features')->whereNot('slug',['directors-service-address','registered-office-address','business-telephone-services'])->whereNot('price',['0.00','0','0.0'])->get();
+        $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
+
+
         $content = Cms::where('title','info-to-set-new')->first();
         if(!$content)return redirect('/');
         $content = $content->description;
         $businessdata = BusinessBanking::get();
         $accounting = Accounting::get();
-        return view('frontend.service.info-to-set',compact( 'content','businessdata','accounting'));
+        return view('frontend.service.info-to-set',compact( 'content','businessdata','accounting','aditional_services_section','package_name','full_sec_price'));
     }
 
     public function buisness_web_design(){
@@ -338,7 +355,7 @@ class PackageController extends Controller
             return view('frontend.service.load_services.director-appointment-resignation',compact('countries','slug','id','prices','service_name','nationality'));
         }
         if($slug=="full-company-secretary-service"){
-            $service_name = "Full Company Secretary Service";
+            $service_name = "Company Secretary Service";
             $prices = ['full_company_secretary_service_price'=>$get_price];
             return view('frontend.service.load_services.company-secretary-service',compact('countries','slug','id','prices','service_name'));
         }

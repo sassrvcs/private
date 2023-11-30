@@ -199,6 +199,7 @@ figure {
     color: #87CB28;
     font-weight: 700;
 }
+
 .sec-title1 h2 {
     font-size: 50px;
     font-weight: 600;
@@ -589,7 +590,8 @@ body .show > .btn-primary.dropdown-toggle {
     align-items: center;
     padding: 0 8px;
 }
-.main-header .cn-right-actions .login-btn img{
+
+.main-header .cn-right-actions .login-btn img {
     width: 13px;
 }
 
@@ -2068,7 +2070,8 @@ body .show > .btn-primary.dropdown-toggle {
 .main-banner .srch-loader img {
     width: 100%;
 }
-.formationsMade-easier-sec .sec-title1 p{
+
+.formationsMade-easier-sec .sec-title1 p {
     margin-top: 10px;
 }
 
@@ -11124,7 +11127,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 }
 
-.whatMakesDifferent-sec01-sec1 .inner-wrapper {
+.whatMakesDifferent-sec01-sec1 .custom-container {
     display: flex;
     column-gap: 85px;
     justify-content: space-between;
@@ -11280,7 +11283,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg {
     position: absolute;
     left: 50%;
-    transform: translate(-50%,15%) !important;
+    transform: translate(-50%, 15%) !important;
     bottom: 0 !important;
     z-index: 3;
     visibility: hidden;
@@ -11295,9 +11298,11 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h3 {
     color: #2C2929;
 }
-.whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper p{
+
+.whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper p {
     margin-top: 16px;
 }
+
 .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h2 {
     color: #87CB28;
     font-size: 42px;
