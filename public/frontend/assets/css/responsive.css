@@ -5,7 +5,8 @@
     .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn,
     .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn,
     .take-look-t-our-sec01 .action-btns .buy-now-btn,
-    .feature-of-seo-boxes .buy-btn a {
+    .feature-of-seo-boxes .buy-btn a,
+    .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn {
         width: 120px;
         height: 48px;
     }
@@ -250,6 +251,7 @@
     .whatMakesDifferent-sec01-sec1 .text-container {
         max-width: calc(100% - 490px);
     }
+
     .whatMakesDifferent-sec01-sec3 .text-container {
         max-width: calc(100% - 450px);
         padding: 100px 50px 100px 0;
@@ -377,7 +379,8 @@
     .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn,
     .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn,
     .take-look-t-our-sec01 .action-btns .buy-now-btn,
-    .feature-of-seo-boxes .buy-btn a {
+    .feature-of-seo-boxes .buy-btn a,
+    .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn {
         width: 110px;
         height: 45px;
     }
@@ -825,6 +828,7 @@
     .need-little-help .right-box ul {
         row-gap: 10px;
     }
+
     .whatMakesDifferent-sec01-sec3 .text-container {
         max-width: calc(100% - 400px);
         padding: 100px 30px 100px 0;
@@ -877,8 +881,8 @@
 
     .main-banner .caption-box,
     .main-banner #result_show {
-        padding: 75px 210px 75px 0;
-        min-height: 632px;
+        padding: 145px 0 42px 0;
+        min-height: 700px;
     }
 
     .main-banner .caption-box h1 {
@@ -1541,6 +1545,37 @@
     .ourClients-02-sec .logo-with-text-lists {
         padding: 50px 0;
     }
+
+    .main-banner-bottom-steps .steps-row .steps-col {
+        max-width: 33.33%;
+    }
+
+    .companyFormationPackages-sec,
+    .ourServices-sec01,
+    .whyneedbankaccUk-sec01,
+    .clientReviews-sec01,
+    .whatWeOffer-sec02,
+    .ourBankingPartners-sec01,
+    .aboutUs-sec,
+    .formationsMade-easier-sec,
+    .faq-002-sec,
+    .whatMakesDifferent-sec01-sec1,
+    .needLittleHelp-sec,
+    .blog-sec,
+    .ourWorks-sec,
+    .myPortfolio-sec,
+    .seo-webdesign-sec {
+        padding: 100px 0;
+    }
+
+    .ourServices-sec01 .ourServices-sec01-wrapper .text-container {
+        max-width: 560px;
+    }
+
+    .ourServices-sec01 .ourServices-sec01-wrapper .image-container {
+        width: calc(100vw - 630px);
+        max-width: 560px;
+    }
 }
 
 @media (max-width: 1024.98px) {
@@ -1880,6 +1915,7 @@
         /* height: 320px; */
         margin: 0 auto;
     }
+
     .whatMakesDifferent-sec01-sec1 .text-container {
         max-width: unset;
         text-align: center;
@@ -2009,6 +2045,7 @@
     .needLittleHelp-sec .right_div {
         max-width: unset;
     }
+
     .ourNewsletters-01-top-banner .custom-container {
         min-height: 26vw;
     }
@@ -2657,7 +2694,8 @@
     .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn,
     .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn,
     .take-look-t-our-sec01 .action-btns .buy-now-btn,
-    .feature-of-seo-boxes .buy-btn a {
+    .feature-of-seo-boxes .buy-btn a,
+    .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn {
         width: 100px;
         height: 38px;
     }
@@ -4001,6 +4039,7 @@
         height: 38px;
         font-size: 14px;
     }
+
     .whatMakesDifferent-sec01-sec3 .text-container {
         max-width: unset;
         padding: 38px 0 24px 0;

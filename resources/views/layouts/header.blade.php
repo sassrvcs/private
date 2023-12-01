@@ -76,9 +76,9 @@
 
                                     <div class="custom-col">
                                         <h5><span>Address Services</span></h5>
-                                        <a class="dropdown-item" href="{{route('company_services', 'directors-service-address')}}">Directors Service Address</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'registered-office-address')}}">Registered Office Address</a>
-                                        <a class="dropdown-item" href="{{route('company_services', 'business-mailing-address-service')}}">Business Mailing Address</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'directors-service-address')}}">Directors Service Address</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'business-mailing-address-service')}}">Business Mail Forwarding Address</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'renewals')}}">Renewals</a>
                                     </div>
 

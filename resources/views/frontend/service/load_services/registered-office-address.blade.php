@@ -72,12 +72,12 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 p-3 d-block mb-3 position-relative shadow">
-                                        <h5><strong>Popular Add-ons with director's service address</strong></h5>
+                                        <h5><strong>Popular Add-ons with registered office address</strong></h5>
                                         <br>
                                         <div class="form-check">
                                             <input class="form-check-input hasprice popupAmnt" type="checkbox" name="dir_serv_addr[]" id="directors-service-address" value="2289" data-title="Directors Service Address" data-serid="2289">
                                             <label class="form-check-label" for="directors-service-address">
-                                                <strong>London registered office address</strong>
+                                                <strong>Director's service address</strong>
                                                     <select class="addonSelect hasprice" name="no_of_officer" id="no_of_officer" autocomplete="off">
                                                         <option value="1" selected="">1</option>
                                                         <option value="2">2</option>
@@ -89,19 +89,20 @@
                                                         <option value="8">8</option>
                                                         <option value="9">9</option>
                                                     </select>
-                                                <strong><span id="od3_price_2289" class="doc_chk">£24.99</span></strong>
+                                                <strong><span id="od3_price_2289" class="doc_chk">£{{ $prices['director_address'] }}</span></strong>
                                             </label>
                                             <div class="col-md-10 p-1">
-                                                    <p>The use of our HA4 London address for directors, shareholders, secretaries and persons with significant control (PSCs) to keep their home address private.</p>
-                                                    <p>All statutory mail will be forwarded free of charge within the UK.</p>
+                                                    <p>Using this popular service, you can protect the privacy of your home address while enhancing the corporate image of your new company. You can use this registered office address in all your business stationery and websites.</p>
+                                                    <p>We will receive all your official statutory mails at our office. Statutory mail for the purposes of this service is mail received from HMRC or Companies House. We will open, scan and forward all official mail to the email address given during the application. This service is renewable on an yearly basis for a small<br>
+                                                        fee of £{{ $prices['director_address'] }}+vat.</p>
                                             </div>
-                                            <input type="hidden" name="directors-service-address-price" id="directors-service-address-price" value="24.99">
+                                            <input type="hidden" name="directors-service-address-price" id="directors-service-address-price" value="{{$prices['director_address']}}">
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input hasprice popupAmnt" type="checkbox" name="dir_serv_addr[]" id="london-business-address" value="3710" data-title="London business address" data-serid="3710">
                                             <label class="form-check-label" for="london-business-address">
-                                                <strong>London business address</strong>
-                                                <strong><span id="od3_price_3710" class="doc_chk">£99.00</span></strong>
+                                                <strong>London business mail forwarding address</strong>
+                                                <strong><span id="od3_price_3710" class="doc_chk">£{{ $prices['business_address'] }}</span></strong>
                                             </label>
                                             <div class="col-md-10 p-1">
                                                 <p>The use of our SW4 London address as your business correspondence address for your company. You can hide your home address from your suppliers, contractors, customers and marketing agencies. We will receive your business mails on your behalf.</p>
@@ -109,7 +110,7 @@
                                                 <p>Instead we will forward the mails to your postal address for additional charge of 50p+postage per item. As a FREE service, we will<br>
                                                 automatically eliminate mail that we deem to be junk mail and destroy it.</p>
                                             </div>
-                                            <input type="hidden" name="london-business-address-price" id="london-business-address-price" value="99.00">
+                                            <input type="hidden" name="london-business-address-price" id="london-business-address-price" value="{{$prices['business_address']}}">
                                         </div>
                                     </div>
                                 <hr>
@@ -184,7 +185,7 @@
 
         if($("#no_of_officer :selected").val() !=''){
             $('#od3_price_2289').html('£'+parseFloat(coi).toFixed(2));
-            tr += "<tr><td></td><td>London registered office address(number of officers:"+ shareVal +")</td><td>£" +
+            tr += "<tr><td></td><td>Director's service address(number of officers:"+ shareVal +")</td><td>£" +
                 parseFloat(coi).toFixed(2) + "</td></tr>";
             // console.log('no_of_officer', coi, shareVal, tr);
         }
@@ -199,7 +200,7 @@
 
         if ($("#london-business-address").is(":checked")){
             sum += ma;
-            tr += "<tr><td></td><td>London business address</td><td>£" +
+            tr += "<tr><td></td><td>London business mail forwarding address</td><td>£" +
                     parseFloat(ma).toFixed(2) + "</td></tr>";
         }
 

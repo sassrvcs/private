@@ -221,7 +221,7 @@ class PackageController extends Controller
             // $secondPath = str_replace('-', ' ', $secondPath);
             // $secondPath = ucfirst($secondPath);
             // dd($package_name);
-            $aditional_services_section = ModelsAddonservice::with('features')->whereNot('slug',['directors-service-address','registered-office-address','business-telephone-services'])->whereNot('slug', 'like', "%{$package_name}%")->whereNot('price',['0.00','0','0.0'])->get();
+            $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNot('slug', 'like', "%{$package_name}%")->whereNot('price',['0.00','0','0.0'])->get();
 
 
             $services = ModelsAddonservice::with('features')->where('slug', 'like', "%{$package_name}%")->first();
@@ -251,7 +251,7 @@ class PackageController extends Controller
     public function share_business_idea()
     {
         $package_name = "share-business-idea";
-        $aditional_services_section = ModelsAddonservice::with('features')->whereNot('slug',['directors-service-address','registered-office-address','business-telephone-services'])->whereNot('price',['0.00','0','0.0'])->get();
+        $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNot('price',['0.00','0','0.0'])->get();
 
         $content = Cms::where('title','share-ideas')->first();
         if(!$content)return redirect('/');
@@ -265,7 +265,7 @@ class PackageController extends Controller
     public function helping_startups()
     {
         $package_name = "share-business-idea";
-        $aditional_services_section = ModelsAddonservice::with('features')->whereNot('slug',['directors-service-address','registered-office-address','business-telephone-services'])->whereNot('price',['0.00','0','0.0'])->get();
+        $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNot('price',['0.00','0','0.0'])->get();
 
         $content = Cms::where('title','helping-startups-new')->first();
         if(!$content)return redirect('/');
@@ -278,7 +278,7 @@ class PackageController extends Controller
     public function business_help()
     {
         $package_name = "share-business-idea";
-        $aditional_services_section = ModelsAddonservice::with('features')->whereNot('slug',['directors-service-address','registered-office-address','business-telephone-services'])->whereNot('price',['0.00','0','0.0'])->get();
+        $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNot('price',['0.00','0','0.0'])->get();
 
         $content = Cms::where('title','business-help-new')->first();
         if(!$content)return redirect('/');
@@ -291,7 +291,7 @@ class PackageController extends Controller
     public function info_to_set()
     {
         $package_name = "share-business-idea";
-        $aditional_services_section = ModelsAddonservice::with('features')->whereNot('slug',['directors-service-address','registered-office-address','business-telephone-services'])->whereNot('price',['0.00','0','0.0'])->get();
+        $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNot('price',['0.00','0','0.0'])->get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
 
@@ -311,57 +311,50 @@ class PackageController extends Controller
     {
         $countries = Country::all();
         $get_price = ModelsAddonservice::where('id',$id)->pluck('price')->first();
+        $service_name = ModelsAddonservice::where('id',$id)->pluck('service_name')->first();
+
 
         if($slug=="apostilled-documents-service")
         {
             $prices = ['certificate_of_incorporation'=>99.99,'memo_and_articals'=>99.99,'in01_form'=>99.99,'certificate_of_good'=>99.99,'other_doc'=>99.99,'royal_mail'=>0,'courier'=>17.50,'royal_mail_international'=>13.00,'international_courier'=>40.00];
-            $service_name = "Apostilled Documents Service";
             return view('frontend.service.load_services.apostilled-documemnts-service',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="confirmation-statement-service")
         {
             $prices = ['express_service_price'=>54.99,'standard_service_price'=>44.99,'in01_form'=>99.99];
-            $service_name = "Confirmation Statement Service";
             return view('frontend.service.load_services.confirmation-statement-service',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="company-dissolution")
         {
             $service_name = "Company Dissolution";
             $prices = ['company_dissolution_price'=>$get_price];
-
             return view('frontend.service.load_services.company-dissolution-service',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="certification-of-good-standing")
         {
-            $service_name = "Certification Of Good Standing";
             $prices = ['certification_price'=>$get_price,'royal_mail'=>0.00,'dhl'=>50.00];
             return view('frontend.service.load_services.certification-of-good-standing',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="company-name-change")
         {
-            $service_name = "Company Name Change";
             $prices = ['company_name_change_price'=>$get_price];
             return view('frontend.service.load_services.company-name-change',compact('countries','slug','id','prices','service_name'));
         }
         if ($slug=="dormant-company-accounts") {
-            $service_name = "Dormant Company Accounts";
             $prices = ['dormant_company_accounts_price'=>$get_price];
             return view('frontend.service.load_services.dormant-company-accounts',compact('countries','slug','id','prices','service_name'));
         }
         if ($slug=="director-appointment-resignation") {
             $nationality = Nationality::all();
-            $service_name = "Director Appointment & Resignation";
             $prices = ['director_appointment_resignation_price'=>$get_price];
             return view('frontend.service.load_services.director-appointment-resignation',compact('countries','slug','id','prices','service_name','nationality'));
         }
         if($slug=="full-company-secretary-service"){
-            $service_name = "Company Secretary Service";
             $prices = ['full_company_secretary_service_price'=>$get_price];
             return view('frontend.service.load_services.company-secretary-service',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="issue-of-share-services")
         {
-            $service_name = "Issue Of Share Service";
             $prices = ['2_shares'=>79.99,'4_shares'=>89.99,'6_shares'=>99.99,'prepare_file'=>24.99,'prepare_file_myself'=>0.00];
             return view('frontend.service.load_services.issue-of-share-services',compact('countries','slug','id','prices','service_name'));
         }
@@ -373,56 +366,47 @@ class PackageController extends Controller
         }
         if($slug=="directors-service-address")
         {
-            $service_name = "Directors Service Address";
-            $prices = ['directors_service_address_price'=>$get_price,'registered_address'=>35.00,'business_address'=>99.00,];
+            $prices = ['directors_service_address_price'=>$get_price,'registered_address'=>49.99,'business_address'=>98.99,];
             return view('frontend.service.load_services.directors-service-address',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="registered-office-address")
         {
-            $service_name = "Registered Office Address Service";
-            $prices = ['registered_office_address_service_price'=>$get_price,'director_address'=>24.99,'business_address'=>99.00,];
+            $prices = ['registered_office_address_service_price'=>$get_price,'director_address'=>24.99,'business_address'=>98.99,];
             return view('frontend.service.load_services.registered-office-address',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="business-telephone-services")
         {
-            $service_name = "Business Telephone Services";
             $prices = ['business_telephone_services_price'=>$get_price,'yearly_price'=>131.89,];
             return view('frontend.service.load_services.business-telephone-services',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="data-protection-registration")
         {
-            $service_name = "Data Protection Registration";
             $prices = ['data_protection_registration_price'=>$get_price];
             return view('frontend.service.load_services.data-protection-registration',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="vat-registration")
         {
-            $service_name = "VAT Registration";
             $prices = ['vat_registration_price'=>$get_price];
             return view('frontend.service.load_services.vat-registration',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="paye-registration")
         {
-            $service_name = "PAYE Registration";
             $prices = ['paye_registration_price'=>$get_price];
             return view('frontend.service.load_services.paye-registration',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="business-email")
         {
-            $service_name = "Business Email";
             $prices = ['business_email_price'=>$get_price];
             return view('frontend.service.load_services.business-email',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="business-logo")
         {
-            $service_name = "Business Logo Design";
             $price = Cms::where('title','business-logo')->pluck('price')->first();
             $prices = ['business_logo_design_price'=>$price ];
             return view('frontend.service.load_services.business-logo-design',compact('countries','slug','id','prices','service_name'));
         }
         if($slug=="gdpr-compliance-package")
         {
-            $service_name = "GDPR Compliance Package";
             $prices = ['gdpr_price'=>$get_price];
             return view('frontend.service.load_services.gdpr-compliance',compact('countries','slug','id','prices','service_name'));
         }

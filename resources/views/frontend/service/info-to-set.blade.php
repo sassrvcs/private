@@ -42,7 +42,11 @@
                 </div>
                 <div class="text-container">
                     <h1>Information Required To Setup A Company</h1>
-
+                    <div class="action-btns">
+                        <a href="{{ route('index') }}" class="theme-btn-primary buy-btn">
+                            View All packages
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,6 +64,14 @@
     <!-- ================ end: digitalPackage-sec ================ -->
 
     <x-company_name_check />
+    <div class="lets-get-started">
+        <div >
+            <h2>Ready to set up your company?</h2>
+            <div class="page-heading__right mr-top-20-imp" style="justify-content: center;">
+                <a class="btn btn-primary" href="{{ route('index') }}">Let's Get Started</a>
+            </div>
+        </div>
+    </div>
     <!-- ================ start: additionalServices-sec ================ -->
     @include('frontend.service.service_page_static_content.static')
     <!-- ================ end: clientReviews-sec01 ================ -->

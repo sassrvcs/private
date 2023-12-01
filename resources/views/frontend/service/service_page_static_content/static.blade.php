@@ -1,3 +1,58 @@
+@if ($package_name=="company-registration")
+@php
+
+    $non_share_company = \App\Models\Package::whereNot('package_type','shares')->get();
+
+@endphp
+<div class="additionalServices-sec">
+    <div class="custom-container">
+        <div class="sec-title1 text-center">
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Additional <span>Packages</span>
+            </h2>
+        </div>
+        <div class="additionalServices-lists">
+            @foreach ($non_share_company as $nsc)
+            @php
+            $link = "";
+                if ( stripos($nsc->package_name, 'Non Residents')!== false) {
+                    $link = route("non_residents_package");
+                    $package_name = $nsc->package_name." Package";
+                }
+
+                if ( stripos($nsc->package_name, 'Guarantee') !== false) {
+                    $link = route("guarantee_package");
+                    $package_name = $nsc->package_name." Package";
+                }
+
+                if ( stripos($nsc->package_name, 'LLP') !== false) {
+                    $link = route("llp_package");
+                    $package_name = $nsc->package_name." Package";
+                }
+                if ( stripos($nsc->package_name, 'Eseller') !== false) {
+                    $link = route("e_seller_package");
+                    $package_name = $nsc->package_name." Package";
+                }
+                if ( stripos($nsc->package_name, 'PLC') !== false) {
+                    $link = route("plc_package");
+                    $package_name = $nsc->package_name;
+                }
+
+            @endphp
+            <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+
+                <div class="h3-with-text">
+                    <div class="icon-container">
+                        <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
+                    </div>
+                    <h3>  <a href="{{ $link }}">{{$package_name}}</a></h3>
+                </div>
+                <p>{{$nsc->short_description}} .. <a href="{{ $link}}">Read More </a></p>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@else
 <div class="additionalServices-sec">
     <div class="custom-container">
         <div class="sec-title1 text-center">
@@ -14,12 +69,14 @@
                     </div>
                     <h3>  <a href="{{ route('company_services',[$package->slug]) }}">{{$package->service_name}} </a></h3>
                 </div>
-                <p>{{$package->short_desc}}</p>
+                <p>{{$package->short_desc}} .. <a href="{{ route('company_services',[$package->slug]) }}">Read More </a></p>
             </div>
             @endforeach
         </div>
     </div>
 </div>
+@endif
+
 
 <div class="whatMakesDifferent-sec01">
     <div class="whatMakesDifferent-sec01-sec1 for-ourDifferent">

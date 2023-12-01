@@ -12,8 +12,24 @@
                     <h1>{{ $services->service_name}}</h1>
                     @if ($services->price!=0.00&&$services->price!=''&&$services->price!='0')
                         <div class="action-btns">
-                            <a href="{{ route('load_company_service', [$services->slug,$services->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+                            <a href="{{ route('load_company_service', [$services->slug,$services->id] ) }}" class="theme-btn-primary buy-btn">
+                                Buy Now
+                            </a>
                         </div>
+                    @endif
+                    @if ($package_name=="our-online-company-manager")
+                    <div class="action-btns">
+                        <a href="{{ route('index') }}" class="theme-btn-primary buy-btn">
+                            View All packages
+                        </a>
+                    </div>
+                    @endif
+                    @if ($package_name=="company-registration")
+                    <div class="action-btns">
+                        <a href="{{ route('index') }}" class="theme-btn-primary buy-btn">
+                            Launch Your Company
+                        </a>
+                    </div>
                     @endif
                 </div>
             </div>
@@ -59,7 +75,19 @@
 
                                 <a href="{{ route('load_company_service', [$services->slug,$services->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
                                 @endif
+                                @if ($package_name=="our-online-company-manager")
 
+                                    <a href="{{ route('index') }}" class="theme-btn-primary buy-btn">
+                                        View All packages
+                                    </a>
+                                @endif
+                                @if ($package_name=="company-registration")
+                                    <div class="action-btns">
+                                        <a href="{{ route('index') }}" class="theme-btn-primary buy-btn">
+                                            Launch Your Company
+                                        </a>
+                                    </div>
+                                @endif
                                 {{-- <a href="#" class="buy-btn theme-btn-primary">Buy Now</a> --}}
                             </div>
                             {{-- <div class="floating-action-btns">
@@ -67,10 +95,30 @@
                             </div> --}}
                         </div>
                     </div>
+
+                    @if ($package_name=="our-online-company-manager")
+                    <div>
+                        <div>
+                            <h3> Existing customers</h3>
+                            <p>
+                                Enter your username and password to access your Customer Dashboard.
+                            </p>
+                            <a class="btn btn-primary" href="{{ route('clientlogin') }}">Click here to login</a>
+                        </div>
+                        <div>
+                            <h3> New customers</h3>
+                            <p>
+                                Fill in some basic information and you will be able to create an account and begin importing companies or forming new companies.
+                            </p>
+                            <a class="btn btn-primary" href="{{ route('register-form') }}">Click here to create an account </a>
+                        </div>
+                    </div>
+                    @else
                     @if ($services->how_it_works!=null)
                     <div>
                         {!!$services->how_it_works!!}
                     </div>
+                    @endif
                     @endif
 
                     <div class="digitalPackage-right-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
@@ -81,14 +129,19 @@
                                 <li>
                                     <div class="icon-container icon-right-arow">
                                     </div>
-                                    <p>Barclays Bank Account</p>
+                                    <p>
+                                        <a href="{{ route('company_services',['barclays-bank-account']) }}">Barclays Bank Account</a>
+                                    </p>
+
                                 </li>
                                 @endif
                                 @if ($package_name!="cashplus-business-account")
                                 <li>
                                     <div class="icon-container icon-right-arow">
                                     </div>
-                                    <p>Cashplus Business Account</p>
+                                    <p>
+                                        <a href="{{ route('company_services',['cashplus-business-account']) }}">Cashplus Business Account</a>
+                                    </p>
                                 </li>
 
                                 @endif
@@ -96,7 +149,9 @@
                                 <li>
                                     <div class="icon-container icon-right-arow">
                                     </div>
-                                    <p>Wise Business Account</p>
+                                    <p>
+                                        <a href="{{ route('company_services',['payoneer-business-account-for-non-uk-residents']) }}">wise-business-account-for-non-uk-residents</a>
+                                    </p>
                                 </li>
 
                                @endif
@@ -104,14 +159,16 @@
                                 <li>
                                     <div class="icon-container icon-right-arow">
                                     </div>
-                                    <p>Payoneer Business Account For Non UK Residents</p>
+                                    <p>
+                                        <a href="{{ route('company_services',['payoneer-business-account-for-non-uk-residents']) }}">Payoneer Business Account For Non UK Residents</a>
+                                        </p>
                                 </li>
                                 @endif
                                 @if ($package_name!="card-one-business-account")
                                 <li>
                                     <div class="icon-container icon-right-arow">
                                     </div>
-                                    <p>Card One Business Account</p>
+                                    <p> <a href="{{ route('company_services',['card-one-business-account']) }}">Card One Business Account</a> </p>
                                 </li>
                                 @endif
 
@@ -122,6 +179,16 @@
             </div>
         </div>
     </section>
+    @if ($package_name=="our-online-company-manager")
+    <div class="lets-get-started">
+        <div >
+            <h2>Ready to set up your company?</h2>
+            <div class="page-heading__right mr-top-20-imp" style="justify-content: center;">
+                <a class="btn btn-primary" href="{{ route('index') }}">Let's Get Started</a>
+            </div>
+        </div>
+    </div>
+    @endif
     <!-- ================ end: digitalPackage-sec ================ -->
 
  <!-- ================ end: digitalPackage-sec ================ -->

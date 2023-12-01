@@ -4,13 +4,13 @@
 <div class="digital-packages-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
     <div class="custom-container">
         <div class="inner-wrapper">
-            <div class="icon-container d-none">
+            <div class="icon-container">
                 <span><img src="{{ asset('frontend/assets/images/earch-icon.svg') }}"></span>
             </div>
             <div class="text-container">
                 <h1>{{ $packages->package_name}} <span>Package <br>
                         Company Registration</span></h1>
-                <h4></h4>
+                {{-- <h4>LTD Company Package</h4> --}}
                 <div class="action-btns">
 
                     @if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
@@ -76,26 +76,44 @@
                             <li>
                                 <div class="icon-container icon-right-arow">
                                 </div>
-                                <p>Banking Services 01</p>
+                                <p>
+                                    <a href="{{ route('company_services',['barclays-bank-account']) }}">Barclays Bank Account</a>
+                                </p>
+
                             </li>
                             <li>
                                 <div class="icon-container icon-right-arow">
                                 </div>
-                                <p>Banking Services 02</p>
+                                <p>
+                                    <a href="{{ route('company_services',['cashplus-business-account']) }}">Cashplus Business Account</a>
+                                </p>
+                            </li>
+
+                            <li>
+                                <div class="icon-container icon-right-arow">
+                                </div>
+                                <p>
+                                    <a href="{{ route('company_services',['payoneer-business-account-for-non-uk-residents']) }}">wise-business-account-for-non-uk-residents</a>
+                                </p>
+                            </li>
+
+                            <li>
+                                <div class="icon-container icon-right-arow">
+                                </div>
+                                <p>
+                                    <a href="{{ route('company_services',['payoneer-business-account-for-non-uk-residents']) }}">Payoneer Business Account For Non UK Residents</a>
+                                    </p>
                             </li>
                             <li>
                                 <div class="icon-container icon-right-arow">
                                 </div>
-                                <p>Banking Services 03</p>
+                                <p> <a href="{{ route('company_services',['card-one-business-account']) }}">Card One Business Account</a> </p>
                             </li>
-                            <li>
-                                <div class="icon-container icon-right-arow">
-                                </div>
-                                <p>Banking Services 04</p>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -178,11 +196,11 @@
             </div>
             <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <div class="left-border">
-                    <h1>Our different <br />
-                        <span>Services</span>
+                    <h1>Services you might need <br />
+                        <span>with this package</span>
                     </h1>
                 </div>
-                <p>After dealing with so many companies and their problems we have established ourselves as an experienced company formation agent and become an authorised E-filing agent of Companies House, a body responsible for UK limited company formation.</p>
+                <p>You have the opportunity to add these extra services during the order process</p>
                 <div class="for-ourDifferent-text-lists">
                     <div class="for-ourDifferent-list-col">
                         <div class="for-ourDifferent-list-box">

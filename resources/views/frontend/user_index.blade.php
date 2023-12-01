@@ -9,7 +9,7 @@
 </style>
 <!-- ================ start: main-banner ================ -->
 <div class="position-relative overflow-hidden main-banner-outer pb-0">
-    <div class="main-banner home-banner-src" style="background-image: url({{ asset('frontend/assets/images/main-banner.png')}});">
+    <div class="main-banner home-banner-src" style="background-image: url({{ asset('frontend/assets/images/main-banner-without-overlay.jpg')}});">
         <div class="custom-container">
             <div class="caption-box" style="padding-right: 0px;">
                 <div id="response-class">
@@ -465,35 +465,33 @@
 <div class="whatMakesDifferent-sec01 pb-0">
     <div class="whatMakesDifferent-sec01-sec1">
         <div class="custom-container">
-            <div class="inner-wrapper">
-                <div class="image-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                    <!-- <img src="{{ asset('frontend/assets/images/whatMakesDifferent-sec01-sec1-pic.png')}}"> -->
-                    <div class="sec-title1 mb-0">
-                        <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"
-                            class="text-white">What makes us different?
-                        </h2>
-                        <p class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum dolor sit amet consectetur adipisicing elit. At saepe qui optio dignissimos ipsam doloribus porro quia in quo eligendi. Illum saepe voluptatibus optio iste!</p>
-                    </div>
+            <div class="image-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <!-- <img src="{{ asset('frontend/assets/images/whatMakesDifferent-sec01-sec1-pic.png')}}"> -->
+                <div class="sec-title1 mb-0">
+                    <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="text-white">What makes us different?
+                    </h2>
+                    <p class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum dolor sit amet consectetur adipisicing elit. At saepe qui optio dignissimos ipsam doloribus porro quia in quo eligendi. Illum saepe voluptatibus optio iste!</p>
                 </div>
-                <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                    <!-- <h2>What makes us different?</h2> -->
-                    <h3 class="mt-0">Company House Authorised Agent</h3>
-                    <p>After dealing with so many companies and their problems we have established ourselves as an experienced company formation agent and become an authorised E-filing agent of Companies House, a body responsible for UK limited company formation.</p>
+            </div>
+            <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <!-- <h2>What makes us different?</h2> -->
+                <h3 class="mt-0">Company House Authorised Agent</h3>
+                <p>After dealing with so many companies and their problems we have established ourselves as an experienced company formation agent and become an authorised E-filing agent of Companies House, a body responsible for UK limited company formation.</p>
 
-                    <h3>We Get your company registered in the UK effortlessly</h3>
-                    <p>Your company formation process goes smoothly with a click of a button.You give us the name of the company and details and we do all your paperwork to get your company approved within hours.</p>
+                <h3>We Get your company registered in the UK effortlessly</h3>
+                <p>Your company formation process goes smoothly with a click of a button.You give us the name of the company and details and we do all your paperwork to get your company approved within hours.</p>
 
-                    <h3>One Stop for all your business needs</h3>
-                    <p>Once you provide all the required details like your company name, the details of the company directors, shareholders and more.We help you further with registered office address,service address incase if you don’t have any. We also offer registration services for Limited Liability Partnerships and Limited by Guarantee Companies and Registration for Non-residents.</p>
+                <h3>One Stop for all your business needs</h3>
+                <p>Once you provide all the required details like your company name, the details of the company directors, shareholders and more.We help you further with registered office address,service address incase if you don’t have any. We also offer registration services for Limited Liability Partnerships and Limited by Guarantee Companies and Registration for Non-residents.</p>
 
-                    <h3>We count hours not days to form a company</h3>
-                    <p>The process of company formation is convenient when done by professionals. It usually takes about 5 to 10 minutes to complete the application and 3-6 working hours for the registration to complete after approval. The documents reach you in the meantime digitally.</p>
-                </div>                
+                <h3>We count hours not days to form a company</h3>
+                <p>The process of company formation is convenient when done by professionals. It usually takes about 5 to 10 minutes to complete the application and 3-6 working hours for the registration to complete after approval. The documents reach you in the meantime digitally.</p>
             </div>
         </div>
     </div>
     <div class="whatMakesDifferent-sec01-sec2">
         <img src="{{ asset('frontend/assets/images/whatMakesDifferent-sec01-sec2.png')}}" class="img-full">
+        <button type="button" class="play-youtube-btn"><img src="{{ asset('frontend/assets/images/youtube-big-btn.svg')}}"></button>
         <div class="to-see-all-sec">
             <div class="custom-container">
                 <div class="to-see-all-sec-youtube-bg" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><img src="{{ asset('frontend/assets/images/to-see-all-sec-youtube-bg.png')}}"></div>
@@ -559,20 +557,21 @@
                         <div class="whyneedbankaccUk-list-box">
                             <div class="h3-with-icon">
                                 <span class="icon-container"><img src="{{ asset('frontend/assets/images/briefcase.svg')}}"></span>
-                                <h3>Business loans/Expansion </h3>
+                                <h3>Foreign Currency </h3>
                             </div>
-                            <p>Banks offers wide range of services inlcuding business credit cards,business loans to help you set up your business and with a good track record they can assist you further for expansion in other countries to help you reach overseases market to help your business grow worldwide. </p>
+                            <p>Banks can help you in managing daytoday exchange rate fluctuations to simplify international payments, making it easier for your import export business,cross-border online selling business through payment gateways etc. </p>
                         </div>
                     </div>
                     <div class="whyneedbankaccUk-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="whyneedbankaccUk-list-box">
                             <div class="h3-with-icon">
                                 <span class="icon-container"><img src="{{ asset('frontend/assets/images/briefcase.svg')}}"></span>
-                                <h3>Foreign Currency  </h3>
+                                <h3>Business loans/Expansion </h3>
                             </div>
-                            <p>Banks can help you in managing daytoday exchange rate fluctuations to simplify international payments, making it easier for your import export business,cross-border online selling business through payment gateways etc.  </p>
+                            <p>Banks offers wide range of services inlcuding business credit cards,business loans to help you set up your business and with a good track record they can assist you further for expansion in other countries to help you reach overseases market to help your business grow worldwide. </p>
                         </div>
                     </div>
+
                     <div class="whyneedbankaccUk-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="whyneedbankaccUk-list-box">
                             <div class="h3-with-icon">
@@ -662,61 +661,72 @@
 </div>
 <!-- ================ end: clientReviews-sec01 ================ -->
 
-<!-- ================ start: whatWeOffer-sec02 ================ -->
-<div class="whatWeOffer-sec02 pb-0">
+<!-- ================ start: whatWeOffer-sec03 ================ -->
+<div class="whatWeOffer-sec02">
     <div class="custom-container">
         <div class="sec-title1">
-            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">What We Offer to <br /> <span>Set Up Your Company in the UK</span></h2>
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">What We Offer to
+                <br />
+                <span>Set Up Your Company in the UK</span>
+            </h2>
         </div>
-    </div>
-    <ul>
-        <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-            <div class="whatWeOffer-box">
+        <div class="left-right-content-lists">
+            <div class="left-right-content-wrapper" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <div class="image-container">
                     <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic1.png')}}">
                 </div>
                 <div class="text-container">
                     <h3>London Registered Office Address</h3>
                     <p>By selecting a distinguished London registered office address, you not only satisfy business registration criteria but also position your business at the core of the UK's commercial hub.</p>
+                    <div class="action-btns">
+                        <a href="#" class="text-read-more-btn">Read More</a>
+                    </div>
                 </div>
+
             </div>
-        </li>
-        <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-            <div class="whatWeOffer-box">
+
+            <div class="left-right-content-wrapper" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <div class="image-container">
                     <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic2.png')}}">
                 </div>
                 <div class="text-container">
                     <h3>Business Mail Forwarding Address</h3>
                     <p>Establish a designated business address for receiving mail and parcels, elevating the professionalism of your enterprise. Benefit from the freedom to manage your business globally, while we conscientiously forward your mail to your chosen address, saving you time and eliminating inconvenience.</p>
+                    <div class="action-btns">
+                        <a href="#" class="text-read-more-btn">Read More</a>
+                    </div>
                 </div>
             </div>
-        </li>
-        <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-            <div class="whatWeOffer-box">
+            <div class="left-right-content-wrapper" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <div class="image-container">
                     <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic3.png')}}">
+
                 </div>
                 <div class="text-container">
                     <h3>Company Officer (Director) Address</h3>
                     <p>For reasons of privacy or any other necessity, obtain a physical address to serve as the official registration address for your company directors and officials. </p>
+                    <div class="action-btns">
+                        <a href="#" class="text-read-more-btn">Read More</a>
+                    </div>
                 </div>
             </div>
-        </li>
-        <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-            <div class="whatWeOffer-box">
+            <div class="left-right-content-wrapper" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <div class="image-container">
                     <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic4.png')}}">
                 </div>
                 <div class="text-container">
                     <h3>Business Call Answering Service</h3>
                     <p>Our solution for business call answering services offers companies a dedicated and professional team to manage phone calls on their behalf. Inbound calls are answered by our team using your company's name, and they are handled in accordance with your bespoke instructions.</p>
+                    <div class="action-btns">
+                        <a href="#" class="text-read-more-btn">Read More</a>
+                    </div>
                 </div>
             </div>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>
-<!-- ================ end: whatWeOffer-sec02 ================ -->
+
+<!-- ================ end: whatWeOffer-sec03 ================ -->
 
 <!-- ================ start: ourBankingPartners-sec01 ================ -->
 <div class="ourBankingPartners-sec01">
@@ -736,11 +746,11 @@
             @endforeach
 
             @foreach ($accounting as $item => $data)
-                <li>
-                    <div class="logo-container">
-                        <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
-                    </div>
-                </li>
+            <li>
+                <div class="logo-container">
+                    <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
+                </div>
+            </li>
 
 
             @endforeach
@@ -869,7 +879,8 @@
     <div class="custom-container">
         <div class="sec-title1 text-center">
             <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our
-            <span>Blog</span></h2>
+                <span>Blog</span>
+            </h2>
         </div>
         <ul class="blog-slider" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500" data-aos-once="true">
             <li>
