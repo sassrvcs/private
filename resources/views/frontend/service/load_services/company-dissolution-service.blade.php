@@ -78,9 +78,7 @@
                                 </div>
 
                                 <hr>
-                                <div class="total_priceAmnt d-flex justify-content-end align-items-center float-none"
-                                    style="font-size:24px;margin-bottom:15px;">Online Application
-                                </div>
+                                <div class="d-flex justify-content-end align-items-center float-none" style="font-size:24px;margin-bottom:15px;"><div class="total_priceAmnt ">Price: £149.99 <small>+VAT</small></div></div>
 
                                 <input type="hidden" name="allPriceAmnt" id="allPriceAmnt" value="">
                                 <input type="hidden" name="totalVatAmount" id="totalVatAmount" value="">

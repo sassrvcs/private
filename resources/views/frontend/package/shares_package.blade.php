@@ -295,7 +295,7 @@
         <div class="custom-container">
             <div class="text-container">
                 <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident Package</span></h1>
-                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec luctus urna, sed facilisis dolor. Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Nam laoreet vestibulum purus, sed suscipit odio convallis ac. In faucibus tincidunt est, </p>
+                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our idea is to help our non-UK clients set up their businesses effortlessly and without any hassle. Thus, we provide them with a range of services to ensure a streamlined working experience with us.  </p>
                 <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                     <a href="{{route('non_residents_package')}}" class="theme-btn-primary read-more-btn">Read More</a>
                 </div>
