@@ -404,7 +404,7 @@
                             <h3>Payee<span>Registration </span></h3>
                             <p>We help you to register Pay as you Earn (PAYE) for youself or your employees with the HMRC on your behalf.</p>
                             <div class="more-actions">
-                                <a href="#" class="circle-btn">
+                                <a href="{{route('company_services',['paye-registration'])}}" class="circle-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" fill="none">
                                         <path d="M23.5989 8.23412L16.0156 0.650785C15.8113 0.453447 15.5376 0.344252 15.2536 0.346721C14.9695 0.349189 14.6978 0.463122 14.497 0.663981C14.2961 0.86484 14.1822 1.13655 14.1797 1.4206C14.1772 1.70465 14.2864 1.9783 14.4838 2.18262L20.2178 7.9167H1.16634C0.879023 7.9167 0.603473 8.03084 0.400309 8.234C0.197144 8.43717 0.0830078 8.71272 0.0830078 9.00004C0.0830078 9.28735 0.197144 9.5629 0.400309 9.76607C0.603473 9.96923 0.879023 10.0834 1.16634 10.0834H20.2178L14.4838 15.8175C14.3803 15.9174 14.2978 16.0369 14.241 16.1691C14.1842 16.3013 14.1543 16.4434 14.1531 16.5873C14.1518 16.7311 14.1792 16.8738 14.2337 17.0069C14.2882 17.14 14.3686 17.261 14.4703 17.3627C14.5721 17.4644 14.693 17.5449 14.8261 17.5993C14.9593 17.6538 15.1019 17.6812 15.2458 17.68C15.3896 17.6787 15.5318 17.6488 15.6639 17.5921C15.7961 17.5353 15.9157 17.4528 16.0156 17.3493L23.5989 9.76595C23.802 9.5628 23.9161 9.2873 23.9161 9.00004C23.9161 8.71277 23.802 8.43727 23.5989 8.23412Z" fill="white" />
                                     </svg>
@@ -417,7 +417,7 @@
                             <h3>VAT<span>Registration </span></h3>
                             <p>We povide your VAT registration number usually within 15days of application including all legal requirements with HRMC.</p>
                             <div class="more-actions">
-                                <a href="#" class="circle-btn">
+                                <a href="{{route('company_services',['vat-registration'])}}" class="circle-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" fill="none">
                                         <path d="M23.5989 8.23412L16.0156 0.650785C15.8113 0.453447 15.5376 0.344252 15.2536 0.346721C14.9695 0.349189 14.6978 0.463122 14.497 0.663981C14.2961 0.86484 14.1822 1.13655 14.1797 1.4206C14.1772 1.70465 14.2864 1.9783 14.4838 2.18262L20.2178 7.9167H1.16634C0.879023 7.9167 0.603473 8.03084 0.400309 8.234C0.197144 8.43717 0.0830078 8.71272 0.0830078 9.00004C0.0830078 9.28735 0.197144 9.5629 0.400309 9.76607C0.603473 9.96923 0.879023 10.0834 1.16634 10.0834H20.2178L14.4838 15.8175C14.3803 15.9174 14.2978 16.0369 14.241 16.1691C14.1842 16.3013 14.1543 16.4434 14.1531 16.5873C14.1518 16.7311 14.1792 16.8738 14.2337 17.0069C14.2882 17.14 14.3686 17.261 14.4703 17.3627C14.5721 17.4644 14.693 17.5449 14.8261 17.5993C14.9593 17.6538 15.1019 17.6812 15.2458 17.68C15.3896 17.6787 15.5318 17.6488 15.6639 17.5921C15.7961 17.5353 15.9157 17.4528 16.0156 17.3493L23.5989 9.76595C23.802 9.5628 23.9161 9.2873 23.9161 9.00004C23.9161 8.71277 23.802 8.43727 23.5989 8.23412Z" fill="white" />
                                     </svg>
@@ -430,7 +430,7 @@
                             <h3>Confirmation Statement <span>Service</span></h3>
                             <p>We help you file your cofirmation statement to keep your company up to date and compliant with the relevant regulations.</p>
                             <div class="more-actions">
-                                <a href="#" class="circle-btn">
+                                <a href="{{route('company_services',['confirmation-statement'])}}" class="circle-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" fill="none">
                                         <path d="M23.5989 8.23412L16.0156 0.650785C15.8113 0.453447 15.5376 0.344252 15.2536 0.346721C14.9695 0.349189 14.6978 0.463122 14.497 0.663981C14.2961 0.86484 14.1822 1.13655 14.1797 1.4206C14.1772 1.70465 14.2864 1.9783 14.4838 2.18262L20.2178 7.9167H1.16634C0.879023 7.9167 0.603473 8.03084 0.400309 8.234C0.197144 8.43717 0.0830078 8.71272 0.0830078 9.00004C0.0830078 9.28735 0.197144 9.5629 0.400309 9.76607C0.603473 9.96923 0.879023 10.0834 1.16634 10.0834H20.2178L14.4838 15.8175C14.3803 15.9174 14.2978 16.0369 14.241 16.1691C14.1842 16.3013 14.1543 16.4434 14.1531 16.5873C14.1518 16.7311 14.1792 16.8738 14.2337 17.0069C14.2882 17.14 14.3686 17.261 14.4703 17.3627C14.5721 17.4644 14.693 17.5449 14.8261 17.5993C14.9593 17.6538 15.1019 17.6812 15.2458 17.68C15.3896 17.6787 15.5318 17.6488 15.6639 17.5921C15.7961 17.5353 15.9157 17.4528 16.0156 17.3493L23.5989 9.76595C23.802 9.5628 23.9161 9.2873 23.9161 9.00004C23.9161 8.71277 23.802 8.43727 23.5989 8.23412Z" fill="white" />
                                     </svg>
@@ -443,7 +443,7 @@
                             <h3>Full Company Secretary <span>Service </span></h3>
                             <p>A dedicated account manager handles everything related to all your company filings,maitaining register on your behalf under your supervision,taking the burden off your shoulder.</p>
                             <div class="more-actions">
-                                <a href="#" class="circle-btn">
+                                <a href="{{route('company_services',['full-company-secretary-service'])}}" class="circle-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" fill="none">
                                         <path d="M23.5989 8.23412L16.0156 0.650785C15.8113 0.453447 15.5376 0.344252 15.2536 0.346721C14.9695 0.349189 14.6978 0.463122 14.497 0.663981C14.2961 0.86484 14.1822 1.13655 14.1797 1.4206C14.1772 1.70465 14.2864 1.9783 14.4838 2.18262L20.2178 7.9167H1.16634C0.879023 7.9167 0.603473 8.03084 0.400309 8.234C0.197144 8.43717 0.0830078 8.71272 0.0830078 9.00004C0.0830078 9.28735 0.197144 9.5629 0.400309 9.76607C0.603473 9.96923 0.879023 10.0834 1.16634 10.0834H20.2178L14.4838 15.8175C14.3803 15.9174 14.2978 16.0369 14.241 16.1691C14.1842 16.3013 14.1543 16.4434 14.1531 16.5873C14.1518 16.7311 14.1792 16.8738 14.2337 17.0069C14.2882 17.14 14.3686 17.261 14.4703 17.3627C14.5721 17.4644 14.693 17.5449 14.8261 17.5993C14.9593 17.6538 15.1019 17.6812 15.2458 17.68C15.3896 17.6787 15.5318 17.6488 15.6639 17.5921C15.7961 17.5353 15.9157 17.4528 16.0156 17.3493L23.5989 9.76595C23.802 9.5628 23.9161 9.2873 23.9161 9.00004C23.9161 8.71277 23.802 8.43727 23.5989 8.23412Z" fill="white" />
                                     </svg>
@@ -463,30 +463,91 @@
 
 <!-- ================ start: whatMakesDifferent-sec01 ================ -->
 <div class="whatMakesDifferent-sec01 pb-0">
-    <div class="whatMakesDifferent-sec01-sec1">
+    <div class="whatMakesDifferent-sec01-sec1 for-What-Makes-Us-Different" style="background-image: url({{ asset('frontend/assets/images/for-What-Makes-Us-Different-bg.png')}});">
         <div class="custom-container">
-            <div class="image-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                <!-- <img src="{{ asset('frontend/assets/images/whatMakesDifferent-sec01-sec1-pic.png')}}"> -->
-                <div class="sec-title1 mb-0">
-                    <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="text-white">What makes us different?
-                    </h2>
-                    <p class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum dolor sit amet consectetur adipisicing elit. At saepe qui optio dignissimos ipsam doloribus porro quia in quo eligendi. Illum saepe voluptatibus optio iste!</p>
-                </div>
-            </div>
-            <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                <!-- <h2>What makes us different?</h2> -->
-                <h3 class="mt-0">Company House Authorised Agent</h3>
-                <p>After dealing with so many companies and their problems we have established ourselves as an experienced company formation agent and become an authorised E-filing agent of Companies House, a body responsible for UK limited company formation.</p>
+            <ul class="text-group-content-lists w-100" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <li>
+                    <div class="left-text-with-arow">
+                        <div class="sec-title1 mb-0">
+                            <h1>What</h1>
+                        </div>
+                        <div class="arow-box"><img src="{{ asset('frontend/assets/images/for-What-Makes-Us-Different-arrow-gray.svg')}}">
+                        </div>
+                    </div>
 
-                <h3>We Get your company registered in the UK effortlessly</h3>
-                <p>Your company formation process goes smoothly with a click of a button.You give us the name of the company and details and we do all your paperwork to get your company approved within hours.</p>
+                    <div class="right-text">
+                        <h3>Company House Authorised Agent</h3>
+                        <p>After dealing with so many companies and their problems we have established ourselves as
+                            an
+                            experienced company formation agent and become an authorised E-filing agent of Companies
+                            House,
+                            a body responsible for UK limited company formation.</p>
+                    </div>
+                </li>
 
-                <h3>One Stop for all your business needs</h3>
-                <p>Once you provide all the required details like your company name, the details of the company directors, shareholders and more.We help you further with registered office address,service address incase if you don’t have any. We also offer registration services for Limited Liability Partnerships and Limited by Guarantee Companies and Registration for Non-residents.</p>
+                <li>
+                    <div class="left-text-with-arow">
+                        <div class="sec-title1 mb-0">
+                            <h1>makes</h1>
+                        </div>
+                        <div class="arow-box"><img src="{{ asset('frontend/assets/images/for-What-Makes-Us-Different-arrow-gray.svg')}}">
+                        </div>
+                    </div>
 
-                <h3>We count hours not days to form a company</h3>
-                <p>The process of company formation is convenient when done by professionals. It usually takes about 5 to 10 minutes to complete the application and 3-6 working hours for the registration to complete after approval. The documents reach you in the meantime digitally.</p>
-            </div>
+                    <div class="right-text">
+                        <h3>We Get your company registered in the UK effortlessly</h3>
+                        <p>Your company formation process goes smoothly with a click of a button.You give us the
+                            name of
+                            the
+                            company and details and we do all your paperwork to get your company approved within
+                            hours.
+                        </p>
+                    </div>
+
+                </li>
+
+                <li>
+                    <div class="left-text-with-arow">
+                        <div class="sec-title1 mb-0">
+                            <h1>us</h1>
+                        </div>
+                        <div class="arow-box"><img src="{{ asset('frontend/assets/images/for-What-Makes-Us-Different-arrow-gray.svg')}}">
+                        </div>
+                    </div>
+
+                    <div class="right-text">
+                        <h3>One Stop for all your business needs</h3>
+                        <p>Once you provide all the required details like your company name, the details of the
+                            company
+                            directors, shareholders and more.We help you further with registered office
+                            address,service
+                            address incase if you don’t have any. We also offer registration services for Limited
+                            Liability
+                            Partnerships and Limited by Guarantee Companies and Registration for Non-residents.</p>
+                    </div>
+
+                </li>
+
+                <li>
+                    <div class="left-text-with-arow">
+                        <div class="sec-title1 mb-0">
+                            <h1>different</h1>
+                        </div>
+                        <div class="arow-box"><img src="{{ asset('frontend/assets/images/for-What-Makes-Us-Different-arrow-red.svg')}}">
+                        </div>
+                    </div>
+
+                    <div class="right-text">
+                        <h3>We count hours not days to form a company</h3>
+                        <p>The process of company formation is convenient when done by professionals. It usually
+                            takes
+                            about
+                            5 to 10 minutes to complete the application and 3-6 working hours for the registration
+                            to
+                            complete after approval. The documents reach you in the meantime digitally.</p>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="whatMakesDifferent-sec01-sec2">
@@ -679,7 +740,7 @@
                     <h3>London Registered Office Address</h3>
                     <p>By selecting a distinguished London registered office address, you not only satisfy business registration criteria but also position your business at the core of the UK's commercial hub.</p>
                     <div class="action-btns">
-                        <a href="#" class="text-read-more-btn">Read More</a>
+                        <a href="{{route('company_services',['registered-office-address'])}}" class="text-read-more-btn">Read More</a>
                     </div>
                 </div>
 
@@ -693,7 +754,7 @@
                     <h3>Business Mail Forwarding Address</h3>
                     <p>Establish a designated business address for receiving mail and parcels, elevating the professionalism of your enterprise. Benefit from the freedom to manage your business globally, while we conscientiously forward your mail to your chosen address, saving you time and eliminating inconvenience.</p>
                     <div class="action-btns">
-                        <a href="#" class="text-read-more-btn">Read More</a>
+                        <a href="{{route('company_services',['business-mailing-address-service'])}}" class="text-read-more-btn">Read More</a>
                     </div>
                 </div>
             </div>
@@ -706,7 +767,7 @@
                     <h3>Company Officer (Director) Address</h3>
                     <p>For reasons of privacy or any other necessity, obtain a physical address to serve as the official registration address for your company directors and officials. </p>
                     <div class="action-btns">
-                        <a href="#" class="text-read-more-btn">Read More</a>
+                        <a href="{{route('company_services',['directors-service-address'])}}" class="text-read-more-btn">Read More</a>
                     </div>
                 </div>
             </div>
@@ -718,7 +779,7 @@
                     <h3>Business Call Answering Service</h3>
                     <p>Our solution for business call answering services offers companies a dedicated and professional team to manage phone calls on their behalf. Inbound calls are answered by our team using your company's name, and they are handled in accordance with your bespoke instructions.</p>
                     <div class="action-btns">
-                        <a href="#" class="text-read-more-btn">Read More</a>
+                        <a href="{{route('company_services',['business-telephone-services'])}}" class="text-read-more-btn">Read More</a>
                     </div>
                 </div>
             </div>
