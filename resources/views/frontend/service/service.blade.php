@@ -43,7 +43,35 @@
             <div class="left-information" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <h2>{{ $services->service_name}}</h2>
                 {!!$services->long_desc!!}
-
+<div class="prefer-to-order-by-telephone-sec pb-0">
+            <div class="custom-container  d-blok">
+            <h2><b>Prefer to order by telephone</b></h2>
+            <p>If you are not confident in completing your new company order online - call our friendly team and we will complete your order by telephone</p>
+                <div class="div-ul">
+                    <div class="div-li">
+                        <div class="call-no">
+                            <div class="icon-container">
+                                <img src="{{ asset('frontend/assets/images/call-green-icon.svg')}}">
+                            </div>
+                            <div class="text-container">
+                                <h3><a href="tel:020 3002 0032">020 3002 0032</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-li">
+                        <div class="call-no">
+                            <div class="icon-container">
+                                <img src="{{ asset('frontend/assets/images/email-green-icon.svg')}}">
+                            </div>
+                            <div class="text-container">
+                                <h3><a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+   
             </div>
             <div class="right-information">
                 <div class="digitalPackage-right-lists ">
@@ -97,26 +125,31 @@
                     </div>
 
                     @if ($package_name=="our-online-company-manager")
-                    <div>
-                        <div>
+                    <div class="our-online-company-manager-col">
+                        <div class="our-online-company-manager-box" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                             <h3> Existing customers</h3>
-                            <p>
-                                Enter your username and password to access your Customer Dashboard.
+                            <p>Enter your username and password to access your Customer Dashboard.
                             </p>
-                            <a class="btn btn-primary" href="{{ route('clientlogin') }}">Click here to login</a>
+                            <div class="action-btns">
+                                <a class="more-btn btn-primary" href="{{ route('clientlogin') }}">Click here to login</a>
+                            </div>
                         </div>
-                        <div>
+                        <div class="our-online-company-manager-box" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                             <h3> New customers</h3>
-                            <p>
-                                Fill in some basic information and you will be able to create an account and begin importing companies or forming new companies.
-                            </p>
-                            <a class="btn btn-primary" href="{{ route('register-form') }}">Click here to create an account </a>
+                            <p>Fill in some basic information and you will be able to create an account and begin importing companies or forming new companies.</p>
+                            <div class="action-btns">
+                                <a class="more-btn btn-primary" href="{{ route('register-form') }}">Click here to create an account </a>
+                            </div>
                         </div>
                     </div>
                     @else
                     @if ($services->how_it_works!=null)
-                    <div>
-                        {!!$services->how_it_works!!}
+                    <div class="digitalPackage-right-how_it_works-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                        <div class="digitalPackage-right-how_it_works-box">
+                           <div class="list-style-s1-with-left-arow ul-mb-0">
+                            {!!$services->how_it_works!!}
+                            </div>
+                        </div>
                     </div>
                     @endif
                     @endif
@@ -179,12 +212,12 @@
             </div>
         </div>
     </section>
-    @if ($package_name=="our-online-company-manager")
-    <div class="lets-get-started">
-        <div >
-            <h2>Ready to set up your company?</h2>
-            <div class="page-heading__right mr-top-20-imp" style="justify-content: center;">
-                <a class="btn btn-primary" href="{{ route('index') }}">Let's Get Started</a>
+     @if ($package_name=="our-online-company-manager")
+    <div class="ready-to-set-up-your-company">
+        <div class="custom-container  d-blok">
+            <h2><b>Ready to set up your company?</b></h2>
+            <div class="action-btns">
+                <a class="more-btn btn-primary" href="{{ route('index') }}">Let's Get Started</a>
             </div>
         </div>
     </div>

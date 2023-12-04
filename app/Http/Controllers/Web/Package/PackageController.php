@@ -59,6 +59,9 @@ class PackageController extends Controller
 
     public function digital()
     {
+
+        $different_services = ModelsAddonservice::with('features')->whereIn('slug',['registered-office-address','directors-service-address','business-mailing-address-service','business-telephone-services'])->get();
+
         $packages  = Package::with('features')->where('package_type','shares')->where('package_name', 'like', "%Digital%")->whereNull('deleted_at')->first();
         if(!$packages)return redirect('/');
         // $facilitys = $this->facilityService->getFacilitys();
@@ -75,11 +78,14 @@ class PackageController extends Controller
         $accounting = Accounting::get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price','different_services'));
 
     }
     public function privacy()
     {
+        $different_services = ModelsAddonservice::with('features')->whereIn('slug',['business-email','business-telephone-services','data-protection-registration','gdpr-compliance-package'])->get();
+
+
         $packages  = Package::with('features')->where('package_type','shares')->where('package_name', 'like', "%Privacy%")->whereNull('deleted_at')->first();
         if(!$packages)return redirect('/');
 
@@ -91,10 +97,17 @@ class PackageController extends Controller
         $accounting = Accounting::get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price','different_services'));
     }
     public function professional()
     {
+//         Business Logo Design
+// Business Website Designing
+
+
+
+        $different_services = ModelsAddonservice::with('features')->whereIn('slug',['vat-registration','paye-registration'])->get();
+
         $packages  = Package::with('features')->where('package_type','shares')->where('package_name', 'like', "%Professional%")->whereNull('deleted_at')->first();
         if(!$packages)return redirect('/');
 
@@ -106,10 +119,13 @@ class PackageController extends Controller
         $accounting = Accounting::get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price','different_services'));
     }
     public function prestige()
     {
+
+        $different_services = ModelsAddonservice::with('features')->whereIn('slug',['apostilled-documents-service','company-dissolution','director-appointment-resignation','transfer-of-share-services'])->get();
+
         $packages  = Package::with('features')->where('package_type','shares')->where('package_name', 'like', "%Prestige%")->whereNull('deleted_at')->first();
         if(!$packages)return redirect('/');
 
@@ -121,10 +137,13 @@ class PackageController extends Controller
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
         // dd($icon);
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price','different_services'));
     }
     public function all_inclusive()
     {
+
+        $different_services = ModelsAddonservice::with('features')->whereIn('slug',['apostilled-documents-service','company-dissolution','director-appointment-resignation','transfer-of-share-services'])->get();
+
         $packages  = Package::with('features')->where('package_type','shares')->where('package_name', 'like', "%All Inclusive%")->whereNull('deleted_at')->first();
         if(!$packages)return redirect('/');
 
@@ -136,10 +155,12 @@ class PackageController extends Controller
         $accounting = Accounting::get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
-        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
+        return view('frontend.package.shares_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price','different_services'));
     }
     public function non_residents()
     {
+        $different_services = ModelsAddonservice::with('features')->whereIn('slug',['apostilled-documents-service','data-protection-registration','business-email','gdpr-compliance-package'])->get();
+
         $packages  = Package::with('features')->where('package_type','Non_Residents')->where('package_name', 'like', "%Non Residents%")->whereNull('deleted_at')->first();
         if(!$packages)return redirect('/');
 
@@ -151,10 +172,15 @@ class PackageController extends Controller
         $accounting = Accounting::get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
-        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
+        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price','different_services'));
     }
     public function llp()
     {
+//         Business Logo Design
+// Business Website Designing
+
+        $different_services = ModelsAddonservice::with('features')->whereIn('slug',['business-telephone-services','gdpr-compliance-package'])->get();
+
         $packages  = Package::with('features')->where('package_type','LLP')->where('package_name', 'like', "%LLP%")->whereNull('deleted_at')->first();
         if(!$packages)return redirect('/');
 
@@ -166,10 +192,12 @@ class PackageController extends Controller
         $accounting = Accounting::get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
-        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
+        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price','different_services'));
     }
     public function guarantee_package()
     {
+        $different_services = ModelsAddonservice::with('features')->whereIn('slug',['business-email','gdpr-compliance-package','business-telephone-services'])->get();
+
         $packages  = Package::with('features')->where('package_type','Guarantee')->where('package_name', 'like', "%Guarantee%")->whereNull('deleted_at')->first();
         if(!$packages)return redirect('/');
 
@@ -181,12 +209,13 @@ class PackageController extends Controller
         $accounting = Accounting::get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
-        return view('frontend.package.guarantee_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
+        return view('frontend.package.guarantee_package',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price','different_services'));
         // dd($packages);
         // return view('frontend.package.guarantee_package',compact('package_details'));
     }
     public function e_seller()
     {
+        $different_services = ModelsAddonservice::with('features')->whereIn('slug',['gdpr-compliance-package','data-protection-registration'])->get();
         $packages  = Package::with('features')->where('package_type','Eseller')->where('package_name', 'like', "%Eseller%")->whereNull('deleted_at')->first();
         if(!$packages)return redirect('/');
 
@@ -198,10 +227,12 @@ class PackageController extends Controller
         $accounting = Accounting::get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
-        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
+        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price','different_services'));
     }
     public function plc()
     {
+
+        $different_services = ModelsAddonservice::with('features')->whereIn('slug',['vat-registration','paye-registration','business-telephone-services','data-protection-registration'])->get();
         $packages  = Package::with('features')->where('package_type','PLC_Package')->where('package_name', 'like', "%PLC%")->whereNull('deleted_at')->first();
         if(!$packages)return redirect('/');
 
@@ -213,7 +244,7 @@ class PackageController extends Controller
         // dd($icon);
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
-        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price'));
+        return view('frontend.package.other_packages',compact('packages', 'features', 'faqs','icon','businessdata','accounting','full_sec_price','different_services'));
     }
     public function get_services($package_name)
     {

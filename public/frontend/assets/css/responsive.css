@@ -6,7 +6,9 @@
     .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn,
     .take-look-t-our-sec01 .action-btns .buy-now-btn,
     .feature-of-seo-boxes .buy-btn a,
-    .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn {
+    .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn,
+    .digitalPackage-right-lists .our-online-company-manager-box .action-btns .more-btn,
+    .ready-to-set-up-your-company .action-btns .more-btn {
         width: 120px;
         height: 48px;
     }
@@ -380,7 +382,9 @@
     .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn,
     .take-look-t-our-sec01 .action-btns .buy-now-btn,
     .feature-of-seo-boxes .buy-btn a,
-    .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn {
+    .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn,
+    .digitalPackage-right-lists .our-online-company-manager-box .action-btns .more-btn,
+    .ready-to-set-up-your-company .action-btns .more-btn {
         width: 110px;
         height: 45px;
     }
@@ -2695,7 +2699,9 @@
     .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn,
     .take-look-t-our-sec01 .action-btns .buy-now-btn,
     .feature-of-seo-boxes .buy-btn a,
-    .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn {
+    .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn,
+    .digitalPackage-right-lists .our-online-company-manager-box .action-btns .more-btn,
+    .ready-to-set-up-your-company .action-btns .more-btn {
         width: 100px;
         height: 38px;
     }

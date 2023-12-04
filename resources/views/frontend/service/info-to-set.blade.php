@@ -62,13 +62,41 @@
     </section>
 
     <!-- ================ end: digitalPackage-sec ================ -->
-
+<div class="prefer-to-order-by-telephone-sec pb-0">
+            <div class="custom-container  d-blok">
+            <h2><b>Prefer to order by telephone</b></h2>
+            <p>If you are not confident in completing your new company order online - call our friendly team and we will complete your order by telephone</p>
+                <div class="div-ul">
+                    <div class="div-li">
+                        <div class="call-no">
+                            <div class="icon-container">
+                                <img src="{{ asset('frontend/assets/images/call-green-icon.svg')}}">
+                            </div>
+                            <div class="text-container">
+                                <h3><a href="tel:020 3002 0032">020 3002 0032</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-li">
+                        <div class="call-no">
+                            <div class="icon-container">
+                                <img src="{{ asset('frontend/assets/images/email-green-icon.svg')}}">
+                            </div>
+                            <div class="text-container">
+                                <h3><a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+   
     <x-company_name_check />
-    <div class="lets-get-started">
-        <div >
-            <h2>Ready to set up your company?</h2>
-            <div class="page-heading__right mr-top-20-imp" style="justify-content: center;">
-                <a class="btn btn-primary" href="{{ route('index') }}">Let's Get Started</a>
+     <div class="ready-to-set-up-your-company">
+        <div class="custom-container d-blok">
+            <h2><b>Ready to set up your company?</b></h2>
+            <div class="action-btns">
+                <a class="more-btn btn-primary" href="{{ route('index') }}">Let's Get Started</a>
             </div>
         </div>
     </div>

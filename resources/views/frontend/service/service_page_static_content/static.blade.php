@@ -77,19 +77,17 @@
 </div>
 @endif
 
-
 <div class="whatMakesDifferent-sec01">
     <div class="whatMakesDifferent-sec01-sec1 for-ourDifferent">
         <div class="custom-container">
             <div class="image-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                <img src="{{ asset('frontend/assets/images/for-ourDifferent-pic.png') }}">
+               <div class="sec-title1 mb-0">
+                <h2 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Useful Business Services  <br />
+                        <span>you might need</span>
+                </h2>
+            </div>
             </div>
             <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                <div class="left-border">
-                    <h1>Useful Business Services   <br />
-                        <span>you might need</span>
-                    </h1>
-                </div>
                 <p>A little guidance to help you reach your business goals.</p>
                 <div class="for-ourDifferent-text-lists">
                     @if ($package_name!="registered-office-address")
@@ -166,11 +164,13 @@
     <div class="whatMakesDifferent-sec01-sec3">
         <div class="custom-container">
             <div class="text-container">
-                <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident Package</span></h1>
-                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec luctus urna, sed facilisis dolor. Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Nam laoreet vestibulum purus, sed suscipit odio convallis ac. In faucibus tincidunt est, </p>
-                <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                    <a href="{{route('non_residents_package')}}" class="theme-btn-primary read-more-btn">Read More</a>
-                </div>
+               <div class="sec-title1">
+                        <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="text-white">Non UK <span>Resident Package</span></h1>
+                        <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our idea is to help our non-UK clients set up their businesses effortlessly and without any hassle. Thus, we provide them with a range of services to ensure a streamlined working experience with us. </p>
+                    </div>
+                    <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                        <a href="{{ route('non_residents_package')}}" class="theme-btn-primary read-more-btn">Read More</a>
+                    </div>
             </div>
         </div>
     </div>
@@ -214,7 +214,7 @@
                         <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
                     </div>
                     <div class="text-container">
-                        <h4>Call Us: </h4>
+                        <h3>Call Us: </h3>
                         <h2><a href="tel:020 3002 0032">020 3002 0032</a></h2>
                     </div>
                 </li>
@@ -223,16 +223,21 @@
                         <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
                     </div>
                     <div class="text-container">
-                        <h4>Mail us: </h4>
+                        <h3>Mail us: </h3>
                         <h2><a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h2>
                     </div>
                 </li>
             </ul>
         </div>
-        <div class="right_div" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-            <h1>Need a <br>little help?</h1>
-            <p>We love talking to you when it comes to creating something new. We want you to remember us always, let’s be good for good and for a good reason. Reach us through your voice or writing.</p>
-        </div>
+       <div class="right_div" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="sec-title1 mb-0">
+                    <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="text-white">Need a <br>little help?</h2>
+                    <p>We love talking to you when it comes to creating something new. We want you to remember us
+                        always,
+                        let’s be good for good and for a good reason. Reach us through your voice or writing.</p>
+                </div>
+
+            </div>
     </div>
 </div>
 <!-- ================ end: needLittleHelp-sec ================ -->

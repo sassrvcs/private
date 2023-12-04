@@ -361,85 +361,30 @@
 
                 <div class="for-ourDifferent-text-lists">
 
+                    @foreach ($different_services as $item)
                     <div class="for-ourDifferent-list-col">
-
                         <div class="for-ourDifferent-list-box">
-
                             <figure>
-
                                 <div class="icon-container">
-
                                     <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
-
                                 </div>
-
-                                <figcaption>Lorem ipsum dolor sit amet</figcaption>
-
+                                <figcaption> <a href="{{route('company_services',[$item->slug])}}">{{$item->service_name}}</a></figcaption>
                             </figure>
-
                         </div>
-
+                    </div>
+                    @endforeach
+                    <div class="for-ourDifferent-list-col">
+                        <div class="for-ourDifferent-list-box">
+                            <figure>
+                                <div class="icon-container">
+                                    <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
+                                </div>
+                                <figcaption> <a href="{{route('buisness_web_design')}}">Business Website Designing</a></figcaption>
+                            </figure>
+                        </div>
                     </div>
 
-                    <div class="for-ourDifferent-list-col">
 
-                        <div class="for-ourDifferent-list-box">
-
-                            <figure>
-
-                                <div class="icon-container">
-
-                                    <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
-
-                                </div>
-
-                                <figcaption>Lorem ipsum dolor sit amet</figcaption>
-
-                            </figure>
-
-                        </div>
-
-                    </div>
-
-                    <div class="for-ourDifferent-list-col">
-
-                        <div class="for-ourDifferent-list-box">
-
-                            <figure>
-
-                                <div class="icon-container">
-
-                                    <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
-
-                                </div>
-
-                                <figcaption>Lorem ipsum dolor sit amet</figcaption>
-
-                            </figure>
-
-                        </div>
-
-                    </div>
-
-                    <div class="for-ourDifferent-list-col">
-
-                        <div class="for-ourDifferent-list-box">
-
-                            <figure>
-
-                                <div class="icon-container">
-
-                                    <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
-
-                                </div>
-
-                                <figcaption>Lorem ipsum dolor sit amet</figcaption>
-
-                            </figure>
-
-                        </div>
-
-                    </div>
 
                 </div>
 
