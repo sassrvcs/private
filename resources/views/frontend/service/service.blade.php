@@ -19,7 +19,7 @@
                     @endif
                     @if ($package_name=="our-online-company-manager")
                     <div class="action-btns">
-                        <a href="{{ route('index') }}" class="theme-btn-primary buy-btn">
+                        <a href="{{ route('package') }}" class="theme-btn-primary buy-btn">
                             View All packages
                         </a>
                     </div>
@@ -71,7 +71,7 @@
                 </div>
         </div>
     </div>
-   
+
             </div>
             <div class="right-information">
                 <div class="digitalPackage-right-lists ">
@@ -105,7 +105,7 @@
                                 @endif
                                 @if ($package_name=="our-online-company-manager")
 
-                                    <a href="{{ route('index') }}" class="theme-btn-primary buy-btn">
+                                    <a href="{{ route('package') }}" class="theme-btn-primary buy-btn">
                                         View All packages
                                     </a>
                                 @endif

@@ -43,7 +43,7 @@
                 <div class="text-container">
                     <h1>Information Required To Setup A Company</h1>
                     <div class="action-btns">
-                        <a href="{{ route('index') }}" class="theme-btn-primary buy-btn">
+                        <a href="{{ route('package') }}" class="theme-btn-primary buy-btn">
                             View All packages
                         </a>
                     </div>
@@ -90,7 +90,7 @@
                 </div>
         </div>
     </div>
-   
+
     <x-company_name_check />
      <div class="ready-to-set-up-your-company">
         <div class="custom-container d-blok">
