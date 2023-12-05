@@ -213,21 +213,13 @@
                                                     <tbody>
                                                         <tr>
                                                             <td><strong>Due :</strong></td>
-<<<<<<< HEAD
                                                             <td>{{$review->due_date ?? '-'}}</td>
-=======
-                                                            <td>{{$review->due_date}}</td>
->>>>>>> f4d3470d7dfd77f16542f9abd2a17afb2cc71aa4
                                                             <td></td>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td><strong>Made Up To :</strong></td>
-<<<<<<< HEAD
                                                             <td>{{$review->made_upto ?? '-'}}</td>
-=======
-                                                            <td>{{$review->made_upto}}</td>
->>>>>>> f4d3470d7dfd77f16542f9abd2a17afb2cc71aa4
                                                             <td></td>
                                                             <td></td>
                                                         </tr>
@@ -1465,6 +1457,29 @@
         });
 
         $(document).ready(function () {
+            $('#changeNameService').on('click', function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "{!! route('edit-nameChange-companies-service') !!}",
+                    data: {
+                        '_token':       '{{ csrf_token() }}',
+                        'order_id':     '{{ $order->order_id }}', 
+                        'service_name': '{{ $change_name_service->service_name }}', 
+                        'slug':         '{{ $change_name_service->slug }}', 
+                        'price':        '{{ $change_name_service->price }}', 
+                    },
+                    success: function (data) {
+                        location.reload(true);
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error updating change name');
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
             $('#saveCompanyAccount').on('click', function () {
                 var currentReferenceDate = $('#currentReferenceDate').val();
                 var amendedReferenceDate = $('#amendedReferenceDate').val();
@@ -1486,9 +1501,7 @@
                     },
                     success: function (data) {
                         $('#openCompanyAccount').modal('hide');
-                        $('#dueDate').text(amendedReferenceDate);
-                        $('#madeUpTo').text(currentReferenceDate);
-                        $('#madeUpToReference').text(currentReferenceDate);                        
+                        location.reload(true);                    
                     },
                     error: function (xhr, status, error) {
                         alert('Error updating the date');
