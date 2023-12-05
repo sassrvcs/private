@@ -21,9 +21,22 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="phone_no" class="col-sm-3 col-form-label">Telephone Nr<span class="starred">*</span></label>
-                                <div class="col-sm-6">
-                                    <input type="tel" class="form-control required_app" name="phone_no" id="phone_no" onkeyup="phone_no_validation(this)" value="" required="" maxlength="10" fdprocessedid="mnwg0u">
+                                <label for="phone_no" class="col-sm-3 col-form-label">Telephone Number<span class="starred">*</span></label>
+                                <div class="col-sm-2">
+                                    @php
+                                    $codes = \App\Models\Phone_code::orderBy('phonecode','asc')->get()->pluck('phonecode')->toArray();
+                                    $codes = array_unique($codes)
+                                @endphp
+                                <select name="country_code" id="country_code" class="form-control">
+                                    @foreach ($codes as $code)
+                                    @if ($code!=0)
+                                    <option value="{{ $code }}" @if ($code==44)selected @endif >+{{ $code }}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="tel" class="form-control required_app" name="phone_no" id="phone_no" onkeyup="phone_no_validation(this)" value="" required="" maxlength="11" fdprocessedid="mnwg0u">
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -41,15 +54,15 @@
                             <div class="mb-3 row">
                                 <label for="company_number" class="col-sm-3 col-form-label">Your Company Number</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="company_number" id="company_number" value="" fdprocessedid="lqr24b">
+                                    <input type="number" class="form-control" name="company_number" id="company_number" value="" fdprocessedid="lqr24b">
                                 </div>
-                            </div> 
+                            </div>
                             <div class="mb-3 row">
                                 <label for="details" class="col-sm-3 col-form-label">Details</label>
                                 <div class="col-sm-6">
                                     <textarea class="form-control" name="details" id="details" rows="5" cols="40"></textarea>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
     <hr>
     <div class="total_priceAmnt d-flex justify-content-end align-items-center float-none"

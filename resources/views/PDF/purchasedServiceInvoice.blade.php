@@ -42,6 +42,14 @@
         background-color: #f0f0f0;
         font-weight: bold;
     }
+    .order-table tr td{
+        padding: 10px 10px;
+        border-bottom: 1px solid #000;
+        border-right: 1px solid #000;
+    }
+    .order-table tr td:first-child{
+        border-left: 1px solid #000;
+    }
     </style>
 </head>
 
@@ -119,51 +127,40 @@
                         <tr>
                             <td style="height:60px;">&nbsp;</td>
                         </tr>
-                        <table width="100%" cellpadding="0" cellspacing="0"
-                                    style="font-family: 'Poppins', sans-serif;">
-
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Service</th>
-                                                <th>Details</th>
-                                                <th class="numeric">Price</th>
-                                                {{-- <th>&nbsp;</th> --}}
-                                            </tr>
-                                        </thead>
-
-                                        <tbody id="order_blk_details">
-                                            {!!$invoice_data!!}
-
-                                        </tbody>
-                                        <tbody><tr>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
-                                            {{-- <td>&nbsp;</td> --}}
+                        <tr>
+                            <td>
+                                <table width="100%" cellpadding="0" cellspacing="0" style="font-family: 'Poppins', sans-serif;">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:left;background:#eee9e9;padding: 10px;border-top: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000; border-bottom: 1px solid #000;"><strong><i>Service</i></strong></th>
+                                            <th style="text-align:left;background:#eee9e9;padding: 10px;border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong><i>Details</i></strong></th>
+                                            <th style="text-align:left;background:#eee9e9;padding: 10px;border-top: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong><i>Price</i></strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="order-table">
+                                        {!!$invoice_data!!}
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td style="padding:10px;border-left: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;"> <strong>Price excl. VAT</strong> </td>
+                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£{{$base_amount}}</strong></td>
                                         </tr>
                                         <tr>
-                                            <td class="bc-f0f0f0 br-top-left">&nbsp;</td>
-                                            <td class="bc-f0f0f0">Price excl. VAT</td>
-                                            <td id="totals" class="numeric bc-f0f0f0"><strong>£{{$base_amount}}</strong></td>
-                                            {{-- <td class="bc-f0f0f0 br-top-right">&nbsp;</td> --}}
+                                            <td></td>
+                                            <td style="padding:10px;border-left: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>VAT @ 20%</strong> </td>
+                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£{{$total_vat}}</strong></td>
                                         </tr>
                                         <tr>
-                                            <td class="bc-f0f0f0">&nbsp;</td>
-                                            <td class="bc-f0f0f0">VAT @ 20%</td>
-                                            <td id="vat_totals" class="numeric bc-f0f0f0"><strong>£{{$total_vat}}</strong></td>
-                                            {{-- <td class="bc-f0f0f0">&nbsp;</td> --}}
+                                            <td></td>
+                                            <td style="padding:10px;border-left: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>Total for this Transaction</strong> </td>
+                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£{{$total_amount}}</strong></td>
                                         </tr>
-                                        <tr>
-                                            <td class="bc-f0f0f0">&nbsp;</td>
-                                            <td class="bc-f0f0f0">Total for this Transaction</td>
-                                            <td id="grand_totals" class="numeric bc-f0f0f0"><strong>£{{$total_amount}}</strong></td>
-                                            {{-- <td class="bc-f0f0f0">&nbsp;</td> --}}
-                                        </tr>
-                                    </tbody></table>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
 
-
-                        </table>
                         {{-- <tr>
                             <td style="padding: 0;">
                                 <table width="100%" cellpadding="0" cellspacing="0"
@@ -196,6 +193,15 @@
                 <td style="height:20px;" colspan="2">&nbsp;</td>
             </tr>
         </tbody>
+        {{-- <tr>
+            <td style="padding: 0; text-align: center;" colspan="3">
+                <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff; font-family: 'Poppins', sans-serif;">
+                    <tr>
+                        <td style="padding:15px;"><p style="text-align: center; font-size: 14px;line-height: 1.2;color: #000;font-weight: 500;padding: 0 0 0px;margin: 0;">Copyright © 2023 Formationshunt. | All Rights Reserved.</p></td>
+                    </tr>
+                </table>
+            </td>
+        </tr> --}}
     </table>
     <!--/100% body table-->
 </body>

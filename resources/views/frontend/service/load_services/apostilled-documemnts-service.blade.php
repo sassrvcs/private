@@ -95,7 +95,7 @@
                                             <label for="option4_input" class="col-sm-2 col-form-label">Please specify<span
                                                     class="starred">*</span></label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control-plaintext" id="option4_input"
+                                                <input type="text" class="form-control-plaintext"  id="option4_input" style="padding:0.375rem 2.25rem 0.375rem 0.75rem"
                                                     name="option4_input" value="">
                                             </div>
                                         </div>
@@ -112,7 +112,7 @@
                                             <label for="option5_input" class="col-sm-2 col-form-label">Please specify<span
                                                     class="starred">*</span></label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control-plaintext" id="option5_input"
+                                                <input type="text" class="form-control-plaintext" id="option5_input" style="padding:0.375rem 2.25rem 0.375rem 0.75rem"
                                                     name="option5_input" value="">
                                             </div>
                                         </div>
@@ -129,7 +129,7 @@
                                             <label for="option6_input" class="col-sm-2 col-form-label">Please specify<span
                                                     class="starred">*</span></label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control-plaintext" id="option6_input"
+                                                <input type="text" class="form-control-plaintext" id="option6_input" style="padding:0.375rem 2.25rem 0.375rem 0.75rem"
                                                     name="option6_input" value="">
                                             </div>
                                         </div>

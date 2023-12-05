@@ -191,21 +191,39 @@ class CheckoutStepController extends Controller
     public function servicePaymentNow(Request $request){
         //service payment
         $order = $request->order_id.'/'.uniqid().Str::random(10);
+        $details = [
+            'order_id' => $order,
+            'total_amount' => $request->total_amount,
+            'accept_url' => route('service-payment-success'),
+        ];
+        return $this->ProcessPayment($request,$details);
+    }
+    //DON'T TOUCH THIS PROCESSPAYMENT FUNCTION WITHOUT PROPER KT
+    public function ProcessPayment(Request $request,$details){
 
-        $paymentUrl = "https://mdepayments.epdq.co.uk/ncol/test/orderstandard_utf8.asp"; // Barclays payment gateway URL
-        $pspid = "epdq1638710";
+        // dd($request);
+        $payment_mode = env('PAYMENT_ENV','LIVE');
+        if ($payment_mode!='TEST'){
+            $paymentUrl = env('LIVE_PAYMENT_URL',);
+            $shaOutPasscode = env('LIVE_SHAOUTPASSCODE');
+            $pspid = env('LIVE_PSPID');
+        }else{
+            $paymentUrl = env('TEST_PAYMENT_URL');
+            $pspid = env('TEST_PSPID');
+            $shaOutPasscode = env('TEST_SHAOUTPASSCODE');
+        }
+        $order = $details['order_id'];
         $shaInPasscode = "";
-        $shaOutPasscode = "F&I4s97SdqEE(lDAaJ";
-        $amount = $request->total_amount *100;
+        $amount = $details['total_amount'] *100;
         $currency = "GBP";
         // $orderID = "ORDER12356".time();
         $formData = array(
             "PSPID" => $pspid,
-            "orderID" => $order,
-            "amount" => $amount,
-            "order" => $request->order,
-            "currency" => $currency,
-            "ACCEPTURL" => route('service-payment-success'),
+            "ORDERID" => $order,
+            "AMOUNT" => $amount,
+            "CURRENCY" => $currency,
+            "LANGUAGE" => "en_US",
+            "ACCEPTURL" => $details['accept_url'],
             "DECLINEURL" => route('payment-declined'),
             "EXCEPTIONURL" => route('payment-exception'),
             "CANCELURL" => route('payment-cancelled')
@@ -223,6 +241,8 @@ class CheckoutStepController extends Controller
         // dd($formData);
         return view('frontend.payment_getway.view', compact('formData', 'paymentUrl'));
     }
+
+
     public function paymentSuccess(Request $request){
         // dd($request);
         $order_arr = explode('/',$request->query('orderID'));

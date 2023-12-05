@@ -25,24 +25,7 @@ Address List
                 <div class="card pdb-75">
                     <div class="card-header">
 
-                        <form action="">
-                            <div class="input-group w-25 float-right">
-
-                                <input type="text" value="" name="search" placeholder="Find by name" id="search"
-                                    class="form-control form-control-sm">
-
-                                {{-- <input type="text" name="agent_id" value="{{ $filter['agent_id'] }}" placeholder="Find by agent id" id="agent_id" class="form-control form-control-sm" required > --}}
-
-                                <div class="input-group-append">
-                                    <button class="btn btn-sm btn_baseColor" type="submit">Search</button>
-                                </div>
-                                &nbsp;
-                                <div class="input-group-append">
-                                    {{-- <button class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</button> --}}
-                                    <a href="{{ route('admin.business-banking.index') }}" class="btn btn-sm btn_baseColor" id="clear-search" type="button">Clear &nbsp;</a>
-                                </div>
-                            </div>
-                        </form>
+                        
                     </div>
                     <!-- /.card-header -->
 

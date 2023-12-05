@@ -274,6 +274,39 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item {{ request()->routeIs('purchased-service-details') ? 'menu-is-opening menu-open' : '' }} {{ request()->routeIs('admin.expired-service-list-admin') ? 'menu-is-opening menu-open' : '' }} {{ request()->routeIs('admin.purchased-service-list-admin') ? 'menu-is-opening menu-open' : '' }}">
+                <a href="#" class="nav-link {{ request()->routeIs('purchased-service-details') ? 'active' : '' }} {{ request()->routeIs('admin.purchased-service-list-admin') ? ' active' : '' }}  {{ request()->routeIs('admin.expired-service-list-admin') ? ' active' : '' }}">
+                    <i class="nav-icon fas fa-graduation-cap"></i>
+                    <p>
+                        Purchased Services
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                {{-- style="{{ request()->routeIs('admin.agent.*') ? ' display: block;' : 'display: none;' }}"" --}}
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.purchased-service-list-admin')}}"
+                            class="nav-link {{ request()->routeIs('admin.purchased-service-list-admin') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Service List</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.expired-service-list-admin')}}"
+                            class="nav-link {{ request()->routeIs('admin.expired-service-list-admin') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Expired List</p>
+                        </a>
+                    </li>
+
+                    {{-- <li class="nav-item">
+                        <a href="{{ route('admin.business-banking.create')}}" class="nav-link {{ request()->routeIs('admin.business-banking.create') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Add New</p>
+                        </a>
+                    </li> --}}
+                </ul>
+            </li>
         {{-- @can('Manage Address') --}}
             <li class="nav-item {{ request()->routeIs('admin.manage-address.*') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link  {{ request()->routeIs('admin.manage-address.*') ? ' active' : '' }}">
@@ -301,6 +334,7 @@
                     </li> --}}
                 </ul>
             </li>
+
             {{-- @endcan --}}
             {{-- <li class="nav-item {{ request()->routeIs('admin.view-tickets-admin.*') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link  {{ request()->routeIs('admin.view-tickets-admin.*') ? ' active' : '' }}">

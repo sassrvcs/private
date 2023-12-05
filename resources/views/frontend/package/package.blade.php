@@ -17,7 +17,7 @@
 
         <div class="call-info" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500"
             data-aos-once="true">
-            <div class="icon-container">
+            <div class="icon-container ">
                 <img src="{{ asset('frontend/assets/images/ic_baseline-phone.svg') }}">
             </div>
             <div class="text-box">
@@ -110,7 +110,7 @@
                         @foreach($packages as $key => $package)
                             <th>
                                 <div class="items-th-info">
-                                    <div class="icon-container">
+                                    <div class="icon-container ">
                                         <div class="inner-box">
                                             {{-- <img src="{{ asset('frontend/assets/images/companyFormationPackages1.svg') }}"> --}}
                                             @if ($package->getMedia('package_icon')->isNotEmpty())

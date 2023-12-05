@@ -101,6 +101,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+
                                                             <td><strong>Number :</strong></td>
                                                             <td>{{ $order->company_number ?? '-' }}</td>
                                                             <td></td>
@@ -188,7 +189,7 @@
                                                             <td width="200"><strong>Confirmation Statement :</strong>
                                                             </td>
                                                             <td>
-                                                                <p>15/06/2024</p>All companies are legally required to file
+                                                                <p>{{$review->due_date}}</p>All companies are legally required to file
                                                                 an annual Confirmation Statement.
                                                                 Avoid missing this deadline by purchasing our filing service
                                                                 (ind. filing fee of
@@ -212,13 +213,21 @@
                                                     <tbody>
                                                         <tr>
                                                             <td><strong>Due :</strong></td>
+<<<<<<< HEAD
                                                             <td>{{$review->due_date ?? '-'}}</td>
+=======
+                                                            <td>{{$review->due_date}}</td>
+>>>>>>> f4d3470d7dfd77f16542f9abd2a17afb2cc71aa4
                                                             <td></td>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td><strong>Made Up To :</strong></td>
+<<<<<<< HEAD
                                                             <td>{{$review->made_upto ?? '-'}}</td>
+=======
+                                                            <td>{{$review->made_upto}}</td>
+>>>>>>> f4d3470d7dfd77f16542f9abd2a17afb2cc71aa4
                                                             <td></td>
                                                             <td></td>
                                                         </tr>
@@ -304,21 +313,7 @@
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
-                                                            <!-- <tr>
-                                                                <td><strong><img src="assets/images/user-black-icon.svg"
-                                                                            alt=""> Amrutaben Patel</strong></td>
-                                                                <td><img src="assets/images/green-tick-icon.svg"
-                                                                        alt=""></td>
-                                                                <td><img src="assets/images/green-tick-icon.svg"
-                                                                        alt=""></td>
-                                                                <td><img src="assets/images/green-tick-icon.svg"
-                                                                        alt=""></td>
-                                                                <td><img src="assets/images/green-tick-icon.svg"
-                                                                        alt=""></td>
-                                                                <td><button class="ch-ed-btn"><img
-                                                                            src="assets/images/draw-icon.png"
-                                                                            alt=""> Edit</button></td>
-                                                            </tr> -->
+                                                           
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -1168,12 +1163,12 @@
                         };
 
                         // Construct the address text
-                        var addressText = `${selectedAddressDetails.house_number ? selectedAddressDetails.house_number + ',' : ''} 
-                                            ${selectedAddressDetails.street ? selectedAddressDetails.street + ',' : ''} 
-                                            ${selectedAddressDetails.locality ? selectedAddressDetails.locality + ',' : ''} 
-                                            ${selectedAddressDetails.town ? selectedAddressDetails.town + ',' : ''} 
+                        var addressText = `${selectedAddressDetails.house_number ? selectedAddressDetails.house_number + ',' : ''}
+                                            ${selectedAddressDetails.street ? selectedAddressDetails.street + ',' : ''}
+                                            ${selectedAddressDetails.locality ? selectedAddressDetails.locality + ',' : ''}
+                                            ${selectedAddressDetails.town ? selectedAddressDetails.town + ',' : ''}
                                             ${selectedAddressDetails.county}
-                                            ${selectedAddressDetails.billing_country ? ',' + selectedAddressDetails.billing_country : ''} 
+                                            ${selectedAddressDetails.billing_country ? ',' + selectedAddressDetails.billing_country : ''}
                                             ${selectedAddressDetails.post_code}`;
 
                         // Set the text in the selectedAddressDisplay paragraph
@@ -1244,12 +1239,12 @@
                 countryName: $(this).siblings('.address-country-name').val()
             };
 
-            var addressText = `${selectedAddressDetails.houseNumber ? selectedAddressDetails.houseNumber + ',' : ''} 
-                            ${selectedAddressDetails.street ? selectedAddressDetails.street + ',' : ''} 
-                            ${selectedAddressDetails.locality ? selectedAddressDetails.locality + ',' : ''} 
-                            ${selectedAddressDetails.town ? selectedAddressDetails.town + ',' : ''} 
+            var addressText = `${selectedAddressDetails.houseNumber ? selectedAddressDetails.houseNumber + ',' : ''}
+                            ${selectedAddressDetails.street ? selectedAddressDetails.street + ',' : ''}
+                            ${selectedAddressDetails.locality ? selectedAddressDetails.locality + ',' : ''}
+                            ${selectedAddressDetails.town ? selectedAddressDetails.town + ',' : ''}
                             ${selectedAddressDetails.county}
-                            ${selectedAddressDetails.countryName ? ',' + selectedAddressDetails.countryName : ''} 
+                            ${selectedAddressDetails.countryName ? ',' + selectedAddressDetails.countryName : ''}
                             ${selectedAddressDetails.postCode}`;
 
             $(".103_add_id").val(selectedAddressDetails.id);
@@ -1296,7 +1291,7 @@
                 }
             });
         });
-      
+
         $("#saveAddr").click(function() {
             $(".loader").show();
             // Validation

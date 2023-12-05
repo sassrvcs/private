@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('content')
+
     <!-- ================ start: digital-packages-banner ================ -->
     <div class="digital-packages-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
         <div class="custom-container">
@@ -29,8 +30,8 @@
 
             </div>
             <div class="right-information">
-                <div class="digitalPackage-right-lists">
-                    <div class="digitalPackage-right-list-col">
+                <div class="digitalPackage-right-lists ">
+                    <div class="digitalPackage-right-list-col @if($services->slug =='barclays-bank-account') d-none @endif">
                         <div class="digitalPackage-right-list-box floatTop">
                             <div class="top-price-info">
                                 <h4>{{$services->service_name}}</h4>
@@ -39,7 +40,8 @@
                                     <p>Includes</p>
                                 @endif
                             </div>
-                            <ul class="list-info">
+
+                            <ul class="list-info ">
                                 @foreach ($features as $feature)
                                 <li>
                                     @if ($feature->feature!='')

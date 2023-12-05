@@ -461,66 +461,11 @@
 </div>
 <!-- ================ end: ourServices-sec01 ================ -->
 
-<!-- ================ start: whatMakesDifferent-sec01 ================ -->
-<div class="whatMakesDifferent-sec01">
-    <div class="whatMakesDifferent-sec01-sec1">
-        <div class="custom-container">
-            <div class="image-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                <img src="{{ asset('frontend/assets/images/whatMakesDifferent-sec01-sec1-pic.png')}}">
-            </div>
-            <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                <h2>What makes us different?</h2>
-                <h3>Company House Authorised Agent</h3>
-                <p>After dealing with so many companies and their problems we have established ourselves as an experienced company formation agent and become an authorised E-filing agent of Companies House, a body responsible for UK limited company formation.</p>
-
-                <h3>We Get your company registered in the UK effortlessly</h3>
-                <p>Your company formation process goes smoothly with a click of a button.You give us the name of the company and details and we do all your paperwork to get your company approved within hours.</p>
-
-                <h3>One Stop for all your business needs</h3>
-                <p>Once you provide all the required details like your company name, the details of the company directors, shareholders and more.We help you further with registered office address,service address incase if you don’t have any. We also offer registration services for Limited Liability Partnerships and Limited by Guarantee Companies and Registration for Non-residents.</p>
-
-                <h3>We count hours not days to form a company</h3>
-                <p>The process of company formation is convenient when done by professionals. It usually takes about 5 to 10 minutes to complete the application and 3-6 working hours for the registration to complete after approval. The documents reach you in the meantime digitally.</p>
-            </div>
-        </div>
-    </div>
-    <div class="whatMakesDifferent-sec01-sec2">
-        <img src="{{ asset('frontend/assets/images/whatMakesDifferent-sec01-sec2.png')}}" class="img-full">
-        <div class="to-see-all-sec">
-            <div class="custom-container">
-                <div class="to-see-all-sec-youtube-bg" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><img src="{{ asset('frontend/assets/images/to-see-all-sec-youtube-bg.png')}}"></div>
-                <div class="box-wrapper">
-                    <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                        <h3>To See All </h3>
-                        <h2>Our Video Click Here</h2>
-                    </div>
-                    <div class="action-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                        <a href="#" class="theme-btn-darkBlue click-btn">Click here</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="whatMakesDifferent-sec01-sec3">
-        <div class="custom-container">
-            <div class="text-container">
-                <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident Package</span></h1>
-                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our aim is to provide International customers with everything they need for their business to remain complaint with UK regulations starting from London registered office address,directors service address along with GDPR,VAT and PAYE registeration for their business.</p>
-                <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                    <a href="{{route('non_residents_package')}}" class="theme-btn-primary read-more-btn">Read More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-<!-- ================ end: whatMakesDifferent-sec01 ================ -->
 <!-- ================ start: whyneedbankaccUk-sec01 ================ -->
 <div class="whyneedbankaccUk-sec01">
     <div class="custom-container">
         <div class="top-title">
-            <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Why you need a bank account in UK? 4options</h1>
+            <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Why you need a bank account in UK?</h1>
             <h4 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Banking is an integral part of any business for trading in UK.A proper business bank account helps you to manage your finances with lot of options as per your business needs.</h4>
         </div>
         <div class="whyneedbankaccUk-wrapper">
@@ -571,6 +516,150 @@
     </div>
 </div>
 <!-- ================ end: whyneedbankaccUk-sec01 ================ -->
+
+<!-- ================ start: whatWeOffer-sec02 ================ -->
+<div class="whatWeOffer-sec02">
+    <div class="sec-title1 text-center">
+        <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">What We Offer to <span>Set Up Your Limited Company
+                <br /> in UK</span></h2>
+    </div>
+    <ul>
+        <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            <div class="whatWeOffer-box">
+                <div class="image-container">
+                    <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic1.png')}}">
+                </div>
+                <div class="text-container">
+                    <h3>London Registered Office Address</h3>
+                    <p>By selecting a distinguished London registered office address, you not only satisfy business registration criteria but also position your business at the core of the UK's commercial hub.</p>
+                </div>
+            </div>
+        </li>
+        <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            <div class="whatWeOffer-box">
+                <div class="image-container">
+                    <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic2.png')}}">
+                </div>
+                <div class="text-container">
+                    <h3>Business Mail Forwarding Address</h3>
+                    <p>Establish a designated business address for receiving mail and parcels, elevating the professionalism of your enterprise. Benefit from the freedom to manage your business globally, while we conscientiously forward your mail to your chosen address, saving you time and eliminating inconvenience.</p>
+                </div>
+            </div>
+        </li>
+        <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            <div class="whatWeOffer-box">
+                <div class="image-container">
+                    <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic3.png')}}">
+                </div>
+                <div class="text-container">
+                    <h3>Company Officer (Director) Address</h3>
+                    <p>For reasons of privacy or any other necessity, obtain a physical address to serve as the official registration address for your company directors and officials. </p>
+                </div>
+            </div>
+        </li>
+        <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            <div class="whatWeOffer-box">
+                <div class="image-container">
+                    <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic4.png')}}">
+                </div>
+                <div class="text-container">
+                    <h3>Business Call Answering Service</h3>
+                    <p>Our solution for business call answering services offers companies a dedicated and professional team to manage phone calls on their behalf. Inbound calls are answered by our team using your company's name, and they are handled in accordance with your bespoke instructions.</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- ================ end: whatWeOffer-sec02 ================ -->
+
+<!-- ================ start: whatMakesDifferent-sec01 ================ -->
+<div class="whatMakesDifferent-sec01">
+    <div class="whatMakesDifferent-sec01-sec1">
+        <div class="custom-container">
+            <div class="image-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <img src="{{ asset('frontend/assets/images/whatMakesDifferent-sec01-sec1-pic.png')}}">
+            </div>
+            <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <h2>What makes us different?</h2>
+                <h3>Company House Authorised Agent</h3>
+                <p>After dealing with so many companies and their problems we have established ourselves as an experienced company formation agent and become an authorised E-filing agent of Companies House, a body responsible for UK limited company formation.</p>
+
+                <h3>We Get your company registered in the UK effortlessly</h3>
+                <p>Your company formation process goes smoothly with a click of a button.You give us the name of the company and details and we do all your paperwork to get your company approved within hours.</p>
+
+                <h3>One Stop for all your business needs</h3>
+                <p>Once you provide all the required details like your company name, the details of the company directors, shareholders and more.We help you further with registered office address,service address incase if you don’t have any. We also offer registration services for Limited Liability Partnerships and Limited by Guarantee Companies and Registration for Non-residents.</p>
+
+                <h3>We count hours not days to form a company</h3>
+                <p>The process of company formation is convenient when done by professionals. It usually takes about 5 to 10 minutes to complete the application and 3-6 working hours for the registration to complete after approval. The documents reach you in the meantime digitally.</p>
+            </div>
+        </div>
+    </div>
+    <div class="whatMakesDifferent-sec01-sec2">
+        <img src="{{ asset('frontend/assets/images/whatMakesDifferent-sec01-sec2.png')}}" class="img-full">
+        <div class="to-see-all-sec">
+            <div class="custom-container">
+                <div class="to-see-all-sec-youtube-bg" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><img src="{{ asset('frontend/assets/images/to-see-all-sec-youtube-bg.png')}}"></div>
+                <div class="box-wrapper">
+                    <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                        <h3>To See All </h3>
+                        <h2>Our Videos Click Here</h2>
+                        <p>This small video will help you understand our company formation process in simple easy steps to make you feel more confident when you registering your limited company.Subscribe us for regular updates</p>
+                    </div>
+                    <div class="action-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                        <a href="#" class="theme-btn-darkBlue click-btn">Click here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="whatMakesDifferent-sec01-sec3">
+        <div class="custom-container">
+            <div class="text-container">
+                <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident Package</span></h1>
+                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our aim is to provide International customers with everything they need for their business to remain complaint with UK regulations starting from London registered office address,directors service address along with GDPR,VAT and PAYE registeration for their business.</p>
+                <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                    <a href="{{route('non_residents_package')}}" class="theme-btn-primary read-more-btn">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- ================ end: whatMakesDifferent-sec01 ================ -->
+
+<!-- ================ start: ourBankingPartners-sec01 ================ -->
+<div class="ourBankingPartners-sec01">
+    <div class="custom-container">
+        <div class="sec-title1 text-center">
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Brands <span>supporting your business</span></h2>
+        </div>
+        <ul data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            @foreach ($businessdata as $index => $data)
+            <li>
+                <div class="logo-container">
+                    <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
+                </div>
+            </li>
+
+
+            @endforeach
+
+            @foreach ($accounting as $item => $data)
+                <li>
+                    <div class="logo-container">
+                        <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
+                    </div>
+                </li>
+
+
+            @endforeach
+        </ul>
+    </div>
+</div>
+<!-- ================ end: ourBankingPartners-sec01 ================ -->
+
 <!-- ================ start: clientReviews-sec01 ================ -->
 <div class="clientReviews-sec01">
     <div class="custom-container">
@@ -645,91 +734,6 @@
 </div>
 <!-- ================ end: clientReviews-sec01 ================ -->
 
-<!-- ================ start: whatWeOffer-sec02 ================ -->
-<div class="whatWeOffer-sec02">
-    <div class="sec-title1 text-center">
-        <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">What We Offer to <span>Set Up Your Company
-                <br /> in the UK</span></h2>
-    </div>
-    <ul>
-        <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-            <div class="whatWeOffer-box">
-                <div class="image-container">
-                    <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic1.png')}}">
-                </div>
-                <div class="text-container">
-                    <h3>London Registered Office Address</h3>
-                    <p>By selecting a distinguished London registered office address, you not only satisfy business registration criteria but also position your business at the core of the UK's commercial hub.</p>
-                </div>
-            </div>
-        </li>
-        <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-            <div class="whatWeOffer-box">
-                <div class="image-container">
-                    <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic2.png')}}">
-                </div>
-                <div class="text-container">
-                    <h3>Business Mail Forwarding Address</h3>
-                    <p>Establish a designated business address for receiving mail and parcels, elevating the professionalism of your enterprise. Benefit from the freedom to manage your business globally, while we conscientiously forward your mail to your chosen address, saving you time and eliminating inconvenience.</p>
-                </div>
-            </div>
-        </li>
-        <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-            <div class="whatWeOffer-box">
-                <div class="image-container">
-                    <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic3.png')}}">
-                </div>
-                <div class="text-container">
-                    <h3>Company Officer (Director) Address</h3>
-                    <p>For reasons of privacy or any other necessity, obtain a physical address to serve as the official registration address for your company directors and officials. </p>
-                </div>
-            </div>
-        </li>
-        <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-            <div class="whatWeOffer-box">
-                <div class="image-container">
-                    <img src="{{ asset('frontend/assets/images/whatWeOffer-sec02-pic4.png')}}">
-                </div>
-                <div class="text-container">
-                    <h3>Business Call Answering Service</h3>
-                    <p>Our solution for business call answering services offers companies a dedicated and professional team to manage phone calls on their behalf. Inbound calls are answered by our team using your company's name, and they are handled in accordance with your bespoke instructions.</p>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
-<!-- ================ end: whatWeOffer-sec02 ================ -->
-
-<!-- ================ start: ourBankingPartners-sec01 ================ -->
-<div class="ourBankingPartners-sec01">
-    <div class="custom-container">
-        <div class="sec-title1 text-center">
-            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our Banking <span>Partners</span></h2>
-        </div>
-        <ul data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-            @foreach ($businessdata as $index => $data)
-            <li>
-                <div class="logo-container">
-                    <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
-                </div>
-            </li>
-
-
-            @endforeach
-
-            @foreach ($accounting as $item => $data)
-                <li>
-                    <div class="logo-container">
-                        <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
-                    </div>
-                </li>
-
-
-            @endforeach
-        </ul>
-    </div>
-</div>
-<!-- ================ end: ourBankingPartners-sec01 ================ -->
 
 <!-- ================ start: aboutUs-sec ================ -->
 <section class="aboutUs-sec">
@@ -772,6 +776,9 @@
                 <p>Years of Experience</p>
             </li>
         </ul>
+        <div class="action-btns">
+            <a href="{{ route('aboutUs') }}" class="read-more-btn theme-btn-blue">Read More</a>
+        </div>
     </div>
 </section>
 <!-- ================ end: aboutUs-sec ================ -->

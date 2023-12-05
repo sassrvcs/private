@@ -17,9 +17,15 @@
                 $route = route('companies-list');
               }
           @endphp
-          <a href="{{$route}}">Home</a>
+          <a href="{{$route}}" id="home">Home</a>
         </div>
       </div>
     </div>
   </div>
 @endsection
+
+<script>
+   setTimeout(() => {
+    document.getElementById("home").click();
+   }, 4000);
+</script>
