@@ -86,6 +86,7 @@ Route::post('/selected-address-save',[AccountController::class,'saveSelectedAddr
 Route::post('/my-details-save',[AccountController::class,'saveMyDetails'])->name('my-details-save')->middleware('auth');
 Route::get('/update-selected-address', [AccountController::class, 'updateSelectedAddress'])->name('update-selected-address')->middleware('auth');
 Route::post('/new-address-save', [AccountController::class, 'saveNewAddress'])->name('new-address-save')->middleware('auth');
+Route::post('/new-address-save-company', [AccountController::class, 'saveNewAddressCompany'])->name('new-address-save-company')->middleware('auth');
 // Route::post('/save_registered_office_add', [AccountController::class, 'save_registered_office_add'])->name('save_registered_office_add')->middleware('auth');
 
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
@@ -157,6 +158,15 @@ Route::get('companies', CompaniesListController::class)->middleware('auth')->nam
 Route::get('import-companies', [CompaniesListController::class,'importCompany'])->middleware('auth')->name('import-companies');
 Route::post('import-companies', [CompaniesListController::class,'importCompany'])->middleware('auth')->name('import-companies-data');
 Route::post('import-companies/add', [CompaniesListController::class,'importCompanyAdd'])->middleware('auth')->name('import-companies-add');
+Route::post('edit-auth-code', [CompaniesListController::class,'editAuthCode'])->middleware('auth')->name('edit-auth-code');
+Route::post('edit-companies-service', [CompaniesListController::class,'editCompanyServiceInCart'])->middleware('auth')->name('edit-companies-service');
+Route::get('edit-companies-appointment', [CompaniesListController::class,'editCompanyAppointment'])->middleware('auth')->name('edit-companies-appointment');
+Route::post('edit-companies-nameChange-service', [CompaniesListController::class,'editCompanyNameChangeServiceInCart'])->middleware('auth')->name('edit-nameChange-companies-service');
+Route::post('change-accounting-date', [CompaniesListController::class,'changeAccountingReferenceDateInCart'])->middleware('auth')->name('change-accounting-date');
+Route::get('companies-statement', [CompaniesListController::class, 'viewCompanyStatement'])->middleware('auth')->name('companies-statement');
+Route::get('cart-companies', [CompaniesListController::class, 'viewCart'])->middleware('auth')->name('cart-company');
+Route::post('delete-cart', [CompaniesListController::class,'deleteCart'])->middleware('auth')->name('delete-cart');
+
 
 
 

@@ -12,6 +12,7 @@ use App\Models\Country;
 use Illuminate\Support\Facades\Session;
 use DB ;
 use Illuminate\Support\Collection;
+use Illuminate\Http\JsonResponse;
 
 class AccountController extends Controller
 {
@@ -117,6 +118,28 @@ class AccountController extends Controller
                 'address_type'  => $request->input('address_type'),
             ],
         );
+    }
+
+    public function saveNewAddressCompany(Request $request)
+    {
+        Address::where('user_id', $request->input('user_id'))
+            ->where('address_type', $request->input('address_type'))
+            ->update(['is_selected' => 0]);
+
+        $newAddress = Address::create([
+            'house_number' => $request->input('number'),
+            'street' => $request->input('steet'),
+            'locality' => $request->input('locality'),
+            'town' => $request->input('town'),
+            'county' => $request->input('county') ?? null,
+            'post_code' => $request->input('postcode'),
+            'billing_country' => $request->input('contry'),
+            'is_selected' => 1,
+            'user_id' => $request->input('user_id'),
+            'address_type' => $request->input('address_type'),
+        ]);
+
+        return new JsonResponse(['address' => $newAddress]);
     }
 
     public function saveSelectedAddress(Request $request){

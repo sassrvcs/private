@@ -13,4 +13,8 @@ class PersonOfficer extends Model
     function address(){
         return $this->belongsTo(Address::class,'add_id','id');
     }
+
+    function nationality(){
+        return $this->belongsTo(Nationality::class,'nationality','id');
+    }
 }
