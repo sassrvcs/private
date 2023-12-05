@@ -252,7 +252,7 @@ class PackageController extends Controller
             // $secondPath = str_replace('-', ' ', $secondPath);
             // $secondPath = ucfirst($secondPath);
             // dd($package_name);
-            $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNot('slug', 'like', "%{$package_name}%")->whereNot('price',['0.00','0','0.0'])->get();
+            $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNot('slug', 'like', "%{$package_name}%")->whereNotIn('price',['0.00','0','0.0'])->get();
 
 
             $services = ModelsAddonservice::with('features')->where('slug', 'like', "%{$package_name}%")->first();
@@ -263,7 +263,10 @@ class PackageController extends Controller
             $accounting = Accounting::get();
             $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
-
+            if($package_name == "renewals")
+            {
+                return view('frontend.service.renewals',compact('services', 'features','businessdata','accounting','full_sec_price','package_name','aditional_services_section'));
+            }
             return view('frontend.service.service',compact('services', 'features','businessdata','accounting','full_sec_price','package_name','aditional_services_section'));
 
     }
@@ -282,7 +285,7 @@ class PackageController extends Controller
     public function share_business_idea()
     {
         $package_name = "share-business-idea";
-        $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNot('price',['0.00','0','0.0'])->get();
+        $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNotIn('price',['0.00','0','0.0'])->get();
 
         $content = Cms::where('title','share-ideas')->first();
         if(!$content)return redirect('/');
@@ -296,7 +299,7 @@ class PackageController extends Controller
     public function helping_startups()
     {
         $package_name = "share-business-idea";
-        $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNot('price',['0.00','0','0.0'])->get();
+        $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNotIn('price',['0.00','0','0.0'])->get();
 
         $content = Cms::where('title','helping-startups-new')->first();
         if(!$content)return redirect('/');
@@ -309,7 +312,7 @@ class PackageController extends Controller
     public function business_help()
     {
         $package_name = "share-business-idea";
-        $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNot('price',['0.00','0','0.0'])->get();
+        $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNotIn('price',['0.00','0','0.0'])->get();
 
         $content = Cms::where('title','business-help-new')->first();
         if(!$content)return redirect('/');
@@ -322,7 +325,7 @@ class PackageController extends Controller
     public function info_to_set()
     {
         $package_name = "share-business-idea";
-        $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNot('price',['0.00','0','0.0'])->get();
+        $aditional_services_section = ModelsAddonservice::with('features')->whereNotIn('slug',['directors-service-address','registered-office-address','business-telephone-services','business-mailing-address-service'])->whereNotIn('price',['0.00','0','0.0'])->get();
         $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
 

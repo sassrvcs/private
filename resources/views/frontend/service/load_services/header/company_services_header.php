@@ -6,6 +6,9 @@
     .wizard .steps ul li a {
     justify-content: center;
 }
+    .main-header {
+    background: linear-gradient(#262c2c, #262c2c);
+    }
 </style>
 <div class="steps clearfix">
     <ul role="tablist">

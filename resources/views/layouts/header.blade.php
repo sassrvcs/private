@@ -44,7 +44,7 @@
                                         <a class="dropdown-item" href="{{route('company_services', 'certification-of-good-standing')}}">Certification of Good Standing</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'company-name-change')}}">Company Name Change</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'dormant-company-accounts')}}">Dormant Company Accounts</a>
-                                        <a class="dropdown-item" href="{{route('company_services', 'director-appointment-resignation')}}">Director Appointment Resignation</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'director-appointment-resignation')}}">Director's Appointment Or Resignation</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'full-company-secretary-service')}}">Company Secretary Service</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'issue-of-share-services')}}">Issue of Share Services</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'transfer-of-share-services')}}">Transfer of Share Services</a>
@@ -56,7 +56,7 @@
                                         <a class="dropdown-item" href="{{route('company_services', 'business-email')}}">Business Email</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'vat-registration')}}">VAT Registration</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'paye-registration')}}">PAYE Registration</a>
-                                        <a class="dropdown-item" href="{{route('company_services', 'business-telephone-services')}}">Business Telephone Services</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'business-telephone-services')}}">Business Telephone Service</a>
                                         <a class="dropdown-item" href="{{route('buisness_web_design')}}">Business Web Design/Marketing</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'data-protection-registration')}}">Data Protection Registration</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'gdpr-compliance-package')}}">GDPR Complaince Package</a>

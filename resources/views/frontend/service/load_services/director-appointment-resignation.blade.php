@@ -188,7 +188,7 @@
             let dis_price = parseFloat({{ $prices['director_appointment_resignation_price'] }});
             tr = '';
             sum += dis_price;
-            tr = "<tr><td>Director Appointment/Resignation</td><td>Director Appointment/Resignation Service</td><td>£" +
+            tr = "<tr><td>Director's Appointment Or Resignation</td><td>Director's Appointment Or Resignation Service</td><td>£" +
                 parseFloat(dis_price).toFixed(2) + "</td></tr>";
 
             if (sum == 0) {

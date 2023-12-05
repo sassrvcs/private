@@ -10,7 +10,7 @@
 
         <div class="inner-wrapper">
 
-            <div class="icon-container">
+            <div class="icon-container d-none">
 
                 <span><img src="{{ asset('frontend/assets/images/earch-icon.svg') }}"></span>
 
@@ -164,7 +164,7 @@
                                 <div class="icon-container icon-right-arow">
                                 </div>
                                 <p>
-                                    <a href="{{ route('company_services',['payoneer-business-account-for-non-uk-residents']) }}">wise-business-account-for-non-uk-residents</a>
+                                    <a href="{{ route('company_services',['wise-business-account-for-non-uk-residents']) }}">Wise Business Account</a>
                                 </p>
                             </li>
 
@@ -172,7 +172,7 @@
                                 <div class="icon-container icon-right-arow">
                                 </div>
                                 <p>
-                                    <a href="{{ route('company_services',['payoneer-business-account-for-non-uk-residents']) }}">Payoneer Business Account For Non UK Residents</a>
+                                    <a href="{{ route('company_services',['payoneer-business-account-for-non-uk-residents']) }}">Payoneer Business Account</a>
                                     </p>
                             </li>
                             <li>
@@ -340,25 +340,15 @@
         <div class="custom-container">
 
             <div class="image-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-
-                <img src="{{ asset('frontend/assets/images/for-ourDifferent-pic.png') }}">
-
+ <div class="sec-title1 mb-0">
+                    <h2 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Services you might need <br />
+                        <span>with this package</span>
+                    </h2>
+                </div>
             </div>
 
             <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-
-                <div class="left-border">
-
-                    <h1>Services you might need <br />
-
-                        <span>with this package </span>
-
-                    </h1>
-
-                </div>
-
                 <p>You have the opportunity to add these extra services during the order process</p>
-
                 <div class="for-ourDifferent-text-lists">
 
                     @foreach ($different_services as $item)
@@ -435,17 +425,15 @@
         <div class="custom-container">
 
             <div class="text-container">
-
-                <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident Package</span></h1>
-
-                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our idea is to help our non-UK clients set up their businesses effortlessly and without any hassle. Thus, we provide them with a range of services to ensure a streamlined working experience with us. </p>
-
+<div class="sec-title1">
+                <h1 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident Package</span></h1>
+                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our idea is to help our non-UK clients set up their businesses effortlessly and without any hassle. Thus, we provide them with a range of services to ensure a streamlined working experience with us.  </p>
+                </div>
                 <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-
                     <a href="{{route('non_residents_package')}}" class="theme-btn-primary read-more-btn">Read More</a>
-
                 </div>
 
+            </div>
             </div>
 
         </div>
@@ -487,15 +475,10 @@
 <div class="take-look-t-our-sec01">
 
     <div class="custom-container">
-
         <div class="sec-title1 text-center">
-
             <h2 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Take a look at our <br>
-
                 <span>Full secretary services £{{$full_sec_price}}</span>
-
             </h2>
-
         </div>
 
         <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At Formationhunt, you can avail of the best full company secretary service that includes a company secretary and a dedicated and efficient account manager who will take care of the entire statutory registers, make changes in the company as per your instructions and prepare and file company’s confirmation statement.</p>
@@ -521,39 +504,24 @@
         <div class="left_div">
 
             <ul class="contactUl" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-
                 <li>
-
                     <div class="icon-container">
-
                         <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
-
                     </div>
-
                     <div class="text-container">
-
-                        <h4>Call Us: </h4>
+                        <h3>Call Us: </h3>
 
                         <h2><a href="tel:020 3002 0032">020 3002 0032</a></h2>
-
                     </div>
-
                 </li>
-
                 <li>
-
                     <div class="icon-container">
-
                         <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
-
                     </div>
 
                     <div class="text-container">
-
-                        <h4>Mail us: </h4>
-
+                        <h3>Mail us: </h3>
                         <h2><a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h2>
-
                     </div>
 
                 </li>
@@ -563,11 +531,10 @@
         </div>
 
         <div class="right_div" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-
-            <h1>Need a <br>little help?</h1>
-
+           <div class="sec-title1 mb-0">
+            <h2 class="text-white">Need a <br>little help?</h2>
             <p>We love talking to you when it comes to creating something new. We want you to remember us always, let’s be good for good and for a good reason. Reach us through your voice or writing.</p>
-
+        </div>
         </div>
 
     </div>

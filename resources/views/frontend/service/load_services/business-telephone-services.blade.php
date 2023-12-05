@@ -56,9 +56,7 @@
                                         </div>
                                     </div>
                                 <hr>
-                                <div class="total_priceAmnt d-flex justify-content-end align-items-center float-none"
-                                    style="font-size:24px;margin-bottom:15px;">Online Application
-                                </div>
+                                <div class="d-flex justify-content-end align-items-center float-none" style="font-size:24px;margin-bottom:15px;"><div class="total_priceAmnt ">Online Application <small></small></div></div>
 
                                 <input type="hidden" name="allPriceAmnt" id="allPriceAmnt" value="">
                                 <input type="hidden" name="totalVatAmount" id="totalVatAmount" value="">
@@ -120,13 +118,13 @@
         tr = '';
             if ($("#pay_month").is(":checked")) {
                 sum += coi;
-                tr = "<tr><td>Business Telephone Services</td><td></td><td>£" +
+                tr = "<tr><td>Business Telephone Service</td><td>Pay monthly (12-month contract)</td><td>£" +
                     parseFloat(coi).toFixed(2) + "</td></tr>";
             }
 
             if ($("#pay_year").is(":checked")) {
                 sum += ma;
-                tr = "<tr><td>Business Telephone Services</td><td>Yearly subscription (get 1 month free)</td><td>£" +
+                tr = "<tr><td>Business Telephone Service</td><td>Yearly subscription (get 1 month free)</td><td>£" +
                     parseFloat(ma).toFixed(2) + "</td></tr>";
             }
 

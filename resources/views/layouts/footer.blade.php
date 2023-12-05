@@ -53,7 +53,7 @@
                             <a href="{{route('company_services', 'company-name-change')}}">Company Name Change</a>
                         </li>
                         <li>
-                            <a href="{{route('company_services', 'director-appointment-resignation')}}">Director Appointment Resignation</a>
+                            <a href="{{route('company_services', 'director-appointment-resignation')}}">Director's Appointment or Resignation</a>
                         </li>
                         <li>
                             <a href="{{route('company_services', 'full-company-secretary-service')}}">Company Secretary Service</a>
@@ -68,7 +68,7 @@
                             <a href="{{route('company_services', 'apostilled-documents-service')}}">Apostilled Documents Service</a>
                         </li>
                         <li>
-                            <a href="{{route('company_services', 'business-telephone-services')}}">Business Telephone Services</a>
+                            <a href="{{route('company_services', 'business-telephone-services')}}">Business Telephone Service</a>
                         </li>
                     </ul>
                 </div>

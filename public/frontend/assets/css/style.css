@@ -10597,8 +10597,8 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .total_priceAmnt {
     color: #87cb28;
-        color: #87cb28;
-    border: 1px solid rgba(0,0,0,.1);
+    color: #87cb28;
+    border: 1px solid rgba(0, 0, 0, .1);
     padding: 5px 10px;
     border-radius: 5px;
 }
@@ -14398,17 +14398,20 @@ span.txt_green {
     max-width: 767px;
     margin: 16px auto 0;
 }
-.d-blok{
+
+.d-blok {
     display: block !important;
 }
-.prefer-to-order-by-telephone-sec .div-ul{
-        margin-top: 32px;
+
+.prefer-to-order-by-telephone-sec .div-ul {
+    margin-top: 32px;
     display: flex;
     justify-content: center;
     column-gap: 24px;
     flex-wrap: wrap;
     row-gap: 16px;
 }
+
 .prefer-to-order-by-telephone-sec .call-no {
     display: flex;
     align-items: center;
@@ -14426,8 +14429,10 @@ span.txt_green {
     width: 20px;
 }
 
-.prefer-to-order-by-telephone-sec .call-no .text-container {display: flex;
-    align-items: center;}
+.prefer-to-order-by-telephone-sec .call-no .text-container {
+    display: flex;
+    align-items: center;
+}
 
 .prefer-to-order-by-telephone-sec .call-no .text-container h3 {
     overflow-wrap: break-word;
@@ -14442,3 +14447,69 @@ span.txt_green {
 }
 
 /* end: prefer-to-order-by-telephone-sec */
+body #service-formDetails .wizard>.steps .disabled.current a {
+    background: #313C4E;
+    color: #ffffff;
+}
+
+/* start: how-it-works-sec */
+.top-space-116px {
+    margin-top: 116px;
+}
+
+.how-it-works-sec-card-lists {
+    padding: 24px 0 32px;
+}
+.how-it-works-sec-card-lists .box-style{
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 15px;
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* column-gap: 24px; */
+    margin-bottom: 24px;
+    padding: 20px 16px 20px 24px;
+    border-radius: 5px;
+}
+
+.how-it-works-sec-card-lists .div-ul {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+}
+
+.how-it-works-sec-card-lists .div-ul .div-box {
+    padding: 20px 16px 20px 24px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-between;
+    column-gap: 24px;
+}
+
+.how-it-works-sec-card-lists .div-ul .div-box .lediv {
+    flex: 1 1 auto;
+}
+.how-it-works-sec-card-lists .div-ul .div-box .lediv h3{
+    color: #3A3A3A;
+    text-transform: capitalize;
+}
+.how-it-works-sec-card-lists .div-ul .div-box .lediv p{
+     margin-top: 16px;
+}
+
+.how-it-works-sec-card-lists .div-ul .div-box .rgdiv {
+    flex: 0 0 0;
+    column-fill: auto;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.how-it-works-sec-card-lists .div-ul .div-box .action-btns {}
+
+.how-it-works-sec-card-lists .div-ul .div-box .action-btns .buy-btn {
+    height: 48px;
+    width: 132px;
+}
+
+/* end: how-it-works-sec */

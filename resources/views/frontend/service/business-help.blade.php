@@ -37,7 +37,7 @@
     <div class="digital-packages-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
         <div class="custom-container">
             <div class="inner-wrapper">
-                <div class="icon-container">
+                <div class="icon-container d-none">
                     <span><img src="{{ asset('frontend/assets/images/earch-icon.svg') }}"></span>
                 </div>
                 <div class="text-container">

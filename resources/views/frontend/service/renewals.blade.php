@@ -41,12 +41,8 @@
                     <span><img src="{{ asset('frontend/assets/images/earch-icon.svg') }}"></span>
                 </div>
                 <div class="text-container">
-                    <h1>Information Required To Setup A Company</h1>
-                    <div class="action-btns">
-                        <a href="{{ route('package') }}" class="theme-btn-primary buy-btn">
-                            View All packages
-                        </a>
-                    </div>
+                    <h1>Business Help</h1>
+
                 </div>
             </div>
         </div>
@@ -55,53 +51,77 @@
     <section class="digitalPackage-sec">
         <div class="custom-container">
             <div class="left-information max-w-unset aos-init aos-animate" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                {!!$content!!}
+                {!!$services->long_desc!!}
             </div>
 
         </div>
     </section>
 
     <!-- ================ end: digitalPackage-sec ================ -->
-<div class="prefer-to-order-by-telephone-sec pb-0">
-            <div class="custom-container  d-blok">
-            <h2><b>Prefer to order by telephone</b></h2>
-            <p>If you are not confident in completing your new company order online - call our friendly team and we will complete your order by telephone</p>
-                <div class="div-ul">
-                    <div class="div-li">
-                        <div class="call-no">
-                            <div class="icon-container">
-                                <img src="{{ asset('frontend/assets/images/call-green-icon.svg')}}">
-                            </div>
-                            <div class="text-container">
-                                <h3><a href="tel:020 3002 0032">020 3002 0032</a></h3>
-                            </div>
+
+    {{-- <x-company_name_check /> --}}
+    <div class="prefer-to-order-by-telephone-sec pb-10 pt-0">
+        <div class="custom-container  ">
+        <h2><b>Prefer to order by telephone</b></h2>
+        <p>If you are not confident in completing your new company order online - call our friendly team and we will complete your order by telephone</p>
+            <div class="div-ul">
+                <div class="div-li">
+                    <div class="call-no">
+                        <div class="icon-container">
+                            <img src="{{ asset('frontend/assets/images/call-green-icon.svg')}}">
                         </div>
-                    </div>
-                    <div class="div-li">
-                        <div class="call-no">
-                            <div class="icon-container">
-                                <img src="{{ asset('frontend/assets/images/email-green-icon.svg')}}">
-                            </div>
-                            <div class="text-container">
-                                <h3><a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h3>
-                            </div>
+                        <div class="text-container">
+                            <h3><a href="tel:020 3002 0032">020 3002 0032</a></h3>
                         </div>
                     </div>
                 </div>
-        </div>
-    </div>
-
-    <x-company_name_check />
-     <div class="ready-to-set-up-your-company">
-        <div class="custom-container d-blok">
-            <h2><b>Ready to set up your company?</b></h2>
-            <div class="action-btns">
-                <a class="more-btn btn-primary" href="{{ route('index') }}">Let's Get Started</a>
+                <div class="div-li">
+                    <div class="call-no">
+                        <div class="icon-container">
+                            <img src="{{ asset('frontend/assets/images/email-green-icon.svg')}}">
+                        </div>
+                        <div class="text-container">
+                            <h3><a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h3>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
     </div>
+</div>
+
+<div class="how-it-works-sec-card-lists">
+    <div class="custom-container">
+        <div class="list-style-s1-with-left-arow box-style ">
+            {!!$services->how_it_works!!}
+        </div>
+        @foreach ($aditional_services_section as $other_service)
+
+        <div class="div-ul pb-2">
+            <div class="div-li">
+                <div class="div-box">
+                    <div class="lediv">
+                        <h3>{{$other_service->service_name}}</h3>
+                        <p>{{$other_service->short_desc}}</p>
+                    </div>
+                    <div class="rgdiv">
+                        <h3>£{{$other_service->price}} </h3>
+                        <div class="action-btns">
+                            {{-- <a href="#" class="buy-btn btn-primary">Buy Now</a> --}}
+                            <a href="{{ route('load_company_service', [$other_service->slug,$other_service->id] ) }}" class="theme-btn-primary buy-btn">
+                                Buy Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @endforeach
+    </div>
+</div>
+
     <!-- ================ start: additionalServices-sec ================ -->
-    @include('frontend.service.service_page_static_content.static')
+    @include('frontend.service.service_page_static_content.renewals_static')
     <!-- ================ end: clientReviews-sec01 ================ -->
     <!-- ================ start: ourBankingPartners-sec01 ================ -->
     <div class="ourBankingPartners-sec01">
