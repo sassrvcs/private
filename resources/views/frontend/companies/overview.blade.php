@@ -1457,6 +1457,29 @@
         });
 
         $(document).ready(function () {
+            $('#changeNameService').on('click', function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "{!! route('edit-nameChange-companies-service') !!}",
+                    data: {
+                        '_token':       '{{ csrf_token() }}',
+                        'order_id':     '{{ $order->order_id }}',
+                        'service_name': '{{ $change_name_service->service_name }}',
+                        'slug':         '{{ $change_name_service->slug }}',
+                        'price':        '{{ $change_name_service->price }}',
+                    },
+                    success: function (data) {
+                        location.reload(true);
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error updating change name');
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
             $('#saveCompanyAccount').on('click', function () {
                 var currentReferenceDate = $('#currentReferenceDate').val();
                 var amendedReferenceDate = $('#amendedReferenceDate').val();
@@ -1481,6 +1504,7 @@
                         $('#dueDate').text(amendedReferenceDate);
                         $('#madeUpTo').text(currentReferenceDate);
                         $('#madeUpToReference').text(currentReferenceDate);
+                        location.reload(true);
                     },
                     error: function (xhr, status, error) {
                         alert('Error updating the date');
