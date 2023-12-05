@@ -13,6 +13,7 @@ use App\Models\Person_appointment;
 use App\Models\PersonOfficer;
 use App\Models\ShoppingCart;
 use App\Models\Address;
+use App\Models\Addonservice;
 use App\Models\Companie;
 use App\Models\companyXmlDetail;
 use App\Models\Country;
@@ -21,6 +22,7 @@ use App\Models\Order;
 use App\Models\Package;
 use App\Models\Jurisdiction;
 use App\Models\Nationality;
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use PDF;
@@ -343,6 +345,10 @@ class CompaniesListController extends Controller
 
         $user = Auth::user();
         $countryList = Country::all();
+        $change_name_service = Addonservice::where('slug', 'company-name-change')->first();
+        $confirmation_statement_service = Addonservice::where('slug', 'confirmation-statement-service')->first();
+        $change_accounting_date = Cart::where('slug', 'change-accounting-date')->where('order_id', $order_id)->Where('user_id', $user->id)->first();
+        $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
         $purchase_address = Purchase_address::where('address_type', 'registered_address')->get();
         $primary_address_list = Address::join('countries','countries.id','=','addresses.billing_country')
                                     ->select('addresses.house_number','countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
@@ -382,8 +388,197 @@ class CompaniesListController extends Controller
         }
 
         return view('frontend.companies.overview', compact('pdfcontent','used_address', 'countries', 'shoppingCartId', 'person_officers',
-            'appointmentsList','review','order','primary_address_list','countryList','user','purchase_address'));
+            'appointmentsList','review','order','primary_address_list','countryList','user','purchase_address', 'order_id', 'cartCount', 'change_name_service', 'confirmation_statement_service','change_accounting_date'));
     }
+
+
+    public function editCompanyServiceInCart(Request $request)
+    {
+        // return $request->all();
+        $user = Auth::user();
+
+        // Validate the request data
+        $request->validate([
+            'order_id' => 'required',
+            'service_name' => 'required|string',
+            'slug' => 'required|string',
+            'address_id' => 'nullable',
+            'forward_address_id' => 'nullable',
+            'price' => 'nullable|numeric',
+            'effective_date' => 'nullable|date',
+        ]);
+    
+        // Create or update the cart record
+        if($request->forward_address_id){
+            $request->address_id = null;
+        } else {
+            $request->forward_address_id = null;
+        }
+
+        $vat = null;
+        if ($request->has('price') && $request->price !== null) {
+            $vat = $request->price * 0.20; // Assuming 20% VAT rate
+        }
+
+        $cart = Cart::updateOrCreate(
+            ['user_id' => $user->id, 'slug' => $request->slug],
+            [
+                'service_name' => $request->service_name,
+                'order_id' => $request->order_id,
+                'address_id' => $request->address_id,
+                'forward_address_id' => $request->forward_address_id,
+                'price' => $request->price,
+                'effective_date' => $request->effective_date,
+                'vat' => $vat,
+            ]
+        );
+    
+        return response()->json(['message' => 'Cart updated successfully', 'cart' => $cart]);
+    }
+
+    public function editCompanyNameChangeServiceInCart(Request $request)
+    {
+        // return $request->all();
+        $user = Auth::user();
+
+        // Validate the request data
+        $request->validate([
+            'order_id' => 'required',
+            'service_name' => 'required|string',
+            'slug' => 'required|string',
+            'price' => 'nullable|numeric',
+        ]);
+
+        $vat = null;
+        if ($request->has('price') && $request->price !== null) {
+            $vat = $request->price * 0.20; // Assuming 20% VAT rate
+        }
+
+        $cart = Cart::updateOrCreate(
+            ['user_id' => $user->id, 'slug' => $request->slug],
+            [
+                'service_name' => $request->service_name,
+                'order_id' => $request->order_id,
+                'price' => $request->price,
+                'vat' => $vat,
+            ]
+        );
+    
+        return response()->json(['message' => 'Cart updated successfully', 'cart' => $cart]);
+    }
+
+    public function changeAccountingReferenceDateInCart(Request $request)
+    {
+        // return $request->all();
+        $user = Auth::user();
+
+        // Validate the request data
+        $request->validate([
+            'order_id' => 'required',
+            'service_name' => 'required|string',
+            'slug' => 'required|string',
+        ]);
+
+
+        $cart = Cart::updateOrCreate(
+            ['user_id' => $user->id, 'slug' => $request->slug],
+            [
+                'service_name' => $request->service_name,
+                'order_id' => $request->order_id,
+                'company_account_value' => json_encode($request->all()),
+            ]
+        );
+    
+        return response()->json(['message' => 'Cart updated successfully', 'cart' => $cart]);
+    }
+
+    public function editCompanyAppointment(Request $request)
+    {
+        // return $request->all();
+
+        $appointment_id = $request->query('id');
+         $appointment_details = Person_appointment::with('forwarding_address')->with('own_address')->where('id', $appointment_id)->get()->first()->toArray();
+        // return $appointment_details['position'];
+        $countries = Country::all();
+        $positionArray = explode(', ', $appointment_details['position']);
+        $nationalities = Nationality::all()->sortBy('name')->toArray();
+        $officer_details = PersonOfficer::with('address')->where('id', $appointment_details['person_officer_id'])->get()->first()->toArray();
+        $purchase_address = Purchase_address::where('address_type', 'appointment_address')->first();
+        $service_address = construct_address($purchase_address->toArray());
+        $officer_address = construct_address($officer_details['address']);
+
+        $order_id = $request->order;
+
+        $user = Auth::user();
+
+        $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
+        // $person_appointment = Person_appointment::where('order', $order_id)->where('position', 'LIKE', "%PSC%")->get();
+
+        return view('frontend.companies.edit_company_appointment', compact('countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
+    }
+
+    public function viewCompanyStatement(Request $request)
+    {
+        $order_id = $request->order;
+
+        $user = Auth::user();
+
+        $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
+        return $person_appointment = Person_appointment::where('order', $order_id)->where('position', 'LIKE', "%PSC%")->get();
+
+        return view('frontend.companies.company_statement', compact('order_id', 'person_appointment', 'cartCount'));
+    }
+
+    public function viewCart(Request $request)
+    {
+        $order_id = $request->order;
+
+        $user = Auth::user();
+        $cart = Cart::where('order_id', $order_id)->where('user_id', $user->id)->get();
+
+        return view('frontend.companies.cart', compact('order_id', 'cart'));
+    }
+
+    public function editAuthCode(Request $request)
+    {
+        $request->validate([
+            'auth_code' => 'required|string',
+        ]);
+    
+        $order_id = $request->order;
+        $auth_code = $request->auth_code;
+    
+        $user = Auth::user();
+
+        $order = Order::where('order_id', $order_id)->where('user_id', $user->id)->first();
+    
+        if ($order) {
+
+            $order->auth_code = $auth_code;
+            $order->save();
+    
+            return response()->json(['message' => 'Auth code updated successfully']);
+        } else {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+    }
+    
+
+    public function deleteCart(Request $request)
+    {
+        try {
+            
+            $cart = Cart::findOrFail($request->id);
+            $cart->delete();
+
+            return response()->json(['message' => 'Cart deleted successfully']);
+
+        } catch (\Exception $e) {
+
+            return response()->json(['error' => 'Error deleting cart item'], 500);
+        }
+    }
+
     public function efillingPdf(Request $request)
     {
         $appointmentsList = Person_appointment::with('person_officers')->where('order', $request->query('order'))->get();
