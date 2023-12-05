@@ -213,21 +213,13 @@
                                                     <tbody>
                                                         <tr>
                                                             <td><strong>Due :</strong></td>
-<<<<<<< HEAD
                                                             <td>{{$review->due_date ?? '-'}}</td>
-=======
-                                                            <td>{{$review->due_date}}</td>
->>>>>>> f4d3470d7dfd77f16542f9abd2a17afb2cc71aa4
                                                             <td></td>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td><strong>Made Up To :</strong></td>
-<<<<<<< HEAD
                                                             <td>{{$review->made_upto ?? '-'}}</td>
-=======
-                                                            <td>{{$review->made_upto}}</td>
->>>>>>> f4d3470d7dfd77f16542f9abd2a17afb2cc71aa4
                                                             <td></td>
                                                             <td></td>
                                                         </tr>
@@ -313,7 +305,7 @@
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
-                                                           
+
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -356,7 +348,7 @@
                                             </div>
                                             <div class="overviews-btn-wrap d-flex justify-content-end mb-4">
                                                 <a href="{{ route('companies-statement', ['order' => $order_id]) }}" class="btn btn-primary col-md-3">Add New Statement</a>
-                                                
+
                                             </div>
 
 
@@ -749,7 +741,7 @@
                                 <option value="UKPAR">To align with a parent/subsidiary established in the UK</option>
                             </select>
                         </div>
-                       
+
 
                     </div>
                     <div class="modal-footer">
@@ -955,10 +947,10 @@
                                 <label for="effectiveDate">Effective Date</label>
                                 <input type="date" class="form-control" id="effectiveDate" name="effectiveDate">
                             </div>
-                            <input type="hidden" class="order_id" value="{{ $order_id }}">                              
-                            <input type="hidden" class="service_name" value="Change Registered Office">                              
-                            <input type="hidden" class="slug" value="change-registered-office">                              
-                            <input type="hidden" class="price" value="">                              
+                            <input type="hidden" class="order_id" value="{{ $order_id }}">
+                            <input type="hidden" class="service_name" value="Change Registered Office">
+                            <input type="hidden" class="slug" value="change-registered-office">
+                            <input type="hidden" class="price" value="">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -1208,11 +1200,11 @@
             $(".addNewAddress").click(function(){
                     // $('.address_type').val('primary_address');
                     $('#addNewAddressModal').modal('show');
-            }); 
+            });
 
             $("#OpenCompanyModal").click(function(){
                     $('#openCompanyAccount').modal('show');
-            }); 
+            });
 
             $('input[name="changed"]').on('change', function () {
                 // Check if "Yes" is selected
@@ -1224,9 +1216,9 @@
                     $('#reasonForChangeGroup').hide();
                 }
             });
-          
+
         });
-     
+
         $('.select-address').click(function() {
             var selectedAddressDetails = {
                 id: $(this).siblings('.address-house-id').val(),
@@ -1332,12 +1324,12 @@
                             // Access the saved address data
                             var savedAddress = result.address;
                             // Update the HTML elements in the new-address-section with the received data
-                            var addressText = `${savedAddress.house_number ? savedAddress.house_number + ',' : ''} 
-                                            ${savedAddress.street ? savedAddress.street + ',' : ''} 
-                                            ${savedAddress.locality ? savedAddress.locality + ',' : ''} 
-                                            ${savedAddress.town ? savedAddress.town + ',' : ''} 
+                            var addressText = `${savedAddress.house_number ? savedAddress.house_number + ',' : ''}
+                                            ${savedAddress.street ? savedAddress.street + ',' : ''}
+                                            ${savedAddress.locality ? savedAddress.locality + ',' : ''}
+                                            ${savedAddress.town ? savedAddress.town + ',' : ''}
                                             ${savedAddress.county}
-                                            ${savedAddress.billing_country ? ',' + savedAddress.billing_country : ''} 
+                                            ${savedAddress.billing_country ? ',' + savedAddress.billing_country : ''}
                                             ${savedAddress.post_code}`;
 
                             $('#selectedAddressDisplay').text(addressText);
@@ -1406,7 +1398,7 @@
                     success: function (response) {
                         console.log(response);
                         location.reload(true);
-                        
+
                     },
                     error: function (error) {
                         console.log(error);
@@ -1417,7 +1409,7 @@
 
         $(document).ready(function () {
             $('#saveAuthCodeBtn').on('click', function () {
-        
+
                 var authCode = $('#authCodeInput').val();
 
                 $.ajax({
@@ -1425,7 +1417,7 @@
                     url: "{!! route('edit-auth-code') !!}",
                     data: {
                         '_token': '{{ csrf_token() }}',
-                        'order': '{{ $order->order_id }}', 
+                        'order': '{{ $order->order_id }}',
                         'auth_code': authCode,
                     },
                     success: function (data) {
@@ -1448,10 +1440,10 @@
                     url: "{!! route('edit-nameChange-companies-service') !!}",
                     data: {
                         '_token':       '{{ csrf_token() }}',
-                        'order_id':     '{{ $order->order_id }}', 
-                        'service_name': '{{ $confirmation_statement_service->service_name }}', 
-                        'slug':         '{{ $confirmation_statement_service->slug }}', 
-                        'price':        '{{ $confirmation_statement_service->price }}', 
+                        'order_id':     '{{ $order->order_id }}',
+                        'service_name': '{{ $confirmation_statement_service->service_name }}',
+                        'slug':         '{{ $confirmation_statement_service->slug }}',
+                        'price':        '{{ $confirmation_statement_service->price }}',
                     },
                     success: function (data) {
                         location.reload(true);
@@ -1476,9 +1468,9 @@
                     url: "{!! route('change-accounting-date') !!}",
                     data: {
                         '_token':       '{{ csrf_token() }}',
-                        'order_id':     '{{ $order->order_id }}', 
-                        'service_name': 'Change Accounting Date', 
-                        'slug':         'change-accounting-date', 
+                        'order_id':     '{{ $order->order_id }}',
+                        'service_name': 'Change Accounting Date',
+                        'slug':         'change-accounting-date',
                         'currentReferenceDate': currentReferenceDate,
                         'amendedReferenceDate': amendedReferenceDate,
                         'changed': changed,
@@ -1488,7 +1480,7 @@
                         $('#openCompanyAccount').modal('hide');
                         $('#dueDate').text(amendedReferenceDate);
                         $('#madeUpTo').text(currentReferenceDate);
-                        $('#madeUpToReference').text(currentReferenceDate);                        
+                        $('#madeUpToReference').text(currentReferenceDate);
                     },
                     error: function (xhr, status, error) {
                         alert('Error updating the date');
@@ -1497,6 +1489,6 @@
                 });
             });
         });
-       
+
     </script>
 @endsection
