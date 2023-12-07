@@ -259,15 +259,16 @@ class PackageController extends Controller
             if (!$services) return redirect('/404');
 
             $features = $services->features;
+            $faqs = $services->service_faqs;
             $businessdata = BusinessBanking::get();
             $accounting = Accounting::get();
             $full_sec_price = ModelsAddonservice::with('features')->where('slug', 'like', "%full-company-secretary-service%")->pluck('price')->first();
 
             if($package_name == "renewals")
             {
-                return view('frontend.service.renewals',compact('services', 'features','businessdata','accounting','full_sec_price','package_name','aditional_services_section'));
+                return view('frontend.service.renewals',compact('services', 'features','businessdata','accounting','full_sec_price','package_name','aditional_services_section','faqs'));
             }
-            return view('frontend.service.service',compact('services', 'features','businessdata','accounting','full_sec_price','package_name','aditional_services_section'));
+            return view('frontend.service.service',compact('services', 'features','businessdata','accounting','full_sec_price','package_name','aditional_services_section','faqs'));
 
     }
     public function business_logo()

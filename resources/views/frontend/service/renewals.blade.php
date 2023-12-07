@@ -41,7 +41,7 @@
                     <span><img src="{{ asset('frontend/assets/images/earch-icon.svg') }}"></span>
                 </div>
                 <div class="text-container">
-                    <h1>Business Help</h1>
+                    <h1>Renewals</h1>
 
                 </div>
             </div>

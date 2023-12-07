@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Addons;
 
 use App\Http\Controllers\Controller;
+use App\Models\Service_Faq;
 use Illuminate\Http\Request;
 
 // use App\Services\Addonservice\AddonserviceService;
@@ -141,5 +142,15 @@ class AddonController extends Controller
         } else {
             return 0;
         }
+    }
+    public function removeServiceFaq($id)
+    {
+
+        $status = Service_Faq::where('id',$id)->delete();
+        if($status){
+            return back()->withSuccess('Faq deleted successfully');
+        }
+        return back()->withError('Unable to delete faq');
+
     }
 }

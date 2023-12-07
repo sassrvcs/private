@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Models\Addonservice as Addon;
 use App\Models\Feature;
+use App\Models\Service_Faq;
 
 /**
  * @todo work in progress
@@ -68,6 +69,17 @@ class AddonService
 
                 Feature::insert($featuresArr);
             }
+            if(!empty($request['faq'])){
+                foreach(array_values($request['faq']) as $k=> $value){
+                    if ($value['question'] != null && $value['answer'] != null) {
+                        $tmp['service_id'] = $addonservices->id ;
+                        $tmp['question'] = $value['question'];
+                        $tmp['answer'] = $value['answer'];
+                        Service_Faq::create($tmp);
+                    }
+                }
+
+            }
 
             return $addonservices->id;
         });
@@ -75,7 +87,7 @@ class AddonService
 
     public function edit($id)
     {
-        $service = Addon::with('features')->where("id",$id)->first();
+        $service = Addon::with('features','service_faqs')->where("id",$id)->first();
         return $service;
     }
 
@@ -101,6 +113,19 @@ class AddonService
 
                 Feature::create($temp);
             }
+        }
+        // dd(($request['faq']));
+        if(!empty($request['faq'])){
+            Service_Faq::where('service_id',$id )->delete();
+            foreach(array_values($request['faq']) as $k=> $value){
+                if ($value['question'] != null && $value['answer'] != null) {
+                $tmp['service_id'] = $id ;
+                $tmp['question'] = $value['question'];
+                $tmp['answer'] = $value['answer'];
+                Service_Faq::create($tmp);
+            }
+        }
+
         }
 
         return true;

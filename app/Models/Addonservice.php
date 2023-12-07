@@ -21,12 +21,17 @@ class Addonservice extends Model
         return $this->hasMany(Feature::class,'service_id');
     }
 
-    /** 
+    /**
      * Define the one-to-many relationship with AddonCartService model
      * @return hasMany
      */
     public function addonCartServices()
     {
         return $this->hasMany(AddonCartService::class, 'service_id');
+    }
+
+    public function service_faqs()
+    {
+        return $this->hasMany(Service_Faq::class, 'service_id');
     }
 }

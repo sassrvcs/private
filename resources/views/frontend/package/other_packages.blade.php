@@ -32,6 +32,36 @@
         <div class="left-information" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
             <h2>{{ $packages->package_name}} <span>Package</span></h2>
            {!!$packages->description!!}
+<div class="prefer-to-order-by-telephone-sec pt-0">
+                    <div class="custom-container  d-blok">
+                        <h2><b>Prefer to order by telephone</b></h2>
+                        <p>If you are not confident in completing your new company order online - call our friendly team and
+                            we will complete your order by telephone</p>
+                        <div class="div-ul">
+                            <div class="div-li">
+                                <div class="call-no">
+                                    <div class="icon-container">
+                                        <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
+                                    </div>
+                                    <div class="text-container">
+                                        <h3><a href="tel:020 3002 0032">020 3002 0032</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="div-li">
+                                <div class="call-no">
+                                    <div class="icon-container">
+                                        <img src="{{ asset('frontend/assets/images/email-green-icon.svg') }}">
+                                    </div>
+                                    <div class="text-container">
+                                        <h3><a
+                                                href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
 
         </div>
         <div class="right-information">
@@ -197,6 +227,9 @@
                         <span>with this package</span>
                     </h2>
                 </div>
+                <div class="action-btns" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                    <a href="{{ route('company_services',['renewals']) }}" class="theme-btn-primary read-more-btn">View All Services</a>
+                </div>
             </div>
             <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <p>You have the opportunity to add these extra services during the order process</p>
@@ -289,8 +322,38 @@
 
     <div class="whatMakesDifferent-sec01-sec3">
         <div class="custom-container">
+            @if (request()->routeIs('non_residents_package'))
             <div class="text-container">
-            <div class="sec-title1">
+                <div class="sec-title1">
+                 <h1 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non-Residents Premier Package priced at £679 <span>which includes :</span></h1>
+                 <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                    <ul class="text-white">
+                        <li>1. Limited Company registration fee paid by us</li>
+                        <li>2. Printed Copy of Company documents delivered free</li>
+                        <li>3. Business Service Address</li>
+                        <li>4. Registered office Address</li>
+                        <li>5. VAT & PAYE Registration</li>
+                        <li>6. Domain name .co.uk or .com for 1yr.</li>
+                        <li>7. GDPR Compliance Package</li>
+                        <li>8. Data Protection Registration</li>
+                        <li>9. Online access to all your documents</li>
+                        <li>10. An Appointment Company Secretary</li>
+                        <li>11. Unlimited Support with Banking options</li>
+                        <li>12. Exclusive offers & Discount</li>
+                    </ul>
+                 </p>
+
+
+                 </div>
+
+                 <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                     <a href="{{route('contact.view')}}" class="theme-btn-primary read-more-btn">Contact Us</a>
+                 </div>
+             </div>
+            @else
+
+            <div class="text-container">
+               <div class="sec-title1">
                 <h1 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident Package</span></h1>
                 <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our idea is to help our non-UK clients set up their businesses effortlessly and without any hassle. Thus, we provide them with a range of services to ensure a streamlined working experience with us.  </p>
                 </div>
@@ -299,6 +362,7 @@
                     <a href="{{route('non_residents_package')}}" class="theme-btn-primary read-more-btn">Read More</a>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 

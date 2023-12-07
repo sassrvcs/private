@@ -100,8 +100,8 @@
                                                     <tbody>
                                                         @foreach($package->faqs as $key => $value)
                                                             <tr class="faqrow" id="row_1">
-                                                                <td><input type="text" class="form-control" name="faq[1][question]" placeholder="question" value="{{ $value->question }}"/></td>
-                                                                <td><input type="text" class="form-control" name="faq[1][answer]" placeholder="answer" value="{{ $value->answer }}"/></td>
+                                                                <td><input type="text" class="form-control" name="faq[{{$value->id}}][question]" placeholder="question" value="{{ $value->question }}"/></td>
+                                                                <td><input type="text" class="form-control" name="faq[{{$value->id}}][answer]" placeholder="answer" value="{{ $value->answer }}"/></td>
 
                                                             </tr>
                                                         @endforeach

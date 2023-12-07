@@ -86,6 +86,9 @@
                         <span>you might need</span>
                 </h2>
             </div>
+             <div class="action-btns" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                    <a href="{{ route('company_services',['renewals']) }}" class="theme-btn-primary read-more-btn">View All Services</a>
+                </div>
             </div>
             <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <p>A little guidance to help you reach your business goals.</p>

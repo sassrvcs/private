@@ -81,10 +81,10 @@
                                                         <i class="fas fa-edit"></i>
                                                     </a>
 
-                                                    <a href="javascript:{}" class="delete-user" data-id={{ $service->id }}  data-user="Addonservice "
+                                                    {{-- <a href="javascript:{}" class="delete-user" data-id={{ $service->id }}  data-user="Addonservice "
                                                             data-route="{{ route('admin.addonservice.destroy', $service->id) }}" style="color: #f30031">
                                                         <i class="fa fa-trash"></i>
-                                                    </a>
+                                                    </a> --}}
 
                                                     {{-- <a href="#" class="btn btn_baseColor btn-sm"> View </a> --}}
                                                 </div>

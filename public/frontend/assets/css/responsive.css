@@ -9,7 +9,8 @@
     .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn,
     .digitalPackage-right-lists .our-online-company-manager-box .action-btns .more-btn,
     .ready-to-set-up-your-company .action-btns .more-btn,
-    .how-it-works-sec-card-lists .div-ul .div-box .action-btns .buy-btn{
+    .how-it-works-sec-card-lists .div-ul .div-box .action-btns .buy-btn,
+    .whatMakesDifferent-sec01-sec1 .image-container .action-btns .read-more-btn{
         width: 120px;
         height: 48px;
     }

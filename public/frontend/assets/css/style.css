@@ -2578,7 +2578,9 @@ body .show > .btn-primary.dropdown-toggle {
     color: #3A3A3A;
     margin-bottom: 8px;
 }
-
+.digitalPackage-sec .left-information h2 b{
+    font-weight: inherit;
+}
 .digitalPackage-sec .left-information h2 span {
     color: #6EB012;
 }
@@ -11184,7 +11186,17 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     z-index: 1;
     /* height: 745px; */
 }
-
+.whatMakesDifferent-sec01-sec1 .image-container .action-btns{
+    display: flex;
+    justify-content: center;
+    margin-top: 75px;
+}
+.whatMakesDifferent-sec01-sec1 .image-container .action-btns .read-more-btn{
+    width: unset !important;
+    height: 55px;
+    font-size: 16px;
+        padding: 0 16px;
+}
 .whatMakesDifferent-sec01-sec1 .image-container::before {
     content: '';
     clear: both;
@@ -12501,9 +12513,10 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .digitalPackage-right-lists .digitalPackage-right-how_it_works-col {}
 
 .digitalPackage-right-lists .digitalPackage-right-how_it_works-col .digitalPackage-right-how_it_works-box {
-    border-radius: 21px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.10);
-    padding: 45px 16px 45px 24px !important;
+     background-color: #f8f8f8;
+    border: 1px solid #CBCBCB;
+    padding: 26px 16px 24px 24px;
+/*    border-radius: 10px;*/
 }
 
 .digitalPackage-right-lists .digitalPackage-right-list-box h3 {
@@ -14331,8 +14344,8 @@ span.txt_green {
 /* end: whatWeOffer-sec02 */
 
 .digitalPackage-right-lists .our-online-company-manager-col {
-    border-radius: 21px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.10);
+/*    border-radius: 10px;*/
+    border: 1px solid #CBCBCB;
     overflow: hidden;
 }
 
@@ -14341,7 +14354,7 @@ span.txt_green {
 }
 
 .digitalPackage-right-lists .our-online-company-manager-box:not(:last-child) {
-    border-bottom: 1px solid #A2B8CC;
+    border-bottom: 1px solid #CBCBCB;
 }
 
 .digitalPackage-right-lists .our-online-company-manager-box .action-btns {
@@ -14426,7 +14439,7 @@ span.txt_green {
 }
 
 .prefer-to-order-by-telephone-sec .call-no .icon-container img {
-    width: 20px;
+    width: 22px;
 }
 
 .prefer-to-order-by-telephone-sec .call-no .text-container {
@@ -14440,6 +14453,7 @@ span.txt_green {
     word-break: break-word;
     white-space: normal;
     margin: 0 !important;
+    font-size: 24px;
 }
 
 .prefer-to-order-by-telephone-sec .call-no .text-container h3 a {

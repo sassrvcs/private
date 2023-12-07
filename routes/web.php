@@ -283,6 +283,8 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
             Route::delete('/facilitor/{id}',[FacilitorController::class,'destroy'])->name('facilitor.destroy');
 
             Route::resource('addonservice', AddonController::class);
+            Route::get('remove_service_faq/{id}', [AddonController::class, 'removeServiceFaq'])->name('remove_service_faq');
+
 
             Route::resource('business-banking', BusinessBankingController::class);
             Route::resource('accounting', AccountingController::class);
