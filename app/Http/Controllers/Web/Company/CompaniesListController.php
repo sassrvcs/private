@@ -104,7 +104,7 @@ class CompaniesListController extends Controller
                 $sopping_cart->package_id = $package->id;
                 $sopping_cart->quantity = '1';
                 $sopping_cart->price = $package->package_price;
-                // $sopping_cart->save();
+                $sopping_cart->save();
 
 
 
@@ -115,7 +115,7 @@ class CompaniesListController extends Controller
                 $order->company_number = $request->company_number;
                 $order->company_name = $fetch_result['Body']['CompanyData']['CompanyName'];
                 $order->auth_code =$request->company_authcode;
-                // $order->save();
+                $order->save();
 
                 //----------------- Add Office Address----------------------
 
@@ -130,7 +130,7 @@ class CompaniesListController extends Controller
                 $Office_address->town = @$fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['PostTown'];
                 $Office_address->county = @$fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Country'];
                 $Office_address->post_code = @$fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Postcode'];
-                // $Office_address->save();
+                $Office_address->save();
 
                 if($fetch_result['Body']['CompanyData']['CompanyCategory']== 'BYSHR'){
                     $company_type = 'Limited By Shares';
@@ -157,7 +157,7 @@ class CompaniesListController extends Controller
                 $company->status= '3';
                 $company->made_upto= $fetch_result['Body']['CompanyData']['MadeUpDate'];
                 $company->due_date= $fetch_result['Body']['CompanyData']['NextDueDate'];
-                // $company->save();
+                $company->save();
 
                 //---------------Add Sic Code ---------------------
                 $sic_code = SicDetails::where('code_id',$fetch_result['Body']['CompanyData']['SICCodes']['SICCode'])->first();
@@ -165,12 +165,13 @@ class CompaniesListController extends Controller
                 $sic_codes->companie_id = $company->id;
                 $sic_codes->name = $sic_code->code_name;
                 $sic_codes->code =$fetch_result['Body']['CompanyData']['SICCodes']['SICCode'];
-                // $sic_codes->save();
+                $sic_codes->save();
 
 
 
 
                 // Appointment Details
+
                 if(isset($fetch_result['Body']['CompanyData']['Officers']['Director']['0'])){
 
                     foreach ($fetch_result['Body']['CompanyData']['Officers']['Director'] as  $data) {
@@ -190,7 +191,7 @@ class CompaniesListController extends Controller
                             $residential_address->town = @$data['Person']['ResidentialAddress']['Address']['PostTown'];
                             $residential_address->county = @$data['Person']['ResidentialAddress']['Address']['Country'];
                             $residential_address->post_code = @$data['Person']['ResidentialAddress']['Address']['Postcode'];
-                            // $residential_address->save();
+                            $residential_address->save();
 
                             // create Person
 
@@ -212,7 +213,7 @@ class CompaniesListController extends Controller
                             $person->nationality = $nationlity_id;
                             $person->occupation = @$data['Person']['Occupation'];
                             $person->add_id = $residential_address->id;
-                            // $person->save();
+                            $person->save();
 
                             // Create Appointment
 
@@ -226,7 +227,7 @@ class CompaniesListController extends Controller
                             $service_address->town =@$data['Person']['ServiceAddress']['Address']['PostTown'];
                             $service_address->county =@$data['Person']['ServiceAddress']['Address']['Country'];
                             $service_address->post_code =@$data['Person']['ServiceAddress']['Address']['Postcode'];
-                            // $service_address->save();
+                            $service_address->save();
 
                             $appointment = new Person_appointment;
                             $appointment->user_id = auth()->user()->id;
@@ -235,7 +236,7 @@ class CompaniesListController extends Controller
                             $appointment->position = 'Director';
                             $appointment->order = $order->order_id;
                             $appointment->appointment_type = 'person';
-                            // $appointment->save();
+                            $appointment->save();
 
                         }
                         if(isset($data['Corporate'])){
@@ -248,7 +249,7 @@ class CompaniesListController extends Controller
                             $residential_address->town =@$data['Corporate']['Address']['PostTown'];
                             $residential_address->county =@$data['Corporate']['Address']['Country'];
                             $residential_address->post_code =@$data['Corporate']['Address']['Postcode'];
-                            // $residential_address->save();
+                            $residential_address->save();
 
                             $person = new PersonOfficer;
                             $person->order_id = $order->order_id;
@@ -262,7 +263,7 @@ class CompaniesListController extends Controller
                             }
 
                             $person->add_id = $residential_address->id;
-                            // $person->save();
+                            $person->save();
 
                             $appointment = new Person_appointment;
                             $appointment->user_id = auth()->user()->id;
@@ -270,7 +271,7 @@ class CompaniesListController extends Controller
                             $appointment->position = 'Director';
                             $appointment->order = $order->order_id;
                             $appointment->appointment_type = 'corporate';
-                            // $appointment->save();
+                            $appointment->save();
                         }
                     }
                 }else{
@@ -291,7 +292,7 @@ class CompaniesListController extends Controller
                         $residential_address->town = @$data['Person']['ResidentialAddress']['Address']['PostTown'];
                         $residential_address->county = @$data['Person']['ResidentialAddress']['Address']['Country'];
                         $residential_address->post_code = @$data['Person']['ResidentialAddress']['Address']['Postcode'];
-                        // $residential_address->save();
+                        $residential_address->save();
 
                         // create Person
 
@@ -313,7 +314,7 @@ class CompaniesListController extends Controller
                         $person->nationality = $nationlity_id;
                         $person->occupation = @$data['Person']['Occupation'];
                         $person->add_id = $residential_address->id;
-                        // $person->save();
+                        $person->save();
 
                         // Create Appointment
 
@@ -327,7 +328,7 @@ class CompaniesListController extends Controller
                         $service_address->town =@$data['Person']['ServiceAddress']['Address']['PostTown'];
                         $service_address->county =@$data['Person']['ServiceAddress']['Address']['Country'];
                         $service_address->post_code =@$data['Person']['ServiceAddress']['Address']['Postcode'];
-                        // $service_address->save();
+                        $service_address->save();
 
                         $appointment = new Person_appointment;
                         $appointment->user_id = auth()->user()->id;
@@ -336,7 +337,7 @@ class CompaniesListController extends Controller
                         $appointment->position = 'Director';
                         $appointment->order = $order->order_id;
                         $appointment->appointment_type = 'person';
-                        // $appointment->save();
+                        $appointment->save();
                     }
 
                     if(isset($data['Corporate'])){
@@ -349,7 +350,7 @@ class CompaniesListController extends Controller
                         $residential_address->town =@$data['Corporate']['Address']['PostTown'];
                         $residential_address->county =@$data['Corporate']['Address']['Country'];
                         $residential_address->post_code =@$data['Corporate']['Address']['Postcode'];
-                        // $residential_address->save();
+                        $residential_address->save();
 
                         $person = new PersonOfficer;
                         $person->order_id = $order->order_id;
@@ -363,7 +364,7 @@ class CompaniesListController extends Controller
                         }
 
                         $person->add_id = $residential_address->id;
-                        // $person->save();
+                        $person->save();
 
                         $appointment = new Person_appointment;
                         $appointment->user_id = auth()->user()->id;
@@ -371,136 +372,429 @@ class CompaniesListController extends Controller
                         $appointment->position = 'Director';
                         $appointment->order = $order->order_id;
                         $appointment->appointment_type = 'corporate';
-                        // $appointment->save();
+                        $appointment->save();
                     }
                 }
 
                 if(isset($fetch_result['Body']['CompanyData']['PSCs']['0'])){
                 }else{
-                    // dd('here',$fetch_result);
+
                     if(isset($fetch_result['Body']['CompanyData']['PSCs']['PSC']['PSCNotification']['Individual'])){
                         $data= $fetch_result['Body']['CompanyData']['PSCs']['PSC']['PSCNotification']['Individual'];
-                        $name_exist = PersonOfficer::where('first_name', 'like', '%' .strtoupper($data['Forename']). '%')->where('last_name','like', '%' .strtoupper($data['Surname']). '%')->where('order_id', $order->order_id)->first();
-                        if($name_exist){
-                            $exist_appointment = Person_appointment::where('person_officer_id',$name_exist->id)->where('order',$order->order_id)->first();
-                            $exist_appointment->position = "Director, PSC";
-                            $exist_appointment->save();
+                        // dd($data);
+                        if(isset($data['Person'])){
+
+                            $name_exist = PersonOfficer::where('first_name', 'like', '%' .strtoupper($data['Forename']). '%')->where('last_name','like', '%' .strtoupper($data['Surname']). '%')->where('order_id', $order->order_id)->first();
+                            if($name_exist){
+                                $exist_appointment = Person_appointment::where('person_officer_id',$name_exist->id)->where('order',$order->order_id)->first();
+                                $exist_appointment->position = "Director, PSC";
+                                $exist_appointment->save();
+                            }else{
+
+                                    $nationlity_id = Nationality::where('nationality',$data['Person']['Nationality'])->pluck('id')->first();
+                                    // Resident Add for Person
+                                    $residential_address = new Address;
+                                    $residential_address->user_id = auth()->user()->id;
+                                    $residential_address->address_type = 'primary_address';
+                                    $residential_address->house_number = @$data['Person']['ResidentialAddress']['Address']['Premise'];
+                                    $residential_address->street = @$data['Person']['ResidentialAddress']['Address']['Street'];
+                                    $residential_address->locality = @$data['Person']['ResidentialAddress']['Address']['Thoroughfare'];
+                                    $residential_address->town = @$data['Person']['ResidentialAddress']['Address']['PostTown'];
+                                    $residential_address->county = @$data['Person']['ResidentialAddress']['Address']['Country'];
+                                    $residential_address->post_code = @$data['Person']['ResidentialAddress']['Address']['Postcode'];
+                                    $residential_address->save();
+
+                                    // create Person
+
+
+                                    $person = new PersonOfficer;
+                                    $person->order_id = $order->order_id;
+                                    $person->user_id = auth()->user()->id;
+                                    $person->dob_day = @$data['Person']['DOB'];
+
+                                    if(is_array(@$data['Person']['Forename'])){
+                                        $forname = implode(' ',@$data['Person']['Forename']);
+                                    }else{
+                                        $forname =@$data['Person']['Forename'];
+
+                                    }
+
+                                    $person->first_name = strtoupper($forname);
+                                    $person->last_name = strtoupper(@$data['Person']['Surname']);
+                                    $person->nationality = $nationlity_id;
+                                    $person->occupation = @$data['Person']['Occupation'];
+                                    $person->add_id = $residential_address->id;
+                                    $person->save();
+
+                                    // Create Appointment
+
+
+                                    $service_address = new Address;
+                                    $service_address->user_id = auth()->user()->id;
+                                    $service_address->address_type = 'primary_address';
+                                    $service_address->house_number = @$data['Person']['ServiceAddress']['Address']['Premise'];
+                                    $service_address->street =@$data['Person']['ServiceAddress']['Address']['Street'];
+                                    $service_address->locality =@$data['Person']['ServiceAddress']['Address']['Thoroughfare'];
+                                    $service_address->town =@$data['Person']['ServiceAddress']['Address']['PostTown'];
+                                    $service_address->county =@$data['Person']['ServiceAddress']['Address']['Country'];
+                                    $service_address->post_code =@$data['Person']['ServiceAddress']['Address']['Postcode'];
+                                    $service_address->save();
+
+                                    $appointment = new Person_appointment;
+                                    $appointment->user_id = auth()->user()->id;
+                                    $appointment->person_officer_id = $person->id;
+                                    $appointment->own_address_id = $service_address->id;
+                                    $appointment->position = 'PSC';
+                                    $appointment->order = $order->order_id;
+                                    $appointment->appointment_type = 'person';
+                                    $appointment->save();
+                            }
                         }else{
-                             // dd($data['Person']['ServiceAddress']['Address']['Premise']);
-                        $nationlity_id = Nationality::where('nationality',$data['Person']['Nationality'])->pluck('id')->first();
-                        // Resident Add for Person
-                        $residential_address = new Address;
-                        $residential_address->user_id = auth()->user()->id;
-                        $residential_address->address_type = 'primary_address';
-                        $residential_address->house_number = @$data['Person']['ResidentialAddress']['Address']['Premise'];
-                        $residential_address->street = @$data['Person']['ResidentialAddress']['Address']['Street'];
-                        $residential_address->locality = @$data['Person']['ResidentialAddress']['Address']['Thoroughfare'];
-                        $residential_address->town = @$data['Person']['ResidentialAddress']['Address']['PostTown'];
-                        $residential_address->county = @$data['Person']['ResidentialAddress']['Address']['Country'];
-                        $residential_address->post_code = @$data['Person']['ResidentialAddress']['Address']['Postcode'];
-                        // $residential_address->save();
-
-                        // create Person
 
 
-                        $person = new PersonOfficer;
-                        $person->order_id = $order->order_id;
-                        $person->user_id = auth()->user()->id;
-                        $person->dob_day = @$data['Person']['DOB'];
+                            $name_exist = PersonOfficer::where('first_name', 'like', '%' .strtoupper($data['Forename']). '%')->where('last_name','like', '%' .strtoupper($data['Surname']). '%')->where('order_id', $order->order_id)->first();
+                            if($name_exist){
+                                $exist_appointment = Person_appointment::where('person_officer_id',$name_exist->id)->where('order',$order->order_id)->first();
+                                $exist_appointment->position = "Director, PSC";
+                                foreach($fetch_result['Body']['CompanyData']['PSCs']['PSC']['PSCNotification']['NatureOfControls']['NatureOfControl'] as $psc_nature){
 
-                        if(is_array(@$data['Person']['Forename'])){
-                            $forname = implode(' ',@$data['Person']['Forename']);
-                        }else{
-                            $forname =@$data['Person']['Forename'];
+                                    if($psc_nature == 'OWNERSHIPOFSHARES_25TO50PERCENT'){
+                                        $exist_appointment->noc_os = 'More than 25% but not more than 50%';
+                                    }
+                                    if($psc_nature == 'OWNERSHIPOFSHARES_50TO75PERCENT'){
+                                        $exist_appointment->noc_os = 'More than 50% but less than 75%';
+                                    }
+                                    if($psc_nature == 'OWNERSHIPOFSHARES_75TO100PERCENT'){
+                                        $exist_appointment->noc_os = '75% or more';
+                                    }
+                                    if($psc_nature == 'OWNERSHIPOFSHARES_25TO50PERCENT_AS_TRUST'){
+                                        $exist_appointment->tci_os = 'More than 25% but not more than 50%';
 
+                                    }
+                                    if($psc_nature == 'OWNERSHIPOFSHARES_50TO75PERCENT_AS_TRUST'){
+                                        $exist_appointment->tci_os = 'More than 50% but less than 75%';
+
+                                    }
+                                    if($psc_nature == 'OWNERSHIPOFSHARES_75TO100PERCENT_AS_TRUST'){
+                                        $exist_appointment->tci_os = '75% or more';
+
+                                    }
+                                    if($psc_nature == 'OWNERSHIPOFSHARES_25TO50PERCENT_AS_FIRM'){
+                                        $exist_appointment->fci_os = 'More than 25% but not more than 50%';
+
+                                    }
+                                    if($psc_nature == 'OWNERSHIPOFSHARES_50TO75PERCENT_AS_FIRM'){
+                                        $exist_appointment->fci_os = 'More than 50% but less than 75%';
+
+                                    }
+                                    if($psc_nature == 'OWNERSHIPOFSHARES_75TO100PERCENT_AS_FIRM'){
+                                        $exist_appointment->fci_os = '75% or more';
+
+                                    }
+                                    if($psc_nature == 'VOTINGRIGHTS_25TO50PERCENT'){
+                                        $exist_appointment->noc_vr = 'More than 25% but not more than 50%';
+
+                                    }
+                                    if($psc_nature == 'VOTINGRIGHTS_50TO75PERCENT'){
+                                        $exist_appointment->noc_vr = 'More than 50% but less than 75%';
+
+                                    }
+                                    if($psc_nature == 'VOTINGRIGHTS_75TO100PERCENT'){
+                                        $exist_appointment->noc_vr = '75% or more';
+
+                                    }
+                                    if($psc_nature == 'VOTINGRIGHTS_25TO50PERCENT_AS_TRUST'){
+                                        $exist_appointment->tci_vr = 'More than 25% but not more than 50%';
+
+                                    }
+                                    if($psc_nature == 'VOTINGRIGHTS_50TO75PERCENT_AS_TRUST'){
+                                        $exist_appointment->tci_vr = 'More than 50% but less than 75%';
+
+                                    }
+                                    if($psc_nature == 'VOTINGRIGHTS_75TO100PERCENT_AS_TRUST'){
+                                        $exist_appointment->tci_vr = '75% or more';
+
+                                    }
+                                    if($psc_nature == 'VOTINGRIGHTS_25TO50PERCENT_AS_FIRM'){
+                                        $exist_appointment->fci_vr = 'More than 25% but not more than 50%';
+
+                                    }
+                                    if($psc_nature == 'VOTINGRIGHTS_50TO75PERCENT_AS_FIRM'){
+                                        $exist_appointment->fci_vr = 'More than 50% but less than 75%';
+
+                                    }
+                                    if($psc_nature == 'VOTINGRIGHTS_75TO100PERCENT_AS_FIRM'){
+                                        $exist_appointment->fci_vr = '75% or more';
+
+                                    }
+                                    if($psc_nature == 'RIGHTTOAPPOINTANDREMOVEDIRECTORS'){
+                                        $exist_appointment->noc_appoint = 'Yes';
+
+                                    }
+                                    if($psc_nature == 'RIGHTTOAPPOINTANDREMOVEDIRECTORS_AS_TRUST'){
+                                        $exist_appointment->tci_appoint = 'Yes';
+
+                                    }
+                                    if($psc_nature == 'RIGHTTOAPPOINTANDREMOVEDIRECTORS_AS_FIRM'){
+                                        $exist_appointment->fci_appoint = 'Yes';
+
+                                    }
+                                    if($psc_nature == 'SIGINFLUENCECONTROL'){
+                                        $exist_appointment->noc_others = 'Yes';
+
+                                    }
+                                    if($psc_nature == 'SIGINFLUENCECONTROL_AS_TRUST'){
+                                        $exist_appointment->tci_others = 'Yes';
+
+                                    }
+                                    if($psc_nature == 'SIGINFLUENCECONTROL_AS_FIRM'){
+                                        $exist_appointment->fci_others = 'Yes';
+
+                                    }
+
+                                }
+                                $exist_appointment->save();
+                            }else{
+
+                                    $nationlity_id = Nationality::where('nationality',$data['Nationality'])->pluck('id')->first();
+                                    // Resident Add for Person
+                                    $residential_address = new Address;
+                                    $residential_address->user_id = auth()->user()->id;
+                                    $residential_address->address_type = 'primary_address';
+                                    $residential_address->house_number = @$data['ResidentialAddress']['Address']['Premise'];
+                                    $residential_address->street = @$data['ResidentialAddress']['Address']['Street'];
+                                    $residential_address->locality = @$data['ResidentialAddress']['Address']['Thoroughfare'];
+                                    $residential_address->town = @$data['ResidentialAddress']['Address']['PostTown'];
+                                    $residential_address->county = @$data['ResidentialAddress']['Address']['Country'];
+                                    $residential_address->post_code = @$data['ResidentialAddress']['Address']['Postcode'];
+                                    $residential_address->save();
+
+                                    // create Person
+
+
+                                    $person = new PersonOfficer;
+                                    $person->order_id = $order->order_id;
+                                    $person->user_id = auth()->user()->id;
+                                    $person->dob_day = @$data['DOB'];
+
+                                    if(is_array(@$data['Forename'])){
+                                        $forname = implode(' ',@$data['Forename']);
+                                    }else{
+                                        $forname =@$data['Forename'];
+
+                                    }
+
+                                    $person->first_name = strtoupper($forname);
+                                    $person->last_name = strtoupper(@$data['Surname']);
+                                    $person->nationality = $nationlity_id;
+                                    $person->occupation = @$data['Occupation'];
+                                    $person->add_id = $residential_address->id;
+                                    $person->save();
+
+                                    // Create Appointment
+
+
+                                    $service_address = new Address;
+                                    $service_address->user_id = auth()->user()->id;
+                                    $service_address->address_type = 'primary_address';
+                                    $service_address->house_number = @$data['ServiceAddress']['Address']['Premise'];
+                                    $service_address->street =@$data['ServiceAddress']['Address']['Street'];
+                                    $service_address->locality =@$data['ServiceAddress']['Address']['Thoroughfare'];
+                                    $service_address->town =@$data['ServiceAddress']['Address']['PostTown'];
+                                    $service_address->county =@$data['ServiceAddress']['Address']['Country'];
+                                    $service_address->post_code =@$data['ServiceAddress']['Address']['Postcode'];
+                                    $service_address->save();
+
+                                    $appointment = new Person_appointment;
+                                    $appointment->user_id = auth()->user()->id;
+                                    $appointment->person_officer_id = $person->id;
+                                    $appointment->own_address_id = $service_address->id;
+                                    $appointment->position = 'PSC';
+                                    $appointment->order = $order->order_id;
+                                    $appointment->appointment_type = 'person';
+                                    foreach($fetch_result['Body']['CompanyData']['PSCs']['PSC']['PSCNotification']['NatureOfControls']['NatureOfControl'] as $psc_nature){
+
+                                        if($psc_nature == 'OWNERSHIPOFSHARES_25TO50PERCENT'){
+                                            $appointment->noc_os = 'More than 25% but not more than 50%';
+                                        }
+                                        if($psc_nature == 'OWNERSHIPOFSHARES_50TO75PERCENT'){
+                                            $appointment->noc_os = 'More than 50% but less than 75%';
+                                        }
+                                        if($psc_nature == 'OWNERSHIPOFSHARES_75TO100PERCENT'){
+                                            $appointment->noc_os = '75% or more';
+                                        }
+                                        if($psc_nature == 'OWNERSHIPOFSHARES_25TO50PERCENT_AS_TRUST'){
+                                            $appointment->tci_os = 'More than 25% but not more than 50%';
+
+                                        }
+                                        if($psc_nature == 'OWNERSHIPOFSHARES_50TO75PERCENT_AS_TRUST'){
+                                            $appointment->tci_os = 'More than 50% but less than 75%';
+
+                                        }
+                                        if($psc_nature == 'OWNERSHIPOFSHARES_75TO100PERCENT_AS_TRUST'){
+                                            $appointment->tci_os = '75% or more';
+
+                                        }
+                                        if($psc_nature == 'OWNERSHIPOFSHARES_25TO50PERCENT_AS_FIRM'){
+                                            $appointment->fci_os = 'More than 25% but not more than 50%';
+
+                                        }
+                                        if($psc_nature == 'OWNERSHIPOFSHARES_50TO75PERCENT_AS_FIRM'){
+                                            $appointment->fci_os = 'More than 50% but less than 75%';
+
+                                        }
+                                        if($psc_nature == 'OWNERSHIPOFSHARES_75TO100PERCENT_AS_FIRM'){
+                                            $appointment->fci_os = '75% or more';
+
+                                        }
+                                        if($psc_nature == 'VOTINGRIGHTS_25TO50PERCENT'){
+                                            $appointment->noc_vr = 'More than 25% but not more than 50%';
+
+                                        }
+                                        if($psc_nature == 'VOTINGRIGHTS_50TO75PERCENT'){
+                                            $appointment->noc_vr = 'More than 50% but less than 75%';
+
+                                        }
+                                        if($psc_nature == 'VOTINGRIGHTS_75TO100PERCENT'){
+                                            $appointment->noc_vr = '75% or more';
+
+                                        }
+                                        if($psc_nature == 'VOTINGRIGHTS_25TO50PERCENT_AS_TRUST'){
+                                            $appointment->tci_vr = 'More than 25% but not more than 50%';
+
+                                        }
+                                        if($psc_nature == 'VOTINGRIGHTS_50TO75PERCENT_AS_TRUST'){
+                                            $appointment->tci_vr = 'More than 50% but less than 75%';
+
+                                        }
+                                        if($psc_nature == 'VOTINGRIGHTS_75TO100PERCENT_AS_TRUST'){
+                                            $appointment->tci_vr = '75% or more';
+
+                                        }
+                                        if($psc_nature == 'VOTINGRIGHTS_25TO50PERCENT_AS_FIRM'){
+                                            $appointment->fci_vr = 'More than 25% but not more than 50%';
+
+                                        }
+                                        if($psc_nature == 'VOTINGRIGHTS_50TO75PERCENT_AS_FIRM'){
+                                            $appointment->fci_vr = 'More than 50% but less than 75%';
+
+                                        }
+                                        if($psc_nature == 'VOTINGRIGHTS_75TO100PERCENT_AS_FIRM'){
+                                            $appointment->fci_vr = '75% or more';
+
+                                        }
+                                        if($psc_nature == 'RIGHTTOAPPOINTANDREMOVEDIRECTORS'){
+                                            $appointment->noc_appoint = 'Yes';
+
+                                        }
+                                        if($psc_nature == 'RIGHTTOAPPOINTANDREMOVEDIRECTORS_AS_TRUST'){
+                                            $appointment->tci_appoint = 'Yes';
+
+                                        }
+                                        if($psc_nature == 'RIGHTTOAPPOINTANDREMOVEDIRECTORS_AS_FIRM'){
+                                            $appointment->fci_appoint = 'Yes';
+
+                                        }
+                                        if($psc_nature == 'SIGINFLUENCECONTROL'){
+                                            $appointment->noc_others = 'Yes';
+
+                                        }
+                                        if($psc_nature == 'SIGINFLUENCECONTROL_AS_TRUST'){
+                                            $appointment->tci_others = 'Yes';
+
+                                        }
+                                        if($psc_nature == 'SIGINFLUENCECONTROL_AS_FIRM'){
+                                            $appointment->fci_others = 'Yes';
+
+                                        }
+
+                                    }
+                                    $appointment->save();
+                            }
                         }
 
-                        $person->first_name = strtoupper($forname);
-                        $person->last_name = strtoupper(@$data['Person']['Surname']);
-                        $person->nationality = $nationlity_id;
-                        $person->occupation = @$data['Person']['Occupation'];
-                        $person->add_id = $residential_address->id;
-                        // $person->save();
-
-                        // Create Appointment
+                    }
 
 
-                        $service_address = new Address;
-                        $service_address->user_id = auth()->user()->id;
-                        $service_address->address_type = 'primary_address';
-                        $service_address->house_number = @$data['Person']['ServiceAddress']['Address']['Premise'];
-                        $service_address->street =@$data['Person']['ServiceAddress']['Address']['Street'];
-                        $service_address->locality =@$data['Person']['ServiceAddress']['Address']['Thoroughfare'];
-                        $service_address->town =@$data['Person']['ServiceAddress']['Address']['PostTown'];
-                        $service_address->county =@$data['Person']['ServiceAddress']['Address']['Country'];
-                        $service_address->post_code =@$data['Person']['ServiceAddress']['Address']['Postcode'];
-                        // $service_address->save();
+                }
 
-                        $appointment = new Person_appointment;
-                        $appointment->user_id = auth()->user()->id;
-                        $appointment->person_officer_id = $person->id;
-                        $appointment->own_address_id = $service_address->id;
-                        $appointment->position = 'PSC';
-                        $appointment->order = $order->order_id;
-                        $appointment->appointment_type = 'person';
-                        // $appointment->save();
-                        }
+                if(isset($fetch_result['Body']['CompanyData']['Shareholdings'])){
+                    $data = $fetch_result['Body']['CompanyData']['Shareholdings']['Shareholders'];
+
+                    $name_exist = PersonOfficer::where('first_name', 'like', '%' .strtoupper($data['Name']['Forename']). '%')->where('last_name','like', '%' .strtoupper($data['Name']['Surname']). '%')->where('order_id', $order->order_id)->first();
+                    if($name_exist){
+                        $exist_appointment = Person_appointment::where('person_officer_id',$name_exist->id)->where('order',$order->order_id)->first();
+                        $exist_appointment->position = "Director, PSC , Shareholder";
+                        $exist_appointment->sh_quantity = $fetch_result['Body']['CompanyData']['Shareholdings']['NumberHeld'];
+                        $exist_appointment->sh_currency =$fetch_result['Body']['CompanyData']['StatementOfCapital']['Capital']['ShareCurrency'];
+                        $exist_appointment->sh_pps =$fetch_result['Body']['CompanyData']['StatementOfCapital']['Capital']['Shares']['AggregateNominalValue'];
+                        $exist_appointment->perticularsTextArea =$fetch_result['Body']['CompanyData']['StatementOfCapital']['Capital']['Shares']['PrescribedParticulars'];
+                        $exist_appointment->save();
+                    }else{
+
+                            // $nationlity_id = Nationality::where('nationality',$data['Person']['Nationality'])->pluck('id')->first();
+                            // Resident Add for Person
+                            $residential_address = new Address;
+                            $residential_address->user_id = auth()->user()->id;
+                            $residential_address->address_type = 'primary_address';
+                            $residential_address->house_number = @$data['Address']['Premise'];
+                            $residential_address->street = @$data['Address']['Street'];
+                            $residential_address->locality = @$data['Address']['Thoroughfare'];
+                            $residential_address->town = @$data['Address']['PostTown'];
+                            $residential_address->county = @$data['Address']['Country'];
+                            $residential_address->post_code = @$data['Address']['Postcode'];
+                            $residential_address->save();
+
+                            // create Person
+
+
+                            $person = new PersonOfficer;
+                            $person->order_id = $order->order_id;
+                            $person->user_id = auth()->user()->id;
+                            // $person->dob_day = @$data['DOB'];
+
+                            if(is_array(@$data['Forename'])){
+                                $forname = implode(' ',@$data['Name']['Forename']);
+                            }else{
+                                $forname =@$data['Name']['Forename'];
+
+                            }
+
+                            $person->first_name = strtoupper($forname);
+                            $person->last_name = strtoupper(@$data['Name']['Surname']);
+                            // $person->nationality = $nationlity_id;
+                            // $person->occupation = @$data['Occupation'];
+                            $person->add_id = $residential_address->id;
+                            $person->save();
+
+                            // Create Appointment
+
+
+
+
+                            $appointment = new Person_appointment;
+                            $appointment->user_id = auth()->user()->id;
+                            $appointment->person_officer_id = $person->id;
+                            $appointment->position = 'Shareholder';
+                            $appointment->order = $order->order_id;
+                            $appointment->appointment_type = 'person';
+                            $appointment->sh_quantity = $fetch_result['Body']['CompanyData']['Shareholdings']['NumberHeld'];
+                            $appointment->sh_currency =$fetch_result['Body']['CompanyData']['StatementOfCapital']['Capital']['ShareCurrency'];
+                            $appointment->sh_pps =$fetch_result['Body']['CompanyData']['StatementOfCapital']['Capital']['Shares']['AggregateNominalValue'];
+                            $appointment->perticularsTextArea =$fetch_result['Body']['CompanyData']['StatementOfCapital']['Capital']['Shares']['PrescribedParticulars'];
+                            $appointment->save();
                     }
                 }
 
-
-                // if(isset($fetch_result['Body']['CompanyData']['Officers']['Secretary'])){
-
-                //     foreach($fetch_result['Body']['CompanyData']['Officers']['Secretary'] as $key => $data){
-                //         dd($data);
-                //         $name_exist = PersonOfficer::where('first_name',$data['Forename'])->where('last_name',$data['Surname'])->first();
-                //         if($name_exist){
-                //             dd('name Found');
-                //         }else{
-                //            // dd($data['Person']);
-
-
-                //         // create Person
-                //         $person = new PersonOfficer;
-                //         $person->order_id = $order->order_id;
-                //         $person->user_id = auth()->user()->id;
-                //         $person->first_name = $data['Person']['Forename'];
-                //         $person->last_name = $data['Person']['Surname'];
-                //         // $person->save();
-
-                //         // Create Appointment
-                //         $service_address = new Address;
-                //         $service_address->user_id = auth()->user()->id;
-                //         $service_address->address_type = 'primary_address';
-                //         $service_address->house_number = $data['Person']['ResidentialAddress']['Address']['Premise'];
-                //         $service_address->street =$data['Person']['ResidentialAddress']['Address']['Street'];
-                //         $service_address->locality =$data['Person']['ResidentialAddress']['Address']['Thoroughfare'];
-                //         $service_address->town =$data['Person']['ResidentialAddress']['Address']['PostTown'];
-                //         $service_address->county =$data['Person']['ResidentialAddress']['Address']['Country'];
-                //         $service_address->post_code =$data['Person']['ResidentialAddress']['Address']['Postcode'];
-
-                //         // $service_address->save();
-
-                //         $appointment = new Person_appointment;
-                //         $appointment->user_id = auth()->user()->id;
-                //         $appointment->person_officer_id = $person->id;
-                //         $appointment->own_address_id = $service_address->id;
-                //         $appointment->position = 'Director';
-                //         $appointment->order = $order->order_id;
-                //         $appointment->appointment_type = 'person';
-                //         // $appointment->save();
-
-                //         }
-                //     }
-                // }
-
-
-            // }
 
 
 
 
         }
+        $authID = auth()->user()->id;
+        $companies = $this->userService->show($authID, $request);
+            // dd($companies->orders->toArray());
+        return view('frontend.companies.company', compact('companies'));
     }
 
     public function generateOrderId()
@@ -594,7 +888,7 @@ class CompaniesListController extends Controller
             'price' => 'nullable|numeric',
             'effective_date' => 'nullable|date',
         ]);
-    
+
         // Create or update the cart record
         if($request->forward_address_id){
             $request->address_id = null;
@@ -619,7 +913,7 @@ class CompaniesListController extends Controller
                 'vat' => $vat,
             ]
         );
-    
+
         return response()->json(['message' => 'Cart updated successfully', 'cart' => $cart]);
     }
 
@@ -650,7 +944,7 @@ class CompaniesListController extends Controller
                 'vat' => $vat,
             ]
         );
-    
+
         return response()->json(['message' => 'Cart updated successfully', 'cart' => $cart]);
     }
 
@@ -675,7 +969,7 @@ class CompaniesListController extends Controller
                 'company_account_value' => json_encode($request->all()),
             ]
         );
-    
+
         return response()->json(['message' => 'Cart updated successfully', 'cart' => $cart]);
     }
 
@@ -723,38 +1017,95 @@ class CompaniesListController extends Controller
         $user = Auth::user();
         $cart = Cart::where('order_id', $order_id)->where('user_id', $user->id)->get();
 
-        return view('frontend.companies.cart', compact('order_id', 'cart'));
+        $net_total = $cart->sum('price');
+        $vat = $cart->sum('vat');
+        $total_price = $net_total + $vat;
+
+
+
+        return view('frontend.companies.cart', compact('order_id', 'cart','net_total','vat','total_price'));
     }
 
+    public function cartPay(Request $request){
+
+        $order = $request->order_id.'/'.uniqid().Str::random(10);
+
+        $paymentUrl = "https://mdepayments.epdq.co.uk/ncol/test/orderstandard_utf8.asp"; // Barclays payment gateway URL
+        $pspid = "epdq1638710";
+        $shaInPasscode = "";
+        $shaOutPasscode = "F&I4s97SdqEE(lDAaJ";
+        $amount = $request->total_price *100;
+        $currency = "GBP";
+        // $orderID = "ORDER12356".time();
+        $formData = array(
+            "PSPID" => $pspid,
+            "orderID" => $order,
+            "amount" => $amount,
+            "order" => $request->order_id,
+            "currency" => $currency,
+            "ACCEPTURL" => route('cart-payment-success'),
+            "DECLINEURL" => route('cart-payment-declined'),
+            "EXCEPTIONURL" => route('cart-payment-exception'),
+            "CANCELURL" => route('cart-payment-cancelled')
+        );
+
+        ksort($formData);
+        // dd($formData);
+        $shaString = "";
+        foreach ($formData as $field => $value) {
+            $shaString .= strtoupper($field) . "=" . $value . $shaOutPasscode;
+        }
+
+        $shaOutSignature = hash('sha512',$shaString);
+        $formData["SHASIGN"] = $shaOutSignature;
+        // dd($formData);
+        return view('frontend.payment_getway.view', compact('formData', 'paymentUrl'));
+    }
+
+    public function paymentSuccess(){
+        return view('frontend.payment_getway.success');
+    }
+    public function paymentDeclined(Request $request){
+                return view('frontend.payment_getway.declined');
+
+    }
+    public function paymentException(Request $request){
+                return view('frontend.payment_getway.exception');
+
+    }
+    public function paymentCancelled(Request $request){
+                return view('frontend.payment_getway.cancelled');
+
+    }
     public function editAuthCode(Request $request)
     {
         $request->validate([
             'auth_code' => 'required|string',
         ]);
-    
+
         $order_id = $request->order;
         $auth_code = $request->auth_code;
-    
+
         $user = Auth::user();
 
         $order = Order::where('order_id', $order_id)->where('user_id', $user->id)->first();
-    
+
         if ($order) {
 
             $order->auth_code = $auth_code;
             $order->save();
-    
+
             return response()->json(['message' => 'Auth code updated successfully']);
         } else {
             return response()->json(['error' => 'Order not found'], 404);
         }
     }
-    
+
 
     public function deleteCart(Request $request)
     {
         try {
-            
+
             $cart = Cart::findOrFail($request->id);
             $cart->delete();
 
