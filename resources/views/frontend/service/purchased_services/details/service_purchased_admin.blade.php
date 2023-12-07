@@ -50,7 +50,7 @@
                     @if ($slug=="directors-service-address" || $slug=="registered-office-address")
                              @include('frontend.service.purchased_services.details.directorServiceAddress')
                     @endif
-                    @if ($slug=='vat-registration'||$slug=='business-email'||$slug=='paye-registration' || $slug=="data-protection-registration"||$slug=="business-logo")
+                    @if ($slug=='vat-registration'||$slug=='business-email'||$slug=='paye-registration' || $slug=="data-protection-registration"||$slug=="business-logo"||$slug=="gdpr-compliance-package")
                     @include('frontend.service.purchased_services.details.invoice_table.userDetailsBusinessService')
 
                     @else

@@ -4,13 +4,13 @@
 <div class="digital-packages-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
     <div class="custom-container">
         <div class="inner-wrapper">
-            <div class="icon-container d-none">
+            <div class="icon-container">
                 <span><img src="{{ asset('frontend/assets/images/earch-icon.svg') }}"></span>
             </div>
             <div class="text-container">
                 <h1>{{ $packages->package_name}} <span>Package <br>
                         Company Registration</span></h1>
-                <h4></h4>
+                {{-- <h4>LTD Company Package</h4> --}}
                 <div class="action-btns">
 
                     @if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
@@ -76,26 +76,44 @@
                             <li>
                                 <div class="icon-container icon-right-arow">
                                 </div>
-                                <p>Banking Services 01</p>
+                                <p>
+                                    <a href="{{ route('company_services',['barclays-bank-account']) }}">Barclays Bank Account</a>
+                                </p>
+
                             </li>
                             <li>
                                 <div class="icon-container icon-right-arow">
                                 </div>
-                                <p>Banking Services 02</p>
+                                <p>
+                                    <a href="{{ route('company_services',['cashplus-business-account']) }}">Cashplus Business Account</a>
+                                </p>
+                            </li>
+
+                            <li>
+                                <div class="icon-container icon-right-arow">
+                                </div>
+                                <p>
+                                    <a href="{{ route('company_services',['payoneer-business-account-for-non-uk-residents']) }}">wise-business-account-for-non-uk-residents</a>
+                                </p>
+                            </li>
+
+                            <li>
+                                <div class="icon-container icon-right-arow">
+                                </div>
+                                <p>
+                                    <a href="{{ route('company_services',['payoneer-business-account-for-non-uk-residents']) }}">Payoneer Business Account For Non UK Residents</a>
+                                    </p>
                             </li>
                             <li>
                                 <div class="icon-container icon-right-arow">
                                 </div>
-                                <p>Banking Services 03</p>
+                                <p> <a href="{{ route('company_services',['card-one-business-account']) }}">Card One Business Account</a> </p>
                             </li>
-                            <li>
-                                <div class="icon-container icon-right-arow">
-                                </div>
-                                <p>Banking Services 04</p>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -178,19 +196,33 @@
             </div>
             <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <div class="left-border">
-                    <h1>Our different <br />
-                        <span>Services</span>
+                    <h1>Services you might need <br />
+                        <span>with this package</span>
                     </h1>
                 </div>
-                <p>After dealing with so many companies and their problems we have established ourselves as an experienced company formation agent and become an authorised E-filing agent of Companies House, a body responsible for UK limited company formation.</p>
+                <p>You have the opportunity to add these extra services during the order process</p>
                 <div class="for-ourDifferent-text-lists">
+                    @foreach ($different_services as $item)
                     <div class="for-ourDifferent-list-col">
                         <div class="for-ourDifferent-list-box">
                             <figure>
                                 <div class="icon-container">
                                     <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
                                 </div>
-                                <figcaption>Lorem ipsum dolor sit amet</figcaption>
+                                <figcaption> <a href="{{route('company_services',[$item->slug])}}">{{$item->service_name}}</a></figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    @endforeach
+
+                    @if (count($different_services) == 2)
+                    <div class="for-ourDifferent-list-col">
+                        <div class="for-ourDifferent-list-box">
+                            <figure>
+                                <div class="icon-container">
+                                    <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
+                                </div>
+                                <figcaption> <a href="{{route('buisness_web_design')}}">Business Website Designing</a></figcaption>
                             </figure>
                         </div>
                     </div>
@@ -200,30 +232,11 @@
                                 <div class="icon-container">
                                     <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
                                 </div>
-                                <figcaption>Lorem ipsum dolor sit amet</figcaption>
+                                <figcaption> <a href="{{route('service_business_logo')}}">Business Logo Design</a></figcaption>
                             </figure>
                         </div>
                     </div>
-                    <div class="for-ourDifferent-list-col">
-                        <div class="for-ourDifferent-list-box">
-                            <figure>
-                                <div class="icon-container">
-                                    <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
-                                </div>
-                                <figcaption>Lorem ipsum dolor sit amet</figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="for-ourDifferent-list-col">
-                        <div class="for-ourDifferent-list-box">
-                            <figure>
-                                <div class="icon-container">
-                                    <img src="{{ asset('frontend/assets/images/diagram.svg') }}">
-                                </div>
-                                <figcaption>Lorem ipsum dolor sit amet</figcaption>
-                            </figure>
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -279,7 +292,7 @@
         <div class="custom-container">
             <div class="text-container">
                 <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident Package</span></h1>
-                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec luctus urna, sed facilisis dolor. Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Nam laoreet vestibulum purus, sed suscipit odio convallis ac. In faucibus tincidunt est, </p>
+                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our idea is to help our non-UK clients set up their businesses effortlessly and without any hassle. Thus, we provide them with a range of services to ensure a streamlined working experience with us.  </p>
                 <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                     <a href="{{route('non_residents_package')}}" class="theme-btn-primary read-more-btn">Read More</a>
                 </div>

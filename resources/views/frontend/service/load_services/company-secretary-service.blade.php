@@ -63,9 +63,7 @@
                                 </div>
 
                                 <hr>
-                                <div class="total_priceAmnt d-flex justify-content-end align-items-center float-none"
-                                    style="font-size:24px;margin-bottom:15px;">Online Application
-                                </div>
+                                <div class="d-flex justify-content-end align-items-center float-none" style="font-size:24px;margin-bottom:15px;"><div class="total_priceAmnt ">Price: £149.99 <small>+VAT</small></div></div>
 
                                 <input type="hidden" name="allPriceAmnt" id="allPriceAmnt" value="">
                                 <input type="hidden" name="totalVatAmount" id="totalVatAmount" value="">
@@ -127,7 +125,7 @@
             let dis_price = parseFloat({{ $prices['full_company_secretary_service_price'] }});
             tr = '';
             sum += dis_price;
-            tr = "<tr><td>Full Company Secretary</td><td>Full Company Secretary Service</td><td>£" +
+            tr = "<tr><td>Company Secretary</td><td>Company Secretary Service</td><td>£" +
                 parseFloat(dis_price).toFixed(2) + "</td></tr>";
 
             if (sum == 0) {

@@ -45,7 +45,7 @@
                                         <a class="dropdown-item" href="{{route('company_services', 'company-name-change')}}">Company Name Change</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'dormant-company-accounts')}}">Dormant Company Accounts</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'director-appointment-resignation')}}">Director Appointment Resignation</a>
-                                        <a class="dropdown-item" href="{{route('company_services', 'full-company-secretary-service')}}">Full Company Secretary Service</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'full-company-secretary-service')}}">Company Secretary Service</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'issue-of-share-services')}}">Issue of Share Services</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'transfer-of-share-services')}}">Transfer of Share Services</a>
                                     </div>
@@ -76,8 +76,9 @@
 
                                     <div class="custom-col">
                                         <h5><span>Address Services</span></h5>
-                                        <a class="dropdown-item" href="{{route('company_services', 'directors-service-address')}}">Directors Service Address</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'registered-office-address')}}">Registered Office Address</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'directors-service-address')}}">Directors Service Address</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'business-mailing-address-service')}}">Business Mail Forwarding Address</a>
                                         <a class="dropdown-item" href="{{route('company_services', 'renewals')}}">Renewals</a>
                                     </div>
 

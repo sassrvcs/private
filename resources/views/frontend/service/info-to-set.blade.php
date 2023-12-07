@@ -6,20 +6,20 @@
 
 
     <!-- ================ start: common-inner-page-banner ================ -->
-    <section class="common-inner-page-banner" style="background-image: url(/frontend/assets/images/digital-package-banner.png)">
+    {{-- <section class="common-inner-page-banner" style="background-image: url(/frontend/assets/images/digital-package-banner.png)">
         <div class="custom-container">
             <div class="left-info">
                 <figure data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                     <div class="icon-container">
                         <span><img src="/frontend/assets/images/ic_round-mail.svg"></span>
                     </div>
-                    <figcaption>Information Required To Setup A Company<span></span></figcaption>
+                    <figcaption>Business Help<span></span></figcaption>
                 </figure>
             </div>
             <div class="center-info">
                 <ul class="prev-nav-menu" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
                     <li><a href="/">Home</a></li>
-                    <li><a>Information Required To Setup A Company</a></li>
+                    <li><a>Business Help</a></li>
                 </ul>
             </div>
             <div class="call-info" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500" data-aos-once="true">
@@ -32,7 +32,25 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
+
+    <div class="digital-packages-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
+        <div class="custom-container">
+            <div class="inner-wrapper">
+                <div class="icon-container">
+                    <span><img src="{{ asset('frontend/assets/images/earch-icon.svg') }}"></span>
+                </div>
+                <div class="text-container">
+                    <h1>Information Required To Setup A Company</h1>
+                    <div class="action-btns">
+                        <a href="{{ route('package') }}" class="theme-btn-primary buy-btn">
+                            View All packages
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section class="digitalPackage-sec">
         <div class="custom-container">
@@ -44,144 +62,113 @@
     </section>
 
     <!-- ================ end: digitalPackage-sec ================ -->
-
-    <!-- ================ start: whatmakedifferent-sec ================ -->
-    <div class="whatmakedifferent-sec-multiple-left-right">
-        <section class="whatmakedifferent-sec">
-            <div class="image-container" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500"
-                data-aos-once="true">
-                <img src="{{ asset('frontend/assets/images/services-packages-list-pic1.png')}}">
-            </div>
-            <div class="text-container" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000"
-                data-aos-once="true">
-                <h2>Free Royal Mail Normal Delivery (only within UK)</h2>
-            </div>
-
-        </section>
-        <div class="logo-center-stamp"></div>
-        <section class="whatmakedifferent-sec">
-            <div class="image-container" data-aos="fade-left" data-aos-delay="150" data-aos-duration="1500"
-                data-aos-once="true">
-                <img src="{{ asset('frontend/assets/images/services-packages-list-pic2.png')}}">
-            </div>
-            <div class="text-container" data-aos="fade-right" data-aos-delay="200" data-aos-duration="2000"
-                data-aos-once="true">
-                <h2>DHL Delivery £50.00 (Subject to international tracking and mailing service avalability)</h2>
-            </div>
-        </section>
-        <div class="logo-center-stamp"></div>
-        <section class="whatmakedifferent-sec">
-            <div class="text-container aos-init aos-animate" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-               <h2>Courier Charges: £35 (Takes 3-5 working days)</h2>
-                           </div>
-           <div class="image-container aos-init aos-animate" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-               <img src="{{ asset('frontend/assets/images/services-packages-list-pic3.png')}}">
-           </div>
-
-
-       </section>
-    </div>
-    <!-- ================ end: whatmakedifferent-sec ================ -->
-
-    <!-- ================ start: ourServices-sec ================ -->
-    <section class="ourServices-sec top-padding">
-        <div class="custom-container">
-            <div class="sec-title1 text-center">
-                <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Free Toolkits
-                    <span>For Your Business</span>
-                </h2>
-            </div>
-            <ul class="toolkit-lists" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
-                data-aos-once="true">
-                <li>
-                    <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit1.svg')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit2.svg')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit3.svg')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit4.svg')}}">
-                    </div>
-                </li>
-                <li>
-                    <div class="image-container">
-                        <img src="{{ asset('frontend/assets/images/toolkit5.svg')}}">
-                    </div>
-                </li>
-            </ul>
-
-
-
-
-            <div class="need-little-help">
-                <div class="left-box" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000"
-                    data-aos-once="true">
-                    <h3>Need a little help?</h3>
-                    <p>We love talking to you when it comes to creating something new. We want you to remember us
-                        always, let’s be good for good and for a good reason. Reach us through your voice or writing.
-                    </p>
-                </div>
-                <div class="right-box" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1500"
-                    data-aos-once="true">
-                    <ul>
-                        <li>
-                            <img src="{{ asset('frontend/assets/images/ic_round-phone.svg')}}">
-                            <div class="text-box">Call Us: <a href="tel:020 3002 0032">020 3002 0032</a></div>
-                        </li>
-                        <li>
-                            <img src="{{ asset('frontend/assets/images/ic_round-mail.svg')}}">
-                            <div class="text-box">
-                                mail to: <a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a>
+<div class="prefer-to-order-by-telephone-sec pb-0">
+            <div class="custom-container  d-blok">
+            <h2><b>Prefer to order by telephone</b></h2>
+            <p>If you are not confident in completing your new company order online - call our friendly team and we will complete your order by telephone</p>
+                <div class="div-ul">
+                    <div class="div-li">
+                        <div class="call-no">
+                            <div class="icon-container">
+                                <img src="{{ asset('frontend/assets/images/call-green-icon.svg')}}">
                             </div>
-                        </li>
-                    </ul>
+                            <div class="text-container">
+                                <h3><a href="tel:020 3002 0032">020 3002 0032</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-li">
+                        <div class="call-no">
+                            <div class="icon-container">
+                                <img src="{{ asset('frontend/assets/images/email-green-icon.svg')}}">
+                            </div>
+                            <div class="text-container">
+                                <h3><a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+        </div>
+    </div>
+
+    <x-company_name_check />
+     <div class="ready-to-set-up-your-company">
+        <div class="custom-container d-blok">
+            <h2><b>Ready to set up your company?</b></h2>
+            <div class="action-btns">
+                <a class="more-btn btn-primary" href="{{ route('index') }}">Let's Get Started</a>
             </div>
         </div>
-    </section>
-    <!-- ================ end: ourServices-sec ================ -->
-
-    <!-- ================ start: our-banking-sec ================ -->
-    <section class="our-banking-sec">
+    </div>
+    <!-- ================ start: additionalServices-sec ================ -->
+    @include('frontend.service.service_page_static_content.static')
+    <!-- ================ end: clientReviews-sec01 ================ -->
+    <!-- ================ start: ourBankingPartners-sec01 ================ -->
+    <div class="ourBankingPartners-sec01">
         <div class="custom-container">
             <div class="sec-title1 text-center">
-                <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our Banking
-                    <span>Partners</span>
-                </h2>
+                <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our Banking <span>Partners</span></h2>
             </div>
-            <div class="our-banking-slider" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000"
-                data-aos-once="true">
-
+            <ul data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 @foreach ($businessdata as $index => $data)
+                <li>
+                    <div class="logo-container">
+                        <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
+                    </div>
+                </li>
 
-                        <div class="our-banking-item">
-                            <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
-                        </div>
 
                 @endforeach
 
                 @foreach ($accounting as $item => $data)
-
-                        <div class="our-banking-item">
+                    <li>
+                        <div class="logo-container">
                             <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
                         </div>
+                    </li>
+
 
                 @endforeach
 
-                </div>
+            </ul>
         </div>
-    </section>
-    <!-- ================ end: our-banking-sec ================ -->
+    </div>
+    <!-- ================ end: ourBankingPartners-sec01 ================ -->
+    <!-- ================ start: faq-002-sec ================ -->
+    @if (@$faqs[0]->question!=null)
+    <div class="faq-002-sec">
+        <div class="custom-container">
+            <div class="sec-title1 text-center">
+                <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="aos-init aos-animate">Frequently Asked <span>Questions</span></h2>
+            </div>
+
+            <div id="accordion" class="faq-002-accordion-sec">
+                @foreach ($faqs as $faq)
+                    <div class="card" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                        <div class="card-header" id="headingOne{{ $faq->id }}">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne{{ $faq->id }}" aria-expanded="false" aria-controls="collapseOne{{ $faq->id }}">
+                                <div class="plus-minus-btn">
+                                    <img src="{{ asset('frontend/assets/images/plus-whtie.svg') }}" class="plus">
+                                    <img src="{{ asset('frontend/assets/images/plus-whtie.svg') }}" class="minus">
+                                </div>
+                                <div class="textp">{{ $faq->question }}</div>
+                            </button>
+                        </div>
+
+                        <div id="collapseOne{{ $faq->id }}" class="collapse" aria-labelledby="headingOne{{ $faq->id }}" data-parent="#accordion">
+                            <div class="card-body">
+                                <p>{{ $faq->answer }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                @endforeach
+
+            </div>
+
+        </div>
+    </div>
+    @endif
 
 
 @endsection

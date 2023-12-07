@@ -1,49 +1,16 @@
 @media (max-width: 1549px) {
-    .whatMakesDifferent-sec01-sec1 .text-container h2 {
-        font-size: 36px;
-    }
-
-    .whatMakesDifferent-sec01-sec1 .text-container h3 {
-        font-size: 18px;
-        margin-top: 27px;
-    }
-
-    .whatMakesDifferent-sec01-sec1 {
-        padding: 90px 0 80px;
-    }
-
-    .whatMakesDifferent-sec01-sec1 .image-container img {
-        height: 745px;
-    }
-
-    .whatMakesDifferent-sec01-sec3 .text-container h1 {
-        font-size: 65px;
-        line-height: 66px;
-    }
-
-    .whatMakesDifferent-sec01-sec3 .text-container p {
-        font-size: 16px;
-        margin-top: 28px;
-    }
 
     .digital-packages-banner .inner-wrapper .text-container .action-btns .buy-btn,
     .digitalPackage-right-lists .digitalPackage-right-list-box .action-btns .buy-btn,
     .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn,
     .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn,
     .take-look-t-our-sec01 .action-btns .buy-now-btn,
-    .feature-of-seo-boxes .buy-btn a {
+    .feature-of-seo-boxes .buy-btn a,
+    .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn,
+    .digitalPackage-right-lists .our-online-company-manager-box .action-btns .more-btn,
+    .ready-to-set-up-your-company .action-btns .more-btn {
         width: 120px;
         height: 48px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h3 {
-        font-size: 24px;
-        line-height: 38px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h2 {
-        font-size: 35px;
-        line-height: 40px;
     }
 
     .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn {
@@ -51,29 +18,11 @@
         height: 48px;
     }
 
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper {
-        padding: 20px 45px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg img {
-        max-height: 190px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg {
-        bottom: -70px;
-    }
-
-    .whyneedbankaccUk-sec01 {
-        padding: 70px 0 0;
-    }
 
     .whyneedbankaccUk-sec01 .whyneedbankaccUk-lists .whyneedbankaccUk-list-box {
         padding: 24px 24px;
     }
 
-    .clientReviews-sec01-slider .clientReviews-sec01-slider-box p {
-        font-size: 20px;
-    }
 
     .clientReviews-sec01-wrapper .left_div {
         max-width: 520px;
@@ -102,18 +51,6 @@
         height: 95px;
     }
 
-    .clientReviews-sec01 {
-        padding: 60px 0 90px;
-    }
-
-    .needLittleHelp-sec .right_div h1 {
-        font-size: 48px;
-        line-height: 50px;
-    }
-
-    .needLittleHelp-sec {
-        padding: 140px 0;
-    }
 
     .needLittleHelp-sec .left_div .contactUl li .icon-container img {
         max-width: 24px;
@@ -125,19 +62,6 @@
         height: 55px;
     }
 
-    .needLittleHelp-sec .left_div .contactUl li .text-container h2 {
-        font-size: 24px;
-        line-height: 30px;
-    }
-
-    .needLittleHelp-sec .left_div .contactUl li .text-container h4 {
-        font-size: 18px;
-        line-height: 24px;
-    }
-
-    .needLittleHelp-sec .right_div p {
-        font-size: 16px;
-    }
 
     .ourNewsletters-01-lists .ourNewsletters-01-box .action-btns .read-more-btn {
         width: 120px;
@@ -156,10 +80,6 @@
         padding: 8px 20px;
     }
 
-    .main-banner-bottom-steps .steps-box .text-container h3 {
-        font-size: 22px;
-        margin-top: 8px;
-    }
 
     .main-banner-bottom-steps .steps-box .text-container p {
         margin-top: 10px;
@@ -307,14 +227,6 @@
         max-width: calc(100% - 254px);
     }
 
-    .ourServices-sec01 {
-        padding: 60px 0 85px;
-    }
-
-    .ourServices-sec01 .sec-title1 {
-        margin-bottom: 20px;
-    }
-
     .ourServices-sec01 .text-box-lists .text-box {
         padding: 30px 12px 18px 14px;
     }
@@ -335,29 +247,11 @@
 
     .whatMakesDifferent-sec01-sec1 .image-container {
         max-width: 490px;
+        /* height: 650px; */
     }
 
     .whatMakesDifferent-sec01-sec1 .text-container {
         max-width: calc(100% - 490px);
-    }
-
-    .whatMakesDifferent-sec01-sec1 .text-container p {
-        font-size: 14px;
-        line-height: 23px;
-        margin-top: 10px;
-    }
-
-    .whatMakesDifferent-sec01-sec1 .text-container h2 {
-        font-size: 30px;
-    }
-
-    .whatMakesDifferent-sec01-sec1 .image-container img {
-        height: 650px;
-    }
-
-    .whatMakesDifferent-sec01-sec3 .text-container h1 {
-        font-size: 55px;
-        line-height: 58px;
     }
 
     .whatMakesDifferent-sec01-sec3 .text-container {
@@ -383,23 +277,8 @@
         padding: 60px 0 70px;
     }
 
-    .needLittleHelp-sec .right_div h1 {
-        font-size: 42px;
-        line-height: 42px;
-    }
-
-    .needLittleHelp-sec .right_div p {
-        font-size: 14px;
-        margin-top: 16px;
-        line-height: 24px;
-    }
-
     .needLittleHelp-sec .custom-container {
         column-gap: 32px;
-    }
-
-    .needLittleHelp-sec {
-        padding: 60px 0;
     }
 
     .needLittleHelp-sec .left_div .contactUl li .icon-container {
@@ -429,14 +308,6 @@
         padding-top: 30px;
     }
 
-    .faq-002-sec {
-        padding: 65px 0;
-    }
-
-    .faq-002-sec .faq-002-accordion-sec {
-        margin-top: 32px;
-    }
-
     .faq-002-accordion-sec .card-header .btn .textp {
         padding: 8px 20px;
         line-height: 26px;
@@ -463,18 +334,8 @@
         top: 28px;
     }
 
-    .main-banner-bottom-steps .steps-box .text-container h4 {
-        font-size: 16px;
-    }
-
-    .main-banner-bottom-steps .steps-box .text-container h3 {
-        font-size: 18px;
-        margin-top: 8px;
-    }
 
     .main-banner-bottom-steps .steps-box .text-container p {
-        font-size: 14px;
-        line-height: 24px;
         margin-top: 10px;
     }
 
@@ -520,7 +381,10 @@
     .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn,
     .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn,
     .take-look-t-our-sec01 .action-btns .buy-now-btn,
-    .feature-of-seo-boxes .buy-btn a {
+    .feature-of-seo-boxes .buy-btn a,
+    .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn,
+    .digitalPackage-right-lists .our-online-company-manager-box .action-btns .more-btn,
+    .ready-to-set-up-your-company .action-btns .more-btn {
         width: 110px;
         height: 45px;
     }
@@ -659,19 +523,6 @@
         margin-top: 8px;
     }
 
-    .seo-webdesign-sec .sec-title1 h2 {
-        font-size: 35px;
-        line-height: 50px;
-    }
-
-    .seo-webdesign-sec .sec-title1 {
-        margin-bottom: 30px;
-    }
-
-    .sec-title1 h3 {
-        font-size: 30px;
-        line-height: 40px;
-    }
 
     .top-seo-factor-list li .icon img {
         max-width: 40px;
@@ -693,17 +544,6 @@
 
     .benefits-sec li .text h4 {
         margin-bottom: 15px;
-    }
-
-    .one-click-demo .sec-title1 h2 span {
-        font-size: 85px;
-        line-height: 95px;
-    }
-
-    .one-click-demo .sec-title1 h2 {
-        font-size: 50px;
-        line-height: 60px;
-        margin-bottom: 16px;
     }
 
     .one-click-demo .sec-title1 h6 {
@@ -993,17 +833,6 @@
         row-gap: 10px;
     }
 
-    .whatMakesDifferent-sec01-sec3 .text-container h1 {
-        font-size: 40px;
-        line-height: 44px;
-    }
-
-    .whatMakesDifferent-sec01-sec3 .text-container p {
-        font-size: 14px;
-        margin-top: 24px;
-        line-height: 26px;
-    }
-
     .whatMakesDifferent-sec01-sec3 .text-container {
         max-width: calc(100% - 400px);
         padding: 100px 30px 100px 0;
@@ -1056,8 +885,8 @@
 
     .main-banner .caption-box,
     .main-banner #result_show {
-        padding: 75px 210px 75px 0;
-        min-height: 632px;
+        padding: 145px 0 42px 0;
+        min-height: 700px;
     }
 
     .main-banner .caption-box h1 {
@@ -1500,16 +1329,6 @@
         line-height: 24px;
     }
 
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h3 {
-        font-size: 20px;
-        line-height: 30px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h2 {
-        font-size: 28px;
-        line-height: 35px;
-    }
-
     .for-ourDifferent-text-lists .for-ourDifferent-list-box figure {
         min-height: 100px;
         padding: 8px 16px;
@@ -1730,6 +1549,37 @@
     .ourClients-02-sec .logo-with-text-lists {
         padding: 50px 0;
     }
+
+    .main-banner-bottom-steps .steps-row .steps-col {
+        max-width: 33.33%;
+    }
+
+    .companyFormationPackages-sec,
+    .ourServices-sec01,
+    .whyneedbankaccUk-sec01,
+    .clientReviews-sec01,
+    .whatWeOffer-sec02,
+    .ourBankingPartners-sec01,
+    .aboutUs-sec,
+    .formationsMade-easier-sec,
+    .faq-002-sec,
+    .whatMakesDifferent-sec01-sec1,
+    .needLittleHelp-sec,
+    .blog-sec,
+    .ourWorks-sec,
+    .myPortfolio-sec,
+    .seo-webdesign-sec {
+        padding: 100px 0;
+    }
+
+    .ourServices-sec01 .ourServices-sec01-wrapper .text-container {
+        max-width: 560px;
+    }
+
+    .ourServices-sec01 .ourServices-sec01-wrapper .image-container {
+        width: calc(100vw - 630px);
+        max-width: 560px;
+    }
 }
 
 @media (max-width: 1024.98px) {
@@ -1934,10 +1784,6 @@
         font-size: 16px;
     }
 
-    .formationsMade-easier-sec {
-        padding: 52px 0 72px;
-    }
-
     .digitalPackage-sec .custom-container {
         flex-wrap: wrap-reverse;
         row-gap: 32px;
@@ -2070,11 +1916,8 @@
 
     .whatMakesDifferent-sec01-sec1 .image-container {
         max-width: 320px;
+        /* height: 320px; */
         margin: 0 auto;
-    }
-
-    .whatMakesDifferent-sec01-sec1 .image-container img {
-        height: 320px;
     }
 
     .whatMakesDifferent-sec01-sec1 .text-container {
@@ -2094,41 +1937,10 @@
         right: unset;
     }
 
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper {
-        padding: 15px 20px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h3 {
-        font-size: 18px;
-        line-height: 36px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h2 {
-        font-size: 28px;
-        line-height: 34px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg img {
-        max-height: 150px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg {
-        bottom: -60px;
-    }
-
     .whatMakesDifferent-sec01-sec3 .text-container {
         max-width: 500px;
         padding: 70px 23px 70px 0;
         min-height: 430px;
-    }
-
-    .whatMakesDifferent-sec01-sec3 .text-container h1 {
-        font-size: 32px;
-        line-height: 38px;
-    }
-
-    .whatMakesDifferent-sec01-sec3 .text-container .action-btns {
-        margin-top: 28px;
     }
 
     .whyneedbankaccUk-sec01 .whyneedbankaccUk-wrapper {
@@ -2168,11 +1980,6 @@
 
     .clientReviews-sec01-slider .clientReviews-sec01-slider-box {
         padding: 40px 20px 16px;
-    }
-
-    .clientReviews-sec01-slider .clientReviews-sec01-slider-box p {
-        font-size: 18px;
-        line-height: 28px;
     }
 
     .clientReviews-sec01-slider .clientReviews-sec01-slider-box figure .user-img-container {
@@ -2234,11 +2041,6 @@
         max-width: unset;
     }
 
-    .needLittleHelp-sec .left_div .contactUl li .text-container h2 {
-        font-size: 20px;
-        line-height: 28px;
-    }
-
     .needLittleHelp-sec .left_div .contactUl li .text-container h4 {
         font-size: 16px;
         line-height: 22px;
@@ -2246,11 +2048,6 @@
 
     .needLittleHelp-sec .right_div {
         max-width: unset;
-    }
-
-    .needLittleHelp-sec .right_div h1 {
-        font-size: 35px;
-        line-height: 37px;
     }
 
     .ourNewsletters-01-top-banner .custom-container {
@@ -2261,9 +2058,6 @@
         max-width: 50%;
     }
 
-    .faq-002-sec {
-        padding: 32px 0 52px;
-    }
 
     .digitalPackage-sec .right-information .digitalPackage-right-lists .digitalPackage-right-list-box.floatTop {
         margin-top: -110px;
@@ -2706,10 +2500,6 @@
         padding: 24px 16px 24px;
     }
 
-    .blog-sec {
-        padding: 42px 0 52px;
-    }
-
     .main-footer .main-footer-col {
         max-width: 100% !important;
     }
@@ -2883,20 +2673,6 @@
         height: 32px;
     }
 
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg img {
-        max-height: 130px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h2 {
-        font-size: 24px;
-        line-height: 32px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h3 {
-        font-size: 16px;
-        line-height: 30px;
-    }
-
     .digital-packages-banner .inner-wrapper .icon-container {
         width: 60px;
         height: 60px;
@@ -2922,7 +2698,10 @@
     .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn,
     .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn,
     .take-look-t-our-sec01 .action-btns .buy-now-btn,
-    .feature-of-seo-boxes .buy-btn a {
+    .feature-of-seo-boxes .buy-btn a,
+    .whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn,
+    .digitalPackage-right-lists .our-online-company-manager-box .action-btns .more-btn,
+    .ready-to-set-up-your-company .action-btns .more-btn {
         width: 100px;
         height: 38px;
     }
@@ -3915,14 +3694,6 @@
         max-width: unset;
     }
 
-    .aboutUs-counter li .count {
-        font-size: 24px;
-    }
-
-    .aboutUs-counter li .count:after {
-        font-size: 23px;
-    }
-
     .aboutUs-counter li p {
         font-size: 14px;
         line-height: 23px;
@@ -3933,18 +3704,9 @@
         margin-top: 32px;
     }
 
-    .blog-sec {
-        padding: 18px 0 32px;
-    }
-
     .blog-slider .blog-slider-box .overlay-texts h4 {
         font-size: 14px;
         line-height: 21px;
-    }
-
-    .blog-slider .blog-slider-box .overlay-texts p {
-        font-size: 12px;
-        line-height: 20px;
     }
 
     .blog-slider .blog-slider-box .overlay-texts {
@@ -3987,10 +3749,6 @@
 
     .formationsMade-easier-sec .search-box {
         margin: 24px auto 0;
-    }
-
-    .formationsMade-easier-sec {
-        padding: 32px 0 42px;
     }
 
     .main-header .custom-navbar .cn-menu-lists li .dropdown-s1 .dropdown-menu.mega-menu .custom-col {
@@ -4270,60 +4028,14 @@
         max-width: unset;
     }
 
-    .whatMakesDifferent-sec01-sec1 {
-        padding: 50px 0 38px;
-    }
-
     .whatMakesDifferent-sec01-sec1 .image-container {
+        /* height: 270px; */
         max-width: 245px;
-    }
-
-    .whatMakesDifferent-sec01-sec1 .image-container img {
-        height: 270px;
-    }
-
-    .whatMakesDifferent-sec01-sec1 .text-container h2 {
-        font-size: 20px;
-        line-height: 30px;
-    }
-
-    .whatMakesDifferent-sec01-sec1 .text-container h3 {
-        font-size: 16px;
-        margin-top: 18px;
     }
 
     .whatMakesDifferent-sec01-sec1 .text-container h3 {
         font-size: 15px;
         margin-top: 13px;
-    }
-
-    .whatMakesDifferent-sec01-sec1 .text-container p {
-        font-size: 13px;
-        line-height: 22px;
-        margin-top: 8px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper {
-        padding: 10px 10px;
-        bottom: -23px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h3 {
-        font-size: 14px;
-        line-height: 24px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h2 {
-        font-size: 15px;
-        line-height: 23px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg {
-        bottom: -34px;
-    }
-
-    .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg img {
-        max-height: 100px;
     }
 
     .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn,
@@ -4334,30 +4046,11 @@
         font-size: 14px;
     }
 
-    .whatMakesDifferent-sec01-sec3 .text-container h1 {
-        font-size: 22px;
-        line-height: 32px;
-    }
-
     .whatMakesDifferent-sec01-sec3 .text-container {
         max-width: unset;
         padding: 38px 0 24px 0;
         min-height: 350px;
         width: 100%;
-    }
-
-    .whatMakesDifferent-sec01-sec3 .text-container .action-btns {
-        margin-top: 20px;
-    }
-
-    .whatMakesDifferent-sec01-sec3 .text-container p {
-        font-size: 14px;
-        margin-top: 16px;
-        line-height: 23px;
-    }
-
-    .whyneedbankaccUk-sec01 {
-        padding: 40px 0 0;
     }
 
     .whyneedbankaccUk-sec01 .top-title h1 {
@@ -4444,17 +4137,10 @@
         max-width: 100%;
     }
 
-    .clientReviews-sec01 {
-        padding: 35px 0 65px;
-    }
+
 
     .clientReviews-sec01-wrapper .left_div::before {
         width: calc(100% - calc(50px + 80px));
-    }
-
-    .clientReviews-sec01-slider .clientReviews-sec01-slider-box p {
-        font-size: 15px;
-        line-height: 26px;
     }
 
     .clientReviews-sec01-slider .clientReviews-sec01-slider-box .qutes1 img {
@@ -4470,26 +4156,8 @@
         height: 16px;
     }
 
-    .needLittleHelp-sec .right_div h1 {
-        font-size: 26px;
-        line-height: 26px;
-    }
-
-    .needLittleHelp-sec .left_div .contactUl li .text-container h2 {
-        font-size: 17px;
-        line-height: 26px;
-    }
-
     .ourNewsletters-01-lists .ourNewsletters-01-col {
         max-width: unset;
-    }
-
-    .faq-002-sec {
-        padding: 16px 0 32px;
-    }
-
-    .needLittleHelp-sec {
-        padding: 40px 0;
     }
 
     .ourNewsletters-01-top-banner .custom-container {
@@ -4523,10 +4191,6 @@
         width: 100px;
         height: 38px;
         font-size: 14px;
-    }
-
-    .faq-002-sec .faq-002-accordion-sec {
-        margin-top: 16px;
     }
 
     .take-look-t-our-sec01 h2 {
@@ -4567,14 +4231,7 @@
         width: 20px;
     }
 
-    .myPortfolio-sec {
-        padding: 40px 0 55px;
-    }
-
-    .myPortfolio-sec h1,
-    .ourWorks-sec h1,
-    .designTogether-02-sec .left-div h1,
-    .ourClients-02-sec h1 {
+    .sec-title1 h2 {
         font-size: 25px;
         line-height: 32px;
     }

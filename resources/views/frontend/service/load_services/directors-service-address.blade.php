@@ -94,19 +94,18 @@
                                         <div class="form-check">
                                             <input class="form-check-input hasprice popupAmnt" type="checkbox" name="dir_serv_addr[]" id="london-registered-office-address" value="3709" data-title="London registered office address" data-serid="3709">
                                             <label class="form-check-label" for="london-registered-office-address">
-                                            <strong>London registered office address<span id="od3_price" class="doc_chk">£35.00</span></strong>
+                                            <strong>Registered office Address<span id="od3_price" class="doc_chk">£{{ $prices['registered_address'] }}</span></strong>
                                             </label>
                                             <div class="col-md-10 p-1">
-                                                <p>Using this popular service, you can protect the privacy of your home address while enhancing the corporate image of your new company. You can use this registered office address in all your business stationery and websites.</p>
-                                                <p>We will receive all your official statutory mails at our office. Statutory mail for the purposes of this service is mail received from HMRC or Companies House. We will open, scan and forward all official mail to the email address given during the application. This service is renewable on an yearly basis for a small<br>
-                                                fee of £35.00+vat.</p>
+                                                <p>The use of our HA4 London address for directors, shareholders, secretaries and persons with significant control (PSCs) to keep their home address private.</p>
+                                                <p>All statutory mail will be forwarded free of charge within the UK.</p>
                                             </div>
                                             <input type="hidden" name="london-registered-office-address-price" id="london-registered-office-address-price" value="35.00">
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input hasprice popupAmnt" type="checkbox" name="dir_serv_addr[]" id="london-business-address" value="3710" data-title="London business address" data-serid="3710">
                                             <label class="form-check-label" for="london-business-address">
-                                            <strong>London business address<span id="od3_price" class="doc_chk">£99.00</span></strong>
+                                            <strong>London business mail forwarding address<span id="od3_price" class="doc_chk">£{{ $prices['business_address'] }}</span></strong>
                                             </label>
                                             <div class="col-md-10 p-1">
                                                 <p>The use of our SW4 London address as your business correspondence address for your company. You can hide your home address from your suppliers, contractors, customers and marketing agencies. We will receive your business mails on your behalf.</p>
@@ -119,9 +118,7 @@
                                     </div>
 
                                 <hr>
-                                <div class="total_priceAmnt d-flex justify-content-end align-items-center float-none"
-                                    style="font-size:24px;margin-bottom:15px;">Online Application
-                                </div>
+                                <div class="d-flex justify-content-end align-items-center float-none" style="font-size:24px;margin-bottom:15px;"><div class="total_priceAmnt ">Price: £149.99 <small>+VAT</small></div></div>
 
                                 <input type="hidden" name="allPriceAmnt" id="allPriceAmnt" value="">
                                 <input type="hidden" name="totalVatAmount" id="totalVatAmount" value="">
@@ -197,12 +194,12 @@
 
         if ($("#london-registered-office-address").is(":checked")) {
             sum += coi;
-            tr += "<tr><td></td><td>London registered office address</td><td>£" +
+            tr += "<tr><td></td><td>Registered office Address</td><td>£" +
                     parseFloat(coi).toFixed(2) + "</td></tr>";
         }
         if ($("#london-business-address").is(":checked")){
             sum += ma;
-            tr += "<tr><td></td><td>London business address</td><td>£" +
+            tr += "<tr><td></td><td>London business mail forwarding address</td><td>£" +
                     parseFloat(ma).toFixed(2) + "</td></tr>";
         }
 

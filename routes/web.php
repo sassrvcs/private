@@ -166,7 +166,11 @@ Route::post('change-accounting-date', [CompaniesListController::class,'changeAcc
 Route::get('companies-statement', [CompaniesListController::class, 'viewCompanyStatement'])->middleware('auth')->name('companies-statement');
 Route::get('cart-companies', [CompaniesListController::class, 'viewCart'])->middleware('auth')->name('cart-company');
 Route::post('delete-cart', [CompaniesListController::class,'deleteCart'])->middleware('auth')->name('delete-cart');
-
+Route::post('/cart-pay',[CompaniesListController::class,'cartPay'])->name('cart-pay');
+Route::get('cart-payment-success', [CompaniesListController::class, 'paymentSuccess'])->name('cart-payment-success');
+Route::get('cart-payment-declined', [CompaniesListController::class, 'paymentDeclined'])->name('cart-payment-declined');
+Route::get('cart-payment-exception', [CompaniesListController::class, 'paymentException'])->name('cart-payment-exception');
+Route::get('cart-payment-cancelled', [CompaniesListController::class, 'paymentCancelled'])->name('cart-payment-cancelled');
 
 
 

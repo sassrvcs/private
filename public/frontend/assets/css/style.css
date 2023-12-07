@@ -1,36 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-
-
-/* font-family: 'Nunito Sans', sans-serif;
-font-family: 'Poppins', sans-serif; */
-
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
-/*font-family: 'Open Sans', sans-serif;*/
 /* ============= start: reset ============= */
 
 *,
 
 html,
-
 body,
-
 h1,
-
 h2,
-
 h3,
-
 h4,
-
 h5,
-
 h6,
-
 p,
-
 ul,
-
 li {
     margin: 0;
     padding: 0;
@@ -39,13 +20,32 @@ li {
     scroll-behavior: smooth;
 }
 
-*:not(body,
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0 !important;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    font-weight: normal;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 
-    p,
+p {
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0.276px;
+    color: #231F1F;
+    font-weight: 400;
+}
 
-    a,
-
-    button),
+*,
+body,
+p {
+    font-family: 'Lato', sans-serif;
+}
 
 h1,
 h2,
@@ -53,27 +53,39 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Mulish', sans-serif;
 }
 
-body,
-p,
-a,
-button {
-    font-family: 'Nunito Sans', sans-serif;
+h2 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 48px;
 }
 
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    margin: 0 !important;
-    font-size: 13px;
-    font-weight: normal;
-    overflow-x: hidden;
-    overflow-y: auto;
-    font-family: 'Poppins', sans-serif;
+h3 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 25.011px;
 }
+
+h1 span,
+h2 span,
+h3 span,
+h4 span,
+h5 span,
+h6 span {
+    font-weight: 600;
+    font-family: inherit;
+}
+
+h4 {
+
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: 0.192px;
+}
+
 
 label {
     margin: 0;
@@ -132,7 +144,6 @@ select:focus {
 input[type=number] {
     -moz-appearance: textfield;
     /*For FireFox*/
-    ;
 }
 
 input[type=number]::-webkit-inner-spin-button {
@@ -177,22 +188,91 @@ figure {
 
 /* ============= end: reset ============= */
 
+/* universal css */
+.sec-title1 {
+    margin-bottom: 75px;
+}
 
+.sec-title1 h1 {
+    font-size: 65px;
+    font-weight: 600;
+    line-height: 75px;
+    text-transform: capitalize;
+    color: #212529;
+}
+
+.sec-title1 h1 span {
+    color: #87CB28;
+    font-weight: 700;
+}
+
+.sec-title1 h2 {
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 60px;
+    text-transform: capitalize;
+    color: #212529;
+}
+
+.sec-title1 h2 span {
+    color: #87CB28;
+    font-weight: 700;
+}
+
+.sec-title1 p {
+    margin-top: 24px;
+}
+
+.sec-title1 h6 {
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 26px;
+    color: #212529;
+}
+
+.sec-title1 .leftRight {
+    display: flex;
+    column-gap: 32px;
+}
+
+.sec-title1 .leftRight .left {
+    width: 100%;
+    max-width: calc(100% - 472px);
+}
+
+.sec-title1 .leftRight .right {
+    width: 100%;
+    max-width: 472px;
+    padding-top: 10px;
+}
+
+.sec-title1 .leftRight .right h3 {
+    font-weight: 400;
+    text-align: right;
+    font-size: 19px;
+}
+
+/* universal css */
 
 
 
 /* =========== start: custom =========== */
 
 
-
 .custom-container {
     width: 100%;
-    /*    max-width: calc(1408px + 30px);*/
+    /* max-width: calc(1408px + 30px); */
     max-width: calc(1250px + 30px);
     padding-left: 15px;
     padding-right: 15px;
     margin: 0 auto;
 }
+
+/* @media (min-width: 1749px) {
+    .custom-container {
+        max-width: calc(1449px + 30px);
+    }
+} */
 
 .custom-row {
     display: flex;
@@ -216,7 +296,6 @@ figure {
     font-size: 16px;
     line-height: 24px;
     color: #FFFFFF;
-    font-family: 'Poppins';
 }
 
 .dropdown.dropdown-s1 .dropdown-item:focus,
@@ -236,7 +315,6 @@ body .btn-primary {
     background-color: #87CB28;
     border-radius: 6px !important;
     font-style: normal;
-    font-family: 'Poppins';
     font-weight: 500;
     font-size: 14px;
     line-height: 21px;
@@ -268,7 +346,6 @@ body .btn-primary:focus {
     background-color: #011A5B;
     border-radius: 6px !important;
     font-style: normal;
-    font-family: 'Poppins';
     font-weight: 500;
     font-size: 14px;
     line-height: 21px;
@@ -298,7 +375,6 @@ body .btn-primary:focus {
     background-color: #FFF;
     border-radius: 6px !important;
     font-style: normal;
-    font-family: 'Poppins';
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
@@ -328,7 +404,6 @@ body .theme-btn-primary-force {
     background-color: #87CB28 !important;
     border-radius: 6px !important;
     font-style: normal !important;
-    font-family: 'Poppins' !important;
     font-weight: 600 !important;
     font-size: 16px !important;
     line-height: 24px !important;
@@ -353,56 +428,40 @@ body .show > .btn-primary.dropdown-toggle {
     color: #fff;
 }
 
-.sec-title1 {}
-
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: rgb(238 255 213);
 }
-
-.sec-title1 h2 {
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 60px;
-    text-transform: capitalize;
-    color: #000000;
-}
-
-.sec-title1 h2 span {
-    color: #87CB28;
-}
-
-
 
 /* =========== end: custom =========== */
 
 /* =========== start: main-header =========== */
 
 .main-header {
-    position: sticky;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 200;
-    background: #313C4E;
-    box-shadow: 0px 4px 8px rgba(49, 60, 78, 0.1);
-    padding: 7.2px 0;
+    padding: 15px 0;
+    background: linear-gradient(#262c2c, transparent);
+    -webkit-transition: all 450ms ease 0s;
+    -moz-transition: all 450ms ease 0s;
+    -ms-transition: all 450ms ease 0s;
+    -o-transition: all 450ms ease 0s;
+    transition: all 450ms ease 0s;
 }
 
-
-
-/*
-
 .main-header.sticky {
+    position: fixed;
+    border: 0;
+    padding: 7.2px 0;
+    background: linear-gradient(#262c2c, #262c2c);
+    box-shadow: 0 13px 35px -12px rgba(35, 35, 35, .1);
+}
 
-    background-color: #313C4E;
-
-    backdrop-filter: blur(10px);
-
-    animation: sticky-slideDown 0.35s ease-out;
-
-}*/
-
-
+.main-header.sticky .logo img {
+    max-height: 60px;
+}
 
 @keyframes sticky-slideDown {
 
@@ -430,6 +489,11 @@ body .show > .btn-primary.dropdown-toggle {
 .main-header .logo img {
     max-height: 66.62px;
     display: block;
+    -webkit-transition: all 450ms ease 0s;
+    -moz-transition: all 450ms ease 0s;
+    -ms-transition: all 450ms ease 0s;
+    -o-transition: all 450ms ease 0s;
+    transition: all 450ms ease 0s;
 }
 
 .main-header .custom-navbar {
@@ -462,7 +526,6 @@ body .show > .btn-primary.dropdown-toggle {
     font-size: 14px;
     line-height: 24px;
     color: #FFFFFF;
-    font-family: 'Poppins';
     transition: .5s;
     display: inline-block;
     white-space: normal;
@@ -473,7 +536,7 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .main-header .custom-navbar .cn-menu-lists li .dropdown-s1 .dropdown-menu {
-    background: rgba(0, 0, 0, .9);
+    background: rgba(26, 27, 30, 0.89);
     -webkit-box-shadow: 0px 15px 10px -15px #111 !important;
     box-shadow: 0px 15px 10px -15px #111 !important;
     top: calc(100% + 2px) !important;
@@ -482,13 +545,18 @@ body .show > .btn-primary.dropdown-toggle {
 
 .main-header .custom-navbar .cn-menu-lists li .dropdown-s1 .dropdown-menu.mega-menu {
     position: fixed !important;
-    top: 78px !important;
+    top: 96px !important;
     left: 0 !important;
     width: 100% !important;
     padding-top: 15px;
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: calc(100% - 80px);
+    max-height: calc(100% - 96px);
+}
+
+.main-header.sticky .custom-navbar .cn-menu-lists li .dropdown-s1 .dropdown-menu.mega-menu {
+    top: 72px !important;
+    max-height: calc(100% - 72px);
 }
 
 .main-header .custom-navbar .cn-menu-lists li .dropdown-s1 .dropdown-menu.mega-menu .custom-row {
@@ -544,23 +612,18 @@ body .show > .btn-primary.dropdown-toggle {
     column-gap: 10px;
 }
 
-
-
-/*.main-header .cn-right-actions .login-btn {
-
-    padding: 8px 16px;
-
-    column-gap: 8px;
-
-}*/
-
-
-
 .main-header .cn-right-actions .login-btn {
-    padding: 7px 16px;
-    column-gap: 5px;
+    column-gap: 4px;
     background-image: none;
     background-image: none;
+    min-width: 110px;
+    height: 32px;
+    align-items: center;
+    padding: 0 8px;
+}
+
+.main-header .cn-right-actions .login-btn img {
+    width: 13px;
 }
 
 .main-header .cn-right-actions .login-btn:hover {
@@ -620,8 +683,8 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .main-banner .caption-box {
-    padding: 140px 0 43px 0;
-    min-height: 800px;
+    padding: calc(142px + 82px) 0 43px 0;
+    min-height: 924px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -629,7 +692,7 @@ body .show > .btn-primary.dropdown-toggle {
 
 .main-banner .caption-box h1 {
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 50px;
     line-height: 1.2;
     text-transform: capitalize;
@@ -650,7 +713,6 @@ body .show > .btn-primary.dropdown-toggle {
     letter-spacing: 0.012em;
     color: #FFFFFF;
     margin-top: 8px;
-    font-family: 'Poppins', sans-serif;
 }
 
 .main-banner .caption-box p + p {
@@ -867,18 +929,9 @@ body .show > .btn-primary.dropdown-toggle {
 
 /* =========== start: companyFormationPackages-sec =========== */
 
-.companyFormationPackages-sec {
-    padding: 70px 0 80px;
-}
 
 .companyFormationPackages-sec .custom-container {
     max-width: calc(1630px + 30px);
-}
-
-.companyFormationPackages-content {}
-
-.companyFormationPackages-content .tab-menus {
-    margin-top: 32px;
 }
 
 .companyFormationPackages-content .tab-menus ul {
@@ -891,7 +944,6 @@ body .show > .btn-primary.dropdown-toggle {
 .companyFormationPackages-content .tab-menus ul li {}
 
 .companyFormationPackages-content .tab-menus ul li a {
-    font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -1070,10 +1122,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .companyFormationPackages-lists .cfp-list-box .list-info li p {
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 24px;
-    letter-spacing: 0.012em;
     color: #1A1A1A;
 }
 
@@ -1251,7 +1299,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .makeCompanyFE-steps .makeCompanyFE-step-box h4 {
-    font-family: 'Nunito Sans';
     font-weight: 600;
     font-size: 21px;
     line-height: 22px;
@@ -1486,7 +1533,6 @@ body .show > .btn-primary.dropdown-toggle {
 .need-little-help .right-box ul li .text-box {
     display: flex;
     align-items: flex-start;
-    font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -1496,7 +1542,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .need-little-help .right-box ul li .text-box a {
-    font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -1654,20 +1699,17 @@ body .show > .btn-primary.dropdown-toggle {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    padding: 50px 0;
     background-attachment: fixed;
 }
 
 .aboutUs-sec .sec-title1 h2 {
     color: #fff;
-    font-weight: 500;
 }
 
 .aboutUs-sec .left-right-info-content {
     display: flex;
     margin: -35px;
     flex-wrap: wrap;
-    padding-top: 36px;
 }
 
 .aboutUs-sec .left-right-info-content .left-info,
@@ -1679,9 +1721,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .aboutUs-sec .left-right-info-content h3 {
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 20px;
     color: #FFFFFF;
 }
 
@@ -1690,13 +1729,9 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .aboutUs-sec .left-right-info-content p {
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 27px;
-    letter-spacing: 0.012em;
     color: #FFFFFF;
-    margin-top: 10px;
-    text-align: justify;
+    margin-top: 24px;
+
 }
 
 .aboutUs-sec .left-right-info-content p ~ h3 {
@@ -1705,13 +1740,12 @@ body .show > .btn-primary.dropdown-toggle {
 
 .aboutUs-counter {
     display: flex;
-    margin-top: 42px;
+    margin-top: 90px;
 }
 
 .aboutUs-counter li .count:after {
     content: "+";
     display: inline-block;
-    font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
     font-size: 33.3477px;
@@ -1732,19 +1766,16 @@ body .show > .btn-primary.dropdown-toggle {
 
 .aboutUs-counter li .count {
     font-weight: 600;
-    font-size: 33px;
-    line-height: 18px;
+    font-size: 40px;
+    line-height: 24px;
     color: #FFFFFF;
     display: flex;
     column-gap: 4px;
 }
 
 .aboutUs-counter li p {
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 27px;
-    letter-spacing: 0.012em;
     color: #FFFFFF;
+    margin-top: 8px;
 }
 
 
@@ -1754,7 +1785,6 @@ body .show > .btn-primary.dropdown-toggle {
 /* =========== start: blog-sec =========== */
 
 .blog-sec {
-    padding: 70px 0 85px;
     background: #F6F6F6;
 }
 
@@ -1826,7 +1856,7 @@ body .show > .btn-primary.dropdown-toggle {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 8px 30px;
+    padding: 16px 24px;
     transition: all 450ms ease-in-out;
 }
 
@@ -1835,24 +1865,15 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .blog-slider .blog-slider-box .overlay-texts h4 {
-    font-family: 'Nunito Sans';
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 27px;
-    letter-spacing: 0.012em;
     text-transform: capitalize;
     color: #FFFFFF;
 }
 
 .blog-slider .blog-slider-box .overlay-texts p {
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 27px;
-    letter-spacing: 0.012em;
-    text-transform: capitalize;
-    color: #CFCFCF;
+    color: #fff;
+    margin-top: 16px;
+    font-weight: 300;
 }
-
 
 
 /* =========== end: blog-sec =========== */
@@ -1997,12 +2018,11 @@ body .show > .btn-primary.dropdown-toggle {
 /* =========== start: formationsMade-easier-sec =========== */
 
 .formationsMade-easier-sec {
-    padding: 70px 0 90px;
     background-image: url(../images/formationsMade-easier-sec.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    /*    background-attachment: fixed;*/
     z-index: 1;
 }
 
@@ -2019,26 +2039,12 @@ body .show > .btn-primary.dropdown-toggle {
     opacity: 0.5;
 }
 
-.formationsMade-easier-sec .sec-title1 h2 {
-    color: #fff;
-    line-height: 50px;
-    font-weight: 600;
-}
-
-.formationsMade-easier-sec .sec-title1 p {
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-    letter-spacing: 0.012em;
-    color: #FFFFFF;
-    margin-top: 15px;
-}
 
 .formationsMade-easier-sec .search-box {
     position: relative;
     width: 100%;
-    max-width: 678px;
-    margin: 32px auto 0;
+    max-width: 820px;
+    margin: 42px auto 0;
 }
 
 .formationsMade-easier-sec .search-box .search-input {
@@ -2071,7 +2077,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .formationsMade-easier-sec,
-
 .main-banner {
     position: relative;
 }
@@ -2097,6 +2102,9 @@ body .show > .btn-primary.dropdown-toggle {
     width: 100%;
 }
 
+.formationsMade-easier-sec .sec-title1 p {
+    margin-top: 16px;
+}
 
 
 /* =========== end: formationsMade-easier-sec =========== */
@@ -2142,16 +2150,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .main-footer .main-footer-box h3 {
-    /*font-weight: 600;
-
-    font-size: 18px;
-
-    line-height: 20px;
-
-    text-transform: capitalize;
-
-    color: #FFFFFF;*/
-    font-family: 'Poppins', sans-serif;
     font-size: 15px;
     font-weight: 600;
     padding: 0 0 10px 0;
@@ -2160,34 +2158,16 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .main-footer .main-footer-box .nav-lists {
-    /*margin-top: 20px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    row-gap: 6px;*/
     margin-left: 0;
 }
 
 .main-footer .main-footer-box .nav-lists li {
-    /*    display: flex;*/
     margin-bottom: 6px;
     color: #ddd;
     font-size: 13px;
-    font-family: 'Poppins', sans-serif;
 }
 
 .main-footer .main-footer-box .nav-lists li a {
-    /*font-weight: 400;
-
-    font-size: 14px;
-
-    line-height: 24px;
-
-    color: #DDDDDD;
-
-    transition: all 300ms ease-in-out;*/
     color: #ddd;
     font-weight: 400 !important;
     -webkit-transition: all 0.3s ease;
@@ -2195,7 +2175,6 @@ body .show > .btn-primary.dropdown-toggle {
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     text-decoration: none;
-    font-family: 'Poppins', sans-serif;
 }
 
 .main-footer .main-footer-box .nav-lists li a:hover {
@@ -2330,9 +2309,6 @@ body .show > .btn-primary.dropdown-toggle {
     margin: 70px auto 0;
 }
 
-.faq-sec .sec-title1 {
-    margin-bottom: 32px;
-}
 
 .faq-accordion {
     display: flex;
@@ -2359,7 +2335,6 @@ body .show > .btn-primary.dropdown-toggle {
     padding: 10px 42px 10px 17px;
     display: block;
     width: 100%;
-    font-family: 'Nunito Sans';
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
@@ -2421,13 +2396,14 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .common-inner-page-banner .custom-container {
-    min-height: 289px;
+    min-height: 352px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     column-gap: 16px;
     position: relative;
     z-index: 2;
+    padding-top: 68px;
 }
 
 .common-inner-page-banner .left-info {}
@@ -2505,7 +2481,6 @@ body .show > .btn-primary.dropdown-toggle {
     content: ">";
     clear: both;
     display: inline-block;
-    font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -2516,7 +2491,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .common-inner-page-banner .prev-nav-menu li a {
-    font-family: 'Poppins';
     font-weight: 500;
     font-size: 16px;
     line-height: 13px;
@@ -2560,7 +2534,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .common-inner-page-banner .call-info .text-box h4 {
-    font-family: 'Nunito Sans';
     font-weight: 800;
     font-size: 18px;
     line-height: 27px;
@@ -2601,9 +2574,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .digitalPackage-sec .left-information h2 {
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 48px;
     text-transform: capitalize;
     color: #3A3A3A;
     margin-bottom: 8px;
@@ -2622,10 +2592,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .digitalPackage-sec .left-information p {
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 27px;
-    letter-spacing: 0.012em;
     color: #5B5B5B;
     margin-bottom: 24px;
 }
@@ -2646,21 +2612,33 @@ body .show > .btn-primary.dropdown-toggle {
     color: #87CB28;
 }
 
-.digitalPackage-sec .left-information ul {
+.digitalPackage-sec .left-information ul::after,
+.list-style-s1-with-left-arow ul::before {
+    display: none !important;
+}
+
+.digitalPackage-sec .left-information ul,
+.list-style-s1-with-left-arow ul {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
     margin: 0 0 12px;
 }
 
-.digitalPackage-sec .left-information ul li {
-    color: #5B5B5B;
-    font-size: 16px;
-    line-height: 150%;
-    position: relative;
+.list-style-s1-with-left-arow.ul-mb-0 ul {
+    margin-bottom: 0 !important;
 }
 
-.digitalPackage-sec .left-information ul li::before {
+.digitalPackage-sec .left-information ul li,
+.list-style-s1-with-left-arow ul li {
+    color: #5B5B5B;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+}
+
+.digitalPackage-sec .left-information ul li::before,
+.list-style-s1-with-left-arow ul li::before {
     content: '';
     clear: both;
     width: 8px;
@@ -2669,7 +2647,8 @@ body .show > .btn-primary.dropdown-toggle {
     background-repeat: no-repeat;
     display: inline-block;
     background-size: 5px;
-    margin: 6px 4px 0 0;
+    margin: 8px 6px 0 0;
+    flex: 0 0 auto;
 }
 
 .digitalPackage-sec .right-information {}
@@ -2766,7 +2745,6 @@ body .show > .btn-primary.dropdown-toggle {
     background-color: #87cb28;
     border-radius: 6px;
     font-style: normal;
-    font-family: "Poppins";
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
@@ -2947,12 +2925,10 @@ body .show > .btn-primary.dropdown-toggle {
     line-height: 27px;
     letter-spacing: 0.012em;
     color: #3A3A3A;
-    font-family: 'Nunito Sans';
     margin-top: 8px;
 }
 
 .comparePackages-content table th .items-th-info h2 {
-    font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
@@ -3005,7 +2981,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .comparePackages-content table tbody tr td {
-    font-family: 'Nunito Sans';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -3031,7 +3006,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .comparePackages-content table tbody tr td p {
-    font-family: 'Nunito Sans';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -3111,7 +3085,6 @@ body .show > .btn-primary.dropdown-toggle {
 .notSureBestFor-sec .right-box ul li .text-box {
     display: flex;
     align-items: flex-start;
-    font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -3121,7 +3094,6 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .notSureBestFor-sec .right-box ul li .text-box a {
-    font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -3697,7 +3669,6 @@ body .navbar-light .navbar-nav .nav-link:hover {
 }
 
 body .checkout .card-header h3,
-
 body .woo-account .card-header h3 {
     color: #000;
     font-size: 16px;
@@ -3961,7 +3932,7 @@ body.woocommerce-checkout .checkout-bill .woocommerce-input-wrapper.with-rg-btn 
 .wizard .steps ul li a {
     background: transparent;
     padding: 8px 0;
-    color: #FFF;
+    color: #79B42E;
     cursor: default;
     font-weight: 500;
     display: flex;
@@ -3982,7 +3953,7 @@ body.woocommerce-checkout .checkout-bill .woocommerce-input-wrapper.with-rg-btn 
 
 .wizard .steps .number:before {
     content: "\f058";
-    color: #FFF;
+    color: #79B42E;
     font-weight: 900;
     font-family: "FontAwesome";
     display: inline-block;
@@ -3992,7 +3963,7 @@ body.woocommerce-checkout .checkout-bill .woocommerce-input-wrapper.with-rg-btn 
 }
 
 .wizard .steps .current .number:before {
-    color: #79B42E;
+    color: #fff;
 }
 
 .tab-pane {
@@ -4213,7 +4184,6 @@ body .form-control {
 .included-renewed-annually-msg h4 {
     display: flex;
     align-items: flex-start;
-    font-family: 'Poppins', sans-serif;
     font-size: 18px;
     font-weight: 400;
     color: #111;
@@ -4956,7 +4926,7 @@ div#srchfld-error.msg-alerts2 #srchfld-error {
     cursor: pointer;
     border-radius: 6px;
     font-style: normal;
-    font-family: 'Poppins';
+
     font-weight: 600;
     justify-content: center;
     align-items: center;
@@ -5307,7 +5277,6 @@ button.efButton.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-tex
 .ef-information-box b,
 
 .ef-information-box strong {
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: 700 !important;
     font-size: inherit !important;
 }
@@ -5318,7 +5287,6 @@ button.efButton.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-tex
     width: 75%;
     line-height: 19px !important;
     color: #717171 !important;
-    font-family: Arial, Helvetica, sans-serif !important;
 }
 
 .ef-information-box ~ .form-label {
@@ -5354,7 +5322,6 @@ button.efButton.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-tex
     font-size: 15px !important;
     color: #717171 !important;
     line-height: 19px !important;
-    font-family: Arial, Helvetica, sans-serif !important;
 }
 
 div.p-3.col-md-12#consentDiv {
@@ -5478,11 +5445,7 @@ ul.tick {
     margin-bottom: 20px;
 }
 
-p {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 22px;
-}
+
 
 .cms-wrap ul:not(.contact_info_lists) {
     margin-left: 28px;
@@ -5585,7 +5548,7 @@ p {
 }
 
 section-title h2 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 28px;
     font-weight: 400 !important;
     color: #262c2c;
@@ -5828,7 +5791,7 @@ div.max-w-unset {
     text-align: center;
     color: #3A3A3A;
     font-size: 28px;
-    font-family: Poppins;
+
     font-weight: 700;
     line-height: 150%;
 }
@@ -5883,7 +5846,7 @@ div.max-w-unset {
 /* start: contactUs-sec */
 
 .contactUs-sec {
-    padding: 100px 0;
+    padding: 150px 0;
 }
 
 .contactUs-sec .contactUs-container {
@@ -6072,7 +6035,7 @@ div.max-w-unset {
 .custom-blog-lists .text-container h5 {
     color: #1A1A1A;
     font-size: 16px;
-    font-family: Nunito Sans;
+
     line-height: 150%;
     letter-spacing: 0.192px;
 }
@@ -6080,7 +6043,7 @@ div.max-w-unset {
 .custom-blog-lists .text-container h3 {
     color: #000;
     font-size: 21px;
-    font-family: Poppins;
+
     font-weight: 600;
     line-height: 150%;
     text-transform: capitalize;
@@ -6090,7 +6053,7 @@ div.max-w-unset {
 .custom-blog-lists .text-container p {
     color: #1A1A1A;
     font-size: 18px;
-    font-family: Nunito Sans;
+
     line-height: 150%;
     letter-spacing: 0.216px;
     margin: 10px 0 0;
@@ -6171,7 +6134,7 @@ div.max-w-unset {
     text-align: center;
     color: #848484;
     font-size: 16px;
-    font-family: Nunito Sans;
+
     font-weight: 800;
     line-height: 130%;
     width: 28px;
@@ -6198,7 +6161,7 @@ div.max-w-unset {
     position: relative;
     color: #1A1A1A;
     font-size: 17px;
-    font-family: Nunito Sans;
+
     font-weight: 700;
     line-height: 150%;
     letter-spacing: 0.192px;
@@ -6254,7 +6217,7 @@ div.max-w-unset {
 .latest-post-div .div-ul .text-container h4 {
     color: #1A1A1A;
     font-size: 16px;
-    font-family: Nunito Sans;
+
     font-weight: 700;
     line-height: 120%;
     letter-spacing: 0.192px;
@@ -6263,7 +6226,7 @@ div.max-w-unset {
 .latest-post-div .div-ul .text-container h5 {
     color: #1A1A1A;
     font-size: 12px;
-    font-family: Nunito Sans;
+
     line-height: 150%;
     margin-top: 8px;
 }
@@ -6285,7 +6248,7 @@ div.max-w-unset {
 .nav-lists-style-s1 li a {
     color: #1A1A1A;
     font-size: 16px;
-    font-family: Nunito Sans;
+
     font-weight: 600;
     line-height: 120%;
     letter-spacing: 0.192px;
@@ -6330,7 +6293,7 @@ div.max-w-unset {
 .blog_details_sec .blog_details_wrapper .left-div .list-nav-menu li a {
     color: #1A1A1A;
     font-size: 16px;
-    font-family: Nunito Sans;
+
     line-height: 150%;
 }
 
@@ -6341,7 +6304,7 @@ div.max-w-unset {
 .blog_details_sec .blog_details_wrapper .left-div p {
     color: #1A1A1A;
     font-size: 16px;
-    font-family: Nunito Sans;
+
     line-height: 150%;
     letter-spacing: 0.192px;
 }
@@ -6349,7 +6312,7 @@ div.max-w-unset {
 .blog_details_sec .blog_details_wrapper .left-div h2 {
     color: #1A1A1A;
     font-size: 24px;
-    font-family: Poppins;
+
     font-weight: 700;
     line-height: 150%;
     letter-spacing: 0.288px;
@@ -6390,7 +6353,7 @@ div.max-w-unset {
 .blogDtls_compnt_lists .blogDtls_compnt_list_item h3 {
     color: #1A1A1A;
     font-size: 18px;
-    font-family: Nunito Sans;
+
     font-style: normal;
     font-weight: 700;
     line-height: 150%;
@@ -6418,7 +6381,7 @@ div.max-w-unset {
 .blogDtls_compnt_lists .search_box .form-control {
     color: #6C6C6C;
     font-size: 13px;
-    font-family: Nunito Sans;
+
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
@@ -6459,7 +6422,7 @@ div.max-w-unset {
 .connect_with_us_blog_details_lists .div-li .text-container h2 {
     color: #FFF;
     font-size: 24px;
-    font-family: Poppins;
+
     font-style: normal;
     font-weight: 700;
     line-height: 100%;
@@ -6469,7 +6432,7 @@ div.max-w-unset {
 .connect_with_us_blog_details_lists .div-li .text-container h6 {
     color: #FFF;
     font-size: 11px;
-    font-family: Poppins;
+
     font-style: normal;
     font-weight: 700;
     line-height: 150%;
@@ -6529,7 +6492,7 @@ div.max-w-unset {
 .blogDtls_compnt_lists .blog_dets_new_latte_box h4 {
     color: #FFF;
     font-size: 20px;
-    font-family: Poppins;
+
     font-style: normal;
     font-weight: 700;
     line-height: 150%;
@@ -6539,7 +6502,7 @@ div.max-w-unset {
     color: #FFF;
     text-align: center;
     font-size: 13px;
-    font-family: Nunito Sans;
+
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
@@ -6575,7 +6538,7 @@ div.max-w-unset {
     position: relative;
     color: #1A1A1A;
     font-size: 18px;
-    font-family: Nunito Sans;
+
     font-weight: 700;
     line-height: 150%;
     letter-spacing: 0.192px;
@@ -6631,7 +6594,7 @@ div.max-w-unset {
 .recent_article_custom_sec .div-ul .text-container h4 {
     color: #3A3A3A;
     font-size: 16px;
-    font-family: Poppins;
+
     font-style: normal;
     font-weight: 500;
     line-height: 150%;
@@ -6684,7 +6647,7 @@ div.max-w-unset {
 .blog_details_banner .inner-wrapper h1 {
     color: #FFF;
     font-size: 32px;
-    font-family: Poppins;
+
     font-style: normal;
     font-weight: 600;
     line-height: 38px;
@@ -6694,7 +6657,7 @@ div.max-w-unset {
 .blog_details_banner .inner-wrapper h5 {
     color: #FFF;
     font-size: 20px;
-    font-family: Nunito Sans;
+
     font-style: normal;
     font-weight: 600;
     line-height: 150%;
@@ -6723,7 +6686,6 @@ div.max-w-unset {
 .blog_details_wrapper .left-div .cms-wrap .heateor_sss_sharing_container.heateor_sss_horizontal_sharing .heateor_sss_sharing_title {
     color: #3A3A3A !important;
     font-size: 18px !important;
-    font-family: Poppins !important;
     font-style: normal !important;
     font-weight: 600 !important;
     line-height: 150% !important;
@@ -6737,7 +6699,7 @@ div.max-w-unset {
     position: relative;
     color: #1A1A1A;
     font-size: 18px;
-    font-family: Nunito Sans;
+
     font-weight: 700;
     line-height: 150%;
     letter-spacing: 0.192px;
@@ -6761,7 +6723,7 @@ div.max-w-unset {
     position: relative;
     color: #1A1A1A;
     font-size: 18px;
-    font-family: Nunito Sans;
+
     font-weight: 700;
     line-height: 150%;
     letter-spacing: 0.192px;
@@ -6785,7 +6747,7 @@ div.max-w-unset {
     background: #FFF;
     color: #5A5A5A;
     font-size: 16px;
-    font-family: Nunito Sans;
+
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -6834,7 +6796,7 @@ div.max-w-unset {
 .blog_details_wrapper .left-div .commentlist .comment header cite a {
     color: #1A1A1A;
     font-size: 16px;
-    font-family: Nunito Sans;
+
     font-style: normal;
     font-weight: 500 !important;
     line-height: 120%;
@@ -6844,7 +6806,7 @@ div.max-w-unset {
 .blog_details_wrapper .left-div .commentlist .comment header cite span {
     color: #1A1A1A;
     font-size: 16px;
-    font-family: Nunito Sans;
+
     font-style: normal;
     font-weight: 500 !important;
     line-height: 120%;
@@ -6854,7 +6816,7 @@ div.max-w-unset {
 .blog_details_wrapper .left-div .commentlist .comment header cite ~ a {
     color: #3A3A3A;
     font-size: 12px;
-    font-family: Nunito Sans;
+
     font-style: normal;
     font-weight: 500;
     line-height: 150%;
@@ -6888,7 +6850,7 @@ div.max-w-unset {
     height: 40px;
     color: #87CB28;
     font-size: 16px;
-    font-family: Poppins;
+
     font-style: normal;
     font-weight: 600;
     line-height: 150%;
@@ -7034,7 +6996,6 @@ table tbody tr .td-value-td .td-value-inner .action-container .theme-btn-primary
     margin: 5px 0 !important;
     padding: 0 !important;
     color: #333 !important;
-    font-family: Arial, sans-serif !important;
     font-size: 19px !important;
     font-weight: 700;
     line-height: 1.3 !important;
@@ -7060,7 +7021,6 @@ table tbody tr .td-value-td .td-value-inner .action-container .theme-btn-primary
     margin: 10px 0 !important;
     padding: 0 !important;
     color: #333 !important;
-    font-family: Arial, sans-serif !important;
     font-size: 14px !important;
     font-weight: 700;
     line-height: 1.5 !important;
@@ -7072,7 +7032,6 @@ table tbody tr .td-value-td .td-value-inner .action-container .theme-btn-primary
     padding: 0 !important;
     padding-bottom: 10px;
     color: #333 !important;
-    font-family: Arial, sans-serif !important;
     font-size: 13px !important;
     font-weight: 400;
     line-height: 1.5 !important;
@@ -7108,7 +7067,6 @@ table tbody tr .td-value-td .td-value-inner .action-container .theme-btn-primary
     outline: 0;
     background: #8dc427;
     color: #fff;
-    font-family: Arial;
     font-size: 14px;
     font-weight: 700;
     letter-spacing: .5px;
@@ -7120,7 +7078,7 @@ table tbody tr .td-value-td .td-value-inner .action-container .theme-btn-primary
     margin: 8px 0;
     line-height: 19px;
     color: #717171;
-    font-family: Arial, Helvetica, sans-serif;
+
     font-size: 14px;
 }
 
@@ -7545,7 +7503,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-top-step .top-step-items strong {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 700;
     line-height: 1.2;
@@ -7556,7 +7514,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-top-step .top-step-items span {
-    font-family: 'Poppins', sans-serif;
+
     color: #353A40;
     font-size: 13px;
     font-weight: 400;
@@ -7592,7 +7550,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-bottom-step .bottom-step-items p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 400;
     line-height: 1.2;
@@ -7602,7 +7560,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-bottom-step .bottom-step-items.active p {
-    font-family: 'Poppins', sans-serif;
+
     font-weight: 600;
     color: #fff;
 }
@@ -7618,7 +7576,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .form-info-block h4 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 21px;
     font-weight: 700;
     line-height: 1.2;
@@ -7653,7 +7611,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .form-info-block .desc .text h5 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 700;
     color: #3B566F;
@@ -7663,7 +7621,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .form-info-block .desc .text p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.8;
@@ -7677,7 +7635,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .form-info-block .desc .text ul li {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
@@ -7701,7 +7659,7 @@ form.woocommerce-form-login.login {
 
 .particulars-form-wrap .form-wrap .form-block .form-group .nb-text {
     display: block;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
@@ -7714,7 +7672,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .form-block .form-group label {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 1.2;
@@ -7741,7 +7699,7 @@ form.woocommerce-form-login.login {
 
 .particulars-form-wrap .form-wrap .form-block .form-group .check-another-name .btn {
     background: #EE7607;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 1.2;
@@ -7817,7 +7775,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .own-address .info h3 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 700;
     color: #3B566F;
@@ -7827,7 +7785,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .own-address .info p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 20px;
@@ -7848,7 +7806,7 @@ form.woocommerce-form-login.login {
     line-height: 1.2;
     color: #353A40;
     background: #fff;
-    font-family: 'Poppins', sans-serif;
+
     border-radius: 6px;
     outline: none;
     box-shadow: none;
@@ -7889,7 +7847,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .office-address .top-block .price-block strong {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 18px;
     font-weight: 700;
     line-height: 1.2;
@@ -7898,7 +7856,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .office-address .top-block .price-block p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
@@ -7907,7 +7865,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .office-address .top-block h3 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 700;
     line-height: 1.2;
@@ -7939,7 +7897,7 @@ form.woocommerce-form-login.login {
 
 .particulars-form-wrap .form-wrap .office-address .desc .tham-img .tham-info strong {
     display: inline-block;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 700;
     line-height: 1.2;
@@ -7949,7 +7907,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .office-address .desc .tham-img .tham-info p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.6;
@@ -7969,7 +7927,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .office-address .desc .text-block h3 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 600;
     line-height: 1.2;
@@ -7979,7 +7937,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .office-address .desc .text-block p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.6;
@@ -8001,7 +7959,7 @@ form.woocommerce-form-login.login {
 }
 
 .particulars-form-wrap .form-wrap .office-address .desc .text-block .location-block .addr strong {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 600;
     line-height: 1.2;
@@ -8035,7 +7993,7 @@ form.woocommerce-form-login.login {
     line-height: 1.2;
     color: #353A40;
     background: #fff;
-    font-family: 'Poppins', sans-serif;
+
     border-radius: 6px;
     outline: none;
     box-shadow: none;
@@ -8054,7 +8012,7 @@ form.woocommerce-form-login.login {
 }
 
 .choose-own-address h3 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 700;
     line-height: 1.2;
@@ -8078,7 +8036,7 @@ form.woocommerce-form-login.login {
 }
 
 .recently-used-addresses h4 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 600;
     line-height: 1.2;
@@ -8123,7 +8081,7 @@ form.woocommerce-form-login.login {
 
 .used-addresses-panel .btn-wrap .btn {
     border: 1px solid #69AA35;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
@@ -8150,7 +8108,7 @@ form.woocommerce-form-login.login {
 }
 
 .new-address-block h3 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 700;
     line-height: 1.2;
@@ -8173,7 +8131,7 @@ form.woocommerce-form-login.login {
 .new-address-block .new-address-field .btn {
     position: absolute;
     border: 1px solid #5C9D00;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
@@ -8205,7 +8163,7 @@ form.woocommerce-form-login.login {
 
 .particulars-form-wrap .form-wrap .office-address .add-an-offer .btn-wrap .btn {
     border: 1px solid #5C9D00;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
@@ -8235,7 +8193,7 @@ form.woocommerce-form-login.login {
 
 .choose-possition-block h4 {
     color: #3B566F;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 700;
     line-height: 1.2;
@@ -8246,7 +8204,7 @@ form.woocommerce-form-login.login {
 }
 
 .choose-possition-block p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 20px;
@@ -8271,7 +8229,7 @@ form.woocommerce-form-login.login {
 }
 
 .choose-possition-block .choose-possition-option ul li label {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 15px;
     font-weight: 600;
     line-height: 1.2;
@@ -8295,7 +8253,7 @@ form.woocommerce-form-login.login {
 }
 
 .appointment-tab .nav-tabs .nav-item .nav-link {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 1.2;
@@ -8324,7 +8282,7 @@ form.woocommerce-form-login.login {
 }
 
 .rsidential-address-info h3 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 20px;
     font-weight: 700;
     line-height: 1.2;
@@ -8334,7 +8292,7 @@ form.woocommerce-form-login.login {
 }
 
 .rsidential-address-info p strong {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     color: #353A40;
@@ -8345,7 +8303,7 @@ form.woocommerce-form-login.login {
 }
 
 .rsidential-address-info p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 20px;
@@ -8367,7 +8325,7 @@ form.woocommerce-form-login.login {
     line-height: 1.2;
     color: #353A40;
     background: #fff;
-    font-family: 'Poppins', sans-serif;
+
     border-radius: 6px;
     outline: none;
     box-shadow: none;
@@ -8393,7 +8351,7 @@ form.woocommerce-form-login.login {
 }
 
 .authe-qu-block .block label {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 1.2;
@@ -8429,7 +8387,7 @@ form.woocommerce-form-login.login {
 }
 
 .natural-of-control-block h5 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 1.2;
@@ -8445,7 +8403,7 @@ form.woocommerce-form-login.login {
 }
 
 .qu-panel p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 1.2;
@@ -8482,7 +8440,7 @@ form.woocommerce-form-login.login {
     line-height: 20px;
     display: inline-block;
     color: #292828;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 1.2;
@@ -8770,7 +8728,7 @@ form.woocommerce-form-login.login {
 }
 
 .document-list-wrap .document-list .box p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 600;
     line-height: 1.2;
@@ -8785,7 +8743,7 @@ form.woocommerce-form-login.login {
 }
 
 .docu-info p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 20px;
@@ -8802,7 +8760,7 @@ form.woocommerce-form-login.login {
 }
 
 .byspoke-upload-file h3 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 21px;
     font-weight: 700;
     line-height: 1.2;
@@ -8831,7 +8789,7 @@ form.woocommerce-form-login.login {
 }
 
 .form-ttl {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 21px;
     font-weight: 700;
     line-height: 1.2;
@@ -8862,7 +8820,7 @@ form.woocommerce-form-login.login {
 
 .business-sidebar .ttl h3 {
     width: calc(100% - 34px);
-    font-family: 'Poppins', sans-serif;
+
     font-size: 18px;
     font-weight: 700;
     color: #353A40;
@@ -8872,7 +8830,7 @@ form.woocommerce-form-login.login {
 }
 
 .business-sidebar p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 25px;
@@ -8887,7 +8845,7 @@ form.woocommerce-form-login.login {
 }
 
 .business-ess-wrap > small {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 25px;
@@ -8962,7 +8920,7 @@ form.woocommerce-form-login.login {
 }
 
 .business-ess-panel .business-ess-panel-top .desc h3 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 18px;
     font-weight: 700;
     line-height: 1.2;
@@ -8972,7 +8930,7 @@ form.woocommerce-form-login.login {
 }
 
 .business-ess-panel .business-ess-panel-top .desc p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 12px;
     font-weight: 500;
     line-height: 1.2;
@@ -8986,7 +8944,7 @@ form.woocommerce-form-login.login {
 }
 
 .business-ess-panel .business-ess-panel-wrap .info p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 25px;
@@ -9015,7 +8973,7 @@ form.woocommerce-form-login.login {
 }
 
 .business-ess-panel .bottom-panel p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 25px;
@@ -9029,7 +8987,7 @@ form.woocommerce-form-login.login {
 }
 
 .business-ess-panel .bottom-panel .btn {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 600;
     line-height: 1.2;
@@ -9050,7 +9008,7 @@ form.woocommerce-form-login.login {
 }
 
 .showmore-sec p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
@@ -9098,7 +9056,7 @@ form.woocommerce-form-login.login {
 }
 
 .share-holder-block .desc h3 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 1.2;
@@ -9128,7 +9086,7 @@ form.woocommerce-form-login.login {
 /*===== add css =========*/
 
 .edit-add-ttl {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 600;
     line-height: 1.2;
@@ -9183,7 +9141,7 @@ form.woocommerce-form-login.login {
 
 .optional-panel .optional-top .price-btn .buy-now .btn {
     border: 1px solid #69AA35;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
@@ -9203,7 +9161,7 @@ form.woocommerce-form-login.login {
 }
 
 .optional-panel .desc p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 25px;
@@ -9227,7 +9185,7 @@ form.woocommerce-form-login.login {
 }
 
 .details-desc h3 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 21px;
     font-weight: 700;
     line-height: 1.2;
@@ -9238,7 +9196,7 @@ form.woocommerce-form-login.login {
 }
 
 .details-desc p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.8;
@@ -9248,7 +9206,7 @@ form.woocommerce-form-login.login {
 }
 
 .details-desc h4 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 700;
     color: #3B566F;
@@ -9258,7 +9216,7 @@ form.woocommerce-form-login.login {
 }
 
 .details-desc ul li {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
@@ -9293,7 +9251,7 @@ form.woocommerce-form-login.login {
 }
 
 .review-ttl-block h5 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 17px;
     font-weight: 700;
     color: #343030;
@@ -9310,7 +9268,7 @@ form.woocommerce-form-login.login {
 }
 
 .review-ttl-block .rt-side span {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 600;
     line-height: 1.2;
@@ -9354,7 +9312,7 @@ form.woocommerce-form-login.login {
 }
 
 .review-panel h3 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 17px;
     font-weight: 700;
     line-height: 1.2;
@@ -9364,7 +9322,7 @@ form.woocommerce-form-login.login {
 }
 
 .review-panel ul li {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
@@ -9387,7 +9345,7 @@ form.woocommerce-form-login.login {
 }
 
 .review-panel .btn {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 600;
     line-height: 1.2;
@@ -9402,7 +9360,7 @@ form.woocommerce-form-login.login {
 }
 
 .review-sec h6 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 17px;
     font-weight: 700;
     line-height: 1.2;
@@ -9412,7 +9370,7 @@ form.woocommerce-form-login.login {
 }
 
 .review-panel p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.2;
@@ -9438,7 +9396,7 @@ form.woocommerce-form-login.login {
 
 .shareholdings-table-wrap h4 {
     color: #353A40;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 700;
     line-height: 1.2;
@@ -9454,7 +9412,7 @@ form.woocommerce-form-login.login {
     background: #ACB5BA;
     border: none;
     color: #FFF;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 15px;
     font-weight: 600;
     line-height: 1.2;
@@ -9463,7 +9421,7 @@ form.woocommerce-form-login.login {
 .shareholdings-table-wrap table td {
     background: #F0F0F0;
     color: #353A40;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 15px;
     font-weight: 500;
     line-height: 1.2;
@@ -9481,7 +9439,7 @@ form.woocommerce-form-login.login {
     border: 1px solid #FD0000;
     padding: 8px 23px;
     color: #FD0000;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 12px;
     font-style: normal;
     font-weight: 600;
@@ -9495,7 +9453,7 @@ form.woocommerce-form-login.login {
     border: 1px solid #5E6357;
     padding: 8px 23px;
     color: #5E6357;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 12px;
     font-style: normal;
     font-weight: 600;
@@ -9583,7 +9541,7 @@ form.woocommerce-form-login.login {
 
 .payment-pro-table-wrap table tfoot td p {
     color: #353A40;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -9601,7 +9559,7 @@ form.woocommerce-form-login.login {
 
 .payment-pro-table-wrap .delivery-details-info p {
     color: #353A40;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -9619,7 +9577,7 @@ form.woocommerce-form-login.login {
 
 .payment-pro-table-wrap .delivery-feild-panel label {
     color: #353A40;
-    font-family: 'Poppins', sans-serif;
+
     min-width: 210px;
     font-size: 14px;
     ;
@@ -9637,7 +9595,7 @@ form.woocommerce-form-login.login {
 
 .share-holder-block .ttl h5 {
     color: #353A40;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 700;
     line-height: 1.2;
@@ -9667,7 +9625,7 @@ form.woocommerce-form-login.login {
     line-height: 20px;
     display: inline-block;
     color: #292828;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 1.2;
@@ -9723,7 +9681,7 @@ form.woocommerce-form-login.login {
 }
 
 .your-details-wrap .your-details-ttl p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 600;
     line-height: 1.2;
@@ -9738,7 +9696,7 @@ form.woocommerce-form-login.login {
 }
 
 .your-details-wrap .your-details-info p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     line-height: 1.6;
     color: #353A40;
@@ -9754,7 +9712,7 @@ form.woocommerce-form-login.login {
 }
 
 .your-details-info .regulated-radio-block p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 400;
     line-height: 1.2;
@@ -9789,7 +9747,7 @@ form.woocommerce-form-login.login {
 
 .your-details-info ul.feild-list li label {
     min-width: 290px;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 400;
     line-height: 1.2;
@@ -9799,7 +9757,7 @@ form.woocommerce-form-login.login {
 }
 
 .your-details-info ul.feild-list li span {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 400;
     line-height: 1.2;
@@ -9831,7 +9789,7 @@ form.woocommerce-form-login.login {
 .your-details-info ul.feild-list li .btn {
     Padding: 8px 16px 8px 16px;
     background: #87CB28;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 600;
     line-height: 1.2;
@@ -9868,7 +9826,7 @@ form.woocommerce-form-login.login {
 }
 
 .your-details-info .checkbox-panel label {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 400;
     line-height: 1.2;
@@ -9947,7 +9905,7 @@ form.woocommerce-form-login.login {
     background-color: #87CB28;
     border-radius: 6px;
     font-style: normal;
-    font-family: 'Poppins';
+
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
@@ -9995,7 +9953,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 .companies-table-wrap .order-sidebar .ttl h3 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 1.2;
@@ -10018,7 +9976,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 .companies-table-wrap .order-sidebar .order-sidebar-info .panel p {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 15px;
     font-weight: 400;
     line-height: 1.2;
@@ -10053,7 +10011,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 .conpany-overview-tab-wrap .nav-pills .nav-item .nav-link {
-    font-family: 'Poppins', sans-serif;
+
     padding: 16px 10px;
     border-radius: 0;
     font-size: 16px;
@@ -10088,7 +10046,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 .overview-wrap .ttl h3 {
-    font-family: 'Poppins', sans-serif;
+
     color: #000;
     font-size: 21px;
     font-style: normal;
@@ -10108,7 +10066,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     /* border-radius: 5px 5px 0px 0px; */
     background: #353A40;
     color: #FFF;
-    font-family: 'Poppins', sans-serif;
+
     font-size: 15px;
     font-weight: 500;
     line-height: 1.2;
@@ -10171,7 +10129,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 .overview-wrap .table .ch-ed-btn {
-    font-family: 'Poppins', sans-serif;
+
     background: #87CB28;
     color: #FFF;
     font-size: 12px;
@@ -10186,7 +10144,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 .overviews-btn-wrap .btn {
-    font-family: 'Poppins', sans-serif;
+
     background: #87CB28;
     color: #FFF;
     font-size: 12px;
@@ -10289,7 +10247,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .add-ticket-sec .sub-btn-block .btn {
     border-radius: 6px;
     font-style: normal;
-    font-family: 'Poppins';
+
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
@@ -10309,7 +10267,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .add-ticket-sec .sub-btn-block .bck-btn {
     border-radius: 6px;
     font-style: normal;
-    font-family: 'Poppins';
+
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
@@ -10376,7 +10334,6 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .ticket-connent-box .main-connent h3 {
     color: #000;
     font-size: 21px;
-    font-family: Poppins;
     font-weight: 600;
     line-height: 150%;
     text-transform: capitalize;
@@ -10386,7 +10343,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .ticket-connent-box .main-connent p {
     color: #1A1A1A;
     font-size: 18px;
-    font-family: Nunito Sans;
+
     line-height: 150%;
     letter-spacing: 0.216px;
     margin: 0px 0 15px;
@@ -10402,7 +10359,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .ticket-connent-box .rply-comment h3 {
     color: #000;
     font-size: 18px;
-    font-family: Poppins;
+
     font-weight: 600;
     line-height: 150%;
     text-transform: capitalize;
@@ -10412,7 +10369,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .ticket-connent-box .rply-comment p {
     color: #1A1A1A;
     font-size: 16px;
-    font-family: Nunito Sans;
+
     line-height: 150%;
     letter-spacing: 0.216px;
     margin: 0px 0 0px;
@@ -10430,7 +10387,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .ticket-view-text-area .bck-btn {
     border-radius: 6px;
     font-style: normal;
-    font-family: 'Poppins';
+
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
@@ -10450,7 +10407,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .ticket-view-text-area .btn {
     border-radius: 6px;
     font-style: normal;
-    font-family: 'Poppins';
+
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
@@ -10584,14 +10541,15 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .search_area .input-group .form-control,
 .formationsMade-easier-sec .search-box .search-input,
 .search-input-modal {
-    border-radius: 6px !important;
+    border-radius: 60px !important;
 }
 
 .main-banner .caption-box .search-box .search-btn,
 .search_area .input-group .btn,
 .formationsMade-easier-sec .search-box .search-btn {
-    border-radius: 0px 6px 6px 0px !important;
+    border-radius: 0px 60px 60px 0px !important;
 }
+
 
 /* css added 10-31-2023 */
 
@@ -10639,6 +10597,10 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .total_priceAmnt {
     color: #87cb28;
+        color: #87cb28;
+    border: 1px solid rgba(0,0,0,.1);
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 .total_priceAmnt {
@@ -10655,6 +10617,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .service-request {
     padding: 15px 0 30px;
+    margin-top: 116px;
 }
 
 .wizard > .steps .current-info,
@@ -10674,7 +10637,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .wizard > .steps .current a:hover,
 .wizard > .steps .current a:active {
     background: #313C4E;
-    color: #79B42E;
+    color: #fff;
     cursor: default;
     font-size: 18px !important;
     padding: 12px 0;
@@ -10705,7 +10668,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 .service-request h1 {
-    font-family: 'Poppins', sans-serif;
+
     font-size: 32px;
     color: #000;
     padding: 0;
@@ -10814,7 +10777,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .banner-rating-sec .rating-lists .com-text-container .value-with-stars .rating-no {
     color: #FFF;
-    font-family: 'Open Sans', sans-serif;
+
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
@@ -10835,7 +10798,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .banner-rating-sec .rating-lists .com-text-container .total-rating {
     color: #FFF;
-    font-family: 'Open Sans', sans-serif;
+
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -10906,30 +10869,17 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .main-banner-bottom-steps .steps-box .text-container h4 {
     color: #FFF;
-    font-family: Poppins;
-    font-size: 19.8px;
-    font-weight: 600;
-    line-height: 27.356px;
     transition: all 0.3s linear 0s;
 }
 
 .main-banner-bottom-steps .steps-box .text-container h3 {
     color: #FFF;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 23px;
-    font-weight: 700;
-    line-height: 22.382px;
     margin-top: 10px;
     transition: all 0.3s linear 0s;
 }
 
 .main-banner-bottom-steps .steps-box .text-container p {
     color: #F4F4F4;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0.192px;
     width: 100%;
     max-width: 289px;
     margin-top: 15px;
@@ -10971,7 +10921,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .main-banner-bottom-steps .steps-box .text-container .action-btns .company-btn {
     color: #ffff;
-    font-family: 'Open Sans', sans-serif;
+
     font-size: 16px;
     font-weight: 700;
     line-height: 24px;
@@ -11026,15 +10976,15 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     background: #F6F6F6;
     overflow: hidden;
     position: relative;
-    padding: 120px 0 140px;
+}
+
+.ourServices-sec01 .sec-title1 {
+    position: relative;
+    z-index: 2;
 }
 
 .ourServices-sec01 .custom-container {
     position: unset;
-}
-
-.ourServices-sec01 .sec-title1 {
-    margin-bottom: 50px;
 }
 
 .ourServices-sec01 .ourServices-sec01-wrapper {
@@ -11070,6 +11020,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .ourServices-sec01 .text-box-lists .text-box-col {
     width: 100%;
     max-width: 50%;
+    padding: 0 15px;
 }
 
 .ourServices-sec01 .text-box-lists .text-box {
@@ -11081,16 +11032,12 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
 }
 
 .ourServices-sec01 .text-box-lists .text-box h3 {
-    color: #2C2929;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 28.8px;
-    text-align: justify;
-
+    color: #212529;
+    font-weight: 600;
     -webkit-transition: all 0.3s linear 0s;
     -moz-transition: all 0.3s linear 0s;
     -o-transition: all 0.3s linear 0s;
@@ -11098,19 +11045,8 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     transition: all 0.3s linear 0s;
 }
 
-.ourServices-sec01 .text-box-lists .text-box h3 span {
-    color: #87CB28;
-    display: block;
-}
-
 .ourServices-sec01 .text-box-lists .text-box p {
-    color: #353333;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 25.6px;
-    letter-spacing: 0.192px;
+    /* color: #353333; */
     padding-top: 24px;
     -webkit-transition: all 0.3s linear 0s;
     -moz-transition: all 0.3s linear 0s;
@@ -11120,7 +11056,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     width: 100%;
     max-width: 267px;
     margin: 0;
-    text-align: justify;
+
 }
 
 .ourServices-sec01 .text-box-lists .text-box .more-actions {
@@ -11139,8 +11075,8 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     background-color: #548313;
     border-radius: 50%;
     border: 2px solid #548313;
-    opacity: 0;
-    visibility: hidden;
+    /* opacity: 1;
+    visibility: visible; */
     -webkit-transition: all 0.3s linear 0s;
     -moz-transition: all 0.3s linear 0s;
     -o-transition: all 0.3s linear 0s;
@@ -11189,8 +11125,10 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     background-color: #a0cd4e;
 }
 
+/*
 .ourServices-sec01 .text-box-lists .text-box:hover h3,
 .ourServices-sec01 .text-box-lists .text-box:hover h3 span,
+*/
 .ourServices-sec01 .text-box-lists .text-box:hover p,
 .ourServices-sec01 .text-box-lists .text-box.active h3,
 .ourServices-sec01 .text-box-lists .text-box.active h3 span,
@@ -11211,11 +11149,11 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .whatMakesDifferent-sec01-sec1 {
     background-image: url(../images/whatMakes-sec1-bg.png);
+    /* background-image: url(../images/whatMakesDifferent-sec01-sec1-pic.png); */
     background-repeat: no-repeat !important;
     background-size: cover !important;
     z-index: 1;
     position: relative;
-    padding: 132px 0 105px;
     overflow: hidden;
 }
 
@@ -11228,7 +11166,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background: rgba(26, 27, 30, 0.85);
+    background: rgba(26, 27, 30, 0.43);
 
 }
 
@@ -11236,7 +11174,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     display: flex;
     column-gap: 85px;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .whatMakesDifferent-sec01-sec1 .image-container {
@@ -11244,6 +11182,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     max-width: 660px;
     position: relative;
     z-index: 1;
+    /* height: 745px; */
 }
 
 .whatMakesDifferent-sec01-sec1 .image-container::before {
@@ -11252,22 +11191,23 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     position: absolute;
     left: -50%;
     transform: translateX(-50%);
-    bottom: -140px;
+    bottom: -170px;
     background: #87CB28;
     width: 200%;
-    height: 60%;
+    height: 70%;
     z-index: -1;
     transition: .4s;
+    display: none;
 }
 
 .whatMakesDifferent-sec01-sec1 .image-container:hover::before {
     left: -40%;
-    bottom: -120px;
+    bottom: -160px;
 }
 
 .whatMakesDifferent-sec01-sec1 .image-container img {
     width: 100%;
-    height: 824px;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -11287,36 +11227,95 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .whatMakesDifferent-sec01-sec1 .text-container h3 {
     color: #87CB28;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 20.009px;
     margin-top: 30px;
-    text-align: justify;
-
 }
 
 .whatMakesDifferent-sec01-sec1 .text-container p {
     color: #FFF;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 27px;
-    letter-spacing: 0.216px;
     margin-top: 16px;
-    text-align: justify;
+}
+
+.whatMakesDifferent-sec01-sec1.for-What-Makes-Us-Different {
+    background-repeat: no-repeat !important;
+}
+
+.for-What-Makes-Us-Different .text-group-content-lists {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+}
+
+.for-What-Makes-Us-Different .text-group-content-lists li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.for-What-Makes-Us-Different .text-group-content-lists li .left-text-with-arow {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 10px;
+    width: 100%;
+    max-width: calc(100% - 600px);
+}
+
+.for-What-Makes-Us-Different .text-group-content-lists li .left-text-with-arow h1 {
+    color: #FFF;
+    text-transform: unset;
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 80px;
+}
+
+.for-What-Makes-Us-Different .text-group-content-lists li .left-text-with-arow .arow-box {
+    position: relative;
+    z-index: -2;
+    bottom: -11px;
+}
+
+.for-What-Makes-Us-Different .text-group-content-lists li .left-text-with-arow .arow-box img {
+    width: 320px;
+}
+
+.for-What-Makes-Us-Different .text-group-content-lists li .right-text {
+    width: 100%;
+    max-width: 600px;
+}
+
+.for-What-Makes-Us-Different .text-group-content-lists li .right-text h3 {
+    color: #87CB28;
+}
+
+.for-What-Makes-Us-Different .text-group-content-lists li .right-text p {
+    color: #fff;
+    margin-top: 16px;
 }
 
 /* .whatMakesDifferent-sec01-sec2 */
+.whatMakesDifferent-sec01-sec2 {
+    position: relative;
+}
+
+.whatMakesDifferent-sec01-sec2 .play-youtube-btn {
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+}
+
 .whatMakesDifferent-sec01-sec2 .img-full {
     width: 100%;
     object-fit: cover;
+    min-height: 800px;
 }
 
 .theme-btn-gray {
     background-color: #262c2c;
     border-color: #262c2c;
-    font-family: 'Poppins';
+
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
@@ -11346,7 +11345,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .theme-btn-darkBlue {
     background-color: #3F4859;
     border: 1px solid #3F4859;
-    font-family: 'Poppins';
+
     font-weight: 500;
     font-size: 14px;
     line-height: 21px;
@@ -11387,41 +11386,43 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     left: 15px;
     bottom: -48px;
     width: calc(100% - 30px);
-    padding: 22px 65px;
+    padding: 52px 65px 45px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    column-gap: 15px;
+    column-gap: 80px;
     z-index: 2;
 }
 
 .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
-    bottom: -95px;
+    transform: translate(-50%, 15%) !important;
+    bottom: 0 !important;
     z-index: 3;
     visibility: hidden;
 }
 
 .whatMakesDifferent-sec01-sec2 .to-see-all-sec .to-see-all-sec-youtube-bg img {
     width: 100%;
-    max-height: 224px;
+    max-height: 232px;
     visibility: visible;
 }
 
 .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h3 {
     color: #2C2929;
-    font-size: 30px;
-    font-weight: 500;
-    line-height: 42px;
+}
+
+.whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper p {
+    margin-top: 16px;
 }
 
 .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper h2 {
     color: #87CB28;
     font-size: 42px;
-    font-weight: 700;
+    font-weight: 400;
     line-height: 55px;
+    margin-top: 16px;
 }
 
 .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container {
@@ -11432,7 +11433,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .whatMakesDifferent-sec01-sec2 .to-see-all-sec .box-wrapper .action-container .click-btn {
     width: 145px;
     height: 55px;
-    font-family: Open Sans;
+
     font-size: 16px;
 }
 
@@ -11468,13 +11469,6 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     z-index: -1;
 }
 
-.whatMakesDifferent-sec01-sec3 .text-container h1 {
-    color: #FFF;
-    font-size: 80px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 77.6px;
-}
 
 .whatMakesDifferent-sec01-sec3 .text-container h1 span {
     color: #87CB28;
@@ -11482,24 +11476,18 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .whatMakesDifferent-sec01-sec3 .text-container p {
     color: #FFF;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 31.14px;
-    letter-spacing: 0.216px;
-    margin-top: 35px;
-    text-align: justify;
+
 }
 
 .whatMakesDifferent-sec01-sec3 .text-container .action-btns {
     display: flex;
-    margin-top: 35px;
+    justify-content: center;
 }
 
 .whatMakesDifferent-sec01-sec3 .text-container .action-btns .read-more-btn {
     width: 145px;
     height: 55px;
-    font-family: Open Sans;
+
     font-size: 16px;
 }
 
@@ -11512,9 +11500,6 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 /* end: whatMakesDifferent-sec01 */
 
 /* start: whyneedbankaccUk-sec01 */
-.whyneedbankaccUk-sec01 {
-    padding: 85px 0 0;
-}
 
 .whyneedbankaccUk-sec01 .top-title {
     text-align: center;
@@ -11531,7 +11516,8 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .whyneedbankaccUk-sec01 .top-title h4 {
     color: #3D3535;
-    font-family: 'Nunito Sans', sans-serif;
+
+
     font-size: 18px;
     font-weight: 400;
     line-height: 27px;
@@ -11665,23 +11651,13 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .whyneedbankaccUk-sec01 .whyneedbankaccUk-lists .whyneedbankaccUk-list-box .h3-with-icon h3 {
     color: #3A3A3A;
-    font-size: 19px;
-    font-weight: 600;
-    line-height: 25.011px;
     text-transform: capitalize;
     padding: 5px 0 0;
 }
 
 .whyneedbankaccUk-sec01 .whyneedbankaccUk-lists .whyneedbankaccUk-list-box p {
-    color: #1A1A1A;
-    font-family: Nunito Sans;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 27px;
-    letter-spacing: 0.216px;
-    margin-top: 15px;
-    text-align: justify;
+    margin-top: 24px;
+
 }
 
 /* end: whyneedbankaccUk-sec01 */
@@ -11689,15 +11665,23 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 /* start: clientReviews-sec01 */
 .clientReviews-sec01 {
     background-color: #F6F6F6;
+    position: relative;
+    z-index: 1;
+}
+
+.clientReviews-sec01::before {
+    content: '';
+    clear: both;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: calc(100% - 190px);
+    z-index: -1;
+    background-size: 100% 100%;
+    width: 100%;
     background-image: url(../images/clientReviews-sec01-bg.png);
     background-repeat: no-repeat;
     background-position: bottom center;
-    background-size: 100% 100%;
-    padding: 72px 0 148px;
-}
-
-.clientReviews-sec01 .sec-title1 {
-    margin-bottom: 62px;
 }
 
 .clientReviews-sec01-wrapper {
@@ -11765,12 +11749,8 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .clientReviews-sec01-slider .clientReviews-sec01-slider-box p {
     color: #353333;
     text-align: center;
-    font-family: Open Sans;
-    font-size: 23px;
     font-style: italic;
-    font-weight: 600;
-    line-height: 36.8px;
-    letter-spacing: 0.276px;
+
 }
 
 .clientReviews-sec01-slider .clientReviews-sec01-slider-box figure {
@@ -11800,22 +11780,11 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .clientReviews-sec01-slider .clientReviews-sec01-slider-box figure figcaption h3 {
     color: #353333;
-    font-family: Open Sans;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 25.6px;
-    letter-spacing: 0.192px;
 }
 
 .clientReviews-sec01-slider .clientReviews-sec01-slider-box figure figcaption h4 {
     color: #353333;
-    font-family: Open Sans;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 25.6px;
-    letter-spacing: 0.192px;
+    font-family: 'Lato';
 }
 
 .clientReviews-sec01-slider .slick-arrow {
@@ -12000,15 +11969,8 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 /* end: clientReviews-sec01 */
+
 /* start: whatWeOffer-sec02 */
-.whatWeOffer-sec02 {
-    padding: 75px 0 0;
-}
-
-.whatWeOffer-sec02 .sec-title1 {
-    margin-bottom: 70px;
-}
-
 .whatWeOffer-sec02 ul {
     display: flex;
     flex-wrap: wrap;
@@ -12080,10 +12042,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .whatWeOffer-sec02 ul li .text-container h3 {
     color: #FFF;
-    font-size: 40px;
     font-style: normal;
-    font-weight: 600;
-    line-height: 46.8px;
     width: 100%;
     max-width: 600px;
     overflow: hidden;
@@ -12091,19 +12050,15 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    font-size: 40px;
+    line-height: 42px;
 }
 
 .whatWeOffer-sec02 ul li .text-container p {
     color: #FFF;
-    font-family: Nunito Sans;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 27px;
-    letter-spacing: 0.216px;
     width: 100%;
     max-width: 600px;
-    margin-top: 28px;
+    margin-top: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -12128,19 +12083,20 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     display: flex;
     justify-content: center;
     align-items: center;
-    row-gap: 32px;
+    row-gap: 40px;
     column-gap: 24px;
-    margin-top: 54px;
     flex-wrap: wrap;
     justify-content: center;
 }
 
 .ourBankingPartners-sec01 ul li {
     width: 100%;
-    max-width: calc(16.66% - 24px);
+    max-width: calc(25% - 24px);
 }
 
-.ourBankingPartners-sec01 ul li .logo-container {}
+.ourBankingPartners-sec01 ul li .logo-container {
+    text-align: center;
+}
 
 .ourBankingPartners-sec01 ul li .logo-container img {
     filter: gray;
@@ -12163,7 +12119,6 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     background-size: cover;
     z-index: 1;
     position: relative;
-    padding: 180px 0;
 }
 
 .needLittleHelp-sec::before {
@@ -12193,7 +12148,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .needLittleHelp-sec .left_div .contactUl {
     display: flex;
     flex-direction: column;
-    row-gap: 40px;
+    row-gap: 42px;
 }
 
 .needLittleHelp-sec .left_div .contactUl::before,
@@ -12227,18 +12182,15 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     flex: 1 1 auto;
 }
 
-.needLittleHelp-sec .left_div .contactUl li .text-container h4 {
+.needLittleHelp-sec .left_div .contactUl li .text-container h3 {
     color: #fff;
-    font-size: 22px;
-    font-weight: 500;
-    line-height: 32px;
 }
 
 .needLittleHelp-sec .left_div .contactUl li .text-container h2 {
     color: #FFF;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 800;
-    line-height: 40px;
+    line-height: 34px;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
@@ -12247,6 +12199,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .needLittleHelp-sec .left_div .contactUl li .text-container h2 a {
     color: inherit;
+    font-family: inherit;
 }
 
 .needLittleHelp-sec .right_div {
@@ -12256,23 +12209,10 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     padding-left: 24px;
 }
 
-.needLittleHelp-sec .right_div h1 {
-    color: #FFF;
-    font-size: 60px;
-    font-weight: 600;
-    line-height: 60px;
-    text-transform: capitalize;
-}
-
 .needLittleHelp-sec .right_div p {
     color: #FFF;
-    font-family: Nunito Sans;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 27px;
-    letter-spacing: 0.216px;
     margin-top: 24px;
-    text-align: justify;
+
 }
 
 /* end: needLittleHelp-sec */
@@ -12334,29 +12274,20 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     background: #403D30;
 }
 
-.ourNewsletters-01-lists .ourNewsletters-01-box h4 {
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 32px
-}
-
-.ourNewsletters-01-lists .ourNewsletters-01-box.bg1 h4,
-.ourNewsletters-01-lists .ourNewsletters-01-box.bg2 h4 {
+.ourNewsletters-01-lists .ourNewsletters-01-box.bg1 h3,
+.ourNewsletters-01-lists .ourNewsletters-01-box.bg2 h3 {
     color: #FFF;
 }
 
 .ourNewsletters-01-lists .ourNewsletters-01-box .action-btns {
     display: flex;
-    padding-top: 52px;
+    padding-top: 42px;
     margin-top: auto;
 }
 
 .ourNewsletters-01-lists .ourNewsletters-01-box .action-btns .read-more-btn {
     width: 145px;
     height: 55px;
-    font-family: Open Sans;
-    font-size: 16px;
 }
 
 /* end: ourNewsletters-01-sec */
@@ -12364,11 +12295,6 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 /* start: faq-002-sec */
 .faq-002-sec {
     background: #F6F6F6;
-    padding: 90px 0;
-}
-
-.faq-002-sec .faq-002-accordion-sec {
-    margin-top: 50px;
 }
 
 .faq-002-accordion-sec .card {
@@ -12572,9 +12498,17 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     position: relative;
 }
 
+.digitalPackage-right-lists .digitalPackage-right-how_it_works-col {}
+
+.digitalPackage-right-lists .digitalPackage-right-how_it_works-col .digitalPackage-right-how_it_works-box {
+    border-radius: 21px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.10);
+    padding: 45px 16px 45px 24px !important;
+}
+
 .digitalPackage-right-lists .digitalPackage-right-list-box h3 {
     color: #3A3A3A;
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 600;
     line-height: 37.5px;
     text-transform: capitalize;
@@ -12610,7 +12544,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     background-repeat: no-repeat !important;
     background-position: top left !important;
     background-size: contain !important;
-    margin: 3px 0 0 0;
+    margin: 5px 0 0 0;
     flex: 0 0 auto;
 }
 
@@ -12619,11 +12553,11 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 }
 
 .digitalPackage-right-lists .digitalPackage-right-list-box .list-info li p {
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 24px;
-    letter-spacing: 0.012em;
     color: #5B5B5B;
+}
+
+.digitalPackage-right-lists .digitalPackage-right-list-box .list-info li p a {
+    color: inherit;
 }
 
 .digitalPackage-right-lists .digitalPackage-right-list-box .top-price-info {
@@ -12651,9 +12585,9 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .digitalPackage-right-lists .digitalPackage-right-list-box .top-price-info h3 {
     color: #FFF;
-    font-size: 48px;
+    font-size: 40px;
     font-weight: 700;
-    line-height: 25.011px;
+    line-height: 32px;
     margin-top: 24px;
 }
 
@@ -12733,7 +12667,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     max-width: 1090px;
     margin: 0 auto;
     color: #7E9BB5;
-    font-family: Nunito Sans;
+
     font-size: 18px;
     font-weight: 400;
     line-height: 31.14px;
@@ -12780,7 +12714,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .whatMakesDifferent-sec01-sec1.for-ourDifferent h1 {
     color: #FFF;
-    font-family: Poppins;
+
     font-size: 60px;
     font-weight: 700;
     line-height: 70px;
@@ -12846,7 +12780,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .for-ourDifferent-text-lists .for-ourDifferent-list-box figure figcaption {
     color: #FFF;
-    font-family: Poppins;
+
     font-size: 19px;
     font-style: normal;
     font-weight: 700;
@@ -12894,6 +12828,11 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
     filter: brightness(0) invert(1);
 }
 
+.for-ourDifferent-text-lists .for-ourDifferent-list-box:hover figure figcaption a,
+.for-ourDifferent-text-lists .for-ourDifferent-list-box.active figure figcaption a {
+    color: #ffff;
+}
+
 .callUs-floating {
     position: absolute;
     right: 0;
@@ -12930,7 +12869,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .callUs-floating h4 {
     color: #FFF;
-    font-family: Poppins;
+
     font-size: 39px;
     font-weight: 700;
     margin-top: 10px;
@@ -12939,7 +12878,7 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .callUs-floating h2 {
     color: #FFF;
-    font-family: Poppins;
+
     font-size: 38px;
     font-weight: 500;
     line-height: 133%;
@@ -12968,13 +12907,16 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 .additionalServices-lists {
     display: flex;
     flex-wrap: wrap;
-    column-gap: 100px;
-    row-gap: 60px;
+    column-gap: 50px;
+    row-gap: 50px;
     margin-top: 50px;
 }
 
 .additionalServices-lists .additionalServices-list-col {
-    width: calc(50% - 50px);
+    width: calc(50% - 25px);
+    padding: 20px 16px 20px 24px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
 }
 
 .additionalServices-lists .additionalServices-list-col .h3-with-text {
@@ -12995,23 +12937,20 @@ table.efTable td button.efButton.deleteButton.ui-button.ui-widget {
 
 .additionalServices-lists .additionalServices-list-col .h3-with-text h3 {
     color: #5B5B5B;
-    font-family: Nunito Sans;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 36px;
-    letter-spacing: 0.24px;
+    padding-top: 6px;
+}
+
+.additionalServices-lists .additionalServices-list-col .h3-with-text h3 a {
+    color: #87CB28;
 }
 
 .additionalServices-lists .additionalServices-list-col p {
     color: #5B5B5B;
-    font-family: Nunito Sans;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 27px;
-    letter-spacing: 0.216px;
     margin-top: 10px;
+}
+
+.additionalServices-lists .additionalServices-list-col p a {
+    color: #87CB28;
 }
 
 /* end: additionalServices-sec */
@@ -13455,7 +13394,7 @@ span.txt_green {
 
 .tab_block_area .tab_container .tab_content .img_text_block .inner_row .text_block .text_boxes .txt_item p:not(.small_title) {
     color: #5B5B5B;
-    font-family: Nunito Sans;
+
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -13523,7 +13462,7 @@ span.txt_green {
 .portfolio_banner .text_layer p {
     color: #ABB9C7;
     text-align: center;
-    font-family: Poppins;
+
     font-size: 19px;
     font-weight: 400;
     line-height: 26px;
@@ -13703,40 +13642,6 @@ span.txt_green {
 
 }
 
-
-
-.seo-webdesign-sec {
-    padding: 60px 0 40px;
-}
-
-.seo-webdesign-sec .sec-title1 {
-    margin-bottom: 80px;
-}
-
-.seo-webdesign-sec .sec-title1 h2 {
-    font-size: 60px;
-    font-weight: 600;
-    line-height: 80px;
-    color: #3A3A3A;
-}
-
-.seo-webdesign-sec .sec-title1 h2 span {
-    font-weight: 500;
-    color: #87CB28;
-}
-
-.sec-title1 h3 {
-    font-size: 45px;
-    font-weight: 600;
-    line-height: 54px;
-    color: #3A3A3A;
-}
-
-.sec-title1 h3 span {
-    font-weight: 500;
-    color: #87CB28;
-}
-
 .top-seo-factor-list {
     padding-left: 0;
     list-style: none;
@@ -13777,9 +13682,6 @@ span.txt_green {
     padding: 90px 0;
 }
 
-.benefits-sec .sec-title1 {
-    margin-bottom: 40px;
-}
 
 .benefits-sec li {
     margin-right: 20px;
@@ -13806,15 +13708,6 @@ span.txt_green {
     padding: 85px 0 45px;
 }
 
-.what-you-like .sec-title1 h2 {
-    margin-bottom: 20px;
-}
-
-.what-you-like .sec-title1 p {
-    font-size: 18px;
-    font-weight: 400;
-}
-
 .what-you-like-images {
     margin-top: 60px;
     padding: 0 15px;
@@ -13838,15 +13731,6 @@ span.txt_green {
     padding: 100px 0 60px;
     background-attachment: fixed;
 }
-
-.sales-through-website .sec-title1 h2 {
-    font-size: 66px;
-    font-weight: 600;
-    line-height: 110px;
-    color: #fff;
-    margin-bottom: 60px;
-}
-
 
 
 .service-we-provide .logo-container {
@@ -13884,34 +13768,6 @@ span.txt_green {
     align-items: center;
 }
 
-.one-click-demo .sec-title1 {
-    max-width: 880px;
-    margin: 0 auto;
-}
-
-.one-click-demo .sec-title1 h2 {
-    font-size: 80px;
-    font-weight: 600;
-    line-height: 83px;
-    color: #fff;
-    margin-bottom: 20px;
-}
-
-.one-click-demo .sec-title1 h2 span {
-    font-size: 130px;
-    font-weight: 400;
-    line-height: 135px;
-    display: block;
-}
-
-.one-click-demo .sec-title1 h6 {
-    font-size: 19px;
-    font-weight: 400;
-    line-height: 26px;
-    color: #ABB9C7;
-
-}
-
 
 .insallation {
     background-color: #F6F6F6;
@@ -13919,7 +13775,7 @@ span.txt_green {
 }
 
 .insallation a {
-    font-family: 'Open Sans', sans-serif;
+
     display: inline-block;
     padding: 20px 22px;
     font-size: 28px;
@@ -13929,33 +13785,6 @@ span.txt_green {
 .mobile-first-content {
     display: flex;
     padding: 40px 20px;
-}
-
-.mobile-first-content .sec-title1 {
-    width: 40%;
-}
-
-.mobile-first-content .sec-title1 h2 {
-    font-family: Poppins;
-    font-size: 80px;
-    font-weight: 600;
-    line-height: 90px;
-    margin-bottom: 20px;
-    color: #5B5B5B;
-}
-
-.mobile-first-content .sec-title1 h2 small {
-    font-size: 50px;
-    font-weight: 300;
-    line-height: 65px;
-    display: block;
-}
-
-.mobile-first-content .sec-title1 p {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 27px;
-
 }
 
 .mobile-first-content .image {
@@ -13969,27 +13798,9 @@ span.txt_green {
     max-width: 700px;
 }
 
-
-
-
 .feature-of-seo {
     padding: 60px 0;
     background-color: #F6F6F6;
-}
-
-.feature-of-seo .sec-title1 h2 {
-    font-size: 60px;
-    font-weight: 600;
-    line-height: 72px;
-    color: #3A3A3A;
-
-}
-
-.feature-of-seo .sec-title1 small {
-    font-size: 60px;
-    font-weight: 300;
-    line-height: 72px;
-    display: block;
 }
 
 .feature-of-seo-boxes {
@@ -14075,7 +13886,7 @@ span.txt_green {
 .feature-of-seo-boxes .buy-btn a {
     width: 145px;
     height: 55px;
-    font-family: Open Sans;
+
     font-size: 16px;
 
 }
@@ -14142,20 +13953,7 @@ span.txt_green {
 /* ======= end: logo-portfolio-banner ======= */
 /* ======= start: myPortfolio-sec ======= */
 .myPortfolio-sec {
-    padding: 110px 0 140px;
     background-color: #F6F6F6;
-}
-
-.myPortfolio-sec h1 {
-    color: #3A3A3A;
-    font-size: 85px;
-    font-weight: 600;
-    line-height: 102px;
-    margin-bottom: 100px;
-}
-
-.myPortfolio-sec h1 span {
-    color: #6EB012;
 }
 
 .myPortfolio-left-right-lists {
@@ -14185,7 +13983,7 @@ span.txt_green {
     position: absolute;
     left: 15px;
     top: 0;
-    font-family: Poppins;
+
     font-size: 415px;
     font-style: normal;
     font-weight: 800;
@@ -14238,7 +14036,7 @@ span.txt_green {
 
 .myPortfolio-left-right-lists .myPortfolio-left-right-sec .text-container h4 {
     color: #2E2929;
-    font-family: Nunito Sans;
+
     font-size: 23px;
     font-weight: 600;
     line-height: 34.5px;
@@ -14248,23 +14046,9 @@ span.txt_green {
 /* ======= end: myPortfolio-sec ======= */
 /* ======= start: ourWorks-sec ======= */
 .ourWorks-sec {
-    padding: 100px 0 150px;
     overflow: hidden;
 }
 
-.ourWorks-sec h1 {
-    color: #3A3A3A;
-    font-size: 85px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 102px;
-    text-align: center;
-    margin-bottom: 42px;
-}
-
-.ourWorks-sec h1 span {
-    color: #6EB012;
-}
 
 .ourWorks-lists {
     display: flex;
@@ -14287,18 +14071,6 @@ span.txt_green {
 /* ======= end: ourWorks-sec ======= */
 
 /* ======= start: ourClients-02-sec ======= */
-.ourClients-02-sec {}
-
-.ourClients-02-sec h1 {
-    color: #3A3A3A;
-    font-size: 85px;
-    font-weight: 600;
-    line-height: 102px;
-}
-
-.ourClients-02-sec h1 span {
-    color: #6EB012;
-}
 
 .ourClients-02-sec .left-right-text-with-image {
     border-top: 1px solid #000;
@@ -14322,24 +14094,24 @@ span.txt_green {
 
 .ourClients-02-sec .left-right-text-with-image .text-container h4 {
     color: #2E2929;
-    font-family: Nunito Sans;
+
     font-size: 21px;
     font-weight: 800;
     line-height: 29.4px;
     letter-spacing: 0.252px;
-    text-align: justify;
+
 
 }
 
 .ourClients-02-sec .left-right-text-with-image .text-container p {
     color: #5B5B5B;
-    font-family: Nunito Sans;
+
     font-size: 18px;
     font-weight: 400;
     line-height: 31.68px;
     letter-spacing: 0.216px;
     margin-top: 35px;
-    text-align: justify;
+
 }
 
 .ourClients-02-sec .left-right-text-with-image .image-container {}
@@ -14390,7 +14162,7 @@ span.txt_green {
 
 .ourClients-02-sec .logo-with-text-lists ul li .text-container {
     color: #5A5757;
-    font-family: Nunito Sans;
+
     font-size: 41px;
     font-weight: 700;
     line-height: 140%;
@@ -14432,16 +14204,6 @@ span.txt_green {
     align-items: flex-end;
 }
 
-.designTogether-02-sec .left-div {}
-
-.designTogether-02-sec .left-div h1 {
-    color: #FFF;
-    font-size: 90px;
-    font-weight: 900;
-    line-height: 120px;
-    text-transform: capitalize;
-}
-
 .designTogether-02-sec .right-div {
     display: flex;
     flex-direction: column;
@@ -14459,7 +14221,7 @@ span.txt_green {
 
 .designTogether-02-sec .right-div p {
     color: #FFF;
-    font-family: Nunito Sans;
+
     font-size: 23px;
     font-weight: 600;
     line-height: 34.5px;
@@ -14467,3 +14229,216 @@ span.txt_green {
 }
 
 /* ======= end: designTogether-02-sec ======= */
+
+.companyFormationPackages-sec,
+.ourServices-sec01,
+.whyneedbankaccUk-sec01,
+.clientReviews-sec01,
+.whatWeOffer-sec02,
+.ourBankingPartners-sec01,
+.aboutUs-sec,
+.formationsMade-easier-sec,
+.faq-002-sec,
+.whatMakesDifferent-sec01-sec1,
+.needLittleHelp-sec,
+.blog-sec,
+.ourWorks-sec,
+.myPortfolio-sec,
+.seo-webdesign-sec {
+    padding: 132px 0;
+}
+
+/* Edit Amrutaben Patel */
+.helpBtn {
+    background: none;
+    border: none;
+}
+
+/* Edit Amrutaben Patel */
+/* start: whatWeOffer-sec02 */
+.whatWeOffer-sec02 {}
+
+.whatWeOffer-sec02 .left-right-content-lists {
+    display: flex;
+    flex-direction: column;
+    row-gap: 150px;
+}
+
+.whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 80px;
+    align-items: center;
+}
+
+.whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper:nth-child(2n) {
+    flex-direction: row-reverse;
+}
+
+.whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .image-container {
+    width: 100%;
+    max-width: 550px;
+    height: 400px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .image-container img {
+    object-fit: cover;
+    width: 100%;
+    border-radius: 5px;
+    height: 100%;
+}
+
+.whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container {
+    width: 100%;
+    text-align: center;
+    max-width: calc(100% - 550px);
+}
+
+.whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container h3 {
+    color: #3A3A3A;
+    text-transform: capitalize;
+}
+
+.whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container p {
+    width: 100%;
+    max-width: 480px;
+    margin: 16px auto 0;
+}
+
+.whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 42px;
+}
+
+.whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .read-more-btn {
+    width: 145px;
+    height: 55px;
+    font-size: 16px;
+}
+
+.whatWeOffer-sec02 .left-right-content-lists .left-right-content-wrapper .text-container .action-btns .text-read-more-btn {
+    text-decoration: none;
+    color: #87CB28;
+    text-transform: uppercase;
+    font-weight: 500;
+    /*    font-size: 14px;*/
+}
+
+/* end: whatWeOffer-sec02 */
+
+.digitalPackage-right-lists .our-online-company-manager-col {
+    border-radius: 21px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.10);
+    overflow: hidden;
+}
+
+.digitalPackage-right-lists .our-online-company-manager-box {
+    padding: 32px 16px 32px 24px;
+}
+
+.digitalPackage-right-lists .our-online-company-manager-box:not(:last-child) {
+    border-bottom: 1px solid #A2B8CC;
+}
+
+.digitalPackage-right-lists .our-online-company-manager-box .action-btns {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.digitalPackage-right-lists .our-online-company-manager-box .action-btns .more-btn {
+    width: unset !important;
+    max-width: 100% !important;
+    padding: 0 16px;
+    height: 48px;
+    text-transform: capitalize;
+}
+
+.digitalPackage-right-lists .our-online-company-manager-box p {
+    margin-top: 16px;
+}
+
+/* start: ready-to-set-up-your-company */
+.ready-to-set-up-your-company {
+    text-align: center;
+    padding: 100px 0;
+}
+
+.ready-to-set-up-your-company h2 {}
+
+.ready-to-set-up-your-company .action-btns {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.ready-to-set-up-your-company .action-btns .more-btn {
+    height: 48px;
+    max-width: 100% !important;
+    width: unset !important;
+    padding: 0 16px;
+    min-width: 185px;
+    color: #fff !important;
+}
+
+/* end: ready-to-set-up-your-company */
+
+/* start: prefer-to-order-by-telephone-sec */
+.prefer-to-order-by-telephone-sec {
+    padding: 100px 0;
+    text-align: center;
+}
+
+.prefer-to-order-by-telephone-sec p {
+    width: 100%;
+    max-width: 767px;
+    margin: 16px auto 0;
+}
+.d-blok{
+    display: block !important;
+}
+.prefer-to-order-by-telephone-sec .div-ul{
+        margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    column-gap: 24px;
+    flex-wrap: wrap;
+    row-gap: 16px;
+}
+.prefer-to-order-by-telephone-sec .call-no {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.prefer-to-order-by-telephone-sec .call-no .icon-container {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.prefer-to-order-by-telephone-sec .call-no .icon-container img {
+    width: 20px;
+}
+
+.prefer-to-order-by-telephone-sec .call-no .text-container {display: flex;
+    align-items: center;}
+
+.prefer-to-order-by-telephone-sec .call-no .text-container h3 {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    margin: 0 !important;
+}
+
+.prefer-to-order-by-telephone-sec .call-no .text-container h3 a {
+    color: #87CB28;
+}
+
+/* end: prefer-to-order-by-telephone-sec */

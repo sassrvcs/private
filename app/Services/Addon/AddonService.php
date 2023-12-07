@@ -51,6 +51,7 @@ class AddonService
             $addonservices->price = $request['price'];
             $addonservices->short_desc = $request['short_desc'];
             $addonservices->long_desc = $request['description'];
+            $addonservices->how_it_works = $request['howItworks'];
             $addonservices->add_on_type = (isset($request['add_on_type'])) ? json_encode($request['add_on_type']) : null;
             $addonservices->save();
 
@@ -85,6 +86,7 @@ class AddonService
         $service->price = $request['price'];
         $service->short_desc = $request['short_desc'];
         $service->long_desc = $request['description'];
+        $service->how_it_works = $request['howItworks'];
         $service->add_on_type = (isset($request['add_on_type'])) ? json_encode($request['add_on_type']) : null;
 
         $service->save();

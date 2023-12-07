@@ -58,17 +58,10 @@ $('.blog-slider').slick({
     },
   ]
 });
-const header = document.querySelector(".main-header");
-const toggleClass = "sticky";
 
-window.addEventListener("scroll", () => {
-    const currentScroll = window.pageYOffset;
-    if (currentScroll > 150) {
-        header.classList.add(toggleClass);
-    } else {
-        header.classList.remove(toggleClass);
-    }
-});
+
+
+
 $('.main-header .menu-toggle').click(function () {
     $('body').toggleClass('overflow-hidden');
     $(this).toggleClass('active');

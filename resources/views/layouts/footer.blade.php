@@ -56,7 +56,7 @@
                             <a href="{{route('company_services', 'director-appointment-resignation')}}">Director Appointment Resignation</a>
                         </li>
                         <li>
-                            <a href="{{route('company_services', 'full-company-secretary-service')}}">Full Company Secretary Service</a>
+                            <a href="{{route('company_services', 'full-company-secretary-service')}}">Company Secretary Service</a>
                         </li>
                         <li>
                             <a href="{{route('company_services', 'issue-of-share-services')}}">Issue of Share Services</a>
@@ -196,6 +196,8 @@
 <!-- Select 2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
 
-<script src="{{ asset('frontend/assets/js/aos.js')}}"></script>
-<script src="{{ asset('frontend/assets/js/scripts.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{{ asset('frontend/assets/js/aos.js')}}"></script>
+<script src="{{ asset('frontend/assets/js/stickey.js')}}"></script>
+
+<script src="{{ asset('frontend/assets/js/scripts.js')}}"></script>
