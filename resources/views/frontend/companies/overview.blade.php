@@ -41,6 +41,13 @@
                         <div class="companies-topbar flex-column justify-content-start mb-4 align-items-start">
                             <h3 class="mb-2">FORMATIONSHUNT LTD</h3>
                         </div>
+                        @if($cartCount > 0)
+                        <div class="MyAccount-content col-md-6">
+                            <span>You have {{ $cartCount }} items in your cart.
+                                <a href="{{ route('cart-company', ['order' => $order_id]) }}" class="btn btn-primary col-md-3">View Cart</a>
+                            </span>
+                        </div>
+                        @endif
                         <div class="conpany-overview-sec">
                             <div class="conpany-overview-tab-wrap">
                                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -88,7 +95,7 @@
                                                             <td>{{ $review->companie_name ?? '' }}</td>
                                                             <td></td>
                                                             <td width="167">
-                                                                <button class="ch-ed-btn"><img
+                                                                <button id="changeNameService" class="ch-ed-btn"><img
                                                                         src="assets/images/draw-icon.png" alt="">
                                                                     Change Name</button>
                                                             </td>
@@ -102,7 +109,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td><strong>Auth Code :</strong></td>
-                                                            <td>{{ $order->auth_code ?? '-' }}</td>
+                                                            <td id="displayedAuthCode">{{ $order->auth_code ?? '-' }}</td>
                                                             <td></td>
                                                             <td>
                                                                 <button class="ch-ed-btn" data-toggle="modal"
@@ -188,8 +195,8 @@
                                                                 (ind. filing fee of
                                                                 $13.00).
                                                             </td>
-                                                            <td>$44.00</td>
-                                                            <td><button class="ch-ed-btn">Order</button></td>
+                                                            <td>${{$confirmation_statement_service->price}}</td>
+                                                            <td><button id="confirmation_statement_service" class="ch-ed-btn">Order</button></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -206,21 +213,21 @@
                                                     <tbody>
                                                         <tr>
                                                             <td><strong>Due :</strong></td>
-                                                            <td>{{$review->due_date}}</td>
+                                                            <td>{{$review->due_date ?? '-'}}</td>
                                                             <td></td>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td><strong>Made Up To :</strong></td>
-                                                            <td>{{$review->made_upto}}</td>
+                                                            <td>{{$review->made_upto ?? '-'}}</td>
                                                             <td></td>
                                                             <td></td>
                                                         </tr>
                                                         <tr>
                                                             <td><strong>Reference Date :</strong></td>
-                                                            <td>30th June</td>
+                                                            <td>{{$review->made_upto ?? '-'}}</td>
                                                             <td></td>
-                                                            <td><button class="ch-ed-btn"><img
+                                                            <td><button id="OpenCompanyModal" class="ch-ed-btn"><img
                                                                         src="assets/images/draw-icon.png" alt="">
                                                                     Edit</button></td>
                                                         </tr>
@@ -292,13 +299,13 @@
                                                                     <td>
                                                                         <div
                                                                             class="tb-btn-wrap d-flex justify-content-end">
-                                                                            <a class="edit-btn"
-                                                                                href="{{ route('person_appointment_edit') . '?id=' . $val['id'] . '&order=' . $_GET['order'] . '&section=Company_formaction&step=appointments&mode=edit_person_appointment' }}">Edit</a>
+                                                                            <a class="ch-ed-btn"
+                                                                                href="{{ route('edit-companies-appointment') . '?id=' . $val['id'] . '&order=' . $_GET['order'] . '&section=Company_formaction&step=appointments&mode=edit_person_appointment' }}">Edit</a>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
-                                                           
+
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -340,8 +347,8 @@
                                                 </table>
                                             </div>
                                             <div class="overviews-btn-wrap d-flex justify-content-end mb-4">
-                                                <button class="btn"><img src="assets/images/statement-icon.svg"
-                                                        alt=""> Add New Statement</button>
+                                                <a href="{{ route('companies-statement', ['order' => $order_id]) }}" class="btn btn-primary col-md-3">Add New Statement</a>
+
                                             </div>
 
 
@@ -674,21 +681,72 @@
 
                         <div class="ef-auth-modal-input">
                             <p>
-                                <input type="text" class="efTextInput js-updated-auth-code form-control"
+                                <input type="text" id="authCodeInput" class="efTextInput js-updated-auth-code form-control"
                                     data-inc-id="2291111" value="{{ $order->auth_code ?? '' }}" required>
-                            </p>
-                            <p>
-                                <button
-                                    class="efButton ui-button ui-widget js-save-auth-code ui-state-default ui-corner-all ui-button-text-only"
-                                    role="button" aria-disabled="false"><span
-                                        class="ui-button-text">Save</span></button>
                             </p>
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" id="saveAuthCodeBtn" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- Open Modal For Comany Account Edit -->
+         <div class="modal fade modal-particular" id="openCompanyAccount" tabindex="-1" role="dialog"
+            aria-labelledby="openCompanyAccountTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"><b>Change Accounting Reference Date</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <p>Company Name: {{ $review->companie_name ?? '' }}</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="currentReferenceDate">Current Reference Date:</label>
+                            <input type="date" class="form-control" id="currentReferenceDate" name="currentReferenceDate">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="amendedReferenceDate">Amended Reference Date:</label>
+                            <input type="date" class="form-control" id="amendedReferenceDate" name="amendedReferenceDate">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Changed more than once in 5 years?</label>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="changedYes" name="changed" value="yes">
+                                <label class="form-check-label" for="changedYes">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="changedNo" name="changed" value="no">
+                                <label class="form-check-label" for="changedNo">No</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="reasonForChangeGroup" style="display:none;">
+                            <label for="reasonForChange">Reason for change:</label>
+                            <select class="form-control" id="reasonForChange" name="reasonForChange">
+                                <option value="">Please select a reason...</option>
+                                <option value="ADMIN">Subject to an administration order</option>
+                                <option value="STATE">Secretary of State Approval</option>
+                                <option value="UKPAR">To align with a parent/subsidiary established in the UK</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" id="saveCompanyAccount" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -833,7 +891,7 @@
                                     </div>
                                     <div class="btn-wrap">
                                         <input type="radio" id="address{{ $address->id }}" name="selectedAddress" value="{{ $address->id }}">
-                                        <input type="hidden" class="103_add_id" value="103">
+                                        <input type="hidden" class="103_add_id" value="">
                                         <input type="hidden" class="103_add_house_number" value="40 new add">
                                         <input type="hidden" class="103_add_street" value="North">
                                         <input type="hidden" class="103_add_locality" value="">
@@ -850,6 +908,7 @@
                             <div class="used-addresses-panel">
                                 <div class="text">
                                     <p>Choose Another</p>
+                                    <p>Price: FREE</p>
                                 </div>
                                 <div class="btn-wrap">
                                     <input type="radio" id="address105" name="selectedAddress" value="0">
@@ -867,7 +926,8 @@
                                         <p id="selectedAddressDisplay"></p>
                                     </div>
                                     <div class="btn-wrap">
-                                        <input type="hidden" class="103_add_id" value="103">
+                                        <input type="hidden" class="103_add_id" value="">
+                                        <input type="hidden" class="103_forward_add_id" value="">
                                         <input type="hidden" class="103_add_house_number" value="40 new add">
                                         <input type="hidden" class="103_add_street" value="North">
                                         <input type="hidden" class="103_add_locality" value="">
@@ -882,10 +942,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-10 col-sm-12">
+                            <div class="form-group">
+                                <label for="effectiveDate">Effective Date</label>
+                                <input type="date" class="form-control" id="effectiveDate" name="effectiveDate">
+                            </div>
+                            <input type="hidden" class="order_id" value="{{ $order_id }}">
+                            <input type="hidden" class="service_name" value="Change Registered Office">
+                            <input type="hidden" class="slug" value="change-registered-office">
+                            <input type="hidden" class="price" value="">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="saveChanges"  data-dismiss="modal">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -914,6 +984,7 @@
                                     <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
                                 </div>
                                 <div class="button_select">
+                                    <input type="hidden" class="address-house-id" value="{{ $value['id']}}">
                                     <input type="hidden" class="address-house-number" value="{{ $value['house_number']}}">
                                     <input type="hidden" class="address-street" value="{{ $value['street']}}">
                                     <input type="hidden" class="address-locality" value="{{ $value['locality']}}">
@@ -1053,7 +1124,6 @@
             </div>
         </div>
 
-
     </section>
 @endsection
 @section('script')
@@ -1073,13 +1143,15 @@
                         selectedAddressDisplay.text('');
                     } else {
                         var selectedAddressDetails = {
-                            house_number: '{{ @$address->house_number }}',
-                            street: '{{ @$address->street }}',
-                            locality: '{{ @$address->locality }}',
-                            town: '{{ @$address->town }}',
-                            county: '{{ @$address->county }}',
-                            billing_country: '{{ @$address->billing_country }}',
-                            post_code: '{{ @$address->post_code }}',
+                            id: '{{ $address->id }}',
+                            house_number: '{{ $address->house_number }}',
+                            street: '{{ $address->street }}',
+                            locality: '{{ $address->locality }}',
+                            town: '{{ $address->town }}',
+                            county: '{{ $address->county }}',
+                            billing_country: '{{ $address->billing_country }}',
+                            post_code: '{{ $address->post_code }}',
+                            price: '{{ $address->price }}',
                         };
 
                         // Construct the address text
@@ -1093,6 +1165,9 @@
 
                         // Set the text in the selectedAddressDisplay paragraph
                         selectedAddressDisplay.text(addressText);
+                        $(".103_forward_add_id").val(selectedAddressDetails.id);
+                        $(".price").val(selectedAddressDetails.price);
+
                     }
                 } else {
                     newAddressSection.hide();
@@ -1126,10 +1201,27 @@
                     // $('.address_type').val('primary_address');
                     $('#addNewAddressModal').modal('show');
             });
+
+            $("#OpenCompanyModal").click(function(){
+                    $('#openCompanyAccount').modal('show');
+            });
+
+            $('input[name="changed"]').on('change', function () {
+                // Check if "Yes" is selected
+                if ($(this).val() === 'yes') {
+                    // Show the dropdown
+                    $('#reasonForChangeGroup').show();
+                } else {
+                    // Hide the dropdown
+                    $('#reasonForChangeGroup').hide();
+                }
+            });
+
         });
 
         $('.select-address').click(function() {
             var selectedAddressDetails = {
+                id: $(this).siblings('.address-house-id').val(),
                 houseNumber: $(this).siblings('.address-house-number').val(),
                 street: $(this).siblings('.address-street').val(),
                 locality: $(this).siblings('.address-locality').val(),
@@ -1146,6 +1238,9 @@
                             ${selectedAddressDetails.county}
                             ${selectedAddressDetails.countryName ? ',' + selectedAddressDetails.countryName : ''}
                             ${selectedAddressDetails.postCode}`;
+
+            $(".103_add_id").val(selectedAddressDetails.id);
+            $(".price").val('');
 
             $('#selectedAddressDisplay').text(addressText);
             $('.new-address-section').show();
@@ -1210,7 +1305,7 @@
                 if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
                     //alert(number+"---"+address_type);
                     $.ajax({
-                        url: "{!! route('new-address-save') !!}",
+                        url: "{!! route('new-address-save-company') !!}",
                         type: 'POST',
                         data: {
                             "_token": "{{ csrf_token() }}",
@@ -1225,16 +1320,199 @@
                             user_id:user_id
                         },
                         success: function(result) {
-                        $("#addNewAddressModal").modal('hide');
-                        setTimeout(function () {
-                            $(".loader").hide();
-                            location.reload(true);
-                        }, 2500);
+                            console.log(result);
+                            // Access the saved address data
+                            var savedAddress = result.address;
+                            // Update the HTML elements in the new-address-section with the received data
+                            var addressText = `${savedAddress.house_number ? savedAddress.house_number + ',' : ''}
+                                            ${savedAddress.street ? savedAddress.street + ',' : ''}
+                                            ${savedAddress.locality ? savedAddress.locality + ',' : ''}
+                                            ${savedAddress.town ? savedAddress.town + ',' : ''}
+                                            ${savedAddress.county}
+                                            ${savedAddress.billing_country ? ',' + savedAddress.billing_country : ''}
+                                            ${savedAddress.post_code}`;
+
+                            $('#selectedAddressDisplay').text(addressText);
+                            $('.new-address-section').show();
+
+                            // You can also update other hidden input fields if needed
+                            $(".103_add_id").val(savedAddress.id);
+                            $(".103_add_house_number").val(savedAddress.house_number);
+                            $(".103_add_street").val(savedAddress.street);
+                            $(".103_add_locality").val(savedAddress.locality);
+                            $(".103_add_town").val(savedAddress.town);
+                            $(".103_user_county").val(savedAddress.county);
+                            $(".103_address_post_code").val(savedAddress.post_code);
+                            $(".103_address_billing_country").val(savedAddress.billing_country);
+                            $(".price").val('');
+                            $("#addNewAddressModal").modal('hide');
+                        // setTimeout(function () {
+                        //     $(".loader").hide();
+                        //     location.reload(true);
+                        // }, 2500);
                         }
                     });
                 }
 
             });
         });
+
+        $(document).ready(function () {
+        // Attach a click event handler to the "Save Changes" button
+            $('#saveChanges').on('click', function () {
+                // Get the values from the form
+                var selectedAddress = $(".103_add_id").val();
+                var forwardAddress = $(".103_forward_add_id").val();
+                var effectiveDate = $('#effectiveDate').val();
+                var order_id = $('.order_id').val();
+                var service_name = $('.service_name').val();
+                var slug = $('.slug').val();
+                var price = $('.price').val();
+
+                if (!(selectedAddress || forwardAddress)) {
+                    alert('Please select an address.');
+                    return;
+                }
+
+                if (!effectiveDate) {
+                    alert('Please choose an effective date.');
+                    return;
+                }
+
+                // Additional validation if needed
+
+                // Send the data to the server using AJAX
+                $.ajax({
+                    url: "{!! route('edit-companies-service') !!}",
+                    type: 'POST',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        order_id: order_id,
+                        service_name: service_name,
+                        slug: slug,
+                        address_id: selectedAddress,
+                        forward_address_id: forwardAddress,
+                        effective_date: effectiveDate,
+                        price: price,
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        location.reload(true);
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#saveAuthCodeBtn').on('click', function () {
+
+                var authCode = $('#authCodeInput').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{!! route('edit-auth-code') !!}",
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'order': '{{ $order->order_id }}',
+                        'auth_code': authCode,
+                    },
+                    success: function (data) {
+                        $('#openAuthCode').modal('hide');
+                        $('#displayedAuthCode').text(authCode);
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error updating auth code');
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#confirmation_statement_service').on('click', function () {
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{!! route('edit-nameChange-companies-service') !!}",
+                    data: {
+                        '_token':       '{{ csrf_token() }}',
+                        'order_id':     '{{ $order->order_id }}',
+                        'service_name': '{{ $confirmation_statement_service->service_name }}',
+                        'slug':         '{{ $confirmation_statement_service->slug }}',
+                        'price':        '{{ $confirmation_statement_service->price }}',
+                    },
+                    success: function (data) {
+                        location.reload(true);
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error updating auth code');
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#changeNameService').on('click', function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "{!! route('edit-nameChange-companies-service') !!}",
+                    data: {
+                        '_token':       '{{ csrf_token() }}',
+                        'order_id':     '{{ $order->order_id }}',
+                        'service_name': '{{ $change_name_service->service_name }}',
+                        'slug':         '{{ $change_name_service->slug }}',
+                        'price':        '{{ $change_name_service->price }}',
+                    },
+                    success: function (data) {
+                        location.reload(true);
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error updating change name');
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#saveCompanyAccount').on('click', function () {
+                var currentReferenceDate = $('#currentReferenceDate').val();
+                var amendedReferenceDate = $('#amendedReferenceDate').val();
+                var changed = $('input[name="changed"]:checked').val();
+                var reasonForChange = $('#reasonForChange').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{!! route('change-accounting-date') !!}",
+                    data: {
+                        '_token':       '{{ csrf_token() }}',
+                        'order_id':     '{{ $order->order_id }}',
+                        'service_name': 'Change Accounting Date',
+                        'slug':         'change-accounting-date',
+                        'currentReferenceDate': currentReferenceDate,
+                        'amendedReferenceDate': amendedReferenceDate,
+                        'changed': changed,
+                        'reasonForChange': reasonForChange,
+                    },
+                    success: function (data) {
+                        $('#openCompanyAccount').modal('hide');
+                        $('#dueDate').text(amendedReferenceDate);
+                        $('#madeUpTo').text(currentReferenceDate);
+                        $('#madeUpToReference').text(currentReferenceDate);
+                        location.reload(true);
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error updating the date');
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+
     </script>
 @endsection
