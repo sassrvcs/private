@@ -684,7 +684,7 @@ class CompaniesListController extends Controller
         // return $request->all();
 
         $appointment_id = $request->query('id');
-         $appointment_details = Person_appointment::with('forwarding_address')->with('own_address')->where('id', $appointment_id)->get()->first()->toArray();
+        $appointment_details = Person_appointment::with('forwarding_address')->with('own_address')->where('id', $appointment_id)->get()->first()->toArray();
         // return $appointment_details['position'];
         $countries = Country::all();
         $positionArray = explode(', ', $appointment_details['position']);

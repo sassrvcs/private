@@ -444,7 +444,7 @@
                                     <p><strong>{{@$appoint_construct_forwarding_address}}</strong></p>
 
                                     <div class="mt-2 d-flex">
-                                        <button type="button" class="theme-btn-primary px-2 py-1 mr-2">Edit</button>
+                                        <button type="button" id="editForwardAddress" class="theme-btn-primary px-2 py-1 mr-2">Edit</button>
                                         <button type="button" class="theme-btn-primary px-2 py-1">Choose Address</button>
                                     </div>
                                 </fieldset>
@@ -478,6 +478,7 @@
             </div>
         </div>
 
+        <!-- Residential Address modal pop up -->
         <div class="modal custom-modal-s1" id="primaryAddressConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
                 <div class="modal-content border-0">
@@ -566,6 +567,95 @@
             </div>
         </div>
 
+        <!-- Forward Address modal pop up -->
+        <div class="modal custom-modal-s1" id="forwardAddressConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content border-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Edit Address</h5>
+                        <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="primaryAddrUpdateForm formInput" id="primeinputs">
+                            <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
+
+
+                            
+
+
+                                <div class="form-row form-group ">
+                                    <label>Name / Number:&nbsp;
+                                        </span>
+                                    </label>
+                                    <span class="input-wrapper">
+                                        <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no" value="{{$appointment_details['forwarding_address']['house_number']}}">
+                                    </span>
+                                </div>
+                                <div class="form-row form-group ">
+                                    <label for="billing_title">Street:&nbsp;
+                                    </label>
+                                    <span class="input-wrapper">
+                                        <input type="text" name="street" id="street1" class="input-text form-control steet_no" value="{{$appointment_details['forwarding_address']['street']}}">
+                                    </span>
+
+                                </div>
+                                <div class="form-row form-group">
+                                    <label for="locality">Locality:
+                                    </label>
+                                    <span class="input-wrapper">
+                                        <input type="text" name="locality" id="locality1" class="input-text form-control locality" value="{{$appointment_details['forwarding_address']['locality']}}">
+                                    </span>
+
+                                </div>
+                                <div class="form-row form-group">
+                                    <label for="town">Town:&nbsp;
+                                    </label>
+                                    <span class="input-wrapper">
+                                        <input type="text" name="town" id="town1" class="input-text form-control town" value="{{$appointment_details['forwarding_address']['town']}}">
+                                    </span>
+
+                                </div>
+                                <div class="form-row form-group">
+                                    <label for="county">County:&nbsp;
+                                    </label>
+                                    <span class="input-wrapper">
+                                        <input type="text" name="county" id="county1" class="input-text form-control county" value="{{$appointment_details['forwarding_address']['county']}}">
+                                    </span>
+
+                                </div>
+                                <div class="form-row form-group">
+                                    <label for="postcode">Post Code:&nbsp;
+                                    </label>
+                                    <span class="input-wrapper">
+                                        <input type="text" name="post_code" class="input-text form-control zip" value="{{$appointment_details['forwarding_address']['post_code']}}">
+                                    </span>
+                                </div>
+                                <div class="form-row update_totals_on_change form-group">
+                                    <label for="billing_country">Country&nbsp;</label>
+                                    <span class="input-wrapper">
+                                        <select name="billing_country" id="billing_country" name="billing_country" class="contry country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
+                                            <option value="">Select a country / region…</option>
+
+                                            @foreach ($countries as $country)
+                                                <option value="{{$country->id}}" {{ ( $country->id == $appointment_details['forwarding_address']['billing_country']) ? 'selected' : '' }}>{{$country->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </span>
+
+                                </div>
+                                <input type="hidden" class="address_type" name="address_type" value="primary_address">
+                                <div class="modal-footer">
+                                    <button type="button" id="primary_submit" class="btn btn-primary billingAddrSubmit" data-dismiss="modal" onclick="editPrimaryAddressfn({{$appointment_details['forwarding_address']['id']}})">Submit Changes</button>
+                                </div>
+                      
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </section>
 @endsection
 @section('script')
@@ -586,6 +676,10 @@
 
         $('#editResidentialAddress').click(function(){
             $('#primaryAddressConfirmModal').modal('show');
+        });
+
+        $('#editForwardAddress').click(function(){
+            $('#forwardAddressConfirmModal').modal('show');
         });
 
     });
