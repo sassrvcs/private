@@ -76,6 +76,8 @@ Route::any('/find-address',[AuthController::class,'findAddress'])->name('find-ad
 
 // Register for checkout
 Route::post('/checkout-final',[CheckoutStepController::class,'paymentNow'])->name('checkout-final');
+Route::post('/checkout-custom-payment',[CheckoutStepController::class,'custom_payment'])->name('checkout-custom-payment');
+
 
 Route::get('/my-account', [AuthController::class, 'myAccount'])->name('my-account')->middleware('auth');
 Route::post('/logout', [AuthController::class, 'logout'])->name('clientlogout')->middleware('auth');
@@ -271,6 +273,8 @@ Route::get('pay/service-checkout/{id}', [WebPackageController::class, 'serviceVa
 Route::get('purchased-service-invoice/{id}', [WebPackageController::class, 'purchasedServiceInvoice'])->name('purchased-service-invoice')->middleware('auth');
 
 Route::post('pay/service-payment-now', [CheckoutStepController::class, 'servicePaymentNow'])->name('service-payment-now')->middleware('auth');
+Route::get('pay/custom-payment-success', [CheckoutStepController::class, 'custom_payment_success'])->name('custom-payment-success');
+
 
 Route::get('pay/service-payment-success', [WebPackageController::class, 'servicePaymentSuccess'])->name('service-payment-success')->middleware('auth');
 

@@ -22,6 +22,7 @@ use App\Models\Accounting;
 use App\Models\Address;
 use App\Models\Nationality;
 use App\Models\orderServiceTransaction;
+use App\Models\Purchase_address;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -444,6 +445,12 @@ class PackageController extends Controller
         {
             $prices = ['gdpr_price'=>$get_price];
             return view('frontend.service.load_services.gdpr-compliance',compact('countries','slug','id','prices','service_name'));
+        }
+        if($slug=="business-mailing-address-service")
+        {
+            $prices = ['business_mailing_address_price'=>$get_price];
+            $address = Purchase_address::where('address_type','registered_address')->first();
+            return view('frontend.service.load_services.business-mail-forwarding-address',compact('countries','slug','id','prices','service_name','address'));
         }
         return redirect('/404');
     }
