@@ -1,5 +1,5 @@
-<div class="whatMakesDifferent-sec01">
-    <div class="whatMakesDifferent-sec01-sec1 for-ourDifferent">
+<div class="whatMakesDifferent-sec01 d-none">
+    <div class="whatMakesDifferent-sec01-sec1 for-ourDifferent ">
         <div class="custom-container">
             <div class="image-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                <div class="sec-title1 mb-0">
@@ -11,7 +11,7 @@
                     <a href="{{ route('company_services',['renewals']) }}" class="theme-btn-primary read-more-btn">View All Services</a>
                 </div>
             </div>
-            <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            <div class="text-container " data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <p>A little guidance to help you reach your business goals.</p>
                 <div class="for-ourDifferent-text-lists">
                     @if ($package_name!="registered-office-address")
@@ -114,7 +114,7 @@
     </div>
 </div>
 <!-- ================ start: take-look-t-our-sec01 ================ -->
-<div class="take-look-t-our-sec01">
+<div class="take-look-t-our-sec01 d-none">
     <div class="custom-container">
         <div class="sec-title1 text-center">
             <h2 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Take a look at our <br>

@@ -164,7 +164,8 @@
                                         $total_paid = \App\Models\orderTransaction::where('order_id', $checkout->order_id)->sum('amount');
 
                                     @endphp
-                                    <div class="mt-3">
+
+                                    <div class="mt-3 @if ($total_paid==0) d-none @endif">
                                         <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
                                             <tbody>
                                                 <tr class="order-total">
@@ -188,7 +189,7 @@
                                         </table>
                                     </div>
                                 @else
-                                    <div class="mt-3">
+                                    <div class="mt-3 d-none">
                                         <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
                                             <tbody>
                                                 <tr class="order-total">

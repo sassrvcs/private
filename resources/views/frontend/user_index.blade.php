@@ -12,70 +12,81 @@
     <div class="main-banner home-banner-src" style="background-image: url({{ asset('frontend/assets/images/main-banner-without-overlay.jpg')}});">
         <div class="custom-container">
             <div class="caption-box" style="padding-right: 0px;">
-                <div id="response-class">
-                    <h1 data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000" data-aos-once="true">Formations made easier starting from <span>£12.99</span></h1>
-                    <p data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">Form a UK limited company in minutes</p>
-                </div>
+                <div class="row">
+                    <div class="col-md-7">
+                        <div id="response-class">
+                            <h1 data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000" data-aos-once="true">Formations made easier starting from <span>£12.99</span></h1>
+                            <p data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">Form a UK limited company in minutes</p>
+                        </div>
 
-                {{-- <div id="available-company" style="display: none">
-                        <div class=" align-items-center">
-                            <div class="col-md-6">
-                                <span class="icon"><i class="fa-regular fa-circle-check"></i></span>
-                                <h2 id="search-company-name"></h2>
-                                <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
-                                <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
+                        {{-- <div id="available-company" style="display: none">
+                                <div class=" align-items-center">
+                                    <div class="col-md-6">
+                                        <span class="icon"><i class="fa-regular fa-circle-check"></i></span>
+                                        <h2 id="search-company-name"></h2>
+                                        <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
+                                        <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <a href="#" class="btn btn-primary wow zoomIn">Choose Package<i class="fas fa-long-arrow-alt-right ms-2"></i></a>
+                                </div>
+                                <div class="hhr-text">Search for another name</div>
+                            </div>
+
+                            <div id="not-available-company" style="display: none">
+                                <div class="search-result-error mb-4">
+                                    <span class="icon"><i class="fa-regular fa-circle-xmark"></i></span>
+                                    <h2 id="search-company-name"></h2>
+                                    <h3 style="color:white;">Error! This company name is Not available.</h3>
+                                </div>
+                                <div class="hhr-text">Search for another name</div>
+                            </div> --}}
+
+                        <div class="col-md-12" id="result_show" style="display: none">
+                            {{-- Available Message --}}
+                            <div class="search-result" id="available-company" style="display: none">
+                                <div class="mb-4 align-items-center">
+                                    <div class="col-md-12">
+                                        <span class="icon"><i class="fa fa-check-circle-o"></i></span>
+                                        <h2 class="search-company-name"></h2>
+                                        <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
+                                        <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
+                                    </div>
+                                    <div class="col-md-4 "><a href="{{ route('package',['step'=>'choose-package']) }}" class="btn btn-primary wow zoomIn">Choose Package<i class="fa fa-long-arrow-right ms-2"></i></a></div>
+                                </div>
+                                <div class="hhr-text">Search for another name</div>
+                            </div>
+
+                            {{-- Not Available Message --}}
+                            <div id="not-available-company" style="display: none">
+                                <div class="search-result-error mb-4">
+                                    <span class="icon"><i class="fa fa-times-circle-o"></i></span>
+                                    <h2 class="search-company-name"></h2>
+                                    <h3 style="color:white;">Error! This company name is Not available.</h3>
+                                </div>
+                                <div class="hhr-text">Search for another name</div>
                             </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <a href="#" class="btn btn-primary wow zoomIn">Choose Package<i class="fas fa-long-arrow-alt-right ms-2"></i></a>
-                        </div>
-                        <div class="hhr-text">Search for another name</div>
-                    </div>
-
-                    <div id="not-available-company" style="display: none">
-                        <div class="search-result-error mb-4">
-                            <span class="icon"><i class="fa-regular fa-circle-xmark"></i></span>
-                            <h2 id="search-company-name"></h2>
-                            <h3 style="color:white;">Error! This company name is Not available.</h3>
-                        </div>
-                        <div class="hhr-text">Search for another name</div>
-                    </div> --}}
-
-                <div class="col-md-7" id="result_show" style="display: none">
-                    {{-- Available Message --}}
-                    <div class="search-result" id="available-company" style="display: none">
-                        <div class="mb-4 align-items-center">
-                            <div class="col-md-12">
-                                <span class="icon"><i class="fa fa-check-circle-o"></i></span>
-                                <h2 class="search-company-name"></h2>
-                                <h3 style="color:#87CB28;">Congratulations! This company name is available.</h3>
-                                <h3 style="color:#87CB28;" id="is_sensitive_word_row" style="display: none">Please note: The word(s) <span id="is_sensitive_word"></span> is deemed sensitive. You may need to supply additional information to use it.</h3>
+                        <div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
+                            <div class="search-box mt-3 mb-2" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true" style="max-width: 100%">
+                                <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
+                                <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
                             </div>
-                            <div class="col-md-4 "><a href="{{ route('package',['step'=>'choose-package']) }}" class="btn btn-primary wow zoomIn">Choose Package<i class="fa fa-long-arrow-right ms-2"></i></a></div>
+                            <p class="text-capitalize mt-2" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true" style="font-size:13px">14+years of experience in helping thousands of people to start their business in UK</p>
+                            <div class="image-stamp" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
+                                <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg')}}"></a>
+                            </div>
                         </div>
-                        <div class="hhr-text">Search for another name</div>
                     </div>
-
-                    {{-- Not Available Message --}}
-                    <div id="not-available-company" style="display: none">
-                        <div class="search-result-error mb-4">
-                            <span class="icon"><i class="fa fa-times-circle-o"></i></span>
-                            <h2 class="search-company-name"></h2>
-                            <h3 style="color:white;">Error! This company name is Not available.</h3>
-                        </div>
-                        <div class="hhr-text">Search for another name</div>
-                    </div>
-                </div>
-
-                <div class="col-md-7" style="padding-left: 0px; padding-right: 0px;">
-                    <div class="search-box mt-3 mb-2" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true" style="max-width: 100%">
-                        <input type="text" id="company-name" class="search-input" placeholder="Enter a company name to check if its available">
-                        <button type="button" id="search" class="search-btn theme-btn-primary">Search</button>
-                    </div>
-                    <p class="text-capitalize mt-2" data-aos="fade-right" data-aos-delay="200" data-aos-duration="1000" data-aos-once="true" style="font-size:13px">14+years of experience in helping thousands of people to start their business in UK</p>
-                    <div class="image-stamp" data-aos="fade-right" data-aos-delay="250" data-aos-duration="1000" data-aos-once="true">
-                        <a><img src="{{ asset('frontend/assets/images/hmCompHouse.png.svg')}}"></a>
+                    <div class="col-md-5">
+                        {{-- <div class="freecall d-none d-sm-block">
+                            <p>24/7 Customer Support</p>
+                            <p><a href="tel:02030020032"><i class="fa fa-phone"></i> 020 3002 0032 </a></p>
+                            <p>Free call consultations</p>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -401,7 +412,7 @@
                 <div class="text-box-lists">
                     <div class="text-box-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="text-box" right-img-url="{{ asset('frontend/assets/images/ourServices-sec01-img1.png')}}">
-                            <h3>Payee<span>Registration </span></h3>
+                            <h3>Payee <span>Registration </span></h3>
                             <p>We help you to register Pay as you Earn (PAYE) for youself or your employees with the HMRC on your behalf.</p>
                             <div class="more-actions">
                                 <a href="{{route('company_services',['paye-registration'])}}" class="circle-btn">
@@ -414,7 +425,7 @@
                     </div>
                     <div class="text-box-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="text-box" right-img-url="{{ asset('frontend/assets/images/ourServices-sec01-img2.png')}}">
-                            <h3>VAT<span>Registration </span></h3>
+                            <h3>VAT <span>Registration </span></h3>
                             <p>We povide your VAT registration number usually within 15days of application including all legal requirements with HRMC.</p>
                             <div class="more-actions">
                                 <a href="{{route('company_services',['vat-registration'])}}" class="circle-btn">
@@ -440,8 +451,8 @@
                     </div>
                     <div class="text-box-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="text-box" right-img-url="{{ asset('frontend/assets/images/ourServices-sec01-img4.png')}}">
-                            <h3>Full Company Secretary <span>Service </span></h3>
-                            <p>A dedicated account manager handles everything related to all your company filings,maitaining register on your behalf under your supervision,taking the burden off your shoulder.</p>
+                            <h3>Full Secretary <span>Service </span></h3>
+                            <p>A dedicated account manager keeping your company register up-to-date including the appointment or resignation of company officers.</p>
                             <div class="more-actions">
                                 <a href="{{route('company_services',['full-company-secretary-service'])}}" class="circle-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" fill="none">
@@ -555,15 +566,20 @@
         <button type="button" class="play-youtube-btn"><img src="{{ asset('frontend/assets/images/youtube-big-btn.svg')}}"></button>
         <div class="to-see-all-sec">
             <div class="custom-container">
-                <div class="to-see-all-sec-youtube-bg" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><img src="{{ asset('frontend/assets/images/to-see-all-sec-youtube-bg.png')}}"></div>
+
                 <div class="box-wrapper">
+                    <div class="to-see-all-sec-youtube-bg" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><img src="{{ asset('frontend/assets/images/vd2.png')}}"></div>
                     <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <h3>To See All </h3>
                         <h2>Our Video Click Here</h2>
-                        <p>This small video will help you understand our company formation process in simple easy steps to make you feel more confident when you registering your limited company. Subscribe us for regular updateds (click here button).</p>
+                        <p>This small video will help you understand our company formation process in simple easy steps to make you feel more confident when you registering your limited company. Subscribe us for regular updateds.</p>
                     </div>
                     <div class="action-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                        <a href="#" class="theme-btn-darkBlue click-btn">Click here</a>
+                        <a href="#" class="theme-btn-darkBlue click-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" fill="none">
+                                <path d="M23.5989 8.23412L16.0156 0.650785C15.8113 0.453447 15.5376 0.344252 15.2536 0.346721C14.9695 0.349189 14.6978 0.463122 14.497 0.663981C14.2961 0.86484 14.1822 1.13655 14.1797 1.4206C14.1772 1.70465 14.2864 1.9783 14.4838 2.18262L20.2178 7.9167H1.16634C0.879023 7.9167 0.603473 8.03084 0.400309 8.234C0.197144 8.43717 0.0830078 8.71272 0.0830078 9.00004C0.0830078 9.28735 0.197144 9.5629 0.400309 9.76607C0.603473 9.96923 0.879023 10.0834 1.16634 10.0834H20.2178L14.4838 15.8175C14.3803 15.9174 14.2978 16.0369 14.241 16.1691C14.1842 16.3013 14.1543 16.4434 14.1531 16.5873C14.1518 16.7311 14.1792 16.8738 14.2337 17.0069C14.2882 17.14 14.3686 17.261 14.4703 17.3627C14.5721 17.4644 14.693 17.5449 14.8261 17.5993C14.9593 17.6538 15.1019 17.6812 15.2458 17.68C15.3896 17.6787 15.5318 17.6488 15.6639 17.5921C15.7961 17.5353 15.9157 17.4528 16.0156 17.3493L23.5989 9.76595C23.802 9.5628 23.9161 9.2873 23.9161 9.00004C23.9161 8.71277 23.802 8.43727 23.5989 8.23412Z" fill="white" />
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -830,6 +846,9 @@
             <div class="left-info" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
                 <h3>Who Are <span>We?</span></h3>
                 <p>With expertise and a rich legacy, we stand tall amongst the leading company formation agent the UK. We are a team of experienced individuals working dedicatedly to provideassistance to clients across the globe, helping them facilitate the process of company formation in the UK. Our bouquet of services also deals with providing expert advice on corporate governance, reporting requirements, and more. We help you find effective solutions for your business. Our agenda is to reduce your burden so that you can streamline your business operations and focus on growth.</p>
+                <div class="button">
+                    <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple">Read more </a>
+                </div>
             </div>
             <div class="right-info" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500" data-aos-once="true">
                 <h3>Our <span>Mission</span></h3>
@@ -1107,11 +1126,15 @@
 
         $('#search').click(function() {
             var companyName = $('#company-name').val();
+            if(companyName){
             var searchButton = $(this);
             searchButton.prop('disabled', true).text('Searching...');
 
             // Make the GET request using Axios
+
             searchSubmit(companyName);
+            searchButton.text('Search');
+            }
         });
 
 
@@ -1126,6 +1149,8 @@
                 top: 0,
                 behavior: 'smooth'
             });
+            searchButton.text('Search');
+
         });
     });
 

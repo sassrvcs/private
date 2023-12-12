@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('content')
 
-<section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/compare-packages-banner.png') }}">
+<section class="common-inner-page-banner package_inner_banner" style="background-image: url({{ asset('frontend/assets/images/compare-packages-banner.png') }}">
     <div class="custom-container">
-        <div class="left-info">
+        <!-- <div class="left-info">
             <figure data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <figcaption class="lg">Compare Company <span>Formation Packages</span></figcaption>
             </figure>
@@ -13,9 +13,9 @@
                     <li><a href="{{route('package')}}">Compare Package</a></li>
                 </ul>
            </div>
-        </div>
+        </div> -->
 
-        <div class="call-info" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500"
+        <!-- <div class="call-info" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500"
             data-aos-once="true">
             <div class="icon-container ">
                 <img src="{{ asset('frontend/assets/images/ic_baseline-phone.svg') }}">
@@ -24,7 +24,43 @@
                 <p>Free Consultations 24/7</p>
                 <h4><a href="tel:020 3002 0032">020 3002 0032</a></h4>
             </div>
+        </div> -->
+
+        <div class="package_top_wrap">
+            <div class="namecheck-steps top">
+                <div class="w-layout-grid image-link-box-grid steps">
+                  <div class="container-small step selected">
+                    <img src="{{ asset('frontend/assets/images/company-formation-icon-step-1_1company-formation-icon-step-1.png') }}" loading="lazy" width="54" alt="" class="step-icon">
+                    <div class="step-title">Name Check</div>
+                  </div>
+                  <div class="container-small step">
+                    <img src="{{ asset('frontend/assets/images/company-formation-icon-step-2_1company-formation-icon-step-2.png') }}" loading="lazy" alt="" class="step-icon">
+                    <div class="step-title">Select Pack</div>
+                  </div>
+                  <div class="container-small step">
+                    <img src="{{ asset('frontend/assets/images/company-formation-icon-step-3_1company-formation-icon-step-3.png') }}" loading="lazy" alt="" class="step-icon">
+                    <div class="step-title">Checkout</div>
+                  </div>
+                  <div class="container-small step">
+                    <img src="{{ asset('frontend/assets/images/company-formation-icon-step-4_1company-formation-icon-step-4.png') }}" loading="lazy" alt="" class="step-icon">
+                    <div class="step-title">File Details</div>
+                  </div>
+                </div>
+                <div class="steps-line">
+                    <img src="{{ asset('frontend/assets/images/company-formation-icon-step-line.png') }}" loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 945px) 98vw, 927px" srcset="{{ asset('frontend/assets/images/company-formation-icon-step-line.png') }} 500w, {{ asset('frontend/assets/images/company-formation-icon-step-line.png') }} 927w" alt="">
+                </div>
+            </div>
+
+            <div class="page-title align-center package-steps-bottom">
+                <h5 class="text-white text-center">Rated excellent by our customers on Trustpilot</h5>
+                <div class="tp-stars w-embed">
+                    <img src="{{ asset('frontend/assets/images/5star.png') }}" loading="lazy" alt="" class="5star">
+                    <a class="happy-clients" href="#">Thousands Of Happy Clients!</a>
+                </div>
+                <h1 class="text-white text-center">Choose your company type and formation package below</h1>
+            </div>
         </div>
+
     </div>
 </section>
 <!-- ================ end: common-inner-page-banner ================ -->
@@ -41,7 +77,8 @@
         <div class="sec-title1 text-center">
             <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Compare Packages Starting at <span>£12.99</span></h2>
         </div>
-        <div class="companyFormationPackages-content">
+
+        <div class="companyFormationPackages-content package_page_tab">
             <div class="tab-menus">
                 <ul>
                     <li data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" data-aos-once="true">
@@ -94,7 +131,7 @@
                 </ul>
             </div>
         </div>
-
+        
         <div class="comparePackages-content"  data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
             <table>
                 <thead>
@@ -110,7 +147,7 @@
                         @foreach($packages as $key => $package)
                             <th>
                                 <div class="items-th-info">
-                                    <div class="icon-container ">
+                                    <!-- <div class="icon-container">
                                         <div class="inner-box">
                                             {{-- <img src="{{ asset('frontend/assets/images/companyFormationPackages1.svg') }}"> --}}
                                             @if ($package->getMedia('package_icon')->isNotEmpty())
@@ -120,7 +157,7 @@
                                                 <img src="{{ asset('frontend/assets/images/companyFormationPackages1.svg')}}" alt="Default Image">
                                             @endif
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <h4>{{ $package->package_name }}</h4>
                                     <h2>£{{ $package->package_price }}</h2>
                                     <div class="bottom-actions">
@@ -259,6 +296,8 @@
 <x-company_name_check />
 
 <!-- ================ end: comparePackages-sec ================ -->
+
+
 
 @endsection
 
