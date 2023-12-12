@@ -942,10 +942,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-10 col-sm-12">
+                        <div class="col-md-3 col-sm-12">
                             <div class="form-group">
                                 <label for="effectiveDate">Effective Date</label>
-                                <input type="date" class="form-control" id="effectiveDate" name="effectiveDate">
+                                <input type="date" class="form-control" id="effectiveDate" name="effectiveDate" >
                             </div>
                             <input type="hidden" class="order_id" value="{{ $order_id }}">
                             <input type="hidden" class="service_name" value="Change Registered Office">
@@ -955,7 +955,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="saveChanges"  data-dismiss="modal">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="saveChanges" >Save changes</button>
                     </div>
                 </div>
             </div>
@@ -1197,6 +1197,7 @@
         });
 
         $(document).ready(function () {
+            $("#effectiveDate").keydown(function (event) { event.preventDefault(); });
             $(".addNewAddress").click(function(){
                     // $('.address_type').val('primary_address');
                     $('#addNewAddressModal').modal('show');
@@ -1486,33 +1487,95 @@
                 var changed = $('input[name="changed"]:checked').val();
                 var reasonForChange = $('#reasonForChange').val();
 
-                $.ajax({
-                    type: 'POST',
-                    url: "{!! route('change-accounting-date') !!}",
-                    data: {
-                        '_token':       '{{ csrf_token() }}',
-                        'order_id':     '{{ $order->order_id }}',
-                        'service_name': 'Change Accounting Date',
-                        'slug':         'change-accounting-date',
-                        'currentReferenceDate': currentReferenceDate,
-                        'amendedReferenceDate': amendedReferenceDate,
-                        'changed': changed,
-                        'reasonForChange': reasonForChange,
-                    },
-                    success: function (data) {
-                        $('#openCompanyAccount').modal('hide');
-                        $('#dueDate').text(amendedReferenceDate);
-                        $('#madeUpTo').text(currentReferenceDate);
-                        $('#madeUpToReference').text(currentReferenceDate);
-                        location.reload(true);
-                    },
-                    error: function (xhr, status, error) {
-                        alert('Error updating the date');
-                        console.error(xhr.responseText);
-                    }
-                });
+                if (!currentReferenceDate && !amendedReferenceDate && !changed && !reasonForChange) {
+                    return;
+                }else {
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{!! route('change-accounting-date') !!}",
+                        data: {
+                            '_token':       '{{ csrf_token() }}',
+                            'order_id':     '{{ $order->order_id }}',
+                            'service_name': 'Change Accounting Date',
+                            'slug':         'change-accounting-date',
+                            'currentReferenceDate': currentReferenceDate,
+                            'amendedReferenceDate': amendedReferenceDate,
+                            'changed': changed,
+                            'reasonForChange': reasonForChange,
+                        },
+                        success: function (data) {
+                            $('#openCompanyAccount').modal('hide');
+                            $('#dueDate').text(amendedReferenceDate);
+                            $('#madeUpTo').text(currentReferenceDate);
+                            $('#madeUpToReference').text(currentReferenceDate);
+                            location.reload(true);
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Error updating the date');
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+
             });
         });
+
+        // $(document).ready(function () {
+        //     // Function to check if any of the required fields are empty
+        //     function areFieldsEmpty() {
+        //         var currentReferenceDate = $('#currentReferenceDate').val();
+        //         var amendedReferenceDate = $('#amendedReferenceDate').val();
+        //         var changed = $('input[name="changed"]:checked').val();
+        //         var reasonForChange = $('#reasonForChange').val();
+
+        //         // Check if any of the fields is empty
+        //         return !currentReferenceDate || !amendedReferenceDate || !changed || !reasonForChange;
+        //     }
+
+        //     // Function to enable/disable the "Save changes" button
+        //     function toggleSaveButton() {
+        //         $('#saveCompanyAccount').prop('disabled', areFieldsEmpty());
+        //     }
+
+        //     // Trigger the check when the modal is shown and when any input changes
+        //     $('#openCompanyAccount').on('shown.bs.modal', toggleSaveButton);
+        //     $('#openCompanyAccount input, #openCompanyAccount select').on('input change', toggleSaveButton);
+
+        //     $('#saveCompanyAccount').on('click', function () {
+        //         var currentReferenceDate = $('#currentReferenceDate').val();
+        //         var amendedReferenceDate = $('#amendedReferenceDate').val();
+        //         var changed = $('input[name="changed"]:checked').val();
+        //         var reasonForChange = $('#reasonForChange').val();
+
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: "{!! route('change-accounting-date') !!}",
+        //             data: {
+        //                 '_token':       '{{ csrf_token() }}',
+        //                 'order_id':     '{{ $order->order_id }}',
+        //                 'service_name': 'Change Accounting Date',
+        //                 'slug':         'change-accounting-date',
+        //                 'currentReferenceDate': currentReferenceDate,
+        //                 'amendedReferenceDate': amendedReferenceDate,
+        //                 'changed': changed,
+        //                 'reasonForChange': reasonForChange,
+        //             },
+        //             success: function (data) {
+        //                 $('#openCompanyAccount').modal('hide');
+        //                 $('#dueDate').text(amendedReferenceDate);
+        //                 $('#madeUpTo').text(currentReferenceDate);
+        //                 $('#madeUpToReference').text(currentReferenceDate);
+        //                 location.reload(true);
+        //             },
+        //             error: function (xhr, status, error) {
+        //                 alert('Error updating the date');
+        //                 console.error(xhr.responseText);
+        //             }
+        //         });
+        //     });
+        // });
+
 
     </script>
 @endsection

@@ -987,6 +987,14 @@ class CompaniesListController extends Controller
         $purchase_address = Purchase_address::where('address_type', 'appointment_address')->first();
         $service_address = construct_address($purchase_address->toArray());
         $officer_address = construct_address($officer_details['address']);
+        $billing_address_list = $primary_address_list = Address::join('countries','countries.id','=','addresses.billing_country')
+                            ->select('addresses.house_number','countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+                            ->where('addresses.user_id',Auth::user()->id)
+                            ->orderBy('addresses.id','DESC')
+                            ->distinct()
+                            ->get()
+                            ->toArray();
+
 
         $order_id = $request->order;
 
@@ -995,7 +1003,7 @@ class CompaniesListController extends Controller
         $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
         // $person_appointment = Person_appointment::where('order', $order_id)->where('position', 'LIKE', "%PSC%")->get();
 
-        return view('frontend.companies.edit_company_appointment', compact('countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
+        return view('frontend.companies.edit_company_appointment', compact('billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
     }
 
     public function viewCompanyStatement(Request $request)
@@ -1016,6 +1024,7 @@ class CompaniesListController extends Controller
 
         $user = Auth::user();
         $cart = Cart::where('order_id', $order_id)->where('user_id', $user->id)->get();
+        $order = $this->orderService->getOrder($order_id);
 
         $net_total = $cart->sum('price');
         $vat = $cart->sum('vat');
@@ -1023,7 +1032,7 @@ class CompaniesListController extends Controller
 
 
 
-        return view('frontend.companies.cart', compact('order_id', 'cart','net_total','vat','total_price'));
+        return view('frontend.companies.cart', compact('order_id', 'order', 'cart','net_total','vat','total_price'));
     }
 
     public function cartPay(Request $request){

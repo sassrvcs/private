@@ -37,7 +37,12 @@
 
                     @include('layouts.navbar')
                     <div class="MyAccount-content col-md-12">
-                        <h2>Payment For Order {{ $order_id }}</h2>
+                        <!-- <h2>Payment For Order {{ $order_id }}</h2> -->
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2>Payment For Order {{ $order_id }}</h2>
+                            <a href="{{ route('accepted-company', ['order' => $order_id,'c_id'=>$order->myCompany->id]) }}" class="btn btn-secondary">Back</a>
+                        </div>
+                        
 
                         @if ($cart->count() > 0)
                             <table class="table mt-4">
@@ -109,7 +114,7 @@
 
                                         <tbody>
                                             <tr>
-                                                <td><span class="efInputLabel">Order Description (optional):</span></td>
+                                                <td><span class="efInputLabel">Order Description :</span></td>
                                                 <td><input type="text" placeholder="Required" class="efTextInput form-control" name="order_note" required="required"
                                                        ></td>
                                             </tr>

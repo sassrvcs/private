@@ -399,12 +399,12 @@
 
                                 @endphp
                                 <fieldset class="border p-3">
-                                    <legend class="float-none w-auto p-2">Residential Address</legend>
+                                    <legend class="float-none w-auto p-2">Residential Addressss</legend>
                                     <p>All officers are required under the Companies Act to declare their residential address. This address is held by Companies House but is not made public.<strong>{{@$officer_address}}</strong></p>
 
                                     <div class="mt-2 d-flex">
                                         <button type="button" id="editResidentialAddress" class="theme-btn-primary px-2 py-1 mr-2">Edit</button>
-                                        <button type="button" class="theme-btn-primary px-2 py-1">Choose Address</button>
+                                        <button type="button" id="openResidentModalButton" class="theme-btn-primary px-2 py-1">Choose Address</button>
                                     </div>
                                 </fieldset>
                                 <fieldset class="border p-3">
@@ -417,7 +417,7 @@
                                         </div>
                                         <div class="col-sm-4 d-flex justify-content-between align-items-center">
                                             <p class="m-0">£{{$purchase_address->price}}</p>
-                                            <button type="button" class="theme-btn-primary px-4 py-2">Select</button>
+                                            <button type="button" id="purchaseAddressModal" class="theme-btn-primary px-4 py-2">Select</button>
                                         </div>
                                     </div>
                                     <div class="form-row py-1">
@@ -426,7 +426,7 @@
                                         </div>
                                         <div class="col-sm-4 d-flex justify-content-between align-items-center">
                                             <p class="m-0">{{@$officer_address}}</p>
-                                            <button type="button" class="theme-btn-primary px-4 py-2">Select</button>
+                                            <button type="button" id="freeAddressModal" class="theme-btn-primary px-4 py-2">Select</button>
                                         </div>
                                     </div>
                                     <div class="form-row py-1">
@@ -444,8 +444,7 @@
                                     <p><strong>{{@$appoint_construct_forwarding_address}}</strong></p>
 
                                     <div class="mt-2 d-flex">
-                                        <button type="button" id="editForwardAddress" class="theme-btn-primary px-2 py-1 mr-2">Edit</button>
-                                        <button type="button" class="theme-btn-primary px-2 py-1">Choose Address</button>
+                                        <button type="button" id="openBIllingModalButton" class="theme-btn-primary px-2 py-1">Choose Address</button>
                                     </div>
                                 </fieldset>
 
@@ -473,6 +472,72 @@
                                 </div>
                             </form>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal custom-modal-s1" id="chooseBIllingAddressResidentialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content border-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Choose Address</h5>
+                        <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <h3>Recently Used Addresses</h3>
+                            <div>
+                                @foreach($primary_address_list as $key => $value)
+
+                                    <p>{{$value['house_number'] }}, {{$value['street']}},{{$value['locality']}},{{ $value['town']}}, {{ $value['county']}}</p>
+                                    <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
+                                    <button class="btn btn-primary" data-dismiss="modal" type="button">Select</button>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary addNewAddress" data-dismiss="modal">Add new address</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal custom-modal-s1" id="BIllingAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content border-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Choose Address</h5>
+                        <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="choose_addr">
+                            <h3>Recently Used Addresses</h3>
+                            <div class="current_address_grp">
+                                @foreach($billing_address_list as $key => $value)
+                                <div class="addr_wrap">
+                                    <p>@if($value['house_number']) {{ $value['house_number']}}, @endif @if($value['street']) {{$value['street']}}, @endif @if($value['locality']) {{$value['locality']}}, @endif @if($value['town']) {{ $value['town']}}, @endif {{ $value['county']}}</p>
+                                    <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
+                                </div>
+                                <div class="button_select">
+                                    <input type="hidden" id="bil_house_number" value="{{ $value['house_number']}}">
+                                    <input type="hidden" id="bil_street" value="{{ $value['street']}}">
+                                    <input type="hidden" id="bil_locality" value="{{ $value['locality']}}">
+                                    <input type="hidden" id="bil_town" value="{{ $value['town']}}">
+                                    <input type="hidden" id="bil_county" value="{{ $value['county']}}">
+                                    <input type="hidden" id="bil_post_code" value="{{ $value['post_code']}}">
+                                    <input type="hidden" id="bil_country_name" value="{{ $value['country_name']}}">
+
+                                    <button class="btn btn-primary" data-dismiss="modal" onclick="setAddress({{$value['user_id']}},{{$value['id']}},'billing_address')" type="button">Select</button>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary addbillAddress" data-dismiss="modal">Add new address</button>
                     </div>
                 </div>
             </div>
@@ -567,94 +632,114 @@
             </div>
         </div>
 
-        <!-- Forward Address modal pop up -->
-        <div class="modal custom-modal-s1" id="forwardAddressConfirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+
+       
+
+        <div class="modal custom-modal-s1" id="addNewAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
                 <div class="modal-content border-0">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Edit Address</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">Choose Address</h5>
                         <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
                     </div>
                     <div class="modal-body">
-                        <form class="primaryAddrUpdateForm formInput" id="primeinputs">
+                        <div class="p-3" style="padding-top: 0 !important;">
+                            <div class="form-row form-group">
+                                <label>Post Code:</label>
+                                <div class="input-wrapper with-rg-btn">
+                                    <input type="text" class="form-control" name="post_code" id="post_code">
+                                    <button type="button" class="btn btn-primary" id="findAddress">Find
+                                        Address</button>
+                                </div>
+                                <p class="adderr text-danger"></p>
+                            </div>
+                        <form class="billingAddrUpdateForm formInputModal" >
+                            <div class="form-row form-group ">
+                                <label>House Name / Number: &nbsp;<span class="optional">
+                                    </span>
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" id="house_no" name="house_no" class="input-text form-control house_no" value={{old('house_no')}}>
+                                </span>
+                            </div>
+                            <div class="form-row form-group ">
+                                <label for="billing_title">Street:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="street" id="street" class="input-text form-control steet_no @error('street') is-invalid @enderror" value={{old('street')}}>
+                                </span>
+                                @error('street')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row form-group">
+                                <label for="locality">Locality:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="locality" id="locality" class="input-text form-control locality @error('locality') is-invalid @enderror" value={{old('locality')}}>
+                                </span>
+                                @error('locality')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row form-group">
+                                <label for="town">Town:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="town" id="town" class="input-text form-control town @error('town') is-invalid @enderror" value={{old('town')}}>
+                                </span>
+                                @error('town')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row form-group">
+                                <label for="county">County:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="county" id="county" class="input-text form-control county @error('county') is-invalid @enderror" value="{{ old('county')}}">
+                                </span>
+                                @error('country')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row form-group">
+                                <label for="billing_first_name">Post Code:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="post_code" id="zip" class="input-text form-control zip @error('post_code') is-invalid @enderror" value={{old('post_code')}}>
+                                </span>
+                                @error('post_code')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row update_totals_on_change form-group">
+                                <label for="billing_country">Country&nbsp;</label>
+                                <span class="input-wrapper">
+                                    <select name="billing_country" id="billing_country" name="billing_country" class="contry  @error('billing_country') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
+                                        <option value="">Select a country / region…</option>
+                                        <option value="236" selected>United Kingdom</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{$country->id}}">{{$country->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </span>
+                                @error('billing_country')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <input type="hidden" class="address_type" name="address_type" value="primary_address">
                             <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
-
-
-                            
-
-
-                                <div class="form-row form-group ">
-                                    <label>Name / Number:&nbsp;
-                                        </span>
-                                    </label>
-                                    <span class="input-wrapper">
-                                        <input type="text" id="house_no1" name="house_no" class="input-text form-control house_no" value="{{$appointment_details['forwarding_address']['house_number']}}">
-                                    </span>
-                                </div>
-                                <div class="form-row form-group ">
-                                    <label for="billing_title">Street:&nbsp;
-                                    </label>
-                                    <span class="input-wrapper">
-                                        <input type="text" name="street" id="street1" class="input-text form-control steet_no" value="{{$appointment_details['forwarding_address']['street']}}">
-                                    </span>
-
-                                </div>
-                                <div class="form-row form-group">
-                                    <label for="locality">Locality:
-                                    </label>
-                                    <span class="input-wrapper">
-                                        <input type="text" name="locality" id="locality1" class="input-text form-control locality" value="{{$appointment_details['forwarding_address']['locality']}}">
-                                    </span>
-
-                                </div>
-                                <div class="form-row form-group">
-                                    <label for="town">Town:&nbsp;
-                                    </label>
-                                    <span class="input-wrapper">
-                                        <input type="text" name="town" id="town1" class="input-text form-control town" value="{{$appointment_details['forwarding_address']['town']}}">
-                                    </span>
-
-                                </div>
-                                <div class="form-row form-group">
-                                    <label for="county">County:&nbsp;
-                                    </label>
-                                    <span class="input-wrapper">
-                                        <input type="text" name="county" id="county1" class="input-text form-control county" value="{{$appointment_details['forwarding_address']['county']}}">
-                                    </span>
-
-                                </div>
-                                <div class="form-row form-group">
-                                    <label for="postcode">Post Code:&nbsp;
-                                    </label>
-                                    <span class="input-wrapper">
-                                        <input type="text" name="post_code" class="input-text form-control zip" value="{{$appointment_details['forwarding_address']['post_code']}}">
-                                    </span>
-                                </div>
-                                <div class="form-row update_totals_on_change form-group">
-                                    <label for="billing_country">Country&nbsp;</label>
-                                    <span class="input-wrapper">
-                                        <select name="billing_country" id="billing_country" name="billing_country" class="contry country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
-                                            <option value="">Select a country / region…</option>
-
-                                            @foreach ($countries as $country)
-                                                <option value="{{$country->id}}" {{ ( $country->id == $appointment_details['forwarding_address']['billing_country']) ? 'selected' : '' }}>{{$country->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </span>
-
-                                </div>
-                                <input type="hidden" class="address_type" name="address_type" value="primary_address">
-                                <div class="modal-footer">
-                                    <button type="button" id="primary_submit" class="btn btn-primary billingAddrSubmit" data-dismiss="modal" onclick="editPrimaryAddressfn({{$appointment_details['forwarding_address']['id']}})">Submit Changes</button>
-                                </div>
-                      
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="saveAddr">Submit</button>
+                            </div>
                         </form>
-
                     </div>
 
                 </div>
             </div>
         </div>
+
 
     </section>
 @endsection
@@ -678,10 +763,164 @@
             $('#primaryAddressConfirmModal').modal('show');
         });
 
-        $('#editForwardAddress').click(function(){
-            $('#forwardAddressConfirmModal').modal('show');
+        $("#openResidentModalButton").click(function(){
+            console.log('hi');
+            $('#chooseBIllingAddressResidentialModal').modal('show');
         });
 
+        $(".addNewAddress").click(function(){
+            $('.address_type').val('primary_address');
+            $('#addNewAddressModal').modal('show');
+        });
+        $(".addbillAddress").click(function(){
+            $('.address_type').val('billing_address');
+            $('#addNewAddressModal').modal('show');
+        });
+        $("#openBIllingModalButton").click(function(){
+            $('#BIllingAddressModal').modal('show');
+        });
+        $("#purchaseAddressModal").click(function(){
+            $('#BIllingAddressModal').modal('show');
+        });
+        $("#freeAddressModal").click(function(){
+            $('#BIllingAddressModal').modal('show');
+        });
     });
+
+    $('#findAddress').click(function(){
+        var post_code = $("#post_code").val();
+        if(post_code==""){
+            $('.adderr').html('Please enter zipcode');
+            return false ;
+        }else{
+            $('#zip').val(post_code);
+            $('.adderr').html('');
+        }
+        $('#findAddress').html('Please Wait...');
+        $.ajax({
+            url: "{!! route('find-address') !!}",
+            type: 'GET',
+            data: {
+                post_code: post_code
+            },
+            success: function(result) {
+                console.log('result',result);
+                if(result!=''){
+                    $("#exampleModalCenterAddress").show();
+                    $("#post_address_blk").html(result);
+                    $('#findAddress').html('Find Address');
+
+                }else{
+                    alert('No Record Found! Choose another.');
+                    $('#findAddress').html('Find Address');
+
+                }
+
+            },
+            error: function(){
+                alert('No Record Found! Choose another.');
+                    $('#findAddress').html('Find Address');
+            }
+        });
+    });
+
+    $("#saveAddr").click(function() {
+        $(".loader").show();
+        // Validation
+        $(".formInputModal").each(function() {
+            var number   = $(this).find(".house_no").val();
+            var steet    = $(this).find(".steet_no").val();
+            var locality = $(this).find(".locality").val();
+            var town     = $(this).find(".town").val();
+            var county   = $(this).find(".county").val();
+            if(county==undefined){
+                county ="";
+            }
+
+            var postcode = $(this).find(".zip").val();
+            var contry   = $(this).find(".contry").val();
+            var address_type = $(this).find(".address_type").val();
+            var user_id   = $(this).find(".user_id").val();
+            //alert(number+steet+locality+town+postcode+contry+address_type+user_id);
+            if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
+                //alert(number+"---"+address_type);
+                $.ajax({
+                    url: "{!! route('new-address-save') !!}",
+                    type: 'POST',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        number: number,
+                        steet:steet,
+                        locality:locality,
+                        town:town,
+                        county:county,
+                        postcode:postcode,
+                        contry:contry,
+                        address_type:address_type,
+                        user_id:user_id
+                    },
+                    success: function(result) {
+                    $("#addNewAddressModal").modal('hide');
+                    setTimeout(function () {
+                        $(".loader").hide();
+                        location.reload(true);
+                    }, 2500);
+                    }
+                });
+            }
+
+        });
+    });
+
+    function editPrimaryAddressfn(address_id){
+            $(".loader").show();
+            // Validation
+            $("#primeinputs").each(function() {
+                var number   = $(this).find(".house_no").val();
+                var steet    = $(this).find(".steet_no").val();
+                var locality = $(this).find(".locality").val();
+                var town     = $(this).find(".town").val();
+                var county   = $(this).find(".county").val();
+                if(county==undefined){
+                    county = "";
+                }
+                var postcode = $(this).find(".zip").val();
+                var contry   = $(this).find(".contry").val();
+                var address_type = $(this).find(".address_type").val();
+                var user_id   = $(this).find(".user_id").val();
+                
+
+                if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
+                    //alert(number+"---"+address_type);
+                    $.ajax({
+                        url: "{!! route('primary-address-save') !!}",
+                        type: 'POST',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            number: number,
+                            steet:steet,
+                            locality:locality,
+                            town:town,
+                            county:county,
+                            postcode:postcode,
+                            contry:contry,
+                            address_type:address_type,
+                            user_id:user_id,
+                            address_id:address_id
+                        },
+                        success: function(result) {
+
+                        $("#primaryAddressConfirmModal").modal('hide');
+                        setTimeout(function () {
+                            $(".loader").hide();
+                            location.reload(true);
+                        }, 2500);
+                        }
+                    });
+                }
+
+            });
+    };
+
 </script>
 @endsection
