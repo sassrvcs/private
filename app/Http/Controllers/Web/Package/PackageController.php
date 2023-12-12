@@ -267,6 +267,8 @@ class PackageController extends Controller
 
             if($package_name == "renewals")
             {
+                $aditional_services_section = ModelsAddonservice::with('features')->whereNot('slug', 'like', "%{$package_name}%")->whereNotIn('price',['0.00','0','0.0'])->get();
+
                 return view('frontend.service.renewals',compact('services', 'features','businessdata','accounting','full_sec_price','package_name','aditional_services_section','faqs'));
             }
             return view('frontend.service.service',compact('services', 'features','businessdata','accounting','full_sec_price','package_name','aditional_services_section','faqs'));
