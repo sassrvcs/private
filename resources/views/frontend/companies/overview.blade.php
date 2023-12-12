@@ -1521,6 +1521,15 @@
             });
         });
 
+        function selectPostalAddrApp(val){
+            var value = val.split(',');
+            $("#house_no").val(value[0]);
+            $("#street").val(value[1]);
+            $("#locality").val(value[2]);
+            $("#town").val(value[3]);
+            $("#exampleModalCenterAddress").hide();
+        }
+
         // $(document).ready(function () {
         //     // Function to check if any of the required fields are empty
         //     function areFieldsEmpty() {
