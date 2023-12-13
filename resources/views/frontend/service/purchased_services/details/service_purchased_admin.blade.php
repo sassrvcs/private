@@ -44,6 +44,9 @@
                     @if ($slug=="full-company-secretary-service")
                              @include('frontend.service.purchased_services.details.fullSecraryService')
                     @endif
+                    @if ($slug=="business-mailing-address-service")
+                            @include('frontend.service.purchased_services.details.businessMailForwardingAddress')
+                    @endif
                     @if ($slug=="issue-of-share-services" || $slug=="transfer-of-share-services")
                              @include('frontend.service.purchased_services.details.issueOfShareServices')
                     @endif

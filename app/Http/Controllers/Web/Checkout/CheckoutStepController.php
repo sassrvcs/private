@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Checkout;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Checkout\CheckoutStepRequest;
+use App\Mail\CustomPaymentMail;
 use App\Mail\FinalSubmitMail;
 use App\Services\Addon\AddonService;
 use App\Services\Cart\CartService;
@@ -29,6 +30,7 @@ use App\Services\Company\BusinessEssentialSteps\BusinessEssentialsService;
 use PDF;
 use App\Models\Address;
 use App\Models\Companie;
+use App\Models\Custom_payment;
 use App\Models\purchaseAddressCart;
 use Redirect;
 use DB;
@@ -195,6 +197,43 @@ class CheckoutStepController extends Controller
             'order_id' => $order,
             'total_amount' => $request->total_amount,
             'accept_url' => route('service-payment-success'),
+        ];
+        return $this->ProcessPayment($request,$details);
+    }
+    public function custom_payment(Request $request){
+
+        $request->validate([
+            'custom_payment_name'=>'required',
+            'custom_payment_email'=>'required|email',
+            'custom_payment_amount'=>'required|numeric|gt:0',
+        ],[
+            'custom_payment_name.required'=>'Name is required',
+            'custom_payment_email.required'=>'Email is required',
+            'custom_payment_amount.required'=>'Amount is required',
+            'custom_payment_amount.gt' => 'The Amount field must be a positive value.',
+        ]);
+
+        //service payment
+        $order_id = $this->generateCustomPayOrderID();
+        $order = $order_id.'/'.uniqid().Str::random(10);
+        $user_id= null;
+        if (auth()->check()){
+            $user_id= auth()->user()->id;
+        }
+        // dd($request->all());
+        Custom_payment::create([
+            'name'=>$request->custom_payment_name,
+            'email'=>$request->custom_payment_email,
+            'order_id' =>$order_id,
+            'user_id' => $user_id,
+            'amount' => $request->custom_payment_amount,
+            'custom_payment_status'=>0,
+
+        ]);
+        $details = [
+            'order_id' => $order,
+            'total_amount' => $request->custom_payment_amount,
+            'accept_url' => route('custom-payment-success'),
         ];
         return $this->ProcessPayment($request,$details);
     }
@@ -379,5 +418,68 @@ class CheckoutStepController extends Controller
 
         // return view('frontend.checkout_steps.search_compant', compact('sessionCart'));
         return Redirect::back();
+    }
+    public function custom_payment_success(Request $request)
+    {
+        $order_arr = explode('/',$request->query('orderID'));
+        $order_id =$order_arr[0];
+
+        $order_transaction = Custom_payment::where('order_id',$order_id)->first();
+
+        if ($order_transaction) {
+            if($order_transaction->custom_payment_status==0)
+            {
+           $update =  Custom_payment::where('order_id',$order_id)->update([
+                'uuid' =>$request->query('orderID'),
+                'status'=>$request->query('STATUS'),
+                'PAYID'=>$request->query('PAYID'),
+                'ACCEPTANCE'=>$request->query('ACCEPTANCE'),
+                'SHASIGN'=>$request->query('SHASIGN'),
+                'custom_payment_status'=>1
+
+            ]);
+            }
+            // if ($update) {
+                // $userDetails = (Auth::user());
+                // $filename = 'Invoice'.uniqid().Str::random(10).'.pdf';
+
+                // $name = "Myname";
+                // $pdf = $this->purchasedServiceInvoice($id=null,$order_transaction->id);
+                // $filePath = storage_path('app/public/attachments/'.$filename);
+                // file_put_contents($filePath, $pdf );
+                // // dd($filePath);
+                try {
+                    $user_mail = ['name'=>$order_transaction->name,'refId'=>$request->query('PAYID'),'amount'=>$order_transaction->amount];
+                    $admin_mail = ['name'=>'Admin','refId'=>$request->query('PAYID'),'amount'=>$order_transaction->amount];
+                    // $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
+                    $status =  Mail::to($order_transaction->email)->send(new CustomPaymentMail ($user_mail));
+                    $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CustomPaymentMail ($admin_mail));
+
+                 } catch (\Throwable $th) {
+                    //  throw $th;
+                 }
+                return view('frontend.payment_getway.success');
+
+            // }else{
+            //     echo "problem occur,please contact admin";
+            // }
+        }
+
+
+
+
+    }
+    public function generateCustomPayOrderID()
+    {
+        // $orderId = date('ims')-rand(10,99);
+       list($usec, $sec) = explode(" ", microtime());
+        $id =  ($usec+$sec);
+        $id = explode(".", $id);
+        $orderId = @$id[0].@$id[1];
+        $dupOrder = Custom_payment::where('order_id', $orderId)->first();
+        if ($dupOrder) {
+            $this->generateCustomPayOrderID();
+        }
+        return $orderId;
     }
 }

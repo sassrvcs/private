@@ -151,7 +151,7 @@
             <div class="right-info" >
                 <ul class="footer-social-icons">
                     <li>
-                        <a href="#">
+                        <a href="#" data-toggle="modal" data-target="#custom_payment_modal" id="open_custom_payment_modal">
                             <img src="{{ asset('frontend/assets/images/social-icon1.svg')}}">
                         </a>
                     </li>
@@ -185,6 +185,7 @@
         </div>
     </div>
 </div>
+<x-custom_payment_modal></x-custom_payment_modal>
 <!-- ================ end: main-footer ================ -->
 
 <!-- =============== all scripts =============== -->

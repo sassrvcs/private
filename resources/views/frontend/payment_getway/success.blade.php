@@ -11,10 +11,13 @@
           <h2>Thank You!</h2>
           <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, vero dolorum fugit consectetur vel debitis laborum incidunt harum quis cum tempora dolorem reiciendis, possimus praesentium id quas ut assumenda. Vitae.</p>
           @php
+                $route = route('companies-list');
+
               if (Route::is('service-payment-success')) {
                 $route = route('purchased-service-list');
-              }else{
-                $route = route('companies-list');
+              }
+              if (Route::is('custom-payment-success')) {
+                $route = route('index');
               }
           @endphp
           <a href="{{$route}}" id="home">Home</a>
