@@ -981,6 +981,7 @@ class CompaniesListController extends Controller
         $appointment_details = Person_appointment::with('forwarding_address')->with('own_address')->where('id', $appointment_id)->get()->first()->toArray();
         // return $appointment_details['position'];
         $countries = Country::all();
+        $company_type  = Companie::where('order_id', $_GET['order'])->pluck('companie_type')->first();
         $positionArray = explode(', ', $appointment_details['position']);
         $nationalities = Nationality::all()->sortBy('name')->toArray();
         $officer_details = PersonOfficer::with('address')->where('id', $appointment_details['person_officer_id'])->get()->first()->toArray();
@@ -1003,7 +1004,7 @@ class CompaniesListController extends Controller
         $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
         // $person_appointment = Person_appointment::where('order', $order_id)->where('position', 'LIKE', "%PSC%")->get();
 
-        return view('frontend.companies.edit_company_appointment', compact('billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
+        return view('frontend.companies.edit_company_appointment', compact('company_type','billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
     }
 
     public function viewCompanyStatement(Request $request)
