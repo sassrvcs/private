@@ -451,7 +451,7 @@ class PackageController extends Controller
         if($slug=="business-mailing-address-service")
         {
             $prices = ['business_mailing_address_price'=>$get_price];
-            $address = Purchase_address::where('address_type','registered_address')->first();
+            $address = Purchase_address::where('address_type','business_address')->first();
             return view('frontend.service.load_services.business-mail-forwarding-address',compact('countries','slug','id','prices','service_name','address'));
         }
         return redirect('/404');
