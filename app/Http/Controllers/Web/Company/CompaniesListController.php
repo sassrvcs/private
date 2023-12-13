@@ -1007,6 +1007,11 @@ class CompaniesListController extends Controller
         return view('frontend.companies.edit_company_appointment', compact('company_type','billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
     }
 
+    public function saveCompanyAppointment(Request $request)
+    {
+        return $request->all();
+        
+    }
     public function viewCompanyStatement(Request $request)
     {
         $order_id = $request->order;

@@ -161,6 +161,7 @@ Route::post('import-companies/add', [CompaniesListController::class,'importCompa
 Route::post('edit-auth-code', [CompaniesListController::class,'editAuthCode'])->middleware('auth')->name('edit-auth-code');
 Route::post('edit-companies-service', [CompaniesListController::class,'editCompanyServiceInCart'])->middleware('auth')->name('edit-companies-service');
 Route::get('edit-companies-appointment', [CompaniesListController::class,'editCompanyAppointment'])->middleware('auth')->name('edit-companies-appointment');
+Route::post('save-companies-appointment', [CompaniesListController::class,'saveCompanyAppointment'])->middleware('auth')->name('save-companies-appointment');
 Route::post('edit-companies-nameChange-service', [CompaniesListController::class,'editCompanyNameChangeServiceInCart'])->middleware('auth')->name('edit-nameChange-companies-service');
 Route::post('change-accounting-date', [CompaniesListController::class,'changeAccountingReferenceDateInCart'])->middleware('auth')->name('change-accounting-date');
 Route::get('companies-statement', [CompaniesListController::class, 'viewCompanyStatement'])->middleware('auth')->name('companies-statement');

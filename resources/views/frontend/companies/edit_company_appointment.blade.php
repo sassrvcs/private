@@ -103,7 +103,7 @@
                                                             alt="" id="director_i"></span></label>
                                                 
                                             </li>
-                                            <li class="{{ $company_type == 'Limited By Shares' || $company_type == 'Public Limited Company' ? '' : 'd-none'}} {{$company_type=="Limited Liability Partnership"?'d-none':''}}">
+                                            <li class="d-none {{ $company_type == 'Limited By Shares' || $company_type == 'Public Limited Company' ? '' : 'd-none'}} {{$company_type=="Limited Liability Partnership"?'d-none':''}}">
                                                 <input type="checkbox" @if (in_array("Shareholder", $positions))checked
                                                 @endif class="checkBoxPos"
                                                     value="Shareholder" id="shareholder"
@@ -907,6 +907,7 @@
                                         </div>
                                         <div class="col-sm-4 d-flex justify-content-between align-items-center">
                                             <p class="m-0">£{{$purchase_address->price}}</p>
+                                            <input type="hidden" class="price" value="{{$purchase_address->price}}">
                                             <button type="button" id="purchaseAddressModal" class="theme-btn-primary px-4 py-2">Select</button>
                                         </div>
                                     </div>
@@ -966,7 +967,7 @@
 
                                 <div class="mb-3 d-flex justify-content-between align-items-center">
                                     <button type="submit" class="btn btn-primary">Cancel</button>
-                                    <button type="submit" class="btn btn-primary update-btn">Update Details</button>
+                                    <button type="submit" class="btn btn-primary update-apt-btn ">Update Details</button>
                                 </div>
                             </form>
                         </div>
@@ -1029,6 +1030,7 @@
                                 </div>
                                 <div class="button_select">
                                     <input type="hidden" class="address-house-id" value="{{ $value['id']}}">
+                                    <input type="hidden" class="address-house-price" value="">
                                     <input type="hidden" class="address-house-number" value="{{ $value['house_number']}}">
                                     <input type="hidden" class="address-street" value="{{ $value['street']}}">
                                     <input type="hidden" class="address-locality" value="{{ $value['locality']}}">
@@ -1044,7 +1046,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary addbillAddress" data-dismiss="modal">Add new address</button>
+                        <button type="button" class="btn btn-primary addBillAddress" data-dismiss="modal">Add new address</button>
                     </div>
                 </div>
             </div>
@@ -1342,7 +1344,7 @@
                             <input type="hidden" class="address_type" name="address_type" value="billing_address">
                             <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="saveBillAddr">Submit</button>
+                                <button type="button" class="btn btn-primary" id="billingAddressSave">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -1350,6 +1352,110 @@
                 </div>
             </div>
         </div>
+
+        <!-- <div class="modal custom-modal-s1" id="AddNewBillAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content border-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Choose Address</h5>
+                        <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="p-3" style="padding-top: 0 !important;">
+                            <div class="form-row form-group">
+                                <label>Post Code:</label>
+                                <div class="input-wrapper with-rg-btn">
+                                    <input type="text" class="form-control" name="post_code" id="post_code">
+                                    <button type="button" class="btn btn-primary" id="findAddress">Find
+                                        Address</button>
+                                </div>
+                                <p class="adderr text-danger"></p>
+                            </div>
+                        <form class="billingAddrUpdateForm formInputModal" >
+                            <div class="form-row form-group ">
+                                <label>House Name / Number: &nbsp;<span class="optional">
+                                    </span>
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" id="house_no" name="house_no" class="input-text form-control house_no" value={{old('house_no')}}>
+                                </span>
+                            </div>
+                            <div class="form-row form-group ">
+                                <label for="billing_title">Street:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="street" id="street" class="input-text form-control steet_no @error('street') is-invalid @enderror" value={{old('street')}}>
+                                </span>
+                                @error('street')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row form-group">
+                                <label for="locality">Locality:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="locality" id="locality" class="input-text form-control locality @error('locality') is-invalid @enderror" value={{old('locality')}}>
+                                </span>
+                                @error('locality')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row form-group">
+                                <label for="town">Town:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="town" id="town" class="input-text form-control town @error('town') is-invalid @enderror" value={{old('town')}}>
+                                </span>
+                                @error('town')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row form-group">
+                                <label for="county">County:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="county" id="county" class="input-text form-control county @error('county') is-invalid @enderror" value="{{ old('county')}}">
+                                </span>
+                                @error('country')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row form-group">
+                                <label for="billing_first_name">Post Code:&nbsp;
+                                </label>
+                                <span class="input-wrapper">
+                                    <input type="text" name="post_code" id="zip" class="input-text form-control zip @error('post_code') is-invalid @enderror" value={{old('post_code')}}>
+                                </span>
+                                @error('post_code')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-row update_totals_on_change form-group">
+                                <label for="billing_country">Country&nbsp;</label>
+                                <span class="input-wrapper">
+                                    <select name="billing_country" id="billing_country" name="billing_country" class="contry  @error('billing_country') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
+                                        <option value="">Select a country / region…</option>
+                                        <option value="236" selected>United Kingdom</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{$country->id}}">{{$country->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </span>
+                                @error('billing_country')
+                                    <div class="error" style="color:red;">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <input type="hidden" class="address_type" name="address_type" value="billing_address">
+                            <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="saveBillAddr">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div> -->
 
         <input type="hidden" id="f_radio_check_id" value="{{$put_fci_val}}" readonly>
         <input type="hidden" id="s_radio_check_id" value="{{$put_tci_val}}" readonly>
@@ -1537,18 +1643,26 @@
             $('.address_type').val('primary_address');
             $('#addNewAddressModal').modal('show');
         });
-        $(".addbillAddress").click(function(){
-            $('.address_type').val('billing_address');
-            $('#addNewAddressModal').modal('show');
+        $(".addBillAddress").click(function(){
+            console.log('demoo');
+            $('#addNewBillAddressModal').modal('show');
         });
         $("#openBIllingModalButton").click(function(){
+            $('.price').val('');
             $('#BIllingAddressModal').modal('show');
+            $('.address-house-price').val('');
+
         });
         $("#purchaseAddressModal").click(function(){
+            var price = @json($purchase_address->price);
+            $('.address-house-price').val(price);
             $('#BIllingAddressModal').modal('show');
         });
         $("#freeAddressModal").click(function(){
+            $('.price').val('');
             $('#BIllingAddressModal').modal('show');
+            $('.address-house-price').val('');
+
         });
     });
 
@@ -1623,7 +1737,8 @@
             town: $(this).siblings('.address-town').val(),
             county: $(this).siblings('.address-county').val(),
             postCode: $(this).siblings('.address-post-code').val(),
-            countryName: $(this).siblings('.address-country-name').val()
+            countryName: $(this).siblings('.address-country-name').val(),
+            price: $(this).siblings('.price').val()
         };
 
         var addressText = `${selectedAddressDetails.houseNumber ? selectedAddressDetails.houseNumber + ',' : ''}
@@ -1633,9 +1748,9 @@
                         ${selectedAddressDetails.county}
                         ${selectedAddressDetails.countryName ? ',' + selectedAddressDetails.countryName : ''}
                         ${selectedAddressDetails.postCode}`;
-
+        console.log('price', selectedAddressDetails.price);
         $(".104_add_id").val(selectedAddressDetails.id);
-        $(".price").val('');
+        $(".price").val(selectedAddressDetails.price);
 
         $('#selectedForwardAddressDisplay').text(addressText);
     });
@@ -1795,7 +1910,7 @@
                         user_id:user_id
                     },
                     success: function(result) {
-                        console.log(result);
+                        console.log('demo-result',result);
                         // Access the saved address data
                         var savedAddress = result.address;
                         // Update the HTML elements in the new-address-section with the received data
@@ -1819,7 +1934,7 @@
                         $(".104_address_post_code").val(savedAddress.post_code);
                         $(".104_address_billing_country").val(savedAddress.billing_country);
                         $(".price").val('');
-                        $("#addNewBillAddressModal").modal('hide');
+                        $("#AddNewBillAddressModal").modal('hide');
                     // setTimeout(function () {
                     //     $(".loader").hide();
                     //     location.reload(true);
@@ -1890,5 +2005,25 @@
             });
     };
 
+</script>
+<script>
+    $(document).ready(function () {
+        $('.update-apt-btn').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: "{!! route('save-companies-appointment') !!}",
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
 </script>
 @endsection
