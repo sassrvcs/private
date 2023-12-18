@@ -1009,8 +1009,215 @@ class CompaniesListController extends Controller
 
     public function saveCompanyAppointment(Request $request)
     {
-        return $request->all();
-        
+
+        // dd(  $request->all());
+        $user = Auth::user();
+        $same_as_reg_add = $request->same_reg_add;
+        if($same_as_reg_add!='0'){ // if service address(also known as appointmentaddress/director address) is same as office registration address then pull the data from companie table
+            // dd('yes');
+            $service_add = Companie::where('id',$request->c_id)->first();
+            $service_add_without_forwarding = $service_add->officeAddressWithoutForwAddress;
+            $service_add_with_forwarding = $service_add->officeAddressWithForwAddress;
+            if($service_add_without_forwarding!=null)
+            {
+                $service_add_without_forwarding_id = $service_add_without_forwarding->id;
+            }else{
+                $service_add_without_forwarding_id = null;
+            }
+            if($service_add_with_forwarding!=null)
+            {
+                $service_add_with_forwarding_id = $service_add_with_forwarding->id;
+            }else{
+                $service_add_with_forwarding_id = null;
+            }
+        }else{
+            $service_add_without_forwarding_id = $request->service_own_add;
+            $service_add_with_forwarding_id = $request->service_fwd_add;
+        }
+        try{
+        $person_update = PersonOfficer::where('id', $request->officer_id)->update([
+            'title' => $request->officer_title,
+            'dob_day' => $request->officer_dob,
+            'first_name' => $request->officer_fName,
+            'nationality' => $request->person_national,
+            'last_name' => $request->officer_lName,
+            'occupation' => $request->officer_occupation,
+            'add_id' => $request->residential_add,
+        ]);
+
+        $officer_name =  $request->officer_title.' '.$request->officer_fName.' '.$request->officer_lName;
+        if(stripos($request->fci,'no')!==false){
+            $fci_appoint = null;
+            $fci_others = null;
+            $fci_vr = null;
+            $fci_os = null;
+        }else{
+            $fci_appoint = $request->fci_appoint;
+            $fci_others = $request->fci_others;
+            $fci_vr = $request->fci_vr;
+            $fci_os = $request->fci_os;
+        }
+        if(stripos($request->tci,'no')!==false){
+            $tci_appoint = null;
+            $tci_others = null;
+            $tci_vr = null;
+            $tci_os = null;
+        }else{
+            $tci_appoint = $request->tci_appoint;
+            $tci_others = $request->tci_others;
+            $tci_vr = $request->tci_vr;
+            $tci_os = $request->tci_os;
+        }
+        $postionString = implode(', ', $request->position);
+        // dd($postionString);
+        $appointment_updated = Person_appointment::where('id', $request->appointment_id)->update([
+            'own_address_id' => $service_add_without_forwarding_id,
+            'forwarding_address_id' => $service_add_with_forwarding_id,
+            'position' => $postionString,
+            'noc_appoint' => $request->noc_appoint,
+            'noc_os' => $request->noc_os,
+            'noc_vr' => $request->noc_vr,
+            'noc_others' => $request->noc_others,
+            'fci_appoint' => $fci_appoint,
+            'fci' => $request->f_radio_check_id,
+            'fci_os' => $fci_os,
+            'fci_vr' => $fci_vr,
+            'fci_others' => $fci_others,
+            'tci' => $request->s_radio_check_id,
+            'tci_os' => $tci_os,
+            'tci_vr' => $tci_vr,
+            'tci_appoint' =>$tci_appoint,
+            'tci_others' => $tci_others,
+            'appointment_type' => $request->appointment_type
+        ]);
+
+        $service_address_purchased = $request->address_house_price;
+        if ($request->address_house_price != null) {
+            //add to cart the service address with price
+            $cart = Cart::updateOrCreate(
+                ['user_id' => $user->id, 'slug' => 'purchase_appointment_address','appointment_id' => $request->appointment_id],
+                [
+                    'service_name' => 'Purchase Service Address('. $officer_name .')',
+                    'order_id' => $request->company_order_id,
+                    'price' => $request->address_house_price,
+                    'vat' => $request->address_house_price * 0.20,
+                ]
+            );
+        }
+        $section_change_string = '';
+        $section_change_string = $this->appointmentEditChangesString($request);
+
+        // if($notification_date_entry!=0)
+        // {
+        //     $section_change_string = $section_change_string.'notification date entry, ';
+        //     //add to cart that something changed in notification date entry section
+        // }
+        if($section_change_string!='')
+        {
+            $edit_exists = Cart::where('user_id', $user->id)->where('user_id' , $user->id)->where('slug', 'appointment_edit_changes')->where('appointment_id', $request->appointment_id)->first();
+            $changesMadePosition=$request->changesMadePosition;
+            $personalDetailsChanges=$request->personalDetailsChanges;
+            $natureOfControlChanges=$request->natureOfControlChanges;
+            $residentAddressChanges=$request->residentAddressChanges;
+            $forwardAddressChanges=$request->forwardAddressChanges;
+            $notificationDateChanges=$request->notificationDateChanges;
+            if($edit_exists)
+            {
+                $exists_data = json_decode($edit_exists->data);
+                $changesMadePosition = $exists_data->changesMadePosition!=0?$exists_data->changesMadePosition:$request->changesMadePosition;
+                $personalDetailsChanges = $exists_data->personalDetailsChanges!=0?$exists_data->personalDetailsChanges:$request->personalDetailsChanges;
+                $natureOfControlChanges = $exists_data->natureOfControlChanges!=0?$exists_data->natureOfControlChanges:$request->natureOfControlChanges;
+                $residentAddressChanges = $exists_data->residentAddressChanges!=0?$exists_data->residentAddressChanges:$request->residentAddressChanges;
+                $forwardAddressChanges = $exists_data->forwardAddressChanges!=0?$exists_data->forwardAddressChanges:$request->forwardAddressChanges;
+                $notificationDateChanges = $exists_data->notificationDateChanges!=0?$exists_data->notificationDateChanges:$request->notificationDateChanges;
+            }
+            $cart = Cart::UpdateOrCreate(
+                ['user_id' => $user->id, 'slug' => 'appointment_edit_changes','appointment_id'=>$request->appointment_id],
+                [
+                    'user_id' => $user->id,
+                    'service_name' => 'Officer Appointment Change('. $officer_name .')',
+                    'slug'=>'appointment_edit_changes',
+                    'order_id' => $request->company_order_id,
+                    'price' => 0,
+                    'vat' => 0,
+                    'appointment_id'=>$request->appointment_id,
+                    'data'=>json_encode([
+                        'section_change_string' => $section_change_string,
+                        'officer_id' => $request->officer_id,
+                        'appointment_id'=>$request->appointment_id,
+                        'appointment_type'=>$request->appointment_type,
+                        'changesMadePosition'=>$changesMadePosition,
+                        'personalDetailsChanges'=>$personalDetailsChanges,
+                        'natureOfControlChanges'=>$natureOfControlChanges,
+                        'residentAddressChanges'=>$residentAddressChanges,
+                        'forwardAddressChanges'=>$forwardAddressChanges,
+                        'notificationDateChanges'=>$notificationDateChanges,
+                        'notification_date'=> $request->notificationDate,
+                        'register_entry_date'=>$request->registerEntryDate
+                    ])
+                ]
+            );
+            return redirect()->route('accepted-company',['order'=>$request->company_order_id,'c_id'=>$request->c_id])->with('success', 'Added to cart');
+        }
+
+        return redirect()->route('accepted-company',['order'=>$request->company_order_id,'c_id'=>$request->c_id])->with('success', 'Appointment Updated Successfully');
+
+    }catch (\Exception $e) {
+        // dd($e);
+        return back()->with('error', 'Something went wrong!');
+
+    }
+        //    return $request->all();
+
+    }
+    public function editCompanyMailNotification()
+    {
+        $purchase_address = Purchase_address::all();
+        $cart_items = Cart::where('user_id', auth()->user()->id)->where('order_id', '17025397833858')->get();
+        return view('frontend.mail.editCompanyMailToAdmin',compact('cart_items','purchase_address'));
+    }
+    public function appointmentEditChangesString($request)
+    {
+        $position_section = $request->changesMadePosition;
+        $personal_details_section = $request->personalDetailsChanges;
+        $nature_of_control_section = $request->natureOfControlChanges;
+        $residential_address_section = $request->residentAddressChanges;
+        $service_address_section = $request->forwardAddressChanges;
+        $notification_date_entry = $request->notificationDateChanges;
+        $section_change_string = '';
+        if($position_section!=0)
+        {
+            $section_change_string = 'position, ';
+            //add to cart that something changed in position section,
+        }
+        if($personal_details_section!=0)
+        {
+            $section_change_string = $section_change_string.'personal details, ';
+            //add to cart that something changed in personal details section
+        }
+        if($nature_of_control_section!=0)
+        {
+            $section_change_string = $section_change_string.'nature of control, ';
+            //add to cart that something changed in nature of control section
+        }
+        if($residential_address_section!=0)
+        {
+            $section_change_string = $section_change_string.'residential address, ';
+            //add to cart that something changed in residential address section
+        }
+        if($service_address_section!=0)
+        {
+
+            $same_as_reg_add = $request->same_reg_add;
+            if ($same_as_reg_add !=0) {
+                //add to cart that address is same as reg address
+                $section_change_string= $section_change_string.'service address (Make service address same as registration address), ';
+            }else{
+                $section_change_string = $section_change_string.'service address, ';
+            }
+            //add to cart that something changed in service address section
+        }
+        return $section_change_string;
     }
     public function viewCompanyStatement(Request $request)
     {

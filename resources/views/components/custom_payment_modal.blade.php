@@ -1,4 +1,4 @@
-@if ($errors->count() > 0)
+@if ($errors->has('custom_payment_amount') || $errors->has('custom_payment_name') || $errors->has('custom_payment_email') || $errors->has('custom_payment_amount'))
 <div class="modal fade show" id="custom_payment_modal" tabindex="-1" role="" aria-labelledby="exampleModalCenterTitle" style="padding-right: 17px; display: block;" aria-modal="true">
 @else
 <div class="modal fade" id="custom_payment_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

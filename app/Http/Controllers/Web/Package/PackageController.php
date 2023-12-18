@@ -271,6 +271,11 @@ class PackageController extends Controller
 
                 return view('frontend.service.renewals',compact('services', 'features','businessdata','accounting','full_sec_price','package_name','aditional_services_section','faqs'));
             }
+
+            if($package_name == "barclays-bank-account" || $package_name == "cashplus-business-account" || $package_name == "wise-business-account-for-non-uk-residents" ||$package_name == "payoneer-business-account-for-non-uk-residents" ||$package_name == "barclays-bank-account" || $package_name == "anna-money-for-small-business" || $package_name == "card-one-business-account" )
+            {
+                return view('frontend.service.bank_service',compact('services', 'features','businessdata','accounting','full_sec_price','package_name','aditional_services_section','faqs'));
+            }
             return view('frontend.service.service',compact('services', 'features','businessdata','accounting','full_sec_price','package_name','aditional_services_section','faqs'));
 
     }
@@ -451,7 +456,7 @@ class PackageController extends Controller
         if($slug=="business-mailing-address-service")
         {
             $prices = ['business_mailing_address_price'=>$get_price];
-            $address = Purchase_address::where('address_type','registered_address')->first();
+            $address = Purchase_address::where('address_type','business_address')->first();
             return view('frontend.service.load_services.business-mail-forwarding-address',compact('countries','slug','id','prices','service_name','address'));
         }
         return redirect('/404');

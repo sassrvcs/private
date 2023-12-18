@@ -319,6 +319,9 @@
         <div class="sec-title1 text-center">
             <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Company <span>Formation Packages</span></h2>
         </div>
+        <div class="col-md-12 text-center all_card">
+            <img src="{{ asset('frontend/assets/images/all-card.jpg')}}">
+        </div>
         <div class="companyFormationPackages-content">
             <div class="tab-menus">
                 <ul>
@@ -346,7 +349,10 @@
                 @foreach($packages as $key => $package)
                 <div class="cfp-list-col" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000" data-aos-once="true">
                     <div class="cfp-list-box {{$package->package_name==" Digital"?'active':''}}">
-
+                        <div class="home-packages__special-offer">
+                            <span>Special Offer</span>
+                        </div>
+                        <span class="top_round"><img src="{{ asset('frontend/assets/images/tab-menus-active-arow.svg')}}"></span>
                         <div class="text-info1">
                             <h4>{{ $package->package_name }}</h4>
                             <h3>£{{ $package->package_price }}</h3>
@@ -395,6 +401,63 @@
             </div>
             <div class="compare-actions" data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" data-aos-once="true">
                 <a href="{{ route('package') }}" class="theme-btn-darkBlue compare-btn">Compare All Packages</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="companyFormationPackages-sec contact_new_bg">
+    <div class="custom-container">
+        <div class="companyFormationPackages-content">
+            <div class="prefer-to-order-by-telephone-sec pt-0">
+                <div class="custom-container d-blok">
+                    <div class="row">
+                        <div class="col-md-6 contact_new_box">
+                            <div class="col-md-10">
+                                <h2><b>Comprehensive Payment Security</b></h2>
+                                <p>Selecting FormationsHunt means choosing unparalleled security for your transactions. We proudly accept all major payment methods, ensuring flexibility for your convenience. The data we collect about you is protected with the utmost care. Unlike others, we don't store or collect your payment details.</p>
+                                <p>Relax with confidence, knowing that your information is securely transferred to our reliable third-party payment processors. These partners strictly adhere to the rigorous standards established by the PCI Security Standards Council, a collective effort involving industry leaders like Visa, Mastercard, and Discover. Your trust in FormationsHunt is met with an uncompromising dedication to your privacy and security.</p>
+                                <div class="payLog">
+                                    <img src="{{ asset('frontend/assets/images/VISA.png') }}" height="32" width="40">
+                                    <img src="{{ asset('frontend/assets/images/ELECTRON.png') }}" height="32" width="40">
+                                    <img src="{{ asset('frontend/assets/images/DELTA.png') }}" height="32" width="40">
+                                    <img src="{{ asset('frontend/assets/images/PURCHASING.png') }}" height="32" width="40">
+                                    <img src="{{ asset('frontend/assets/images/VPAY.png') }}" height="32" width="40">
+                                    <img src="{{ asset('frontend/assets/images/MAESTRO.png') }}" height="32" width="40">
+                                    <img src="{{ asset('frontend/assets/images/MASTERCARD.png') }}" height="32" width="40">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 contact_new_box">
+                            <div class="col-md-10 ml-auto">
+                                <h2><b>Prefer to order by telephone</b></h2>
+                                <p>If you are not confident in completing your new company order online - call our friendly team and
+                                    we will complete your order by telephone</p>
+                                <div class="div-ul">
+                                    <div class="div-li">
+                                        <div class="call-no">
+                                            <div class="icon-container">
+                                                <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
+                                            </div>
+                                            <div class="text-container">
+                                                <h3><a href="tel:020 3002 0032">020 3002 0032</a></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="div-li">
+                                        <div class="call-no">
+                                            <!-- <div class="icon-container">
+                                                <img src="{{ asset('frontend/assets/images/email-green-icon.svg') }}">
+                                            </div> -->
+                                            <div class="text-container">
+                                                <h3>or Email Us:<a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1120,7 +1183,7 @@
         $(".step-4-box").click(function() {
             $('html, body').animate({
                 scrollTop: $(".main-banner").offset().top
-            }, 500);
+            }, 'slow');
             $('#company-name').focus();
         });
 

@@ -720,7 +720,7 @@
                                             <label for="">Choose Service Address</label>
                                         </div>
                                         <div class="col-sm-4 d-flex justify-content-between align-items-center">
-                                            <p class="m-0" id="selectFreeAddress"> 
+                                            <p class="m-0" id="selectFreeAddress">
                                             @if ($appointment_details['own_address']!=null)
                                                 {{@$appoint_construct_own_address}}
                                             @endif
@@ -743,7 +743,7 @@
                                 </fieldset>
                                 <fieldset class="border p-3 forward-address">
                                     <legend class="float-none w-auto p-2">Forwarding Address</legend>
-                                    <p><strong id="selectedForwardAddressDisplay"> 
+                                    <p><strong id="selectedForwardAddressDisplay">
                                             @if ($appointment_details['own_address']!=null)
                                                 {{@$appoint_construct_own_address}}
                                             @endif
@@ -788,12 +788,12 @@
                                 </div>
                                 <input type="hidden" name="f_radio_check_id" id="f_radio_check_id" value="{{$put_fci_val}}" readonly>
                                 <input type="hidden" name="s_radio_check_id" id="s_radio_check_id" value="{{$put_tci_val}}" readonly>
-                                <input type="text" name="company_order_id" id="company_order_id" value="{{$order_id}}" >
-                                <input type="text" name="appointment_id" id="appointment_id" value="{{$_GET['id']}}" >
-                                <input type="text" name="officer_id" id="officer_id" value="{{$officer_details['id']}}">
-                                <input type="text" name="appointment_type" id="appointment_type" value="{{$appointment_details['appointment_type']}}">
+                                <input type="hidden" name="company_order_id" id="company_order_id" value="{{$order_id}}" >
+                                <input type="hidden" name="appointment_id" id="appointment_id" value="{{$_GET['id']}}" >
+                                <input type="hidden" name="officer_id" id="officer_id" value="{{$officer_details['id']}}">
+                                <input type="hidden" name="appointment_type" id="appointment_type" value="{{$appointment_details['appointment_type']}}">
                                 <input type="hidden" name="address_house_price" class="address-house-price" value="">
-                                <input type="text" name="c_id" id="c_id" value="{{$_GET['c_id']}}">
+                                <input type="hidden" name="c_id" id="c_id" value="{{$_GET['c_id']}}">
                                 <input type="hidden" name="address_house_price" class="address-house-price" value="">
 
 
@@ -1520,7 +1520,6 @@
         $("#officer_dob").keydown(function (event) { event.preventDefault(); });
         $("#notificationDate").keydown(function (event) { event.preventDefault(); });
         $("#registerEntryDate").keydown(function (event) { event.preventDefault(); });
-        
         $('#notificationDate').val(getTodayDate());
         $('#registerEntryDate').val(getTodayDate());
 
@@ -1965,10 +1964,10 @@
                         $(".103_add_town").val(savedAddress.town);
                         $(".103_user_county").val(savedAddress.county);
                         $(".103_address_post_code").val(savedAddress.post_code);
-                        $(".103_address_billing_country").val(savedAddress.billing_country); 
+                        $(".103_address_billing_country").val(savedAddress.billing_country);
 
                         $('#selectedAddressDisplay').text(addressText);
-                        $("#primaryAddressConfirmModal").modal('hide');                      
+                        $("#primaryAddressConfirmModal").modal('hide');
                         }
                     });
                 }
@@ -2006,7 +2005,6 @@
 
         $('#selectedAddressDisplay').on('DOMSubtreeModified', function() {
             var currentSelectedAddress = $(this).text().trim();
-            
             if (currentSelectedAddress !== initialSelectedAddress) {
                 $('#residentAddressChanges').val(1);
                 initialSelectedAddress = currentSelectedAddress;
@@ -2020,7 +2018,6 @@
 
         $('#selectedForwardAddressDisplay').on('DOMSubtreeModified', function() {
             var currentSelectedAddress = $(this).text().trim();
-            
             if (currentSelectedAddress !== initialSelectedAddress) {
                 $('#forwardAddressChanges').val(1);
                 initialSelectedAddress = currentSelectedAddress;
@@ -2051,6 +2048,5 @@
             $('.chose-service-address').removeClass('d-none');
         });
     });
-   
 </script>
 @endsection

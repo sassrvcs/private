@@ -111,8 +111,7 @@
             </label>
         </div>
         <div class="form-check">
-            <span class="error d-none terms_error">Please accept the terms and
-                conditions</span>
+            <span class="error d-none terms_error">Please select the above required checkboxes before proceeding.</span>
         </div>
     </div>
     <div class="actions clearfix d-flex justify-content-end">
