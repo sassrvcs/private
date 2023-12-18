@@ -30,19 +30,19 @@
             <div class="namecheck-steps top">
                 <div class="w-layout-grid image-link-box-grid steps">
                   <div class="container-small step selected">
-                    <img src="{{ asset('frontend/assets/images/company-formation-icon-step-1_1company-formation-icon-step-1.png') }}" loading="lazy" width="54" alt="" class="step-icon">
+                    <img src="{{ asset('frontend/assets/images/checklist.svg') }}" loading="lazy" width="54" alt="" class="step-icon">
                     <div class="step-title">Name Check</div>
                   </div>
                   <div class="container-small step">
-                    <img src="{{ asset('frontend/assets/images/company-formation-icon-step-2_1company-formation-icon-step-2.png') }}" loading="lazy" alt="" class="step-icon">
+                    <img src="{{ asset('frontend/assets/images/select-pack.svg') }}" loading="lazy" alt="" class="step-icon">
                     <div class="step-title">Select Pack</div>
                   </div>
                   <div class="container-small step">
-                    <img src="{{ asset('frontend/assets/images/company-formation-icon-step-3_1company-formation-icon-step-3.png') }}" loading="lazy" alt="" class="step-icon">
+                    <img src="{{ asset('frontend/assets/images/check-out.svg') }}" loading="lazy" alt="" class="step-icon">
                     <div class="step-title">Checkout</div>
                   </div>
                   <div class="container-small step">
-                    <img src="{{ asset('frontend/assets/images/company-formation-icon-step-4_1company-formation-icon-step-4.png') }}" loading="lazy" alt="" class="step-icon">
+                    <img src="{{ asset('frontend/assets/images/file-details.svg') }}" loading="lazy" alt="" class="step-icon">
                     <div class="step-title">File Details</div>
                   </div>
                 </div>
@@ -77,7 +77,9 @@
         <div class="sec-title1 text-center">
             <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Compare Packages Starting at <span>£12.99</span></h2>
         </div>
-
+        <div class="col-md-12 text-center all_card">
+            <img src="{{ asset('frontend/assets/images/all-card.jpg')}}">
+        </div>
         <div class="companyFormationPackages-content package_page_tab">
             <div class="tab-menus">
                 <ul>
