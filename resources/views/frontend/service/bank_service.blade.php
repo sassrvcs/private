@@ -2,7 +2,7 @@
 @section('content')
 
     <!-- ================ start: digital-packages-banner ================ -->
-    <div class="digital-packages-banner"
+    <div class="digital-packages-banner service_page_banner"
         style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
         <div class="custom-container">
             <div class="inner-wrapper">
@@ -35,6 +35,9 @@
                     @endif
                 </div>
             </div>
+        </div>
+        <div class="service-media-wrapper">
+            <img src="{{ asset('frontend/assets/images/screen_13.png') }}" alt="" class="lazy-img w-100" style="">
         </div>
     </div>
     <!-- ================ end: digital-packages-banner ================ -->
@@ -226,7 +229,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                <div class="screen_images">
+                    <img src="{{ asset('frontend/assets/images/screen_14.png') }}" alt="" class="screen_14">
+                </div>
+            </div>
                 </div>
     </section>
     @if ($package_name == 'our-online-company-manager')

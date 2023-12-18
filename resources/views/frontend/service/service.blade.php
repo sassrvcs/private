@@ -64,18 +64,17 @@
                             </div>
                             <div class="div-li">
                                 <div class="call-no">
-                                    <div class="icon-container">
+                                    <!-- <div class="icon-container">
                                         <img src="{{ asset('frontend/assets/images/email-green-icon.svg') }}">
-                                    </div>
+                                    </div> -->
                                     <div class="text-container">
-                                        <h3><a
-                                                href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h3>
+                                        <h3>Or Email us: <a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h3>
                             </div>
                         </div>
                     </div>
                 </div>
-        </div>
-    </div>
+                </div>
+            </div>
 
             </div>
             <div class="right-information">
@@ -108,15 +107,16 @@
                                                         class="theme-btn-primary buy-btn">Buy Now</a>
                                                 @endif
 
-                                                @if ($package_name == 'company-registration')
-                                                    <div class="action-btns">
-                                                        <a href="{{ route('index') }}" class="theme-btn-primary buy-btn">
-                                                            Launch Your Company
-                                                        </a>
-                                                    </div>
-                                                @endif
+
                                                 {{-- <a href="#" class="buy-btn theme-btn-primary">Buy Now</a> --}}
                                     </div>
+                                    @if ($package_name == 'company-registration')
+                                    <div class="floating-action-btns">
+                                        <a href="{{ route('index') }}" class="theme-btn-darkBlue view-btn">
+                                            Launch Your Company
+                                        </a>
+                                    </div>
+                                @endif
                                     @if ($package_name == 'our-online-company-manager')
                                         <div class="floating-action-btns">
                                             <a href="{{ route('package') }}" class="theme-btn-darkBlue view-btn">View All
