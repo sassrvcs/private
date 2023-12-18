@@ -57,13 +57,13 @@
                                     <legend class="float-none w-auto p-2">Would you like to file this appointment at Companies House ?</legend>
                                     <p class="mb-3">Would you also like this Company Statement to be filed at Companies House?</p>                                    
                                     <div class="px-1 d-inline-block">
-                                        <input class="mr-1" id="house_radio1" name="houseChange" type="radio" value="yes">
+                                        <input class="mr-1" id="house_radio1" name="houseChange" type="radio" value="yes" checked>
                                         <label for="house_radio1">Yes</label>
                                     </div>
-                                    <div class="px-1 d-inline-block">
+                                    <!-- <div class="px-1 d-inline-block">
                                         <input class="mr-1" id="house_radio2" name="houseChange" type="radio" value="no">
                                         <label for="house_radio2">No</label>
-                                    </div>
+                                    </div> -->
                                 </fieldset>
 
                                 <fieldset class="border px-3 py-4">
