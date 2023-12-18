@@ -31,13 +31,107 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <div class="modal-hd">
-                        <div class="custom-container">
+                        @include('layouts.header')
+                        <!-- <div class="custom-container">
                             <div class="logo_container">
                                 <img src="/frontend/assets/images/logo.svg" class="logo">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
-                    <div class="modal-step">
+                    <section class="common-inner-page-banner package_inner_banner" style="background-image: url({{ asset('frontend/assets/images/compare-packages-banner.png') }}">
+                        <div class="custom-container">
+                            <div class="package_top_wrap">
+                                <div class="namecheck-steps top">
+                                    <div class="w-layout-grid image-link-box-grid steps">
+                                      <div class="container-small step">
+                                        <img src="{{ asset('frontend/assets/images/checklist.svg') }}" loading="lazy" width="54" alt="" class="step-icon">
+                                        <div class="step-title">Name Check</div>
+                                      </div>
+                                      <div class="container-small step selected">
+                                        <img src="{{ asset('frontend/assets/images/select-pack.svg') }}" loading="lazy" alt="" class="step-icon">
+                                        <div class="step-title">Select Pack</div>
+                                      </div>
+                                      <div class="container-small step">
+                                        <img src="{{ asset('frontend/assets/images/check-out.svg') }}" loading="lazy" alt="" class="step-icon">
+                                        <div class="step-title">Checkout</div>
+                                      </div>
+                                      <div class="container-small step">
+                                        <img src="{{ asset('frontend/assets/images/file-details.svg') }}" loading="lazy" alt="" class="step-icon">
+                                        <div class="step-title">File Details</div>
+                                      </div>
+                                    </div>
+                                    <div class="steps-line">
+                                        <img src="{{ asset('frontend/assets/images/company-formation-icon-step-line.png') }}" loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 945px) 98vw, 927px" srcset="{{ asset('frontend/assets/images/company-formation-icon-step-line.png') }} 500w, {{ asset('frontend/assets/images/company-formation-icon-step-line.png') }} 927w" alt="">
+                                    </div>
+                                </div>
+
+                                <div class="page-title align-center package-steps-bottom">
+                                    <div class="main-banner home-banner-src">
+                                        <div class="caption-box pb-4" style="padding-right: 0px;">
+                                            <div class="ttl-box">
+                                                <h2>You have chosen the <span id="package_name"> XXX </span> PACKAGE.</h2>
+                                                <h3>Now choose your company name.</h3>
+                                            </div>
+
+                                            <div class="col-md-7" id="result_show_modal" style="display: none; margin: 0 auto;">
+                                                {{-- Available Message --}}
+                                                <div class="search-result" id="available-company-modal" style="display: none">
+                                                    <div class="mb-4 align-items-center">
+                                                        <div class="col-md-12">
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="icon"><i
+                                                                        class="fa fa-check-circle-o"></i>&nbsp;</span>
+                                                                <h2 class="search-company-name-modal"></h2>
+                                                            </div>
+                                                            <h3 style="color:#87CB28;">Congratulations! This company name is
+                                                                available.</h3>
+                                                            <h3 style="color:#87CB28;" id="is_sensitive_word_row_modal"
+                                                                style="display: none">Please note: The word(s) <span
+                                                                    id="is_sensitive_word"></span> is deemed sensitive. You may
+                                                                need to supply additional information to use it.</h3>
+                                                        </div>
+                                                        <div class="col-md-6 "><a href="" class="btn btn-primary wow zoomIn"
+                                                                id="choose_package_modal_btn">Choose Package<i
+                                                                    class="fa fa-long-arrow-right ms-2"></i></a></div>
+                                                    </div>
+                                                    <div class="hhr-text">Search for another name</div>
+                                                </div>
+
+                                                {{-- Not Available Message --}}
+                                                <div id="not-available-company-modal" style="display: none">
+                                                    <div class="search-result-error mb-4">
+                                                        <span class="icon"><i class="fa fa-times-circle-o"></i></span>
+                                                        <h2 class="search-company-name-modal"></h2>
+                                                        <h3 style="color:white;">Error! This company name is Not available.</h3>
+                                                    </div>
+                                                    <div class="hhr-text">Search for another name</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-7" style="padding-left: 0px; padding-right: 0px; margin: 0 auto;">
+                                                <div class="search-box mt-3 mb-2" data-aos="fade-right" data-aos-delay="150"
+                                                    data-aos-duration="1000" data-aos-once="true" style="max-width: 100%">
+                                                    <input type="text" id="company-name-modal" class="search-input-modal"
+                                                        placeholder="Enter a company name to check if its available">
+                                                    <input type="hidden" name="package_id" id="package_id">
+                                                    <button type="button" id="search_company_modal"
+                                                        class="search-btn theme-btn-primary">Search</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <h5 class="text-white text-center">Rated excellent by our customers on Trustpilot</h5>
+                                    <div class="tp-stars w-embed">
+                                        <img src="{{ asset('frontend/assets/images/5star.png') }}" loading="lazy" alt="" class="5star">
+                                        <a class="happy-clients" href="#">Thousands Of Happy Clients!</a>
+                                    </div>
+                                    <h1 class="text-white text-center">Choose your company type and formation package below</h1>-->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- <div class="modal-step">
                         <div class="custom-container">
                             <div class="package-steps text-center">
                                 <ol class="list-inline">
@@ -49,10 +143,10 @@
                                 </ol>
                             </div>
                         </div>
-                    </div>
-                    <div class="main-banner home-banner-src">
+                    </div> -->
+                    <div class="main-banner home-banner-src d-none">
                         <div class="custom-container">
-                            <div class="caption-box pb-4" style="padding-right: 0px;">
+                            <!-- <div class="caption-box pb-4" style="padding-right: 0px;">
                                 <div class="ttl-box">
                                     <h2>You have chosen the <span id="package_name"> XXX </span> PACKAGE.</h2>
                                     <h3>Now choose your company name.</h3>
@@ -104,9 +198,9 @@
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="modal-our-banking d-none" >
+                            <div class="modal-our-banking">
                                 <h3>Business bank accounts available with this order.</h3>
                                 <div class="our-banking-slider">
                                    <div class="our-banking-item">
