@@ -175,8 +175,8 @@
                                                 </a>
                                             </td>
                                             @php
-                                                $company_number = \App\Models\companyXmlDetail::where('order_id', $order->order_id)
-                                                        ->pluck('company_no')
+                                                $company_number = \App\Models\Order::where('order_id', $order->order_id)
+                                                        ->pluck('company_number')
                                                         ->first();
 
                                             @endphp
@@ -188,8 +188,8 @@
                                                         id="error_company_number_{{ $order->order_id }}"></span>
                                             </td>
                                             @php
-                                                $auth_code = \App\Models\companyXmlDetail::where('order_id', $order->order_id)
-                                                        ->pluck('authentication_code')
+                                                $auth_code = \App\Models\Order::where('order_id', $order->order_id)
+                                                        ->pluck('auth_code')
                                                         ->first();
                                                 $admin_comment = \App\Models\companyXmlDetail::where('order_id', $order->order_id)
                                                         ->pluck('admin_comment')

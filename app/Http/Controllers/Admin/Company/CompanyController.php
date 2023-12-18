@@ -357,7 +357,7 @@ class CompanyController extends Controller
             $order->order_status = $status;
 
             //update
-            // $order->save();
+            $order->save();
         }
 
         $company = Companie::where('order_id', $order_id)->first();
