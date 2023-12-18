@@ -106,7 +106,7 @@
                                 </div>
                             </div>
 
-                            <div class="modal-our-banking">
+                            <div class="modal-our-banking d-none" >
                                 <h3>Business bank accounts available with this order.</h3>
                                 <div class="our-banking-slider">
                                    <div class="our-banking-item">
