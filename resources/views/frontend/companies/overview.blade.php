@@ -299,13 +299,10 @@
                                                                     <ul>
 
                                                                         <li>
-
-                                                                            <strong>Address : </strong> 52 Danes Court,
-
-                                                                            North End Road, Wembley,
-
-                                                                            Middlesex, HAQ OAE, United Kingdom
-
+                                                                            @php
+                                                                                $registered_address = \App\Models\Purchase_address::where('address_type','registered_address')->first();
+                                                                            @endphp
+                                                                            <strong>Address : </strong> {{construct_address($registered_address->toArray())}}
                                                                         </li>
 
                                                                     </ul>
@@ -602,7 +599,7 @@
 
                                                                             <a class="ch-ed-btn"
 
-                                                                                href="{{ route('edit-companies-appointment') . '?id=' . $val['id'] . '&order=' . $_GET['order'] . '&section=Company_formaction&step=appointments&mode=edit_person_appointment' }}">Edit</a>
+                                                                                href="{{ route('edit-companies-appointment') . '?id=' . $val['id'] . '&order=' . $_GET['order'] . '&section=Company_formaction&step=appointments&mode=edit_person_appointment'. '&c_id=' . $_GET['c_id'] }}">Edit</a>
 
                                                                         </div>
 
@@ -1845,7 +1842,7 @@
 
                                     <div class="text">
 
-                                        <p>New Address</p>
+                                        <p id="forward_text">Forward Address</p>
                                         <p id="selectedAddressDisplay"></p>
 
                                     </div>
@@ -1874,7 +1871,7 @@
 
                                         <button type="button" class="btn select-btn selc-addr"
 
-                                        id="chooseAddressButton" fdprocessedid="rj9ii">Choose Another</button>
+                                        id="chooseAddressButton" fdprocessedid="rj9ii">Choose Address</button>
 
                                     </div>
 
@@ -2281,27 +2278,13 @@
                     if (selectedRadio.val() === '0') {
 
                         selectedAddressDisplay.text('');
+                        $(".103_forward_add_id").val('');
+                        $("#forward_text").text('Service Address');
+
 
                     } else {
 
                         var selectedAddressDetails = {
-
-                            id: '{{ $address->id }}',
-
-                            house_number: '{{ $address->house_number }}',
-
-                            street: '{{ $address->street }}',
-
-                            locality: '{{ $address->locality }}',
-
-                            town: '{{ $address->town }}',
-
-                            county: '{{ $address->county }}',
-
-                            billing_country: '{{ $address->billing_country }}',
-
-                            post_code: '{{ $address->post_code }}',
-
                             price: '{{ $address->price }}',
 
                         };
@@ -2310,27 +2293,29 @@
 
                         // Construct the address text
 
-                        var addressText = `${selectedAddressDetails.house_number ? selectedAddressDetails.house_number + ',' : ''}
+                        // var addressText = `${selectedAddressDetails.house_number ? selectedAddressDetails.house_number + ',' : ''}
 
-                                            ${selectedAddressDetails.street ? selectedAddressDetails.street + ',' : ''}
+                        //                     ${selectedAddressDetails.street ? selectedAddressDetails.street + ',' : ''}
 
-                                            ${selectedAddressDetails.locality ? selectedAddressDetails.locality + ',' : ''}
+                        //                     ${selectedAddressDetails.locality ? selectedAddressDetails.locality + ',' : ''}
 
-                                            ${selectedAddressDetails.town ? selectedAddressDetails.town + ',' : ''}
+                        //                     ${selectedAddressDetails.town ? selectedAddressDetails.town + ',' : ''}
 
-                                            ${selectedAddressDetails.county}
+                        //                     ${selectedAddressDetails.county}
 
-                                            ${selectedAddressDetails.billing_country ? ',' + selectedAddressDetails.billing_country : ''}
+                        //                     ${selectedAddressDetails.billing_country ? ',' + selectedAddressDetails.billing_country : ''}
 
-                                            ${selectedAddressDetails.post_code}`;
+                        //                     ${selectedAddressDetails.post_code}`;
 
 
 
                         // Set the text in the selectedAddressDisplay paragraph
 
-                        selectedAddressDisplay.text(addressText);
+                        // selectedAddressDisplay.text(addressText);
 
-                        $(".103_forward_add_id").val(selectedAddressDetails.id);
+                        // $(".103_forward_add_id").val(selectedAddressDetails.id);
+                        selectedAddressDisplay.text('');
+                        $(".103_add_id").val('');
 
                         $(".price").val(selectedAddressDetails.price);
 
@@ -2480,9 +2465,16 @@
 
 
 
-            $(".103_add_id").val(selectedAddressDetails.id);
+                            
+            if ($('#address105').is(':checked')) {
+                $(".price").val('');
+                $(".103_add_id").val(selectedAddressDetails.id);
+                $(".103_forward_add_id").val('');
+            } else if ($('#address1').is(':checked')) {
+                $(".103_add_id").val('');
+                $(".103_forward_add_id").val(selectedAddressDetails.id);
+            }
 
-            $(".price").val('');
 
 
 

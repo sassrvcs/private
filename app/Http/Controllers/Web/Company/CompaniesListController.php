@@ -896,7 +896,7 @@ class CompaniesListController extends Controller
             $request->forward_address_id = null;
         }
 
-        $vat = null;
+        $vat = 0.00;
         if ($request->has('price') && $request->price !== null) {
             $vat = $request->price * 0.20; // Assuming 20% VAT rate
         }
@@ -908,7 +908,7 @@ class CompaniesListController extends Controller
                 'order_id' => $request->order_id,
                 'address_id' => $request->address_id,
                 'forward_address_id' => $request->forward_address_id,
-                'price' => $request->price,
+                'price' => $request->price ?? 0.00,
                 'effective_date' => $request->effective_date,
                 'vat' => $vat,
             ]
@@ -1019,9 +1019,15 @@ class CompaniesListController extends Controller
         $user = Auth::user();
 
         $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
-        return $person_appointment = Person_appointment::where('order', $order_id)->where('position', 'LIKE', "%PSC%")->get();
+        // $person_appointment = Person_appointment::where('order', $order_id)->where('position', 'LIKE', "%PSC%")->get();
+         $personAppointments = Person_appointment::with('person_officers')->where('order', $order_id)->get()->toArray();
+         $appointmentsList = [];
+         if (!empty($personAppointments)) {
+             $appointmentsList = $personAppointments;
+         }
 
-        return view('frontend.companies.company_statement', compact('order_id', 'person_appointment', 'cartCount'));
+
+        return view('frontend.companies.company_statement', compact('order_id', 'appointmentsList', 'cartCount'));
     }
 
     public function viewCart(Request $request)

@@ -171,7 +171,7 @@ class AccountController extends Controller
     public function savePrimaryAddress(Request $request){
         $id = $request->address_id;
       
-        Address::where('id',$id)
+        $updatedAddress  = Address::where('id',$id)
                 ->update(
                     [
                         'house_number'     =>  $request->input('number'),
@@ -184,7 +184,8 @@ class AccountController extends Controller
                         'is_selected'       =>1 ,
                     ]
                 );
-            return 1 ;
+        $updatedAddress = Address::find($id);
+        return new JsonResponse(['address' => $updatedAddress]);
 
     }
     public function saveBillingAddress(Request $request){

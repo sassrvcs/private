@@ -20,6 +20,8 @@ class Cart extends Model
         'effective_date',
         'vat',
         'company_account_value',
+        'appointment_id',
+        'data',
     ];
 
     public function user()

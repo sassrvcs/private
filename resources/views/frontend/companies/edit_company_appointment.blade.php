@@ -51,23 +51,23 @@
                     </div>
                     <div class="col-12 col-md-12">
                         <div class="sec-common-title-s2 mt-4">
-                            <h1>Editing: Amrutaben Patel</h1>
+                            <h1>Editing: {{ $officer_details['first_name']}} {{ $officer_details['last_name']}}</h1>
                         </div>
                     </div>
                     <div class="col-12 col-md-12">
                         <div class="customer-signup-s1">
-                            <form method="post" action="" class="form-register register">
-                                <input type="hidden" name="_token" value="">
+                            <form method="POST" action="{{ route('save-companies-appointment') }} " class="form-register register">
+                                @csrf
                                 <fieldset class="border px-3 py-4">
                                     <legend class="float-none w-auto p-2">Would you like to file this change at Companies House ?</legend>
 
                                     <div class=" px-0 col-md-12 col-12 mb-2">
                                         <div class="px-0 form-check">
-                                            <input class="mr-2" id="house_radio1" name="houseChange" value="1" type="radio">
+                                            <input class="mr-2" id="house_radio1" name="houseChange" value="1" type="radio" checked>
                                             <label for="house_radio1">Yes - I want to make this an official appointment at Companies House</label>
                                         </div>
                                     </div>
-                                    <div class=" px-0 col-md-12 col-12">
+                                    <div class=" px-0 col-md-12 col-12 d-none">
                                         <div class="px-0 form-check">
                                             <input class="mr-2" id="house_radio2" name="houseChange" type="radio" value="2">
                                             <label for="house_radio2">
@@ -78,15 +78,6 @@
                                 </fieldset>
                                 <fieldset class="border px-3 py-4">
                                     <legend class="float-none w-auto p-2">Position</legend>
-                                    {{-- @foreach ( $positionArray as $position)
-                                    <div class=" px-0 col-md-12 col-12 mb-2"> 
-                                        <div class="px-0 form-check">
-                                            <input class="mr-2" id="positionChk1" name="direction" value="{{ $position }}"  checked type="checkbox">
-                                            <label for="{{ $position }}">{{$position}}</label>
-                                        </div>
-                                    </div>
-                                    @endforeach --}}
-                                    
                                     <div class="choose-possition-option">
                                         <ul>
                                             <li class={{$company_type=="Limited Liability Partnership"?'d-none':''}}>
@@ -94,17 +85,17 @@
                                                 $positions = explode(',',$appointment_details['position']);
                                                 $positions = array_map('trim', $positions);
                                                 @endphp
-                                                <input type="checkbox"  @if (in_array("Director", $positions))checked
+                                                <input type="checkbox" name="position[]" @if (in_array("Director", $positions))checked
                                                 @endif class="checkBoxPos" id="director"
                                                     value="Director" onclick="consentSection()"
                                                     value="">
                                                 <label for="director">Director <span><img
                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                             alt="" id="director_i"></span></label>
-                                                
+
                                             </li>
                                             <li class="d-none {{ $company_type == 'Limited By Shares' || $company_type == 'Public Limited Company' ? '' : 'd-none'}} {{$company_type=="Limited Liability Partnership"?'d-none':''}}">
-                                                <input type="checkbox" @if (in_array("Shareholder", $positions))checked
+                                                <input type="checkbox" name="position[]" @if (in_array("Shareholder", $positions))checked
                                                 @endif class="checkBoxPos"
                                                     value="Shareholder" id="shareholder"
                                                     onclick="shareholderTab()">
@@ -112,11 +103,11 @@
                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                             alt=""
                                                             id="shareholder_i"></span></label>
-                                                
+
                                             </li>
                                             <li class="{{$company_type == 'Limited By Guarantee' ? '' : 'd-none'}}">
 
-                                                <input type="checkbox" class="checkBoxPos"
+                                                <input type="checkbox" name="position[]" class="checkBoxPos"
                                                 value="Guarantor" id="guarantor_checkbox"
                                                 onclick="guaranteeTab()" @if (in_array("Guarantor", $positions))checked
                                                 @endif>
@@ -124,48 +115,48 @@
                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                 alt=""
                                                 id="guarantor_i"></span></label>
-                                
+
                                             </li>
                                             <li class="{{$company_type == 'Limited Liability Partnership' ? '' : 'd-none'}}">
 
-                                                <input type="checkbox" class="checkBoxPos"
+                                                <input type="checkbox" name="position[]" class="checkBoxPos"
                                                 value="Member" id="member_checkbox" onclick="llpConsent()" @if (in_array("Member", $positions))checked
                                                 @endif>
                                                 <label for="member">Member <span><img
                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                 alt=""
                                                 id="member_i"></span></label>
-                                                
+
                                         </li>
                                             <li class="{{$company_type=="Limited Liability Partnership"?'d-none':''}}">
-                                                <input type="checkbox" @if (in_array("Secretary", $positions))checked
+                                                <input type="checkbox" name="position[]" @if (in_array("Secretary", $positions))checked
                                                 @endif class="checkBoxPos" id="secretary"
                                                     value="Secretary"  onclick="consentSection()">
                                                 <label for="secretary">Secretary <span><img
                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                             alt=""
                                                             id="secretary_i"></span></label>
-                                                
+
                                             </li>
                                             <li class="{{$company_type == 'Limited Liability Partnership' ? '' : 'd-none'}}">
 
-                                                <input type="checkbox" class="checkBoxPos"
+                                                <input type="checkbox" name="position[]" class="checkBoxPos"
                                                 value="Designated Member"  id="designated_checkbox" onclick="designatedTab(),llpConsent()" @if (in_array("Designated Member", $positions))checked @endif>
                                                 <label for="designated">Designated <span><img
                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                 alt=""
                                                 id="designated_i"></span></label>
-                                                
+
                                         </li>
                                             <li>
-                                                <input type="checkbox" @if (in_array("PSC", $positions))checked
+                                                <input type="checkbox" name="position[]" @if (in_array("PSC", $positions))checked
                                                 @endif class="checkBoxPos" id="psc"
                                                     value="PSC" onclick="pscTab()">
                                                 <label for="psc">Person with Significant Control (PSC)
                                                     <span><img
                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                             alt="" id="psc_i"></span></label>
-                                               
+
                                             </li>
 
                                             <br class="brCls d-none">
@@ -175,7 +166,7 @@
                                                 value="1" id="member_consent_checkbox">
                                                 <label for="member_consent_checkbox">The LLP confirms that the named officer has consented to act as a member of the LLP. </label>
                                             </li>
-                                            <li class="occLinkCls d-none">
+                                            <li class="occLinkCls d-none" style="display: none;">
                                                 <input type="checkbox" id="occ" @if ((in_array("Secretary", $positions))||(in_array("Director", $positions)))checked
                                                 @endif>
                                                 <label for="occ" id="consentText_id">
@@ -198,7 +189,7 @@
                                             select a Position.</div>
                                     </div>
                                 </fieldset>
-                                <fieldset class="border p-3">
+                                <fieldset class="border p-3 d-none">
                                     <legend class="float-none w-auto p-2">Holdings</legend>
                                     <div class="holdingGroup">
                                         <div class="form-row form-group ">
@@ -247,46 +238,46 @@
                                         <button type="button" class="theme-btn-primary px-2 py-1">Add Holding</button>
                                     </div>
                                 </fieldset>
-                                <fieldset class="border p-3">
+                                <fieldset class="border p-3 personal-details-fieldset">
                                     <legend class="float-none w-auto p-2">Personal Details
                                     </legend>
                                     <div class="form-row form-group ">
                                         <label for="username">Title:</label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="" class=" form-control" value="{{ $officer_details['title']}}">
+                                            <input type="text" name="officer_title" class=" form-control" value="{{ $officer_details['title']}}">
                                         </span>
                                     </div>
                                     <div class="form-row form-group ">
                                         <label for="username">First Name(s):</label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="" class=" form-control" value="{{ $officer_details['first_name']}}">
+                                            <input type="text" name="officer_fName" class=" form-control" value="{{ $officer_details['first_name']}}">
                                         </span>
                                     </div>
                                     <div class="form-row form-group ">
                                         <label for="username">Last Name:</label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="" class=" form-control" value="{{ $officer_details['last_name']}}">
+                                            <input type="text" name="officer_lName" class=" form-control" value="{{ $officer_details['last_name']}}">
                                         </span>
                                     </div>
                                     <div class="form-row form-group ">
                                         <label for="">Date of Birth:</label>
                                         <span class="input-wrapper">
-                                            <input type="date" max="{{ now()->subYears(16)->format('Y-m-d') }}" name="" class=" form-control" value="{{ $officer_details['dob_day']}}">   
+                                            <input type="date" max="{{ now()->subYears(16)->format('d-m-Y') }}" id="officer_dob" name="officer_dob" class=" form-control" value="{{ $officer_details['dob_day']}}">
                                         </span>
                                     </div>
                                     <div class="form-row form-group ">
                                         <label for="">Occupation:</label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="" class=" form-control" value="{{ $officer_details['occupation']}}">
+                                            <input type="text" name="officer_occupation" class=" form-control" value="{{ $officer_details['occupation']}}">
                                         </span>
                                     </div>
                                     <div class="form-row form-group ">
                                         <label for="">Nationality:
                                             <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button></label>
                                         <span class="input-wrapper">
-                                           {{-- <input type="text" name="" class=" form-control" value="{{ $officer_details['nationality'] }}"> --}}
+                                           {{-- <input type="text" class=" form-control" value="{{ $officer_details['nationality'] }}"> --}}
 
-                                           <select name="person_national" class="form-control"
+                                           <select name="person_national" name="officer_nationality" class="form-control"
                                                                     id="person_national_id">
 
                                             @if (!empty($nationalities))
@@ -300,193 +291,8 @@
                                         </span>
                                     </div>
                                 </fieldset>
-                                <fieldset class="border p-3">
+                                <fieldset class="border p-3 nature-of-control d-none">
                                     <legend class="float-none w-auto p-2">Nature of Control</legend>
-                                    {{-- <div class="box-wrap mb-3">
-                                        <strong class="d-block">Does this officer have a controlling interest in this company?</strong>
-                                        <div class="d-block">
-                                            <div class="form-row form-group ">
-                                                <label for="username">Ownership of shares&nbsp;</label>
-                                                <span class="input-wrapper d-flex">
-                                                <select class="form-control" id="F_ownership" onchange="show_hide_F_other_sig()">
-                                                    <option value="">N/A</option>
-                                                    <option value="More than 25% but not more than 50%" {{strpos($appointment_details['noc_os'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not more
-                                                        than 50%</option>
-                                                    <option value="More than 50% but less than 75%" {{strpos($appointment_details['noc_os'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less than
-                                                        75%</option>
-                                                    <option value="75% or more" {{strpos($appointment_details['noc_os'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
-                                                </select>
-                                                    <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button>
-                                                </span>
-                                            </div>
-                                            <div class="form-row form-group ">
-                                                <label for="username">Voting rights&nbsp;</label>
-                                                <span class="input-wrapper d-flex">
-                                                <select class="form-control" id="F_voting" onchange="show_hide_F_other_sig()">
-                                                    <option value="">N/A</option>
-                                                    <option value="More than 25% but not more than 50%" {{strpos($appointment_details['noc_vr'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not more than 50%</option>
-                                                    <option value="More than 50% but less than 75%" {{strpos($appointment_details['noc_vr'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less than 75%</option>
-                                                    <option value="75% or more" {{strpos($appointment_details['noc_vr'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
-                                                </select>
-                                                    <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button>
-                                                </span>
-                                            </div>
-                                            <div class="form-row form-group ">
-                                                <label for="username">Appoint or remove the majority of the board of directors&nbsp;</label>
-                                                <span class="input-wrapper d-flex">
-                                                <select class="form-control" id="F_appoint" onchange="show_hide_F_other_sig()">
-                                                    <option value="">N/A</option>
-                                                    <option value="No" {{stripos($appointment_details['noc_appoint'], 'No') !== false ? 'selected' : ''}}>No</option>
-                                                    <option value="Yes" {{stripos($appointment_details['noc_appoint'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
-                                                </select>
-                                                    <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button>
-                                                </span>
-                                            </div>
-                                            <div class="form-row form-group ">
-                                                <label for="username">Other significant influence or control&nbsp;</label>
-                                                <span class="input-wrapper d-flex">
-                                                <select class="form-control"
-                                                    id="F_other_sig_select_id">
-                                                    <option value="">N/A</option>
-                                                    <option value="No" {{stripos($appointment_details['noc_others'], 'no') !== false ? 'selected' : ''}}>No</option>
-                                                    <option value="Yes" {{stripos($appointment_details['noc_others'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
-                                                </select>
-                                                    <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @php
-                                       
-                                        if($appointment_details['fci']==null||stripos($appointment_details['fci'],'no')!==false){
-                                            $put_fci_val="No";
-                                        }else{
-                                            $put_fci_val="Yes";
-                                        }
-                                        if($appointment_details['tci']==null||stripos($appointment_details['tci'],'no')!==false){
-                                            $put_tci_val="No";
-                                        }else{
-                                            $put_tci_val="Yes";
-                                        }
-
-                                    @endphp
-                                    <div class="box-wrap mb-3">
-                                        <strong class="d-block"> 
-                                            <input class="mr-2" name="natureControl" {{$put_fci_val=='Yes' ? 'checked' : ''}} value="Yes" type="checkbox">
-                                            Does this officer have a controlling influence over a Firm(s) and/or the Members of that Firm(s), which also has a controlling influence in this company?
-                                        </strong>
-                                        <div class="d-block">
-                                            <div class="form-row form-group ">
-                                                <label for="username">Ownership of shares&nbsp;</label>
-                                                <span class="input-wrapper d-flex">
-                                                <select class="form-control" id="s_ownership">
-                                                    <option value="">N/A</option> 
-                                                    <option value="More than 25% but not more than 50%" {{strpos($appointment_details['fci_os'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not
-                                                        more than 50%</option>
-                                                    <option value="More than 50% but less than 75%" {{strpos($appointment_details['fci_os'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less
-                                                        than 75%</option>
-                                                    <option value="75% or more" {{strpos($appointment_details['fci_os'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
-                                                </select>
-                                                    <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button>
-                                                </span>
-                                            </div>
-                                            <div class="form-row form-group ">
-                                                <label for="username">Voting rights&nbsp;</label>
-                                                <span class="input-wrapper d-flex">
-                                                <select class="form-control" id="s_voting">
-                                                    <option value="">N/A</option>
-                                                    <option value="More than 25% but not more than 50%" {{strpos($appointment_details['fci_vr'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not
-                                                        more than 50%</option>
-                                                    <option value="More than 50% but less than 75%" {{strpos($appointment_details['fci_vr'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less
-                                                        than 75%</option>
-                                                    <option value="75% or more" {{strpos($appointment_details['fci_vr'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
-                                                </select>
-                                                    <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button>
-                                                </span>
-                                            </div>
-                                            <div class="form-row form-group ">
-                                                <label for="username">Appoint or remove the majority of the board of directors&nbsp;</label>
-                                                <span class="input-wrapper d-flex">
-                                                <select class="form-control" id="s_appoint">
-                                                    <option value="">N/A</option>
-                                                    <option value="No" {{stripos($appointment_details['fci_appoint'], 'No') !== false ? 'selected' : ''}}>No</option>
-                                                    <option value="Yes" {{stripos($appointment_details['fci_appoint'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
-                                                </select>
-                                                    <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button>
-                                                </span>
-                                            </div>
-                                            <div class="form-row form-group ">
-                                                <label for="username">Other significant influence or control&nbsp;</label>
-                                                <span class="input-wrapper d-flex">
-                                                <select class="form-control"
-                                                    id="s_other_sig_select_id">
-                                                    <option value="">N/A</option>
-                                                    <option value="No" {{stripos($appointment_details['fci_others'], 'No') !== false ? 'selected' : ''}}>No</option>
-                                                    <option value="Yes" {{stripos($appointment_details['fci_others'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
-                                                </select>
-                                                    <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-wrap mb-3">
-                                        <strong class="d-block">
-                                            <input class="mr-2" name="natureControl" {{$put_tci_val=='Yes' ? 'checked' : ''}} value="Yes" type="checkbox">
-                                            Does this officer have a controlling influence over a trust(s) and/or the trustees of that trust(s), which has a controlling interest in this company?
-                                        </strong>
-                                        <div class="d-block">
-                                            <div class="form-row form-group ">
-                                                <label for="username">Ownership of shares&nbsp;</label>
-                                                <span class="input-wrapper d-flex">
-                                                <select class="form-control" id="t_ownership">
-                                                    <option value="">N/A</option>
-                                                    <option value="More than 25% but not more than 50%" {{strpos($appointment_details['tci_os'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not
-                                                        more than 50%</option>
-                                                    <option value="More than 50% but less than 75%" {{strpos($appointment_details['tci_os'], 'More than 50%') !== false ? 'selected' : ''}} >More than 50% but less
-                                                        than 75%</option>
-                                                    <option value="75% or more" {{strpos($appointment_details['tci_os'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
-                                                </select>
-                                                    <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button>
-                                                </span>
-                                            </div>
-                                            <div class="form-row form-group ">
-                                                <label for="username">Voting rights&nbsp;</label>
-                                                <span class="input-wrapper d-flex">
-                                                <select class="form-control" id="t_voting">
-                                                    <option value="">N/A</option>
-                                                    <option value="More than 25% but not more than 50%" {{strpos($appointment_details['tci_vr'], 'More than 25% ') !== false ? 'selected' : ''}}>More than 25% but not
-                                                        more than 50%</option>
-                                                    <option value="More than 50% but less than 75%" {{strpos($appointment_details['tci_vr'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less
-                                                        than 75%</option>
-                                                    <option value="75% or more" {{strpos($appointment_details['tci_vr'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
-                                                </select>
-                                                    <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button>
-                                                </span>
-                                            </div>
-                                            <div class="form-row form-group ">
-                                                <label for="username">Appoint or remove the majority of the board of directors&nbsp;</label>
-                                                <span class="input-wrapper d-flex">
-                                                    <select class="form-control" name="" id="t_appoint">
-                                                        <option value="0">N/A</option>
-                                                        <option value="No" {{strpos($appointment_details['tci_appoint'], 'No') !== false ? 'selected' : ''}}>No</option>
-                                                        <option value="Yes" {{strpos($appointment_details['tci_appoint'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
-                                                    </select>
-                                                    <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button>
-                                                </span>
-                                            </div>
-                                            <div class="form-row form-group ">
-                                                <label for="username">Other significant influence or control&nbsp;</label>
-                                                <span class="input-wrapper d-flex">
-                                                    <select class="form-control" name="" id="t_other_sig_select_id">
-                                                        <option value="0">N/A</option>
-                                                        <option value="No" {{strpos($appointment_details['tci_others'], 'No') !== false ? 'selected' : ''}}>No</option>
-                                                        <option value="Yes" {{strpos($appointment_details['tci_others'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>                                                                  
-                                                    </select>
-                                                    <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                                 @php
                                                     $share_text = "Ownership of shares";
                                                     $appoint_or_remove_text = "Appoint or remove the majority of the board of directors";
@@ -509,7 +315,7 @@
                                                                         <span class="text">
                                                                             {{$share_text}}
                                                                         </span></label>
-                                                                    <select class="form-control" id="F_ownership"
+                                                                    <select class="form-control" id="F_ownership" name="noc_os"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="">N/A</option>
                                                                         <option value="More than 25% but not more than 50%" {{strpos($appointment_details['noc_os'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not more
@@ -534,14 +340,14 @@
                                                                         <span class="text">Voting
                                                                             Rights</span></label>
                                                                             {{-- {{dd($appointment_details['noc_os'])}} --}}
-                                                                    <select class="form-control" id="F_voting"
+                                                                    <select class="form-control" id="F_voting" name="noc_vr"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="">N/A</option>
                                                                         <option value="More than 25% but not more than 50%" {{strpos($appointment_details['noc_vr'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not more than 50%</option>
                                                                         <option value="More than 50% but less than 75%" {{strpos($appointment_details['noc_vr'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less than 75%</option>
                                                                         <option value="75% or more" {{strpos($appointment_details['noc_vr'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
                                                                     </select>
-                                                                    
+
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -558,12 +364,12 @@
                                                                         <span class="text">
                                                                             {{$appoint_or_remove_text}}
                                                                         </span></label>
-                                                                    <select class="form-control" id="F_appoint"
+                                                                    <select class="form-control" id="F_appoint" name="noc_appoint"
                                                                         onchange="show_hide_F_other_sig()">
                                                                         <option value="No" {{stripos($appointment_details['noc_appoint'], 'No') !== false ? 'selected' : ''}}>No</option>
                                                                         <option value="Yes" {{stripos($appointment_details['noc_appoint'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
                                                                     </select>
-                                                                    
+
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -607,12 +413,12 @@
                                                                             influences
                                                                             or control</span></label>
 
-                                                                    <select class="form-control"
+                                                                    <select class="form-control" name="noc_others"
                                                                         id="F_other_sig_select_id">
                                                                         <option value="No" {{stripos($appointment_details['noc_others'], 'no') !== false ? 'selected' : ''}}>No</option>
                                                                         <option value="Yes" {{stripos($appointment_details['noc_others'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
                                                                     </select>
-                                                                    
+
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -635,7 +441,7 @@
                                                         </li>
                                                         <li>
                                                             <input type="radio" id="yes"
-                                                                onclick="f_radio_check()" {{$put_fci_val=='Yes' ? 'checked' : ''}} value="Yes" name="com-qu">
+                                                                onclick="f_radio_check()"  {{$put_fci_val=='Yes' ? 'checked' : ''}} value="Yes" name="com-qu">
                                                             <label for="yes">yes</label>
                                                         </li>
                                                     </ul>
@@ -653,7 +459,7 @@
                                                                             </span>
                                                                         </label>
                                                                             {{-- {{$appointment_details['fci_os']}} --}}
-                                                                        <select class="form-control" id="s_ownership"
+                                                                        <select class="form-control" id="s_ownership" name="fci_os"
                                                                             onchange="show_hide_s_other_sig()">
                                                                             <option value="">N/A</option>
                                                                             <option value="More than 25% but not more than 50%" {{strpos($appointment_details['fci_os'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not
@@ -667,7 +473,7 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="s_own_i"></span>
-                                                                
+
 
                                                             </div>
                                                             <div class="row ">
@@ -677,7 +483,7 @@
                                                                             <span class="text">Voting
                                                                                 Rights</span>
                                                                         </label>
-                                                                        <select class="form-control" id="s_voting"
+                                                                        <select class="form-control" id="s_voting" name="fci_vr"
                                                                             onchange="show_hide_s_other_sig()">
                                                                             <option value="">N/A</option>
                                                                             <option value="More than 25% but not more than 50%" {{strpos($appointment_details['fci_vr'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not
@@ -691,7 +497,7 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="s_vot_i"></span>
-                                                              
+
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-12">
@@ -702,7 +508,7 @@
                                                                             </span>
                                                                         </label>
 
-                                                                        <select class="form-control" id="s_appoint"
+                                                                        <select class="form-control" id="s_appoint" name="fci_appoint"
                                                                             onchange="show_hide_s_other_sig()">
                                                                             <option value="No" {{stripos($appointment_details['fci_appoint'], 'No') !== false ? 'selected' : ''}}>No</option>
                                                                             <option value="Yes" {{stripos($appointment_details['fci_appoint'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
@@ -712,7 +518,7 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="s_appo_i"></span>
-                                                                
+
                                                                 {{-- <div class="col-md-6 col-sm-12">
                                                                 </div> --}}
                                                             </div>
@@ -723,7 +529,7 @@
                                                                             <span class="text">Other Significant
                                                                                 influences or control</span></label>
                                                                         <select class="form-control"
-                                                                            id="s_other_sig_select_id">
+                                                                            id="s_other_sig_select_id" name="fci_others">
                                                                             <option value="No" {{stripos($appointment_details['fci_others'], 'No') !== false ? 'selected' : ''}}>No</option>
                                                                             <option value="Yes" {{stripos($appointment_details['fci_others'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
                                                                         </select>
@@ -732,7 +538,7 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="s_other_i"></span>
-                                                                
+
 
                                                             </div>
                                                         </div>
@@ -770,8 +576,7 @@
                                                                                 {{$share_text}}
                                                                             </span>
                                                                         </label>
-                                                                        {{-- {{{$appointment_details['tci_os']}}} --}}
-                                                                        <select class="form-control" id="t_ownership"
+                                                                        <select class="form-control" id="t_ownership" name="tci_os"
                                                                             onchange="show_hide_t_other_sig()">
                                                                             <option value="">N/A</option>
                                                                             <option value="More than 25% but not more than 50%" {{strpos($appointment_details['tci_os'], 'More than 25%') !== false ? 'selected' : ''}}>More than 25% but not
@@ -785,7 +590,7 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="t_own_i"></span>
-                                                                
+
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-12">
@@ -795,14 +600,13 @@
                                                                                 Rights</span>
                                                                         </label>
 
-                                                                        <select class="form-control"
+                                                                        <select class="form-control" name="tci_vr"
                                                                             id="t_voting"
                                                                             onchange="show_hide_t_other_sig()">
                                                                             <option value="">N/A</option>
                                                                             <option value="More than 25% but not more than 50%" {{strpos($appointment_details['tci_vr'], 'More than 25% ') !== false ? 'selected' : ''}}>More than 25% but not
                                                                                 more than 50%</option>
-                                                                            <option value="More than 50% but less
-                                                                            than 75%" {{strpos($appointment_details['tci_vr'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less
+                                                                            <option value="More than 50% but less than 75%" {{strpos($appointment_details['tci_vr'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less
                                                                                 than 75%</option>
                                                                             <option value="75% or more" {{strpos($appointment_details['tci_vr'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
                                                                         </select>
@@ -811,7 +615,7 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="t_vot_i"></span>
-                                                                
+
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-12">
@@ -821,7 +625,7 @@
                                                                                 {{$appoint_or_remove_text}}
                                                                         </label>
 
-                                                                        <select class="form-control"
+                                                                        <select class="form-control" name="tci_appoint"
                                                                             id="t_appoint"
                                                                             onchange="show_hide_t_other_sig()">
                                                                             <option value="No" {{strpos($appointment_details['tci_appoint'], 'No') !== false ? 'selected' : ''}}>No</option>
@@ -832,7 +636,7 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="t_appo_i"></span>
-                                                                
+
                                                             </div>
                                                             <div class="row" id="t_other_sig">
                                                                 <div class="col-md-6 col-sm-12">
@@ -842,7 +646,7 @@
                                                                                 influences
                                                                                 or control</span></label>
                                                                         <select class="form-control"
-                                                                            id="t_other_sig_select_id">
+                                                                            id="t_other_sig_select_id" name="tci_others">
                                                                             <option value="No" {{strpos($appointment_details['tci_others'], 'No') !== false ? 'selected' : ''}}>No</option>
                                                                             <option value="Yes" {{strpos($appointment_details['tci_others'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
                                                                         </select>
@@ -851,7 +655,7 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="t_other_i"></span>
-                                                            
+
                                                                 {{-- <div class="col-md-6 col-sm-12">
                                                                 </div> --}}
                                                             </div>
@@ -880,10 +684,10 @@
                                     }
 
                                 @endphp
-                                <fieldset class="border p-3">
+                                <fieldset class="border p-3 resident-address">
                                     <legend class="float-none w-auto p-2">Residential Addressss</legend>
                                     <p>All officers are required under the Companies Act to declare their residential address. This address is held by Companies House but is not made public.<strong id="selectedAddressDisplay">{{@$officer_address}}</strong></p>
-                                        <input type="hidden" class="103_add_id" value="">
+                                        <input type="hidden" name="residential_add" class="103_add_id" value="{{$officer_details['add_id']}}">
                                         <input type="hidden" class="103_forward_add_id" value="">
                                         <input type="hidden" class="103_add_house_number" value="40 new add">
                                         <input type="hidden" class="103_add_street" value="North">
@@ -901,23 +705,29 @@
                                     <legend class="float-none w-auto p-2">Service Address</legend>
                                     <p>A service address is defined under s1141 as ‘an address at which documents maybe effectively served upon that person’. This is the address that is filed on the public register, it may for example, be your residential address or your registered office address.</p>
 
-                                    <div class="form-row py-1">
+                                    <div class="form-row py-1 chose-service-address">
                                         <div class="col-sm-6">
                                             <label for="">{{$purchase_address->title}}</label>
                                         </div>
                                         <div class="col-sm-4 d-flex justify-content-between align-items-center">
                                             <p class="m-0">£{{$purchase_address->price}}</p>
-                                            <input type="hidden" class="price" value="{{$purchase_address->price}}">
+                                            <input type="hidden" name="service_add_price" class="price" value="{{$purchase_address->price}}">
                                             <button type="button" id="purchaseAddressModal" class="theme-btn-primary px-4 py-2">Select</button>
                                         </div>
                                     </div>
-                                    <div class="form-row py-1">
+                                    <div class="form-row py-1 chose-service-address">
                                         <div class="col-sm-6">
                                             <label for="">Choose Service Address</label>
                                         </div>
                                         <div class="col-sm-4 d-flex justify-content-between align-items-center">
-                                            <p class="m-0">{{@$officer_address}}</p>
-                                            <button type="button" id="freeAddressModal" class="theme-btn-primary px-4 py-2">Select</button>
+                                            <p class="m-0" id="selectFreeAddress"> 
+                                            @if ($appointment_details['own_address']!=null)
+                                                {{@$appoint_construct_own_address}}
+                                            @endif
+                                            @if ($appointment_details['forwarding_address']!=null)
+                                                {{@$appoint_construct_forwarding_address}}
+                                            @endif</p>
+                                            <button type="button" id="freeAddressModal" class="theme-btn-primary px-4 py-2" data-id ="1">Select</button>
                                         </div>
                                     </div>
                                     <div class="form-row py-1">
@@ -925,16 +735,23 @@
                                             <label for="">Same as Registered Office Address</label>
                                         </div>
                                         <div class="col-sm-6 d-flex justify-content-end align-items-center">
-                                            <button type="button" class="theme-btn-primary px-4 py-2 mr-2">YES</button>
-                                            <button type="button" class="theme-btn-primary px-4 py-2">NO</button>
+                                            <button type="button" class="theme-btn-primary px-4 py-2 mr-2 yes-button">YES</button>
+                                            <button type="button" class="theme-btn-primary px-4 py-2 no-button">NO</button>
+                                            <input type="hidden" name="same_reg_add" class="" value="0">
                                         </div>
                                     </div>
                                 </fieldset>
-                                <fieldset class="border p-3">
+                                <fieldset class="border p-3 forward-address">
                                     <legend class="float-none w-auto p-2">Forwarding Address</legend>
-                                    <p><strong id="selectedForwardAddressDisplay">{{@$appoint_construct_forwarding_address}}</strong></p>
-                                        <input type="hidden" class="104_add_id" value="">
-                                        <input type="hidden" class="104_forward_add_id" value="">
+                                    <p><strong id="selectedForwardAddressDisplay"> 
+                                            @if ($appointment_details['own_address']!=null)
+                                                {{@$appoint_construct_own_address}}
+                                            @endif
+                                            @if ($appointment_details['forwarding_address']!=null)
+                                                {{@$appoint_construct_forwarding_address}}
+                                            @endif</strong></p>
+                                        <input type="hidden" name="service_own_add" class="104_add_id" value="{{ $appoint_own_address_id }}">
+                                        <input type="hidden" name="service_fwd_add" class="104_forward_add_id" value="{{ $appoint_forwarding_address_id }}">
                                         <input type="hidden" class="104_add_house_number" value="40 new add">
                                         <input type="hidden" class="104_add_street" value="North">
                                         <input type="hidden" class="104_add_locality" value="">
@@ -947,7 +764,7 @@
                                     </div>
                                 </fieldset>
 
-                                <fieldset class="border p-3">
+                                <fieldset class="border p-3 notification-date">
                                     <legend class="float-none w-auto p-2">Notification/Register Entry Date
                                     </legend>
                                     <div class="form-row form-group">
@@ -969,6 +786,25 @@
                                     <button type="submit" class="btn btn-primary">Cancel</button>
                                     <button type="submit" class="btn btn-primary update-apt-btn ">Update Details</button>
                                 </div>
+                                <input type="hidden" name="f_radio_check_id" id="f_radio_check_id" value="{{$put_fci_val}}" readonly>
+                                <input type="hidden" name="s_radio_check_id" id="s_radio_check_id" value="{{$put_tci_val}}" readonly>
+                                <input type="text" name="company_order_id" id="company_order_id" value="{{$order_id}}" >
+                                <input type="text" name="appointment_id" id="appointment_id" value="{{$_GET['id']}}" >
+                                <input type="text" name="officer_id" id="officer_id" value="{{$officer_details['id']}}">
+                                <input type="text" name="appointment_type" id="appointment_type" value="{{$appointment_details['appointment_type']}}">
+                                <input type="hidden" name="address_house_price" class="address-house-price" value="">
+                                <input type="text" name="c_id" id="c_id" value="{{$_GET['c_id']}}">
+                                <input type="hidden" name="address_house_price" class="address-house-price" value="">
+
+
+
+                                <input type="hidden" name="changesMadePosition" id="changesMade" value="0">
+                                <input type="hidden" name="personalDetailsChanges" id="personalDetailsChanges" value="0">
+                                <input type="hidden" name="natureOfControlChanges" id="natureOfControlChanges" value="0">
+                                <input type="hidden" name="residentAddressChanges" id="residentAddressChanges" value="0">
+                                <input type="hidden" name="forwardAddressChanges" id="forwardAddressChanges" value="0">
+                                <input type="hidden" name="notificationDateChanges" id="notificationDateChanges" value="0">
+
                             </form>
                         </div>
                     </div>
@@ -989,7 +825,7 @@
                             <h3>Recently Used Addresses</h3>
                             <div>
                                 @foreach($primary_address_list as $key => $value)
-
+                                <div>
                                     <p>{{$value['house_number'] }}, {{$value['street']}},{{$value['locality']}},{{ $value['town']}}, {{ $value['county']}}</p>
                                     <p>{{ $value['country_name']}},{{ $value['post_code']}}</p>
                                     <input type="hidden" class="address-house-id" value="{{ $value['id']}}">
@@ -1001,6 +837,7 @@
                                     <input type="hidden" class="address-post-code" value="{{ $value['post_code']}}">
                                     <input type="hidden" class="address-country-name" value="{{ $value['country_name']}}">
                                     <button class="btn btn-primary select-address" data-dismiss="modal" type="button">Select</button>
+                                </div>
                                 @endforeach
                             </div>
                         </div>
@@ -1045,9 +882,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <!-- <div class="modal-footer">
                         <button type="button" class="btn btn-primary addBillAddress" data-dismiss="modal">Add new address</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -1065,7 +902,7 @@
                             <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
 
 
-                            
+
 
 
                                 <div class="form-row form-group ">
@@ -1132,7 +969,7 @@
                                 <div class="modal-footer">
                                     <button type="button" id="primary_submit" class="btn btn-primary billingAddrSubmit" data-dismiss="modal" onclick="editPrimaryAddressfn({{$officer_details['address']['id']}})">Submit Changes</button>
                                 </div>
-                      
+
                         </form>
 
                     </div>
@@ -1143,7 +980,7 @@
 
 
 
-       
+
 
         <div class="modal custom-modal-s1" id="addNewAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -1457,8 +1294,7 @@
             </div>
         </div> -->
 
-        <input type="hidden" id="f_radio_check_id" value="{{$put_fci_val}}" readonly>
-        <input type="hidden" id="s_radio_check_id" value="{{$put_tci_val}}" readonly>
+
 
     </section>
 @endsection
@@ -1492,7 +1328,7 @@
         }
 
     });
-   
+
     const consentSection = function() {
         if ($('#director').is(":checked") || $('#secretary').is(":checked")) {
             $('.brCls').removeClass('d-none');
@@ -1536,6 +1372,60 @@
     }
     function pscTab() {
         $('.nocLinkCls').toggleClass('d-none');
+        $('.nature-of-control').toggleClass('d-none');
+        if(!($('#psc').prop('checked')))
+        {
+            $('#F_ownership').val('');
+            $('#F_voting').val('');
+            $('#F_appoint').val('No');
+            $('#F_other_sig_select_id').val('No');
+            $('#f_radio_check_id').val('');
+
+            $('#s_ownership').val('');
+            $('#s_voting').val('');
+            $('#s_appoint').val('No');
+            $('#s_other_sig_select_id').val('No');
+            $('#s_radio_check_id').val('');
+
+            $('#t_ownership').val('');
+            $('#t_voting').val('');
+            $('#t_appoint').val('No');
+            $('#t_other_sig_select_id').val('No');
+            $("#no").click();
+            $("#no2").click();
+        }
+        // const noc_os = $(".nature-of-control").closest('li').hasClass('d-none') === false ? $("#F_ownership")
+        //         .val() : '';
+        //     const noc_vr = $(".nature-of-control").closest('li').hasClass('d-none') === false ? $("#F_voting").val() :
+        //         '';
+        //     const noc_appoint = $(".nature-of-control").closest('li').hasClass('d-none') === false ? $("#F_appoint")
+        //         .val() : '';
+        //     const noc_others = $(".nature-of-control").closest('li').hasClass('d-none') === false && $("#F_other_sig")
+        //         .hasClass('d-none') === false ? $("#F_other_sig_select_id").val() : 'No';
+
+        //     const fci = $(".nature-of-control").closest('li').hasClass('d-none') === false ? $("#f_radio_check_id")
+        //         .val() : '';
+        //     const fci_os = $(".nature-of-control").closest('li').hasClass('d-none') === false ? $("#s_ownership")
+        //         .val() : '';
+        //     const fci_vr = $(".nature-of-control").closest('li').hasClass('d-none') === false ? $("#s_voting").val() :
+        //         '';
+        //     const fci_appoint = $(".nature-of-control").closest('li').hasClass('d-none') === false ? $("#s_appoint")
+        //         .val() : '';
+        //     const fci_others = $(".nature-of-control").closest('li').hasClass('d-none') === false && $("#s_other_sig")
+        //         .hasClass('d-none') === false ? $("#s_other_sig_select_id").val() : 'No';
+
+        //     const tci = $(".nature-of-control").closest('li').hasClass('d-none') === false ? $("#s_radio_check_id")
+        //         .val() : '';
+        //     const tci_os = $(".nature-of-control").closest('li').hasClass('d-none') === false ? $("#t_ownership")
+        //         .val() : '';
+        //     const tci_vr = $(".nature-of-control").closest('li').hasClass('d-none') === false ? $("#t_voting").val() :
+        //         '';
+        //     const tci_appoint = $(".nature-of-control").closest('li').hasClass('d-none') === false ? $("#t_appoint")
+        //         .val() : '';
+        //     const tci_others = $(".nature-of-control").closest('li').hasClass('d-none') === false && $("#t_other_sig")
+        //         .hasClass('d-none') === false ? $("#t_other_sig_select_id").val() : 'No';
+
+
     }
 
     function f_radio_check() {
@@ -1627,6 +1517,10 @@
 
     // Set today's date as the default value for the date inputs using jQuery
     $(document).ready(function () {
+        $("#officer_dob").keydown(function (event) { event.preventDefault(); });
+        $("#notificationDate").keydown(function (event) { event.preventDefault(); });
+        $("#registerEntryDate").keydown(function (event) { event.preventDefault(); });
+        
         $('#notificationDate').val(getTodayDate());
         $('#registerEntryDate').val(getTodayDate());
 
@@ -1649,19 +1543,67 @@
         });
         $("#openBIllingModalButton").click(function(){
             $('.price').val('');
-            $('#BIllingAddressModal').modal('show');
             $('.address-house-price').val('');
+            $(".104_forward_add_id").val(null);
+            $(".104_add_id").val('');
+            $('#BIllingAddressModal').modal('show');
 
         });
+        // $("#purchaseAddressModal").click(function(){
+        //     var price = @json($purchase_address->price);
+        //     $('.address-house-price').val(price);
+        //     $('#BIllingAddressModal').modal('show');
+        // });
+        // $("#freeAddressModal").click(function(){
+        //     $('.price').val('');
+
+        //     $('#BIllingAddressModal').modal('show');
+        //     $('.address-house-price').val('');
+
+        // });
+
         $("#purchaseAddressModal").click(function(){
             var price = @json($purchase_address->price);
             $('.address-house-price').val(price);
+
+            // Set 104_forward_add_id to null and open the modal
+            $(".104_forward_add_id").val(null);
+            $(".104_add_id").val('');
             $('#BIllingAddressModal').modal('show');
         });
+
+        // Handler for opening BIllingAddressModal from #freeAddressModal
         $("#freeAddressModal").click(function(){
             $('.price').val('');
+
+            // Set 104_add_id to null and open the modal
+            $(".104_add_id").val(null);
+            $(".104_forward_add_id").val('');
             $('#BIllingAddressModal').modal('show');
-            $('.address-house-price').val('');
+        });
+
+
+        $("#purchaseAddressModal").click(function(){
+            $("#purchaseAddressModal").addClass("active-modal");
+            $("#freeAddressModal").removeClass("active-modal");
+            $("#openBIllingModalButton").removeClass("active-modal");
+            $(".forward-address").removeClass("d-none");
+
+        });
+
+        $("#freeAddressModal").click(function(){
+            $("#freeAddressModal").addClass("active-modal");
+            $(".forward-address").addClass("d-none");
+            $("#purchaseAddressModal").removeClass("active-modal");
+            $("#openBIllingModalButton").removeClass("active-modal");
+
+        });
+
+        $("#openBIllingModalButton").click(function(){
+            $("#openBIllingModalButton").addClass("active-modal");
+            $("#freeAddressModal").removeClass("active-modal");
+            $("#purchaseAddressModal").removeClass("active-modal");
+            $(".forward-address").removeClass("d-none");
 
         });
     });
@@ -1702,6 +1644,7 @@
             }
         });
     });
+
     $('.select-address').click(function() {
         var selectedAddressDetails = {
             id: $(this).siblings('.address-house-id').val(),
@@ -1749,8 +1692,20 @@
                         ${selectedAddressDetails.countryName ? ',' + selectedAddressDetails.countryName : ''}
                         ${selectedAddressDetails.postCode}`;
         console.log('price', selectedAddressDetails.price);
-        $(".104_add_id").val(selectedAddressDetails.id);
+        // $(".104_add_id").val(selectedAddressDetails.id);
         $(".price").val(selectedAddressDetails.price);
+
+        if ($("#purchaseAddressModal").hasClass("active-modal")) {
+            $(".104_forward_add_id").val(selectedAddressDetails.id);
+            $(".104_add_id").val(null);
+        } else if ($("#freeAddressModal").hasClass("active-modal")) {
+            $(".104_add_id").val(selectedAddressDetails.id);
+            $(".104_forward_add_id").val(null);
+            $('#selectFreeAddress').text(addressText);
+        } else if ($("#openBIllingModalButton").hasClass("active-modal")) {
+            $(".104_forward_add_id").val(selectedAddressDetails.id);
+            $(".104_add_id").val(null);
+        }
 
         $('#selectedForwardAddressDisplay').text(addressText);
     });
@@ -1802,6 +1757,7 @@
 
     //     });
     // });
+
     $("#saveAddr").click(function() {
         $(".loader").show();
         // Validation
@@ -1971,7 +1927,7 @@
                 var contry   = $(this).find(".contry").val();
                 var address_type = $(this).find(".address_type").val();
                 var user_id   = $(this).find(".user_id").val();
-                
+
 
                 if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
                     //alert(number+"---"+address_type);
@@ -1992,12 +1948,27 @@
                             address_id:address_id
                         },
                         success: function(result) {
+                        var savedAddress = result.address;
+                        // Update the HTML elements in the new-address-section with the received data
+                        var addressText = `${savedAddress.house_number ? savedAddress.house_number + ',' : ''}
+                                        ${savedAddress.street ? savedAddress.street + ',' : ''}
+                                        ${savedAddress.locality ? savedAddress.locality + ',' : ''}
+                                        ${savedAddress.town ? savedAddress.town + ',' : ''}
+                                        ${savedAddress.county}
+                                        ${savedAddress.billing_country ? ',' + savedAddress.billing_country : ''}
+                                        ${savedAddress.post_code}`;
 
-                        $("#primaryAddressConfirmModal").modal('hide');
-                        setTimeout(function () {
-                            $(".loader").hide();
-                            location.reload(true);
-                        }, 2500);
+                        $(".103_add_id").val(savedAddress.id);
+                        $(".103_add_house_number").val(savedAddress.house_number);
+                        $(".103_add_street").val(savedAddress.street);
+                        $(".103_add_locality").val(savedAddress.locality);
+                        $(".103_add_town").val(savedAddress.town);
+                        $(".103_user_county").val(savedAddress.county);
+                        $(".103_address_post_code").val(savedAddress.post_code);
+                        $(".103_address_billing_country").val(savedAddress.billing_country); 
+
+                        $('#selectedAddressDisplay').text(addressText);
+                        $("#primaryAddressConfirmModal").modal('hide');                      
                         }
                     });
                 }
@@ -2007,23 +1978,79 @@
 
 </script>
 <script>
-    $(document).ready(function () {
-        $('.update-apt-btn').click(function (e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: "{!! route('save-companies-appointment') !!}",
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
+    $(document).ready(function() {
+
+        // position value change
+        $('.checkBoxPos').on('click', function() {
+            // Update the hidden input value to 1
+            $('#changesMade').val(1);
+        });
+
+        // personal value change
+
+        $('.personal-details-fieldset input, .personal-details-fieldset select').on('input change', function() {
+            // Update the hidden input value to 1
+            $('#personalDetailsChanges').val(1);
+        });
+
+        // Nature of control value change
+
+        $('.nature-of-control input, .nature-of-control select', ).on('input change', function() {
+            // Update the hidden input value to 1
+            $('#natureOfControlChanges').val(1);
+        });
+
+        // residential address value change
+
+        var initialSelectedAddress = $('#selectedAddressDisplay').text().trim();
+
+        $('#selectedAddressDisplay').on('DOMSubtreeModified', function() {
+            var currentSelectedAddress = $(this).text().trim();
+            
+            if (currentSelectedAddress !== initialSelectedAddress) {
+                $('#residentAddressChanges').val(1);
+                initialSelectedAddress = currentSelectedAddress;
+            }
+        });
+
+
+        // forward address value change
+
+        var initialSelectedAddress = $('#selectedForwardAddressDisplay').text().trim();
+
+        $('#selectedForwardAddressDisplay').on('DOMSubtreeModified', function() {
+            var currentSelectedAddress = $(this).text().trim();
+            
+            if (currentSelectedAddress !== initialSelectedAddress) {
+                $('#forwardAddressChanges').val(1);
+                initialSelectedAddress = currentSelectedAddress;
+            }
+        });
+
+        // notification value change
+
+        $('.notification-date input', ).on('input change', function() {
+            // Update the hidden input value to 1
+            $('#notificationDateChanges').val(1);
+        });
+
+
+    });
+
+    $(document).ready(function() {
+        $('.theme-btn-primary.yes-button').on('click', function() {
+            $('input[name="same_reg_add"]').val(1);
+            $('fieldset.forward-address').addClass('d-none');
+            $('.chose-service-address').addClass('d-none');
+
+        });
+
+        $('.theme-btn-primary.no-button').on('click', function() {
+            $('input[name="same_reg_add"]').val(0);
+            $('fieldset.forward-address').removeClass('d-none');
+            $('.chose-service-address').removeClass('d-none');
         });
     });
+   
 </script>
 @endsection
