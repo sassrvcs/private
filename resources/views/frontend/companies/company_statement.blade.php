@@ -51,8 +51,11 @@
                     </div>
                     <div class="col-12 col-md-12">
                         <div class="customer-signup-s1">
-                            <form method="POST" action="#" class="form-register register">
+                            <form method="POST" action="{{ route('save-companies-statement') }} " class="form-register register">
                                 @csrf
+                                @error('statementNotify')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                                 <fieldset class="border px-3 py-4">
                                     <legend class="float-none w-auto p-2">Would you like to file this appointment at Companies House ?</legend>
                                     <p class="mb-3">Would you also like this Company Statement to be filed at Companies House?</p>                                    
@@ -136,8 +139,13 @@
                                                                         <!-- <td>
                                                                             <span class="d-inline-block ml-2">	Amrutaben Patel</span>
                                                                         </td> -->
+                                                                                @php
+
+                                                                                    $officerDetails = officer_details_for_appointments_list(isset($val['person_officer_id']) ? $val['person_officer_id'] : '');
+                                                                            
+                                                                                @endphp
                                                                         <td>
-                                                                            <input type="radio" class="appointment-id" name="appointment_id"  id="{{$val['id']}}" value="{{$val['id']}}">
+                                                                            <input type="radio" class="officer-id" name="officer_id"  id="{{ $officerDetails['id'] }}" value="{{ $officerDetails['id'] }}">
                                                                             <span class="d-inline-block ml-2">
                                                                                 @php
 
@@ -157,7 +165,11 @@
                                                                                     }
 
                                                                                 @endphp
+
                                                                             </span>
+                                                                            <!-- <input type="hidden" name="officer_id" value="{{ $officerDetails['id'] }}">
+                                                                            <input type="hidden" name="officer_name" value="{{ $fullName }}">
+                                                                            <input type="hidden" name="officer_dob" value="{{ $officerDetails['dob_day'] }}"> -->
                                                                         </td>
                                                                         <td>
                                                                             <p>{{ $officerDetails['dob_day'] }}</p>
@@ -181,10 +193,12 @@
                                         </span>
                                     </div>
                                 </fieldset>
-
+                                <input type="hidden" name="order_id" id="company_order_id" value="{{$order_id}}" >
+                                <input type="hidden" name="c_id" id="c_id" value="{{$_GET['c_id']}}">
+                                                                                    
 
                                 <div class="mb-3 d-flex justify-content-between align-items-center">
-                                    <button type="submit" class="btn btn-primary">Cancel</button>
+                                    
                                     <button type="submit" class="btn btn-primary update-btn">Save</button>
                                 </div>
                             </form>
@@ -213,7 +227,7 @@
                 $('#ef_none_psc').prop('checked', true);
                 $('#ef_confirm_psc').prop('checked', false);
                 $('.failed-update-psc').addClass('d-none');
-                $('.appointment-id:first').prop('checked', false);
+                $('.officer-id:first').prop('checked', false);
 
 
             } else if ($('#ef_notice_psc').is(':checked')) {
@@ -223,18 +237,18 @@
                 $('#ef_none_psc').prop('checked', false);
                 $('#ef_confirm_psc').prop('checked', true);
                 $('.failed-update-psc').addClass('d-none');
-                $('.appointment-id:first').prop('checked', false);
+                $('.officer-id:first').prop('checked', false);
 
                 $('input[name="psc_linked"]').change(function() {
 
                     if ($('#ef_failed_psc').is(':checked')) { 
 
                         $('.failed-update-psc').removeClass('d-none');
-                        $('.appointment-id:first').prop('checked', true);
+                        $('.officer-id:first').prop('checked', true);
 
                     } else {
                         $('.failed-update-psc').addClass('d-none');
-                        $('.appointment-id:first').prop('checked', false);
+                        $('.officer-id:first').prop('checked', false);
                     }
 
                  });
@@ -246,7 +260,7 @@
                 $('#ef_none_psc').prop('checked', false);
                 $('#ef_confirm_psc').prop('checked', false);
                 $('.failed-update-psc').addClass('d-none');
-                $('.appointment-id:first').prop('checked', false);
+                $('.officer-id:first').prop('checked', false);
 
             }
 

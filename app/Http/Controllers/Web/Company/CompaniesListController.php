@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Storage;
 use PDF;
 use Illuminate\Support\Str;
 use App\Services\XMLCreation\GenerateXmlService;
-
+use Illuminate\Support\Facades\Validator;
 class CompaniesListController extends Controller
 {
     public  function __construct(
@@ -1157,10 +1157,10 @@ class CompaniesListController extends Controller
                     ])
                 ]
             );
-            return redirect()->route('accepted-company',['order'=>$request->company_order_id,'c_id'=>$request->c_id])->with('success', 'Added to cart');
+            return redirect()->route('accepted-company',['order'=>$request->company_order_id,'c_id'=>$request->c_id])->with('message', 'Appointment Updated Successfully And Added To Cart');
         }
 
-        return redirect()->route('accepted-company',['order'=>$request->company_order_id,'c_id'=>$request->c_id])->with('success', 'Appointment Updated Successfully');
+        return redirect()->route('accepted-company',['order'=>$request->company_order_id,'c_id'=>$request->c_id])->with('message', 'Appointment Updated Successfully');
 
     }catch (\Exception $e) {
         // dd($e);
@@ -1217,6 +1217,11 @@ class CompaniesListController extends Controller
             }
             //add to cart that something changed in service address section
         }
+        if($notification_date_entry!=0)
+        {
+            $section_change_string = 'Notification Date Update, ';
+            //add to cart that something changed in position section,
+        }
         return $section_change_string;
     }
     public function viewCompanyStatement(Request $request)
@@ -1237,6 +1242,97 @@ class CompaniesListController extends Controller
         return view('frontend.companies.company_statement', compact('order_id', 'appointmentsList', 'cartCount'));
     }
 
+
+    public function saveCompanyStatement(Request $request)
+    {
+
+        // return $request->all();
+        $officerId = $request->officer_id ?? null;
+        $officerDetails = null;
+
+        $order_id = $request->order_id;
+
+        $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'statementNotify' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $statementNotifyText = [
+            'ef_no_psc' => 'The company does not have a PSC.',
+            'ef_possible_psc' => 'The company believes it has a PSC but doesn\'t yet have the details.',
+            'ef_unknown_psc' => 'The company does not yet know if it has a PSC.',
+            'ef_notice_psc' => 'The company has issued a notice.',
+        ];
+    
+        $pscStatementText = [
+            'ef_none_psc' => 'The company believes it has a PSC but has not identified them.',
+            'ef_identified_psc' => 'The company has identified a PSC but the details have not yet been confirmed.',
+        ];
+    
+        $pscLinkedText = [
+            'ef_confirm_psc' => 'The company has given notice to confirm PSC details.',
+            'ef_restriction_psc' => 'The company has issued a restriction notice.',
+            'ef_failed_psc' => 'The PSC has failed to provide an update of their changed details.',
+        ];
+
+        if($officerId != null) {
+            $officerDetails = PersonOfficer::find($officerId);
+        }
+
+
+        $cart = Cart::UpdateOrCreate(
+            ['user_id' => $user->id, 'slug' => 'add-new-statement'],
+            [
+                'user_id' => $user->id,
+                'service_name' => 'Add New Company Statement',
+                'slug'=>'add-new-statement',
+                'order_id' => $order_id,
+                'price' => 0,
+                'vat' => 0,
+                'data' => json_encode([
+                    'c_id' => $request->c_id,
+                    'statementNotify' => $statementNotifyText[$request->statementNotify] ?? null,
+                    'psc_statement' => $pscStatementText[$request->psc_statement] ?? null,
+                    'psc_linked' => $pscLinkedText[$request->psc_linked] ?? null,
+                    'officer_details' => $officerDetails ? [
+                        'officer_id' => $officerDetails->id,
+                        'full_name' => $officerDetails->first_name . ' ' . $officerDetails->last_name,
+                        'dob_day' => $officerDetails->dob_day,
+                    ] : null,
+                    'notificationDate' => $request->notificationDate ?? null,
+
+                    // Add other fields as needed
+                ])
+            ]
+        );
+
+        $company = Companie::where(['user_id' => $user->id, 'order_id' => $order_id, 'id' => $request->c_id ])->update([
+            'statement' => json_encode([
+                'c_id' => $request->c_id,
+                'statementNotify' => $statementNotifyText[$request->statementNotify] ?? null,
+                'psc_statement' => $pscStatementText[$request->psc_statement] ?? null,
+                'psc_linked' => $pscLinkedText[$request->psc_linked] ?? null,
+                'notificationDate' => $request->notificationDate ?? null,
+                'officer_details' => $officerDetails ? [
+                    'officer_id' => $officerDetails->id,
+                    'full_name' => $officerDetails->first_name . ' ' . $officerDetails->last_name,
+                    'dob_day' => $officerDetails->dob_day,
+                    
+                ] : null,
+            ])
+        ]);
+
+        return redirect()->route('accepted-company',['order'=>$order_id,'c_id'=>$request->c_id])->with('message', 'Statement Updated Successfully And Added To Cart');
+    
+
+
+        // return view('frontend.companies.company_statement', compact('order_id', 'appointmentsList', 'cartCount'));
+    }
     public function viewCart(Request $request)
     {
         $order_id = $request->order;
@@ -1323,7 +1419,25 @@ class CompaniesListController extends Controller
             $order->auth_code = $auth_code;
             $order->save();
 
-            return response()->json(['message' => 'Auth code updated successfully']);
+            $vat = 0.00;
+            if ($request->has('price') && $request->price !== null) {
+                $vat = $request->price * 0.20; // Assuming 20% VAT rate
+            }
+
+            $cart = Cart::updateOrCreate(
+                ['user_id' => $user->id, 'slug' => "edit-auth-code"],
+                [
+                    'service_name' => "Update Auth Code",
+                    'order_id' => $order_id,
+                    'price' => $request->price ?? 0.00,
+                    'vat' => $vat,
+                    'data'=>json_encode([
+                        'auth_code' => $order->auth_code,
+                    ])
+                ]
+            );
+
+            return response()->json(['message' => 'Auth code updated successfully and added to the cart']);
         } else {
             return response()->json(['error' => 'Order not found'], 404);
         }
@@ -1335,6 +1449,18 @@ class CompaniesListController extends Controller
         try {
 
             $cart = Cart::findOrFail($request->id);
+            
+            // if($cart->slug == "add-new-statement") {
+            //     $order_id = $cart->order_id;
+            //     $user_id = $cart->user_id;
+            //     $cart_data = json_decode($cart->data);
+            //     $c_id = $cart_data->c_id;
+
+            //     $company = Companie::where(['user_id' => $user_id, 'order_id' => $order_id, 'id' => $c_id ])->update([
+            //         'statement' => null,
+            //     ]);
+            // }
+
             $cart->delete();
 
             return response()->json(['message' => 'Cart deleted successfully']);

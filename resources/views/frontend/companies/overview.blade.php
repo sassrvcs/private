@@ -87,8 +87,9 @@
                         @if($cartCount > 0)
 
                         <div class="MyAccount-content col-md-6">
-
-                            <span>You have {{ $cartCount }} items in your cart.
+                                <!-- <p>You have some items on your cart</p> -->
+                            <span>
+                                You have {{ $cartCount }} items in your cart.
 
                                 <a href="{{ route('cart-company', ['order' => $order_id]) }}" class="btn btn-primary col-md-3">View Cart</a>
 
@@ -96,6 +97,13 @@
 
                         </div>
 
+                        @endif
+
+                        <div id="apiResponse" class="mt-3"></div>
+                        @if(session()->has('message'))
+                            <div class="alert alert-success">
+                                {{ session()->get('message') }}
+                            </div>
                         @endif
 
                         <div class="conpany-overview-sec">
@@ -617,13 +625,13 @@
 
                                                 </div>
 
-                                                <div class="overviews-btn-wrap d-flex justify-content-end mb-4">
+                                                <!-- <div class="overviews-btn-wrap d-flex justify-content-end mb-4">
 
                                                     <button class="btn"><img src="assets/images/new-offer-icon.svg"
 
                                                             alt=""> Add New Officer</button>
 
-                                                </div>
+                                                </div> -->
 
                                             @endif
 
@@ -631,33 +639,67 @@
 
                                             <!-- Company Statement -->
 
-                                            <div class="table-responsivr mb-4">
+                                            <div class="table-responsive mb-4">
+                                            <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Company Statement</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if(isset($review->statement))
+                                                    @php
+                                                        $decodedStatement = json_decode($review->statement);
+                                                    @endphp
+                                                    <tr>
+                                                        <td>
+                                                            <div class="mb-2">
+                                                                @if(isset($decodedStatement->statementNotify))
+                                                                    <strong>Statement Notify:</strong> {{ $decodedStatement->statementNotify }}
+                                                                @endif
+                                                            </div>
 
-                                                <table class="table">
+                                                            <div class="mb-2">
+                                                                @if(isset($decodedStatement->psc_statement))
+                                                                    <strong>PSC Statement:</strong> {{ $decodedStatement->psc_statement }}
+                                                                @endif
+                                                            </div>
 
-                                                    <thead>
-
-                                                        <tr>
-
-                                                            <th>Company Statement</td>
-
-                                                        </tr>
-
-                                                    </thead>
-
-                                                    <tbody>
-
-                                                        <tr>
-
-                                                            <td><strong>No Active Statement</strong></td>
-
-                                                        </tr>
-
-                                                    </tbody>
-
-                                                </table>
-
+                                                            <div class="mb-2">
+                                                                @if(isset($decodedStatement->psc_linked))
+                                                                    <strong>PSC Linked:</strong> {{ $decodedStatement->psc_linked }}
+                                                                @endif
+                                                            </div>
+                                                            <div>
+                                                                @if(isset($decodedStatement->officer_details))
+                                                                    <strong>Officer Details:</strong>
+                                                                    <ul class="list-unstyled mb-0 ml-3">
+                                                                        @if(isset($decodedStatement->officer_details->full_name))
+                                                                            <li><strong>Full Name:</strong> {{ $decodedStatement->officer_details->full_name }}</li>
+                                                                        @endif
+                                                                        @if(isset($decodedStatement->officer_details->dob_day))
+                                                                            <li><strong>DOB:</strong> {{ $decodedStatement->officer_details->dob_day }}</li>
+                                                                        @endif
+                                                                        <!-- Add other officer details as needed -->
+                                                                    </ul>
+                                                                @endif
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                @if(isset($decodedStatement->notificationDate))
+                                                                    <strong>Notification Date:</strong> {{ $decodedStatement->notificationDate }}
+                                                                @endif
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @else
+                                                    <tr>
+                                                        <td><strong>No Active Statement</strong></td>
+                                                    </tr>
+                                                @endif
+                                            </tbody>
+                                            </table>
                                             </div>
+
 
 
 
@@ -678,13 +720,55 @@
                                                     </thead>
 
                                                     <tbody>
+                                                        @if(isset($review->statement))
+                                                            @php
+                                                                $decodedStatement = json_decode($review->statement);
+                                                            @endphp
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="mb-2">
+                                                                        @if(isset($decodedStatement->statementNotify))
+                                                                            <strong>Statement Notify:</strong> {{ $decodedStatement->statementNotify }}
+                                                                        @endif
+                                                                    </div>
 
-                                                        <tr>
+                                                                    <div class="mb-2">
+                                                                        @if(isset($decodedStatement->psc_statement))
+                                                                            <strong>PSC Statement:</strong> {{ $decodedStatement->psc_statement }}
+                                                                        @endif
+                                                                    </div>
 
-                                                            <td><strong>No Active Statements</strong></td>
-
-                                                        </tr>
-
+                                                                    <div class="mb-2">
+                                                                        @if(isset($decodedStatement->psc_linked))
+                                                                            <strong>PSC Linked:</strong> {{ $decodedStatement->psc_linked }}
+                                                                        @endif
+                                                                    </div>
+                                                                    <div>
+                                                                        @if(isset($decodedStatement->officer_details))
+                                                                            <strong>Officer Details:</strong>
+                                                                            <ul class="list-unstyled mb-0 ml-3">
+                                                                                @if(isset($decodedStatement->officer_details->full_name))
+                                                                                    <li><strong>Full Name:</strong> {{ $decodedStatement->officer_details->full_name }}</li>
+                                                                                @endif
+                                                                                @if(isset($decodedStatement->officer_details->dob_day))
+                                                                                    <li><strong>DOB:</strong> {{ $decodedStatement->officer_details->dob_day }}</li>
+                                                                                @endif
+                                                                                <!-- Add other officer details as needed -->
+                                                                            </ul>
+                                                                        @endif
+                                                                    </div>
+                                                                    <div class="mb-2">
+                                                                        @if(isset($decodedStatement->notificationDate))
+                                                                            <strong>Notification Date:</strong> {{ $decodedStatement->notificationDate }}
+                                                                        @endif
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @else
+                                                            <tr>
+                                                                <td><strong>No Active Statement</strong></td>
+                                                            </tr>
+                                                        @endif
                                                     </tbody>
 
                                                 </table>
@@ -693,9 +777,13 @@
 
                                             <div class="overviews-btn-wrap d-flex justify-content-end mb-4">
 
-                                                <a href="{{ route('companies-statement', ['order' => $order_id]) }}" class="btn btn-primary col-md-3">Add New Statement</a>
+                                                <!-- <a href="{{ route('companies-statement', ['order' => $order_id]) }}" class="btn btn-primary col-md-3">Add New Statement</a> -->
+                                                @if($review->statement != null) 
+                                                <a href="{{ route('companies-statement', ['order' => $order_id, 'c_id' => $_GET['c_id']]) }}" class="btn btn-primary col-md-3">Edit Statement</a>
+                                                @else
+                                                <a href="{{ route('companies-statement', ['order' => $order_id, 'c_id' => $_GET['c_id']]) }}" class="btn btn-primary col-md-3">Add New Statement</a>
 
-
+                                                @endif
 
                                             </div>
 
@@ -2250,7 +2338,7 @@
 @endsection
 
 @section('script')
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 
         $(document).ready(function () {
@@ -2784,12 +2872,21 @@
 
                     },
 
-                    success: function (response) {
-
-                        console.log(response);
-
-                        location.reload(true);
-
+                    success: function (data) {
+                        
+                        Swal.fire({
+                            title: "Cart Updated!",
+                            text: "Item Added into the cart!",
+                            icon: "success",
+                            confirmButtonText: "Ok",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload(true);
+                                
+                            }
+                        });
+                        // location.reload(true);
+                      
 
 
                     },
@@ -2797,6 +2894,11 @@
                     error: function (error) {
 
                         console.log(error);
+                        Swal.fire({
+                            title: "Something Went wrong!",
+                            text: "Error found!",
+                            icon: "error"
+                        });
 
                     }
 
@@ -2840,12 +2942,27 @@
 
                         $('#displayedAuthCode').text(authCode);
 
+                        Swal.fire({
+                            title: "Cart Updated!",
+                            text: "Item Added into the cart!",
+                            icon: "success",
+                            confirmButtonText: "Ok",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload(true);
+                                
+                            }
+                        });
                     },
 
                     error: function (xhr, status, error) {
 
-                        alert('Error updating auth code');
-
+                        // alert('Error updating auth code');
+                        Swal.fire({
+                            title: "Something Went wrong!",
+                            text: "Error found!",
+                            icon: "error"
+                        });
                         console.error(xhr.responseText);
 
                     }
@@ -2886,13 +3003,29 @@
 
                     success: function (data) {
 
-                        location.reload(true);
+                        // location.reload(true);
+                        Swal.fire({
+                            title: "Cart Updated!",
+                            text: "Item Added into the cart!",
+                            icon: "success",
+                            confirmButtonText: "Ok",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload(true);
+                                
+                            }
+                        });
+                        
 
                     },
 
                     error: function (xhr, status, error) {
-
-                        alert('Error updating auth code');
+                        Swal.fire({
+                            title: "Something Went wrong!",
+                            text: "Error found!",
+                            icon: "error"
+                        });
+                        // alert('Error updating auth code');
 
                         console.error(xhr.responseText);
 
@@ -2932,13 +3065,30 @@
 
                     success: function (data) {
 
-                        location.reload(true);
+                        // location.reload(true);
+                        Swal.fire({
+                            title: "Cart Updated!",
+                            text: "Item Added into the cart!",
+                            icon: "success",
+                            confirmButtonText: "Ok",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload(true);
+                                
+                            }
+                        });
+
 
                     },
 
                     error: function (xhr, status, error) {
 
-                        alert('Error updating change name');
+                        // alert('Error updating change name');
+                        Swal.fire({
+                            title: "Something Went wrong!",
+                            text: "Error found!",
+                            icon: "error"
+                        });
 
                         console.error(xhr.responseText);
 
@@ -3009,14 +3159,31 @@
                             $('#madeUpTo').text(currentReferenceDate);
 
                             $('#madeUpToReference').text(currentReferenceDate);
+                            Swal.fire({
+                                title: "Cart Updated!",
+                                text: "Item Added into the cart!",
+                                icon: "success",
+                                confirmButtonText: "Ok",
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload(true);
+                                    
+                                }
+                            });
 
-                            location.reload(true);
+
+                            // location.reload(true);
 
                         },
 
                         error: function (xhr, status, error) {
+                            Swal.fire({
+                                title: "Something Went wrong!",
+                                text: "Error found!",
+                                icon: "error"
+                            });
 
-                            alert('Error updating the date');
+                            // alert('Error updating the date');
 
                             console.error(xhr.responseText);
 
@@ -3029,6 +3196,7 @@
 
 
             });
+
 
         });
 

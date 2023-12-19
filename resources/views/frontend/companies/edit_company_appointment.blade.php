@@ -1,5 +1,153 @@
 @extends('layouts.app')
 @section('content')
+<style>
+        .director_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .shareholder_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+        .guarantor_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+        .member_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+        .designated_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+        .secretary_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .psc_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .own_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .vot_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .appo_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .other_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .s_own_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .s_vot_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .s_appo_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .s_other_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .t_own_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .t_vot_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .t_appo_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .t_other_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .class_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .sh_appo_i_tooltip {
+            display: none;
+            background-color: white;
+            color: black;
+            position: absolute;
+        }
+
+        .custom-input {
+            cursor: pointer;
+        }
+    </style>
     <section class="common-inner-page-banner"
         style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png') }})">
         <div class="custom-container">
@@ -56,7 +204,7 @@
                     </div>
                     <div class="col-12 col-md-12">
                         <div class="customer-signup-s1">
-                            <form method="POST" action="{{ route('save-companies-appointment') }} " class="form-register register">
+                            <form method="POST" action="{{ route('save-companies-appointment') }} " id="edit_company_form" class="form-register register">
                                 @csrf
                                 <fieldset class="border px-3 py-4">
                                     <legend class="float-none w-auto p-2">Would you like to file this change at Companies House ?</legend>
@@ -92,6 +240,10 @@
                                                 <label for="director">Director <span><img
                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                             alt="" id="director_i"></span></label>
+                                                <span class="director_i_tooltip">A private limited company
+                                                        must have at least one director, being a natural person
+                                                        aged 16 years or over. A director is responsible for the
+                                                        day-to-day management of the business.</span>
 
                                             </li>
                                             <li class="d-none {{ $company_type == 'Limited By Shares' || $company_type == 'Public Limited Company' ? '' : 'd-none'}} {{$company_type=="Limited Liability Partnership"?'d-none':''}}">
@@ -103,7 +255,10 @@
                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                             alt=""
                                                             id="shareholder_i"></span></label>
-
+                                                <span class="shareholder_i_tooltip">Shareholders are the
+                                                        owners of the company and are generally entitled to a
+                                                        share of company profits. You must appoint at least one
+                                                        shareholder.</span>
                                             </li>
                                             <li class="{{$company_type == 'Limited By Guarantee' ? '' : 'd-none'}}">
 
@@ -115,6 +270,7 @@
                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                 alt=""
                                                 id="guarantor_i"></span></label>
+                                                <span class="guarantor_i_tooltip">If this officer is to guarantee an amount in this company, please check this box. You will be asked about the amount guaranteed later.</span>
 
                                             </li>
                                             <li class="{{$company_type == 'Limited Liability Partnership' ? '' : 'd-none'}}">
@@ -126,6 +282,7 @@
                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                 alt=""
                                                 id="member_i"></span></label>
+                                                <span class="member_i_tooltip">Is this officer to be a member of this LLP?  .</span>
 
                                         </li>
                                             <li class="{{$company_type=="Limited Liability Partnership"?'d-none':''}}">
@@ -136,7 +293,14 @@
                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                             alt=""
                                                             id="secretary_i"></span></label>
+                                                            <span class="secretary_i_tooltip">There is no legal
+                                                                    requirement to appoint a company secretary, however, you
+                                                                    may choose to appoint one if you wish.
 
+                                                                    The company secretary is responsible for advising the
+                                                                    directors and shareholders on running the business in
+                                                                    accordance with and in compliance with the Companies
+                                                                    Act, and keeps the statutory records up to date.</span>
                                             </li>
                                             <li class="{{$company_type == 'Limited Liability Partnership' ? '' : 'd-none'}}">
 
@@ -146,7 +310,11 @@
                                                 src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                 alt=""
                                                 id="designated_i"></span></label>
+                                                <span class="designated_i_tooltip">An LLP must have a minimum of two Designated Members. If this officer is to be a Designated Member, please check this box.
 
+                                                A Designated Member has all the responsibilities as a non-Designated Member, along with the following additional responsibilities:
+
+                                                If an auditor is required, they will be appointed by the designated member. Notifying the required parties of any changes to the membership, name or address of the partnership. Signing and delivering accounts on behalf of the partnership.</span>
                                         </li>
                                             <li>
                                                 <input type="checkbox" name="position[]" @if (in_array("PSC", $positions))checked
@@ -156,9 +324,21 @@
                                                     <span><img
                                                             src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                             alt="" id="psc_i"></span></label>
+                                                            <span class="psc_i_tooltip">A Person with Significant
+                                                                    Control (PSC) is any person that ultimately controls
+                                                                    more than 25% of the company. An individual, a UK
+                                                                    registered company and certain other legal entities may
+                                                                    be listed as PSCs.
+
+                                                                    It is now a legal requirement to identify the PSCs of a
+                                                                    company. Please tick the Person with Significant Control
+                                                                    (PSC) box if you qualify as a PSC of this
+                                                                    company.</span>
 
                                             </li>
-
+                                            @error('position')
+                                            <span class="error" style="color: red">Select Atleast One Position</span>
+                                            @enderror
                                             <br class="brCls d-none">
                                             <li class="pt-2 member_consent_checkbox_li d-none">
 
@@ -250,25 +430,34 @@
                                     <div class="form-row form-group ">
                                         <label for="username">First Name(s):</label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="officer_fName" class=" form-control" value="{{ $officer_details['first_name']}}">
+                                            <input type="text" name="officer_fName" class=" form-control {{ $errors->has('officer_fName') ? 'is-invalid' : ''}}" value="{{ $officer_details['first_name']}}">
+                                            @error('officer_fName')
+                                            <span class="error" style="color: red">First Name is required</span>
+                                            @enderror
                                         </span>
                                     </div>
                                     <div class="form-row form-group ">
                                         <label for="username">Last Name:</label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="officer_lName" class=" form-control" value="{{ $officer_details['last_name']}}">
+                                            <input type="text" name="officer_lName" class=" form-control {{ $errors->has('officer_lName') ? 'is-invalid' : ''}}" value="{{ $officer_details['last_name']}}">
+                                            @error('officer_lName')
+                                            <span class="error" style="color: red">Last Name is required</span>
+                                            @enderror
                                         </span>
                                     </div>
                                     <div class="form-row form-group ">
                                         <label for="">Date of Birth:</label>
                                         <span class="input-wrapper">
-                                            <input type="date" max="{{ now()->subYears(16)->format('d-m-Y') }}" id="officer_dob" name="officer_dob" class=" form-control" value="{{ $officer_details['dob_day']}}">
+                                            <input type="date" max="{{ now()->subYears(16)->format('Y-m-d') }}" id="officer_dob" name="officer_dob" class=" form-control" value="{{ $officer_details['dob_day']}}">
                                         </span>
                                     </div>
                                     <div class="form-row form-group ">
                                         <label for="">Occupation:</label>
                                         <span class="input-wrapper">
-                                            <input type="text" name="officer_occupation" class=" form-control" value="{{ $officer_details['occupation']}}">
+                                            <input type="text" name="officer_occupation" class=" form-control {{ $errors->has('officer_occupation') ? 'is-invalid' : ''}}" value="{{ $officer_details['occupation']}}">
+                                            @error('officer_occupation')
+                                            <span class="error" style="color: red">Occupation is required</span>
+                                            @enderror
                                         </span>
                                     </div>
                                     <div class="form-row form-group ">
@@ -324,6 +513,13 @@
                                                                             75%</option>
                                                                         <option value="75% or more" {{strpos($appointment_details['noc_os'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
                                                                     </select>
+                                                                    <span class="own_i_tooltip">If this person holds
+                                                                        more
+                                                                        than 25% of the issued shares, directly or
+                                                                        indirectly, then they meet this nature of
+                                                                        control
+                                                                        condition. Please select their shareholding
+                                                                        percentage range from the drop down menu.</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -347,7 +543,14 @@
                                                                         <option value="More than 50% but less than 75%" {{strpos($appointment_details['noc_vr'], 'More than 50%') !== false ? 'selected' : ''}}>More than 50% but less than 75%</option>
                                                                         <option value="75% or more" {{strpos($appointment_details['noc_vr'], '75% or more') !== false ? 'selected' : ''}}>75% or more</option>
                                                                     </select>
-
+                                                                    <span class="vot_i_tooltip">If this person holds
+                                                                        more
+                                                                        than 25% of the available voting rights,
+                                                                        directly or
+                                                                        indirectly, then they meet this nature of
+                                                                        control
+                                                                        condition. Please select their voting power
+                                                                        percentage range from the drop down menu.</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -369,7 +572,16 @@
                                                                         <option value="No" {{stripos($appointment_details['noc_appoint'], 'No') !== false ? 'selected' : ''}}>No</option>
                                                                         <option value="Yes" {{stripos($appointment_details['noc_appoint'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
                                                                     </select>
-
+                                                                    <span class="appo_i_tooltip">If this person is
+                                                                        entitled, directly or indirectly, to appoint and
+                                                                        remove a majority of the board of directors then
+                                                                        they meet this nature of control condition. Any
+                                                                        person that controls over 50% of the votes may
+                                                                        appoint the directors by ordinary resolution,
+                                                                        but a
+                                                                        person could be given this explicit right in the
+                                                                        Articles of Association or a Shareholders'
+                                                                        Agreement.</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -418,7 +630,15 @@
                                                                         <option value="No" {{stripos($appointment_details['noc_others'], 'no') !== false ? 'selected' : ''}}>No</option>
                                                                         <option value="Yes" {{stripos($appointment_details['noc_others'], 'Yes') !== false ? 'selected' : ''}}>Yes</option>
                                                                     </select>
-
+                                                                    <span class="other_i_tooltip">If this individual
+                                                                        does
+                                                                        not meet any of the preceding natures of control
+                                                                        conditions, but still exerts, or has the right
+                                                                        to
+                                                                        exert, influence or control over the Company,
+                                                                        then
+                                                                        they meet this nature of control
+                                                                        condition.</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-12">
@@ -473,7 +693,13 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="s_own_i"></span>
-
+                                                                <span class="s_own_i_tooltip">If this person holds
+                                                                    more
+                                                                    than 25% of the issued shares, directly or
+                                                                    indirectly, then they meet this nature of
+                                                                    control
+                                                                    condition. Please select their shareholding
+                                                                    percentage range from the drop down menu.</span>
 
                                                             </div>
                                                             <div class="row ">
@@ -497,7 +723,14 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="s_vot_i"></span>
-
+                                                                <span class="s_vot_i_tooltip">If this person holds
+                                                                    more
+                                                                    than 25% of the available voting rights,
+                                                                    directly or
+                                                                    indirectly, then they meet this nature of
+                                                                    control
+                                                                    condition. Please select their voting power
+                                                                    percentage range from the drop down menu.</span>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-12">
@@ -518,7 +751,16 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="s_appo_i"></span>
-
+                                                                <span class="s_appo_i_tooltip">If this person is
+                                                                    entitled, directly or indirectly, to appoint and
+                                                                    remove a majority of the board of directors then
+                                                                    they meet this nature of control condition. Any
+                                                                    person that controls over 50% of the votes may
+                                                                    appoint the directors by ordinary resolution,
+                                                                    but a
+                                                                    person could be given this explicit right in the
+                                                                    Articles of Association or a Shareholders'
+                                                                    Agreement.</span>
                                                                 {{-- <div class="col-md-6 col-sm-12">
                                                                 </div> --}}
                                                             </div>
@@ -538,7 +780,15 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="s_other_i"></span>
-
+                                                                <span class="s_other_i_tooltip">If this individual
+                                                                    does
+                                                                    not meet any of the preceding natures of control
+                                                                    conditions, but still exerts, or has the right
+                                                                    to
+                                                                    exert, influence or control over the Company,
+                                                                    then
+                                                                    they meet this nature of control
+                                                                    condition.</span>
 
                                                             </div>
                                                         </div>
@@ -590,7 +840,13 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="t_own_i"></span>
-
+                                                                <span class="t_own_i_tooltip">If this person holds
+                                                                more
+                                                                than 25% of the issued shares, directly or
+                                                                indirectly, then they meet this nature of
+                                                                control
+                                                                condition. Please select their shareholding
+                                                                percentage range from the drop down menu.</span>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-12">
@@ -616,6 +872,14 @@
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="t_vot_i"></span>
 
+                                                                <span class="t_vot_i_tooltip">If this person holds
+                                                                more
+                                                                than 25% of the available voting rights,
+                                                                directly or
+                                                                indirectly, then they meet this nature of
+                                                                control
+                                                                condition. Please select their voting power
+                                                                percentage range from the drop down menu.</span>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-12">
@@ -636,7 +900,16 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="t_appo_i"></span>
-
+                                                                        <span class="t_appo_i_tooltip">If this person is
+                                                                entitled, directly or indirectly, to appoint and
+                                                                remove a majority of the board of directors then
+                                                                they meet this nature of control condition. Any
+                                                                person that controls over 50% of the votes may
+                                                                appoint the directors by ordinary resolution,
+                                                                but a
+                                                                person could be given this explicit right in the
+                                                                Articles of Association or a Shareholders'
+                                                                Agreement.</span>
                                                             </div>
                                                             <div class="row" id="t_other_sig">
                                                                 <div class="col-md-6 col-sm-12">
@@ -655,13 +928,23 @@
                                                                 <span class="icon"><img
                                                                         src="{{ asset('frontend/assets/images/in-icon.png') }}"
                                                                         alt="" id="t_other_i"></span>
-
+                                                                        <span class="t_other_i_tooltip">If this individual
+                                                                does
+                                                                not meet any of the preceding natures of control
+                                                                conditions, but still exerts, or has the right
+                                                                to
+                                                                exert, influence or control over the Company,
+                                                                then
+                                                                they meet this nature of control
+                                                                condition.</span>
                                                                 {{-- <div class="col-md-6 col-sm-12">
                                                                 </div> --}}
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <span class="error d-none" id="psc_error_message" style="color: red">Please answer atleast one PSC question</span>
                                 </fieldset>
 
                                 @php
@@ -685,7 +968,7 @@
 
                                 @endphp
                                 <fieldset class="border p-3 resident-address">
-                                    <legend class="float-none w-auto p-2">Residential Addressss</legend>
+                                    <legend class="float-none w-auto p-2">Residential Address</legend>
                                     <p>All officers are required under the Companies Act to declare their residential address. This address is held by Companies House but is not made public.<strong id="selectedAddressDisplay">{{@$officer_address}}</strong></p>
                                         <input type="hidden" name="residential_add" class="103_add_id" value="{{$officer_details['add_id']}}">
                                         <input type="hidden" class="103_forward_add_id" value="">
@@ -783,7 +1066,7 @@
 
 
                                 <div class="mb-3 d-flex justify-content-between align-items-center">
-                                    <button type="submit" class="btn btn-primary">Cancel</button>
+                                    <button type="button" onclick="window.location.href='{{route('accepted-company',['order'=>request()->order,'c_id'=>request()->c_id])}}'" class="btn btn-primary">Cancel</button>
                                     <button type="submit" class="btn btn-primary update-apt-btn ">Update Details</button>
                                 </div>
                                 <input type="hidden" name="f_radio_check_id" id="f_radio_check_id" value="{{$put_fci_val}}" readonly>
@@ -1086,7 +1369,7 @@
             </div>
         </div>
 
-        <div class="modal custom-modal-s1" id="addNewBillAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <!-- <div class="modal custom-modal-s1" id="addNewBillAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
                 <div class="modal-content border-0">
                     <div class="modal-header">
@@ -1188,7 +1471,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- <div class="modal custom-modal-s1" id="AddNewBillAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -1297,9 +1580,333 @@
 
 
     </section>
+    <div class="modal custom-modal-s1" id="exampleModalCenterAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+
+            <div class="modal-content border-0">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLongTitle">Choose your address</h5>
+
+                    <button type="button" class="btn-close btn-address"  data-dismiss="modal" aria-label="Close">X</button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div id="post_address_blk">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 @endsection
 @section('script')
 <script>
+    
+    const director_i = document.getElementById("director_i");
+        director_i.addEventListener("mouseover", showTooltip);
+        director_i.addEventListener("mouseout", hideTooltip);
+
+        function showTooltip() {
+            const tooltip = document.querySelector(".director_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function hideTooltip() {
+            const tooltip = document.querySelector(".director_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+
+        const shareholder_i = document.getElementById("shareholder_i");
+        shareholder_i.addEventListener("mouseover", ShareshowTooltip);
+        shareholder_i.addEventListener("mouseout", SharehideTooltip);
+
+        function ShareshowTooltip() {
+            const tooltip = document.querySelector(".shareholder_i_tooltip");
+            tooltip.style.display = "block";
+        }
+        const guarantor_i = document.getElementById("guarantor_i");
+        guarantor_i.addEventListener("mouseover", guarantorshowTooltip);
+        guarantor_i.addEventListener("mouseout", guarantorhideTooltip);
+
+        const member_i = document.getElementById("member_i");
+        member_i.addEventListener("mouseover", membershowTooltip);
+        member_i.addEventListener("mouseout", memberhideTooltip);
+
+        const designated_i = document.getElementById("designated_i");
+        designated_i.addEventListener("mouseover", designatedshowTooltip);
+        designated_i.addEventListener("mouseout", designatedhideTooltip);
+
+        function guarantorshowTooltip() {
+            const tooltip = document.querySelector(".guarantor_i_tooltip");
+            tooltip.style.display = "block";
+        }
+        function guarantorhideTooltip() {
+            const tooltip = document.querySelector(".guarantor_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        function SharehideTooltip() {
+            const tooltip = document.querySelector(".shareholder_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        function membershowTooltip() {
+            const tooltip = document.querySelector(".member_i_tooltip");
+            tooltip.style.display = "block";
+        }
+        function memberhideTooltip() {
+            const tooltip = document.querySelector(".member_i_tooltip");
+            tooltip.style.display = "none";
+        }
+        function designatedshowTooltip() {
+            const tooltip = document.querySelector(".designated_i_tooltip");
+            tooltip.style.display = "block";
+        }
+        function designatedhideTooltip() {
+            const tooltip = document.querySelector(".designated_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const secretary_i = document.getElementById("secretary_i");
+        secretary_i.addEventListener("mouseover", SecshowTooltip);
+        secretary_i.addEventListener("mouseout", SechideTooltip);
+
+        function SecshowTooltip() {
+            const tooltip = document.querySelector(".secretary_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function SechideTooltip() {
+            const tooltip = document.querySelector(".secretary_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+
+        const psc_i = document.getElementById("psc_i");
+        psc_i.addEventListener("mouseover", PSCshowTooltip);
+        psc_i.addEventListener("mouseout", PSChideTooltip);
+
+        function PSCshowTooltip() {
+            const tooltip = document.querySelector(".psc_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function PSChideTooltip() {
+            const tooltip = document.querySelector(".psc_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const own_i = document.getElementById("own_i");
+        own_i.addEventListener("mouseover", OWNshowTooltip);
+        own_i.addEventListener("mouseout", OWNhideTooltip);
+
+        function OWNshowTooltip() {
+            const tooltip = document.querySelector(".own_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function OWNhideTooltip() {
+            const tooltip = document.querySelector(".own_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const vot_i = document.getElementById("vot_i");
+        vot_i.addEventListener("mouseover", VOTshowTooltip);
+        vot_i.addEventListener("mouseout", VOThideTooltip);
+
+        function VOTshowTooltip() {
+            const tooltip = document.querySelector(".vot_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function VOThideTooltip() {
+            const tooltip = document.querySelector(".vot_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const appo_i = document.getElementById("appo_i");
+        appo_i.addEventListener("mouseover", APOshowTooltip);
+        appo_i.addEventListener("mouseout", APOhideTooltip);
+
+        function APOshowTooltip() {
+            const tooltip = document.querySelector(".appo_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function APOhideTooltip() {
+            const tooltip = document.querySelector(".appo_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const other_i = document.getElementById("other_i");
+        other_i.addEventListener("mouseover", OTHshowTooltip);
+        other_i.addEventListener("mouseout", OTHhideTooltip);
+
+        function OTHshowTooltip() {
+            const tooltip = document.querySelector(".other_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function OTHhideTooltip() {
+            const tooltip = document.querySelector(".other_i_tooltip");
+            tooltip.style.display = "none";
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        const s_own_i = document.getElementById("s_own_i");
+        s_own_i.addEventListener("mouseover", S_OWNshowTooltip);
+        s_own_i.addEventListener("mouseout", S_OWNhideTooltip);
+
+        function S_OWNshowTooltip() {
+            const tooltip = document.querySelector(".s_own_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function S_OWNhideTooltip() {
+            const tooltip = document.querySelector(".s_own_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const s_vot_i = document.getElementById("s_vot_i");
+        s_vot_i.addEventListener("mouseover", S_VOTshowTooltip);
+        s_vot_i.addEventListener("mouseout", S_VOThideTooltip);
+
+        function S_VOTshowTooltip() {
+            const tooltip = document.querySelector(".s_vot_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function S_VOThideTooltip() {
+            const tooltip = document.querySelector(".s_vot_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const s_appo_i = document.getElementById("s_appo_i");
+        s_appo_i.addEventListener("mouseover", S_APOshowTooltip);
+        s_appo_i.addEventListener("mouseout", S_APOhideTooltip);
+
+        function S_APOshowTooltip() {
+            const tooltip = document.querySelector(".s_appo_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function S_APOhideTooltip() {
+            const tooltip = document.querySelector(".s_appo_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const s_other_i = document.getElementById("s_other_i");
+        s_other_i.addEventListener("mouseover", S_OTHshowTooltip);
+        s_other_i.addEventListener("mouseout", S_OTHhideTooltip);
+
+        function S_OTHshowTooltip() {
+            const tooltip = document.querySelector(".s_other_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function S_OTHhideTooltip() {
+            const tooltip = document.querySelector(".s_other_i_tooltip");
+            tooltip.style.display = "none";
+        }
+        // ////////////////////////////////////////////////////
+        const t_own_i = document.getElementById("t_own_i");
+        t_own_i.addEventListener("mouseover", T_OWNshowTooltip);
+        t_own_i.addEventListener("mouseout", T_OWNhideTooltip);
+
+        function T_OWNshowTooltip() {
+            const tooltip = document.querySelector(".t_own_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function T_OWNhideTooltip() {
+            const tooltip = document.querySelector(".t_own_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const t_vot_i = document.getElementById("t_vot_i");
+        t_vot_i.addEventListener("mouseover", T_VOTshowTooltip);
+        t_vot_i.addEventListener("mouseout", T_VOThideTooltip);
+
+        function T_VOTshowTooltip() {
+            const tooltip = document.querySelector(".t_vot_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function T_VOThideTooltip() {
+            const tooltip = document.querySelector(".t_vot_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const t_appo_i = document.getElementById("t_appo_i");
+        t_appo_i.addEventListener("mouseover", T_APOshowTooltip);
+        t_appo_i.addEventListener("mouseout", T_APOhideTooltip);
+
+        function T_APOshowTooltip() {
+            const tooltip = document.querySelector(".t_appo_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function T_APOhideTooltip() {
+            const tooltip = document.querySelector(".t_appo_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const t_other_i = document.getElementById("t_other_i");
+        t_other_i.addEventListener("mouseover", T_OTHshowTooltip);
+        t_other_i.addEventListener("mouseout", T_OTHhideTooltip);
+
+        function T_OTHshowTooltip() {
+            const tooltip = document.querySelector(".t_other_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function T_OTHhideTooltip() {
+            const tooltip = document.querySelector(".t_other_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        // ////////////////////////////////////////////////////
+        const class_i = document.getElementById("class_i");
+        class_i.addEventListener("mouseover", class_showTooltip);
+        class_i.addEventListener("mouseout", class_hideTooltip);
+
+        function class_showTooltip() {
+            const tooltip = document.querySelector(".class_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function class_hideTooltip() {
+            const tooltip = document.querySelector(".class_i_tooltip");
+            tooltip.style.display = "none";
+        }
+
+        const sh_appo_i = document.getElementById("sh_appo_i");
+        sh_appo_i.addEventListener("mouseover", sh_appo_showTooltip);
+        sh_appo_i.addEventListener("mouseout", sh_appo_hideTooltip);
+
+        function sh_appo_showTooltip() {
+            const tooltip = document.querySelector(".sh_appo_i_tooltip");
+            tooltip.style.display = "block";
+        }
+
+        function sh_appo_hideTooltip() {
+            const tooltip = document.querySelector(".sh_appo_i_tooltip");
+            tooltip.style.display = "none";
+        }
+</script>
+<script>
+     function scrollToTopDynamic(val) {
+            window.scrollTo(0, val);
+        }
     // Get today's date in the format YYYY-MM-DD
     $(document).ready(function() {
         if($('#director').prop('checked'))
@@ -1427,7 +2034,6 @@
 
 
     }
-
     function f_radio_check() {
         const radio_ele = document.querySelector('input[name="com-qu"]:checked');
 
@@ -1536,10 +2142,10 @@
             $('.address_type').val('primary_address');
             $('#addNewAddressModal').modal('show');
         });
-        $(".addBillAddress").click(function(){
-            console.log('demoo');
-            $('#addNewBillAddressModal').modal('show');
-        });
+        // $(".addBillAddress").click(function(){
+        //     console.log('demoo');
+        //     $('#addNewBillAddressModal').modal('show');
+        // });
         $("#openBIllingModalButton").click(function(){
             $('.price').val('');
             $('.address-house-price').val('');
@@ -1709,53 +2315,6 @@
         $('#selectedForwardAddressDisplay').text(addressText);
     });
 
-    // $("#saveAddr").click(function() {
-    //     $(".loader").show();
-    //     // Validation
-    //     $(".formInputModal").each(function() {
-    //         var number   = $(this).find(".house_no").val();
-    //         var steet    = $(this).find(".steet_no").val();
-    //         var locality = $(this).find(".locality").val();
-    //         var town     = $(this).find(".town").val();
-    //         var county   = $(this).find(".county").val();
-    //         if(county==undefined){
-    //             county ="";
-    //         }
-
-    //         var postcode = $(this).find(".zip").val();
-    //         var contry   = $(this).find(".contry").val();
-    //         var address_type = $(this).find(".address_type").val();
-    //         var user_id   = $(this).find(".user_id").val();
-    //         //alert(number+steet+locality+town+postcode+contry+address_type+user_id);
-    //         if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
-    //             //alert(number+"---"+address_type);
-    //             $.ajax({
-    //                 url: "{!! route('new-address-save') !!}",
-    //                 type: 'POST',
-    //                 data: {
-    //                     "_token": "{{ csrf_token() }}",
-    //                     number: number,
-    //                     steet:steet,
-    //                     locality:locality,
-    //                     town:town,
-    //                     county:county,
-    //                     postcode:postcode,
-    //                     contry:contry,
-    //                     address_type:address_type,
-    //                     user_id:user_id
-    //                 },
-    //                 success: function(result) {
-    //                 $("#addNewAddressModal").modal('hide');
-    //                 setTimeout(function () {
-    //                     $(".loader").hide();
-    //                     location.reload(true);
-    //                 }, 2500);
-    //                 }
-    //             });
-    //         }
-
-    //     });
-    // });
 
     $("#saveAddr").click(function() {
         $(".loader").show();
@@ -1793,10 +2352,10 @@
                         user_id:user_id
                     },
                     success: function(result) {
-                        console.log(result);
+                        // console.log(result);
                         // Access the saved address data
                         var savedAddress = result.address;
-                        // Update the HTML elements in the new-address-section with the received data
+
                         var addressText = `${savedAddress.house_number ? savedAddress.house_number + ',' : ''}
                                         ${savedAddress.street ? savedAddress.street + ',' : ''}
                                         ${savedAddress.locality ? savedAddress.locality + ',' : ''}
@@ -1805,8 +2364,9 @@
                                         ${savedAddress.billing_country ? ',' + savedAddress.billing_country : ''}
                                         ${savedAddress.post_code}`;
 
-                        $('#selectedAddressDisplay').text(addressText);
 
+                        $('#selectedAddressDisplay').text(addressText);
+                        // console.log(addressText);
                         // You can also update other hidden input fields if needed
                         $(".103_add_id").val(savedAddress.id);
                         $(".103_add_house_number").val(savedAddress.house_number);
@@ -1829,77 +2389,77 @@
         });
     });
 
-    $("#saveBillAddr").click(function() {
-        $(".loader").show();
-        // Validation
-        $(".formInputModal").each(function() {
-            var number   = $(this).find(".house_no").val();
-            var steet    = $(this).find(".steet_no").val();
-            var locality = $(this).find(".locality").val();
-            var town     = $(this).find(".town").val();
-            var county   = $(this).find(".county").val();
-            if(county==undefined){
-                county ="";
-            }
+    // $("#saveBillAddr").click(function() {
+    //     $(".loader").show();
+    //     // Validation
+    //     $(".formInputModal").each(function() {
+    //         var number   = $(this).find(".house_no").val();
+    //         var steet    = $(this).find(".steet_no").val();
+    //         var locality = $(this).find(".locality").val();
+    //         var town     = $(this).find(".town").val();
+    //         var county   = $(this).find(".county").val();
+    //         if(county==undefined){
+    //             county ="";
+    //         }
 
-            var postcode = $(this).find(".zip").val();
-            var contry   = $(this).find(".contry").val();
-            var address_type = $(this).find(".address_type").val();
-            var user_id   = $(this).find(".user_id").val();
-            //alert(number+steet+locality+town+postcode+contry+address_type+user_id);
-            if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
-                //alert(number+"---"+address_type);
-                $.ajax({
-                    url: "{!! route('new-address-save-company') !!}",
-                    type: 'POST',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        number: number,
-                        steet:steet,
-                        locality:locality,
-                        town:town,
-                        county:county,
-                        postcode:postcode,
-                        contry:contry,
-                        address_type:address_type,
-                        user_id:user_id
-                    },
-                    success: function(result) {
-                        console.log('demo-result',result);
-                        // Access the saved address data
-                        var savedAddress = result.address;
-                        // Update the HTML elements in the new-address-section with the received data
-                        var addressText = `${savedAddress.house_number ? savedAddress.house_number + ',' : ''}
-                                        ${savedAddress.street ? savedAddress.street + ',' : ''}
-                                        ${savedAddress.locality ? savedAddress.locality + ',' : ''}
-                                        ${savedAddress.town ? savedAddress.town + ',' : ''}
-                                        ${savedAddress.county}
-                                        ${savedAddress.billing_country ? ',' + savedAddress.billing_country : ''}
-                                        ${savedAddress.post_code}`;
+    //         var postcode = $(this).find(".zip").val();
+    //         var contry   = $(this).find(".contry").val();
+    //         var address_type = $(this).find(".address_type").val();
+    //         var user_id   = $(this).find(".user_id").val();
+    //         //alert(number+steet+locality+town+postcode+contry+address_type+user_id);
+    //         if(number!=undefined && steet!=undefined && locality!=undefined && town!=undefined  && postcode !=undefined && contry !=undefined && address_type!=undefined && user_id !=undefined){
+    //             //alert(number+"---"+address_type);
+    //             $.ajax({
+    //                 url: "{!! route('new-address-save-company') !!}",
+    //                 type: 'POST',
+    //                 data: {
+    //                     "_token": "{{ csrf_token() }}",
+    //                     number: number,
+    //                     steet:steet,
+    //                     locality:locality,
+    //                     town:town,
+    //                     county:county,
+    //                     postcode:postcode,
+    //                     contry:contry,
+    //                     address_type:address_type,
+    //                     user_id:user_id
+    //                 },
+    //                 success: function(result) {
+    //                     console.log('demo-result',result);
+    //                     // Access the saved address data
+    //                     var savedAddress = result.address;
+    //                     // Update the HTML elements in the new-address-section with the received data
+    //                     var addressText = `${savedAddress.house_number ? savedAddress.house_number + ',' : ''}
+    //                                     ${savedAddress.street ? savedAddress.street + ',' : ''}
+    //                                     ${savedAddress.locality ? savedAddress.locality + ',' : ''}
+    //                                     ${savedAddress.town ? savedAddress.town + ',' : ''}
+    //                                     ${savedAddress.county}
+    //                                     ${savedAddress.billing_country ? ',' + savedAddress.billing_country : ''}
+    //                                     ${savedAddress.post_code}`;
 
-                        $('#selectedForwardAddressDisplay').text(addressText);
+    //                     $('#selectedForwardAddressDisplay').text(addressText);
 
-                        // You can also update other hidden input fields if needed
-                        $(".104_add_id").val(savedAddress.id);
-                        $(".104_add_house_number").val(savedAddress.house_number);
-                        $(".104_add_street").val(savedAddress.street);
-                        $(".104_add_locality").val(savedAddress.locality);
-                        $(".104_add_town").val(savedAddress.town);
-                        $(".104_user_county").val(savedAddress.county);
-                        $(".104_address_post_code").val(savedAddress.post_code);
-                        $(".104_address_billing_country").val(savedAddress.billing_country);
-                        $(".price").val('');
-                        $("#AddNewBillAddressModal").modal('hide');
-                    // setTimeout(function () {
-                    //     $(".loader").hide();
-                    //     location.reload(true);
-                    // }, 2500);
-                    }
-                });
-            }
+    //                     // You can also update other hidden input fields if needed
+    //                     $(".104_add_id").val(savedAddress.id);
+    //                     $(".104_add_house_number").val(savedAddress.house_number);
+    //                     $(".104_add_street").val(savedAddress.street);
+    //                     $(".104_add_locality").val(savedAddress.locality);
+    //                     $(".104_add_town").val(savedAddress.town);
+    //                     $(".104_user_county").val(savedAddress.county);
+    //                     $(".104_address_post_code").val(savedAddress.post_code);
+    //                     $(".104_address_billing_country").val(savedAddress.billing_country);
+    //                     $(".price").val('');
+    //                     $("#AddNewBillAddressModal").modal('hide');
+    //                 // setTimeout(function () {
+    //                 //     $(".loader").hide();
+    //                 //     location.reload(true);
+    //                 // }, 2500);
+    //                 }
+    //             });
+    //         }
 
-        });
-    });
+    //     });
+    // });
 
     function selectPostalAddrApp(val){
         var value = val.split(',');
@@ -2047,6 +2607,23 @@
             $('fieldset.forward-address').removeClass('d-none');
             $('.chose-service-address').removeClass('d-none');
         });
+
+        $("#edit_company_form").submit(function(e) {
+            if(($('#psc').prop('checked')))
+            {
+                if ($("#F_ownership").val() === '' && $("#F_voting").val() === '' && $("#F_appoint").val() === 'No'  &&
+                    $("#s_ownership").val() === '' && $("#s_voting").val() === '' && $("#s_appoint").val() === 'No'  &&
+                    $("#t_ownership").val() === '' && $("#t_voting").val() === '' && $("#t_appoint").val() === 'No' ) {
+                    // $("#NOC_validation_error").removeClass('d-none')
+                    $("#psc_error_message").removeClass('d-none')
+                    window.scrollTo(0, 1600);
+                    e.preventDefault();
+                }else{
+                    $("#psc_error_message").addClass('d-none')
+                }
+            }
+        })
     });
 </script>
+
 @endsection
