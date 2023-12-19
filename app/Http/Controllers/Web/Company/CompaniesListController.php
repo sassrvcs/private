@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web\Company;
 
 use App\Http\Controllers\Controller;
+use App\Mail\CompanyEditAdmin;
+use App\Mail\CompanyEditCustomer;
 use App\Services\User\UserService;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use App\Services\Order\OrderService;
@@ -31,6 +33,7 @@ use Illuminate\Support\Facades\Storage;
 use PDF;
 use Illuminate\Support\Str;
 use App\Services\XMLCreation\GenerateXmlService;
+use Illuminate\Support\Facades\Mail;
 
 class CompaniesListController extends Controller
 {
@@ -1009,12 +1012,18 @@ class CompaniesListController extends Controller
 
     public function saveCompanyAppointment(Request $request)
     {
-
+        $request->validate([
+            'officer_fName' => 'required',
+            'officer_lName' => 'required',
+            'officer_occupation' => 'required',
+            'position'=>'required'
+        ]);
         // dd(  $request->all());
         $user = Auth::user();
         $same_as_reg_add = $request->same_reg_add;
         if($same_as_reg_add!='0'){ // if service address(also known as appointmentaddress/director address) is same as office registration address then pull the data from companie table
             // dd('yes');
+            $request->address_house_price=null;
             $service_add = Companie::where('id',$request->c_id)->first();
             $service_add_without_forwarding = $service_add->officeAddressWithoutForwAddress;
             $service_add_with_forwarding = $service_add->officeAddressWithForwAddress;
@@ -1092,7 +1101,7 @@ class CompaniesListController extends Controller
         ]);
 
         $service_address_purchased = $request->address_house_price;
-        if ($request->address_house_price != null) {
+        if ($request->address_house_price != null ) {
             //add to cart the service address with price
             $cart = Cart::updateOrCreate(
                 ['user_id' => $user->id, 'slug' => 'purchase_appointment_address','appointment_id' => $request->appointment_id],
@@ -1174,7 +1183,63 @@ class CompaniesListController extends Controller
     {
         $purchase_address = Purchase_address::all();
         $cart_items = Cart::where('user_id', auth()->user()->id)->where('order_id', '17025397833858')->get();
-        return view('frontend.mail.editCompanyMailToAdmin',compact('cart_items','purchase_address'));
+        // try {
+        //     Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CompanyEditAdmin($cart_items,$purchase_address));
+        // }catch (\Exception $e) {
+        //     dd($e);
+        // }
+        // return view('frontend.mail.editCompanyMailToAdmin',compact('cart_items','purchase_address'));
+
+        // $purchase_address = Purchase_address::all();
+        // $cart_items = Cart::where('user_id', auth()->user()->id)->where('order_id', '17025397833858')->get();
+        // return view('frontend.mail.editCompanyMailToAdmin',compact('cart_items','purchase_address'));
+
+        // $total_vat = Cart::where('user_id', auth()->user()->id)->where('order_id', '17025397833858')->get();
+        $user = Auth::user();
+        $address=null;
+        if($address==null){
+            $billing_address = Address::join('countries','countries.id','=','addresses.billing_country')
+            ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+            ->where('addresses.user_id', $user->id)
+            ->where('addresses.address_type','billing_address')
+            ->first();
+        if ($billing_address==null) {
+                $billing_address = Address::join('countries','countries.id','=','addresses.billing_country')
+            ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+            ->where('addresses.user_id', $user->id)
+            ->where('addresses.address_type','office_address')
+            ->first();
+            }
+        if ($billing_address==null) {
+                $billing_address = Address::join('countries','countries.id','=','addresses.billing_country')
+            ->select('countries.name as country_name','addresses.id','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country')
+            ->where('addresses.user_id', $user->id)
+            ->where('addresses.address_type','primary_address')
+            ->first();
+            }
+        }
+            if ($billing_address!=null) {
+                $address = construct_address($billing_address->toArray());
+            }else{
+                $address = null;
+
+            }
+
+            $pdf = PDF::loadView('PDF.editCompanyPdf', compact('cart_items','user','address'));
+            $pdf->render();
+            $pdf_mail_data = $pdf->output();
+            $filename = 'Company_Edit_Invoice'.uniqid().Str::random(10).'.pdf';
+            $filePath = storage_path('app/public/attachments/'.$filename);
+            file_put_contents($filePath, $pdf_mail_data );
+            // return $filePath;
+            $direct_submit = 1;
+            try {
+                Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CompanyEditAdmin($cart_items,$purchase_address,$filePath,$direct_submit));
+                Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CompanyEditCustomer($cart_items,$purchase_address,$filePath,$user,$direct_submit));
+            }catch (\Exception $e) {
+                // dd($e);
+            }
+        // return view('PDF.editCompanyPdf',compact('cart_items','user','address'));
     }
     public function appointmentEditChangesString($request)
     {

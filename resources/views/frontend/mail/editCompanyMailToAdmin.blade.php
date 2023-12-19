@@ -23,7 +23,7 @@
         <thead style="background-color: #313C4E;">
             <tr style="text-align: left;">
                 <th style="padding: 50px;">
-                    {{-- <img src="{{$message->embed($logo)}}" alt=""> --}}
+                    <img src="{{$message->embed($logo)}}" alt="">
                 </th>
             </tr>
         </thead>
@@ -42,6 +42,25 @@
                 </td>
             </tr> --}}
             @foreach ($cart_items as $item)
+            @if ($item->slug == 'edit-auth-code')
+            <ul>
+                {{-- <li>
+                    <strong>Purchase Company Name Change</strong>
+
+                </li> --}}
+                @php
+                $updated_auth_code = json_decode($item->data);
+            @endphp
+                <li>
+                    <strong>{{ $item->service_name }} :  </strong>
+                    <div>
+                        {{ $updated_auth_code->auth_code }}
+                    </div>
+
+
+                </li>
+            </ul>
+            @endif
             @if ($item->slug == 'change-accounting-date')
             <ul>
                 {{-- <li>
@@ -50,7 +69,6 @@
                 </li> --}}
                 <li>
                     <strong>{{ $item->service_name }} :  </strong>
-                    Price: {{ $item->price }}+ Vat: {{ $item->vat }} = {{ $item->price + $item->vat }}
                     <div>
                         @php
                             $company_accountValue_data = json_decode($item->company_account_value);
@@ -185,7 +203,7 @@
                             @endif
 
 
-                        <li>
+                        </li>
                     </ul>
 
 

@@ -453,7 +453,7 @@ class CheckoutStepController extends Controller
                     $admin_mail = ['name'=>'Admin','refId'=>$request->query('PAYID'),'amount'=>$order_transaction->amount];
                     // $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new ServicePurchaseMail ($order_transaction,$userDetails,$filePath));
                     $status =  Mail::to($order_transaction->email)->send(new CustomPaymentMail ($user_mail));
-                    $status =  Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CustomPaymentMail ($admin_mail));
+                    $status =  Mail::to('contact@formationshunt.co.uk')->send(new CustomPaymentMail ($admin_mail));
 
                  } catch (\Throwable $th) {
                     //  throw $th;
