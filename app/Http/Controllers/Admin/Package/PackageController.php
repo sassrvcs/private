@@ -97,7 +97,8 @@ class PackageController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $input = $request->all();
+        // return $request->special_offer;
+         $input = $request->all();
         $validate = Validator::make($request->all(), [
             'name' => 'required',
             'price' => 'required|numeric|min:1',

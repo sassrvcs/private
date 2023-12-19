@@ -14979,6 +14979,10 @@ body #service-formDetails .wizard>.steps .disabled.current a {
     text-align: center;
 }
 
+.tp-stars img {
+    max-width: 300px;
+}
+
 .happy-clients {
     margin-left: 15px;
     font-size: 18px;
@@ -15199,6 +15203,16 @@ body #service-formDetails .wizard>.steps .disabled.current a {
     border-right: solid 1px rgba(26, 27, 30, 0.89);
 }
 
+.prefer-to-order-by-telephone-sec .contact_new_box .div-ul .div-li .call-no .text-container h3,
+.prefer-to-order-by-telephone-sec .contact_new_box .div-ul .div-li .call-no .text-container h3 a {
+    color: rgba(26, 27, 30, 0.89);
+}
+
+.prefer-to-order-by-telephone-sec .contact_new_box .div-ul .div-li:first-child .call-no .text-container h3,
+.prefer-to-order-by-telephone-sec .contact_new_box .div-ul .div-li:first-child .call-no .text-container h3 a {
+    color: #fff;
+}
+
 .payLog {
     margin-top: 15px;
 }
@@ -15306,4 +15320,11 @@ body #service-formDetails .wizard>.steps .disabled.current a {
 
 .all_card img {
     max-width: 450px;
+}
+
+
+
+.theme-btn-darkBlue {
+    background: rgba(26, 27, 30, 0.89);
+    border-color: rgba(26, 27, 30, 0.89);
 }

@@ -298,8 +298,8 @@
                         <p>Share all the necessary details about your firm and leave the rest to us.</p>
                     </div>
                     <div class="action-btns">
-                        <button type="button" class="company-btn"><u>From Your Company</u></button>
-                        <button type="button" class="right-arow-btn">
+                        <button type="button" class="company-btn" onclick="moveToTop()"><u>From Your Company</u></button>
+                        <button type="button" class="right-arow-btn" onclick="moveToTop()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none">
                                 <path d="M16.5005 3.54785C10.4727 3.54785 5.09502 7.88042 3.83409 13.7802C3.20412 16.728 3.6285 19.8627 5.03397 22.5301C6.38664 25.0972 8.60424 27.1719 11.2574 28.3477C14.0172 29.571 17.1856 29.7841 20.0863 28.9499C22.8847 28.1454 25.3659 26.3795 27.0552 24.0092C30.5872 19.0535 30.115 12.0925 25.9596 7.65206C23.5242 5.04968 20.0651 3.54785 16.5005 3.54785ZM22.7141 17.1923L19.1831 20.8085C18.2891 21.7242 16.876 20.3369 17.7664 19.4255L19.548 17.6009H11.1047C10.505 17.6009 10.0048 17.1003 10.0048 16.501C10.0048 15.9017 10.5054 15.4011 11.1047 15.4011H19.5058L17.6888 13.5845C16.7859 12.6816 18.1858 11.2814 19.0887 12.1843L22.7058 15.8011C23.0893 16.1842 23.0929 16.8046 22.7141 17.1923Z" fill="#87CB28" />
                             </svg>
@@ -413,25 +413,17 @@
                     <div class="row">
                         <div class="col-md-6 contact_new_box">
                             <div class="col-md-10">
-                                <h2><b>Comprehensive Payment Security</b></h2>
-                                <p>Selecting FormationsHunt means choosing unparalleled security for your transactions. We proudly accept all major payment methods, ensuring flexibility for your convenience. The data we collect about you is protected with the utmost care. Unlike others, we don't store or collect your payment details.</p>
-                                <p>Relax with confidence, knowing that your information is securely transferred to our reliable third-party payment processors. These partners strictly adhere to the rigorous standards established by the PCI Security Standards Council, a collective effort involving industry leaders like Visa, Mastercard, and Discover. Your trust in FormationsHunt is met with an uncompromising dedication to your privacy and security.</p>
+                                <h2><b>Payment Security</b></h2>
+                                <p>Selecting FormationsHunt means choosing unparalleled security for your transactions. We proudly accept all major payment methods, ensuring flexibility for your convenience. The data we collect about you is protected with the utmost care. Unlike others, we don't store or collect your payment details. Relax with confidence, knowing that your information is securely transferred to our reliable third-party payment processors. These partners strictly adhere to the rigorous standards established by the PCI Security Standards Council, a collective effort involving industry leaders like Visa, Mastercard, and Discover. Your trust in FormationsHunt is met with an uncompromising dedication to your privacy and security.</p>
                                 <div class="payLog">
-                                    <img src="{{ asset('frontend/assets/images/VISA.png') }}" height="32" width="40">
-                                    <img src="{{ asset('frontend/assets/images/ELECTRON.png') }}" height="32" width="40">
-                                    <img src="{{ asset('frontend/assets/images/DELTA.png') }}" height="32" width="40">
-                                    <img src="{{ asset('frontend/assets/images/PURCHASING.png') }}" height="32" width="40">
-                                    <img src="{{ asset('frontend/assets/images/VPAY.png') }}" height="32" width="40">
-                                    <img src="{{ asset('frontend/assets/images/MAESTRO.png') }}" height="32" width="40">
-                                    <img src="{{ asset('frontend/assets/images/MASTERCARD.png') }}" height="32" width="40">
+                                    <img src="{{ asset('frontend/assets/images/all-card.jpg') }}">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 contact_new_box">
                             <div class="col-md-10 ml-auto">
-                                <h2><b>Prefer to order by telephone</b></h2>
-                                <p>If you are not confident in completing your new company order online - call our friendly team and
-                                    we will complete your order by telephone</p>
+                                <h2><b>Prefer To Order By Telephone</b></h2>
+                                <p>If you not feeling confident completing your order online, call our experts to guide you step by step and complete your order by phone</p>
                                 <div class="div-ul">
                                     <div class="div-li">
                                         <div class="call-no">
@@ -635,7 +627,7 @@
                     <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <h3>To See All </h3>
                         <h2>Our Video Click Here</h2>
-                        <p>This small video will help you understand our company formation process in simple easy steps to make you feel more confident when you registering your limited company. Subscribe us for regular updateds.</p>
+                        <p>This small video will help you understand our company formation process in simple easy steps to make you feel more confident when you registering your limited company. Subscribe us for regular updates.</p>
                     </div>
                     <div class="action-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <a href="#" class="theme-btn-darkBlue click-btn">
@@ -1215,7 +1207,17 @@
             searchButton.text('Search');
 
         });
+
+
     });
+
+    function moveToTop(){
+        window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        $('#company-name').focus();
+    }
 
     function searchSubmit(companyName) {
         axios.get('/search-companie', {

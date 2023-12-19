@@ -67,12 +67,11 @@
                             </div>
                             <div class="div-li">
                                 <div class="call-no">
-                                    <div class="icon-container">
+                                    <!-- <div class="icon-container">
                                         <img src="{{ asset('frontend/assets/images/email-green-icon.svg') }}">
-                                    </div>
+                                    </div> -->
                                     <div class="text-container">
-                                        <h3><a
-                                                href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h3>
+                                        <h3>or Email Us:<a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h3>
                             </div>
                         </div>
                     </div>

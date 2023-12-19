@@ -18,7 +18,7 @@ class Companie extends Model implements HasMedia
         'section_name', 'step_name','order_id',
         'forwarding_registered_office_address',
         'forwarding_business_office_address',
-        'legal_document'
+        'legal_document', 'statement'
     ];
 
     // public function registerMediaCollections(): void

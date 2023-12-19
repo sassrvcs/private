@@ -29,25 +29,25 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <x-Forms.Input type="text" mandate="*" label="Name" id="name"
                                             name="name" value="{{ $package->package_name }}"
                                             placeholder="Enter package name"
                                             class="{{ $errors->has('name') ? 'is-invalid' : '' }}" readonly />
                                     </div>
 
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <x-Forms.Input type="text" label="Short Description" id="short_desc"
                                             name="short_desc" value="{{ $package->short_description }}"
                                             class="{{ $errors->has('short_desc') ? 'is-invalid' : '' }}"  />
                                     </div>
 
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <x-Forms.Input type="number" mandate="*" label="Price" id="price"
                                             name="price" value="{{ $package->package_price }}"
                                             class="{{ $errors->has('price') ? 'is-invalid' : '' }}"  />
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <label for="">Package Type&nbsp;<span class="mandetory">* </span></label>
                                         <select name="package_type" id="package_type" class="form-control">
                                             <option value="shares" {{ $package->package_type=='shares'?'selected':'' }}>Limited By Shares</option>
@@ -58,6 +58,14 @@
                                             <option value="PLC_Package" {{ $package->package_type=='PLC_Package'?'selected':'' }}>PLC Package</option>
                                         </select>
                                     </div>
+
+                                    <div class="col-sm-4">
+                                    <label for="special_offer">Special Offer</label>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="special_offer" name="special_offer" value="1" {{ $package->special_offer ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="special_offer">Check if this is a Special Offer</label>
+                                    </div>
+                                </div>
 
                                 </div>
 

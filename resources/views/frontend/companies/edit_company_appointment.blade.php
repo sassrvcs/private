@@ -969,7 +969,7 @@
                                 @endphp
                                 <fieldset class="border p-3 resident-address">
                                     <legend class="float-none w-auto p-2">Residential Address</legend>
-                                    <p>All officers are required under the Companies Act to declare their residential address. This address is held by Companies House but is not made public.<br><strong id="selectedAddressDisplay">{{@$officer_address}}</strong></p>
+                                    <p>All officers are required under the Companies Act to declare their residential address. This address is held by Companies House but is not made public.<strong id="selectedAddressDisplay">{{@$officer_address}}</strong></p>
                                         <input type="hidden" name="residential_add" class="103_add_id" value="{{$officer_details['add_id']}}">
                                         <input type="hidden" class="103_forward_add_id" value="">
                                         <input type="hidden" class="103_add_house_number" value="40 new add">

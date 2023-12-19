@@ -55,7 +55,9 @@ class PackageController extends Controller
             $facilityList[$package->id] = (!empty($package->facilities)) ? json_decode($package->facilities) : [];
         };
 
-        return view('frontend.package.package',compact('packages', 'facilitys', 'facilityList'));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.package.package',compact('packages', 'facilitys', 'facilityList','businessdata','accounting'));
     }
 
     public function digital()
