@@ -32,13 +32,13 @@
 
                             <a class="dropdown-item" href="{{route('digital_package')}}">Digital Package</a>
 
-                            <a class="dropdown-item" href="{{route('privacy_package')}}">Privacy</a>
+                            <a class="dropdown-item" href="{{route('privacy_package')}}">Privacy Package</a>
 
-                            <a class="dropdown-item" href="{{route('professional_package')}}">Professional</a>
+                            <a class="dropdown-item" href="{{route('professional_package')}}">Professional Package</a>
 
-                            <a class="dropdown-item" href="{{route('prestige_package')}}">Prestige</a>
+                            <a class="dropdown-item" href="{{route('prestige_package')}}">Prestige Package</a>
 
-                            <a class="dropdown-item" href="{{route('all_inclusive_package')}}">All Inclusive</a>
+                            <a class="dropdown-item" href="{{route('all_inclusive_package')}}">All Inclusive Package</a>
 
                             <a class="dropdown-item" href="{{route('non_residents_package')}}">Non Residents</a>
 
@@ -49,7 +49,6 @@
                             <a class="dropdown-item" href="{{route('e_seller_package')}}">Eseller</a>
 
                             <a class="dropdown-item" href="{{route('plc_package')}}">PLC Package</a>
-
                         </div>
 
                     </div>
@@ -132,7 +131,7 @@
 
                                         <h5><span>Business Banking</span></h5>
 
-                                        <a class="dropdown-item" href="{{route('company_services', 'barclays-bank-account')}}">>Barclays Bank Account</a>
+                                        <a class="dropdown-item" href="{{route('company_services', 'barclays-bank-account')}}">Barclays Bank Account</a>
 
                                         <a class="dropdown-item" href="{{route('company_services', 'cashplus-business-account')}}">Cashplus Business Account</a>
 
@@ -222,18 +221,23 @@
 
             </ul>
 
-            <div class="freecall">
+
+            <div class="cn-menu-lists-overlay"></div>
+
+        </div>
+
+        <div class="freecall">
+            <div class="freecall_wrap">
                 <div class="freecall_icon">
                     <i class="fa fa-phone"></i>
                 </div>
                 <div class="freecall_content">
                     <a href="tel:02030020032"> 020 3002 0032 </a>
-                    <p>24/7 Customer Support</p>
                 </div>
             </div>
-
-            <div class="cn-menu-lists-overlay"></div>
-
+            <div class="freecall_short_text">
+                <p>24/7 Customer Support</p>
+            </div>
         </div>
 
         <div class="cn-right-actions">

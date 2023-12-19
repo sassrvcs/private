@@ -156,7 +156,7 @@
 
 
 
-<div class="whatMakesDifferent-sec01">
+<div class="whatMakesDifferent-sec01 d-none">
 
     <div class="whatMakesDifferent-sec01-sec1 for-ourDifferent">
 
@@ -388,7 +388,7 @@
 
 <!-- ================ start: take-look-t-our-sec01 ================ -->
 
-<div class="take-look-t-our-sec01">
+<div class="take-look-t-our-sec01 d-none">
 
     <div class="custom-container">
 

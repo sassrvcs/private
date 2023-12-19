@@ -13,13 +13,16 @@
                             <a href="{{ route('digital_package')}}">Digital Package</a>
                         </li>
                         <li>
-                            <a href="{{route('professional_package')}}">Professional</a>
+                            <a href="{{ route('privacy_package')}}">Privacy Package</a>
                         </li>
                         <li>
-                            <a href="{{route('prestige_package')}}">Prestige</a>
+                            <a href="{{route('professional_package')}}">Professional Package</a>
                         </li>
                         <li>
-                            <a href="{{route('all_inclusive_package')}}">All Inclusive</a>
+                            <a href="{{route('prestige_package')}}">Prestige Package</a>
+                        </li>
+                        <li>
+                            <a href="{{route('all_inclusive_package')}}">All Inclusive Package</a>
                         </li>
                         <li>
                             <a href="{{route('non_residents_package')}}">Non Residents</a>
@@ -82,6 +85,9 @@
                         </li>
                         <li>
                             <a href="{{route('company_services', 'registered-office-address')}}">Registered Office Address</a>
+                        </li>
+                        <li>
+                            <a href="{{route('company_services', 'business-mailing-address-service')}}">Business Mail Forwarding Address</a>
                         </li>
                         <li>
                             <a href="{{route('company_services', 'renewals')}}">Renewals</a>
