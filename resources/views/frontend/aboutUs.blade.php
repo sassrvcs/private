@@ -27,25 +27,16 @@
                     <div class="title_block">
                         <span class="tag" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Introduction</span>
                         <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><span class="txt_green">Overview of</span> Formations Hunt</h2>
-                        <p class="subtitle" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellent esque
-                            dignissim eros a sapien tempus.</p>
+                        <p class="subtitle" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Welcome to Formations Hunt – Your Premier Partner in Company Formation in the UK.</p>
                     </div>
-                    <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At vero eos et iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque.
-                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.
-                        At
-                        vero eos et iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque.
-                        Neque
-                        porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.At
-                        vero
-                        eos et iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque. Neque
-                        porro
-                        quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.At vero eos
-                        et
-                        iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque. Neque porro
-                        quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.At vero eos
-                        et
-                        iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque. Neque porro
-                        quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.</p>
+                    <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At Formations Hunt, we take pride in being at the forefront of company formation services, dedicated to helping entrepreneurs and business owners navigate the intricate process of establishing their companies in the United Kingdom. With a wealth of experience and a commitment to excellence, we have emerged as a trusted name in the industry.
+
+                        Our journey is rooted in a passion for empowering businesses to thrive. Guided by a customer-centric approach, we provide comprehensive solutions that go beyond the ordinary, ensuring a seamless and efficient process for company formation.
+
+                        As a dynamic team, we understand the significance of every business endeavour. From startups to established enterprises, we cater to diverse needs, offering bespoke services that align with the unique requirements of each client.
+
+                        Discover the Formations Hunt advantage – where expertise meets excellence, and your business aspirations find a trusted ally.
+                        </p>
                 </div>
             </div>
             <div class="img_block">
@@ -77,21 +68,10 @@
                         <span class="tag" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">vision & mission
                         </span>
                         <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><span class="txt_green">What</span> We do</h2>
-                        <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellent esque
-                            dignissim eros a sapien tempus.</p>
+                        <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="subtitle">At Formations Hunt, our vision is to be the catalyst for your business success. We envision a landscape where every entrepreneur can embark on their business journey with confidence, supported by a reliable partner committed to their growth.</p>
                     </div>
-                    <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At vero eos et iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque.
-                        Neque
-                        porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit. At
-                        vero eos et
-                        iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque. Neque porro
-                        quisquam
-                        est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.At vero eos et iusto
-                        odio due
-                        dignissimos ducimus qui blanditiis voluptatum del eniti atque. Neque porro quisquam est, qui
-                        dolorem ipsum quia dolor sit amet, consectetur adipisci velit.At vero eos et iusto odio due
-                        dignissimos ducimus qui blanditiis voluptatum del eniti atque. Neque porro quisquam est, qui
-                        dolorem ipsum quia dolor sit amet, consectetur adipisci velit.</p>
+                    <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our mission is clear – to simplify and streamline the company formation process for our clients. We leverage our expertise and knowledge to provide unparalleled services that empower businesses to thrive in the competitive business environment of the UK.
+                    </p>
                 </div>
             </div>
     </div>

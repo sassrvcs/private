@@ -133,7 +133,7 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="comparePackages-content"  data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
             <table>
                 <thead>
@@ -296,6 +296,250 @@
     </div>
 </section>
 <x-company_name_check />
+<div class="needLittleHelp-sec">
+
+    <div class="custom-container">
+
+        <div class="left_div">
+
+            <ul class="contactUl" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+
+                <li>
+
+                    <div class="icon-container">
+
+                        <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
+
+                    </div>
+
+                    <div class="text-container">
+
+                        <h3>Call Us: </h3>
+
+                        <h2><a href="tel:020 3002 0032">020 3002 0032</a></h2>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <div class="icon-container">
+
+                        <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
+
+                    </div>
+
+                    <div class="text-container">
+
+                        <h3>Mail us: </h3>
+
+                        <h2><a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h2>
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+       <div class="right_div" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+
+                <div class="sec-title1 mb-0">
+
+                    <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="text-white">Need a <br>little help?</h2>
+
+                    <p>We love talking to you when it comes to creating something new. We want you to remember us
+
+                        always,
+
+                        let’s be good for good and for a good reason. Reach us through your voice or writing.</p>
+
+                </div>
+
+
+
+            </div>
+
+    </div>
+
+</div>
+
+<!-- ================ end: needLittleHelp-sec ================ -->
+
+<!-- ================ start: clientReviews-sec01 ================ -->
+
+<div class="clientReviews-sec01">
+
+    <div class="custom-container">
+
+        <div class="sec-title1 text-center">
+
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Client <span>Reviews</span></h2>
+
+        </div>
+
+        <div class="clientReviews-sec01-wrapper">
+
+            <div class="left_div">
+
+                <ul class="clientReviews-sec01-slider" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+
+                    <li>
+
+                        <div class="clientReviews-sec01-slider-box">
+
+                            <div class="qutes1">
+
+                                <img src="{{ asset('frontend/assets/images/qutes1.svg') }}">
+
+                            </div>
+
+                            <p>Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit.Vestibulum ligula.</p>
+
+                            <figure>
+
+                                <div class="user-img-container">
+
+                                    <img src="{{ asset('frontend/assets/images/user-img-container1.png') }}">
+
+                                </div>
+
+                                <figcaption>
+
+                                    <h3>David John</h3>
+
+                                    <h4>CEO, Our Company</h4>
+
+                                </figcaption>
+
+                            </figure>
+
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <div class="clientReviews-sec01-slider-box">
+
+                            <div class="qutes1">
+
+                                <img src="{{ asset('frontend/assets/images/qutes1.svg') }}">
+
+                            </div>
+
+                            <p>Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit.Vestibulum ligula.</p>
+
+                            <figure>
+
+                                <div class="user-img-container">
+
+                                    <img src="{{ asset('frontend/assets/images/user-img-container1.png') }}">
+
+                                </div>
+
+                                <figcaption>
+
+                                    <h3>David John</h3>
+
+                                    <h4>CEO, Our Company</h4>
+
+                                </figcaption>
+
+                            </figure>
+
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <div class="clientReviews-sec01-slider-box">
+
+                            <div class="qutes1">
+
+                                <img src="{{ asset('frontend/assets/images/qutes1.svg') }}">
+
+                            </div>
+
+                            <p>Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit.Vestibulum ligula.</p>
+
+                            <figure>
+
+                                <div class="user-img-container">
+
+                                    <img src="{{ asset('frontend/assets/images/user-img-container1.png') }}">
+
+                                </div>
+
+                                <figcaption>
+
+                                    <h3>David John</h3>
+
+                                    <h4>CEO, Our Company</h4>
+
+                                </figcaption>
+
+                            </figure>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="right_div" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+
+                <div class="clientReviews-sec01-f-Pic1"><img src="{{ asset('frontend/assets/images/clientReviews-sec01-fPic1.png') }}"></div>
+
+                <div class="clientReviews-sec01-f-Pic2"><img src="{{ asset('frontend/assets/images/clientReviews-sec01-fPic2.png') }}"></div>
+
+                <div class="clientReviews-sec01-f-Pic3"><img src="{{ asset('frontend/assets/images/clientReviews-sec01-fPic3.png') }}"></div>
+
+                <div class="clientReviews-sec01-f-Pic4"><img src="{{ asset('frontend/assets/images/clientReviews-sec01-fPic4.png') }}"></div>
+
+                <div class="clientReviews-sec01-f-Pic5"><img src="{{ asset('frontend/assets/images/clientReviews-sec01-fPic5.png') }}"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="ourBankingPartners-sec01">
+    <div class="custom-container">
+        <div class="sec-title1 text-center">
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our Banking
+                <span>Partners</span></h2>
+        </div>
+        <ul data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            @foreach ($businessdata as $index => $data)
+                <li>
+                    <div class="logo-container">
+                        <img src="{{ $data->getFirstMediaUrl('business_banking_images') }}">
+                    </div>
+                </li>
+            @endforeach
+
+            @foreach ($accounting as $item => $data)
+                <li>
+                    <div class="logo-container">
+                        <img src="{{ $data->getFirstMediaUrl('accounting_software_images') }}">
+                    </div>
+                </li>
+            @endforeach
+
+        </ul>
+    </div>
+</div>
+<!-- ================ end: ourBankingPartners-sec01 ================ -->
+<!-- ================ start: faq-002-sec ================ -->
+
 
 <!-- ================ end: comparePackages-sec ================ -->
 

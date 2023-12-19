@@ -42,7 +42,7 @@
                             <h2>Payment For Order {{ $order_id }}</h2>
                             <a href="{{ route('accepted-company', ['order' => $order_id,'c_id'=>$order->myCompany->id]) }}" class="btn btn-secondary">Back</a>
                         </div>
-                        
+
 
                         @if ($cart->count() > 0)
                             <table class="table mt-4">
@@ -96,6 +96,8 @@
                             </table>
                             <form method="post" action="/cart-pay" id="ef-js-new-order" name="ef-js-current-order">
                                 @csrf
+                                <input type="hidden" name="net_total" value="{{$net_total}}">
+                                <input type="hidden" name="vat" value="{{$vat}}">
                                 <input type="hidden" name="total_price" value="{{$total_price}}">
                                 <input type="hidden" name="order_id" value="{{$order_id}}">
                             <div class="efPanel ui-corner-all ui-widget-content" id="efOutputOptionsContainer"
@@ -167,9 +169,13 @@
                                     <input type="hidden" name="pt" value="bbc7ad02-933a-11ee-b7b9-42010a84003a">
                                     <input type="hidden" name="csrf-token" value="4821d05c71d45fd8ca0c91e67d437b90">
 
-                                    <div class="efCartCheckoutButtonDiv">
+                                    <div class="efCartCheckoutButtonDiv ">
                                         <span class="efCartCheckoutButtonLoader efHide"></span>
-                                        <button class="btn btn-primary" type="submit">Pay Now</button>
+                                        @if($total_price==0)
+                                            <button class="btn btn-primary" type="submit">Submit Now</button>
+                                        @else
+                                            <button class="btn btn-primary" type="submit">Pay Now</button>
+                                        @endif
                                     </div>
                             </div>
                         </form>
