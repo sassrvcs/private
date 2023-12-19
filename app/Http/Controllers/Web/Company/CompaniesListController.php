@@ -1184,22 +1184,19 @@ class CompaniesListController extends Controller
         //    return $request->all();
 
     }
-    public function editCompanyMailNotification()
+    public function editCompanyMailNotification($payment_order_id,$d_pay)
     {
         $purchase_address = Purchase_address::all();
-        $cart_items = Cart::where('user_id', auth()->user()->id)->where('order_id', '17025397833858')->get();
-        // try {
-        //     Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CompanyEditAdmin($cart_items,$purchase_address));
-        // }catch (\Exception $e) {
-        //     dd($e);
-        // }
-        // return view('frontend.mail.editCompanyMailToAdmin',compact('cart_items','purchase_address'));
-
-        // $purchase_address = Purchase_address::all();
-        // $cart_items = Cart::where('user_id', auth()->user()->id)->where('order_id', '17025397833858')->get();
-        // return view('frontend.mail.editCompanyMailToAdmin',compact('cart_items','purchase_address'));
-
-        // $total_vat = Cart::where('user_id', auth()->user()->id)->where('order_id', '17025397833858')->get();
+        $cart_items = companyEditRequest::where('user_id', auth()->user()->id)->where('payment_order_id', $payment_order_id)->get();
+        $order_particulars = companyEditTransaction::where('user_id', auth()->user()->id)->where('order_id', $payment_order_id)->first();
+        $base_amount = $order_particulars->base_amount;
+        $vat = $order_particulars->vat;
+        $total_amount = $order_particulars->amount;
+        $amount_details = [
+            'vat'=>$vat,
+            'base_amount'=>$base_amount,
+            'total_amount'=>$total_amount
+        ];
         $user = Auth::user();
         $address=null;
         if($address==null){
@@ -1230,14 +1227,14 @@ class CompaniesListController extends Controller
 
             }
 
-            $pdf = PDF::loadView('PDF.editCompanyPdf', compact('cart_items','user','address'));
+            $pdf = PDF::loadView('PDF.editCompanyPdf', compact('cart_items','user','address','amount_details'));
             $pdf->render();
             $pdf_mail_data = $pdf->output();
             $filename = 'Company_Edit_Invoice'.uniqid().Str::random(10).'.pdf';
             $filePath = storage_path('app/public/attachments/'.$filename);
             file_put_contents($filePath, $pdf_mail_data );
             // return $filePath;
-            $direct_submit = 1;
+            $direct_submit = $d_pay;
             try {
                 Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CompanyEditAdmin($cart_items,$purchase_address,$filePath,$direct_submit));
                 Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CompanyEditCustomer($cart_items,$purchase_address,$filePath,$user,$direct_submit));
@@ -1423,30 +1420,67 @@ class CompaniesListController extends Controller
     public function cartPay(Request $request){
 
         if($request->total_price == '0'){
+            try{
+                $order = $request->order_id.'/'.uniqid().Str::random(10);
+                $company_details = Companie::where('order_id',$request->order_id)->first();
+
+                $edit_cart_payemnt = new companyEditTransaction ;
+                $edit_cart_payemnt->order_id = $order;
+                $edit_cart_payemnt->company_order_id = $request->order_id;
+                $edit_cart_payemnt->user_id = auth()->user()->id;
+                $edit_cart_payemnt->service_data = null;
+                $edit_cart_payemnt->company_name = $company_details->companie_name;
+                $edit_cart_payemnt->company_number =$company_details->id;
+                $edit_cart_payemnt->payment_status = 1;
+                $edit_cart_payemnt->base_amount = $request->net_total;
+                $edit_cart_payemnt->vat = $request->vat;
+                $edit_cart_payemnt->amount = $request->total_price;
+                $edit_cart_payemnt->order_note = $request->order_note;
+                $edit_cart_payemnt->recipient_name = $request->recipient_name;
+                $edit_cart_payemnt->recipient_email = $request->recipient_name;
+                $edit_cart_payemnt->uuid =Str::uuid()->toString();
+                $edit_cart_payemnt->save();
+
+                $carts = Cart::where('order_id', $request->order_id)->where('user_id', auth()->user()->id)->get();
+                // dd($carts);
+                foreach ($carts as $key => $cart) {
+                   $move_cart_data = companyEditRequest::create([
+                        'user_id'=>$cart->user_id,
+                        'order_id'=>$cart->order_id,
+                        'payment_order_id'=>$order,
+                        'service_name'=>$cart->service_name,
+                        'slug'=>$cart->slug,
+                        'address_id'=>$cart->address_id,
+                        'forward_address_id'=>$cart->forward_address_id,
+                        'price'=>$cart->price,
+                        'vat'=>$cart->vat,
+                        'effective_date'=>$cart->effective_date,
+                        'appointment_id'=>$cart->appointment_id,
+                        'company_account_value'=>$cart->company_account_value,
+                        'data'=>$cart->data,
+                    ]);
+                    if($move_cart_data){
+                        $cart->delete();
+                    };
+                };
+                $company_id = $company_details->id;
+                $company_order_id = $request->order_id;
+                $this->editCompanyMailNotification($order,1);
+            return view('frontend.payment_getway.Thankyou',compact(['company_order_id','company_id']));
+
+            }catch(\Exception $e){
+                $error = $e->getMessage();
+            // dd($error);
+
+            }
             // $is_record_exist = companyEditTransaction::where('company_order_id',$request->order_id)->first();
             // if($is_record_exist){
             //     $is_record_exist->delete();
             // }
 
-            $order = $request->order_id.'/'.uniqid().Str::random(10);
-            $company_details = Companie::where('order_id',$request->order_id)->first();
 
-            $edit_cart_payemnt = new companyEditTransaction ;
-            $edit_cart_payemnt->order_id = $order;
-            $edit_cart_payemnt->company_order_id = $request->order_id;
-            $edit_cart_payemnt->user_id = auth()->user()->id;
-            $edit_cart_payemnt->service_data = null;
-            $edit_cart_payemnt->company_name = $company_details->companie_name;
-            $edit_cart_payemnt->company_number =$company_details->id;
-            $edit_cart_payemnt->payment_status = 1;
-            $edit_cart_payemnt->base_amount = $request->net_total;
-            $edit_cart_payemnt->vat = $request->vat;
-            $edit_cart_payemnt->amount = $request->total_price;
-            $edit_cart_payemnt->order_note = $request->order_note;
-            $edit_cart_payemnt->recipient_name = $request->recipient_name;
-            $edit_cart_payemnt->recipient_email = $request->recipient_name;
-            $edit_cart_payemnt->uuid =Str::uuid()->toString();
-            $edit_cart_payemnt->save();
+
+
         }else{
             // $is_record_exist = companyEditTransaction::where('company_order_id',$request->order_id)->first();
             // if($is_record_exist){
@@ -1508,8 +1542,46 @@ class CompaniesListController extends Controller
     }
 
     public function paymentSuccess(Request $request){
-        dd($request);
-        return view('frontend.payment_getway.success');
+        try{
+            companyEditTransaction::where('order_id',$request->orderID)->update([
+                'PAYID'=>$request->PAYID,
+                'SHASIGN'=>$request->SHASIGN,
+                'payment_status'=>1,
+                'ACCEPTANCE' => $request->ACCEPTANCE,
+            ]);
+            $company_order_id = companyEditTransaction::where('order_id',$request->orderID)->pluck('company_order_id')->first();
+            // dd($company_order_id);
+            $user_id = auth()->user()->id;
+            $carts = Cart::where('order_id',  $company_order_id)->where('user_id', $user_id)->get();
+                foreach ($carts as $key => $cart) {
+                    $move_cart_data =  companyEditRequest::create([
+                        'user_id'=>$cart->user_id,
+                        'order_id'=>$cart->order_id,
+                        'payment_order_id'=>$request->orderID,
+                        'service_name'=>$cart->service_name,
+                        'slug'=>$cart->slug,
+                        'address_id'=>$cart->address_id,
+                        'forward_address_id'=>$cart->forward_address_id,
+                        'price'=>$cart->price,
+                        'vat'=>$cart->vat,
+                        'effective_date'=>$cart->effective_date,
+                        'appointment_id'=>$cart->appointment_id,
+                        'company_account_value'=>$cart->company_account_value,
+                        'data'=>$cart->data,
+                    ]);
+
+                    if($move_cart_data){
+                        $cart->delete();
+                    };
+                };
+                $this->editCompanyMailNotification($request->orderID,0);
+            // dd($request);
+            return view('frontend.payment_getway.success');
+        }catch(\Exception $e){
+            $error = $e->getMessage();
+            // dd($error);
+        }
+
     }
     public function paymentDeclined(Request $request){
                 return view('frontend.payment_getway.declined');

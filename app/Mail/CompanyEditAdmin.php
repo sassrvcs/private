@@ -22,13 +22,12 @@ class CompanyEditAdmin extends Mailable
      *
      * @return void
      */
-    public function __construct($cart_items,$purchase_address,$pdf,$direct_submit)
+    public function __construct($cart_items,$purchase_address,$pdf,$direct_submit,)
     {
         $this->cart_items = $cart_items;
         $this->purchase_address = $purchase_address;
         $this->pdf = $pdf;
         $this->direct_submit = $direct_submit;
-
     }
 
     /**

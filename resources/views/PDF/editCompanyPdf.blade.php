@@ -157,17 +157,17 @@
                                         <tr>
                                             {{-- <td></td> --}}
                                             <td style="padding:10px;border-left: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;"> <strong>Price excl. VAT</strong> </td>
-                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£100</strong></td>
+                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£{{$amount_details['base_amount']}}</strong></td>
                                         </tr>
                                         <tr>
                                             {{-- <td></td> --}}
                                             <td style="padding:10px;border-left: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>VAT @ 20%</strong> </td>
-                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£200</strong></td>
+                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£{{$amount_details['vat']}}</strong></td>
                                         </tr>
                                         <tr>
                                             {{-- <td></td> --}}
                                             <td style="padding:10px;border-left: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>Total for this Transaction</strong> </td>
-                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£500</strong></td>
+                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£{{$amount_details['total_amount']}}</strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
