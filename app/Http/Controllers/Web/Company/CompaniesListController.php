@@ -26,6 +26,10 @@ use App\Models\Cart;
 use App\Models\User;
 use App\Models\SicCode;
 use App\Models\SicDetails;
+use App\Models\companyEditRequest;
+use App\Models\companyEditTransaction;
+
+
 
 use Illuminate\Support\Facades\Storage;
 use PDF;
@@ -1256,41 +1260,93 @@ class CompaniesListController extends Controller
 
     public function cartPay(Request $request){
 
-        $order = $request->order_id.'/'.uniqid().Str::random(10);
+        if($request->total_price == '0'){
+            // $is_record_exist = companyEditTransaction::where('company_order_id',$request->order_id)->first();
+            // if($is_record_exist){
+            //     $is_record_exist->delete();
+            // }
 
-        $paymentUrl = "https://mdepayments.epdq.co.uk/ncol/test/orderstandard_utf8.asp"; // Barclays payment gateway URL
-        $pspid = "epdq1638710";
-        $shaInPasscode = "";
-        $shaOutPasscode = "F&I4s97SdqEE(lDAaJ";
-        $amount = $request->total_price *100;
-        $currency = "GBP";
-        // $orderID = "ORDER12356".time();
-        $formData = array(
-            "PSPID" => $pspid,
-            "orderID" => $order,
-            "amount" => $amount,
-            "order" => $request->order_id,
-            "currency" => $currency,
-            "ACCEPTURL" => route('cart-payment-success'),
-            "DECLINEURL" => route('cart-payment-declined'),
-            "EXCEPTIONURL" => route('cart-payment-exception'),
-            "CANCELURL" => route('cart-payment-cancelled')
-        );
+            $order = $request->order_id.'/'.uniqid().Str::random(10);
+            $company_details = Companie::where('order_id',$request->order_id)->first();
 
-        ksort($formData);
-        // dd($formData);
-        $shaString = "";
-        foreach ($formData as $field => $value) {
-            $shaString .= strtoupper($field) . "=" . $value . $shaOutPasscode;
+            $edit_cart_payemnt = new companyEditTransaction ;
+            $edit_cart_payemnt->order_id = $order;
+            $edit_cart_payemnt->company_order_id = $request->order_id;
+            $edit_cart_payemnt->user_id = auth()->user()->id;
+            $edit_cart_payemnt->service_data = null;
+            $edit_cart_payemnt->company_name = $company_details->companie_name;
+            $edit_cart_payemnt->company_number =$company_details->id;
+            $edit_cart_payemnt->payment_status = 1;
+            $edit_cart_payemnt->base_amount = $request->net_total;
+            $edit_cart_payemnt->vat = $request->vat;
+            $edit_cart_payemnt->amount = $request->total_price;
+            $edit_cart_payemnt->order_note = $request->order_note;
+            $edit_cart_payemnt->recipient_name = $request->recipient_name;
+            $edit_cart_payemnt->recipient_email = $request->recipient_name;
+            $edit_cart_payemnt->uuid =Str::uuid()->toString();
+            $edit_cart_payemnt->save();
+        }else{
+            // $is_record_exist = companyEditTransaction::where('company_order_id',$request->order_id)->first();
+            // if($is_record_exist){
+            //     $is_record_exist->delete();
+            // }
+
+            $order = $request->order_id.'/'.uniqid().Str::random(10);
+            $company_details = Companie::where('order_id',$request->order_id)->first();
+
+            $edit_cart_payemnt = new companyEditTransaction ;
+            $edit_cart_payemnt->order_id = $order;
+            $edit_cart_payemnt->company_order_id = $request->order_id;
+            $edit_cart_payemnt->user_id = auth()->user()->id;
+            $edit_cart_payemnt->service_data = null;
+            $edit_cart_payemnt->company_name = $company_details->companie_name;
+            $edit_cart_payemnt->company_number =$company_details->id;
+            $edit_cart_payemnt->base_amount = $request->net_total;
+            $edit_cart_payemnt->vat = $request->vat;
+            $edit_cart_payemnt->amount = $request->total_price;
+            $edit_cart_payemnt->order_note = $request->order_note;
+            $edit_cart_payemnt->recipient_name = $request->recipient_name;
+            $edit_cart_payemnt->recipient_email = $request->recipient_name;
+            $edit_cart_payemnt->uuid =Str::uuid()->toString();
+            $edit_cart_payemnt->save();
+
+
+            $paymentUrl = "https://mdepayments.epdq.co.uk/ncol/test/orderstandard_utf8.asp"; // Barclays payment gateway URL
+            $pspid = "epdq1638710";
+            $shaInPasscode = "";
+            $shaOutPasscode = "F&I4s97SdqEE(lDAaJ";
+            $amount = $request->total_price *100;
+            $currency = "GBP";
+            // $orderID = "ORDER12356".time();
+            $formData = array(
+                "PSPID" => $pspid,
+                "orderID" => $order,
+                "amount" => $amount,
+                "order" => $request->order_id,
+                "currency" => $currency,
+                "ACCEPTURL" => route('cart-payment-success'),
+                "DECLINEURL" => route('cart-payment-declined'),
+                "EXCEPTIONURL" => route('cart-payment-exception'),
+                "CANCELURL" => route('cart-payment-cancelled')
+            );
+
+            ksort($formData);
+            // dd($formData);
+            $shaString = "";
+            foreach ($formData as $field => $value) {
+                $shaString .= strtoupper($field) . "=" . $value . $shaOutPasscode;
+            }
+
+            $shaOutSignature = hash('sha512',$shaString);
+            $formData["SHASIGN"] = $shaOutSignature;
+            // dd($formData);
+            return view('frontend.payment_getway.view', compact('formData', 'paymentUrl'));
         }
 
-        $shaOutSignature = hash('sha512',$shaString);
-        $formData["SHASIGN"] = $shaOutSignature;
-        // dd($formData);
-        return view('frontend.payment_getway.view', compact('formData', 'paymentUrl'));
     }
 
-    public function paymentSuccess(){
+    public function paymentSuccess(Request $request){
+        dd($request);
         return view('frontend.payment_getway.success');
     }
     public function paymentDeclined(Request $request){
