@@ -347,6 +347,7 @@
             </div>
             <div class="companyFormationPackages-lists">
                 @foreach($packages as $key => $package)
+                @if($package->package_name!='Prestige')
                 <div class="cfp-list-col" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000" data-aos-once="true">
                     <div class="cfp-list-box {{$package->package_name==" Digital"?'active':''}}">
                         @if($package->special_offer == 1)
@@ -399,6 +400,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 @endforeach
             </div>
             <div class="compare-actions" data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" data-aos-once="true">
