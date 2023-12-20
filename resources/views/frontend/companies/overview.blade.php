@@ -2754,7 +2754,6 @@
 
                             // You can also update other hidden input fields if needed
 
-                            $(".103_add_id").val(savedAddress.id);
 
                             $(".103_add_house_number").val(savedAddress.house_number);
 
@@ -2770,7 +2769,19 @@
 
                             $(".103_address_billing_country").val(savedAddress.billing_country);
 
-                            $(".price").val('');
+                            // $(".price").val('');
+                        
+
+                            if ($('#address105').is(':checked')) {
+                                $(".price").val('');
+                                $(".103_add_id").val(savedAddress.id);
+                                $(".103_forward_add_id").val('');
+                            } else if ($('#address1').is(':checked')) {
+                                $(".103_add_id").val('');
+                                $(".103_forward_add_id").val(savedAddress.id);
+                                $(".price").val('{{ $address->price }}');
+
+                            }
 
                             $("#addNewAddressModal").modal('hide');
 
