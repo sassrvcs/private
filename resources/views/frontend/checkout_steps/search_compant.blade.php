@@ -1,8 +1,44 @@
 @extends('layouts.master')
 @section('content')
+    {{-- url({{ asset('frontend/assets/images/main-banner.png')}}); --}}
+   <!-- ================ start: main-banner ================ -->
+   <input type="hidden" name="indx" id="indx" value="{{ $indx ?? '' }}">
+   <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
+        <div class="custom-container">
+            <div class="package_top_wrap checkout_package_wrap">
+               <div class="namecheck-steps top">
+                   <div class="w-layout-grid image-link-box-grid steps">
+                     <div class="container-small step selected">
+                       <img src="{{ asset('frontend/assets/images/checklist.svg') }}" loading="lazy" width="54" alt="" class="step-icon">
+                       <div class="step-title">Name Check</div>
+                     </div>
+                     <div class="container-small step selected">
+                       <img src="{{ asset('frontend/assets/images/select-pack.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <div class="step-title">Select Pack</div>
+                     </div>
+                     <div class="container-small step">
+                       <img src="{{ asset('frontend/assets/images/check-out.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <div class="step-title">Additional Services</div>
+                     </div>
+                     <div class="container-small step">
+                       <img src="{{ asset('frontend/assets/images/check-out.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <div class="step-title">Checkout</div>
+                     </div>
+                     <div class="container-small step">
+                       <img src="{{ asset('frontend/assets/images/file-details.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <div class="step-title">File Details</div>
+                     </div>
+                   </div>
+                   <div class="steps-line">
+                       <img src="{{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }}" loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 945px) 98vw, 927px" srcset="{{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }} 500w, {{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }} 927w" alt="">
+                   </div>
+               </div>
+           </div>
+        </div>
+   </section>
     <div class="mid">
         <div class="container search_result">
-            <div class="package-steps text-center">
+            <!-- <div class="package-steps text-center">
                 <ol class="list-inline">
                     <li class="list-inline-item active">1. Name Check</li>
                     <li class="list-inline-item active">2. Select Package</li>
@@ -10,7 +46,7 @@
                     <li class="list-inline-item">4. Checkout</li>
                     <li class="list-inline-item">5. Company Details</li>
                 </ol>
-            </div>
+            </div> -->
             {{-- @dump($sessionCart) --}}
             <div class="">
                 <div class="search_area mb-5">
