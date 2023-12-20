@@ -349,9 +349,11 @@
                 @foreach($packages as $key => $package)
                 <div class="cfp-list-col" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000" data-aos-once="true">
                     <div class="cfp-list-box {{$package->package_name==" Digital"?'active':''}}">
-                        <div class="home-packages__special-offer">
-                            <span>Special Offer</span>
-                        </div>
+                        @if($package->special_offer == 1)
+                            <div class="home-packages__special-offer">
+                                <span>Special Offer</span>
+                            </div>
+                        @endif
                         <span class="top_round"><img src="{{ asset('frontend/assets/images/tab-menus-active-arow.svg')}}"></span>
                         <div class="text-info1">
                             <h4>{{ $package->package_name }}</h4>
