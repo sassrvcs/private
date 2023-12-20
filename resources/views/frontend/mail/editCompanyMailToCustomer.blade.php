@@ -29,7 +29,7 @@
         </thead>
         <tbody>
             <tr>
-                <td style="text-align: left; padding: 50px 10px 10px 50px; font-size: 24px;">Dear {{$userDetails->title}} {{@$userDetails->forename}} {{$userDetails->surname}}</td>
+                <td style="text-align: left; padding: 50px 10px 10px 50px; font-size: 24px;">Dear {{ $recipient_name }}</td>
             </tr>
 
             <tr>

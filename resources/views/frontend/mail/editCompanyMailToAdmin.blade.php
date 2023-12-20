@@ -42,6 +42,52 @@
                 </td>
             </tr> --}}
             @foreach ($cart_items as $item)
+            @if ($item->slug=='add-new-statement')
+            @php
+                $decodedStatement = json_decode($item->data);
+            @endphp
+
+           <ul>
+                <li>
+                    <div class="mb-2">
+                        @if(isset($decodedStatement->statementNotify))
+                            <strong>Statement Notify:</strong> {{ $decodedStatement->statementNotify }}
+                        @endif
+                    </div>
+
+                    <div class="mb-2">
+                        @if(isset($decodedStatement->psc_statement))
+                            <strong>PSC Statement:</strong> {{ $decodedStatement->psc_statement }}
+                        @endif
+                    </div>
+
+                    <div class="mb-2">
+                        @if(isset($decodedStatement->psc_linked))
+                            <strong>PSC Linked:</strong> {{ $decodedStatement->psc_linked }}
+                        @endif
+                    </div>
+                    <div>
+                        @if(isset($decodedStatement->officer_details))
+                            <strong>Officer Details:</strong>
+                            <ul class="list-unstyled mb-0 ml-3">
+                                @if(isset($decodedStatement->officer_details->full_name))
+                                    <li><strong>Full Name:</strong> {{ $decodedStatement->officer_details->full_name }}</li>
+                                @endif
+                                @if(isset($decodedStatement->officer_details->dob_day))
+                                    <li><strong>DOB:</strong> {{ $decodedStatement->officer_details->dob_day }}</li>
+                                @endif
+                                <!-- Add other officer details as needed -->
+                            </ul>
+                        @endif
+                    </div>
+                    <div class="mb-2">
+                        @if(isset($decodedStatement->notificationDate))
+                            <strong>Notification Date:</strong> {{ $decodedStatement->notificationDate }}
+                        @endif
+                    </div>
+                </li>
+            </ul>
+            @endif
             @if ($item->slug == 'edit-auth-code')
             <ul>
                 {{-- <li>

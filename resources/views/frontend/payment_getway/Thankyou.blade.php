@@ -8,8 +8,8 @@
 
         </div>
         <div class="text">
-          <h2>Thank You! Your request has been submitted</h2>
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, vero dolorum fugit consectetur vel debitis laborum incidunt harum quis cum tempora dolorem reiciendis, possimus praesentium id quas ut assumenda. Vitae.</p>
+          <h2>Thank You!</h2>
+          <p> Your request has been submitted.</p>
           @php
           $route = route('accepted-company', ['order' => $company_order_id,'c_id'=>$company_id]);
          @endphp

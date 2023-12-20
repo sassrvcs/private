@@ -129,7 +129,7 @@
 
                                             <tr>
                                                 <td><span class="efInputLabel">Recipient Email:</span></td>
-                                                <td><input id="emailfield" required="required " type="text"
+                                                <td><input id="emailfield" required="required " type="email"
                                                         class="efTextInput form-control" name="recipient_email"
                                                          placeholder="Required"></td>
                                             </tr>

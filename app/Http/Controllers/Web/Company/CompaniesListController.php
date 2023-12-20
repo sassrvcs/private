@@ -1189,14 +1189,14 @@ class CompaniesListController extends Controller
         $purchase_address = Purchase_address::all();
         $cart_items = companyEditRequest::where('user_id', auth()->user()->id)->where('payment_order_id', $payment_order_id)->get();
         $order_particulars = companyEditTransaction::where('user_id', auth()->user()->id)->where('order_id', $payment_order_id)->first();
-        $base_amount = $order_particulars->base_amount;
-        $vat = $order_particulars->vat;
-        $total_amount = $order_particulars->amount;
-        $amount_details = [
-            'vat'=>$vat,
-            'base_amount'=>$base_amount,
-            'total_amount'=>$total_amount
-        ];
+        // $base_amount = $order_particulars->base_amount;
+        // $vat = $order_particulars->vat;
+        // $total_amount = $order_particulars->amount;
+        // $amount_details = [
+        //     'vat'=>$vat,
+        //     'base_amount'=>$base_amount,
+        //     'total_amount'=>$total_amount
+        // ];
         $user = Auth::user();
         $address=null;
         if($address==null){
@@ -1227,7 +1227,7 @@ class CompaniesListController extends Controller
 
             }
 
-            $pdf = PDF::loadView('PDF.editCompanyPdf', compact('cart_items','user','address','amount_details'));
+            $pdf = PDF::loadView('PDF.editCompanyPdf', compact('cart_items','user','address','order_particulars'));
             $pdf->render();
             $pdf_mail_data = $pdf->output();
             $filename = 'Company_Edit_Invoice'.uniqid().Str::random(10).'.pdf';
@@ -1237,7 +1237,7 @@ class CompaniesListController extends Controller
             $direct_submit = $d_pay;
             try {
                 Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CompanyEditAdmin($cart_items,$purchase_address,$filePath,$direct_submit));
-                Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CompanyEditCustomer($cart_items,$purchase_address,$filePath,$user,$direct_submit));
+                Mail::to($order_particulars->recipient_email)->send(new CompanyEditCustomer($cart_items,$purchase_address,$filePath,$user,$direct_submit,$order_particulars->recipient_name));
             }catch (\Exception $e) {
                 // dd($e);
             }
@@ -1437,7 +1437,7 @@ class CompaniesListController extends Controller
                 $edit_cart_payemnt->amount = $request->total_price;
                 $edit_cart_payemnt->order_note = $request->order_note;
                 $edit_cart_payemnt->recipient_name = $request->recipient_name;
-                $edit_cart_payemnt->recipient_email = $request->recipient_name;
+                $edit_cart_payemnt->recipient_email = $request->recipient_email;
                 $edit_cart_payemnt->uuid =Str::uuid()->toString();
                 $edit_cart_payemnt->save();
 
@@ -1502,45 +1502,64 @@ class CompaniesListController extends Controller
             $edit_cart_payemnt->amount = $request->total_price;
             $edit_cart_payemnt->order_note = $request->order_note;
             $edit_cart_payemnt->recipient_name = $request->recipient_name;
-            $edit_cart_payemnt->recipient_email = $request->recipient_name;
+            $edit_cart_payemnt->recipient_email = $request->recipient_email;
             $edit_cart_payemnt->uuid =Str::uuid()->toString();
             $edit_cart_payemnt->save();
 
-
-            $paymentUrl = "https://mdepayments.epdq.co.uk/ncol/test/orderstandard_utf8.asp"; // Barclays payment gateway URL
-            $pspid = "epdq1638710";
-            $shaInPasscode = "";
-            $shaOutPasscode = "F&I4s97SdqEE(lDAaJ";
-            $amount = $request->total_price *100;
-            $currency = "GBP";
-            // $orderID = "ORDER12356".time();
-            $formData = array(
-                "PSPID" => $pspid,
-                "orderID" => $order,
-                "amount" => $amount,
-                "order" => $request->order_id,
-                "currency" => $currency,
-                "ACCEPTURL" => route('cart-payment-success'),
-                "DECLINEURL" => route('cart-payment-declined'),
-                "EXCEPTIONURL" => route('cart-payment-exception'),
-                "CANCELURL" => route('cart-payment-cancelled')
-            );
-
-            ksort($formData);
-            // dd($formData);
-            $shaString = "";
-            foreach ($formData as $field => $value) {
-                $shaString .= strtoupper($field) . "=" . $value . $shaOutPasscode;
-            }
-
-            $shaOutSignature = hash('sha512',$shaString);
-            $formData["SHASIGN"] = $shaOutSignature;
-            // dd($formData);
-            return view('frontend.payment_getway.view', compact('formData', 'paymentUrl'));
+            $details = [
+                'order_id' => $order,
+                'total_amount' => $request->total_price,
+                'accept_url' => route('cart-payment-success'),
+                'declined_url' => route('cart-payment-declined'),
+                'exception_url' => route('cart-payment-exception'),
+                'cancelled_url' => route('cart-payment-cancelled'),
+            ];
+            return $this->ProcessPayment($request,$details);
         }
 
     }
+    public function ProcessPayment(Request $request,$details){
 
+        // dd($request);
+        $payment_mode = env('PAYMENT_ENV','LIVE');
+        if ($payment_mode!='TEST'){
+            $paymentUrl = env('LIVE_PAYMENT_URL',);
+            $shaOutPasscode = env('LIVE_SHAOUTPASSCODE');
+            $pspid = env('LIVE_PSPID');
+        }else{
+            $paymentUrl = env('TEST_PAYMENT_URL');
+            $pspid = env('TEST_PSPID');
+            $shaOutPasscode = env('TEST_SHAOUTPASSCODE');
+        }
+        $order = $details['order_id'];
+        $shaInPasscode = "";
+        $amount = $details['total_amount'] *100;
+        $currency = "GBP";
+        // $orderID = "ORDER12356".time();
+        $formData = array(
+            "PSPID" => $pspid,
+            "ORDERID" => $order,
+            "AMOUNT" => $amount,
+            "CURRENCY" => $currency,
+            "LANGUAGE" => "en_US",
+            "ACCEPTURL" => $details['accept_url'],
+            "DECLINEURL" =>$details['declined_url'],
+            "EXCEPTIONURL" =>$details['exception_url'],
+            "CANCELURL" => $details['cancelled_url'],
+        );
+
+        ksort($formData);
+        // dd($formData);
+        $shaString = "";
+        foreach ($formData as $field => $value) {
+            $shaString .= strtoupper($field) . "=" . $value . $shaOutPasscode;
+        }
+
+        $shaOutSignature = hash('sha512',$shaString);
+        $formData["SHASIGN"] = $shaOutSignature;
+        // dd($formData);
+        return view('frontend.payment_getway.view', compact('formData', 'paymentUrl'));
+    }
     public function paymentSuccess(Request $request){
         try{
             companyEditTransaction::where('order_id',$request->orderID)->update([
@@ -1550,6 +1569,7 @@ class CompaniesListController extends Controller
                 'ACCEPTANCE' => $request->ACCEPTANCE,
             ]);
             $company_order_id = companyEditTransaction::where('order_id',$request->orderID)->pluck('company_order_id')->first();
+            $company_details = Companie::where('order_id',$company_order_id)->first();
             // dd($company_order_id);
             $user_id = auth()->user()->id;
             $carts = Cart::where('order_id',  $company_order_id)->where('user_id', $user_id)->get();
@@ -1575,8 +1595,8 @@ class CompaniesListController extends Controller
                     };
                 };
                 $this->editCompanyMailNotification($request->orderID,0);
-            // dd($request);
-            return view('frontend.payment_getway.success');
+            $company_id = $company_details->id;
+            return view('frontend.payment_getway.success',compact('company_order_id',"company_id"));
         }catch(\Exception $e){
             $error = $e->getMessage();
             // dd($error);

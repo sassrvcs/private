@@ -89,16 +89,16 @@
             </tr>
             <tr>
                 <td style="font-size: 14px;color: #000;vertical-align: top;">
-                    <p>{{ $user->title . ' ' . $user->forename . ' ' . $user->surname }}</p>
+                    <p>{{ $order_particulars->recipient_name }}</p>
                     <p>{{ $address }}</p>
 
                 </td>
                 <td style="font-size: 14px;color: #000;vertical-align: top;">
                     <div style="display: table;margin: 0 0 0 auto;">
 
-                        <p>Invoice Ref: </p>
-                        <p>Order Ref: </p>
-                        <p>Invoice Date:
+                        <p>Invoice Ref: {{$order_particulars->PAYID}}</p>
+                        <p>Order ID: {{$order_particulars->company_order_id}} </p>
+                        <p>Invoice Date: {{date('d/m/Y', strtotime($order_particulars->updated_at))}}
 
                         </p>
                     </div>
@@ -157,17 +157,17 @@
                                         <tr>
                                             {{-- <td></td> --}}
                                             <td style="padding:10px;border-left: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;"> <strong>Price excl. VAT</strong> </td>
-                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£{{$amount_details['base_amount']}}</strong></td>
+                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£{{$order_particulars->base_amount}}</strong></td>
                                         </tr>
                                         <tr>
                                             {{-- <td></td> --}}
                                             <td style="padding:10px;border-left: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>VAT @ 20%</strong> </td>
-                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£{{$amount_details['vat']}}</strong></td>
+                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£{{$order_particulars->vat}}</strong></td>
                                         </tr>
                                         <tr>
                                             {{-- <td></td> --}}
                                             <td style="padding:10px;border-left: 1px solid #000;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>Total for this Transaction</strong> </td>
-                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£{{$amount_details['total_amount']}}</strong></td>
+                                            <td style="padding:10px;border-right: 1px solid #000;border-bottom: 1px solid #000;"><strong>£{{$order_particulars->amount}}</strong></td>
                                         </tr>
                                     </tbody>
                                 </table>

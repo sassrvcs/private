@@ -18,18 +18,20 @@ class CompanyEditCustomer extends Mailable
     protected $pdf;
     protected $userDetails;
     protected $direct_submit;
+    protected $recipient_name;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($cart_items,$purchase_address,$pdf,$user,$direct_submit)
+    public function __construct($cart_items,$purchase_address,$pdf,$user,$direct_submit,$recipient_name)
     {
         $this->cart_items = $cart_items;
         $this->purchase_address = $purchase_address;
         $this->pdf = $pdf;
         $this->userDetails = $user;
         $this->direct_submit = $direct_submit;
+        $this->recipient_name = $recipient_name;
 
     }
 
@@ -59,6 +61,7 @@ class CompanyEditCustomer extends Mailable
                 'purchase_address' => $this->purchase_address,
                 'userDetails' => $this->userDetails,
                 'direct_submit' => $this->direct_submit,
+                'recipient_name' => $this->recipient_name,
                 'logo'=>public_path('frontend/assets/images/logo_custom.png')
             ]
         );

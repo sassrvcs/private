@@ -19,6 +19,9 @@
               if (Route::is('custom-payment-success')) {
                 $route = route('index');
               }
+              if (Route::is('cart-payment-success')) {
+                $route = route('accepted-company', ['order' => $company_order_id,'c_id'=>$company_id]);
+              }
           @endphp
           <a href="{{$route}}" id="home">Home</a>
         </div>
