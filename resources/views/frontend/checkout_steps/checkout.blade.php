@@ -1,12 +1,68 @@
 @extends('layouts.master')
 @section('content')
+    <!-- ================ start: main-banner ================ -->
+    <input type="hidden" name="indx" id="indx" value="{{ $indx ?? '' }}">
+    <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
+        <div class="custom-container">
+            <!-- <div class="left-info">
+                <figure data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="aos-init aos-animate">
+                    <figcaption class="lg"><figcaption>Checkout</figcaption>
+                </figcaption></figure>
+                </div>
+            <div class="center-info">
+                <ul class="prev-nav-menu aos-init aos-animate" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
+                   <li><a href="{{route('index')}}">Home</a></li>
+                   <li><a>Checkout</a></li>
+               </ul>
+            </div>
+
+            <div class="call-info aos-init aos-animate" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500" data-aos-once="true">
+                <div class="icon-container">
+                    <img src="https://formationshunt.co.uk/wp-content/themes/formationshunt/assets/images/ic_baseline-phone.svg">
+                </div>
+                <div class="text-box">
+                    <p>Free Consultations 24/7</p>
+                    <h4><a href="tel:020 3002 0032">020 3002 0032</a></h4>
+                </div>
+            </div> -->
+            <div class="package_top_wrap checkout_package_wrap">
+               <div class="namecheck-steps top">
+                   <div class="w-layout-grid image-link-box-grid steps">
+                     <div class="container-small step selected">
+                       <img src="{{ asset('frontend/assets/images/checklist.svg') }}" loading="lazy" width="54" alt="" class="step-icon">
+                       <div class="step-title">Name Check</div>
+                     </div>
+                     <div class="container-small step selected">
+                       <img src="{{ asset('frontend/assets/images/select-pack.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <div class="step-title">Select Pack</div>
+                     </div>
+                     <div class="container-small step selected">
+                       <img src="{{ asset('frontend/assets/images/check-out.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <div class="step-title">Additional Services</div>
+                     </div>
+                     <div class="container-small step">
+                       <img src="{{ asset('frontend/assets/images/check-out.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <div class="step-title">Checkout</div>
+                     </div>
+                     <div class="container-small step">
+                       <img src="{{ asset('frontend/assets/images/file-details.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <div class="step-title">File Details</div>
+                     </div>
+                   </div>
+                   <div class="steps-line">
+                       <img src="{{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }}" loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 945px) 98vw, 927px" srcset="{{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }} 500w, {{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }} 927w" alt="">
+                   </div>
+               </div>
+           </div>
+        </div>
+    </section>
 <!-- ================ start: comparePackages-sec ================ -->
 <section class="sectiongap legal rrr fix-container-width woocommerce-checkout">
     <div class="container">
         <div class="woocommerce">
             <div class="woocommerce-notices-wrapper"></div>
             <div class="woocommerce-notices-wrapper"></div>
-            <div class="package-steps text-center mb-4">
+            <!-- <div class="package-steps text-center mb-4">
                 <ol class="list-inline">
                     <li class="list-inline-item active">1. Name Check</li>
                     <li class="list-inline-item active">2. Select Package</li>
@@ -14,7 +70,7 @@
                     <li class="list-inline-item">4. Checkout</li>
                     <li class="list-inline-item">5. Company Details</li>
                 </ol>
-            </div>
+            </div> -->
             <div class="row checkout checkout-bill">
                 <div class="col-md-5 order-md-2">
                     <div class="position-sticky top-0">
@@ -28,16 +84,19 @@
                                     <p class="h6">{{ isset($checkout) ? $checkout->company_name : (isset($indx) ? $sessionCart[$indx]['company_name'] ?? '' : '') }}</p>
                                 </div>
                                 <hr>
-                                <p class="h6">{{ isset($checkout) ? $checkout->cart->package->package_name : (isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' :  '') }}</p>
+                                <p class="h6"><b> {{ isset($checkout) ? $checkout->cart->package->package_name : (isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' :  '') }} </b> Package</p>
 
                                 {{-- <p>{!!isset($checkout) ? $checkout->cart->package->package_features : (isset($indx) ? $sessionCart[$indx]['package_features'] ?? '' :  '') !!}</p> --}}
-                                <ul class="list-group list-group-flush fa-ul ms-3">
+                                <p style="margin-top: 10px; margin-bottom:10px ">
+
+                                    <span style="font-weight: 800">Features:</span>
+                                </p>
                                     @if($package)
                                     @foreach($package->features as $feature)
-                                        <li class="list-group-item px-0 py-2"><span class="fa-li"><i class="fa fa-caret-right"></i></span>{{ $feature->feature }}</li>
+                                        <p>{{ $feature->feature }}</p>
                                     @endforeach
                                     @endif
-                                </ul>
+
 
 
                                 <hr>
@@ -76,11 +135,11 @@
                                                             @if(isset($checkout->cart->addonCartServices))
                                                                 @foreach( $checkout->cart->addonCartServices as $key => $value)
                                                                     <tr class="fee" >
-                                                                        <td colspan="3">{{ $value->service->service_name }}
-                                                                            <span style="float: right">£{{ $value->service->price }}</span>
+                                                                        <td colspan="1">{{ $value->service->service_name }}
+                                                                            
                                                                         </td>
                                                                         <td class="text-end" style="display:none;"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
-                                                                        <td class="text-end" style="display:none;"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value->service->price }}</bdi></span></td>
+                                                                        <td class="text-end" ><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value->service->price }}</bdi></span></td>
                                                                     </tr>
                                                                 @endforeach
                                                         @endif
@@ -115,9 +174,9 @@
                                                 @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )
                                                     @foreach( $sessionCart[$indx]['addon_service'] as $key => $value)
                                                         <tr class="fee" >
-                                                            <td colspan="3">{{ $value['service_name'] }}</td>
+                                                            <td colspan="1">{{ $value['service_name'] }}</td>
                                                             <td class="text-end" style="display:none;"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
-                                                            <td class="text-end" style="display:none;"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
+                                                            <td class="text-end" ><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
                                                         </tr>
                                                     @endforeach
 
@@ -243,7 +302,7 @@
                                      <input type="hidden" name="order" value=" @if (auth()->check()){{$checkout->order_id}} @endif">
 
                                     @guest
-                                        <fieldset class="border p-3">
+                                        <fieldset class="border p-3 shadow-none">
                                             <legend class="float-none w-auto p-2">Account Details</legend>
                                             <div class="woocommerce-account-fields">
                                                 <div class="create-account">
@@ -273,7 +332,7 @@
                                         </fieldset>
                                     @endguest
 
-                                    <fieldset class="border p-3 @if(Auth::check()) d-none @endif">
+                                    <fieldset class="border p-3 shadow-none @if(Auth::check()) d-none @endif">
                                         <legend class="float-none w-auto p-2 ">Billing Details</legend>
                                         <div class="woocommerce-billing-fields">
                                             <div class="woocommerce-billing-fields__field-wrapper row p-3">

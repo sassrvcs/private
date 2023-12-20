@@ -244,7 +244,13 @@
     <!-- ================ end: digitalPackage-sec ================ -->
     <x-company_name_check />
     <!-- ================ start: additionalServices-sec ================ -->
-    @include('frontend.service.service_page_static_content.static')
+    @if ($services->slug == 'our-online-company-manager')
+         @include('frontend.service.service_page_static_content.other_static')
+
+    @else
+        @include('frontend.service.service_page_static_content.static')
+
+     @endif
     <!-- ================ end: additionalServices-sec ================ -->
 
     <!-- ================ start: whatMakesDifferent-sec01 ================ -->

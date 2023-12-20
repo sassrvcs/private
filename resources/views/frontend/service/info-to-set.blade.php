@@ -204,7 +204,7 @@
 
     <!-- ================ start: additionalServices-sec ================ -->
 
-    @include('frontend.service.service_page_static_content.static')
+    @include('frontend.service.service_page_static_content.other_static')
 
     <!-- ================ end: clientReviews-sec01 ================ -->
 

@@ -3,18 +3,18 @@
    {{-- url({{ asset('frontend/assets/images/main-banner.png')}}); --}}
    <!-- ================ start: main-banner ================ -->
    <input type="hidden" name="indx" id="indx" value="{{ $indx ?? '' }}">
-   <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/compare-packages-banner.png') }})">
+   <section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
         <div class="custom-container">
-            <div class="left-info">
+            <!-- <div class="left-info">
                 <figure data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="aos-init aos-animate">
                     <figcaption class="lg"><figcaption>Checkout</figcaption>
                 </figcaption></figure>
                 </div>
             <div class="center-info">
                 <ul class="prev-nav-menu aos-init aos-animate" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                <li><a href="{{route('index')}}">Home</a></li>
-                <li><a>Checkout</a></li>
-            </ul>
+                   <li><a href="{{route('index')}}">Home</a></li>
+                   <li><a>Checkout</a></li>
+               </ul>
             </div>
 
             <div class="call-info aos-init aos-animate" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500" data-aos-once="true">
@@ -25,9 +25,38 @@
                     <p>Free Consultations 24/7</p>
                     <h4><a href="tel:020 3002 0032">020 3002 0032</a></h4>
                 </div>
-            </div>
+            </div> -->
+            <div class="package_top_wrap checkout_package_wrap">
+               <div class="namecheck-steps top">
+                   <div class="w-layout-grid image-link-box-grid steps">
+                     <div class="container-small step selected">
+                       <img src="{{ asset('frontend/assets/images/checklist.svg') }}" loading="lazy" width="54" alt="" class="step-icon">
+                       <div class="step-title">Name Check</div>
+                     </div>
+                     <div class="container-small step selected">
+                       <img src="{{ asset('frontend/assets/images/select-pack.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <div class="step-title">Select Pack</div>
+                     </div>
+                     <div class="container-small step ">
+                       <img src="{{ asset('frontend/assets/images/check-out.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <div class="step-title">Additional Services</div>
+                     </div>
+                     <div class="container-small step">
+                       <img src="{{ asset('frontend/assets/images/check-out.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <div class="step-title">Checkout</div>
+                     </div>
+                     <div class="container-small step">
+                       <img src="{{ asset('frontend/assets/images/file-details.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <div class="step-title">File Details</div>
+                     </div>
+                   </div>
+                   <div class="steps-line">
+                       <img src="{{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }}" loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 945px) 98vw, 927px" srcset="{{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }} 500w, {{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }} 927w" alt="">
+                   </div>
+               </div>
+           </div>
         </div>
-      </section>
+   </section>
       <!-- ================ end: main-banner ================ -->
 
       <!-- ================ start: checkout-sec ================ -->
@@ -44,7 +73,7 @@
                  </div>
               </div>
               {{-- @dump($sessionCart) --}}
-              <div class="package-steps text-center mb-4">
+              <!-- <div class="package-steps text-center mb-4">
                  <ol class="list-inline">
                     <li class="list-inline-item active">1. Name Check</li>
                     <li class="list-inline-item active">2. Select Package</li>
@@ -52,7 +81,7 @@
                     <li class="list-inline-item">4. Checkout</li>
                     <li class="list-inline-item">5. Company Details</li>
                  </ol>
-              </div>
+              </div> -->
                <form name="checkout" method="post" class="checkout" enctype="multipart/form-data" novalidate="novalidate">
                   @csrf
                   <div class="row">
@@ -93,7 +122,7 @@
                                  </div>
                                  <hr>
                               </div>
-                              <div class="card-body">
+                              <div class="card-body border shadow-none">
                                  <div id="order_review" class="checkout-review-order cart-items">
                                     <table class="shop_table checkout-review-order-table" id="item-tbl">
                                        <thead>
@@ -107,7 +136,7 @@
                                        <tbody id="item-tbody">
                                           <tr class="cart_item">
                                             <td class="product-name" colspan="3">
-                                                {{ isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' : end($sessionCart)['package_name'] ?? '' }}
+                                                {{ isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' : end($sessionCart)['package_name'] ?? '' }} Package
                                                 &nbsp;
                                                 <p style="margin-top: 10px; margin-bottom:10px ">
 

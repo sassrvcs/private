@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
 
-    <div class="digital-packages-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
+    <div class="digital-packages-banner"
+        style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
         <div class="custom-container">
             <div class="inner-wrapper">
                 <div class="icon-container">
@@ -22,66 +23,79 @@
     </section>
     <x-company_name_check />
     <!-- ================ start: additionalServices-sec ================ -->
-    <div class="additionalServices-sec">
+    <div class="additionalServices-sec d-none">
         <div class="custom-container">
             <div class="sec-title1 text-center">
-                <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Additional <span>Services</span>
+                <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Additional
+                    <span>Services</span>
                 </h2>
             </div>
             <div class="additionalServices-lists">
-                <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                    data-aos-once="true">
                     <div class="h3-with-text">
                         <div class="icon-container">
                             <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
                         </div>
                         <h3>Banking Services 01</h3>
                     </div>
-                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide professional support and advice, so that you are aware of the requirements of company formation.</p>
+                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide
+                        professional support and advice, so that you are aware of the requirements of company formation.</p>
                 </div>
-                <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                    data-aos-once="true">
                     <div class="h3-with-text">
                         <div class="icon-container">
                             <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
                         </div>
                         <h3>Banking Services 01</h3>
                     </div>
-                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide professional support and advice, so that you are aware of the requirements of company formation.</p>
+                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide
+                        professional support and advice, so that you are aware of the requirements of company formation.</p>
                 </div>
-                <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                    data-aos-once="true">
                     <div class="h3-with-text">
                         <div class="icon-container">
                             <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
                         </div>
                         <h3>Banking Services 01</h3>
                     </div>
-                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide professional support and advice, so that you are aware of the requirements of company formation.</p>
+                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide
+                        professional support and advice, so that you are aware of the requirements of company formation.</p>
                 </div>
-                <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                    data-aos-once="true">
                     <div class="h3-with-text">
                         <div class="icon-container">
                             <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
                         </div>
                         <h3>Banking Services 01</h3>
                     </div>
-                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide professional support and advice, so that you are aware of the requirements of company formation.</p>
+                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide
+                        professional support and advice, so that you are aware of the requirements of company formation.</p>
                 </div>
-                <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                    data-aos-once="true">
                     <div class="h3-with-text">
                         <div class="icon-container">
                             <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
                         </div>
                         <h3>Banking Services 01</h3>
                     </div>
-                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide professional support and advice, so that you are aware of the requirements of company formation.</p>
+                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide
+                        professional support and advice, so that you are aware of the requirements of company formation.</p>
                 </div>
-                <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="additionalServices-list-col" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                    data-aos-once="true">
                     <div class="h3-with-text">
                         <div class="icon-container">
                             <img src="{{ asset('frontend/assets/images/icon-right-arow.svg') }}">
                         </div>
                         <h3>Banking Services 01</h3>
                     </div>
-                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide professional support and advice, so that you are aware of the requirements of company formation.</p>
+                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide
+                        professional support and advice, so that you are aware of the requirements of company formation.</p>
                 </div>
             </div>
         </div>
@@ -89,19 +103,23 @@
     <!-- ================ end: additionalServices-sec ================ -->
 
     <!-- ================ start: whatMakesDifferent-sec01 ================ -->
-    <div class="whatMakesDifferent-sec01">
+    <div class="whatMakesDifferent-sec01 d-none">
         <div class="whatMakesDifferent-sec01-sec1 for-ourDifferent">
             <div class="custom-container">
-                <div class="image-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="image-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                    data-aos-once="true">
                     <img src="{{ asset('frontend/assets/images/for-ourDifferent-pic.png') }}">
                 </div>
-                <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                    data-aos-once="true">
                     <div class="left-border">
                         <h1>Our different <br />
                             <span>Services</span>
                         </h1>
                     </div>
-                    <p>After dealing with so many companies and their problems we have established ourselves as an experienced company formation agent and become an authorised E-filing agent of Companies House, a body responsible for UK limited company formation.</p>
+                    <p>After dealing with so many companies and their problems we have established ourselves as an
+                        experienced company formation agent and become an authorised E-filing agent of Companies House, a
+                        body responsible for UK limited company formation.</p>
                     <div class="for-ourDifferent-text-lists">
                         <div class="for-ourDifferent-list-col">
                             <div class="for-ourDifferent-list-box">
@@ -151,13 +169,17 @@
         <div class="whatMakesDifferent-sec01-sec2 d-none">
             <div class="to-see-all-sec">
                 <div class="custom-container">
-                    <div class="to-see-all-sec-youtube-bg" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><img src="{{ asset('frontend/assets/images/cardIcon.png') }}"></div>
+                    <div class="to-see-all-sec-youtube-bg" data-aos="fade-up" data-aos-delay="50"
+                        data-aos-duration="500" data-aos-once="true"><img
+                            src="{{ asset('frontend/assets/images/cardIcon.png') }}"></div>
                     <div class="box-wrapper">
-                        <div class="text-container" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                        <div class="text-container" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500"
+                            data-aos-once="true">
                             <h3>Go to our </h3>
                             <h2>Next package to find what’s missing </h2>
                         </div>
-                        <div class="action-container" data-aos="fade-left" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                        <div class="action-container" data-aos="fade-left" data-aos-delay="50" data-aos-duration="500"
+                            data-aos-once="true">
                             <a href="#" class="theme-btn-darkBlue click-btn">Click here</a>
                         </div>
                     </div>
@@ -165,13 +187,19 @@
             </div>
         </div>
 
-        <div class="whatMakesDifferent-sec01-sec3">
+        <div class="whatMakesDifferent-sec01-sec3 d-none">
             <div class="custom-container">
                 <div class="text-container">
-                    <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident Package</span></h1>
-                    <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec luctus urna, sed facilisis dolor. Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Nam laoreet vestibulum purus, sed suscipit odio convallis ac. In faucibus tincidunt est, </p>
-                    <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                        <a href="{{route('non_residents_package')}}" class="theme-btn-primary read-more-btn">Read More</a>
+                    <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK
+                        <span>Resident Package</span></h1>
+                    <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum
+                        dolor sit amet, consectetur adipiscing elit. Integer nec luctus urna, sed facilisis dolor.
+                        Vestibulum ligula augue, dignissim eu sem ac, convallis maximus elit. Nam laoreet vestibulum purus,
+                        sed suscipit odio convallis ac. In faucibus tincidunt est, </p>
+                    <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                        data-aos-once="true">
+                        <a href="{{ route('non_residents_package') }}" class="theme-btn-primary read-more-btn">Read
+                            More</a>
                     </div>
                 </div>
             </div>
@@ -181,7 +209,8 @@
     <!-- ================ end: whatMakesDifferent-sec01 ================ -->
     <div class="position-relative">
         <div class="callUs-floating show">
-            <button type="button" class="cancel-btn"><img src="{{ asset('frontend/assets/images/cancel-icon.svg') }}"></button>
+            <button type="button" class="cancel-btn"><img
+                    src="{{ asset('frontend/assets/images/cancel-icon.svg') }}"></button>
             <div class="icon-container">
                 <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
             </div>
@@ -192,16 +221,22 @@
         </div>
     </div>
     <!-- ================ start: take-look-t-our-sec01 ================ -->
-    <div class="take-look-t-our-sec01">
+    <div class="take-look-t-our-sec01 d-none">
         <div class="custom-container">
             <div class="sec-title1 text-center">
-                <h2 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Take a look at our <br>
-                    <span>Full secretary services £{{$full_sec_price}}</span>
+                <h2 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                    data-aos-once="true">Take a look at our <br>
+                    <span>Full secretary services £{{ $full_sec_price }}</span>
                 </h2>
             </div>
-            <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At Formationhunt, you can avail of the best full company secretary service that includes a company secretary and a dedicated and efficient account manager who will take care of the entire statutory registers, make changes in the company as per your instructions and prepare and file company’s confirmation statement.</p>
-            <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                <a href="{{route('company_services', 'full-company-secretary-service')}}" class="theme-btn-primary buy-now-btn">Buy Now</a>
+            <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At Formationhunt, you
+                can avail of the best full company secretary service that includes a company secretary and a dedicated and
+                efficient account manager who will take care of the entire statutory registers, make changes in the company
+                as per your instructions and prepare and file company’s confirmation statement.</p>
+            <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                data-aos-once="true">
+                <a href="{{ route('company_services', 'full-company-secretary-service') }}"
+                    class="theme-btn-primary buy-now-btn">Buy Now</a>
             </div>
         </div>
     </div>
@@ -210,7 +245,8 @@
     <div class="needLittleHelp-sec">
         <div class="custom-container">
             <div class="left_div">
-                <ul class="contactUl" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <ul class="contactUl" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                    data-aos-once="true">
                     <li>
                         <div class="icon-container">
                             <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
@@ -226,7 +262,8 @@
                         </div>
                         <div class="text-container">
                             <h4>Mail us: </h4>
-                            <h2><a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h2>
+                            <h2><a
+                                    href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h2>
                         </div>
                     </li>
                 </ul>
@@ -321,60 +358,63 @@
                 @foreach ($businessdata as $index => $data)
                 <li>
                     <div class="logo-container">
-                        <img src="{{  $data->getFirstMediaUrl('business_banking_images')}}">
+                        <img src="{{ $data->getFirstMediaUrl('business_banking_images') }}">
                     </div>
-                </li>
-
-
-                @endforeach
+                </li> @endforeach
 
                 @foreach ($accounting as $item => $data)
                     <li>
                         <div class="logo-container">
-                            <img src="{{  $data->getFirstMediaUrl('accounting_software_images')}}">
+                            <img src="{{ $data->getFirstMediaUrl('accounting_software_images') }}">
                         </div>
-                    </li>
-
-
-                @endforeach
+                    </li> @endforeach
 
             </ul>
         </div>
     </div>
     <!-- ================ end: ourBankingPartners-sec01 ================ -->
     <!-- ================ start: faq-002-sec ================ -->
-    @if (@$faqs[0]->question!=null)
-    <div class="faq-002-sec">
-        <div class="custom-container">
-            <div class="sec-title1 text-center">
-                <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="aos-init aos-animate">Frequently Asked <span>Questions</span></h2>
-            </div>
+    @if (@$faqs[0]->question != null)
+<div class="faq-002-sec">
+                                    <div class="custom-container">
+                                        <div class="sec-title1 text-center">
+                                            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                                                data-aos-once="true" class="aos-init aos-animate">Frequently Asked
+                                                <span>Questions</span></h2>
+                                        </div>
 
-            <div id="accordion" class="faq-002-accordion-sec">
-                @foreach ($faqs as $faq)
-                    <div class="card" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                        <div class="card-header" id="headingOne{{ $faq->id }}">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne{{ $faq->id }}" aria-expanded="false" aria-controls="collapseOne{{ $faq->id }}">
-                                <div class="plus-minus-btn">
-                                    <img src="{{ asset('frontend/assets/images/plus-whtie.svg') }}" class="plus">
-                                    <img src="{{ asset('frontend/assets/images/plus-whtie.svg') }}" class="minus">
-                                </div>
-                                <div class="textp">{{ $faq->question }}</div>
-                            </button>
+                                        <div id="accordion" class="faq-002-accordion-sec">
+                                            @foreach ($faqs as $faq)
+                                                <div class="card" data-aos="fade-up" data-aos-delay="50"
+                                                    data-aos-duration="500" data-aos-once="true">
+                                                    <div class="card-header" id="headingOne{{ $faq->id }}">
+                                                        <button class="btn btn-link collapsed" data-toggle="collapse"
+                                                            data-target="#collapseOne{{ $faq->id }}"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseOne{{ $faq->id }}">
+                                                            <div class="plus-minus-btn">
+                                                                <img src="{{ asset('frontend/assets/images/plus-whtie.svg') }}"
+                                                                    class="plus">
+                                                                <img src="{{ asset('frontend/assets/images/plus-whtie.svg') }}"
+                                                                    class="minus">
+                                                            </div>
+                                                            <div class="textp">{{ $faq->question }}</div>
+                                                        </button>
+                                                    </div>
+
+                                                    <div id="collapseOne{{ $faq->id }}" class="collapse"
+                                                        aria-labelledby="headingOne{{ $faq->id }}"
+                                                        data-parent="#accordion">
+                                                        <div class="card-body">
+                                                            <p>{{ $faq->answer }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+
+                                        </div>
+
+                                    </div>
                         </div>
-
-                        <div id="collapseOne{{ $faq->id }}" class="collapse" aria-labelledby="headingOne{{ $faq->id }}" data-parent="#accordion">
-                            <div class="card-body">
-                                <p>{{ $faq->answer }}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                @endforeach
-
-            </div>
-
-        </div>
-    </div>
-    @endif
-@endsection
+                        @endif
+                    @endsection
