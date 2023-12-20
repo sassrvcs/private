@@ -29,14 +29,14 @@
                         <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><span class="txt_green">Overview of</span> Formations Hunt</h2>
                         <p class="subtitle" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Welcome to Formations Hunt – Your Premier Partner in Company Formation in the UK.</p>
                     </div>
-                    <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At Formations Hunt, we take pride in being at the forefront of company formation services, dedicated to helping entrepreneurs and business owners navigate the intricate process of establishing their companies in the United Kingdom. With a wealth of experience and a commitment to excellence, we have emerged as a trusted name in the industry.
-
-                        Our journey is rooted in a passion for empowering businesses to thrive. Guided by a customer-centric approach, we provide comprehensive solutions that go beyond the ordinary, ensuring a seamless and efficient process for company formation.
-
-                        As a dynamic team, we understand the significance of every business endeavour. From startups to established enterprises, we cater to diverse needs, offering bespoke services that align with the unique requirements of each client.
-
-                        Discover the Formations Hunt advantage – where expertise meets excellence, and your business aspirations find a trusted ally.
-                        </p>
+                    <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At Formations Hunt, we take pride in being at the forefront of company formation services, dedicated to helping entrepreneurs and business owners navigate the intricate process of establishing their companies in the United Kingdom. With a wealth of experience and a commitment to excellence, we have emerged as a trusted name in the industry.</p>
+                    <br>
+                    <p>Our journey is rooted in a passion for empowering businesses to thrive. Guided by a customer-centric approach, we provide comprehensive solutions that go beyond the ordinary, ensuring a seamless and efficient process for company formation.</p>
+                    <br>
+                    <p>As a dynamic team, we understand the significance of every business endeavour. From startups to established enterprises, we cater to diverse needs, offering bespoke services that align with the unique requirements of each client.</p>
+                    <br>
+                    <p>Discover the Formations Hunt advantage – where expertise meets excellence, and your business aspirations find a trusted ally.
+                    </p>
                 </div>
             </div>
             <div class="img_block">
@@ -68,10 +68,10 @@
                         <span class="tag" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">vision & mission
                         </span>
                         <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><span class="txt_green">What</span> We do</h2>
-                        <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="subtitle">At Formations Hunt, our vision is to be the catalyst for your business success. We envision a landscape where every entrepreneur can embark on their business journey with confidence, supported by a reliable partner committed to their growth.</p>
                     </div>
-                    <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our mission is clear – to simplify and streamline the company formation process for our clients. We leverage our expertise and knowledge to provide unparalleled services that empower businesses to thrive in the competitive business environment of the UK.
-                    </p>
+                    <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At Formations Hunt, our vision is to be the catalyst for your business success. We envision a landscape where every entrepreneur can embark on their business journey with confidence, supported by a reliable partner committed to their growth.</p>
+                    <br>
+                    <p>Our mission is clear – to simplify and streamline the company formation process for our clients. We leverage our expertise and knowledge to provide unparalleled services that empower businesses to thrive in the competitive business environment of the UK.</p>
                 </div>
             </div>
     </div>
@@ -98,50 +98,48 @@
                     <div class="skill_area">
                         <div class="inner_row">
                             <div class="left_side">
-                                <h3 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">12 Years of Experience in
+                                <h3 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">14+ Years of Experience in
                                     Financial & Business</h3>
-                                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At vero eos et iusto odio due dignissimos ducimus qui blanditiis voluptatum del
-                                    eniti
-                                    atque. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                    consectetur
-                                    adipisci velit. At vero eos et iusto odio due dignissimos ducimus.</p>
+                                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Formations Hunt prides itself on a skill set honed through years of experience in the corporate realm. Our team of seasoned professionals brings a wealth of knowledge and expertise to the table, ensuring that every aspect of your company formation is handled with precision.</p>
+                                <br>
+                                <p>From legal intricacies to strategic planning, our experts navigate the complexities of company formation with finesse. We are adept at customizing our services to cater to businesses of all sizes and industries, ensuring a tailored approach that aligns with your unique goals and vision.</p>
                             </div>
                             <div class="right_side">
                                 <div class="skill_details">
                                     <div class="skill_item" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                                        <span class="skill_name">Business</span>
+                                        <span class="skill_name">BUSINESS</span>
                                         <div class="skill_progress">
-                                            <div class="skill_progrss_bar" data-percent="59"></div>
+                                            <div class="skill_progrss_bar" data-percent="82"></div>
                                         </div>
                                     </div>
                                     <div class="skill_item" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                                        <span class="skill_name">Business</span>
+                                        <span class="skill_name">BUSINESS ECONOMICS</span>
                                         <div class="skill_progress">
-                                            <div class="skill_progrss_bar" data-percent="60"></div>
+                                            <div class="skill_progrss_bar" data-percent="73"></div>
                                         </div>
                                     </div>
                                     <div class="skill_item" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                                        <span class="skill_name">Business</span>
+                                        <span class="skill_name">ACCOUNTING</span>
                                         <div class="skill_progress">
-                                            <div class="skill_progrss_bar" data-percent="85"></div>
+                                            <div class="skill_progrss_bar" data-percent="92"></div>
                                         </div>
                                     </div>
                                     <div class="skill_item" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                                        <span class="skill_name">Business</span>
+                                        <span class="skill_name">TAX FILING</span>
                                         <div class="skill_progress">
-                                            <div class="skill_progrss_bar" data-percent="77"></div>
+                                            <div class="skill_progrss_bar" data-percent="91"></div>
                                         </div>
                                     </div>
                                     <div class="skill_item" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                                        <span class="skill_name">Business</span>
-                                        <div class="skill_progress">
-                                            <div class="skill_progrss_bar" data-percent="45"></div>
-                                        </div>
-                                    </div>
-                                    <div class="skill_item" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
-                                        <span class="skill_name">Business</span>
+                                        <span class="skill_name">MONEY CONTROL</span>
                                         <div class="skill_progress">
                                             <div class="skill_progrss_bar" data-percent="55"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill_item" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">
+                                        <span class="skill_name">INVESTMENTS</span>
+                                        <div class="skill_progress">
+                                            <div class="skill_progrss_bar" data-percent="64"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -189,23 +187,11 @@
                                     <div class="text_boxes">
                                         <div class="txt_item">
                                             <p class="small_title" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Best in Business</p>
-                                            <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At vero eos et iusto odio due dignissimos ducimus qui blanditiis
-                                                voluptatum del eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. At vero eos et
-                                                iusto odio due dignissimos ducimus qui blanditiis voluptatum del
-                                                eniti atque. </p>
+                                            <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At Formations Hunt, excellence is not just a goal – it is our commitment. We take pride in being recognized as the best in the business, delivering unparalleled company formation services that set industry standards. Our dedication to quality, attention to detail, and customer-centric approach distinguish us as a trusted partner for businesses across the UK.</p>
                                         </div>
                                         <div class="txt_item">
                                             <p class="small_title" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our success</p>
-                                            <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At vero eos et iusto odio due dignissimos ducimus qui blanditiis
-                                                voluptatum del eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. At vero eos et
-                                                iusto odio due dignissimos ducimus qui blanditiis voluptatum del
-                                                eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. </p>
+                                            <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">The success of our clients measures our success. Formations Hunt has played a pivotal role in the journey of numerous businesses, witnessing their growth and prosperity. Our client testimonials stand as a testament to our unwavering commitment to client satisfaction. Your success story is our success, and we take pride in being the driving force behind the achievements of the businesses we serve.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -222,30 +208,13 @@
                                 </div>
                                 <div class="text_block">
                                     <div class="title_block">
-                                        <span class="tag">What we do
+                                        <span class="tag">Mission
                                         </span>
                                         <h4><span class="txt_green">Client’s</span> Satisfaction</h4>
                                     </div>
                                     <div class="text_boxes">
                                         <div class="txt_item">
-                                            <p class="small_title">Best in Business</p>
-                                            <p>At vero eos et iusto odio due dignissimos ducimus qui blanditiis
-                                                voluptatum del eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. At vero eos et
-                                                iusto odio due dignissimos ducimus qui blanditiis voluptatum del
-                                                eniti atque. </p>
-                                        </div>
-                                        <div class="txt_item">
-                                            <p class="small_title">Our success</p>
-                                            <p>At vero eos et iusto odio due dignissimos ducimus qui blanditiis
-                                                voluptatum del eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. At vero eos et
-                                                iusto odio due dignissimos ducimus qui blanditiis voluptatum del
-                                                eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. </p>
+                                            <p>Our mission is to be the steadfast ally of financial and insurance service provider businesses, irrespective of their size. We are driven by a commitment to understanding and fulfilling the unique needs of our clients, ensuring they have the support required to thrive in the competitive business environment.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -262,30 +231,15 @@
                                 </div>
                                 <div class="text_block">
                                     <div class="title_block">
-                                        <span class="tag">What we do
+                                        <span class="tag">Vision
                                         </span>
                                         <h4><span class="txt_green">Client’s</span> Satisfaction</h4>
                                     </div>
                                     <div class="text_boxes">
                                         <div class="txt_item">
-                                            <p class="small_title">Best in Business</p>
-                                            <p>At vero eos et iusto odio due dignissimos ducimus qui blanditiis
-                                                voluptatum del eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. At vero eos et
-                                                iusto odio due dignissimos ducimus qui blanditiis voluptatum del
-                                                eniti atque. </p>
-                                        </div>
-                                        <div class="txt_item">
-                                            <p class="small_title">Our success</p>
-                                            <p>At vero eos et iusto odio due dignissimos ducimus qui blanditiis
-                                                voluptatum del eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. At vero eos et
-                                                iusto odio due dignissimos ducimus qui blanditiis voluptatum del
-                                                eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. </p>
+                                            <p>Formations Hunt envisions a future where financial and insurance service providers achieve unprecedented success. Our vision is to be the guiding force that propels these businesses towards growth, innovation, and sustained excellence.</p>
+                                            <br>
+                                            <p>Discover the Formations Hunt advantage – a partnership that goes beyond expectations, setting the stage for your business triumphs in the UK.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -302,30 +256,13 @@
                                 </div>
                                 <div class="text_block">
                                     <div class="title_block">
-                                        <span class="tag">What we do
+                                        <span class="tag">Award
                                         </span>
                                         <h4><span class="txt_green">Client’s</span> Satisfaction</h4>
                                     </div>
                                     <div class="text_boxes">
                                         <div class="txt_item">
-                                            <p class="small_title">Best in Business</p>
-                                            <p>At vero eos et iusto odio due dignissimos ducimus qui blanditiis
-                                                voluptatum del eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. At vero eos et
-                                                iusto odio due dignissimos ducimus qui blanditiis voluptatum del
-                                                eniti atque. </p>
-                                        </div>
-                                        <div class="txt_item">
-                                            <p class="small_title">Our success</p>
-                                            <p>At vero eos et iusto odio due dignissimos ducimus qui blanditiis
-                                                voluptatum del eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. At vero eos et
-                                                iusto odio due dignissimos ducimus qui blanditiis voluptatum del
-                                                eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. </p>
+                                            <p>Formations Hunt has been honoured with prestigious awards, recognizing our excellence in the field of company formation. These accolades underscore our commitment to providing top-notch services and setting benchmarks in the industry.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -342,30 +279,13 @@
                                 </div>
                                 <div class="text_block">
                                     <div class="title_block">
-                                        <span class="tag">What we do
+                                        <span class="tag">History
                                         </span>
                                         <h4><span class="txt_green">Client’s</span> Satisfaction</h4>
                                     </div>
                                     <div class="text_boxes">
                                         <div class="txt_item">
-                                            <p class="small_title">Best in Business</p>
-                                            <p>At vero eos et iusto odio due dignissimos ducimus qui blanditiis
-                                                voluptatum del eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. At vero eos et
-                                                iusto odio due dignissimos ducimus qui blanditiis voluptatum del
-                                                eniti atque. </p>
-                                        </div>
-                                        <div class="txt_item">
-                                            <p class="small_title">Our success</p>
-                                            <p>At vero eos et iusto odio due dignissimos ducimus qui blanditiis
-                                                voluptatum del eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. At vero eos et
-                                                iusto odio due dignissimos ducimus qui blanditiis voluptatum del
-                                                eniti atque. Neque
-                                                porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                                                consectetur adipisci velit. </p>
+                                            <p>Founded on principles of integrity and innovation, Formations Hunt has a rich history of guiding businesses towards success. Our journey is marked by milestones that reflect our dedication to excellence and our role in shaping the corporate landscape of the UK.</p>
                                         </div>
                                     </div>
                                 </div>
