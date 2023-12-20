@@ -82,7 +82,7 @@
             </div>
             <div class="right-information">
                 <div class="digitalPackage-right-lists ">
-                    <div class="digitalPackage-right-list-col @if ($services->slug == 'barclays-bank-account') d-none @endif">
+                    <div class="digitalPackage-right-list-col  d-none ">
                         <div class="digitalPackage-right-list-box floatTop">
                             <div class="top-price-info">
                                 <h4>{{ $services->service_name }}</h4>
@@ -249,7 +249,7 @@
     <!-- ================ end: digitalPackage-sec ================ -->
     <x-company_name_check />
     <!-- ================ start: additionalServices-sec ================ -->
-    @include('frontend.service.service_page_static_content.static')
+    @include('frontend.service.service_page_static_content.other_static')
     <!-- ================ end: additionalServices-sec ================ -->
 
     <!-- ================ start: whatMakesDifferent-sec01 ================ -->

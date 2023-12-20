@@ -349,9 +349,11 @@
                 @foreach($packages as $key => $package)
                 <div class="cfp-list-col" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000" data-aos-once="true">
                     <div class="cfp-list-box {{$package->package_name==" Digital"?'active':''}}">
-                        <div class="home-packages__special-offer">
-                            <span>Special Offer</span>
-                        </div>
+                        @if($package->special_offer == 1)
+                            <div class="home-packages__special-offer">
+                                <span>Special Offer</span>
+                            </div>
+                        @endif
                         <span class="top_round"><img src="{{ asset('frontend/assets/images/tab-menus-active-arow.svg')}}"></span>
                         <div class="text-info1">
                             <h4>{{ $package->package_name }}</h4>
@@ -414,7 +416,7 @@
                         <div class="col-md-6 contact_new_box">
                             <div class="col-md-10">
                                 <h2><b>Payment Security</b></h2>
-                                <p>Selecting FormationsHunt means choosing unparalleled security for your transactions. We proudly accept all major payment methods, ensuring flexibility for your convenience. The data we collect about you is protected with the utmost care. Unlike others, we don't store or collect your payment details. Relax with confidence, knowing that your information is securely transferred to our reliable third-party payment processors. These partners strictly adhere to the rigorous standards established by the PCI Security Standards Council, a collective effort involving industry leaders like Visa, Mastercard, and Discover. Your trust in FormationsHunt is met with an uncompromising dedication to your privacy and security.</p>
+                                <p>Selecting FormationsHunt means choosing unparalleled security for your transactions. We proudly accept all major payment methods, ensuring flexibility for your convenience. The data we collect about you is protected with the utmost care. Unlike others, we don't store or collect your payment details. Relax with confidence, knowing that your information is securely transferred to our reliable third-party payment processors.Your trust in FormationsHunt is met with an uncompromising dedication to your privacy and security.</p>
                                 <div class="payLog">
                                     <img src="{{ asset('frontend/assets/images/all-card.jpg') }}">
                                 </div>

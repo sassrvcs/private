@@ -33,7 +33,7 @@
     <!-- ================ end: digitalPackage-sec ================ -->
     <x-company_name_check />
 
-    @include('frontend.service.service_page_static_content.static')
+    @include('frontend.service.service_page_static_content.other_static')
 
     <!-- ================ end: clientReviews-sec01 ================ -->
     <!-- ================ start: ourBankingPartners-sec01 ================ -->

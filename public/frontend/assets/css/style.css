@@ -2787,7 +2787,7 @@ body .show > .btn-primary.dropdown-toggle {
 }
 
 .customer-signup-s1 .form-register fieldset.border {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+/*    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;*/
     margin-bottom: 16px !important;
     border: 1px solid #7e7e7e26 !important;
     border-radius: 8px;
@@ -3825,7 +3825,7 @@ body.woocommerce-checkout .checkout-bill .woocommerce-input-wrapper.with-rg-btn 
 
 .checkout-bill fieldset {
     box-shadow: 0px 0px 12px 0px #d1d1d1;
-    border: 0 !important;
+/*    border: 0 !important;*/
     border-radius: 6px;
 }
 
@@ -14930,7 +14930,8 @@ body #service-formDetails .wizard>.steps .disabled.current a {
     text-align: center;
 }
 
-.container-small.step:hover {
+.container-small.step:hover,
+.container-small.step.selected {
     border-radius: 5px;
     background-color: #87CB28;
     box-shadow: none;
@@ -15327,4 +15328,16 @@ body #service-formDetails .wizard>.steps .disabled.current a {
 .theme-btn-darkBlue {
     background: rgba(26, 27, 30, 0.89);
     border-color: rgba(26, 27, 30, 0.89);
+}
+
+
+
+
+
+.checkout_package_wrap .w-layout-grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.checkout_package_wrap .image-link-box-grid.steps {
+    margin: 0;
 }
