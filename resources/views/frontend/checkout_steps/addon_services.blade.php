@@ -117,8 +117,8 @@
                               <div class="card-header">
                                  <h3 id="order_review_heading" class="mb-3">Your Basket</h3>
                                  <div class="alert-info p-3">
-                                    <p>Your new company name:</p>
-                                    <p class="h6">{{ isset($indx) ? $sessionCart[$indx]['company_name'] ?? '' : end($sessionCart)['company_name'] ?? '' }}</p>
+                                    {{-- <p></p> --}}
+                                    <p class="h6">Your new company name: <b> {{ isset($indx) ? $sessionCart[$indx]['company_name'] ?? '' : end($sessionCart)['company_name'] ?? '' }}</b></p>
                                  </div>
                                  <hr>
                               </div>
@@ -142,24 +142,28 @@
 
                                                     <span style="font-weight: 800">Features:</span>
                                                 </p>
+                                                <div class="list-style-s1-with-left-arow ul-mb-0">
+                                                    <ul>
                                                 @if (isset($indx))
                                                     @if ($sessionCart[$indx]['package_features']!=null)
                                                         @foreach ($sessionCart[$indx]['package_features'] as $item)
-                                                            <p>
+                                                            <li>
 
                                                                 {{($item->feature)}}
-                                                            </p>
+                                                            </li>
                                                         @endforeach
                                                     @endif
                                                 @else
                                                     @if (end($sessionCart)['package_features']!=null)
                                                         @foreach (end($sessionCart)['package_features'] as $item)
-                                                            <p>
+                                                            <li>
                                                                 {{($item->feature)}}
-                                                            </p>
+                                                            </li>
                                                         @endforeach
                                                     @endif
                                                 @endif
+                                            </ul>
+                                            </div>
                                                 {{-- {!! isset($indx) ?  ?? '' :  ?? '' !!} --}}
 
                                             </td>

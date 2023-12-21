@@ -296,6 +296,9 @@
                                                 Documents</h2>
                                         </td>
                                     </tr>
+                                    @if ($review->legal_document!=null)
+
+
                                     <tr>
                                         <td style="padding: 0;">
                                             <table width="100%" cellpadding="0" cellspacing="0"
@@ -324,6 +327,7 @@
                                             </table>
                                         </td>
                                     </tr>
+                                    @endif
                                     <tr>
                                         <td style="height:30px;">&nbsp;</td>
                                     </tr>

@@ -101,7 +101,7 @@
 
 </div>
 <!-- ================ end: whatMakesDifferent-sec01 ================ -->
-<div class="position-relative">
+{{-- <div class="position-relative">
     <div class="callUs-floating show">
         <button type="button" class="cancel-btn"><img src="{{ asset('frontend/assets/images/cancel-icon.svg') }}"></button>
         <div class="icon-container">
@@ -112,7 +112,7 @@
             <h2><a href="tel:020 3002 0032">020 3002 0032</a></h2>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- ================ start: take-look-t-our-sec01 ================ -->
 <div class="take-look-t-our-sec01 d-none">
     <div class="custom-container">

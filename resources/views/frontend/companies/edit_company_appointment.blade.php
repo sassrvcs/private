@@ -437,7 +437,7 @@
                                         </span>
                                     </div>
                                     <div class="form-row form-group ">
-                                        <label for="username">Last Name:</label>
+                                        <label for="username">DOB:</label>
                                         <span class="input-wrapper">
                                             <input type="text" name="officer_lName" class=" form-control {{ $errors->has('officer_lName') ? 'is-invalid' : ''}}" value="{{ $officer_details['last_name']}}">
                                             @error('officer_lName')
@@ -448,7 +448,10 @@
                                     <div class="form-row form-group ">
                                         <label for="">Date of Birth:</label>
                                         <span class="input-wrapper">
-                                            <input type="date" max="{{ now()->subYears(16)->format('Y-m-d') }}" id="officer_dob" name="officer_dob" class=" form-control" value="{{ $officer_details['dob_day']}}">
+                                            <input type="date" max="{{ now()->subYears(16)->format('Y-m-d') }}" id="officer_dob" name="officer_dob" class=" form-control {{ $errors->has('officer_dob') ? 'is-invalid' : ''}}" value="{{ $officer_details['dob_day']}}">
+                                            @error('officer_dob')
+                                            <span class="error" style="color: red">DOB is required</span>
+                                            @enderror
                                         </span>
                                     </div>
                                     <div class="form-row form-group ">
@@ -1053,13 +1056,19 @@
                                     <div class="form-row form-group">
                                         <label for="">Notification Date:</label>
                                         <span class="input-wrapper">
-                                            <input type="date" name="notificationDate" id="notificationDate" class=" form-control">
+                                            <input type="date" name="notificationDate" id="notificationDate" class=" form-control {{ $errors->has('notificationDate') ? 'is-invalid' : ''}}">
+                                            @error('notificationDate')
+                                            <span class="error" style="color: red">Notification date is required</span>
+                                            @enderror
                                         </span>
                                     </div>
                                     <div class="form-row form-group">
                                         <label for="">Register Entry Date:</label>
                                         <span class="input-wrapper">
-                                            <input type="date" name="registerEntryDate" id="registerEntryDate" class=" form-control">
+                                            <input type="date" name="registerEntryDate" id="registerEntryDate" class=" form-control {{ $errors->has('registerEntryDate') ? 'is-invalid' : ''}}">
+                                            @error('registerEntryDate')
+                                            <span class="error" style="color: red">Register entry date is required</span>
+                                            @enderror
                                         </span>
                                     </div>
                                 </fieldset>

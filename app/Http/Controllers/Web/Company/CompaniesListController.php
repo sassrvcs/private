@@ -1021,7 +1021,10 @@ class CompaniesListController extends Controller
             'officer_fName' => 'required',
             'officer_lName' => 'required',
             'officer_occupation' => 'required',
-            'position'=>'required'
+            'position'=>'required',
+            'officer_dob' => 'required',
+            'notificationDate' => 'required',
+            'registerEntryDate'=>'required'
         ]);
         // dd(  $request->all());
         $user = Auth::user();

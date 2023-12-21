@@ -36,7 +36,7 @@
 
                             <a class="dropdown-item" href="{{route('professional_package')}}">Professional Package</a>
 
-                            <a class="dropdown-item" href="{{route('prestige_package')}}">Prestige Package</a>
+                            {{-- <a class="dropdown-item" href="{{route('prestige_package')}}">Prestige Package</a> --}}
 
                             <a class="dropdown-item" href="{{route('all_inclusive_package')}}">All Inclusive Package</a>
 

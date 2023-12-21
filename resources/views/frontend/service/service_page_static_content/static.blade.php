@@ -296,7 +296,7 @@
 
 
 
-    <div class="whatMakesDifferent-sec01-sec2 ">
+    <div class="whatMakesDifferent-sec01-sec2 d-none">
 
         <div class="to-see-all-sec">
 

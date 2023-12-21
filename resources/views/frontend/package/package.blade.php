@@ -75,7 +75,7 @@
 <section class="companyFormationPackages-sec">
     <div class="custom-container">
         <div class="sec-title1 text-center">
-            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Compare Packages Starting at <span>£12.99</span></h2>
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Compare Packages Starting at <span>£{{digital_package_price()}}</span></h2>
         </div>
         <div class="col-md-12 text-center all_card">
             <img src="{{ asset('frontend/assets/images/all-card.jpg')}}">
@@ -147,6 +147,8 @@
                             </div>
                         </th>
                         @foreach($packages as $key => $package)
+                        @if ($package->package_name != 'Prestige')
+
                             <th>
                                 <div class="items-th-info">
                                     <!-- <div class="icon-container">
@@ -186,6 +188,8 @@
                                     </div>
                                 </div>
                             </th>
+                        @endif
+
                         @endforeach
                     </tr>
                 </thead>
@@ -218,10 +222,12 @@
                             </div>
                         </td>
                         @foreach($packages as $key => $package)
+                        @if ($package->package_name != 'Prestige')
+
                             <td>{{ $package->online_formation_within }}</td>
+                        @endif
                         @endforeach
                     </tr>
-
                     @foreach($facilitys as $key => $facility)
                         <tr>
                             <td>
@@ -250,6 +256,9 @@
                             </td>
 
                             @foreach($facilityList as $key => $assignFacilitys)
+                            @if ($key!=5)
+
+
                                 @if(in_array($facility->id, $assignFacilitys))
                                     <td>
                                         <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
@@ -259,6 +268,7 @@
                                         <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick2.svg') }}" alt=""></div>
                                     </td>
                                 @endif
+                            @endif
                             @endforeach
                         </tr>
                     @endforeach
@@ -273,6 +283,7 @@
                             </div>
                         </th>
                         @foreach($packages as $key => $package)
+                        @if ($package->package_name != 'Prestige')
                             <th>
                                 <div class="items-th-info">
                                     <h4>{{ $package->package_name }}</h4>
@@ -288,6 +299,7 @@
                                     </div>
                                 </div>
                             </th>
+                            @endif
                         @endforeach
                     </tr>
                 </tfoot>

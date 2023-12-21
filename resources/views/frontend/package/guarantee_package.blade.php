@@ -838,7 +838,7 @@
 
 
 
-    <div class="whatMakesDifferent-sec01-sec2">
+    {{-- <div class="whatMakesDifferent-sec01-sec2">
 
 
 
@@ -898,9 +898,39 @@
 
 
 
+    </div> --}}
+
+    <div class="whatMakesDifferent-sec01-sec2">
+
+        <div class="to-see-all-sec">
+
+            <div class="custom-container">
+
+                <div class="to-see-all-sec-youtube-bg" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><img src="{{ asset('frontend/assets/images/cardIcon.png') }}"></div>
+
+                <div class="box-wrapper">
+
+                    <div class="text-container" data-aos="fade-right" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+
+                        <h3></h3>
+
+                        <h2></h2>
+
+                    </div>
+
+                    <div class="action-container" data-aos="fade-left" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-
-
 
 
 

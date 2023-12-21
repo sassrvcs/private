@@ -18,9 +18,9 @@
                         <li>
                             <a href="{{route('professional_package')}}">Professional Package</a>
                         </li>
-                        <li>
-                            <a href="{{route('prestige_package')}}">Prestige Package</a>
-                        </li>
+                        {{-- <li> --}}
+                            {{-- <a href="{{route('prestige_package')}}">Prestige Package</a> --}}
+                        {{-- </li> --}}
                         <li>
                             <a href="{{route('all_inclusive_package')}}">All Inclusive Package</a>
                         </li>
@@ -162,27 +162,27 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="https://www.facebook.com/formationshunt" target="_blank">
                             <img src="{{ asset('frontend/assets/images/social-icon-facebook.svg')}}">
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="https://www.instagram.com/formationshunt/" target="_blank">
                             <img src="{{ asset('frontend/assets/images/social-icon-instragram.svg')}}">
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="https://twitter.com/FormationsHunt" target="_blank">
                             <img src="{{ asset('frontend/assets/images/social-icon-twitter.svg')}}">
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="https://www.linkedin.com/company/formations-hunt" target="_blank">
                             <img src="{{ asset('frontend/assets/images/social-icon-linkdin.svg')}}">
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="https://www.youtube.com/channel/UCkwv3IapL0OGZ7sguEnOUlQ" target="_blank">
                             <img src="{{ asset('frontend/assets/images/social-icon-youtube.svg')}}">
                         </a>
                     </li>

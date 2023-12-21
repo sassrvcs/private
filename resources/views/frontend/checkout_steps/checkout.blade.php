@@ -79,12 +79,13 @@
                                 <h3>Your Order</h3>
                             </div>
                             <div class="card-body">
-                                <div class="alert-info p-3">
-                                    <p>Your new company name:</p>
-                                    <p class="h6">{{ isset($checkout) ? $checkout->company_name : (isset($indx) ? $sessionCart[$indx]['company_name'] ?? '' : '') }}</p>
+                                <div class="alert-info p-3 ">
+                                    {{-- <p>Your new company name:</p> --}}
+                                    {{-- <p class="h6">{{ isset($checkout) ? $checkout->company_name : (isset($indx) ? $sessionCart[$indx]['company_name'] ?? '' : '') }}</p> --}}
+                                    <p class="h6"><b> {{ isset($checkout) ? $checkout->cart->package->package_name : (isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' :  '') }}  Package</b></p>
                                 </div>
                                 <hr>
-                                <p class="h6"><b> {{ isset($checkout) ? $checkout->cart->package->package_name : (isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' :  '') }} </b> Package</p>
+                                {{-- <p class="h6"><b> {{ isset($checkout) ? $checkout->cart->package->package_name : (isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' :  '') }} </b> Package</p> --}}
 
                                 {{-- <p>{!!isset($checkout) ? $checkout->cart->package->package_features : (isset($indx) ? $sessionCart[$indx]['package_features'] ?? '' :  '') !!}</p> --}}
                                 <p style="margin-top: 10px; margin-bottom:10px ">
@@ -92,9 +93,14 @@
                                     <span style="font-weight: 800">Features:</span>
                                 </p>
                                     @if($package)
+                                    <div class="list-style-s1-with-left-arow ul-mb-0">
+                                        <ul>
                                     @foreach($package->features as $feature)
-                                        <p>{{ $feature->feature }}</p>
+                                        <li>{{ $feature->feature }}</li>
                                     @endforeach
+
+                                        </ul>
+                                    </div>
                                     @endif
 
 
@@ -136,7 +142,7 @@
                                                                 @foreach( $checkout->cart->addonCartServices as $key => $value)
                                                                     <tr class="fee" >
                                                                         <td colspan="1">{{ $value->service->service_name }}
-                                                                            
+
                                                                         </td>
                                                                         <td class="text-end" style="display:none;"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
                                                                         <td class="text-end" ><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value->service->price }}</bdi></span></td>

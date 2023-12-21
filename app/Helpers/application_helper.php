@@ -5,6 +5,7 @@
 use App\Models\Address;
 use App\Models\Country;
 use App\Models\Order;
+use App\Models\Package;
 use App\Models\PersonOfficer;
 use App\Models\User;
 
@@ -181,4 +182,9 @@ function appointment_address_included($order_id)
         }
         return $role;
     }
+function digital_package_price()
+{
+    $package = Package::where('package_name','REGEXP','Digital')->first();
+    return $package->package_price;
+}
 ?>
