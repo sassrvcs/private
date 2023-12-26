@@ -86,12 +86,11 @@
 
                         @if($cartCount > 0)
 
-                        <div class="MyAccount-content col-md-6">
-                                <!-- <p>You have some items on your cart</p> -->
+                        <div class="MyAccount-content col-md-12">
                             <span>
-                                You have {{ $cartCount }} items in your cart.
+                                You have {{ $cartCount }} items in your cart. (<strong class="text-danger text-bolt">Please make the payment to avail services in the cart in to get the same updated in the Company House file</strong>)
 
-                                <a href="{{ route('cart-company', ['order' => $order_id]) }}" class="btn btn-primary col-md-3">View Cart</a>
+                                <a href="{{ route('cart-company', ['order' => $order_id]) }}" class="btn btn-primary col-md-2">View Cart</a>
 
                             </span>
 
@@ -110,54 +109,10 @@
 
                             <div class="conpany-overview-tab-wrap">
 
-                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                @include('layouts.company_details_header')
 
-                                    <li class="nav-item">
 
-                                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
-
-                                            role="tab" aria-controls="pills-home" aria-selected="true">Overview</a>
-
-                                    </li>
-
-                                    <li class="nav-item">
-
-                                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
-
-                                            role="tab" aria-controls="pills-profile" aria-selected="false">Documents</a>
-
-                                    </li>
-
-                                    <li class="nav-item">
-
-                                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
-
-                                            role="tab" aria-controls="pills-contact" aria-selected="false">Company
-
-                                            Services</a>
-
-                                    </li>
-
-                                    <li class="nav-item">
-
-                                        <a class="nav-link" id="Shop-contact-tab" data-toggle="pill" href="#Shop-contact"
-
-                                            role="tab" aria-controls="Shop-contact" aria-selected="false">Shop</a>
-
-                                    </li>
-
-                                    <li class="nav-item">
-
-                                        <a class="nav-link" id="getting-started-tab" data-toggle="pill"
-
-                                            href="#getting-started" role="tab" aria-controls="getting-started"
-
-                                            aria-selected="false">Getting Started</a>
-
-                                    </li>
-
-                                </ul>
-
+                                
                                 <div class="tab-content" id="pills-tabContent">
 
                                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
@@ -433,7 +388,8 @@
 
                                                             <td><strong>Due :</strong></td>
 
-                                                            <td>{{$review->due_date ?? '-'}}</td>
+                                                            <td>{{ isset($review->due_date) ? \Carbon\Carbon::parse($review->due_date)->format('d-m-Y') : '-' }}</td>
+
 
                                                             <td></td>
 
@@ -445,7 +401,8 @@
 
                                                             <td><strong>Made Up To :</strong></td>
 
-                                                            <td>{{$review->made_upto ?? '-'}}</td>
+                                                            <td>{{ isset($review->made_upto) ? \Carbon\Carbon::parse($review->made_upto)->format('d-m-Y') : '-' }}</td>
+
 
                                                             <td></td>
 
@@ -1081,327 +1038,7 @@
 
                                     </div>
 
-                                    <div class="tab-pane fade" id="pills-contact" role="tabpanel"
-
-                                        aria-labelledby="pills-contact-tab">
-
-                                        <div class="overview-wrap">
-
-                                            <div class="ttl">
-
-                                                <h3>Company Services</h3>
-
-                                            </div>
-
-                                            <div class="table-responsivr mb-4">
-
-                                                <table class="table">
-
-                                                    <thead>
-
-                                                        <tr>
-
-                                                            <th>Active Services</th>
-
-                                                        </tr>
-
-                                                    </thead>
-
-                                                    <tbody>
-
-                                                        <tr>
-
-                                                            <td>No Active Services on File</td>
-
-                                                        </tr>
-
-                                                    </tbody>
-
-                                                </table>
-
-                                            </div>
-
-                                            <div class="ttl">
-
-                                                <h3>Buy New Services</h3>
-
-                                            </div>
-
-                                            <div class="table-responsivr mb-4">
-
-                                                <table class="table thead-table">
-
-                                                    <thead>
-
-                                                        <tr>
-
-                                                            <th>Officer Service Address</th>
-
-                                                            <th>Price</th>
-
-                                                            <th></th>
-
-                                                        </tr>
-
-                                                    </thead>
-
-                                                    <tbody>
-
-                                                        <tr>
-
-                                                            <td width="400">Service Address - London - Amrutaben Patel
-
-                                                            </td>
-
-                                                            <td>$26.00 per year</td>
-
-                                                            <td><button class="ch-ed-btn"><img
-
-                                                                        src="assets/images/add-plus-icom.svg"
-
-                                                                        alt=""> Add</button></td>
-
-                                                        </tr>
-
-                                                        <tr>
-
-                                                            <td>Partners’ Service Address - Amrutaben Patel</td>
-
-                                                            <td>$26.00 per year</td>
-
-                                                            <td><button class="ch-ed-btn"><img
-
-                                                                        src="assets/images/add-plus-icom.svg"
-
-                                                                        alt=""> Add</button></td>
-
-                                                        </tr>
-
-                                                    </tbody>
-
-                                                </table>
-
-                                            </div>
-
-                                            <div class="table-responsivr mb-4">
-
-                                                <table class="table thead-table">
-
-                                                    <thead>
-
-                                                        <tr>
-
-                                                            <th width="400">Registered Office Services</th>
-
-                                                            <th>Price</th>
-
-                                                            <th></th>
-
-                                                        </tr>
-
-                                                    </thead>
-
-                                                    <tbody>
-
-                                                        <tr>
-
-                                                            <td>Registered Office - London</td>
-
-                                                            <td>$39.00 per year</td>
-
-                                                            <td><button class="ch-ed-btn"><img
-
-                                                                        src="assets/images/add-plus-icom.svg"
-
-                                                                        alt=""> Add</button></td>
-
-                                                        </tr>
-
-                                                    </tbody>
-
-                                                </table>
-
-                                            </div>
-
-                                            <div class="table-responsivr mb-4">
-
-                                                <table class="table thead-table">
-
-                                                    <thead>
-
-                                                        <tr>
-
-                                                            <th>Mail Forwarding</th>
-
-                                                            <th>Price</th>
-
-                                                            <th></th>
-
-                                                        </tr>
-
-                                                    </thead>
-
-                                                    <tbody>
-
-                                                        <tr>
-
-                                                            <td width="400">Business Address (Post)</td>
-
-                                                            <td>$96.00 per year</td>
-
-                                                            <td><button class="ch-ed-btn"><img
-
-                                                                        src="assets/images/add-plus-icom.svg"
-
-                                                                        alt=""> Add</button></td>
-
-                                                        </tr>
-
-                                                    </tbody>
-
-                                                </table>
-
-                                            </div>
-
-                                            <div class="table-responsivr mb-4">
-
-                                                <table class="table thead-table">
-
-                                                    <thead>
-
-                                                        <tr>
-
-                                                            <th>Standard Service</th>
-
-                                                            <th>Price</th>
-
-                                                            <th></th>
-
-                                                        </tr>
-
-                                                    </thead>
-
-                                                    <tbody>
-
-                                                        <tr>
-
-                                                            <td width="400">Business Telephone Number (pay monthly)</td>
-
-                                                            <td>$6.00 per year</td>
-
-                                                            <td><button class="ch-ed-btn"><img
-
-                                                                        src="assets/images/add-plus-icom.svg"
-
-                                                                        alt=""> Add</button></td>
-
-                                                        </tr>
-
-                                                        <tr>
-
-                                                            <td>Business Telephone Number (pay annually)</td>
-
-                                                            <td>$59.99 per year</td>
-
-                                                            <td><button class="ch-ed-btn"><img
-
-                                                                        src="assets/images/add-plus-icom.svg"
-
-                                                                        alt=""> Add</button></td>
-
-                                                        </tr>
-
-                                                        <tr>
-
-                                                            <td>Call Answering + Business Telephone Number (pay monthly)
-
-                                                            </td>
-
-                                                            <td>$29.99 per year</td>
-
-                                                            <td><button class="ch-ed-btn"><img
-
-                                                                        src="assets/images/add-plus-icom.svg"
-
-                                                                        alt=""> Add</button></td>
-
-                                                        </tr>
-
-                                                        <tr>
-
-                                                            <td>Confirmation Statement Filing Service</td>
-
-                                                            <td>$44.99 per year</td>
-
-                                                            <td><button class="ch-ed-btn"><img
-
-                                                                        src="assets/images/add-plus-icom.svg"
-
-                                                                        alt=""> Add</button></td>
-
-                                                        </tr>
-
-                                                        <tr>
-
-                                                            <td>Dormant Company Accounts</td>
-
-                                                            <td>$49.99 per year</td>
-
-                                                            <td><button class="ch-ed-btn"><img
-
-                                                                        src="assets/images/add-plus-icom.svg"
-
-                                                                        alt=""> Add</button></td>
-
-                                                        </tr>
-
-                                                        <tr>
-
-                                                            <td>Call Answering + Business Telephone Number (pay annually)
-
-                                                            </td>
-
-                                                            <td>$199.99 per year</td>
-
-                                                            <td><button class="ch-ed-btn"><img
-
-                                                                        src="assets/images/add-plus-icom.svg"
-
-                                                                        alt=""> Add</button></td>
-
-                                                        </tr>
-
-                                                        <tr>
-
-                                                            <td>ICO Registration Service</td>
-
-                                                            <td>$79.99 per year</td>
-
-                                                            <td><button class="ch-ed-btn"><img
-
-                                                                        src="assets/images/add-plus-icom.svg"
-
-                                                                        alt=""> Add</button></td>
-
-                                                        </tr>
-
-                                                    </tbody>
-
-                                                </table>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="tab-pane fade" id="Shop-contact" role="tabpanel"
-
-                                        aria-labelledby="Shop-contact-tab">D</div>
-
-                                    <div class="tab-pane fade" id="getting-started" role="tabpanel"
-
-                                        aria-labelledby="getting-started-tab">E</div>
+                                    
 
                                 </div>
 
@@ -1509,20 +1146,22 @@
 
                         <div class="form-group">
 
-                            <label for="currentReferenceDate">Current Reference Date:</label>
+                            <label for="currentReferenceDate">Current Reference Date: <span class="text-danger">*</span></label>
 
-                            <input type="date" class="form-control" id="currentReferenceDate" name="currentReferenceDate">
+                            <input type="date" class="form-control" id="currentReferenceDate" name="currentReferenceDate" value="{{$review->due_date ?? '-'}}">
 
+                            <span id="currentReferenceDateError" class="text-danger"></span>
                         </div>
 
 
 
                         <div class="form-group">
 
-                            <label for="amendedReferenceDate">Amended Reference Date:</label>
+                            <label for="amendedReferenceDate">Amended Reference Date: <span class="text-danger">*</span></label>
 
-                            <input type="date" class="form-control" id="amendedReferenceDate" name="amendedReferenceDate">
+                            <input type="date" class="form-control" id="amendedReferenceDate" name="amendedReferenceDate" >
 
+                            <span id="amendedReferenceDateError" class="text-danger"></span>
                         </div>
 
 
@@ -1541,7 +1180,7 @@
 
                             <div class="form-check">
 
-                                <input type="radio" class="form-check-input" id="changedNo" name="changed" value="no">
+                                <input type="radio" class="form-check-input" id="changedNo" name="changed" value="no" checked>
 
                                 <label class="form-check-label" for="changedNo">No</label>
 
@@ -2463,12 +2102,27 @@
 
         });
 
+        $(document).ready(function () {
 
+            var currentReferenceDateValue = $("#currentReferenceDate").val();
+
+            $("#amendedReferenceDate").attr("min", currentReferenceDateValue);
+
+            $("#currentReferenceDate").on("change", function () {
+                var newCurrentReferenceDateValue = $(this).val();
+                $("#amendedReferenceDate").attr("min", newCurrentReferenceDateValue);
+            });
+
+            
+        });
 
         $(document).ready(function () {
 
             $("#effectiveDate").keydown(function (event) { event.preventDefault(); });
+            $("#currentReferenceDate").keydown(function (event) { event.preventDefault(); });
+            $("#amendedReferenceDate").keydown(function (event) { event.preventDefault(); });
 
+            
             $(".addNewAddress").click(function(){
 
                     // $('.address_type').val('primary_address');
@@ -2869,6 +2523,8 @@
 
                         order_id: order_id,
 
+                        c_id:  "{{$_GET['c_id']}}",
+
                         service_name: service_name,
 
                         slug: slug,
@@ -3124,15 +2780,32 @@
                 var changed = $('input[name="changed"]:checked').val();
 
                 var reasonForChange = $('#reasonForChange').val();
+                
 
 
 
-                if (!currentReferenceDate && !amendedReferenceDate && !changed && !reasonForChange) {
+                if (!currentReferenceDate || !amendedReferenceDate ) {
+
+                    if (!currentReferenceDate) {
+                        $('#currentReferenceDateError').text('Please enter the current reference date.');
+                    } else {
+                        $('#currentReferenceDateError').text('');
+                    }
+
+                    if (!amendedReferenceDate) {
+                        $('#amendedReferenceDateError').text('Please enter the amended reference date.');
+                    } else {
+                        $('#amendedReferenceDateError').text('');
+                    }
+
+                    // Add similar validation checks for other form fields as needed
 
                     return;
 
                 }else {
 
+                    $('#currentReferenceDateError').text('');
+                    $('#amendedReferenceDateError').text('');
 
 
                     $.ajax({
@@ -3146,6 +2819,8 @@
                             '_token':       '{{ csrf_token() }}',
 
                             'order_id':     '{{ $order->order_id }}',
+
+                            'c_id':         '{{$_GET['c_id']}}',
 
                             'service_name': 'Change Accounting Date',
 

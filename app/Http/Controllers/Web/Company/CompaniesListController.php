@@ -900,8 +900,14 @@ class CompaniesListController extends Controller
         // Create or update the cart record
         if($request->forward_address_id){
             $request->address_id = null;
+            $forwarding_registered_office_address = $request->forward_address_id;
+            $office_address = null;
+
         } else {
+
             $request->forward_address_id = null;
+            $office_address = $request->address_id;
+            $forwarding_registered_office_address = null;
         }
 
         $vat = 0.00;
@@ -921,6 +927,11 @@ class CompaniesListController extends Controller
                 'vat' => $vat,
             ]
         );
+
+        $company = Companie::where(['user_id' => $user->id, 'order_id' => $request->order_id, 'id' => $request->c_id ])->update([
+            'office_address' => $office_address,
+            'forwarding_registered_office_address' => $forwarding_registered_office_address,
+        ]);
 
         return response()->json(['message' => 'Cart updated successfully', 'cart' => $cart]);
     }
@@ -977,6 +988,14 @@ class CompaniesListController extends Controller
                 'company_account_value' => json_encode($request->all()),
             ]
         );
+
+        if($request->currentReferenceDate) {
+
+            $company = Companie::where(['user_id' => $user->id, 'order_id' => $request->order_id, 'id' => $request->c_id ])->update([
+                'due_date' => $request->amendedReferenceDate,
+            ]);
+
+        }
 
         return response()->json(['message' => 'Cart updated successfully', 'cart' => $cart]);
     }
@@ -1457,6 +1476,7 @@ class CompaniesListController extends Controller
                         'effective_date'=>$cart->effective_date,
                         'appointment_id'=>$cart->appointment_id,
                         'company_account_value'=>$cart->company_account_value,
+                        'add_on_service'=>$cart->add_on_service,
                         'data'=>$cart->data,
                     ]);
                     if($move_cart_data){
@@ -1587,6 +1607,7 @@ class CompaniesListController extends Controller
                         'effective_date'=>$cart->effective_date,
                         'appointment_id'=>$cart->appointment_id,
                         'company_account_value'=>$cart->company_account_value,
+                        'add_on_service'=>$cart->add_on_service,
                         'data'=>$cart->data,
                     ]);
 
@@ -1841,6 +1862,97 @@ class CompaniesListController extends Controller
             @$con_address .= $address['post_code'];
         }
         return $con_address;
+    }
+
+    public function viewShop(Request $request)
+    {
+        // return $request->all();
+
+        $order_id = $request->order;
+
+        $user = Auth::user();
+
+        $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
+
+        $services = Addonservice::with('features')->whereNotIn('price',['0.00','0','0.0'])->whereNotNull('slug')->get();
+
+        return view('frontend.companies.shop', compact('cartCount','user', 'order_id', 'services'));
+    }
+
+    public function saveShopServicesInCart(Request $request)
+    {
+        // return $request->all();
+        $user = Auth::user();
+        $service_id = $request->id;
+        $order_id = $request->order_id;
+        $service = Addonservice::FindOrFail($service_id);
+        $company_details = Companie::FindOrFail($request->c_id);
+        $order = $this->orderService->getOrder($order_id);
+
+
+        $request->validate([
+            'id' => 'required',
+            'order_id' => 'required',
+        ]);
+
+        $vat = null;
+        if ($service->price !== null) {
+            $vat = $service->price * 0.20; 
+        }
+
+        $cart = Cart::updateOrCreate(
+            ['user_id' => $user->id, 'slug' => $service->slug],
+            [
+                'service_name' => $service->service_name,
+                'order_id' => $order_id,
+                'price' => $service->price,
+                'vat' => $vat,
+                'add_on_service' => 1,
+                'data' => json_encode([
+                    'company_id' => $request->c_id,
+                    'order_id'  => $order_id,
+                    'company_number' => $order->company_number,
+                    'company_name' => $company_details->companie_name,
+                ])
+            ]
+        );
+
+        return response()->json(['message' => 'Cart updated successfully', 'cart' => $cart]);
+    }
+
+    public function viewDocument(Request $request)
+    {
+        // return $request->all();
+
+        $order_id = $request->order;
+
+        $user = Auth::user();
+
+        $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
+        $getCompanyNoDate =  companyXmlDetail::where('order_id',$order_id)->get()->first();
+        if($getCompanyNoDate&&@($getCompanyNoDate['pdf_content']!=''))
+        {
+            $pdfcontent = true;
+        }else{
+            $pdfcontent = false;
+        }
+
+        return view('frontend.companies.document', compact('cartCount','user', 'order_id', 'pdfcontent'));
+    }
+
+
+    public function viewCompanyServices(Request $request)
+    {
+        // return $request->all();
+
+        $order_id = $request->order;
+
+        $user = Auth::user();
+
+        $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
+       
+
+        return view('frontend.companies.company_services', compact('cartCount','user', 'order_id', ));
     }
 
 

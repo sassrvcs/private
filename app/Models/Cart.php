@@ -22,6 +22,7 @@ class Cart extends Model
         'company_account_value',
         'appointment_id',
         'data',
+        'add_on_service',
     ];
 
     public function user()

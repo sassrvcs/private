@@ -177,6 +177,13 @@ Route::get('cart-payment-declined', [CompaniesListController::class, 'paymentDec
 Route::get('cart-payment-exception', [CompaniesListController::class, 'paymentException'])->name('cart-payment-exception');
 Route::get('cart-payment-cancelled', [CompaniesListController::class, 'paymentCancelled'])->name('cart-payment-cancelled');
 
+Route::get('shop-companies', [CompaniesListController::class,'viewShop'])->middleware('auth')->name('shop-companies');
+Route::post('save-cart-services', [CompaniesListController::class,'saveShopServicesInCart'])->middleware('auth')->name('save-cart-services');
+Route::get('document-companies', [CompaniesListController::class,'viewDocument'])->middleware('auth')->name('document-companies');
+Route::get('services-companies', [CompaniesListController::class,'viewCompanyServices'])->middleware('auth')->name('services-companies');
+
+
+
 
 
 Route::get('companies/accepted', [CompaniesListController::class, 'acceptedCompanyDetails'])->middleware('auth')->name('accepted-company');

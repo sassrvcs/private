@@ -23,6 +23,7 @@ class companyEditRequest extends Model
         'vat',
         'company_account_value',
         'appointment_id',
+        'add_on_service',
         'data',
     ];
 }
