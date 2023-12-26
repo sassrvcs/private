@@ -97,7 +97,7 @@
                                     @foreach($companies->orders as $key => $order)
 
 
-                                        @if (!isset($_GET['status_value']) || $_GET['status_value']=='All' || (@$order->myCompany->status == $_GET['status_value']) )
+                                        @if (!isset($_GET['status_value']) || $_GET['status_value']=='All' || (@$order->getCompanyByOrderId->status == $_GET['status_value']) )
                                             <tr>
 
                                                 <td>{{ $order->order_id }}</td>
@@ -109,7 +109,7 @@
                                                 @else
                                                     Company Name Not Present
                                                 @endif --}}
-                                                <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" >
+                                                <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->getCompanyByOrderId->section_name?? 'Company_formaction', 'step' => $order->getCompanyByOrderId->step_name?? 'particulars' ]) }}" >
                                                     {{ strtoupper($order->company_name) ?? "-" }}
                                                     {{-- @php $orderCompanyNameWithoutSuffix = preg_replace('/\b(?:LTD|LIMITED)\b/i', '', strtoupper($order->company_name)); @endphp --}}
                                                     {{-- @dump($orderCompanyNameWithoutSuffix) --}}
@@ -135,11 +135,11 @@
 
 
                                                 @php
-                                                   
+
                                                     $company_status = \App\Models\Companie::where('order_id',$order->order_id)->pluck('status')->first();
 
                                                 @endphp
-                                                
+
                                                 <td><span class="status @if($company_status == '0' || $company_status == '1' || $company_status == '2') incomplete @elseif ($company_status == '3')accepted @elseif ($company_status == '4') rejected @else incomplete @endif ">
 
                                                     @if ($company_status == '0' )
@@ -167,14 +167,14 @@
                                                 </td>
                                                 @if($company_status == '3')
                                                     <td>
-                                                        <a href="{{ route('accepted-company', ['order' => $order->order_id,'c_id'=>$order->myCompany->id]) }}" class="view-btn">
+                                                        <a href="{{ route('accepted-company', ['order' => $order->order_id,'c_id'=>$order->getCompanyByOrderId->id]) }}" class="view-btn">
                                                             View
                                                             <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt="">
                                                         </a>
                                                     </td>
                                                 @else
                                                     <td>
-                                                        <a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" class="view-btn">
+                                                        <a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->getCompanyByOrderId->section_name?? 'Company_formaction', 'step' => $order->getCompanyByOrderId->step_name?? 'particulars' ]) }}" class="view-btn">
                                                             View
                                                             <img src="{{ asset('frontend/assets/images/search-icon.png') }}" alt="">
                                                         </a>

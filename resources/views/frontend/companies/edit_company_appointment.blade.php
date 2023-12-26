@@ -437,7 +437,7 @@
                                         </span>
                                     </div>
                                     <div class="form-row form-group ">
-                                        <label for="username">DOB:</label>
+                                        <label for="username">Last Name:</label>
                                         <span class="input-wrapper">
                                             <input type="text" name="officer_lName" class=" form-control {{ $errors->has('officer_lName') ? 'is-invalid' : ''}}" value="{{ $officer_details['last_name']}}">
                                             @error('officer_lName')

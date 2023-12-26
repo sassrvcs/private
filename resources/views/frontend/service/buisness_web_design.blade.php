@@ -47,6 +47,15 @@
                     </div>
                 </div>
             </div>
+            <div class="more_sec_wrap">
+                <div class="more_main_wrap">
+                    <div class="more_wrap">
+                        <div class="more_button">
+                            <a href="#">More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="plugin-icon">
                 <!-- <a href="#" class="more">More</a> -->
                 <h3 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Plugins and
@@ -102,13 +111,14 @@
                 Design Company
                 <span>Wordpress Theme</span>
             </h2>
+            <p>Ready For Top SEO Factors 2018!</p>
         </div>
         <div class="top-seo-factor">
-            <div class="sec-title1 text-center">
+            <!-- <div class="sec-title1 text-center">
                 <h3 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Ready For
                     <span>Top SEO Factors</span> 2018!
                 </h3>
-            </div>
+            </div> -->
             <ul class="top-seo-factor-list">
                 <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                     <div class="icon"><img src="{{ asset('frontend/assets/images/checked.svg')}}"></div>
@@ -199,14 +209,14 @@
 
 
 <!-- ================ start: whatMakesDifferent-sec01 ================ -->
-<div class="whatMakesDifferent-sec01">
+<div class="whatMakesDifferent-sec01 design_page">
     <div class="whatMakesDifferent-sec01-sec2">
         <img src="{{ asset('frontend/assets/images/whatMakesDifferent-sec01-sec2.png')}}" class="img-full">
         <div class="to-see-all-sec">
             <div class="custom-container">
                 <div class="to-see-all-sec-youtube-bg" data-aos="fade-up" data-aos-delay="50"
                     data-aos-duration="500" data-aos-once="true"><img
-                        src="{{ asset('frontend/assets/images/to-see-all-sec-youtube-bg.png')}}"></div>
+                        src="{{ asset('frontend/assets/images/vd2.png')}}"></div>
                 <div class="box-wrapper">
                     <div class="text-container">
                         <h3 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">To
@@ -216,7 +226,11 @@
                     </div>
                     <div class="action-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
                         data-aos-once="true">
-                        <a href="#" class="theme-btn-gray click-btn">Click here</a>
+                        <a href="#" class="theme-btn-gray click-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18" fill="none">
+                                <path d="M23.5989 8.23412L16.0156 0.650785C15.8113 0.453447 15.5376 0.344252 15.2536 0.346721C14.9695 0.349189 14.6978 0.463122 14.497 0.663981C14.2961 0.86484 14.1822 1.13655 14.1797 1.4206C14.1772 1.70465 14.2864 1.9783 14.4838 2.18262L20.2178 7.9167H1.16634C0.879023 7.9167 0.603473 8.03084 0.400309 8.234C0.197144 8.43717 0.0830078 8.71272 0.0830078 9.00004C0.0830078 9.28735 0.197144 9.5629 0.400309 9.76607C0.603473 9.96923 0.879023 10.0834 1.16634 10.0834H20.2178L14.4838 15.8175C14.3803 15.9174 14.2978 16.0369 14.241 16.1691C14.1842 16.3013 14.1543 16.4434 14.1531 16.5873C14.1518 16.7311 14.1792 16.8738 14.2337 17.0069C14.2882 17.14 14.3686 17.261 14.4703 17.3627C14.5721 17.4644 14.693 17.5449 14.8261 17.5993C14.9593 17.6538 15.1019 17.6812 15.2458 17.68C15.3896 17.6787 15.5318 17.6488 15.6639 17.5921C15.7961 17.5353 15.9157 17.4528 16.0156 17.3493L23.5989 9.76595C23.802 9.5628 23.9161 9.2873 23.9161 9.00004C23.9161 8.71277 23.802 8.43727 23.5989 8.23412Z" fill="white"></path>
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -285,10 +299,10 @@
 <section class="demo">
     <div class="one-click-demo">
         <div class="sec-title1 text-center">
-            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+            <h2 class="color-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <span>One</span>Click Demo Install
             </h2>
-            <h6 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">An ultimate
+            <h6 class="color-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">An ultimate
                 solution for SEO and Web Design services companies. A ready to use website in
                 20 minutes. All demo images included.</h6>
         </div>
@@ -495,50 +509,12 @@
 <!-- ================ end: ourBankingPartners-sec01 ================ -->
 
 
-<!-- ================ start: needLittleHelp-sec ================ -->
-<div class="needLittleHelp-sec">
-    <div class="custom-container">
-        <div class="left_div">
-            <ul class="contactUl">
-                <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                    <div class="icon-container">
-                        <img src="{{ asset('frontend/assets/images/call-green-icon.svg')}}">
-                    </div>
-                    <div class="text-container">
-                        <h4>Call Us: </h4>
-                        <h2><a href="tel:020 3002 0032">020 3002 0032</a></h2>
-                    </div>
-                </li>
-                <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                    <div class="icon-container">
-                        <img src="{{ asset('frontend/assets/images/email-green-icon.svg')}}">
-                    </div>
-                    <div class="text-container">
-                        <h4>Mail us: </h4>
-                        <h2><a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h2>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="right_div">
-            <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Need a
-                <br>little help?</h1>
-            <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">We love talking
-                to you when it comes to creating something new. We want you to remember us always,
-                let’s be good for good and for a good reason. Reach us through your voice or writing.</p>
-        </div>
-    </div>
-</div>
-<!-- ================ end: needLittleHelp-sec ================ -->
-
-
-
 <!-- ================ start:salesthroughWebsite-sec ================ -->
 
 <div class="sales-through-website">
     <div class="custom-container">
         <div class="sec-title1 text-center">
-            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Increase sales
+            <h2 class="color-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Increase sales
                 through your Website</h2>
         </div>
         <div class="digitalPackage-right-lists">
@@ -705,6 +681,44 @@
 </div>
 
 <!-- ================ end:salesthroughWebsite-sec ================ -->
+
+
+
+<!-- ================ start: needLittleHelp-sec ================ -->
+<div class="needLittleHelp-sec">
+    <div class="custom-container">
+        <div class="left_div">
+            <ul class="contactUl">
+                <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                    <div class="icon-container">
+                        <img src="{{ asset('frontend/assets/images/call-green-icon.svg')}}">
+                    </div>
+                    <div class="text-container">
+                        <h4 class="color-white">Call Us: </h4>
+                        <h2><a href="tel:020 3002 0032">020 3002 0032</a></h2>
+                    </div>
+                </li>
+                <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                    <div class="icon-container">
+                        <img src="{{ asset('frontend/assets/images/email-green-icon.svg')}}">
+                    </div>
+                    <div class="text-container">
+                        <h4 class="color-white">Mail us: </h4>
+                        <h2><a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h2>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="right_div">
+            <h1 class="color-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Need a
+                <br>little help?</h1>
+            <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">We love talking
+                to you when it comes to creating something new. We want you to remember us always,
+                let’s be good for good and for a good reason. Reach us through your voice or writing.</p>
+        </div>
+    </div>
+</div>
+<!-- ================ end: needLittleHelp-sec ================ -->
 
 
 

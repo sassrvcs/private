@@ -148,13 +148,28 @@
             </div>
         </div>
         <div class="main-footer-cpy-right">
-            <div class="left-info" >
+            <div class="left-info">
+                <p>Formationshunt Ltd.</p>
                 <p>7, Thurlow Gardens , Wembley , Middlesex , HA0 2AH , United Kingdom</p>
                 <p>Phone: <a href="tel:020 3002 0032">020 3002 0032</a></p>
                 <p>Email: <a href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></p>
-                <p>Copyright © 2023 Formationshunt. |  All Rights Reserved. Company Nr: 14177067 VAT Registration Nr: ICO Registration Reference</p>
+                <p>Company Nr: 14177067 | Vat Reg. no.</p>
+                <p>ICO Reg. ref. ZB587491</p>
             </div>
-            <div class="right-info" >
+            <div class="right-info">
+                <div class="newsletter">
+                    <form>
+                        <div class="form-group">
+                            <label>Subscribe to our email newsletter</label>
+                            <input type="text" name="" class="form-control" placeholder="Enter your e-mail address">
+                            <button type="button" class="subscribe_button">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="main-footer-cpy-right">
+            <div class="right-info">
                 <ul class="footer-social-icons">
                     <li>
                         <a href="#" data-toggle="modal" data-target="#custom_payment_modal" id="open_custom_payment_modal">
@@ -189,8 +204,19 @@
                 </ul>
             </div>
         </div>
+        <div class="main-footer-cpy-right text-center justify-content-center">
+            <div class="left-info">
+                <p>Copyright © 2023 Formationshunt. |  All Rights Reserved.</p>
+            </div>
+        </div>
     </div>
 </div>
+
+<div class="cookie_popup d-none">
+    <h4>We Value your privacy</h4>
+    <p>This website uses cookies to provide the best experience when you visit our website. <a href="#">cookie policy.</a> <button type="button" id="cookie_hide">I understand</button> </p>
+</div>
+
 <x-custom_payment_modal></x-custom_payment_modal>
 <!-- ================ end: main-footer ================ -->
 
@@ -199,7 +225,7 @@
 <script src="{{ asset('frontend/assets/js/popper.min.1.16.0.js')}}"></script>
 <script src="{{ asset('frontend/assets/js/bootstrap.min.4.5.2.js')}}"></script>
 <script src="{{ asset('frontend/assets/slick/slick.min.js')}}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <!-- Select 2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
 
@@ -208,3 +234,16 @@
 <script src="{{ asset('frontend/assets/js/stickey.js')}}"></script>
 
 <script src="{{ asset('frontend/assets/js/scripts.js')}}"></script>
+
+<script>
+$(document).ready(function(){
+    if (!($.cookie('cookie_hide'))) {
+
+        $(".cookie_popup").removeClass('d-none')
+    }
+  $("#cookie_hide").click(function(){
+    $(".cookie_popup").hide();
+    $.cookie('cookie_hide', 'cookie_hide', { expires: 365, path: '/' });
+  });
+});
+</script>
