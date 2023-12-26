@@ -21,11 +21,11 @@
 
 <!-- ================ start: myPortfolio-sec ================ -->
 <div class="myPortfolio-sec">
-    <div class="custom-container">
+    <!-- <div class="custom-container">
         <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">My <br />
             <span>Portfolio</span>
         </h1>
-    </div>
+    </div> -->
     <div class="myPortfolio-left-right-lists">
         <div class="myPortfolio-left-right-sec">
             <div class="custom-container">
@@ -35,8 +35,8 @@
                 </div>
                 <div class="text-container" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000"
                     data-aos-once="true">
-                    <h2>Good <span>Design</span></h2>
-                    <h4>Naming, Branding, Web Design</h4>
+                    <h2>What is a <span>logo?</span></h2>
+                    <h4>A logo is the first identification of any organization and is designed uniquely for easy recognition. It’s basically a name, mark, or symbol to identify any organization’s idea, publication as well as its products, services, etc. A logo is a sign that also represents the brand message, type, and character of your business and the different entities of your organization.</h4>
                 </div>
             </div>
         </div>
@@ -48,8 +48,8 @@
                 </div>
                 <div class="text-container" before-text="Good Design" data-aos="fade-right" data-aos-delay="100"
                     data-aos-duration="1000" data-aos-once="true">
-                    <h2>PB <span>Tube</span></h2>
-                    <h4>Naming, Branding, Web Design</h4>
+                    <h2>Why is a logo <span>important for your business?</span></h2>
+                    <h4>A logo is something far more than it usually seems. It's the company's first introduction to the audience. Nowadays it’s very challenging to get the attention of consumers as they don’t have time for anything more than 2 seconds, but with a good logo, you can grab the attention of the consumers very quickly and interestingly deliver your core values. Also, one logo holds many entities of your brand, it helps to make a strong first impression of your brand in front of the audience, it reflects the brand identity and it serves as the foundation for the entire narrative on which the brand is built. It also makes your brand memorable to the viewers and it also separates your brand from your competitors. </h4>
                 </div>
             </div>
         </div>
@@ -61,8 +61,8 @@
                 </div>
                 <div class="text-container" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000"
                     data-aos-once="true">
-                    <h2>OnBank <span>Banking</span></h2>
-                    <h4>Branding, Web Design, App</h4>
+                    <h2>Do you need a <span>Logo?</span></h2>
+                    <h4>We live in a chromatic world and people are drawn to beautiful designs and colors. That's Why logos are important for every kind of business. A logo is the first thing people notice in your business and it leads the audience to your company. It is the symbol that people recognize and connect with your brand and even if they forget the name, they can easily recall the logo. That's why a logo is very important for any business and if you choose the wrong logo for your business then it can affect your brand value and its reputation. Because good logos are aesthetically pleasing visual elements that trigger positive recall about your company. And that’s why you need a logo. </h4>
                 </div>
             </div>
         </div>
@@ -74,8 +74,8 @@
                 </div>
                 <div class="text-container" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000"
                     data-aos-once="true">
-                    <h2>Good <span>Design</span></h2>
-                    <h4>Naming, Branding, Web Design</h4>
+                    <h2>Do you need <span>something more?</span></h2>
+                    <h4>If you want to create something more than just a logo to make your identity global then you should go with the other marketing materials and services that will help you to do so.</h4>
                 </div>
             </div>
         </div>
@@ -87,8 +87,10 @@
 <!-- ================ start: ourWorks-sec ================ -->
 <div class="ourWorks-sec">
     <div class="custom-container">
-        <h1 before-text="Good Design" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
-            data-aos-once="true">Our <span>Works</span></h1>
+        <div class="title_head">
+            <h1 before-text="Good Design" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
+                data-aos-once="true">Our <span>Works</span></h1>
+            </div>
         <ul class="ourWorks-lists">
             <li before-text="Good Design" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
                 data-aos-once="true">
@@ -133,9 +135,11 @@
 <!-- ================ start: ourClients-02-sec ================ -->
 <div class="ourClients-02-sec">
     <div class="custom-container">
-        <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our
-            <br /><span>Clients</span>
-        </h1>
+        <div class="title_head">
+            <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our
+                <br /><span>Clients</span>
+            </h1>
+        </div>
         <div class="left-right-text-with-image">
             <div class="text-container">
                 <h4 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum
@@ -247,8 +251,12 @@
 <div class="designTogether-02-sec">
     <div class="custom-container">
         <div class="left-div">
-            <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Let’s Design <br>
-                together!</h1>
+            <div class="title_head">
+                <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Let’s Design 
+                    <br>
+                    <span>together!</span>
+                </h1>
+            </div>
         </div>
         <div class="right-div">
             <div class="icon-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">

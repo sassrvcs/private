@@ -208,9 +208,7 @@
                                 </div>
                                 <div class="text_block">
                                     <div class="title_block">
-                                        <span class="tag">Mission
-                                        </span>
-                                        <h4><span class="txt_green">Client’s</span> Satisfaction</h4>
+                                        <h4><span class="txt_green">Mission</span></h4>
                                     </div>
                                     <div class="text_boxes">
                                         <div class="txt_item">
@@ -231,9 +229,7 @@
                                 </div>
                                 <div class="text_block">
                                     <div class="title_block">
-                                        <span class="tag">Vision
-                                        </span>
-                                        <h4><span class="txt_green">Client’s</span> Satisfaction</h4>
+                                        <h4><span class="txt_green">Vision</span></h4>
                                     </div>
                                     <div class="text_boxes">
                                         <div class="txt_item">
@@ -256,9 +252,7 @@
                                 </div>
                                 <div class="text_block">
                                     <div class="title_block">
-                                        <span class="tag">Award
-                                        </span>
-                                        <h4><span class="txt_green">Client’s</span> Satisfaction</h4>
+                                        <h4><span class="txt_green">Award</span></h4>
                                     </div>
                                     <div class="text_boxes">
                                         <div class="txt_item">
@@ -279,9 +273,7 @@
                                 </div>
                                 <div class="text_block">
                                     <div class="title_block">
-                                        <span class="tag">History
-                                        </span>
-                                        <h4><span class="txt_green">Client’s</span> Satisfaction</h4>
+                                        <h4><span class="txt_green">History</span></h4>
                                     </div>
                                     <div class="text_boxes">
                                         <div class="txt_item">

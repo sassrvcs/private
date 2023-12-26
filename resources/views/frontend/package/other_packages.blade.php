@@ -548,7 +548,7 @@
 
 
 
-    <div class="whatMakesDifferent-sec01-sec2">
+    {{-- <div class="whatMakesDifferent-sec01-sec2">
 
         <div class="to-see-all-sec">
 
@@ -636,8 +636,129 @@
 
         </div>
 
-    </div>
+    </div> --}}
+    <div class="whatMakesDifferent-sec01-sec2">
 
+        <div class="to-see-all-sec">
+
+            <div class="custom-container">
+
+                <div class="box-wrapper">
+
+                    <div class="package_rating">
+
+                        <div class="rating-lists">
+
+                            <div class="rating-list-col">
+                                <div class="rating-list-box">
+                                    <div class="com-icon-container">
+                                        <img src="{{ asset('frontend/assets/images/google-com-icon.svg')}}">
+                                    </div>
+                                    <div class="com-text-container">
+                                        <div class="value-with-stars">
+                                            <div class="rating-no">4.9 </div>
+                                            <div class="rating-stars">
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="total-rating">4,038 Reviews</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="rating-list-col">
+                                <div class="rating-list-box">
+                                    <div class="com-icon-container">
+                                        <img src="{{ asset('frontend/assets/images/trustpilot-com-icon.svg')}}">
+                                    </div>
+                                    <div class="com-text-container">
+                                        <div class="value-with-stars">
+                                            <div class="rating-no">4.8 </div>
+                                            <div class="rating-stars">
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="total-rating">19,038 Reviews</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="rating-list-col">
+                                <div class="rating-list-box">
+                                    <div class="com-icon-container">
+                                        <img src="{{ asset('frontend/assets/images/facebook-com-icon.svg')}}">
+                                    </div>
+                                    <div class="com-text-container">
+                                        <div class="value-with-stars">
+                                            <div class="rating-no">4.7 </div>
+                                            <div class="rating-stars">
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                                <button type="button" class="star">
+                                                    <img src="{{ asset('frontend/assets/images/rating-star-fill.svg')}}">
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="total-rating">262 Reviews</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="action-container" data-aos="fade-left" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 
     <div class="whatMakesDifferent-sec01-sec3">

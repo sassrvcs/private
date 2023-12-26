@@ -37,10 +37,10 @@
                        <div class="step-title">Select Pack</div>
                      </div>
                      <div class="container-small step selected">
-                       <img src="{{ asset('frontend/assets/images/check-out.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <img src="{{ asset('frontend/assets/images/add.svg') }}" loading="lazy" alt="" class="step-icon">
                        <div class="step-title">Additional Services</div>
                      </div>
-                     <div class="container-small step">
+                     <div class="container-small step selected">
                        <img src="{{ asset('frontend/assets/images/check-out.svg') }}" loading="lazy" alt="" class="step-icon">
                        <div class="step-title">Checkout</div>
                      </div>
@@ -49,9 +49,26 @@
                        <div class="step-title">File Details</div>
                      </div>
                    </div>
-                   <div class="steps-line">
+                   <!-- <div class="steps-line">
                        <img src="{{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }}" loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 945px) 98vw, 927px" srcset="{{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }} 500w, {{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }} 927w" alt="">
-                   </div>
+                   </div> -->
+                    <div class="stepper-wrapper">
+                        <div class="stepper-item completed">
+                            <div class="step-counter">01</div>
+                        </div>
+                        <div class="stepper-item completed">
+                            <div class="step-counter">02</div>
+                        </div>
+                        <div class="stepper-item completed">
+                            <div class="step-counter">03</div>
+                        </div>
+                        <div class="stepper-item active">
+                            <div class="step-counter">04</div>
+                        </div>
+                        <div class="stepper-item">
+                            <div class="step-counter">05</div>
+                        </div>
+                    </div>
                </div>
            </div>
         </div>
@@ -77,14 +94,15 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3>Your Order</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="alert-info p-3">
-                                    <p>Your new company name:</p>
-                                    <p class="h6">{{ isset($checkout) ? $checkout->company_name : (isset($indx) ? $sessionCart[$indx]['company_name'] ?? '' : '') }}</p>
+                                <div class="alert-info p-3 ">
+                                    {{-- <p>Your new company name:</p> --}}
+                                    {{-- <p class="h6">{{ isset($checkout) ? $checkout->company_name : (isset($indx) ? $sessionCart[$indx]['company_name'] ?? '' : '') }}</p> --}}
+                                    <p class="h6"><b> {{ isset($checkout) ? $checkout->cart->package->package_name : (isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' :  '') }}  Package</b></p>
                                 </div>
                                 <hr>
-                                <p class="h6"><b> {{ isset($checkout) ? $checkout->cart->package->package_name : (isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' :  '') }} </b> Package</p>
+                            </div>
+                            <div class="card-body border shadow-none">
+                                {{-- <p class="h6"><b> {{ isset($checkout) ? $checkout->cart->package->package_name : (isset($indx) ? $sessionCart[$indx]['package_name'] ?? '' :  '') }} </b> Package</p> --}}
 
                                 {{-- <p>{!!isset($checkout) ? $checkout->cart->package->package_features : (isset($indx) ? $sessionCart[$indx]['package_features'] ?? '' :  '') !!}</p> --}}
                                 <p style="margin-top: 10px; margin-bottom:10px ">
@@ -92,16 +110,21 @@
                                     <span style="font-weight: 800">Features:</span>
                                 </p>
                                     @if($package)
+                                    <div class="list-style-s1-with-left-arow ul-mb-0">
+                                        <ul>
                                     @foreach($package->features as $feature)
-                                        <p>{{ $feature->feature }}</p>
+                                        <li>{{ $feature->feature }}</li>
                                     @endforeach
+
+                                        </ul>
+                                    </div>
                                     @endif
 
 
 
                                 <hr>
-                                <div class="border border-success p-2" style="border-color:#87CB28 !important;">
-                                    <table class="table table-striped">
+                                <div class="border border-success p-2 shadow-none" style="border-color:#87CB28 !important;">
+                                    <table class="table table-striped mb-0">
                                         <tbody>
 
                                             @if (auth()->check())
@@ -120,7 +143,7 @@
                                                         @endphp
                                             @endif
                                             <tr class="cart-subtotal ">
-                                                <th>Price</th>
+                                                <th colspan="4">Price</th>
                                                 <td class="text-end">
                                                     <span class="woocommerce-Price-amount amount package-price"><bdi><span
                                                     class="woocommerce-Price-currencySymbol">£</span>{{ isset($checkout) ? $total_net  : (isset($indx) ? $sessionCart[$indx]['price'] ?? '0' :  '0') }}</bdi></span>
@@ -135,8 +158,8 @@
                                                             @if(isset($checkout->cart->addonCartServices))
                                                                 @foreach( $checkout->cart->addonCartServices as $key => $value)
                                                                     <tr class="fee" >
-                                                                        <td colspan="1">{{ $value->service->service_name }}
-                                                                            
+                                                                        <td colspan="4">{{ $value->service->service_name }}
+
                                                                         </td>
                                                                         <td class="text-end" style="display:none;"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
                                                                         <td class="text-end" ><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value->service->price }}</bdi></span></td>
@@ -174,7 +197,7 @@
                                                 @if( isset($indx) && isset($sessionCart[$indx]['addon_service']) )
                                                     @foreach( $sessionCart[$indx]['addon_service'] as $key => $value)
                                                         <tr class="fee" >
-                                                            <td colspan="1">{{ $value['service_name'] }}</td>
+                                                            <td colspan="4">{{ $value['service_name'] }}</td>
                                                             <td class="text-end" style="display:none;"><a href="javascript:void(0);" data-route="{{ route('cart.destroy', ['cart' => $key] ) }}" dara-row="{{ $key }}" data-service_id="{{ $value['service_id'] }}" class="badge remove bg-secondary"><i class="fa fa-times"></i></a></td>
                                                             <td class="text-end" ><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $value['price'] }}</bdi></span></td>
                                                         </tr>
@@ -189,7 +212,8 @@
 
 
                                             <tr class="tax-rate tax-rate-vat-1">
-                                                <th>Net</th>
+                                                <td colspan="3"></td>
+                                                <th class="text-end">Net</th>
                                                 <td class="text-end"><span class="woocommerce-Price-amount amount net">
                                                     <bdi>
                                                     <span class="woocommerce-Price-currencySymbol">£</span>
@@ -198,7 +222,8 @@
                                                 </td>
                                             </tr>
                                             <tr class="tax-rate tax-rate-vat-1">
-                                                <th>VAT</th>
+                                                <td colspan="3"></td>
+                                                <th class="text-end">VAT</th>
                                                 <td class="text-end"><span class="woocommerce-Price-amount amount vat">
                                                     <bdi>
                                                     <span class="woocommerce-Price-currencySymbol">£</span>
@@ -206,8 +231,9 @@
                                                 </td>
                                             </tr>
                                             <tr class="order-total">
-                                                <th style="color:#40A800;">Total</th>
-                                                <td class="text-end" style="color:#40A800;">
+                                                <td colspan="3"></td>
+                                                <th class="text-end">Total</th>
+                                                <td class="text-end">
                                                     <strong>
                                                         <span class="woocommerce-Price-amount amount">
                                                             <bdi><span class="woocommerce-Price-currencySymbol total-amount">£</span> </bdi>
@@ -225,10 +251,11 @@
                                     @endphp
 
                                     <div class="mt-3 @if ($total_paid==0) d-none @endif">
-                                        <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
+                                        <table class="table table-light">
                                             <tbody>
                                                 <tr class="order-total">
-                                                    <th>Paid Amount </th>
+                                                    <td colspan="3"></td>
+                                                    <th class="text-end">Paid Amount </th>
                                                     <td class="text-end"><strong><span class="woocommerce-Price-amount paid_amount"><bdi><span class="woocommerce-Price-currencySymbol">£</span>{{$total_paid}}</bdi></span></strong>
                                                     </td>
                                                 </tr>
@@ -236,11 +263,12 @@
                                         </table>
                                     </div>
 
-                                    <div class="mt-3">
-                                        <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
+                                    <div class="mt-0">
+                                        <table class="table table-light shadow-none mb-0">
                                             <tbody>
                                                 <tr class="order-total">
-                                                    <th>Amount Due</th>
+                                                    <td colspan="3"></td>
+                                                    <th class="text-end">Amount Due</th>
                                                     <td class="text-end"><strong><span class="woocommerce-Price-amount amount_due"><bdi><span class="woocommerce-Price-currencySymbol">£</span></bdi></span></strong>
                                                     </td>
                                                 </tr>
@@ -249,10 +277,11 @@
                                     </div>
                                 @else
                                     <div class="mt-3 d-none">
-                                        <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
+                                        <table class="table table-light shadow-none mb-0">
                                             <tbody>
                                                 <tr class="order-total">
-                                                    <th>Paid Amount </th>
+                                                    <td colspan="3"></td>
+                                                    <th class="text-end">Paid Amount </th>
                                                     <td class="text-end"><strong><span class="woocommerce-Price-amount paid_amount"><bdi><span class="woocommerce-Price-currencySymbol">£</span>0</bdi></span></strong>
                                                     </td>
                                                 </tr>
@@ -260,11 +289,12 @@
                                         </table>
                                     </div>
 
-                                    <div class="mt-3">
-                                        <table class="table table-light" style="border:1px solid #87CB28;color:#40A800;">
+                                    <div class="mt-3" style="margin-top: 0 !important;">
+                                        <table class="table table-light shadow-none mb-0">
                                             <tbody>
                                                 <tr class="order-total">
-                                                    <th>Amount Due</th>
+                                                    <td colspan="3"></td>
+                                                    <th class="text-end">Amount Due</th>
                                                     <td class="text-end"><strong><span class="woocommerce-Price-amount amount_due"><bdi><span class="woocommerce-Price-currencySymbol">£</span></bdi></span></strong>
                                                     </td>
                                                 </tr>

@@ -43,7 +43,7 @@
                             <div class="package_top_wrap">
                                 <div class="namecheck-steps top">
                                     <div class="w-layout-grid image-link-box-grid steps">
-                                      <div class="container-small step">
+                                      <div class="container-small step selected">
                                         <img src="{{ asset('frontend/assets/images/checklist.svg') }}" loading="lazy" width="54" alt="" class="step-icon">
                                         <div class="step-title">Name Check</div>
                                       </div>

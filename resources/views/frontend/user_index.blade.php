@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-md-7">
                         <div id="response-class">
-                            <h1 data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000" data-aos-once="true">Formations made easier starting from <span>£12.99</span></h1>
+                            <h1 data-aos="fade-right" data-aos-delay="50" data-aos-duration="1000" data-aos-once="true">Formations made easier starting from <span>£{{digital_package_price()}}</span></h1>
                             <p data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true">Form a UK limited company in minutes</p>
                         </div>
 
@@ -630,7 +630,7 @@
                     <div class="to-see-all-sec-youtube-bg" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true"><img src="{{ asset('frontend/assets/images/vd2.png')}}"></div>
                     <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <h3>To See All </h3>
-                        <h2>Our Video Click Here</h2>
+                        <h2>Our Videos Click Here</h2>
                         <p>This small video will help you understand our company formation process in simple easy steps to make you feel more confident when you registering your limited company. Subscribe us for regular updates.</p>
                     </div>
                     <div class="action-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
@@ -1101,51 +1101,112 @@
 
         <div id="accordion" class="faq-002-accordion-sec">
             <div class="card" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                <div class="card-header" id="headingOne">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                <div class="card-header" id="headingOne-235">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne-235" aria-expanded="false" aria-controls="collapseOne-235">
                         <div class="plus-minus-btn">
                             <img src="{{ asset('frontend/assets/images/plus-whtie.svg')}}" class="plus">
                             <img src="{{ asset('frontend/assets/images/minus-white.svg')}}" class="minus">
                         </div>
-                        <div class="textp">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</div>
+                        <div class="textp">Why doing it through us online?</div>
                     </button>
                 </div>
 
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div id="collapseOne-235" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
-                        <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                        <p>Through our website, you can simply register a limited company or LLP for as little as £12.99 + VAT, saving you between £200 and £300 in attorney or accountant fees.</p>
                     </div>
                 </div>
             </div>
             <div class="card" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                <div class="card-header" id="headingTwo">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <div class="card-header" id="heading221">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne221" aria-expanded="false" aria-controls="collapseOne">
                         <div class="plus-minus-btn">
                             <img src="{{ asset('frontend/assets/images/plus-whtie.svg')}}" class="plus">
                             <img src="{{ asset('frontend/assets/images/minus-white.svg')}}" class="minus">
                         </div>
-                        <div class="textp">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</div>
+                        <div class="textp">Why you need a company?</div>
                     </button>
                 </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+
+                <div id="collapseOne221" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
-                        <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                        <p>You will need a limited company to protect yourself and your personal assets from business-related debts. There are numerous benefits of using limited companies for your trading activities, but one of the most important is debt protection..</p>
                     </div>
                 </div>
             </div>
             <div class="card" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                <div class="card-header" id="headingThree">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <div class="card-header" id="headingOne221">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne227" aria-expanded="false" aria-controls="collapseOne221">
                         <div class="plus-minus-btn">
                             <img src="{{ asset('frontend/assets/images/plus-whtie.svg')}}" class="plus">
                             <img src="{{ asset('frontend/assets/images/minus-white.svg')}}" class="minus">
                         </div>
-                        <div class="textp">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</div>
+                        <div class="textp">What kind of companies i can form here?</div>
                     </button>
                 </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+
+                <div id="collapseOne227" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
-                        <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                        <p>A company limited by share: This can be formed by a single individual who serves as the sole shareholder and director. Or by a large number of shareholders with a large number of directors. They are the most common company trading structure in the UK.
+
+                            Partnerships with a limited liability(LLP) : Generally fromed by formed by Professional organisations such as accountants, engineers, and solicitors.
+
+                            Companies Limited by Guarantee : Mostly formed by Non -profit organisations such as clubs, associations, charities, and social enterprises.Instead of shareholders, they have guarantors who guarantee a small sum. A limited by guarantee company can be formed with only one guarantor and director.
+
+                            Public limited company(PLC) : It’s for those who wish to set up a public limited company and require atleast two directors to form PLC,the PLC package offers a range of services that helps in the easy formation of your company at an affordable rate.
+
+                            Eseller : Its perfect for those who wants to establish an eCommerce company willing to sell products or services through their e-platform. This is ideal for those willing to establish and sell through their eCommerce websites.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="card-header" id="headingOne231">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne231" aria-expanded="false" aria-controls="collapseOne231">
+                        <div class="plus-minus-btn">
+                            <img src="{{ asset('frontend/assets/images/plus-whtie.svg')}}" class="plus">
+                            <img src="{{ asset('frontend/assets/images/minus-white.svg')}}" class="minus">
+                        </div>
+                        <div class="textp">How Formationshunt is going to help?</div>
+                    </button>
+                </div>
+
+                <div id="collapseOne231" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>As a company formation agent we guide through different processess to form a company which best suits your requirements.We assist you,starting from choosing a name for your company,getting it approved through the company house once selected with full secretarial support and a free business bank account.Not only that,we get you all the necessary tools and support for your business to remain complaint so that you to walk through the ladder of success.At Formationshunt our customer support team works with a motive and mission of being good for good and for a good reason.We are available 24hrs. to provide you with email and telephone support all your lifetime.We also provide you with our free company online manager where you get full range of services and access to all your company details from one place.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="card-header" id="heading225">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse225" aria-expanded="false" aria-controls="collapseOne">
+                        <div class="plus-minus-btn">
+                            <img src="{{ asset('frontend/assets/images/plus-whtie.svg')}}" class="plus">
+                            <img src="{{ asset('frontend/assets/images/minus-white.svg')}}" class="minus">
+                        </div>
+                        <div class="textp">When can I start trading?</div>
+                    </button>
+                </div>
+
+                <div id="collapse225" class="collapse" aria-labelledby="heading225" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>Your company can begin trading as soon as you receive an email containing your Certificate of Incorporation. It can immediately enter into contracts, make sales, hire workers, and purchase goods and services. Even though it does not yet have a bank account, it has full legal capacity.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
+                <div class="card-header" id="headingOne-240">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne-240" aria-expanded="false" aria-controls="collapseOne-240">
+                        <div class="plus-minus-btn">
+                            <img src="{{ asset('frontend/assets/images/plus-whtie.svg')}}" class="plus">
+                            <img src="{{ asset('frontend/assets/images/minus-white.svg')}}" class="minus">
+                        </div>
+                        <div class="textp">How to renew services that comes with a package?</div>
+                    </button>
+                </div>
+
+                <div id="collapseOne-240" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <p>Go to our online company manager section,check the services showing expired to renew.In this package you need to renew the services like registered office address and domain after a year.Call answering and phone number services needs renewal after a month.</p>
                     </div>
                 </div>
             </div>
@@ -1153,13 +1214,14 @@
 
     </div>
 </div>
+
 <!-- ================ end: faq-002-sec ================ -->
 
 <!-- ================ start: formationsMade-easier-sec ================ -->
 <section class="formationsMade-easier-sec">
     <div class="custom-container">
         <div class="sec-title1 text-center mb-0">
-            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="text-white">Formations made easier starting <br />from <span>£12.99</span></h2>
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="text-white">Formations made easier starting <br />from <span>£{{digital_package_price()}}</span></h2>
             <p data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" data-aos-once="true" class="text-white">To check for availability and view our packages, enter the name of your organization.</p>
         </div>
         <div class="search-box" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1500" data-aos-once="true">

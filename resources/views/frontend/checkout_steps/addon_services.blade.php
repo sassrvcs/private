@@ -37,8 +37,8 @@
                        <img src="{{ asset('frontend/assets/images/select-pack.svg') }}" loading="lazy" alt="" class="step-icon">
                        <div class="step-title">Select Pack</div>
                      </div>
-                     <div class="container-small step ">
-                       <img src="{{ asset('frontend/assets/images/check-out.svg') }}" loading="lazy" alt="" class="step-icon">
+                     <div class="container-small step selected">
+                       <img src="{{ asset('frontend/assets/images/add.svg') }}" loading="lazy" alt="" class="step-icon">
                        <div class="step-title">Additional Services</div>
                      </div>
                      <div class="container-small step">
@@ -50,9 +50,26 @@
                        <div class="step-title">File Details</div>
                      </div>
                    </div>
-                   <div class="steps-line">
+                   <!-- <div class="steps-line">
                        <img src="{{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }}" loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 945px) 98vw, 927px" srcset="{{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }} 500w, {{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }} 927w" alt="">
-                   </div>
+                   </div> -->
+                   <div class="stepper-wrapper">
+                        <div class="stepper-item completed">
+                            <div class="step-counter">01</div>
+                        </div>
+                        <div class="stepper-item completed">
+                            <div class="step-counter">02</div>
+                        </div>
+                        <div class="stepper-item active">
+                            <div class="step-counter">03</div>
+                        </div>
+                        <div class="stepper-item">
+                            <div class="step-counter">04</div>
+                        </div>
+                        <div class="stepper-item">
+                            <div class="step-counter">05</div>
+                        </div>
+                    </div>
                </div>
            </div>
         </div>
@@ -117,8 +134,8 @@
                               <div class="card-header">
                                  <h3 id="order_review_heading" class="mb-3">Your Basket</h3>
                                  <div class="alert-info p-3">
-                                    <p>Your new company name:</p>
-                                    <p class="h6">{{ isset($indx) ? $sessionCart[$indx]['company_name'] ?? '' : end($sessionCart)['company_name'] ?? '' }}</p>
+                                    {{-- <p></p> --}}
+                                    <p class="h6">Your new company name: <b> {{ isset($indx) ? $sessionCart[$indx]['company_name'] ?? '' : end($sessionCart)['company_name'] ?? '' }}</b></p>
                                  </div>
                                  <hr>
                               </div>
@@ -142,24 +159,28 @@
 
                                                     <span style="font-weight: 800">Features:</span>
                                                 </p>
+                                                <div class="list-style-s1-with-left-arow ul-mb-0">
+                                                    <ul>
                                                 @if (isset($indx))
                                                     @if ($sessionCart[$indx]['package_features']!=null)
                                                         @foreach ($sessionCart[$indx]['package_features'] as $item)
-                                                            <p>
+                                                            <li>
 
                                                                 {{($item->feature)}}
-                                                            </p>
+                                                            </li>
                                                         @endforeach
                                                     @endif
                                                 @else
                                                     @if (end($sessionCart)['package_features']!=null)
                                                         @foreach (end($sessionCart)['package_features'] as $item)
-                                                            <p>
+                                                            <li>
                                                                 {{($item->feature)}}
-                                                            </p>
+                                                            </li>
                                                         @endforeach
                                                     @endif
                                                 @endif
+                                            </ul>
+                                            </div>
                                                 {{-- {!! isset($indx) ?  ?? '' :  ?? '' !!} --}}
 
                                             </td>

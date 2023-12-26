@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <!-- ================ start: common-inner-page-banner ================ -->
-<section class="common-inner-page-banner" style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png')}})">
+<section class="common-inner-page-banner about_adjust_banner" style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png')}})">
     <div class="custom-container">
         <div class="left-info">
             <figure data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">

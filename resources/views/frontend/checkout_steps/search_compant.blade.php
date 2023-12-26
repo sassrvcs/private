@@ -17,7 +17,7 @@
                        <div class="step-title">Select Pack</div>
                      </div>
                      <div class="container-small step">
-                       <img src="{{ asset('frontend/assets/images/check-out.svg') }}" loading="lazy" alt="" class="step-icon">
+                       <img src="{{ asset('frontend/assets/images/add.svg') }}" loading="lazy" alt="" class="step-icon">
                        <div class="step-title">Additional Services</div>
                      </div>
                      <div class="container-small step">
@@ -29,9 +29,26 @@
                        <div class="step-title">File Details</div>
                      </div>
                    </div>
-                   <div class="steps-line">
+                   <!-- <div class="steps-line">
                        <img src="{{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }}" loading="lazy" sizes="(max-width: 479px) 100vw, (max-width: 945px) 98vw, 927px" srcset="{{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }} 500w, {{ asset('frontend/assets/images/company-formation-icon-step-line-2.png') }} 927w" alt="">
-                   </div>
+                   </div> -->
+                   <div class="stepper-wrapper">
+                        <div class="stepper-item completed">
+                            <div class="step-counter">01</div>
+                        </div>
+                        <div class="stepper-item active">
+                            <div class="step-counter">02</div>
+                        </div>
+                        <div class="stepper-item">
+                            <div class="step-counter">03</div>
+                        </div>
+                        <div class="stepper-item">
+                            <div class="step-counter">04</div>
+                        </div>
+                        <div class="stepper-item">
+                            <div class="step-counter">05</div>
+                        </div>
+                    </div>
                </div>
            </div>
         </div>
