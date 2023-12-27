@@ -41,7 +41,13 @@
 
                 </td>
             </tr> --}}
+            <ul>
+                <li>
+                    <h3>Company Name: {{$order_particulars->company_name}}</h3>
+                </li>
+            </ul>
             @foreach ($cart_items as $item)
+
             @if ($item->slug=='add-new-statement')
             @php
                 $decodedStatement = json_decode($item->data);
@@ -99,11 +105,9 @@
             @endphp
                 <li>
                     <strong>{{ $item->service_name }} :  </strong>
-                    <div>
+                    <span>
                         {{ $updated_auth_code->auth_code }}
-                    </div>
-
-
+                    </span>
                 </li>
             </ul>
             @endif
@@ -507,6 +511,19 @@
                     {{-- @endforeach --}}
 
                 @endif
+
+
+            @endforeach
+
+            @foreach ($cart_items as $item)
+            @if ($item->add_on_service==1)
+            <ul>
+                <li>
+                    <strong>Service Name : </strong> {{ $item->service_name }}
+                    <span>Price: {{ $item->price }}+ Vat: {{ $item->vat }} = {{ $item->price + $item->vat }}</span>
+                </li>
+            </ul>
+            @endif
 
 
             @endforeach

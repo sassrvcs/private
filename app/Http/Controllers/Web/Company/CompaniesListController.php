@@ -1312,7 +1312,7 @@ class CompaniesListController extends Controller
             // return $filePath;
             $direct_submit = $d_pay;
             try {
-                Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CompanyEditAdmin($cart_items,$purchase_address,$filePath,$direct_submit));
+                Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CompanyEditAdmin($cart_items,$purchase_address,$filePath,$direct_submit,$order_particulars));
                 Mail::to($order_particulars->recipient_email)->send(new CompanyEditCustomer($cart_items,$purchase_address,$filePath,$user,$direct_submit,$order_particulars->recipient_name));
             }catch (\Exception $e) {
                 // dd($e);
@@ -1954,7 +1954,7 @@ class CompaniesListController extends Controller
 
         $vat = null;
         if ($service->price !== null) {
-            $vat = $service->price * 0.20; 
+            $vat = $service->price * 0.20;
         }
 
         $cart = Cart::updateOrCreate(
@@ -2007,7 +2007,7 @@ class CompaniesListController extends Controller
         $user = Auth::user();
 
         $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
-       
+
 
         return view('frontend.companies.company_services', compact('cartCount','user', 'order_id', ));
     }

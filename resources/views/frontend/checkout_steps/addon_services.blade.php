@@ -258,7 +258,7 @@
                                  <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="agree" value="1" id="flexCheckChecked">
                                     <label class="form-check-label" for="flexCheckChecked">
-                                       I agree to the <a href="#" class="link-primary">Terms and Conditions</a> &amp; <a href="#" class="link-primary">Privacy Policy</a>
+                                       I agree to the <a target="_blank" href="{{ route('page', ['slug' => 'terms-conditions'] ) }}" class="link-primary">Terms and Conditions</a> &amp; <a href="{{ route('page', ['slug' => 'gdpr-privacy-policy'] ) }}" target="_blank" class="link-primary">Privacy Policy</a>
                                     </label>
                                     <br>
                                     <span id="error-span" style="display: none; color: red;"> You must agree to the terms and conditions. </span>
@@ -400,5 +400,7 @@
             }
          });
       });
+      window.scrollTo(0, 600);
+
    </script>
 @endsection

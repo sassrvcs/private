@@ -40,7 +40,7 @@
                         <!-- <h2>Payment For Order {{ $order_id }}</h2> -->
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h2>Payment For Order {{ $order_id }}</h2>
-                            <a href="{{ route('accepted-company', ['order' => $order_id,'c_id'=>$order->myCompany->id]) }}" class="btn btn-secondary">Back</a>
+                            <a href="{{ route('accepted-company', ['order' => $order_id,'c_id'=>$order->getCompanyByOrderId->id]) }}" class="btn btn-secondary">Back</a>
                         </div>
 
 

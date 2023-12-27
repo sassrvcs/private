@@ -603,7 +603,7 @@
                                                         class="btn btn-primary">Log in</button>
                                                 </div>
                                                 <div class="col-md-6 mb-3 text-md-end lost_password text-md-right">
-                                                    <a href="#" class="link-primary">Lost your password?</a>
+                                                    <a href="{{route('forget.password.get')}}" target="_blank" class="link-primary">Lost your password?</a>
                                                 </div>
                                             </div>
                                     </fieldset>
@@ -778,5 +778,6 @@
 
 
         // })
+        window.scrollTo(0, 600);
     </script>
 @endsection

@@ -1,7 +1,14 @@
 @extends('layouts.master')
 
 @section('content')
-
+@php
+    $choose_pkg_step=false;
+     if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
+    $choose_pkg_step = true;
+    if (isset($_GET['indx']) && $_GET['indx'] !='')
+    $choose_pkg_step = false;
+    // dd($choose_pkg_step);
+@endphp
     <!-- ================ start: digital-packages-banner ================ -->
 
 <div class="digital-packages-banner" style="background-image: url({{ asset('frontend/assets/images/digital-packages-banner.png') }})">
@@ -31,7 +38,9 @@
                     @if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
 
                                 <a href="{{ route('add-cart', ['id' => $packages->id]) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+                                @elseif (isset($_GET['index']) && $_GET['index'] !='')
 
+                                <a href="{{ route('update-cart-after', ['id' => $packages->id,'index' => $_GET['index']]) }}" class="theme-btn-primary buy-btn">Buy Now</a>
                             @else
 
                                 <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
@@ -175,7 +184,9 @@
                             @if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
 
                                 <a href="{{ route('add-cart', ['id' => $packages->id]) }}" class="buy-btn theme-btn-primary">Buy Now</a>
+                            @elseif (isset($_GET['index']) && $_GET['index'] !='')
 
+                            <a href="{{ route('update-cart-after', ['id' => $packages->id,'index' => $_GET['index']]) }}" class="theme-btn-primary buy-btn">Buy Now</a>
                             @else
 
                                 <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
@@ -829,7 +840,7 @@
 
                <div class="sec-title1">
 
-                <h1 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident Package</span></h1>
+                <h1 class="text-white" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Non UK <span>Resident <br>Package</span></h1>
 
                 <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our idea is to help our non-UK clients set up their businesses effortlessly and without any hassle. Thus, we provide them with a range of services to ensure a streamlined working experience with us.  </p>
 

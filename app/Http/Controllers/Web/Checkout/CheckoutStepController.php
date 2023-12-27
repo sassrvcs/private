@@ -59,7 +59,6 @@ class CheckoutStepController extends Controller
     public function reviewCompanyPackage()
     {
         $sessionCart = Session::get('cart');
-        // dd( $sessionCart );
         return view('frontend.checkout_steps.search_compant', compact('sessionCart'));
     }
 

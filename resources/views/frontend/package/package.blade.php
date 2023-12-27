@@ -87,7 +87,9 @@
     $choose_pkg_step=false;
      if (isset($_GET['step']) && $_GET['step'] == 'choose-package')
     $choose_pkg_step = true;
-
+    if (isset($_GET['indx']) && $_GET['indx'] !='')
+    $choose_pkg_step = false;
+    // dd($choose_pkg_step);
 @endphp
 <section class="companyFormationPackages-sec package_sec1">
     <div class="custom-container">
@@ -105,6 +107,8 @@
                         @if ($choose_pkg_step)
 
                         <a href="{{route('non_residents_package',['step'=>'choose-package'])}}">Non-Residents</a>
+                        @elseif (isset($_GET['indx']) && $_GET['indx'] !='')
+                        <a href="{{route('non_residents_package',['index' => $_GET['indx']])}}">Non-Residents</a>
                         @else
                         <a href="{{route('non_residents_package')}}">Non-Residents</a>
 
@@ -114,6 +118,8 @@
                         @if ($choose_pkg_step)
 
                         <a href="{{route('llp_package',['step'=>'choose-package'])}}">LLP</a>
+                        @elseif (isset($_GET['indx']) && $_GET['indx'] !='')
+                        <a href="{{route('llp_package',['index' => $_GET['indx']])}}">LLP</a>
                         @else
                         <a href="{{route('llp_package')}}">LLP</a>
 
@@ -123,6 +129,8 @@
                         @if ($choose_pkg_step)
 
                         <a href="{{route('guarantee_package',['step'=>'choose-package'])}}">Guarantee</a>
+                        @elseif (isset($_GET['indx']) && $_GET['indx'] !='')
+                        <a href="{{route('guarantee_package',['index' => $_GET['indx']])}}">Guarantee</a>
                         @else
                         <a href="{{route('guarantee_package')}}">Guarantee</a>
 
@@ -131,7 +139,8 @@
                     <li data-aos="fade-up" data-aos-delay="300" data-aos-duration="500" data-aos-once="true">
                         @if ($choose_pkg_step)
                         <a href="{{route('e_seller_package',['step'=>'choose-package'])}}">eSeller</a>
-
+                        @elseif (isset($_GET['indx']) && $_GET['indx'] !='')
+                        <a href="{{route('e_seller_package',['index' => $_GET['indx']])}}">eSeller</a>
                         @else
                         <a href="{{route('e_seller_package')}}">eSeller</a>
                         @endif
@@ -140,6 +149,8 @@
                         @if ($choose_pkg_step)
 
                         <a href="{{route('plc_package',['step'=>'choose-package'])}}">PLC</a>
+                        @elseif (isset($_GET['indx']) && $_GET['indx'] !='')
+                        <a href="{{route('plc_package',['index' => $_GET['indx']])}}">PLC</a>
                         @else
                         <a href="{{route('plc_package')}}">PLC</a>
                         @endif
@@ -182,6 +193,11 @@
                                      @if ($choose_pkg_step)
 
                                         <a href="{{ route('add-cart', ['id' => $package->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+
+                                    @elseif (isset($_GET['indx']) && $_GET['indx'] !='')
+
+                                    <a href="{{ route('update-cart-after', ['id' => $package->id,'index' => $_GET['indx']]) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+
                                     @else
                                         <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
                                         data-target="#exampleModal" data-whatever="@fat" data-id = "{{$package->id}}" data-name= "{{strtoupper($package->package_name)}}">Buy Now</a>
@@ -305,6 +321,9 @@
                                     <div class="bottom-actions">
                                     @if ($choose_pkg_step)
                                         <a href="{{ route('add-cart', ['id' => $package->id] ) }}" class="theme-btn-primary buy-btn">Buy Now</a>
+                                    @elseif (isset($_GET['indx']) && $_GET['indx'] !='')
+
+                                    <a href="{{ route('update-cart-after', ['id' => $package->id,'index' => $_GET['indx']]) }}" class="theme-btn-primary buy-btn">Buy Now</a>
                                     @else
                                         <a href="#" class="theme-btn-primary buy-btn buy-btn-multiple" data-toggle="modal"
                                         data-target="#exampleModal" data-whatever="@fat" data-id = "{{$package->id}}" data-name= "{{strtoupper($package->package_name)}}">Buy Now</a>
