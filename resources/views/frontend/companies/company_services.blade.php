@@ -80,7 +80,7 @@
 
                         <div class="companies-topbar flex-column justify-content-start mb-4 align-items-start">
 
-                            <h3 class="mb-2">FORMATIONSHUNT LTD</h3>
+                            <h3 class="mb-2">{{$company_details->companie_name}}</h3>
 
                         </div>
 
@@ -132,18 +132,29 @@
                                                     <tr>
 
                                                         <th>Active Services</th>
+                                                        <th>Updated At</th>
+                                                        <th></th>
 
                                                     </tr>
+
 
                                                 </thead>
 
                                                 <tbody>
 
-                                                    <tr>
+                                                    @foreach ($edit_service_purchased as $key => $values) 
 
-                                                        <td>No Active Services on File</td>
-
-                                                    </tr>
+                                                        @foreach ($values->companyEditRequests as $key => $value) 
+                                                            <tr>
+                                                        
+                                                                <td>{{$value->service_name}}</td>
+                                                                <td>{{$value->updated_at}}</td>
+                                                                <td></td>
+                                                            </tr>
+                                                        @endforeach
+                                                        
+                                                    @endforeach
+                                                    
 
                                                 </tbody>
 
@@ -235,15 +246,15 @@
 
                                                     <tr>
 
-                                                        <td>Registered Office - London</td>
+                                                        <td>{{$register_office_address_services->service_name}}</td>
 
-                                                        <td>$39.00 per year</td>
+                                                        <td>${{$register_office_address_services->price}} per year</td>
 
-                                                        <td><button class="ch-ed-btn"><img
+                                                        <td><button class="ch-ed-btn add-service-item" data-id="{{$register_office_address_services->id}}"><img
 
                                                                     src="assets/images/add-plus-icom.svg"
 
-                                                                    alt=""> Add</button></td>
+                                                                    alt="" > Add</button></td>
 
                                                     </tr>
 
@@ -275,11 +286,11 @@
 
                                                     <tr>
 
-                                                        <td width="400">Business Address (Post)</td>
+                                                        <td>{{ @$business_mailing_address_service->service_name}}</td>
 
-                                                        <td>$96.00 per year</td>
+                                                        <td>${{ @$business_mailing_address_service->price}} per year</td>
 
-                                                        <td><button class="ch-ed-btn"><img
+                                                        <td><button class="ch-ed-btn add-service-item" data-id="{{@$business_mailing_address_service->id}}"><img
 
                                                                     src="assets/images/add-plus-icom.svg"
 
@@ -312,108 +323,21 @@
                                                 </thead>
 
                                                 <tbody>
+                                                    @foreach($standard_services as $service)
+                                                        <tr>
 
-                                                    <tr>
+                                                            <td width="400">{{$service->service_name}}</td>
 
-                                                        <td width="400">Business Telephone Number (pay monthly)</td>
+                                                            <td>${{$service->price}} per year</td>
 
-                                                        <td>$6.00 per year</td>
+                                                            <td><button class="ch-ed-btn add-service-item"  data-id="{{$service->id}}"><img
 
-                                                        <td><button class="ch-ed-btn"><img
+                                                                        src="assets/images/add-plus-icom.svg"
 
-                                                                    src="assets/images/add-plus-icom.svg"
+                                                                        alt=""> Add</button></td>
 
-                                                                    alt=""> Add</button></td>
-
-                                                    </tr>
-
-                                                    <tr>
-
-                                                        <td>Business Telephone Number (pay annually)</td>
-
-                                                        <td>$59.99 per year</td>
-
-                                                        <td><button class="ch-ed-btn"><img
-
-                                                                    src="assets/images/add-plus-icom.svg"
-
-                                                                    alt=""> Add</button></td>
-
-                                                    </tr>
-
-                                                    <tr>
-
-                                                        <td>Call Answering + Business Telephone Number (pay monthly)
-
-                                                        </td>
-
-                                                        <td>$29.99 per year</td>
-
-                                                        <td><button class="ch-ed-btn"><img
-
-                                                                    src="assets/images/add-plus-icom.svg"
-
-                                                                    alt=""> Add</button></td>
-
-                                                    </tr>
-
-                                                    <tr>
-
-                                                        <td>Confirmation Statement Filing Service</td>
-
-                                                        <td>$44.99 per year</td>
-
-                                                        <td><button class="ch-ed-btn"><img
-
-                                                                    src="assets/images/add-plus-icom.svg"
-
-                                                                    alt=""> Add</button></td>
-
-                                                    </tr>
-
-                                                    <tr>
-
-                                                        <td>Dormant Company Accounts</td>
-
-                                                        <td>$49.99 per year</td>
-
-                                                        <td><button class="ch-ed-btn"><img
-
-                                                                    src="assets/images/add-plus-icom.svg"
-
-                                                                    alt=""> Add</button></td>
-
-                                                    </tr>
-
-                                                    <tr>
-
-                                                        <td>Call Answering + Business Telephone Number (pay annually)
-
-                                                        </td>
-
-                                                        <td>$199.99 per year</td>
-
-                                                        <td><button class="ch-ed-btn"><img
-
-                                                                    src="assets/images/add-plus-icom.svg"
-
-                                                                    alt=""> Add</button></td>
-
-                                                    </tr>
-
-                                                    <tr>
-
-                                                        <td>ICO Registration Service</td>
-
-                                                        <td>$79.99 per year</td>
-
-                                                        <td><button class="ch-ed-btn"><img
-
-                                                                    src="assets/images/add-plus-icom.svg"
-
-                                                                    alt=""> Add</button></td>
-
-                                                    </tr>
+                                                        </tr>
+                                                    @endforeach
 
                                                 </tbody>
 
@@ -448,7 +372,43 @@
 
 <script>
      $(document).ready(function() {
-        
+            $('.add-service-item').on('click', function() {
+                var itemId = $(this).data('id');
+                console.log(itemId, 'itemId');
+                $.ajax({
+                    url: "{!! route('save-cart-services') !!}",
+                    type: 'POST',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        id: itemId,
+                        order_id: "{{ $order_id }}",
+                        c_id: "{{ $_GET['c_id'] }}",
+                    },
+                    success: function(data) {
+                        // location.reload('true')
+                        Swal.fire({
+                            title: "Cart Updated!",
+                            text: "Item Added into the cart!",
+                            icon: "success",
+                            confirmButtonText: "Ok",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload(true);
+                                
+                            }
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        Swal.fire({
+                            title: "Something Went wrong!",
+                            text: "Error found!",
+                            icon: "error"
+                        });
+                        // Handle error response
+                    }
+                });
+            });
         });
 </script>
 @endsection

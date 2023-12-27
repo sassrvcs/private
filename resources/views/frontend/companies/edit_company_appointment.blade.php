@@ -187,7 +187,8 @@
 
                     <div class="MyAccount-content col-md-12">
                         <div class="companies-topbar flex-column justify-content-start mb-4 align-items-start">
-                            <h3 class="mb-2">FORMATIONSHUNT LTD</h3>
+                            <h3 class="mb-2">{{$company_details->companie_name}}</h3>
+
                         </div>
                         @if($cartCount > 0)
                         <div class="MyAccount-content col-md-6">
@@ -1097,14 +1098,14 @@
                                 <input type="hidden" name="forwardAddressChanges" id="forwardAddressChanges" value="0">
                                 <input type="hidden" name="notificationDateChanges" id="notificationDateChanges" value="0">
 
-                                <input type="text" id="legal_name" name="legal_name" value="{{$officer_details['legal_name']}}" readonly>
-                                <input type="text" id="law_governed" name="law_governed" value="{{$officer_details['law_governed']}}" readonly>
-                                <input type="text" id="legal_form" name="legal_form" value="{{$officer_details['legal_form']}}" readonly>
+                                <input type="hidden" id="legal_name" name="legal_name" value="{{$officer_details['legal_name']}}" readonly>
+                                <input type="hidden" id="law_governed" name="law_governed" value="{{$officer_details['law_governed']}}" readonly>
+                                <input type="hidden" id="legal_form" name="legal_form" value="{{$officer_details['legal_form']}}" readonly>
 
-                                <input type="text" id="uk_registered" name="uk_registered" value="{{$officer_details['uk_registered']}}" readonly>
-                                <input type="text" id="registry_held" name="registry_held" value="{{$officer_details['registry_held']}}" readonly>
-                                <input type="text" id="place_registered" name="place_registered" value="{{$officer_details['place_registered']}}" readonly>
-                                <input type="text" id="registration_number" name="registration_number" value="{{$officer_details['registration_number']}}" readonly>
+                                <input type="hidden" id="uk_registered" name="uk_registered" value="{{$officer_details['uk_registered']}}" readonly>
+                                <input type="hidden" id="registry_held" name="registry_held" value="{{$officer_details['registry_held']}}" readonly>
+                                <input type="hidden" id="place_registered" name="place_registered" value="{{$officer_details['place_registered']}}" readonly>
+                                <input type="hidden" id="registration_number" name="registration_number" value="{{$officer_details['registration_number']}}" readonly>
                             </form>
                         </div>
                     </div>

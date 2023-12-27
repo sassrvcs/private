@@ -35,9 +35,9 @@
 
     <li class="nav-item">
 
-        <a class="nav-link" id="getting-started-tab" data-toggle="pill"
+        <a class="nav-link {{ request()->routeIs('get-started-companies') ? 'active' : '' }}" id="getting-started-tab" 
 
-            href="#getting-started" role="tab" aria-controls="getting-started"
+            href="{{ route('get-started-companies', ['order' => $order_id, 'c_id' => $_GET['c_id']]) }}" role="tab" aria-controls="getting-started"
 
             aria-selected="false">Getting Started</a>
 

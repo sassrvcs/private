@@ -82,6 +82,7 @@
 
                             <h3 class="mb-2">{{$company_details->companie_name}}</h3>
 
+
                         </div>
 
                         @if($cartCount > 0)
@@ -114,46 +115,11 @@
                                 <div class="tab-content" id="pills-tabContent">
 
 
-                                    <div class="tab-pane show active" id="Shop-contact" role="tabpanel"
+                                    <div class="tab-pane show active" id="getting-started-tab" role="tabpanel"
 
-                                        aria-labelledby="Shop-contact-tab">
+                                        aria-labelledby="getting-started-tab">
 
-                                        <div class="overview-wrap">
-
-                                            <div class="ttl">
-
-                                                <h3>Company Services</h3>
-
-                                            </div>
-
-                                            <div class="table-responsivr mb-4">
-
-                                                <table class="table">
-
-                                                    <tbody>
-                                                        @foreach($services as $service)
-                                                            <tr>
-
-                                                                <td><strong>{{$service->service_name}}</strong></td>
-                                                                <td>£{{$service->price}}</td>
-
-                                                                <td width="167">
-
-                                                                    <button class="ch-ed-btn add-service-item" data-id="{{$service->id}}">
-                                                                        <img src="assets/images/download-icon.svg" alt="">ADD</button>
-
-                                                                </td>
-
-                                                            </tr>
-                                                        @endforeach
-
-                                                    </tbody>
-
-                                                </table>
-
-                                            </div>
-
-                                        </div>
+                         
 
                                         
                                     </div>

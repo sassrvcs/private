@@ -80,7 +80,7 @@
 
                         <div class="companies-topbar flex-column justify-content-start mb-4 align-items-start">
 
-                            <h3 class="mb-2">FORMATIONSHUNT LTD</h3>
+                            <h3 class="mb-2">{{$company_details->companie_name}}</h3>
 
                         </div>
 

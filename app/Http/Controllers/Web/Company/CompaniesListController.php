@@ -834,6 +834,7 @@ class CompaniesListController extends Controller
 
         $user = Auth::user();
         $countryList = Country::all();
+        $company_details = Companie::FindOrFail($request->c_id);
         $change_name_service = Addonservice::where('slug', 'company-name-change')->first();
         $confirmation_statement_service = Addonservice::where('slug', 'confirmation-statement-service')->first();
         $change_accounting_date = Cart::where('slug', 'change-accounting-date')->where('order_id', $order_id)->Where('user_id', $user->id)->first();
@@ -876,7 +877,7 @@ class CompaniesListController extends Controller
             $appointmentsList = $personAppointments;
         }
 
-        return view('frontend.companies.overview', compact('pdfcontent','used_address', 'countries', 'shoppingCartId', 'person_officers',
+        return view('frontend.companies.overview', compact('company_details','pdfcontent','used_address', 'countries', 'shoppingCartId', 'person_officers',
             'appointmentsList','review','order','primary_address_list','countryList','user','purchase_address', 'order_id', 'cartCount', 'change_name_service', 'confirmation_statement_service','change_accounting_date'));
     }
 
@@ -1008,6 +1009,7 @@ class CompaniesListController extends Controller
         $appointment_details = Person_appointment::with('forwarding_address')->with('own_address')->where('id', $appointment_id)->get()->first()->toArray();
         // return $appointment_details['position'];
         $countries = Country::all();
+        $company_details = Companie::FindOrFail($request->c_id);
         $company_type  = Companie::where('order_id', $_GET['order'])->pluck('companie_type')->first();
         $positionArray = explode(', ', $appointment_details['position']);
         $nationalities = Nationality::all()->sortBy('name')->toArray();
@@ -1032,11 +1034,11 @@ class CompaniesListController extends Controller
         // $person_appointment = Person_appointment::where('order', $order_id)->where('position', 'LIKE', "%PSC%")->get();
 
         if ($appointment_details['appointment_type'] == "person") {
-            return view('frontend.companies.edit_company_appointment', compact('company_type','billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
+            return view('frontend.companies.edit_company_appointment', compact('company_type','billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user','company_details'));
         } elseif ($appointment_details['appointment_type'] == "corporate") {
-            return view('frontend.companies.edit_corporate_company_appointment', compact('company_type','billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
+            return view('frontend.companies.edit_corporate_company_appointment', compact('company_type','billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user','company_details'));
         } else {
-            return view('frontend.companies.edit_legal_company_appointment', compact('company_type','billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
+            return view('frontend.companies.edit_legal_company_appointment', compact('company_type','billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user','company_details'));
         }
 
     }
@@ -1372,6 +1374,7 @@ class CompaniesListController extends Controller
         $order_id = $request->order;
 
         $user = Auth::user();
+        $company_details = Companie::FindOrFail($request->c_id);
 
         $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
         // $person_appointment = Person_appointment::where('order', $order_id)->where('position', 'LIKE', "%PSC%")->get();
@@ -1382,7 +1385,7 @@ class CompaniesListController extends Controller
          }
 
 
-        return view('frontend.companies.company_statement', compact('order_id', 'appointmentsList', 'cartCount'));
+        return view('frontend.companies.company_statement', compact('order_id', 'appointmentsList', 'cartCount','company_details'));
     }
 
 
@@ -1931,14 +1934,15 @@ class CompaniesListController extends Controller
 
         $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
 
-        $services = Addonservice::with('features')->whereNotIn('price',['0.00','0','0.0'])->whereNotNull('slug')->get();
+        $company_details = Companie::FindOrFail($request->c_id);
 
-        return view('frontend.companies.shop', compact('cartCount','user', 'order_id', 'services'));
+        $services = Addonservice::with('features')->whereNotIn('price',['0.00','0','0.0'])->whereNotNull('slug')->whereNotIn('slug',['company-name-change','registered-office-address','confirmation-statement-service'])->get();
+
+        return view('frontend.companies.shop', compact('cartCount','user', 'order_id', 'services','company_details'));
     }
 
     public function saveShopServicesInCart(Request $request)
     {
-        // return $request->all();
         $user = Auth::user();
         $service_id = $request->id;
         $order_id = $request->order_id;
@@ -1987,6 +1991,7 @@ class CompaniesListController extends Controller
 
         $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
         $getCompanyNoDate =  companyXmlDetail::where('order_id',$order_id)->get()->first();
+        $company_details = Companie::FindOrFail($request->c_id);
         if($getCompanyNoDate&&@($getCompanyNoDate['pdf_content']!=''))
         {
             $pdfcontent = true;
@@ -1994,7 +1999,7 @@ class CompaniesListController extends Controller
             $pdfcontent = false;
         }
 
-        return view('frontend.companies.document', compact('cartCount','user', 'order_id', 'pdfcontent'));
+        return view('frontend.companies.document', compact('cartCount','user', 'order_id', 'pdfcontent','company_details'));
     }
 
 
@@ -2006,10 +2011,36 @@ class CompaniesListController extends Controller
 
         $user = Auth::user();
 
+        $company_details = Companie::FindOrFail($request->c_id);
+        $c_id = $request->c_id;
         $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
 
+        return $edit_service_purchased = companyEditTransaction::with('companyEditRequests')->where(['company_order_id'=>$order_id,'company_number'=>$c_id,'payment_status'=>1])->whereNot('base_amount',0.00)->whereNot('base_amount',null)->get();
+    
+        $register_office_address_services = Addonservice::with('features')->where('slug','registered-office-address')->first();
+        $business_mailing_address_service= Addonservice::with('features')->where('slug','business-mailing-address-service')->first();
+        $standard_services = Addonservice::with('features')->whereIn('slug',['business-email','business-telephone-services','confirmation-statement-service','vat-registration','paye-registration','full-company-secretary-service','confirmation-statement-service','data-protection-registration','gdpr-compliance-package','director-appointment-resignation','company-name-change','company-dissolution','dormant-company-accounts'])->get();
 
-        return view('frontend.companies.company_services', compact('cartCount','user', 'order_id', ));
+
+
+        return view('frontend.companies.company_services', compact('cartCount','user', 'order_id', 'register_office_address_services','business_mailing_address_service', 'standard_services','company_details','edit_service_purchased'));
+    }
+
+    public function viewGetStarted(Request $request)
+    {
+        // return $request->all();
+
+        $order_id = $request->order;
+
+        $user = Auth::user();
+
+        $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
+        $company_details = Companie::FindOrFail($request->c_id);
+
+        // $company_name = Companiee
+
+
+        return view('frontend.companies.get_started', compact('cartCount','user', 'order_id', 'company_details'));
     }
 
 
