@@ -631,7 +631,7 @@
                     <div class="text-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <h3>To See All </h3>
                         <h2>Our Videos Click Here</h2>
-                        <p>This small video will help you understand our company formation process in simple easy steps to make you feel more confident when you registering your limited company. Subscribe us for regular updates.</p>
+                        <p>This small video will help you understand our company formation process in simple easy steps to make you feel more confident when you register your limited company. Subscribe us for regular updates.</p>
                     </div>
                     <div class="action-container" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <a href="#" class="theme-btn-darkBlue click-btn">
@@ -649,7 +649,7 @@
         <div class="custom-container">
             <div class="text-container">
                 <div class="sec-title1">
-                    <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="text-white">Non UK <span>Resident Package</span></h1>
+                    <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true" class="text-white">Non UK <span>Resident <br>Package</span></h1>
                     <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Our aim is to provide International customers with everything they need for their business to remain complaint with UK regulations starting from London registered office address,directors service address along with GDPR,VAT and PAYE registeration for their business.</p>
                 </div>
                 <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
@@ -1248,13 +1248,13 @@
         $('#search').click(function() {
             var companyName = $('#company-name').val();
             if(companyName){
-            var searchButton = $(this);
-            searchButton.prop('disabled', true).text('Searching...');
+            $('#search').html('Searching...');
+            let searchButton = $(this);
+            searchButton.prop('disabled', true).html('Searching...');
 
             // Make the GET request using Axios
-
             searchSubmit(companyName);
-            searchButton.text('Search');
+            // searchButton.html('Search');
             }
         });
 
@@ -1262,15 +1262,15 @@
         $('#searchInputanother').click(function() {
             var companyName = $('#searchCompanyName').val();
             var searchButton = $(this);
-            searchButton.prop('disabled', true).text('Searching...');
-
+            searchButton.html('Searching...');
+            $('#search').html('Searching...');
             // Make the GET request using Axios
             searchSubmit(companyName);
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
-            searchButton.text('Search');
+            searchButton.html('Search');
 
         });
 
@@ -1333,7 +1333,7 @@
             })
             .finally(function() {
                 // Re-enable the button and change the text back to "Search"
-                searchButton.prop('disabled', false).text('Search');
+                $('#search').prop('disabled', false).text('Search');
             });
     }
 

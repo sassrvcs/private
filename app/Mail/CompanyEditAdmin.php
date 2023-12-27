@@ -17,17 +17,19 @@ class CompanyEditAdmin extends Mailable
     protected $purchase_address;
     protected $pdf;
     protected $direct_submit;
+    protected $order_particulars;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($cart_items,$purchase_address,$pdf,$direct_submit,)
+    public function __construct($cart_items,$purchase_address,$pdf,$direct_submit,$order_particulars)
     {
         $this->cart_items = $cart_items;
         $this->purchase_address = $purchase_address;
         $this->pdf = $pdf;
         $this->direct_submit = $direct_submit;
+        $this->order_particulars = $order_particulars;
     }
 
     /**
@@ -54,6 +56,7 @@ class CompanyEditAdmin extends Mailable
             with: [
                 'cart_items' => $this->cart_items,
                 'purchase_address' => $this->purchase_address,
+                'order_particulars' => $this->order_particulars,
                 'logo'=>public_path('frontend/assets/images/logo_custom.png')
             ]
         );

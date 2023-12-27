@@ -9,13 +9,16 @@ use App\Services\Cart\CartService;
 use App\Services\CompanieSearchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Services\Package\PackageService;
 
 
 class CartController extends Controller
 {
     public function __construct(
         protected CartService $cartService,
-        protected CompanieSearchService $companieSearchService
+        protected CompanieSearchService $companieSearchService,
+        protected PackageService $packageService,
+
     ) { }
 
     /**
@@ -51,6 +54,45 @@ class CartController extends Controller
             // dd('!!!Show...');
             $this->cartService->addToCartViaSession($id);
         }
+        // dd($data);
+        if( isset($sessionCart) && count($sessionCart) >= 2){
+            return redirect(route('review-company-package'));
+        }else{
+            return redirect(route('addon-services',['indx'=>'0']));
+        }
+    }
+
+    public function update_cart_after($id,$index)
+    {
+        // dd($id);
+        $sessionCart = Session::get('cart');
+        $package = $this->packageService->getPackage($id);
+
+        $sessionCart[$index]['price']           = $package->package_price;
+        $sessionCart[$index]['package_id']      = $package->id;
+        $sessionCart[$index]['company_name']      = $sessionCart[$index]['company_name'];
+        $sessionCart[$index]['package_name']    = $package->package_name;
+        $sessionCart[$index]['package_description']    = $package->description;
+        $sessionCart[$index]['package_features'] =$package->features;
+        $sessionCart[$index]['package_status']  = 1;
+        $sessionCart[$index]['step_complete']   = 1;
+        $sessionCart[$index]['addon_service'][] = [
+            'price' => '4.99',
+            'quantity' => 1,
+            'service_id' => (int)100,
+            'service_name' => 'Pre-Submission Review (we check your company details to avoid mistakes)',
+            'service_status' => 1,
+        ];
+
+        Session::put('cart', $sessionCart);
+
+        // if(auth()->check()) {
+        //    // dd('!!!Authorised...');
+        //    $this->cartService->addToCartViaSession($id,'package',$index);
+        // } else {
+        //     // dd('!!!Show...');
+        //     $this->cartService->addToCartViaSession($id,'package',$index);
+        // }
         // dd($data);
         if( isset($sessionCart) && count($sessionCart) >= 2){
             return redirect(route('review-company-package'));

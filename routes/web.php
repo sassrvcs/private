@@ -139,6 +139,8 @@ Route::post('/contact-us',[ContactController::class,'store'])->name('contact.sto
 
 Route::resource('/cart', CartController::class);
 Route::get('/cart/{id}', [CartController::class, 'show'])->name('add-cart');
+Route::get('/cart-update-after/{id}/{index}', [CartController::class, 'update_cart_after'])->name('update-cart-after');
+
 Route::patch('/cart/{id}', [CartController::class, 'update'])->name('update-cart');
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('update-cart-auth')->middleware('auth');
 // Route::delete('/cart/{id}', [CartController::class, 'update'])->name('delete-cart');

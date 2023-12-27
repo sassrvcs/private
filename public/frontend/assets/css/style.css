@@ -15488,8 +15488,9 @@ body #service-formDetails .wizard>.steps .disabled.current a {
 }
 
 .newsletter .form-group label {
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 600;
     color: #BABABA;
     margin-bottom: 15px;
 }
@@ -15497,6 +15498,7 @@ body #service-formDetails .wizard>.steps .disabled.current a {
 .newsletter .form-group input {
     width: 300px;
     height: 50px;
+    color: #BABABA;
     padding: 10px 20px;
     border: solid 1px #BABABA;
     background: transparent;
@@ -15507,8 +15509,9 @@ body #service-formDetails .wizard>.steps .disabled.current a {
 }
 
 .newsletter .form-group input::placeholder {
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 400;
     color: #BABABA;
 }
 
@@ -15516,6 +15519,7 @@ body #service-formDetails .wizard>.steps .disabled.current a {
     width: 300px;
     height: 45px;
     color: #fff;
+    font-size: 13px;
     border-radius: 30px;
     background: #1565c0;
     margin-top: 20px;
