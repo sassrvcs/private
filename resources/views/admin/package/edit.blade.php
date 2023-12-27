@@ -60,10 +60,10 @@
                                     </div>
 
                                     <div class="col-sm-4">
-                                    <label for="special_offer">Special Offer</label>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="special_offer" name="special_offer" value="1" {{ $package->special_offer ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="special_offer">Check if this is a Special Offer</label>
+                                        <x-Forms.Input type="text" label="Special Offer" id="special_offer"
+                                            name="special_offer" value="{{ trim($package->special_offer) }}"
+                                            class="{{ $errors->has('special_offer') ? 'is-invalid' : '' }}"  />
                                     </div>
                                 </div>
 

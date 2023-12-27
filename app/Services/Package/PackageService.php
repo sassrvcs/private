@@ -84,7 +84,7 @@ class PackageService
         $package->short_description = $request['short_desc'];
         $package->description = $request['description'];
         $package->package_type = $request['package_type'];
-        $package->special_offer = $request['special_offer'] ?? 0;
+        $package->special_offer = $request['special_offer'] ?? null;
         $package->notes = $request['notes'];
         $package->online_formation_within = $request['online_formation_within'];
         $package->facilities = (isset($request['facility'])) ? json_encode($request['facility']) : '';
