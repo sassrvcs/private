@@ -8,7 +8,9 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Models\Addonservice as Addon;
 use App\Models\Feature;
+use App\Models\Order;
 use App\Models\Service_Faq;
+use Illuminate\Support\Facades\Session;
 
 /**
  * @todo work in progress
@@ -21,6 +23,19 @@ class AddonService
      */
     public function index($search = "")
     {
+        // $package_name = null;
+        // $sessionCart = Session::get('cart');
+        // $orders = Order::where('user_id', auth()->id())->where('order_id',@$_GET['order'])->first();
+        // if(isset($indx))
+        // {
+        //     $package_name = @$sessionCart[$indx]['package_name'];
+        // }else{
+        // if (@$orders->cart->package != null)
+        // {
+        // $package_name = @$orders->cart->package->package_name;
+        // }
+        // }
+        // $addonservices = Addon::with('features')->whereNot('price', '0')->where('add_on_type','REGEXP',$package_name)->whereNot('price', '0.00');
         $addonservices = Addon::with('features')->whereNot('price', '0')->whereNot('price', '0.00');
         if (!empty($search)) {
             $addonservices = $addonservices->where('service_name', 'like', "%{$search}%");
