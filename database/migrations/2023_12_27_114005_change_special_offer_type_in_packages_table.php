@@ -14,7 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::table('packages', function (Blueprint $table) {
-            $table->string('special_offer')->nullable()->change();
+            $table->dropColumn('special_offer');
+            // $table->string('special_offer')->nullable();
+        });
+        Schema::table('packages', function (Blueprint $table) {
+            // $table->dropColumn('special_offer');
+            $table->string('special_offer')->nullable();
         });
     }
 
