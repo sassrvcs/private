@@ -1031,23 +1031,70 @@ class CompaniesListController extends Controller
         $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
         // $person_appointment = Person_appointment::where('order', $order_id)->where('position', 'LIKE', "%PSC%")->get();
 
-        return view('frontend.companies.edit_company_appointment', compact('company_type','billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
+        if ($appointment_details['appointment_type'] == "person") {
+            return view('frontend.companies.edit_company_appointment', compact('company_type','billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
+        } elseif ($appointment_details['appointment_type'] == "corporate") {
+            return view('frontend.companies.edit_corporate_company_appointment', compact('company_type','billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
+        } else {
+            return view('frontend.companies.edit_legal_company_appointment', compact('company_type','billing_address_list','primary_address_list','countries','nationalities','order_id', 'appointment_details', 'positionArray', 'officer_details', 'purchase_address','service_address', 'cartCount', 'officer_address','user'));
+        }
+
     }
 
     public function saveCompanyAppointment(Request $request)
     {
-        $request->validate([
-            'officer_fName' => 'required',
-            'officer_lName' => 'required',
-            'officer_occupation' => 'required',
-            'position'=>'required',
-            'officer_dob' => 'required',
-            'notificationDate' => 'required',
-            'registerEntryDate'=>'required'
-        ]);
         // dd(  $request->all());
+
+        if($request->appointment_type == "person") {
+
+            $request->validate([
+                'officer_fName' => 'required',
+                'officer_lName' => 'required',
+                'officer_occupation' => 'required',
+                'position'=>'required',
+                'officer_dob' => 'required',
+                'notificationDate' => 'required',
+                'registerEntryDate'=>'required'
+            ]);
+            
+            $officer_name =  $request->officer_title.' '.$request->officer_fName.' '.$request->officer_lName;
+
+        } elseif($request->appointment_type == "corporate") {
+            $request->validate([
+                'officer_fName' => 'required',
+                'officer_lName' => 'required',
+                'position'=>'required',
+                'notificationDate' => 'required',
+                'registerEntryDate'=>'required',
+                'legal_name'=>'required'
+            ]);
+
+            $officer_name =  $request->officer_title.' '.$request->officer_fName.' '.$request->officer_lName;
+
+        } elseif($request->appointment_type == "other_legal_entity") {
+            $request->validate([
+                'legal_name'=>'required',
+                'law_governed'=>'required',
+                'legal_form'=>'required'
+            ]);
+
+            $officer_name =  $request->legal_name;
+
+        }
+
+        $legal_form = $request->has('legal_form')?$request->legal_form:null;
+        $law_governed = $request->has('law_governed')?$request->law_governed:null;
+        $registry_held = $request->has('registry_held')?$request->registry_held:null;
+        $place_registered = $request->has('place_registered')?$request->place_registered:null;
+        $registration_number = $request->has('registration_number')?$request->registration_number:null;
+        $uk_registered = $request->has('uk_registered')?$request->uk_registered:'Yes';
+        $legal_name = $request->has('legal_name')?$request->legal_name:null;
+        $uk_registered = $uk_registered==null?'Yes':$uk_registered;
+
         $user = Auth::user();
+
         $same_as_reg_add = $request->same_reg_add;
+        
         if($same_as_reg_add!='0'){ // if service address(also known as appointmentaddress/director address) is same as office registration address then pull the data from companie table
             // dd('yes');
             $request->address_house_price=null;
@@ -1079,9 +1126,16 @@ class CompaniesListController extends Controller
             'last_name' => $request->officer_lName,
             'occupation' => $request->officer_occupation,
             'add_id' => $request->residential_add,
+
+            'legal_form' => $legal_form,
+            'law_governed' => $law_governed,
+            'registry_held' => $registry_held,
+            'place_registered' => $place_registered,
+            'registration_number' => $registration_number,
+            'uk_registered' => $uk_registered,
+            'legal_name' => $legal_name
         ]);
 
-        $officer_name =  $request->officer_title.' '.$request->officer_fName.' '.$request->officer_lName;
         if(stripos($request->fci,'no')!==false){
             $fci_appoint = null;
             $fci_others = null;

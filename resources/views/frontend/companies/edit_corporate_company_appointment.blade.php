@@ -445,7 +445,7 @@
                                             @enderror
                                         </span>
                                     </div>
-                                    <div class="form-row form-group ">
+                                    <div class="form-row form-group d-none">
                                         <label for="">Date of Birth:</label>
                                         <span class="input-wrapper">
                                             <input type="date" max="{{ now()->subYears(16)->format('Y-m-d') }}" id="officer_dob" name="officer_dob" class=" form-control {{ $errors->has('officer_dob') ? 'is-invalid' : ''}}" value="{{ $officer_details['dob_day']}}">
@@ -454,7 +454,7 @@
                                             @enderror
                                         </span>
                                     </div>
-                                    <div class="form-row form-group ">
+                                    <div class="form-row form-group d-none">
                                         <label for="">Occupation:</label>
                                         <span class="input-wrapper">
                                             <input type="text" name="officer_occupation" class=" form-control {{ $errors->has('officer_occupation') ? 'is-invalid' : ''}}" value="{{ $officer_details['occupation']}}">
@@ -463,7 +463,7 @@
                                             @enderror
                                         </span>
                                     </div>
-                                    <div class="form-row form-group ">
+                                    <div class="form-row form-group d-none">
                                         <label for="">Nationality:
                                             <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button></label>
                                         <span class="input-wrapper">
@@ -481,6 +481,78 @@
                                             @endif
                                         </select>
                                         </span>
+                                    </div>
+                                    <div class="form-row form-group">
+                                        <label for="">Legal Name</label>
+                                        <span class="input-wrapper">
+                                            <input type="text" class="form-control {{ $errors->has('legal_name') ? 'is-invalid' : ''}}"
+                                            id="legal_name" name="legal_name" value="{{@$officer_details['legal_name']}}">
+                                            @error('legal_name')
+                                            <span class="error" style="color: red">Legal Name is required</span>
+                                            @enderror
+                                        </span>
+                                    </div>
+                                    <div class="form-row form-group">
+                                            <div hidden>
+                                                <select name="person_national" class="form-control"
+                                                    id="person_national_id">
+                                                    @if (!empty($nationalities))
+                                                        @foreach ($nationalities as $nationals)
+                                                            <option value="{{ $nationals['id'] }}"
+                                                                {{ $nationals['id'] === intval($officer_details['nationality']) ? 'selected' : '' }}>
+                                                                {{ $nationals['nationality'] }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        <label for="">Registered in the UK ?</label>
+                                        <div>
+                                            <span>Yes</span> <input type="radio" name="uk_registered" class="uk_registered" value="Yes" @if (@$officer_details['uk_registered'] == 'Yes') checked @endif onclick="registered_in_uk(1)">
+                                            <span>No</span><input type="radio" @if (@$officer_details['uk_registered'] == 'No') checked
+                                            @endif name="uk_registered" class="uk_registered" value="No" onclick="registered_in_uk(0)">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-row form-group">
+                                        <label for="">Registration Number:</label>
+                                        <span class="input-wrapper">
+                                        <input type="text" class="form-control blankCheck"
+                                            id="registration_number" name="registration_number" value="{{$officer_details['registration_number']}}">
+                                        </span>
+                                        <div class="error d-none registration_number_err" style="color:red;">Please enter
+                                            the Registration Number!</div>
+                                    </div>
+                                    <div class="form-row form-group place_registered_div d-none">
+                                        <label for="">Place Registered</label>
+                                        <span class="input-wrapper">
+                                        <input type="text" class="form-control"
+                                            id="place_registered" name="place_registered" value="{{@$officer_details['place_registered']}}"">
+                                        </span>
+                                    </div>
+                                    <div class="form-row form-group registry_held_div d-none">
+                                        <label for="">Registry Held</label>
+                                        <span class="input-wrapper">
+                                        <input type="text" class="form-control"
+                                            id="registry_held" name="registry_held" value="{{@$officer_details['registry_held']}}" >
+                                        </span>
+                                    </div>
+                                    <div class="form-row form-group law_governed_div d-none">
+                                        <label for="">Law Governed</label>
+                                        <span class="input-wrapper">
+                                        <input type="text" class="form-control"
+                                            id="law_governed" name="law_governed" value="{{@$officer_details['law_governed']}}" >
+                                        </span>
+                                            <div class="error d-none" style="color:red;">Please fill
+                                                the law governed field!</div>
+                                    </div>
+                                    <div class="form-row form-group legal_form_div">
+                                        <label for="">Legal Form:</label>
+                                        <span class="input-wrapper">
+                                        <input type="text" class="form-control blankCheck"
+                                            id="legal_form" name="legal_form" value="{{@$officer_details['legal_form']}}">
+                                        </span>
+                                        <div class="error d-none" style="color:red;">Please enter
+                                            the legal form!</div>
                                     </div>
                                 </fieldset>
                                 <fieldset class="border p-3 nature-of-control d-none">
@@ -987,7 +1059,7 @@
                                         <button type="button" id="openResidentModalButton" class="theme-btn-primary px-2 py-1">Choose Address</button>
                                     </div>
                                 </fieldset>
-                                <fieldset class="border p-3">
+                                <fieldset class="border p-3 d-none">
                                     <legend class="float-none w-auto p-2">Service Address</legend>
                                     <p>A service address is defined under s1141 as ‘an address at which documents maybe effectively served upon that person’. This is the address that is filed on the public register, it may for example, be your residential address or your registered office address.</p>
 
@@ -1027,7 +1099,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <fieldset class="border p-3 forward-address">
+                                <fieldset class="border p-3 forward-address d-none">
                                     <legend class="float-none w-auto p-2">Forwarding Address</legend>
                                     <p><strong id="selectedForwardAddressDisplay">
                                             @if ($appointment_details['own_address']!=null)
@@ -1096,15 +1168,6 @@
                                 <input type="hidden" name="residentAddressChanges" id="residentAddressChanges" value="0">
                                 <input type="hidden" name="forwardAddressChanges" id="forwardAddressChanges" value="0">
                                 <input type="hidden" name="notificationDateChanges" id="notificationDateChanges" value="0">
-
-                                <input type="text" id="legal_name" name="legal_name" value="{{$officer_details['legal_name']}}" readonly>
-                                <input type="text" id="law_governed" name="law_governed" value="{{$officer_details['law_governed']}}" readonly>
-                                <input type="text" id="legal_form" name="legal_form" value="{{$officer_details['legal_form']}}" readonly>
-
-                                <input type="text" id="uk_registered" name="uk_registered" value="{{$officer_details['uk_registered']}}" readonly>
-                                <input type="text" id="registry_held" name="registry_held" value="{{$officer_details['registry_held']}}" readonly>
-                                <input type="text" id="place_registered" name="place_registered" value="{{$officer_details['place_registered']}}" readonly>
-                                <input type="text" id="registration_number" name="registration_number" value="{{$officer_details['registration_number']}}" readonly>
                             </form>
                         </div>
                     </div>
@@ -1386,213 +1449,6 @@
             </div>
         </div>
 
-        <!-- <div class="modal custom-modal-s1" id="addNewBillAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable" role="document">
-                <div class="modal-content border-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Choose Address</h5>
-                        <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="p-3" style="padding-top: 0 !important;">
-                            <div class="form-row form-group">
-                                <label>Post Code:</label>
-                                <div class="input-wrapper with-rg-btn">
-                                    <input type="text" class="form-control" name="post_code" id="post_code">
-                                    <button type="button" class="btn btn-primary" id="findAddress">Find
-                                        Address</button>
-                                </div>
-                                <p class="adderr text-danger"></p>
-                            </div>
-                        <form class="billingAddrUpdateForm formInputModal" >
-                            <div class="form-row form-group ">
-                                <label>House Name / Number: &nbsp;<span class="optional">
-                                    </span>
-                                </label>
-                                <span class="input-wrapper">
-                                    <input type="text" id="house_no" name="house_no" class="input-text form-control house_no" value={{old('house_no')}}>
-                                </span>
-                            </div>
-                            <div class="form-row form-group ">
-                                <label for="billing_title">Street:&nbsp;
-                                </label>
-                                <span class="input-wrapper">
-                                    <input type="text" name="street" id="street" class="input-text form-control steet_no @error('street') is-invalid @enderror" value={{old('street')}}>
-                                </span>
-                                @error('street')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-row form-group">
-                                <label for="locality">Locality:&nbsp;
-                                </label>
-                                <span class="input-wrapper">
-                                    <input type="text" name="locality" id="locality" class="input-text form-control locality @error('locality') is-invalid @enderror" value={{old('locality')}}>
-                                </span>
-                                @error('locality')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-row form-group">
-                                <label for="town">Town:&nbsp;
-                                </label>
-                                <span class="input-wrapper">
-                                    <input type="text" name="town" id="town" class="input-text form-control town @error('town') is-invalid @enderror" value={{old('town')}}>
-                                </span>
-                                @error('town')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-row form-group">
-                                <label for="county">County:&nbsp;
-                                </label>
-                                <span class="input-wrapper">
-                                    <input type="text" name="county" id="county" class="input-text form-control county @error('county') is-invalid @enderror" value="{{ old('county')}}">
-                                </span>
-                                @error('country')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-row form-group">
-                                <label for="billing_first_name">Post Code:&nbsp;
-                                </label>
-                                <span class="input-wrapper">
-                                    <input type="text" name="post_code" id="zip" class="input-text form-control zip @error('post_code') is-invalid @enderror" value={{old('post_code')}}>
-                                </span>
-                                @error('post_code')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-row update_totals_on_change form-group">
-                                <label for="billing_country">Country&nbsp;</label>
-                                <span class="input-wrapper">
-                                    <select name="billing_country" id="billing_country" name="billing_country" class="contry  @error('billing_country') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
-                                        <option value="">Select a country / region…</option>
-                                        <option value="236" selected>United Kingdom</option>
-                                        @foreach ($countries as $country)
-                                            <option value="{{$country->id}}">{{$country->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </span>
-                                @error('billing_country')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <input type="hidden" class="address_type" name="address_type" value="billing_address">
-                            <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="billingAddressSave">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div> -->
-
-        <!-- <div class="modal custom-modal-s1" id="AddNewBillAddressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable" role="document">
-                <div class="modal-content border-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Choose Address</h5>
-                        <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="p-3" style="padding-top: 0 !important;">
-                            <div class="form-row form-group">
-                                <label>Post Code:</label>
-                                <div class="input-wrapper with-rg-btn">
-                                    <input type="text" class="form-control" name="post_code" id="post_code">
-                                    <button type="button" class="btn btn-primary" id="findAddress">Find
-                                        Address</button>
-                                </div>
-                                <p class="adderr text-danger"></p>
-                            </div>
-                        <form class="billingAddrUpdateForm formInputModal" >
-                            <div class="form-row form-group ">
-                                <label>House Name / Number: &nbsp;<span class="optional">
-                                    </span>
-                                </label>
-                                <span class="input-wrapper">
-                                    <input type="text" id="house_no" name="house_no" class="input-text form-control house_no" value={{old('house_no')}}>
-                                </span>
-                            </div>
-                            <div class="form-row form-group ">
-                                <label for="billing_title">Street:&nbsp;
-                                </label>
-                                <span class="input-wrapper">
-                                    <input type="text" name="street" id="street" class="input-text form-control steet_no @error('street') is-invalid @enderror" value={{old('street')}}>
-                                </span>
-                                @error('street')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-row form-group">
-                                <label for="locality">Locality:&nbsp;
-                                </label>
-                                <span class="input-wrapper">
-                                    <input type="text" name="locality" id="locality" class="input-text form-control locality @error('locality') is-invalid @enderror" value={{old('locality')}}>
-                                </span>
-                                @error('locality')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-row form-group">
-                                <label for="town">Town:&nbsp;
-                                </label>
-                                <span class="input-wrapper">
-                                    <input type="text" name="town" id="town" class="input-text form-control town @error('town') is-invalid @enderror" value={{old('town')}}>
-                                </span>
-                                @error('town')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-row form-group">
-                                <label for="county">County:&nbsp;
-                                </label>
-                                <span class="input-wrapper">
-                                    <input type="text" name="county" id="county" class="input-text form-control county @error('county') is-invalid @enderror" value="{{ old('county')}}">
-                                </span>
-                                @error('country')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-row form-group">
-                                <label for="billing_first_name">Post Code:&nbsp;
-                                </label>
-                                <span class="input-wrapper">
-                                    <input type="text" name="post_code" id="zip" class="input-text form-control zip @error('post_code') is-invalid @enderror" value={{old('post_code')}}>
-                                </span>
-                                @error('post_code')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-row update_totals_on_change form-group">
-                                <label for="billing_country">Country&nbsp;</label>
-                                <span class="input-wrapper">
-                                    <select name="billing_country" id="billing_country" name="billing_country" class="contry  @error('billing_country') is-invalid @enderror country_to_state country_select form-control" data-label="Country" autocomplete="country" data-placeholder="Select a country / region…">
-                                        <option value="">Select a country / region…</option>
-                                        <option value="236" selected>United Kingdom</option>
-                                        @foreach ($countries as $country)
-                                            <option value="{{$country->id}}">{{$country->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </span>
-                                @error('billing_country')
-                                    <div class="error" style="color:red;">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <input type="hidden" class="address_type" name="address_type" value="billing_address">
-                            <input type="hidden" name="user_id" value="{{ $user->id }}" class="user_id">
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="saveBillAddr">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div> -->
 
 
 
@@ -2641,6 +2497,41 @@
             }
         })
     });
+
+    function registered_in_uk(mode)
+        {
+            check = $('input[name="uk_registered"]:checked').val();
+            if(check=="Yes")
+            {
+                mode = 1
+            }else{
+                mode=0
+            }
+            console.log(mode)
+            if (mode === 0) {
+                $(".place_registered_div").removeClass("d-none");
+                $(".registry_held_div").removeClass("d-none");
+                $(".law_governed_div").removeClass("d-none");
+                $("#law_governed").addClass("blankCheck");
+                $("#registration_number").removeClass("blankCheck");
+                toggleCorporateDetails()
+                // $('#place_registered').val('');
+                // $('#registry_held').val('');
+                // $('#law_governed').val('');
+            }else{
+                $(".place_registered_div").addClass("d-none");
+                $(".registry_held_div").addClass("d-none");
+                $(".law_governed_div").addClass("d-none");
+                $("#law_governed").removeClass("blankCheck");
+                $("#registration_number").addClass("blankCheck");
+
+                $('#place_registered').val('United Kingdom');
+                $('#registry_held').val('Companies House');
+                $('#law_governed').val('Companies Act 2006');
+                toggleCorporateDetails()
+            }
+        }
+        registered_in_uk(1)
 </script>
 
 @endsection

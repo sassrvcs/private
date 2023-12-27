@@ -228,7 +228,7 @@
                                     <legend class="float-none w-auto p-2">Position</legend>
                                     <div class="choose-possition-option">
                                         <ul>
-                                            <li class={{$company_type=="Limited Liability Partnership"?'d-none':''}}>
+                                            <li class= d-none {{$company_type=="Limited Liability Partnership"?'d-none':''}}>
                                                 @php
                                                 $positions = explode(',',$appointment_details['position']);
                                                 $positions = array_map('trim', $positions);
@@ -260,7 +260,7 @@
                                                         share of company profits. You must appoint at least one
                                                         shareholder.</span>
                                             </li>
-                                            <li class="{{$company_type == 'Limited By Guarantee' ? '' : 'd-none'}}">
+                                            <li class="d-none {{$company_type == 'Limited By Guarantee' ? '' : 'd-none'}}">
 
                                                 <input type="checkbox" name="position[]" class="checkBoxPos"
                                                 value="Guarantor" id="guarantor_checkbox"
@@ -273,7 +273,7 @@
                                                 <span class="guarantor_i_tooltip">If this officer is to guarantee an amount in this company, please check this box. You will be asked about the amount guaranteed later.</span>
 
                                             </li>
-                                            <li class="{{$company_type == 'Limited Liability Partnership' ? '' : 'd-none'}}">
+                                            <li class="d-none {{$company_type == 'Limited Liability Partnership' ? '' : 'd-none'}}">
 
                                                 <input type="checkbox" name="position[]" class="checkBoxPos"
                                                 value="Member" id="member_checkbox" onclick="llpConsent()" @if (in_array("Member", $positions))checked
@@ -285,7 +285,7 @@
                                                 <span class="member_i_tooltip">Is this officer to be a member of this LLP?  .</span>
 
                                         </li>
-                                            <li class="{{$company_type=="Limited Liability Partnership"?'d-none':''}}">
+                                            <li class="d-none {{$company_type=="Limited Liability Partnership"?'d-none':''}}">
                                                 <input type="checkbox" name="position[]" @if (in_array("Secretary", $positions))checked
                                                 @endif class="checkBoxPos" id="secretary"
                                                     value="Secretary"  onclick="consentSection()">
@@ -302,7 +302,7 @@
                                                                     accordance with and in compliance with the Companies
                                                                     Act, and keeps the statutory records up to date.</span>
                                             </li>
-                                            <li class="{{$company_type == 'Limited Liability Partnership' ? '' : 'd-none'}}">
+                                            <li class="d-none {{$company_type == 'Limited Liability Partnership' ? '' : 'd-none'}}">
 
                                                 <input type="checkbox" name="position[]" class="checkBoxPos"
                                                 value="Designated Member"  id="designated_checkbox" onclick="designatedTab(),llpConsent()" @if (in_array("Designated Member", $positions))checked @endif>
@@ -316,7 +316,7 @@
 
                                                 If an auditor is required, they will be appointed by the designated member. Notifying the required parties of any changes to the membership, name or address of the partnership. Signing and delivering accounts on behalf of the partnership.</span>
                                         </li>
-                                            <li>
+                                            <li class="d-none">
                                                 <input type="checkbox" name="position[]" @if (in_array("PSC", $positions))checked
                                                 @endif class="checkBoxPos" id="psc"
                                                     value="PSC" onclick="pscTab()">
@@ -368,6 +368,12 @@
                                             style="color:red;">You have to
                                             select a Position.</div>
                                     </div>
+                                    <div class="px-0 form-check">
+                                            <input class="mr-2" id="house_radio2" name="demo_psc" type="radio" value="PSC" checked>
+                                            <label for="house_radio2">
+                                                    Person with Significant Control (PSC)
+                                            </label>
+                                        </div>
                                 </fieldset>
                                 <fieldset class="border p-3 d-none">
                                     <legend class="float-none w-auto p-2">Holdings</legend>
@@ -421,13 +427,13 @@
                                 <fieldset class="border p-3 personal-details-fieldset">
                                     <legend class="float-none w-auto p-2">Personal Details
                                     </legend>
-                                    <div class="form-row form-group ">
+                                    <div class="form-row form-group d-none">
                                         <label for="username">Title:</label>
                                         <span class="input-wrapper">
                                             <input type="text" name="officer_title" class=" form-control" value="{{ $officer_details['title']}}">
                                         </span>
                                     </div>
-                                    <div class="form-row form-group ">
+                                    <div class="form-row form-group d-none">
                                         <label for="username">First Name(s):</label>
                                         <span class="input-wrapper">
                                             <input type="text" name="officer_fName" class=" form-control {{ $errors->has('officer_fName') ? 'is-invalid' : ''}}" value="{{ $officer_details['first_name']}}">
@@ -436,7 +442,7 @@
                                             @enderror
                                         </span>
                                     </div>
-                                    <div class="form-row form-group ">
+                                    <div class="form-row form-group d-none">
                                         <label for="username">Last Name:</label>
                                         <span class="input-wrapper">
                                             <input type="text" name="officer_lName" class=" form-control {{ $errors->has('officer_lName') ? 'is-invalid' : ''}}" value="{{ $officer_details['last_name']}}">
@@ -445,7 +451,7 @@
                                             @enderror
                                         </span>
                                     </div>
-                                    <div class="form-row form-group ">
+                                    <div class="form-row form-group d-none">
                                         <label for="">Date of Birth:</label>
                                         <span class="input-wrapper">
                                             <input type="date" max="{{ now()->subYears(16)->format('Y-m-d') }}" id="officer_dob" name="officer_dob" class=" form-control {{ $errors->has('officer_dob') ? 'is-invalid' : ''}}" value="{{ $officer_details['dob_day']}}">
@@ -454,7 +460,7 @@
                                             @enderror
                                         </span>
                                     </div>
-                                    <div class="form-row form-group ">
+                                    <div class="form-row form-group d-none">
                                         <label for="">Occupation:</label>
                                         <span class="input-wrapper">
                                             <input type="text" name="officer_occupation" class=" form-control {{ $errors->has('officer_occupation') ? 'is-invalid' : ''}}" value="{{ $officer_details['occupation']}}">
@@ -463,7 +469,7 @@
                                             @enderror
                                         </span>
                                     </div>
-                                    <div class="form-row form-group ">
+                                    <div class="form-row form-group d-none">
                                         <label for="">Nationality:
                                             <button type="button" class="helpBtn ml-1"><img src="assets/images/help.png" alt=""></button></label>
                                         <span class="input-wrapper">
@@ -480,6 +486,36 @@
                                                 @endforeach
                                             @endif
                                         </select>
+                                        </span>
+                                    </div>
+                                    <div class="form-row form-group">
+                                        <label for="">Legal Name</label>
+                                        <span class="input-wrapper">
+                                            <input type="text" class="form-control {{ $errors->has('legal_name') ? 'is-invalid' : ''}}"
+                                            id="legal_name" name="legal_name" value="{{@$officer_details['legal_name']}}">
+                                            @error('legal_name')
+                                            <span class="error" style="color: red">Legal Name is required</span>
+                                            @enderror
+                                        </span>
+                                    </div>
+                                    <div class="form-row form-group law_governed_div">
+                                        <label for="">Law Governed</label>
+                                        <span class="input-wrapper">
+                                        <input type="text" class="form-control  {{ $errors->has('law_governed') ? 'is-invalid' : ''}}"
+                                            id="law_governed" name="law_governed" value="{{@$officer_details['law_governed']}}" >
+                                            @error('law_governed')
+                                            <span class="error" style="color: red">Law Governed is required</span>
+                                            @enderror
+                                        </span>
+                                    </div>
+                                    <div class="form-row form-group legal_form_div">
+                                        <label for="">Legal Form:</label>
+                                        <span class="input-wrapper">
+                                        <input type="text" class="form-control {{ $errors->has('legal_form') ? 'is-invalid' : ''}}"
+                                            id="legal_form" name="legal_form" value="{{@$officer_details['legal_form']}}">
+                                            @error('legal_form')
+                                            <span class="error" style="color: red">Legal Form is required</span>
+                                            @enderror
                                         </span>
                                     </div>
                                 </fieldset>
@@ -1097,14 +1133,10 @@
                                 <input type="hidden" name="forwardAddressChanges" id="forwardAddressChanges" value="0">
                                 <input type="hidden" name="notificationDateChanges" id="notificationDateChanges" value="0">
 
-                                <input type="text" id="legal_name" name="legal_name" value="{{$officer_details['legal_name']}}" readonly>
-                                <input type="text" id="law_governed" name="law_governed" value="{{$officer_details['law_governed']}}" readonly>
-                                <input type="text" id="legal_form" name="legal_form" value="{{$officer_details['legal_form']}}" readonly>
-
-                                <input type="text" id="uk_registered" name="uk_registered" value="{{$officer_details['uk_registered']}}" readonly>
-                                <input type="text" id="registry_held" name="registry_held" value="{{$officer_details['registry_held']}}" readonly>
-                                <input type="text" id="place_registered" name="place_registered" value="{{$officer_details['place_registered']}}" readonly>
-                                <input type="text" id="registration_number" name="registration_number" value="{{$officer_details['registration_number']}}" readonly>
+                                <input type="hidden" id="uk_registered" name="uk_registered" value="{{$officer_details['uk_registered']}}" readonly>
+                                <input type="hidden" id="registry_held" name="registry_held" value="{{$officer_details['registry_held']}}" readonly>
+                                <input type="hidden" id="place_registered" name="place_registered" value="{{$officer_details['place_registered']}}" readonly>
+                                <input type="hidden" id="registration_number" name="registration_number" value="{{$officer_details['registration_number']}}" readonly>
                             </form>
                         </div>
                     </div>
