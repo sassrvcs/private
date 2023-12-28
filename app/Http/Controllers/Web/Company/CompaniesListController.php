@@ -8,6 +8,8 @@ use App\Mail\CompanyEditCustomer;
 use App\Services\User\UserService;
 use App\Services\Company\CompanyFormSteps\CompanyFormService;
 use App\Services\Order\OrderService;
+use App\Services\Company\BusinessEssentialSteps\BusinessEssentialsService;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,6 +33,9 @@ use App\Models\SicDetails;
 use App\Models\companyEditRequest;
 use App\Models\companyEditTransaction;
 use App\Models\orderServiceTransaction;
+use App\Models\Accounting;
+use App\Models\BusinessBanking;
+use App\Models\BusinessEssential;
 
 
 
@@ -48,6 +53,7 @@ class CompaniesListController extends Controller
         protected CompanyFormService $companyFormService,
         protected OrderService $orderService,
         protected GenerateXmlService $xmlService,
+        protected BusinessEssentialsService $businessEssentialsService,
 
     ) { }
 
@@ -987,6 +993,8 @@ class CompaniesListController extends Controller
             [
                 'service_name' => $request->service_name,
                 'order_id' => $request->order_id,
+                'price' => 0.00,
+                'vat' => 0.00,
                 'company_account_value' => json_encode($request->all()),
             ]
         );
@@ -2023,7 +2031,7 @@ class CompaniesListController extends Controller
 
         $register_office_address_services = Addonservice::with('features')->where('slug','registered-office-address')->first();
         $business_mailing_address_service= Addonservice::with('features')->where('slug','business-mailing-address-service')->first();
-        $standard_services = Addonservice::with('features')->whereIn('slug',['business-email','business-telephone-services','confirmation-statement-service','vat-registration','paye-registration','full-company-secretary-service','confirmation-statement-service','data-protection-registration','gdpr-compliance-package','director-appointment-resignation','company-name-change','company-dissolution','dormant-company-accounts'])->get();
+        $standard_services = Addonservice::with('features')->whereIn('slug',['business-email','business-telephone-services','vat-registration','paye-registration','full-company-secretary-service','data-protection-registration','gdpr-compliance-package','director-appointment-resignation','company-dissolution','dormant-company-accounts'])->get();
         $director_service_address = Addonservice::with('features')->where('slug','directors-service-address')->first();
         $person_appointments = Person_appointment::with('person_officers')->where('position','REGEXP', 'Director')->where('order', $order_id)->where('user_id',$user->id)->get()->toArray();
 
@@ -2042,10 +2050,63 @@ class CompaniesListController extends Controller
         $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
         $company_details = Companie::FindOrFail($request->c_id);
 
+        $businessEssential = $this->companyFormService->getCompanieName($_GET['order']);
+        $selectedBusinessBanking = $businessEssential->businessBanking->business_banking_id ?? '';
+        $selectedBusinessService = $businessEssential->businessBanking->business_service_id ?? '';
+
+        $businessBanks = BusinessBanking::with('media')->get();
+        $businessServices = Accounting::with('media')->get();
+
+
+
         // $company_name = Companiee
 
 
-        return view('frontend.companies.get_started', compact('cartCount','user', 'order_id', 'company_details'));
+        return view('frontend.companies.get_started', compact('cartCount','user', 'order_id', 'company_details','businessBanks','businessServices','selectedBusinessBanking','selectedBusinessService'));
+    }
+
+    public function saveStartedServicesInCart(Request $request)
+    {
+        // return $request->all();
+
+        $user = Auth::user();
+        $order_id = $request->order;
+        if($request->step == "business-banking"){
+            $service_id = $request->business_bank_id;
+            $service = BusinessBanking::FindOrFail($service_id);
+            $slug = "business-banking";
+            $serviceName = "Business Banking";
+        } else {
+            $service_id = $request->business_service_id;
+            $service = Accounting::FindOrFail($service_id);
+            $slug = "acconting-software";
+            $serviceName = "Accounting Software";
+        }
+        $company_details = Companie::FindOrFail($request->c_id);
+        $order = $this->orderService->getOrder($order_id);
+
+        $request->validate([
+            'order' => 'required',
+        ]);
+
+        $cart = Cart::updateOrCreate(
+            ['user_id' => $user->id, 'slug' => $slug],
+            [
+                'service_name' => $serviceName,
+                'order_id' => $order_id,
+                'price' => 0.00,
+                'vat' => 0.00,
+                'add_on_service' => 0,
+                'data' => json_encode([
+                    'service' => $service,
+                ])
+            ]
+        );
+
+        // Store Business Bamk Info  //
+        $response = $this->businessEssentialsService->storeBusinessBankInfo($request);
+
+        return response()->json(['message' => 'Cart updated successfully', 'cart' => $cart]);
     }
 
 

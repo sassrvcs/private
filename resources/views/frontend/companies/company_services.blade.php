@@ -125,7 +125,7 @@
 
                                         <div class="table-responsivr mb-4">
 
-                                            <table class="table">
+                                            <table class="table thead-table">
 
                                                 <thead>
 
@@ -133,6 +133,7 @@
 
                                                         <th>Active Services</th>
                                                         <th>Purchased At</th>
+                                                        <th></th>
 
                                                     </tr>
 
@@ -159,6 +160,7 @@
                                                     
                                                             <td>{{$value->service_name}}</td>
                                                             <td>{{$value->updated_at}}</td>
+                                                            <td></td>
                                                         </tr>
                                                     @endforeach
                                                 @else
@@ -272,7 +274,7 @@
 
                                                     <tr>
 
-                                                        <th>Mail Forwarding</th>
+                                                        <th width="400">Mail Forwarding</th>
 
                                                         <th>Price</th>
 

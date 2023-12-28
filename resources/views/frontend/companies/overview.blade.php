@@ -498,7 +498,8 @@
 
                                                                         $positionString = $val['position'];
 
-                                                                        $positionArray = explode(', ', $val['position']);
+                                                                        $positions = explode(',', $val['position']);
+                                                                        $positionArray = array_map('trim', $positions);
 
                                                                     @endphp
 

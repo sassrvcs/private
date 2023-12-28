@@ -184,6 +184,7 @@ Route::post('save-cart-services', [CompaniesListController::class,'saveShopServi
 Route::get('document-companies', [CompaniesListController::class,'viewDocument'])->middleware('auth')->name('document-companies');
 Route::get('services-companies', [CompaniesListController::class,'viewCompanyServices'])->middleware('auth')->name('services-companies');
 Route::get('get-started-companies', [CompaniesListController::class,'viewGetStarted'])->middleware('auth')->name('get-started-companies');
+Route::post('save-get-services', [CompaniesListController::class,'saveStartedServicesInCart'])->middleware('auth')->name('save-get-services');
 
 
 
