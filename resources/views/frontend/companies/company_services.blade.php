@@ -110,7 +110,7 @@
 
                             <div class="conpany-overview-tab-wrap">
                                 @include('layouts.company_details_header')
-                                
+
                                 <div class="tab-pane show active" id="pills-contact" role="tabpanel"
 
                                     aria-labelledby="pills-contact-tab">
@@ -141,33 +141,33 @@
                                                 </thead>
 
                                                 <tbody>
-                                                @if (count($edit_service_purchased) > 0 && count($service_purchased_from_inside) > 0)
-                                                    @foreach ($edit_service_purchased as $key => $values) 
+                                                {{-- @if (count($edit_service_purchased) > 0 && count($service_purchased_from_inside) > 0) --}}
+                                                    @foreach ($edit_service_purchased as $key => $values)
 
-                                                        @foreach ($values->companyEditRequests as $key => $r_value) 
+                                                        @foreach ($values->companyEditRequests as $key => $r_value)
                                                             <tr>
-                                                        
+
                                                                 <td>{{$r_value->service_name}}</td>
                                                                 <td>{{$values->updated_at}}</td>
                                                                 <td></td>
                                                             </tr>
                                                         @endforeach
-                                                        
+
                                                     @endforeach
 
-                                                    @foreach ($service_purchased_from_inside as $key => $value) 
+                                                    @foreach ($service_purchased_from_inside as $key => $value)
                                                         <tr>
-                                                    
+
                                                             <td>{{$value->service_name}}</td>
                                                             <td>{{$value->updated_at}}</td>
                                                             <td></td>
                                                         </tr>
                                                     @endforeach
-                                                @else
+                                                {{-- @else
                                                     <tr>
                                                         <td colspan="3">No data available</td>
                                                     </tr>
-                                                @endif    
+                                                @endif     --}}
 
                                                 </tbody>
 
@@ -201,13 +201,13 @@
 
                                                 <tbody>
 
-                                                    @foreach ($person_appointments as $value) 
+                                                    @foreach ($person_appointments as $value)
                                                     <tr>
                                                         <td width="400">Director Service Address - {{ $value['person_officers']['title'] }} {{ $value['person_officers']['first_name'] }} {{ $value['person_officers']['last_name'] }}</td>
 
                                                         <td>${{$director_service_address->price}}  per year</td>
 
-                                                        <td><button class="ch-ed-btn add-director-service-item" 
+                                                        <td><button class="ch-ed-btn add-director-service-item"
                                                                     data-id="{{$director_service_address->id}}"
                                                                     data-director-name="Director Service Address - {{ $value['person_officers']['title'] }} {{ $value['person_officers']['first_name'] }} {{ $value['person_officers']['last_name'] }}">
                                                                     <img
@@ -216,7 +216,7 @@
 
                                                                     alt=""> Add</button>
                                                         </td>
-                                                        
+
                                                     </tr>
                                                     @endforeach
 
@@ -396,7 +396,7 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 location.reload(true);
-                                
+
                             }
                         });
                     },
@@ -438,7 +438,7 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 location.reload(true);
-                                
+
                             }
                         });
                     },
