@@ -132,8 +132,7 @@
                                                     <tr>
 
                                                         <th>Active Services</th>
-                                                        <th>Updated At</th>
-                                                        <th></th>
+                                                        <th>Purchased At</th>
 
                                                     </tr>
 
@@ -141,20 +140,32 @@
                                                 </thead>
 
                                                 <tbody>
-
+                                                @if (count($edit_service_purchased) > 0 && count($service_purchased_from_inside) > 0)
                                                     @foreach ($edit_service_purchased as $key => $values) 
 
-                                                        @foreach ($values->companyEditRequests as $key => $value) 
+                                                        @foreach ($values->companyEditRequests as $key => $r_value) 
                                                             <tr>
                                                         
-                                                                <td>{{$value->service_name}}</td>
-                                                                <td>{{$value->updated_at}}</td>
+                                                                <td>{{$r_value->service_name}}</td>
+                                                                <td>{{$values->updated_at}}</td>
                                                                 <td></td>
                                                             </tr>
                                                         @endforeach
                                                         
                                                     @endforeach
+
+                                                    @foreach ($service_purchased_from_inside as $key => $value) 
+                                                        <tr>
                                                     
+                                                            <td>{{$value->service_name}}</td>
+                                                            <td>{{$value->updated_at}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="3">No data available</td>
+                                                    </tr>
+                                                @endif    
 
                                                 </tbody>
 
@@ -188,35 +199,24 @@
 
                                                 <tbody>
 
+                                                    @foreach ($person_appointments as $value) 
                                                     <tr>
+                                                        <td width="400">Director Service Address - {{ $value['person_officers']['title'] }} {{ $value['person_officers']['first_name'] }} {{ $value['person_officers']['last_name'] }}</td>
 
-                                                        <td width="400">Service Address - London - Amrutaben Patel
+                                                        <td>${{$director_service_address->price}}  per year</td>
 
+                                                        <td><button class="ch-ed-btn add-director-service-item" 
+                                                                    data-id="{{$director_service_address->id}}"
+                                                                    data-director-name="Director Service Address - {{ $value['person_officers']['title'] }} {{ $value['person_officers']['first_name'] }} {{ $value['person_officers']['last_name'] }}">
+                                                                    <img
+
+                                                                    src="assets/images/add-plus-icom.svg"
+
+                                                                    alt=""> Add</button>
                                                         </td>
-
-                                                        <td>$26.00 per year</td>
-
-                                                        <td><button class="ch-ed-btn"><img
-
-                                                                    src="assets/images/add-plus-icom.svg"
-
-                                                                    alt=""> Add</button></td>
-
+                                                        
                                                     </tr>
-
-                                                    <tr>
-
-                                                        <td>Partners’ Service Address - Amrutaben Patel</td>
-
-                                                        <td>$26.00 per year</td>
-
-                                                        <td><button class="ch-ed-btn"><img
-
-                                                                    src="assets/images/add-plus-icom.svg"
-
-                                                                    alt=""> Add</button></td>
-
-                                                    </tr>
+                                                    @endforeach
 
                                                 </tbody>
 
@@ -383,6 +383,48 @@
                         id: itemId,
                         order_id: "{{ $order_id }}",
                         c_id: "{{ $_GET['c_id'] }}",
+                    },
+                    success: function(data) {
+                        // location.reload('true')
+                        Swal.fire({
+                            title: "Cart Updated!",
+                            text: "Item Added into the cart!",
+                            icon: "success",
+                            confirmButtonText: "Ok",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload(true);
+                                
+                            }
+                        });
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        Swal.fire({
+                            title: "Something Went wrong!",
+                            text: "Error found!",
+                            icon: "error"
+                        });
+                        // Handle error response
+                    }
+                });
+            });
+
+            $('.add-director-service-item').on('click', function() {
+                var itemId = $(this).data('id');
+                console.log(itemId, 'itemId');
+                var directorName = $(this).data('director-name');
+
+                $.ajax({
+                    url: "{!! route('save-cart-services') !!}",
+                    type: 'POST',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        id: itemId,
+                        order_id: "{{ $order_id }}",
+                        c_id: "{{ $_GET['c_id'] }}",
+                        director: 1,
+                        service_name: directorName,
                     },
                     success: function(data) {
                         // location.reload('true')

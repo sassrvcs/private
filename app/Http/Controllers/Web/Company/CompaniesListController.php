@@ -30,6 +30,7 @@ use App\Models\SicCode;
 use App\Models\SicDetails;
 use App\Models\companyEditRequest;
 use App\Models\companyEditTransaction;
+use App\Models\orderServiceTransaction;
 
 
 
@@ -1950,7 +1951,6 @@ class CompaniesListController extends Controller
         $company_details = Companie::FindOrFail($request->c_id);
         $order = $this->orderService->getOrder($order_id);
 
-
         $request->validate([
             'id' => 'required',
             'order_id' => 'required',
@@ -1960,11 +1960,14 @@ class CompaniesListController extends Controller
         if ($service->price !== null) {
             $vat = $service->price * 0.20;
         }
+        $serviceName = $request->has('director') && $request->director == 1
+        ? $request->service_name
+        : $service->service_name;
 
         $cart = Cart::updateOrCreate(
             ['user_id' => $user->id, 'slug' => $service->slug],
             [
-                'service_name' => $service->service_name,
+                'service_name' => $serviceName,
                 'order_id' => $order_id,
                 'price' => $service->price,
                 'vat' => $vat,
@@ -2015,15 +2018,17 @@ class CompaniesListController extends Controller
         $c_id = $request->c_id;
         $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
 
-        return $edit_service_purchased = companyEditTransaction::with('companyEditRequests')->where(['company_order_id'=>$order_id,'company_number'=>$c_id,'payment_status'=>1])->whereNot('base_amount',0.00)->whereNot('base_amount',null)->get();
-    
+        $edit_service_purchased = companyEditTransaction::with('companyEditRequests')->where(['company_order_id'=>$order_id,'user_id'=>$user->id,'company_number'=>$c_id,'payment_status'=>1])->whereNot('base_amount',0.00)->whereNot('base_amount',null)->get();
+        $service_purchased_from_inside = orderServiceTransaction::where('company_name','REGEXP',$company_details->companie_name)->where('service_payment_status',1)->where('user_id',$user->id)->get();
+
         $register_office_address_services = Addonservice::with('features')->where('slug','registered-office-address')->first();
         $business_mailing_address_service= Addonservice::with('features')->where('slug','business-mailing-address-service')->first();
         $standard_services = Addonservice::with('features')->whereIn('slug',['business-email','business-telephone-services','confirmation-statement-service','vat-registration','paye-registration','full-company-secretary-service','confirmation-statement-service','data-protection-registration','gdpr-compliance-package','director-appointment-resignation','company-name-change','company-dissolution','dormant-company-accounts'])->get();
+        $director_service_address = Addonservice::with('features')->where('slug','directors-service-address')->first();
+        $person_appointments = Person_appointment::with('person_officers')->where('position','REGEXP', 'Director')->where('order', $order_id)->where('user_id',$user->id)->get()->toArray();
 
 
-
-        return view('frontend.companies.company_services', compact('cartCount','user', 'order_id', 'register_office_address_services','business_mailing_address_service', 'standard_services','company_details','edit_service_purchased'));
+        return view('frontend.companies.company_services', compact('cartCount','user', 'order_id', 'register_office_address_services','business_mailing_address_service', 'standard_services','company_details','edit_service_purchased','service_purchased_from_inside','director_service_address','person_appointments'));
     }
 
     public function viewGetStarted(Request $request)
