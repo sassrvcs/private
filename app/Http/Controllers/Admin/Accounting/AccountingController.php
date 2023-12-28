@@ -58,6 +58,8 @@ class AccountingController extends Controller
             $temp['accounting_software_name'] = $request->name;
             $temp['short_desc'] = $request->short_desc;
             $temp['long_desc'] = $request->description;
+            $temp['terms'] = $request->terms;
+
             $data = Accounting::create($temp);
 
             if($request->hasFile('image') && $request->file('image')->isValid()){
@@ -101,6 +103,7 @@ class AccountingController extends Controller
             $accounting->accounting_software_name = $request['name'];
             $accounting->short_desc = $request['short_desc'];
             $accounting->long_desc = $request['description'];
+            $accounting->terms = $request['terms'];
             $accounting->save();
 
             if($request->hasFile('image') && $request->file('image')->isValid()){

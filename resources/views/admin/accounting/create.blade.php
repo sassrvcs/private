@@ -53,10 +53,18 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">Terms and Conditions </label>
+                                        <textarea class="ckeditor form-control {{ $errors->has('terms') ? 'is-invalid' : '' }}" name="terms">{{{ old('terms') }}}</textarea>
+                                        <span class="error invalid-feedback">{{ $errors->first('terms') }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-sm-8">
-                                        <div class="upload-img">    
+                                        <div class="upload-img">
                                             <img id="preview-image-before-upload"  alt="preview image" style="display:none; max-height: 50px; max-width: 50px;">
-                                                
+
                                             <x-Forms.Input type="file" mandate="*" label="Image" name="image" id="image" class="{{ $errors->has('image') ? 'is-invalid' : '' }}" />
                                         </div>
                                     </div>
@@ -85,24 +93,24 @@
 </script>
 
 <script type="text/javascript">
-      
+
 $(document).ready(function(){
-   
+
    $('#image').change(function(){
-            
+
     let reader = new FileReader();
- 
-    reader.onload = (e) => { 
-      $('#preview-image-before-upload').attr('src', e.target.result); 
-      $('#preview-image-before-upload').attr("style", "display:block;max-height: 50px; max-width: 50px;"); 
+
+    reader.onload = (e) => {
+      $('#preview-image-before-upload').attr('src', e.target.result);
+      $('#preview-image-before-upload').attr("style", "display:block;max-height: 50px; max-width: 50px;");
     }
- 
-    reader.readAsDataURL(this.files[0]); 
-   
+
+    reader.readAsDataURL(this.files[0]);
+
    });
-   
+
 });
- 
+
 </script>
 
 

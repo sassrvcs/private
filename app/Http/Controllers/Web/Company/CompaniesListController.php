@@ -1058,7 +1058,7 @@ class CompaniesListController extends Controller
                 'notificationDate' => 'required',
                 'registerEntryDate'=>'required'
             ]);
-            
+
             $officer_name =  $request->officer_title.' '.$request->officer_fName.' '.$request->officer_lName;
 
         } elseif($request->appointment_type == "corporate") {
@@ -1096,7 +1096,7 @@ class CompaniesListController extends Controller
         $user = Auth::user();
 
         $same_as_reg_add = $request->same_reg_add;
-        
+
         if($same_as_reg_add!='0'){ // if service address(also known as appointmentaddress/director address) is same as office registration address then pull the data from companie table
             // dd('yes');
             $request->address_house_price=null;
@@ -2015,8 +2015,8 @@ class CompaniesListController extends Controller
         $c_id = $request->c_id;
         $cartCount = Cart::where('order_id', $order_id)->Where('user_id', $user->id)->count();
 
-        return $edit_service_purchased = companyEditTransaction::with('companyEditRequests')->where(['company_order_id'=>$order_id,'company_number'=>$c_id,'payment_status'=>1])->whereNot('base_amount',0.00)->whereNot('base_amount',null)->get();
-    
+         $edit_service_purchased = companyEditTransaction::with('companyEditRequests')->where(['company_order_id'=>$order_id,'company_number'=>$c_id,'payment_status'=>1])->whereNot('base_amount',0.00)->whereNot('base_amount',null)->get();
+
         $register_office_address_services = Addonservice::with('features')->where('slug','registered-office-address')->first();
         $business_mailing_address_service= Addonservice::with('features')->where('slug','business-mailing-address-service')->first();
         $standard_services = Addonservice::with('features')->whereIn('slug',['business-email','business-telephone-services','confirmation-statement-service','vat-registration','paye-registration','full-company-secretary-service','confirmation-statement-service','data-protection-registration','gdpr-compliance-package','director-appointment-resignation','company-name-change','company-dissolution','dormant-company-accounts'])->get();
