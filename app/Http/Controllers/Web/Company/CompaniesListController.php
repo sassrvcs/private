@@ -1059,7 +1059,7 @@ class CompaniesListController extends Controller
                 'notificationDate' => 'required',
                 'registerEntryDate'=>'required'
             ]);
-            
+
             $officer_name =  $request->officer_title.' '.$request->officer_fName.' '.$request->officer_lName;
 
         } elseif($request->appointment_type == "corporate") {
@@ -1097,7 +1097,7 @@ class CompaniesListController extends Controller
         $user = Auth::user();
 
         $same_as_reg_add = $request->same_reg_add;
-        
+
         if($same_as_reg_add!='0'){ // if service address(also known as appointmentaddress/director address) is same as office registration address then pull the data from companie table
             // dd('yes');
             $request->address_house_price=null;

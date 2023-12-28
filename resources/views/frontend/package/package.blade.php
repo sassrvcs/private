@@ -253,17 +253,83 @@
                         </td>
                         @foreach($packages as $key => $package)
                         @if ($package->package_name != 'Prestige')
-
+                        @php
+                            if ($package->package_name=='Digital') {
+                                $facility_arr_digital = (!empty($package->facilities)) ? json_decode($package->facilities) : [];
+                            }
+                            if ($package->package_name=='Privacy') {
+                                $facility_arr_privacy =(!empty($package->facilities)) ? json_decode($package->facilities) : [];
+                            }
+                            if ($package->package_name=='Professional') {
+                                $facility_arr_professional = (!empty($package->facilities)) ? json_decode($package->facilities) : [];
+                            }
+                            if ($package->package_name=='All Inclusive') {
+                                $facility_arr_all_inclusive = (!empty($package->facilities)) ? json_decode($package->facilities) : [];
+                            }
+                        @endphp
                             <td>{{ $package->online_formation_within }}</td>
                         @endif
                         @endforeach
                     </tr>
-                    @foreach($facilitys as $key => $facility)
+                    @php
+                        $unique_ordered_facilities = array_unique(array_merge($facility_arr_digital, $facility_arr_privacy));
+                        $unique_ordered_facilities= array_unique(array_merge($unique_ordered_facilities, $facility_arr_professional));
+                        $unique_ordered_facilities= array_unique(array_merge($unique_ordered_facilities, $facility_arr_all_inclusive));
+                        // dd($unique_ordered_facilities);
+                    @endphp
+                    @foreach ($unique_ordered_facilities as $val)
+                    @php
+                        $get_facility = App\Models\Facility::where('id', $val)->first()
+                    @endphp
+                    <tr>
+                        <td>
+                            <div class="compare-packages-grid__column">
+                                <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
+                                    <p>{{ $get_facility->name }}</p>
+                                </div>
+                                <div class="compare-packages-grid__tooltip">
+                                   <span class="infobox-btn">
+                                      <svg class="svg-inline--fa fa-info-circle fc-bcbcbc" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                         <path fill="currentColor" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path>
+                                      </svg>
+                                      <!-- <i class="fa fa-info-circle fc-bcbcbc"></i> -->
+                                   </span>
+                                   <div class="infobox">
+                                      <div class="infobox__wrapper">
+                                        <div class="infobox__triangle"></div>
+                                         <!-- <a class="infobox__close">×</a>  -->
+                                         <div class="infobox__content">
+                                           {!!$get_facility->description!!}
+                                         </div>
+                                      </div>
+                                   </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        @foreach($facilityList as $key => $assignFacilitys)
+                        @if ($key!=5)
+
+
+                            @if(in_array($get_facility->id, $assignFacilitys))
+                                <td>
+                                    <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick.svg') }}" alt=""></div>
+                                </td>
+                            @else
+                                <td>
+                                    <div class="charm_tick"><img src="{{ asset('frontend/assets/images/charm_tick2.svg') }}" alt=""></div>
+                                </td>
+                            @endif
+                        @endif
+                        @endforeach
+                    </tr>
+                    @endforeach
+                    {{-- @foreach($facilitys as $key => $facility)
                         <tr>
                             <td>
                                 <div class="compare-packages-grid__column">
                                     <div class="text-with-tick-icon"><img src="{{ asset('frontend/assets/images/td-tick.svg') }}">
-                                        <p>{{ $facility->name }}</p>
+                                        <p>{{ $facility->name }} {{$facility->id}}</p>
                                     </div>
                                     <div class="compare-packages-grid__tooltip">
                                        <span class="infobox-btn">
@@ -301,7 +367,7 @@
                             @endif
                             @endforeach
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
                 <tfoot>
                     <tr>

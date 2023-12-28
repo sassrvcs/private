@@ -56,21 +56,31 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="">Terms and Conditions <span class="mandetory">*</span></label>
+                                        <textarea class="ckeditor form-control {{ $errors->has('terms') ? 'is-invalid' : '' }}" name="terms">
+                                            {!! $accounting->terms !!}
+                                        </textarea>
+                                        <span class="error invalid-feedback">{{ $errors->first('terms') }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-sm-8">
                                         <div class="upload-img">
-                                            <span>    
+                                            <span>
                                             {{-- <?php $stored_image = $accounting->image ;?>
                                             <img id="preview-image-before-upload" src="<?= url("/images/$stored_image") ?>" alt="Image" width="50" height="50"/> --}}
                                             <img id="preview-image-before-upload" src="{{ $accounting->getFirstMediaUrl('accounting_software_images') }}" alt="Image" width="50" height="50"/>
-                                            
+
                                             </span>
-                                            
+
                                             <x-Forms.Input type="file" mandate="*" label="Image" name="image" id="image"
                                             class="{{ $errors->has('image') ? 'is-invalid' : '' }}" />
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <button class="btn btn_baseColor btn-sm mt-2" type="submit"
                                     onClick="this.form.submit(); this.disabled=true; this.innerText='Hold on...';"> &nbsp;&nbsp; Save &nbsp;&nbsp;
                                 </button>
@@ -88,24 +98,24 @@
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 
 <script type="text/javascript">
-      
+
 $(document).ready(function(){
-   
+
    $('#image').change(function(){
-            
+
     let reader = new FileReader();
- 
-    reader.onload = (e) => { 
-      $('#preview-image-before-upload').attr('src', e.target.result); 
-      //$('#has_image').value(1); 
+
+    reader.onload = (e) => {
+      $('#preview-image-before-upload').attr('src', e.target.result);
+      //$('#has_image').value(1);
     }
- 
-    reader.readAsDataURL(this.files[0]); 
-   
+
+    reader.readAsDataURL(this.files[0]);
+
    });
-   
+
 });
- 
+
 </script>
 
 
