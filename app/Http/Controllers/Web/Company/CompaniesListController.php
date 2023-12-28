@@ -2079,7 +2079,7 @@ class CompaniesListController extends Controller
         } else {
             $service_id = $request->business_service_id;
             $service = Accounting::FindOrFail($service_id);
-            $slug = "acconting-software";
+            $slug = "accounting-software";
             $serviceName = "Accounting Software";
         }
         $company_details = Companie::FindOrFail($request->c_id);

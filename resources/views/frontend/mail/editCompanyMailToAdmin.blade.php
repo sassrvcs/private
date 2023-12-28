@@ -47,7 +47,26 @@
                 </li>
             </ul>
             @foreach ($cart_items as $item)
-
+            @if ($item->slug == 'business-banking')
+            <ul>
+                <li>
+                    <strong>{{ $item->service_name }} :  </strong>
+                    <span>
+                        Price: {{ $item->price }}+ Vat: {{ $item->vat }} = {{ $item->price + $item->vat }}
+                    </span>
+                </li>
+            </ul>
+            @endif
+            @if ($item->slug == 'accounting-software')
+            <ul>
+                <li>
+                    <strong>{{ $item->service_name }} :  </strong>
+                    <span>
+                        Price: {{ $item->price }}+ Vat: {{ $item->vat }} = {{ $item->price + $item->vat }}
+                    </span>
+                </li>
+            </ul>
+            @endif
             @if ($item->slug=='add-new-statement')
             @php
                 $decodedStatement = json_decode($item->data);
