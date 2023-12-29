@@ -4,9 +4,10 @@
    <div class="logo-portfolio-banner" style="background-image: url({{ asset('frontend/assets/images/logo-portfolio-banner-bg.png')}});">
     <div class="custom-container">
         <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">I am
-            <span>Jack</span>, a Graphic Designer
+            {{-- <span>Jack</span>, a Graphic Designer
             & Creative Director
-            based in San Francisco.
+            based in San Francisco. --}}
+            Distinct logos fortify success, embodying brand identity, and nurturing steadfast customer allegiance.
         </h1>
         <div class="input-with-rg-btn" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
             data-aos-once="true">
@@ -145,21 +146,13 @@
                 <h4 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Lorem ipsum
                     dolor sit amet, consectetur adipiscing elit. Pellent esque dignissim eros a sapien
                     tempus.</h4>
-                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">At vero eos
-                    et iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque.
-                    Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit. At
-                    vero eos et iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque. Neque
-                    porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.At vero
-                    eos et iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque. Neque porro
-                    quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.At vero eos et
-                    iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque. Neque porro
-                    quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.</p>
-                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Neque porro
+                <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Distinguished by trust, our clients epitomize the success of our bespoke logo designs. Each collaboration reflects our commitment to precision and uniqueness. From startups to industry leaders, our diverse clientele attests to our ability to capture brand essence and resonate with target audiences. With a tailored approach, we've crafted logos that transcend visual aesthetics, translating into tangible business growth and customer engagement. Join our esteemed roster of clients who have experienced the transformative power of our logo design services. Elevate your brand identity with us and become a testament to the impact of strategic logo creation.</p>
+                {{-- <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Neque porro
                     quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.At
                     vero eos et iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque. Neque
                     porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.At vero
                     eos et iusto odio due dignissimos ducimus qui blanditiis voluptatum del eniti atque. Neque porro
-                    quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.</p>
+                    quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit.</p> --}}
             </div>
             <div class="image-container">
                 <ul class="logo-lists">
@@ -252,7 +245,7 @@
     <div class="custom-container">
         <div class="left-div">
             <div class="title_head">
-                <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Let’s Design 
+                <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Let’s Design
                     <br>
                     <span>together!</span>
                 </h1>

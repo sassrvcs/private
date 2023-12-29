@@ -11,15 +11,13 @@
             <div class="row">
                 <div class="col-sm-12">
                     <span class="tag" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
-                        data-aos-once="true">16 homepages in 1 theme</span>
-                    <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Atiframe
-                        <span class="txt_green">Wordpress Theme</span></h1>
-                    <h3 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Total
-                        Drag&Drop Visual Page Builder: Header, Footer,
-                        Sidebar & Content Area</h3>
-                    <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">An
+                        data-aos-once="true">Welcome to FormationsHunt</span>
+                    <h1 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Your Partner in Seamless
+                        <span class="txt_green">Company Formation and Digital Excellence.</span></h1>
+                    <h3 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">. Elevate Your Business with Expert Web Design and SEO Services Tailored to Your Success.</h3>
+                    {{-- <p data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">An
                         ultimate solution for SEO and Web Design services companies. A ready to use website in
-                        20 minutes. All demo images included.</p>
+                        20 minutes. All demo images included.</p> --}}
                     <div class="action-btns" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <a href="" class="cta_btn theme-btn-primary">Request Quote</a>
                     </div>
@@ -60,8 +58,7 @@
                 <!-- <a href="#" class="more">More</a> -->
                 <h3 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Plugins and
                     Icons</h3>
-                <h4 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Save 168$
-                    with our included stuff</h4>
+                <h4 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Enhance your website's functionality and aesthetic appeal with our curated collection of cutting-edge plugins and icons. Elevate user experience and engagement effortlessly.</h4>
                 <ul>
                     <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                         <div class="icon">
@@ -111,7 +108,7 @@
                 Design Company
                 <span>Wordpress Theme</span>
             </h2>
-            <p>Ready For Top SEO Factors 2018!</p>
+            <p>Immerse your online presence in sophistication with our SEO and Web Design Company WordPress Theme. Trusted by industry leaders, it seamlessly integrates innovation, functionality, and style. Boost your website's performance with confidence.</p>
         </div>
         <div class="top-seo-factor">
             <!-- <div class="sec-title1 text-center">
@@ -123,26 +120,25 @@
                 <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                     <div class="icon"><img src="{{ asset('frontend/assets/images/checked.svg')}}"></div>
                     <div class="text">
-                        <h4>Mobile First</h4>
+                        <h4>Expertly Crafted <br> Design</h4>
                     </div>
                 </li>
                 <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                     <div class="icon"><img src="{{ asset('frontend/assets/images/checked.svg')}}"></div>
                     <div class="text">
-                        <h4>HTTPS</h4>
+                        <h4>Seamless User <br> Experience</h4>
                     </div>
                 </li>
                 <li data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" data-aos-once="true">
                     <div class="icon"><img src="{{ asset('frontend/assets/images/checked.svg')}}"></div>
                     <div class="text">
-                        <h4>Video Content</h4>
+                        <h4>Advanced SEO <br>Integration</h4>
                     </div>
                 </li>
                 <li data-aos="fade-up" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true">
                     <div class="icon"><img src="{{ asset('frontend/assets/images/checked.svg')}}"></div>
                     <div class="text">
-                        <h4>Load Read Content
-                            2000+ words</h4>
+                        <h4>Responsive Across <br> Devices</h4>
                     </div>
                 </li>
             </ul>
@@ -158,45 +154,38 @@
 <section class="benefits-sec">
     <div class="custom-container">
         <div class="sec-title1 text-center">
-            <h3 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Benefits For
+            <h2 data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">Benefits For
                 <span>You</span> !
             </h3>
+            <p>Experience the advantages of partnering with FormationsHunt. Our commitment to excellence ensures:</p>
         </div>
         <ul class="top-seo-factor-list">
             <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <div class="icon"><img src="{{ asset('frontend/assets/images/checked.svg')}}"></div>
                 <div class="text">
-                    <h4>Saving Time</h4>
-                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide
-                        professional support and advice, so that you are aware of the requirements of company
-                        formation.</p>
+                    <h4>Increased Online <br> Visibility</h4>
+
                 </div>
             </li>
             <li data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
                 <div class="icon"><img src="{{ asset('frontend/assets/images/checked.svg')}}"></div>
                 <div class="text">
-                    <h4>Convenient Editor</h4>
-                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide
-                        professional support and advice, so that you are aware of the requirements of company
-                        formation.</p>
+                    <h4>Enhanced User <br> Engagement</h4>
+
                 </div>
             </li>
             <li data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" data-aos-once="true">
                 <div class="icon"><img src="{{ asset('frontend/assets/images/checked.svg')}}"></div>
                 <div class="text">
-                    <h4>Beautiful Design</h4>
-                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide
-                        professional support and advice, so that you are aware of the requirements of company
-                        formation.</p>
+                    <h4>Tailored SEO <br>Strategies</h4>
+
                 </div>
             </li>
             <li data-aos="fade-up" data-aos-delay="150" data-aos-duration="1000" data-aos-once="true">
                 <div class="icon"><img src="{{ asset('frontend/assets/images/checked.svg')}}"></div>
                 <div class="text">
-                    <h4>Running On Wordpress</h4>
-                    <p>Our motto is to help customers ensure an easy company formation process. Thus, we provide
-                        professional support and advice, so that you are aware of the requirements of company
-                        formation.</p>
+                    <h4>User-Friendly Website Design</h4>
+
                 </div>
             </li>
         </ul>
@@ -349,6 +338,7 @@
                 <small>Feature Of The</small>
                 <span>SEO</span> WordPress Theme
             </h2>
+            <p>Unleash the full potential of your website with our SEO WordPress Theme, meticulously designed for optimal performance. Empower your online presence with features such as:</p>
         </div>
         <div class="feature-of-seo-boxes row">
             <div class="col-lg-4 col-md-4 col-12">
@@ -356,8 +346,7 @@
                     data-aos-once="true">
                     <div class="icon"><img src="{{ asset('frontend/assets/images/feature-icon.svg')}}"></div>
                     <div class="text">
-                        <h4>High Conversion Rate</h4>
-                        <p>Our motto is to help customers ensure an easy company formation process.</p>
+                        <h4>Robust SEO Optimization</h4>
                     </div>
                 </div>
             </div>
@@ -366,8 +355,7 @@
                     data-aos-once="true">
                     <div class="icon"><img src="{{ asset('frontend/assets/images/feature-icon.svg')}}"></div>
                     <div class="text">
-                        <h4>High Conversion Rate</h4>
-                        <p>Our motto is to help customers ensure an easy company formation process.</p>
+                        <h4>User-Centric Design</h4>
                     </div>
                 </div>
             </div>
@@ -376,8 +364,7 @@
                     data-aos-once="true">
                     <div class="icon"><img src="{{ asset('frontend/assets/images/feature-icon.svg')}}"></div>
                     <div class="text">
-                        <h4>High Conversion Rate</h4>
-                        <p>Our motto is to help customers ensure an easy company formation process.</p>
+                        <h4>Speed and Performance Enhancements</h4>
                     </div>
                 </div>
             </div>
@@ -386,8 +373,7 @@
                     data-aos-once="true">
                     <div class="icon"><img src="{{ asset('frontend/assets/images/feature-icon.svg')}}"></div>
                     <div class="text">
-                        <h4>High Conversion Rate</h4>
-                        <p>Our motto is to help customers ensure an easy company formation process.</p>
+                        <h4>Scalability for Future Growth</h4>
                     </div>
                 </div>
             </div>
@@ -396,8 +382,7 @@
                     data-aos-once="true">
                     <div class="icon"><img src="{{ asset('frontend/assets/images/feature-icon.svg')}}"></div>
                     <div class="text">
-                        <h4>High Conversion Rate</h4>
-                        <p>Our motto is to help customers ensure an easy company formation process.</p>
+                        <h4>Keyword Ranking</h4>
                     </div>
                 </div>
             </div>
@@ -406,28 +391,7 @@
                     data-aos-once="true">
                     <div class="icon"><img src="{{ asset('frontend/assets/images/feature-icon.svg')}}"></div>
                     <div class="text">
-                        <h4>High Conversion Rate</h4>
-                        <p>Our motto is to help customers ensure an easy company formation process.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-12">
-                <div class="feature-of-seo-box" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
-                    data-aos-once="true">
-                    <div class="icon"><img src="{{ asset('frontend/assets/images/feature-icon.svg')}}"></div>
-                    <div class="text">
-                        <h4>High Conversion Rate</h4>
-                        <p>Our motto is to help customers ensure an easy company formation process.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-12">
-                <div class="feature-of-seo-box" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500"
-                    data-aos-once="true">
-                    <div class="icon"><img src="{{ asset('frontend/assets/images/feature-icon.svg')}}"></div>
-                    <div class="text">
-                        <h4>High Conversion Rate</h4>
-                        <p>Our motto is to help customers ensure an easy company formation process.</p>
+                        <h4>Content Planning</h4>
                     </div>
                 </div>
             </div>

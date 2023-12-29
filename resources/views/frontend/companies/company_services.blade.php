@@ -148,7 +148,7 @@
                                                             <tr>
 
                                                                 <td>{{$r_value->service_name}}</td>
-                                                                <td>{{$values->updated_at}}</td>
+                                                                <td>{{date('d-m-Y', strtotime($values->updated_at))}}</td>
                                                                 <td></td>
                                                             </tr>
                                                         @endforeach
@@ -159,7 +159,7 @@
                                                         <tr>
 
                                                             <td>{{$value->service_name}}</td>
-                                                            <td>{{$value->updated_at}}</td>
+                                                            <td>{{ date('d-m-Y', strtotime($value->updated_at))}}</td>
                                                             <td></td>
                                                         </tr>
                                                     @endforeach

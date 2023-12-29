@@ -59,12 +59,12 @@
                                             <option value="Privacy" @if(!empty(json_decode($service->add_on_type)) && in_array('Privacy',json_decode($service->add_on_type))) selected  @endif>Privacy</option>
                                             <option value="Professional" @if(!empty(json_decode($service->add_on_type)) && in_array('Professional',json_decode($service->add_on_type))) selected  @endif>Professional</option>
                                             <option value="Prestige" @if(!empty(json_decode($service->add_on_type)) && in_array('Prestige',json_decode($service->add_on_type))) selected  @endif>Prestige</option>
-                                            <option value="All_Inclusive" @if(!empty(json_decode($service->add_on_type)) && in_array('All_Inclusive',json_decode($service->add_on_type))) selected  @endif>All-Inclusive</option>
+                                            <option value="All Inclusive" @if(!empty(json_decode($service->add_on_type)) && in_array('All Inclusive',json_decode($service->add_on_type))) selected  @endif>All-Inclusive</option>
                                             <option value="Guarantee" @if(!empty(json_decode($service->add_on_type)) && in_array('Guarantee',json_decode($service->add_on_type))) selected  @endif>Limited By Guarantee</option>
-                                            <option value="Non_Residents" @if(!empty(json_decode($service->add_on_type)) && in_array('Non_Residents',json_decode($service->add_on_type))) selected  @endif>Non Residents</option>
+                                            <option value="Non Residents" @if(!empty(json_decode($service->add_on_type)) && in_array('Non Residents',json_decode($service->add_on_type))) selected  @endif>Non Residents</option>
                                             <option value="LLP" @if(!empty(json_decode($service->add_on_type)) && in_array('LLP',json_decode($service->add_on_type))) selected  @endif>LLP</option>
                                             <option value="Eseller" @if(!empty(json_decode($service->add_on_type)) && in_array('Eseller',json_decode($service->add_on_type))) selected  @endif>Eseller</option>
-                                            <option value="PLC_Package" @if(!empty(json_decode($service->add_on_type)) && in_array('PLC_Package',json_decode($service->add_on_type))) selected  @endif>PLC Package</option>
+                                            <option value="PLC" @if(!empty(json_decode($service->add_on_type)) && in_array('PLC',json_decode($service->add_on_type))) selected  @endif>PLC</option>
                                         </select>
                                     </div>
 

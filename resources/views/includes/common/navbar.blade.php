@@ -18,8 +18,8 @@
   {{-- @include('backend.admin.common.notification') --}}
   <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" href="#">
-      <i class="far fa-bell"></i>
-      <span class="badge badge-warning navbar-badge notification-count">{{ 0 }}</span>
+      {{-- <i class="far fa-bell"></i>
+      <span class="badge badge-warning navbar-badge notification-count">{{ 0 }}</span> --}}
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
       <a href="#" class="dropdown-item" data-id="">
