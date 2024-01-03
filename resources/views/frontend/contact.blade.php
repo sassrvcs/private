@@ -366,6 +366,12 @@
 
                     </div>
 
+                    <div class="company_details">
+                        <p>Company Nr: 14177067</p> 
+                        <p>Vat Reg. no.</p>
+                        <p>ICO Reg. ref. ZB587491</p>
+                    </div>
+
                  </div>
 
             </div>

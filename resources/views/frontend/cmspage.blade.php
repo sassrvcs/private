@@ -215,7 +215,7 @@
                 <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
             </div>
             <div class="text-container">
-                <h4>Call Us: </h4>
+                <h4 class="color-white">Call Us: </h4>
                 <h2><a href="tel:020 3002 0032">020 3002 0032</a></h2>
             </div>
         </div>
@@ -252,7 +252,7 @@
                             <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
                         </div>
                         <div class="text-container">
-                            <h4>Call Us: </h4>
+                            <h4 class="color-white">Call Us: </h4>
                             <h2><a href="tel:020 3002 0032">020 3002 0032</a></h2>
                         </div>
                     </li>
@@ -261,7 +261,7 @@
                             <img src="{{ asset('frontend/assets/images/call-green-icon.svg') }}">
                         </div>
                         <div class="text-container">
-                            <h4>Mail us: </h4>
+                            <h4 class="color-white">Mail us: </h4>
                             <h2><a
                                     href="mailto:contact@formationshunt.co.uk">contact@formationshunt.co.uk</a></h2>
                         </div>
@@ -269,7 +269,7 @@
                 </ul>
             </div>
             <div class="right_div" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
-                <h1>Need a <br>little help?</h1>
+                <h1 class="color-white">Need a <br>little help?</h1>
                 <p>We love talking to you when it comes to creating something new. We want you to remember us always, let’s be good for good and for a good reason. Reach us through your voice or writing.</p>
             </div>
         </div>

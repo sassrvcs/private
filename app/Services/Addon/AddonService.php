@@ -23,36 +23,36 @@ class AddonService
      */
     public function index($search = "")
     {
-        // $package_name = null;
-        // if(request()->routeIs('addon-services'))
-        // {
-        //     $sessionCart = Session::get('cart');
-        //     if(isset(request()->indx))
-        //     {
-        //         $package_name = @$sessionCart[request()->indx]['package_name'];
-        //     }
-        // }
-        // // dd($package_name);
-        // if(request()->routeIs('business-essential.index'))
-        // {
-        //     $orders = Order::where('user_id', auth()->id())->where('order_id',@$_GET['order'])->first();
-        //     if (@$orders->cart->package != null)
-        //     {
-        //     $package_name = @$orders->cart->package->package_name;
-        //     }
-        // }
-        // // dd($package_name);
-        // if ($package_name!=null) {
-        //     $addonservices = Addon::with('features')->whereNot('price', '0')->where('add_on_type','REGEXP','Others')->orWhere('add_on_type','REGEXP',$package_name)->whereNot('price', '0.00');
-        // }else{
-        //      $addonservices = Addon::with('features')->whereNot('price', '0')->whereNot('price', '0.00');
-        // }
-        $addonservices = Addon::with('features')->whereNot('price', '0')->whereNot('price', '0.00');
+        $package_name = null;
+        if(request()->routeIs('addon-services'))
+        {
+            $sessionCart = @Session::get('cart');
+            if(isset(request()->indx))
+            {
+                $package_name = @$sessionCart[request()->indx]['package_name'];
+            }
+        }
+        // dd($package_name);
+        if(request()->routeIs('business-essential.index'))
+        {
+            $orders = Order::where('user_id', auth()->id())->where('order_id',@$_GET['order'])->first();
+            if (@$orders->cart->package != null)
+            {
+            $package_name = @$orders->cart->package->package_name;
+            }
+        }
+        // dd($package_name);
+        if ($package_name!=null) {
+            $addonservices = Addon::with('features')->whereNot('price', '0')->where('add_on_type','REGEXP','Others')->orWhere('add_on_type','REGEXP',$package_name)->whereNot('price', '0.00');
+        }else{
+             $addonservices = Addon::with('features')->whereNot('price', '0')->whereNot('price', '0.00');
+        }
+        // $addonservices = Addon::with('features')->whereNot('price', '0')->whereNot('price', '0.00');
 
         if (!empty($search)) {
             $addonservices = $addonservices->where('service_name', 'like', "%{$search}%");
         }
-        $addonservices = $addonservices->paginate(25);
+        $addonservices = $addonservices->paginate(50);
         return $addonservices;
     }
     public function index_without_price($search = "")

@@ -234,6 +234,7 @@ Route::post('company-document', [CompanieFormController::class, 'uploadCompanyDo
 Route::get('business-essential', [BusinessEssentialsController::class, 'index'])->name('business-essential.index')->middleware('auth');
 Route::post('business-essential', [BusinessEssentialsController::class, 'store'])->name('business-essential.store')->middleware('auth');
 Route::get('business-bank/terms-condition/{id}', [BusinessEssentialsController::class, 'termsAndCondition'])->name('business-bank-terms-conditions')->middleware('auth');
+Route::get('business-accounting/business-service-terms-conditions/{id}', [BusinessEssentialsController::class, 'termsAndConditionBusinessAccounting'])->name('business-service-terms-conditions')->middleware('auth');
 
 Route::resource('review', ReviewController::class)->middleware('auth');
 

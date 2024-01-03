@@ -1,5 +1,8 @@
 <!-- ================ start: main-footer ================ -->
 <div class="main-footer">
+    <div class="scroll_up">
+        <a href="#"><img src="{{ asset('frontend/assets/images/up-arrow.png')}}"></a>
+    </div>
     <div class="custom-container">
         <div class="main-footer-row">
             <div class="main-footer-col packages" data-aos="fade-up" data-aos-delay="50" data-aos-duration="500" data-aos-once="true">
@@ -188,7 +191,7 @@
                     </li>
                     <li>
                         <a href="https://twitter.com/FormationsHunt" target="_blank">
-                            <img src="{{ asset('frontend/assets/images/social-icon-twitter.svg')}}">
+                            <img src="{{ asset('frontend/assets/images/social-icon-twitter.png')}}">
                         </a>
                     </li>
                     <li>

@@ -564,7 +564,9 @@
 
                 <h5 class="modal-title" id="exampleModalLongTitle">Choose your address</h5>
 
-                <button type="button" class="btn-close"  data-dismiss="modal" aria-label="Close">X</button>
+                <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
 
             </div>
 

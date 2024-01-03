@@ -103,7 +103,11 @@ class BusinessEssentialsService
         $businessAccountings = Accounting::with('media')->get();
         return $businessAccountings;
     }
-
+    public function getBusinessServicebyId($id)
+    {
+        $businessAccountings = Accounting::findOrFail($id);
+        return $businessAccountings;
+    }
     /**
      * Show business banking and service information as per business_bank_id
      * @param string $id

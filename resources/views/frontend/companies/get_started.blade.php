@@ -118,7 +118,7 @@
 
                             <div class="conpany-overview-tab-wrap">
                                 @include('layouts.company_details_header')
-                                
+
                                 <div class="tab-content" id="pills-tabContent">
 
 
@@ -213,7 +213,11 @@
                                                         </div>
                                                         <div class="bottom-panel">
                                                             <div class="text-box">
-                                                                {{-- <p><strong>Terms and Conditions</strong></p> --}}
+                                                                <div class="text-box">
+                                                                    <p class="terms-condition" data-url="{{ route('business-service-terms-conditions', ['id' => $businessService->id]) }}">
+                                                                        <strong>Terms and Conditions</strong>
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                             <div class="btn-wrap">
                                                                 <button type="submit" data-step="business-service" data-section="BusinessEssential" data-id={{ $businessService->id }} class="btn select-service">Add</button>
@@ -222,10 +226,10 @@
                                                     </div>
                                                 @endforeach
                                             </div>
-                                            
+
                                         </div>
 
-                                        
+
                                     </div>
 
                                 </div>
@@ -295,7 +299,7 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 location.reload(true);
-                                
+
                             }
                         });
                     },
@@ -311,7 +315,7 @@
                 });
             });
         });
-        
+
 
     $(document).ready(function () {
         $('.select-services').click(function () {
@@ -365,7 +369,7 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 location.reload(true);
-                                
+
                             }
                         });
                     },
@@ -429,7 +433,7 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 location.reload(true);
-                                
+
                             }
                         });
                     },

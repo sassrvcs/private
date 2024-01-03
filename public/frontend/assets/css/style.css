@@ -15730,3 +15730,46 @@ body .checkout .card-header h3 {
     font-weight: 600;
     border-radius: 50%;
 }
+
+
+
+
+.main-footer {
+    position: relative;
+}
+
+.scroll_up {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    top: -25px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.scroll_up img {
+    position: relative;
+    z-index: 2;
+}
+
+.scroll_up:before {
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background: #fff;
+}
+
+
+
+.company_details {
+    width: 100%;
+}

@@ -34,7 +34,7 @@ class BusinessEssentialsController extends Controller
             $businessServices = $this->businessEssentialsService->getBusinessService();
             return view('frontend.company_form.business_essentials.business_service', compact('businessServices', 'selectedBusinessService'));
         } else if($_GET['section'] == 'BusinessEssential' && $_GET['step'] == 'optional-extras') {
-            
+
             $addOnCart = [];
             $addonServices = $this->addonService->index();
             $orders = $this->businessEssentialsService->showOrder($_GET['order'])->toArray();
@@ -75,5 +75,10 @@ class BusinessEssentialsController extends Controller
     {
         $businessBanks = $this->businessEssentialsService->showBusinessBankInfo($id);
         return $businessBanks->terms_condition;
+    }
+    public function termsAndConditionBusinessAccounting($id)
+    {
+        $businessService = $this->businessEssentialsService->getBusinessServicebyId($id);
+        return $businessService->terms;
     }
 }
