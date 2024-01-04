@@ -95,22 +95,22 @@
                             <a href="{{ route('import-companies') }}">
                                 <div class="card equalheight border">
                                     <div class="card-header p-2">
-                                        <h3>Import a company<span class="float-end link-primary" style="font-size:13px;">Go<i class="fa-solid fa-arrow-right-long ms-2"></i></span></h3>
+                                        <h3>Import a company<span class="float-end link-primary" style="font-size:13px;">Import<i class="fa-solid fa-arrow-right-long ms-2"></i></span></h3>
                                     </div>
                                     <div class="card-body">
-                                        <p>Click on the go button and enter the identification details for the company you wish to import.</p>
+                                        <p>Import an existing company to manage using our Online Company Manager.</p>
                                     </div>
                                 </div>
                             </a>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <a href="{{ route('company_services', ['service_name' => 'renewals']) }}">
+                            <a href="{{ route('expired-service-list') }}">
                                 <div class="card equalheight border">
                                     <div class="card-header p-2">
                                         <h3>Service Renewals<span class="float-end link-primary" style="font-size:13px;">View All<i class="fa-solid fa-arrow-right-long ms-2"></i></span></h3>
                                     </div>
                                     <div class="card-body">
-                                        <p>Click on the view all button and view/purchase all the services as per your needs.</p>
+                                        <p>Renew services which are expired and extend it for another month or year.</p>
                                     </div>
                                 </div>
                             </a>

@@ -315,7 +315,13 @@
                                                         <span class="nature_of_control">
                                                             {{-- Individual/Company --}}
                                                             @if ($val['noc_os']!=null||$val['noc_vr']!=null||($val['noc_appoint']=='Yes'||$val['noc_others']=='Yes'))
-                                                           <b>(Individual/Company)</b>
+                                                           <b>
+                                                            @if (strtolower($val['fci'])=='yes')
+                                                            (Company)
+                                                            @else
+                                                            (Individual)
+                                                            @endif
+                                                            </b>
                                                            @if ( $val['noc_os']!=null)
                                                            <p>
                                                             <span>Ownership of shares:   </span>{{ $val['noc_os'] }}
