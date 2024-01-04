@@ -296,12 +296,12 @@
                                                     <li>
                                                         <label>Your Date of Birth :</label>
                                                         <input type="date" id="dob" name="dob"
-                                                            class="form-control" onclick="dob_onclick(this)">
+                                                            class="form-control" max="{{ now()->subYears(16)->format('Y-m-d') }}" value="{{ @$delivery_details->dob }}">
                                                     </li>
                                                     <li class="align-items-start">
                                                         <label for="">What is your relation to this company? :
                                                         </label>
-                                                        <textarea class="form-control" id="relation_area" name="relation_area"></textarea>
+                                                        <textarea class="form-control" id="relation_area" name="relation_area" >{{ @$delivery_details->relation }}</textarea>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -321,20 +321,19 @@
                                                 <ul class="feild-list">
                                                     <li>
                                                         <label>Referring </label>
-                                                        <select class="form-control" name="contact_referer"
-                                                            id="fetchParterDetails">
-                                                            <option value="" selected="selected">Please Select
-                                                            </option>
-                                                            <option value="myself">Myself</option>
-                                                            <option value="somebodyelse">Somebody Else</option>
+                                                        <select class="form-control" name="contact_referer" id="fetchParterDetails">
+                                                            <option value="" selected="selected">Please Select</option>
+                                                            <option value="myself" {{ @$delivery_details->referring == 'myself' ? 'selected' : '' }}>Myself</option>
+                                                            <option value="somebodyelse" {{ @$delivery_details->referring == 'somebodyelse' ? 'selected' : '' }}>Somebody Else</option>
                                                         </select>
+
                                                     </li>
                                                     <li id="populate_referrer_name" hidden>
                                                         <label>Referrer's Name: </label>
                                                         <input type="text" class="form-control" name="referrer_name"
                                                             value="{{ $user->forename }} {{ $user->surname }}">
                                                     </li>
-                                                    <li>
+                                                   {{-- <li>
                                                         <label>Contact Name : </label>
                                                         <select class="form-control" id="contact_name"
                                                             name="contact_name">
@@ -350,35 +349,53 @@
                                                                 <option value="">No data found</option>
                                                             @endforelse
                                                         </select>
+                                                    </li> --}}
+
+                                                    <li>
+                                                        <label>Contact Name :</label>
+                                                        <select class="form-control" id="contact_name" name="contact_name">
+                                                            <option value="">Please Select</option>
+                                                            @forelse ($partner_services_contact_name as $partner_name)
+                                                                <option value="{{ $partner_name['first_name'] }} {{ $partner_name['last_name'] }}"
+                                                                    data-address="@if ($partner_name['house_number']) {{ $partner_name['house_number'] }}, @endif @if ($partner_name['street']) {{ $partner_name['street'] }}, @endif @if ($partner_name['locality']) {{ $partner_name['locality'] }}, @endif @if ($partner_name['town']) {{ $partner_name['town'] }}, @endif @if ($partner_name['county']) {{ $partner_name['county'] }}, @endif @if ($partner_name['post_code']) {{ $partner_name['post_code'] }} @endif"
+                                                                    data-add-id="{{ $partner_name['add_id'] }}"
+                                                                    {{ $delivery_details->contact_name == $partner_name['first_name'].' '.$partner_name['last_name'] ? 'selected' : '' }}>
+                                                                    {{ $partner_name['first_name'] }} {{ $partner_name['last_name'] }}
+                                                                </option>
+                                                            @empty
+                                                                <option value="">No data found</option>
+                                                            @endforelse
+                                                        </select>
                                                     </li>
+
                                                     <li>
                                                         <label>Contact Email : </label>
-                                                        <input type="email" class="form-control" name="contact_email">
+                                                        <input type="email" class="form-control" name="contact_email" value="{{ @$delivery_details->contact_email }}">
                                                     </li>
                                                     <li class="uk_phone">
                                                         <label>Contact Phone : </label>
                                                         <span>+44</span>
                                                         <input type="number" class="form-control" name="contact_phone"
-                                                            id="contact_phone" minlength="10" maxlength="10">
+                                                            id="contact_phone" minlength="10" maxlength="10" value="{{ @$delivery_details->contact_phone }}">
                                                     </li>
                                                     <li class="uk_phone">
                                                         <label>Contact Mobile : </label>
                                                         <span>+44</span>
                                                         <input type="number" class="form-control" name="contact_mobile"
-                                                            id="contact_mobile" minlength="10" maxlength="10">
+                                                            id="contact_mobile" minlength="10" maxlength="10" value="{{ @$delivery_details->contact_mobile }}">
                                                     </li>
                                                     <li>
                                                         <label>Preferred Call Time : </label>
                                                         <select class="form-control" name="call_time">
-                                                            <option value="Morning">Morning</option>
-                                                            <option value="Afternoon">Afternoon</option>
-                                                            <option value="Evening">Evening</option>
+                                                            <option value="Morning" {{ @$delivery_details->contact_calltime == 'Morning' ? 'selected' : '' }}>Morning</option>
+                                                            <option value="Afternoon" {{ @$delivery_details->contact_calltime == 'Afternoon' ? 'selected' : '' }}>Afternoon</option>
+                                                            <option value="Evening" {{ @$delivery_details->contact_calltime == 'Evening' ? 'selected' : '' }}>Evening</option>
                                                         </select>
                                                     </li>
                                                     <li>
                                                         <label for="">Residential Address : </label>
                                                         <input type="text" class="form-control" name="res_address"
-                                                            id="res_address">
+                                                            id="res_address" value="{{ @$delivery_details->contact_address }}"> 
                                                         <input type="text" class="form-control" name="res_address_id"
                                                             id="res_address_id" hidden>
                                                         {{-- <span>@foreach ($primary_address as $key => $value)
@@ -417,7 +434,7 @@
                                                                 Policy</a></strong></label>
                                                 </div>
                                                 <div class="step-btn-wrap mt-4">
-                                                    <button class="btn" type="submit">Submit</button>
+                                                    <button class="btn" type="submit" id="submitBtn">Submit</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -580,6 +597,12 @@
             //     $('#choosePrimaryAddressModal').modal('show');
             // });
 
+            var initialMode = $("#fetchParterDetails").val();
+
+            if (initialMode == 'somebodyelse') {
+                $("#populate_referrer_name").removeAttr('hidden');
+            }
+
             $("#fetchParterDetails").change(function() {
                 var mode = $(this).val();
                 if (mode == 'myself' || mode == '') {
@@ -669,7 +692,9 @@
                     receive_updates: "required",
                     terms: "required",
             },
-            submitHandler: function() {
+            submitHandler: function() {               
+                $('#submitBtn').prop('disabled', true).text('Submitting...');
+
                 $('#delivery_form').submit();
             }
 
