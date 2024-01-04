@@ -2884,7 +2884,7 @@
         })
         // Scroll to the top of the page
         function scrollToTop() {
-            window.scrollTo(0, 600);
+            window.scrollTo(0, 1000);
         }
         function llpConsent() {
             if($("#designated_checkbox").is(':checked')==true||$("#member_checkbox").is(':checked')==true) {

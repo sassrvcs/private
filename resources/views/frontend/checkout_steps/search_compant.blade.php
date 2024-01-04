@@ -116,12 +116,12 @@
                                                                         <i class="fa fa-long-arrow-right"></i>
                                                                     </button>
                                                                     @else
-                                                                    {{-- <a class="btn btn-primary wow zoomIn" href="{{ route('package',["indx" => $key])}}">Choose Package<i class="fa fa-long-arrow-right"></i></a> --}}
-                                                                    <button type="submit" name="buyForm" class="btn btn-primary wow zoomIn">
+                                                                    <a class="btn btn-primary wow zoomIn" href="{{ route('package',["indx" => $key])}}">Choose Package<i class="fa fa-long-arrow-right"></i></a>
+                                                                    {{-- <button type="submit" name="buyForm" class="btn btn-primary wow zoomIn"> --}}
                                                                         <!-- Proceed to register -->
-                                                                        Pay Now
-                                                                        <i class="fa fa-long-arrow-right"></i>
-                                                                    </button>
+                                                                        {{-- Pay Now --}}
+                                                                        {{-- <i class="fa fa-long-arrow-right"></i> --}}
+                                                                    {{-- </button> --}}
                                                                     @endif
 
                                                                 </form>

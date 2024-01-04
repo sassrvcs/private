@@ -133,12 +133,12 @@ function construct_service_invoice_address($address)
 function registered_address_included($order_id)
 {
     $order = Order::where('order_id', $order_id)->first();
-        if ($order->cart->package!=null) {
-        $package_name = $order->cart->package->package_name;
+        if (@$order->cart->package!=null) {
+        $package_name = @$order->cart->package->package_name;
         }else{
             $package_name = null;
         }
-     if((stripos($package_name, 'Eseller') !== false || stripos($package_name, 'Residents') !== false))
+     if((stripos($package_name, 'Eseller') !== false || stripos($package_name, 'Residents') !== false|| stripos($package_name, 'All Inclusive') !== false|| stripos($package_name, 'Privacy') !== false|| stripos($package_name, 'Professional') !== false))
      {
         return 1;
      }
@@ -147,12 +147,12 @@ function registered_address_included($order_id)
 function business_address_included($order_id)
 {
         $order = Order::where('order_id', $order_id)->first();
-        if ($order->cart->package!=null) {
-        $package_name = $order->cart->package->package_name;
+        if (@$order->cart->package!=null) {
+        $package_name = @$order->cart->package->package_name;
         }else{
             $package_name = null;
         }
-        if((stripos($package_name, 'Eseller') !== false || stripos($package_name, 'Residents') !== false))
+        if((stripos($package_name, 'Eseller') !== false || stripos($package_name, 'All Inclusive') !== false|| stripos($package_name, 'Privacy') !== false|| stripos($package_name, 'Professional') !== false))
         {
         return 1;
         }
@@ -161,12 +161,12 @@ function business_address_included($order_id)
 function appointment_address_included($order_id)
 {
     $order = Order::where('order_id', $order_id)->first();
-        if ($order->cart->package!=null) {
-        $package_name = $order->cart->package->package_name;
+        if (@$order->cart->package!=null) {
+        $package_name = @$order->cart->package->package_name;
         }else{
             $package_name = null;
         }
-     if((stripos($package_name, 'Eseller') !== false || stripos($package_name, 'Residents') !== false))
+     if((stripos($package_name, 'Eseller') !== false || stripos($package_name, 'Residents') !== false|| stripos($package_name, 'All Inclusive') !== false|| stripos($package_name, 'Privacy') !== false|| stripos($package_name, 'Professional') !== false) )
      {
         return true;
      }

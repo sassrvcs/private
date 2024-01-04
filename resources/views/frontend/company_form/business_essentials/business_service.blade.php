@@ -4,17 +4,17 @@
 @include('layouts.inner_header')
 {{-- Additional CSS for now --}}
 <style>
-.modal-header {
+/* .modal-header {
     background: #000;
-}
+} */
 
-.modal-title {
+/* .modal-title {
     color: #fff;
-}
+} */
 
-.modal-footer {
+/* .modal-footer {
     background: #000;
-}
+} */
 
 .modal-content {
     padding: 15px;
@@ -22,6 +22,9 @@
 
 ul.ef-16-benefits-list {
     list-style: inside;
+}
+.terms-condition {
+    cursor: pointer;
 }
 </style>
 <section class="sectiongap legal rrr fix-container-width ">
@@ -169,7 +172,9 @@ ul.ef-16-benefits-list {
                                                             </div>
                                                             <div class="desc">
                                                                 <h3>{{ $businessService->accounting_software_name ?? " " }}</h3>
-                                                                <p><span style="color: black;">{{ $businessService->short_desc  ?? ''}}</span></p>
+                                                                {{-- <p><span style="color: black;">{{ $businessService->short_desc  ?? ''}}</span></p> --}}
+
+                                                                <p><span style="color: black;">{!! $businessService->long_desc  ?? '' !!}</span></p>
                                                             </div>
                                                         </div>
                                                         {{-- <div class="info">
@@ -179,9 +184,16 @@ ul.ef-16-benefits-list {
 
                                                 </div>
                                                 <div class="bottom-panel">
-                                                    <div class="text-box">
+
                                                         {{-- <p><strong>Terms and Conditions</strong></p> --}}
-                                                    </div>
+
+                                                            <div class="text-box">
+                                                                <p class="terms-condition" data-url="{{ route('business-service-terms-conditions', ['id' => $businessService->id]) }}">
+                                                                    <strong>Terms and Conditions</strong>
+                                                                </p>
+                                                            </div>
+
+
                                                     <div class="btn-wrap">
                                                         <button type="submit" data-id={{ $businessService->id }} class="btn select-service">Choose</button>
                                                     </div>
@@ -220,6 +232,25 @@ ul.ef-16-benefits-list {
         </div>
     </div>
 </section>
+<div class="modal fade business-banking-modal" id="termsCondition" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Terms Condition</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body terms-condition-body">
+
+            </div>
+            <div class="modal-footer">
+                {{-- <button type="button" class="btn btn-primary btn-don-need submit-frm">I don't need a bank account</button> --}}
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
@@ -251,6 +282,26 @@ ul.ef-16-benefits-list {
 
         $(".save-continue").click(function () {
             $('#business-essential-store').submit();
+        });
+
+
+        $('.terms-condition').click( function () {
+            var baseUrl = $(this).data('url');
+            // terms-condition-body
+            // axios.get();
+            axios.get(baseUrl, {
+                '_token': "{{ csrf_token() }}",
+            })
+            .then(function (response) {
+                // Handle the response data here
+                console.log(response.data);
+                $('.terms-condition-body').html(response.data);
+                $('#termsCondition').modal('show');
+            })
+            .catch(function (error) {
+                // Handle any errors that occurred during the request
+                console.error(error);
+            });
         });
     });
 </script>

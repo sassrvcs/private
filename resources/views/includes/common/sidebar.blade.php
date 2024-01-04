@@ -336,7 +336,7 @@
             </li>
 
             {{-- @endcan --}}
-            {{-- <li class="nav-item {{ request()->routeIs('admin.view-tickets-admin.*') ? 'menu-is-opening menu-open' : '' }}">
+            <li class="nav-item {{ request()->routeIs('admin.view-tickets-admin.*') ? 'menu-is-opening menu-open' : '' }}">
                 <a href="#" class="nav-link  {{ request()->routeIs('admin.view-tickets-admin.*') ? ' active' : '' }}">
                     <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
@@ -353,7 +353,7 @@
                         </a>
                     </li>
                 </ul>
-            </li> --}}
+            </li>
             {{--@endcan--}}
         </ul>
     </nav>

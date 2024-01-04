@@ -1817,7 +1817,9 @@
                                                 </div>
                                                 <div class="office-address ">
                                                     <div class="top-block">
-                                                        <h3>{{$purchase_address->title}}</h3>
+                                                        <h3>{{$purchase_address->title}}@if (appointment_address_included(request()->order))
+                                                            (Included)
+                                                        @endif</h3>
                                                         <div class="price-block">
                                                             <strong>£{{$purchase_address->price}}</strong>
                                                             <p>Reserved annually at £{{$purchase_address->price}}</p>
@@ -1848,8 +1850,15 @@
                                                     <div class="btn-block">
                                                         <button class="btn" onclick="DetailsSection()">Details</button>
                                                         <button class="btn buy-now-btn buyNowBtn {{$appoint_forwarding_address_id!=''?'d-none':''}}"
-                                                            onclick="buyAdd('forwarding')">Buy
-                                                            Now</button>
+                                                            onclick="buyAdd('forwarding')">
+                                                            @if (appointment_address_included(request()->order))
+
+                                                            Choose Forwarding address
+                                                            @else
+                                                            Buy
+                                                            Now
+                                                            @endif
+                                                            </button>
                                                             <button class="btn buy-now-btn {{$appoint_forwarding_address_id==''?'d-none':''}}" id="removeBuy" onclick="removeBuy()">Remove</button>
                                                         {{-- @if ($appoint_forwarding_address_id=='')
 
@@ -3207,7 +3216,7 @@
         llpConsent();
         // Scroll to the top of the page
         function scrollToTop() {
-            window.scrollTo(0, 600);
+            window.scrollTo(0, 1000);
         }
 
         // DOB Future not select date

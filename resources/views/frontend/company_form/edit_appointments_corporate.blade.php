@@ -3269,7 +3269,7 @@
 
         // Scroll to the top of the page
         function scrollToTop() {
-            window.scrollTo(0, 600);
+            window.scrollTo(0, 1000);
         }
 
         // DOB Future not select date

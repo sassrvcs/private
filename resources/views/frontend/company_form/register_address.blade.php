@@ -377,7 +377,7 @@
                                 </div>
                                 <div class="office-address ">
                                     <div class="top-block">
-                                        <h3>{{$purchase_address->title}} @if ( stripos($package_type, 'Residents') !== false|| stripos($package_type, 'Eseller') !== false)
+                                        <h3>{{$purchase_address->title}} @if (registered_address_included(request()->order))
                                             (Included)
                                         @endif</h3>
                                         <div class="price-block">
@@ -415,7 +415,7 @@
                                     </div>
                                     <div class="btn-block">
                                         <button class="btn" onclick="DetailsSection()">Details</button>
-                                        @if (stripos($package_type, 'Residents') !== false || stripos($package_type, 'Eseller') !== false)
+                                        @if (registered_address_included(request()->order))
                                         <button class="btn buy-now-btn" onclick="gotoPage()">Choose Forwarding Address</button>
                                         @else
                                         <button class="btn buy-now-btn" onclick="gotoPage()">Buy Now</button>

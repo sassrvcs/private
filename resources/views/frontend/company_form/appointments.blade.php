@@ -2006,7 +2006,9 @@
                                                 </div>
                                                 <div class="office-address ">
                                                     <div class="top-block">
-                                                        <h3>{{$purchase_address->title}}</h3>
+                                                        <h3>{{$purchase_address->title}}@if (appointment_address_included(request()->order))
+                                                            (Included)
+                                                        @endif</h3>
                                                         <div class="price-block">
                                                             <strong>£{{$purchase_address->price}}</strong>
                                                             <p>Reserved annually at £{{$purchase_address->price}}</p>
@@ -2036,9 +2038,15 @@
                                                     </div>
                                                     <div class="btn-block">
                                                         <button class="btn" onclick="DetailsSection()">Details</button>
+                                                        @if (appointment_address_included(request()->order))
+                                                        <button class="btn buy-now-btn buyNowBtn"
+                                                        onclick="buyAdd('forwarding')">Choose Forwarding address</button>
+                                                        @else
                                                         <button class="btn buy-now-btn buyNowBtn"
                                                             onclick="buyAdd('forwarding')">Buy
                                                             Now</button>
+                                                        @endif
+
                                                         <button class="btn buy-now-btn d-none" id="removeBuy"
                                                             onclick="removeBuy()">Remove</button>
                                                     </div>
@@ -2975,7 +2983,7 @@
         })
         // Scroll to the top of the page
         function scrollToTop() {
-            window.scrollTo(0, 600);
+            window.scrollTo(0, 1000);
         }
         function scrollToTopDynamic(val) {
             window.scrollTo(0, val);

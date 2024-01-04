@@ -117,11 +117,37 @@ button.btn.btn-danger {
                         <div class="optional-sec pt-4">
                             <h4 class="form-ttl">Optional Extras</h4>
                             <div class="optional-wrap">
+                                @php
+                                    $package_name = '';
+                                     if(request()->routeIs('business-essential.index'))
+                                    {
+                                        $orders = App\Models\Order::where('user_id', auth()->id())->where('order_id',@$_GET['order'])->first();
+                                        if (@$orders->cart->package != null)
+                                        {
+                                            $package_name = @$orders->cart->package->package_name;
+                                        }
+                                    }
+                                @endphp
                                 @foreach($addonServices as $key => $service)
+                                @php
+                                     $include_with_packages=[];
+                                        if ($service->add_on_type!=null)
+                                        {
+                                            $include_with_packages = json_decode($service->add_on_type);
+                                        }
+                                @endphp
                                     <div class="optional-panel">
                                         <div class="optional-top">
                                             <div class="ttl">
-                                                <p><strong> {{ $service->service_name }} </strong></p>
+                                                <p><strong> {{ $service->service_name }}
+
+                                                @if ($package_name!='')
+                                                    @if(in_array($package_name, $include_with_packages) )
+                                                    <b><span> (Included with this package)</span></b>
+                                                     @endif
+                                                @endif
+
+                                                </strong></p>
                                             </div>
                                             <div class="price-btn">
                                                 <div class="price-block">

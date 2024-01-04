@@ -109,9 +109,20 @@
                            </div>
                            <div class="card-body">
                               @foreach($addonServices as $key => $addonService)
+                              @php
+                                $include_with_packages=[];
+                                if ($addonService->add_on_type!=null)
+                                {
+                                    $include_with_packages = json_decode($addonService->add_on_type);
+                                }
+                                @endphp
                                  <div class="row align-items-center mb-3 pb-2 addons">
                                     <div class="col-md-8 mb-2 mb-md-0">
-                                       <h6 class="mt-0">{{ $addonService->service_name }}</h6>
+                                       <h6 class="mt-0">{{ $addonService->service_name }}
+                                          @if(in_array($sessionCart[$indx]['package_name'], $include_with_packages) )
+                                          <b><span> (Included with this package)</span></b>
+                                          @endif
+                                    </h6>
                                        {{-- <p class="mt-0">{{ $addonService->short_desc }}</p> --}}
                                     </div>
                                     <div class="col-md-2 col-6 text-md-end"><span class="amount"><bdi><span class="Price-currencySymbol">£</span>{{ $addonService->price }}</bdi></span></div>
@@ -122,6 +133,7 @@
                                        <a href="javascript:void(0);" class="btn btn-primary btn-sm addserv addon_{{$addonService->id}}" data-url="{{ route('update-cart', ['id' => $addonService->id, 'indx' => $indx ]) }}" data-item="{{ $addonService->id }}">Add</a>
                                        {{-- @endif --}}
                                     </div>
+
                                  </div>
                               @endforeach
                            </div>

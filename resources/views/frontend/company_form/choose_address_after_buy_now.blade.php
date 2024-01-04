@@ -503,7 +503,9 @@
                                     </div>
                                     <div class="office-address ">
                                         <div class="top-block">
-                                            <h3>{{$purchase_address->title}}</h3>
+                                            <h3>{{$purchase_address->title}}@if (registered_address_included(request()->order))
+                                                (Included)
+                                            @endif</h3>
                                             <div class="price-block">
                                                 <strong>£{{$purchase_address->price}}</strong>
                                                 <p>Reserved annually at £{{$purchase_address->price}}</p>

@@ -1,6 +1,6 @@
 <!-- ================ start: main-footer ================ -->
 <div class="main-footer">
-    <div class="scroll_up">
+    <div class="scroll_up" id="scroll">
         <a href="#"><img src="{{ asset('frontend/assets/images/up-arrow.png')}}"></a>
     </div>
     <div class="custom-container">
@@ -249,4 +249,14 @@ $(document).ready(function(){
     $.cookie('cookie_hide', 'cookie_hide', { expires: 365, path: '/' });
   });
 });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){ 
+        $('#scroll').click(function(){ 
+            $("html, body").animate({ scrollTop: 0 }, 3500); 
+            return false; 
+        }); 
+    });
 </script>

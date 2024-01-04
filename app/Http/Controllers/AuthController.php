@@ -6,10 +6,12 @@ namespace App\Http\Controllers;
 // use Session;
 
 use App\Mail\UserRegistration;
+use App\Models\Accounting;
 use Illuminate\Http\Request;
 use App\Services\User\UserService;
 use App\Models\User;
 use App\Models\Address;
+use App\Models\BusinessBanking;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Country;
 use App\Services\Checkout\CheckoutService;
@@ -32,7 +34,9 @@ class AuthController extends Controller
     public function myAccount()
     {
         $user = Auth::user();
-        return view('frontend.my_account',compact('user'));
+        $businessdata = BusinessBanking::get();
+        $accounting = Accounting::get();
+        return view('frontend.my_account',compact('user','businessdata','accounting'));
     }
 
     public function login(Request $request)
@@ -236,7 +240,7 @@ class AuthController extends Controller
     }
 
     public function registerNewAddess(Request $request) {
-        
+
         $validate = Validator::make($request->all(), [
             'house_noNew' => 'required',
             'post_codeNew' => 'required',

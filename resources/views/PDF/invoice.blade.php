@@ -147,9 +147,9 @@
                                         </td>
                                     </tr>
 
-                                    @foreach ($all_order->cart->addonCartServices as $item)
+                                    @foreach (@$all_order->cart->addonCartServices as $item)
                                         @php
-                                            $net_total = $net_total + $item->service->price;
+                                            $net_total = $net_total + @$item->service->price;
                                             $vat = ($item->service->price * 20) / 100;
                                             $total_vat = $total_vat + $vat;
                                         @endphp
@@ -306,7 +306,7 @@
                                         </td>
                                         <td
                                             style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
-                                            <strong>£{{ $total_vat + (($all_order->cart->package->package_price+ $total_purchased_address_amount) * 20) / 100 }}</strong>
+                                            <strong>£{{ $total_vat + ((@$all_order->cart->package->package_price+ @$total_purchased_address_amount) * 20) / 100 }}</strong>
                                         </td>
                                         <td
                                             style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
@@ -316,6 +316,66 @@
                                             <strong>£{{ $total_price }}</strong>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td style="padding: 4px 10px;font-size:14px;">
+                                            <strong></strong>
+                                        </td>
+                                        <td
+                                            style="padding: 4px 10px;text-align: right;font-size:14px;">
+                                            <strong></strong>
+                                        </td>
+                                        <td
+                                            style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px">
+                                            <strong>Amount Paid:</strong>
+                                        </td>
+
+                                        <td
+                                            style="padding: 10px 10px;text-align: right;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
+                                            <strong></strong>
+                                        </td>
+                                        <td
+                                            style="padding: 10px 10px;text-align: right; font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
+                                            <strong></strong>
+                                        </td>
+                                        <td
+                                            style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
+
+                                            <strong>£{{$transaction->amount }}</strong>
+                                        </td>
+                                    </tr>
+                                    @php
+                                        $total_due = $total_price - $transaction->amount;
+                                        $total_due = round($total_due, 2);
+                                    @endphp
+                                    @if ($total_due>0.01)
+                                    <tr>
+                                        <td style="padding: 4px 10px;font-size:14px;">
+                                            <strong></strong>
+                                        </td>
+                                        <td
+                                            style="padding: 4px 10px;text-align: right;font-size:14px;">
+                                            <strong></strong>
+                                        </td>
+                                        <td
+                                            style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px">
+                                            <strong>Amount Due:</strong>
+                                        </td>
+
+                                        <td
+                                            style="padding: 10px 10px;text-align: right;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
+                                            <strong></strong>
+                                        </td>
+                                        <td
+                                            style="padding: 10px 10px;text-align: right; font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
+                                            <strong></strong>
+                                        </td>
+                                        <td
+                                            style="padding: 10px 10px;text-align: right;border-right: 1px solid #000;font-size:14px;border-bottom:1px solid #000;border-top: 1px solid #000;">
+
+                                            <strong>£{{$total_due }}</strong>
+                                        </td>
+                                    </tr>
+                                    @endif
                                 </table>
                             </td>
                         </tr>

@@ -145,14 +145,16 @@
                                                     @foreach ($edit_service_purchased as $key => $values)
 
                                                         @foreach ($values->companyEditRequests as $key => $r_value)
+                                                        @if ($r_value->price!=0)
+
                                                             <tr>
 
                                                                 <td>{{$r_value->service_name}}</td>
                                                                 <td>{{date('d-m-Y', strtotime($values->updated_at))}}</td>
                                                                 <td></td>
                                                             </tr>
+                                                            @endif
                                                         @endforeach
-
                                                     @endforeach
 
                                                     @foreach ($service_purchased_from_inside as $key => $value)

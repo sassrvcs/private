@@ -154,7 +154,7 @@
                                                                     </div>
                                                                     <div class="desc">
                                                                         <h3>{{ $businessBank->title ?? "" }}</h3>
-                                                                        <p><span style="color: black;">{{ $businessBank->short_description }}</span></p>
+                                                                        <p><span style="color: black;">{{ $businessBank->long_description }}</span></p>
                                                                     </div>
                                                                 </div>
                                                                 {{-- <div class="info">
@@ -202,7 +202,7 @@
                                                                     </div>
                                                                     <div class="desc">
                                                                         <h3>{{ $businessService->accounting_software_name ?? " " }}</h3>
-                                                                        <p><span style="color: black;">{{ $businessService->short_desc  ?? ''}}</span></p>
+                                                                        <p><span style="color: black;">{!! $businessService->long_desc  ?? '' !!}</span></p>
                                                                     </div>
                                                                 </div>
                                                                 {{-- <div class="info">
