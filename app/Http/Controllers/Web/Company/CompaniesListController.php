@@ -71,7 +71,7 @@ class CompaniesListController extends Controller
     public function importCompany(Request $request){
 
             if($request->isMethod('post')){
-                $exist_company = Order::where('company_number',$request->company_number)->first();
+                $exist_company = Order::where('company_number',$request->company_number)->where('user_id',auth()->user()->id)->first();
                 if($exist_company){
                     $fetch_result=[];
                     $company_number='';
