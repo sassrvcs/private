@@ -52,6 +52,8 @@ class DeliverPartnerServiceController extends Controller
         $user = Auth::user();
         $countries = Country::all();
 
+        $delivery_details = DeliveryPartnerDetail::where('order_id',$order_id)->first();
+
         $primary_address = Address::join('countries','countries.id','=','addresses.billing_country')
                                     ->select('countries.name as country_name','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country','addresses.id as addrees_id')
                                     ->where('addresses.user_id',Auth::user()->id)
@@ -126,7 +128,7 @@ class DeliverPartnerServiceController extends Controller
         if(empty($billing_address_list)){
             $billing_address_list = $primary_address_list ;
         }
-        return view('frontend.company_form.deliver_partner.delivery_service',compact('deliveryPartner','user','primary_address','billing_address','countries','primary_address_list','billing_address_list','all_order','net_total','total_vat','partner_services_contact_name','purchased_company_addresses','purchased_appointment_addresses','total_purchased_address_amount'));
+        return view('frontend.company_form.deliver_partner.delivery_service',compact('deliveryPartner','user','primary_address','billing_address','countries','primary_address_list','billing_address_list','all_order','net_total','total_vat','partner_services_contact_name','purchased_company_addresses','purchased_appointment_addresses','total_purchased_address_amount','delivery_details'));
 
     }
     // public function fetchPartnerDetails()
