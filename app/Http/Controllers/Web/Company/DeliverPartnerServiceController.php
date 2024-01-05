@@ -144,7 +144,7 @@ class DeliverPartnerServiceController extends Controller
      */
     public function create(Request $request)
     {
-        // dd($request);
+
         $exist_order = DeliveryPartnerDetail::where('order_id',$request->order_id)->first();
         if($exist_order){
             $exist_order->delete();
@@ -187,7 +187,14 @@ class DeliverPartnerServiceController extends Controller
             elseif($company_details->companie_type=='Limited Liability Partnership'){
                 $this->xmlService->byLLPModel($request->order_id);
             }
-            return redirect( route('checkout', ['order' => $request->order_id,'step'=>'final_payment']) );
+
+            if($request->due_amount==0){
+                return view('frontend.company_form.deliver_partner.success');
+
+            }else{
+
+                return redirect( route('checkout', ['order' => $request->order_id,'step'=>'final_payment']) );
+            }
 
 
         }else{
@@ -195,6 +202,7 @@ class DeliverPartnerServiceController extends Controller
         }
     }
 
+  
     /**
      * Store a newly created resource in storage.
      *

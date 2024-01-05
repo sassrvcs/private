@@ -11,7 +11,7 @@
 
         .my-error-class {
             color: #FF0000 !important;
-            margin-left: 6px!important;
+            margin-left: 6px !important;
             /* red */
         }
 
@@ -112,38 +112,36 @@
                                                                 <td>£{{ $vat }}</td>
                                                             </tr>
                                                         @endforeach
-                                                        @if ($purchased_company_addresses!=null)
-                                                         @foreach ($purchased_company_addresses as $item)
-                                                            {{-- @php
+                                                        @if ($purchased_company_addresses != null)
+                                                            @foreach ($purchased_company_addresses as $item)
+                                                                {{-- @php
                                                                 $net_total = $net_total + $item->service->price;
                                                                 $vat = ($item->service->price * 20) / 100;
                                                                 $total_vat = $total_vat + $vat;
                                                             @endphp --}}
-                                                            <tr>
-                                                                <td>{{$item->address_type=='registered_address'?'Registered Address':'Business Address'}}</td>
-                                                                <td>1</td>
-                                                                <td>{{$item->price}}</td>
-                                                                <td>{{$item->price}}</td>
-                                                                <td>{{($item->price*20)/100}}</td>
-                                                            </tr>
-                                                          @endforeach
+                                                                <tr>
+                                                                    <td>{{ $item->address_type == 'registered_address' ? 'Registered Address' : 'Business Address' }}
+                                                                    </td>
+                                                                    <td>1</td>
+                                                                    <td>{{ $item->price }}</td>
+                                                                    <td>{{ $item->price }}</td>
+                                                                    <td>{{ ($item->price * 20) / 100 }}</td>
+                                                                </tr>
+                                                            @endforeach
                                                         @endif
-                                                    @if ($purchased_appointment_addresses!=null)
-                                                    @foreach ($purchased_appointment_addresses as $item)
-                                                            @if ($item->total_sum!=0)
-
-                                                        <tr>
-                                                            <td>Service Address</td>
-                                                            <td>{{$item->qnt}}</td>
-                                                            <td>{{$item->total_sum}}</td>
-                                                            <td>{{$item->total_sum}}</td>
-                                                            <td>{{($item->total_sum*20)/100}}</td>
-                                                        </tr>
+                                                        @if ($purchased_appointment_addresses != null)
+                                                            @foreach ($purchased_appointment_addresses as $item)
+                                                                @if ($item->total_sum != 0)
+                                                                    <tr>
+                                                                        <td>Service Address</td>
+                                                                        <td>{{ $item->qnt }}</td>
+                                                                        <td>{{ $item->total_sum }}</td>
+                                                                        <td>{{ $item->total_sum }}</td>
+                                                                        <td>{{ ($item->total_sum * 20) / 100 }}</td>
+                                                                    </tr>
+                                                                @endif
+                                                            @endforeach
                                                         @endif
-
-                                                    @endforeach
-
-                                                    @endif
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
@@ -157,14 +155,14 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td>
-                                                                <p>£{{ $net_total + $total_purchased_address_amount+$all_order->cart->package->package_price }}
+                                                                <p>£{{ $net_total + $total_purchased_address_amount + $all_order->cart->package->package_price }}
                                                                 </p>
-                                                                <p>£{{ $total_vat + (($all_order->cart->package->package_price+$total_purchased_address_amount) * 20) / 100 }}
+                                                                <p>£{{ $total_vat + (($all_order->cart->package->package_price + $total_purchased_address_amount) * 20) / 100 }}
                                                                 </p>
                                                                 @php
-                                                                    $total_price = $net_total + $total_purchased_address_amount+$all_order->cart->package->package_price + ($total_vat + (($all_order->cart->package->package_price+$total_purchased_address_amount) * 20) / 100);
+                                                                    $total_price = $net_total + $total_purchased_address_amount + $all_order->cart->package->package_price + ($total_vat + (($all_order->cart->package->package_price + $total_purchased_address_amount) * 20) / 100);
                                                                     $total_paid = \App\Models\orderTransaction::where('order_id', $_GET['order'])->sum('amount');
-                                                                    $due_amount = $total_price - $total_paid;
+                                                                    $due_amount = round($total_price - $total_paid, 2);
                                                                 @endphp
                                                                 <strong>£{{ $total_price }}</strong>
                                                             </td>
@@ -288,7 +286,8 @@
                                                         <button type="button" id="choosePrimaryAddress"
                                                             class="efButton efEditButton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only theme-btn-primary-force"
                                                             id="openModalButton" role="button" aria-disabled="false"
-                                                            fdprocessedid="4xigk"><span class="ui-button-text" onclick="openModal()" style="margin-left:10px"> Choose
+                                                            fdprocessedid="4xigk"><span class="ui-button-text"
+                                                                onclick="openModal()" style="margin-left:10px"> Choose
                                                                 Another</span></button>
                                                         {{-- <button class="btn" id="choosePrimaryAddress" role="button"
                                                             aria-disabled="false">Choose Address</button> --}}
@@ -296,12 +295,14 @@
                                                     <li>
                                                         <label>Your Date of Birth :</label>
                                                         <input type="date" id="dob" name="dob"
-                                                            class="form-control" max="{{ now()->subYears(16)->format('Y-m-d') }}" value="{{ @$delivery_details->dob }}">
+                                                            class="form-control"
+                                                            max="{{ now()->subYears(16)->format('Y-m-d') }}"
+                                                            value="{{ @$delivery_details->dob }}">
                                                     </li>
                                                     <li class="align-items-start">
                                                         <label for="">What is your relation to this company? :
                                                         </label>
-                                                        <textarea class="form-control" id="relation_area" name="relation_area" >{{ @$delivery_details->relation }}</textarea>
+                                                        <textarea class="form-control" id="relation_area" name="relation_area">{{ @$delivery_details->relation }}</textarea>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -321,10 +322,16 @@
                                                 <ul class="feild-list">
                                                     <li>
                                                         <label>Referring </label>
-                                                        <select class="form-control" name="contact_referer" id="fetchParterDetails">
-                                                            <option value="" selected="selected">Please Select</option>
-                                                            <option value="myself" {{ @$delivery_details->referring == 'myself' ? 'selected' : '' }}>Myself</option>
-                                                            <option value="somebodyelse" {{ @$delivery_details->referring == 'somebodyelse' ? 'selected' : '' }}>Somebody Else</option>
+                                                        <select class="form-control" name="contact_referer"
+                                                            id="fetchParterDetails">
+                                                            <option value="" selected="selected">Please Select
+                                                            </option>
+                                                            <option value="myself"
+                                                                {{ @$delivery_details->referring == 'myself' ? 'selected' : '' }}>
+                                                                Myself</option>
+                                                            <option value="somebodyelse"
+                                                                {{ @$delivery_details->referring == 'somebodyelse' ? 'selected' : '' }}>
+                                                                Somebody Else</option>
                                                         </select>
 
                                                     </li>
@@ -333,7 +340,7 @@
                                                         <input type="text" class="form-control" name="referrer_name"
                                                             value="{{ $user->forename }} {{ $user->surname }}">
                                                     </li>
-                                                   {{-- <li>
+                                                    {{-- <li>
                                                         <label>Contact Name : </label>
                                                         <select class="form-control" id="contact_name"
                                                             name="contact_name">
@@ -353,14 +360,17 @@
 
                                                     <li>
                                                         <label>Contact Name :</label>
-                                                        <select class="form-control" id="contact_name" name="contact_name">
+                                                        <select class="form-control" id="contact_name"
+                                                            name="contact_name">
                                                             <option value="">Please Select</option>
                                                             @forelse ($partner_services_contact_name as $partner_name)
-                                                                <option value="{{ $partner_name['first_name'] }} {{ $partner_name['last_name'] }}"
+                                                                <option
+                                                                    value="{{ $partner_name['first_name'] }} {{ $partner_name['last_name'] }}"
                                                                     data-address="@if ($partner_name['house_number']) {{ $partner_name['house_number'] }}, @endif @if ($partner_name['street']) {{ $partner_name['street'] }}, @endif @if ($partner_name['locality']) {{ $partner_name['locality'] }}, @endif @if ($partner_name['town']) {{ $partner_name['town'] }}, @endif @if ($partner_name['county']) {{ $partner_name['county'] }}, @endif @if ($partner_name['post_code']) {{ $partner_name['post_code'] }} @endif"
                                                                     data-add-id="{{ $partner_name['add_id'] }}"
-                                                                    {{ $delivery_details->contact_name == $partner_name['first_name'].' '.$partner_name['last_name'] ? 'selected' : '' }}>
-                                                                    {{ $partner_name['first_name'] }} {{ $partner_name['last_name'] }}
+                                                                    {{ @$delivery_details->contact_name == $partner_name['first_name'] . ' ' . $partner_name['last_name'] ? 'selected' : '' }}>
+                                                                    {{ $partner_name['first_name'] }}
+                                                                    {{ $partner_name['last_name'] }}
                                                                 </option>
                                                             @empty
                                                                 <option value="">No data found</option>
@@ -370,32 +380,42 @@
 
                                                     <li>
                                                         <label>Contact Email : </label>
-                                                        <input type="email" class="form-control" name="contact_email" value="{{ @$delivery_details->contact_email }}">
+                                                        <input type="email" class="form-control" name="contact_email"
+                                                            value="{{ @$delivery_details->contact_email }}">
                                                     </li>
                                                     <li class="uk_phone">
                                                         <label>Contact Phone : </label>
                                                         <span>+44</span>
                                                         <input type="number" class="form-control" name="contact_phone"
-                                                            id="contact_phone" minlength="10" maxlength="10" value="{{ @$delivery_details->contact_phone }}">
+                                                            id="contact_phone" minlength="10" maxlength="10"
+                                                            value="{{ @$delivery_details->contact_phone }}">
                                                     </li>
                                                     <li class="uk_phone">
                                                         <label>Contact Mobile : </label>
                                                         <span>+44</span>
                                                         <input type="number" class="form-control" name="contact_mobile"
-                                                            id="contact_mobile" minlength="10" maxlength="10" value="{{ @$delivery_details->contact_mobile }}">
+                                                            id="contact_mobile" minlength="10" maxlength="10"
+                                                            value="{{ @$delivery_details->contact_mobile }}">
                                                     </li>
                                                     <li>
                                                         <label>Preferred Call Time : </label>
                                                         <select class="form-control" name="call_time">
-                                                            <option value="Morning" {{ @$delivery_details->contact_calltime == 'Morning' ? 'selected' : '' }}>Morning</option>
-                                                            <option value="Afternoon" {{ @$delivery_details->contact_calltime == 'Afternoon' ? 'selected' : '' }}>Afternoon</option>
-                                                            <option value="Evening" {{ @$delivery_details->contact_calltime == 'Evening' ? 'selected' : '' }}>Evening</option>
+                                                            <option value="Morning"
+                                                                {{ @$delivery_details->contact_calltime == 'Morning' ? 'selected' : '' }}>
+                                                                Morning</option>
+                                                            <option value="Afternoon"
+                                                                {{ @$delivery_details->contact_calltime == 'Afternoon' ? 'selected' : '' }}>
+                                                                Afternoon</option>
+                                                            <option value="Evening"
+                                                                {{ @$delivery_details->contact_calltime == 'Evening' ? 'selected' : '' }}>
+                                                                Evening</option>
                                                         </select>
                                                     </li>
                                                     <li>
                                                         <label for="">Residential Address : </label>
                                                         <input type="text" class="form-control" name="res_address"
-                                                            id="res_address" value="{{ @$delivery_details->contact_address }}"> 
+                                                            id="res_address"
+                                                            value="{{ @$delivery_details->contact_address }}">
                                                         <input type="text" class="form-control" name="res_address_id"
                                                             id="res_address_id" hidden>
                                                         {{-- <span>@foreach ($primary_address as $key => $value)
@@ -433,8 +453,9 @@
                                                                 href="{{ route('page', ['slug' => 'gdpr-privacy-policy']) }}">Privacy
                                                                 Policy</a></strong></label>
                                                 </div>
+                                                <input type="hidden" name="due_amount" value="{{ $due_amount }}">
                                                 <div class="step-btn-wrap mt-4">
-                                                    <button class="btn" type="submit" id="submitBtn">Submit</button>
+                                                    <button class="btn" type="submit" id="submitBtn" onclick="$('#overlay').fadeIn(300)">Submit</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -543,9 +564,14 @@
             </div>
         </div>
     </div>
+
+    <div id="overlay">
+        <div class="cv-spinner">
+            <span class="spinner"></span>
+        </div>
+    </div>
 @endsection
 @section('script')
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
 
@@ -624,9 +650,10 @@
 
             });
         });
-        function openModal(){
+
+        function openModal() {
             console.log('hit');
-                $('#choosePrimaryAddressModalData').modal('show');
+            $('#choosePrimaryAddressModalData').modal('show');
 
         }
 
@@ -668,31 +695,41 @@
         }
 
 
+        // $('#submitBtn').click(function(){
+        //     console.log('under Click');
+        //     $("#overlay").fadeIn(300);　
+        //     // $('#submitBtn').prop('disabled', true).text('Submitting...');
 
+        // })
 
         $('#delivery_form').validate({
             errorClass: "my-error-class",
-                rules: {
-                    recipient_name: "required",
-                    recipient_email: "required",
-                    regulated: "required",
-                    dob: {
-                        dobNotLessThan18: true,
-                        required: true,
-                    },
-                    relation_area: "required",
-                    contact_name: "required",
-                    contact_email: "required",
-                    contact_phone: {
-                        required: true
-                    },
-                    contact_mobile: "required",
-                    res_address: "required",
-                    i_confirm: "required",
-                    receive_updates: "required",
-                    terms: "required",
+            rules: {
+                recipient_name: "required",
+                recipient_email: "required",
+                regulated: "required",
+                dob: {
+                    dobNotLessThan18: true,
+                    required: true,
+                },
+                relation_area: "required",
+                contact_name: "required",
+                contact_email: "required",
+                contact_phone: {
+                    required: true
+                },
+                contact_mobile: "required",
+                res_address: "required",
+                i_confirm: "required",
+                receive_updates: "required",
+                terms: "required",
             },
-            submitHandler: function() {               
+            invalidHandler: function(event, validator) {
+                $("#overlay").fadeOut(300);
+
+            },
+            submitHandler: function() {
+
                 $('#submitBtn').prop('disabled', true).text('Submitting...');
 
                 $('#delivery_form').submit();
@@ -700,10 +737,48 @@
 
         });
         $.validator.addMethod("dobNotLessThan18", function(value, element) {
-                var inputDate = new Date(value);
-                var minDate = new Date();
-                minDate.setFullYear(minDate.getFullYear() - 16);
-                return inputDate <= minDate;
-            }, "You must be at least 16 years old.");
+            var inputDate = new Date(value);
+            var minDate = new Date();
+            minDate.setFullYear(minDate.getFullYear() - 16);
+            return inputDate <= minDate;
+        }, "You must be at least 16 years old.");
     </script>
+
+    <style>
+        #overlay {
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .cv-spinner {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px #ddd solid;
+            border-top: 4px #2e93e6 solid;
+            border-radius: 50%;
+            animation: sp-anime 0.8s infinite linear;
+        }
+
+        @keyframes sp-anime {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .is-hide {
+            display: none;
+        }
+    </style>
 @endsection
