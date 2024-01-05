@@ -55,7 +55,10 @@
                                         <option value="2" {{ (isset($_GET['status_value']) && $_GET['status_value'] == "2") ? 'selected' : '' }}>Processing</option>
                                         <option value="3" {{ (isset($_GET['status_value']) && $_GET['status_value'] == "3") ? 'selected' : '' }}>Approved</option>
                                         <option value="4" {{ (isset($_GET['status_value']) && $_GET['status_value'] == "4") ? 'selected' : '' }}>Rejected</option>
-
+                                        <option value="5" {{ (isset($_GET['status_value']) && $_GET['status_value'] == "5") ? 'selected' : '' }}>Awaiting Documents</option>
+                                        <option value="6" {{ (isset($_GET['status_value']) && $_GET['status_value'] == "6") ? 'selected' : '' }}>Validating</option>
+                                        <option value="7" {{ (isset($_GET['status_value']) && $_GET['status_value'] == "7") ? 'selected' : '' }}>Action Required</option>
+                                        <option value="8" {{ (isset($_GET['status_value']) && $_GET['status_value'] == "8") ? 'selected' : '' }}>Imported</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -140,7 +143,7 @@
 
                                                 @endphp
 
-                                                <td><span class="status @if($company_status == '0' || $company_status == '1' || $company_status == '2') incomplete @elseif ($company_status == '3')accepted @elseif ($company_status == '4') rejected @else incomplete @endif ">
+                                                <td><span class="status @if($company_status == '0' || $company_status == '1' || $company_status == '2') incomplete @elseif ($company_status == '3' || $company_status == '8' )accepted @elseif ($company_status == '4') rejected @else incomplete @endif ">
 
                                                     @if ($company_status == '0' )
                                                         INCOMPLETE
@@ -152,7 +155,8 @@
                                                         APPROVED
                                                     @elseif ($company_status == '4')
                                                         REJECTED
-
+                                                    @elseif ($company_status == '8')
+                                                        IMPORTED
                                                     @else
                                                         INCOMPLETE
                                                     @endif</span>
@@ -165,7 +169,7 @@
                                                         </button>
                                                     @endif
                                                 </td>
-                                                @if($company_status == '3')
+                                                @if($company_status == '3' || $company_status == '8' )
                                                     <td>
                                                         <a href="{{ route('accepted-company', ['order' => $order->order_id,'c_id'=>$order->getCompanyByOrderId->id]) }}" class="view-btn">
                                                             View

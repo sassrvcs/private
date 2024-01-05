@@ -45,12 +45,12 @@
                                     <div class="field-box">
                                         <label for="">Company Number:</label>
                                         <input type="text" name="company_number" id="company-number"
-                                            value="{{ $company_number }}" class="field" required>
+                                            value="{{ $request->company_number }}" class="field" required>
                                     </div>
                                     <div class="field-box">
                                         <label for="">Auth. Code:</label>
                                         <input type="text" name="company_authcode" id="company-authcode"
-                                            value="{{ $company_authcode }}" class="field" required>
+                                            value="{{ $request->company_authcode }}" class="field" required>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -129,42 +129,42 @@
                                             <li>
                                                 <p>Line 1:</p>
                                                 <span>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control"
                                                         @if ($fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Premise'] != null) value="{{ $fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Premise'] }}" @endif>
                                                 </span>
                                             </li>
                                             <li>
                                                 <p>Line 2:</p>
                                                 <span>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control"
                                                         value="{{ $fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Street'] }}">
                                                 </span>
                                             </li>
                                             <li>
                                                 <p>Line 3:</p>
                                                 <span>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control"
                                                     @if (isset($fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Thoroughfare']))   value="{{ $fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Thoroughfare'] }}" @endif>
                                                 </span>
                                             </li>
                                             <li>
                                                 <p>Town: </p>
                                                 <span>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control"
                                                         value="{{ $fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['PostTown'] }}">
                                                 </span>
                                             </li>
                                             <li>
                                                 <p>Postcode:</p>
                                                 <span>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control"
                                                         value="{{ $fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Postcode'] }}">
                                                 </span>
                                             </li>
                                             <li>
                                                 <p>Country:</p>
                                                 <span>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="text" class="form-control"
                                                         value="{{ $fetch_result['Body']['CompanyData']['RegisteredOfficeAddress']['Country'] }}">
                                                 </span>
                                             </li>
@@ -179,6 +179,13 @@
                 </form>
             </div>
             </div>
+        @else
+        @if ($msg!=null)
+        <div class="alert alert-danger" role="alert" style="text-align: center!important">
+            {{$msg}}
+          </div>
+        @endif
+
         @endif
 
     </section>
@@ -187,6 +194,13 @@
 
 <style>
     /* start: company-add-form-box*/
+    /* .result-data{
+        padding: 8px;
+        color: white;
+        background: red;
+        margin: 10px;
+        text-align: center;
+    } */
     .company-add-form-box {}
 
     .company-add-form-box .company-add-form-box-header {

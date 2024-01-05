@@ -36,9 +36,6 @@ use App\Models\orderServiceTransaction;
 use App\Models\Accounting;
 use App\Models\BusinessBanking;
 use App\Models\BusinessEssential;
-
-
-
 use Illuminate\Support\Facades\Storage;
 use PDF;
 use Illuminate\Support\Str;
@@ -73,18 +70,37 @@ class CompaniesListController extends Controller
 
     public function importCompany(Request $request){
 
-        if($request->isMethod('post')){
+            if($request->isMethod('post')){
+                $exist_company = Order::where('company_number',$request->company_number)->first();
+                if($exist_company){
+                    $fetch_result=[];
+                    $company_number='';
+                    $company_authcode='';
+                    $msg='Company already exists under this account.';
+                    return view('frontend.companies.import_company',compact('fetch_result','company_number','company_authcode','request','msg'));
+                }
 
-            $fetch_result= $this->xmlService->importCompany($request);
-            $company_number=$request->company_number;
-            $company_authcode=$request->company_authcode;
-            return view('frontend.companies.import_company',compact('fetch_result','company_number','company_authcode','request'));
-        }else{
-            $fetch_result=[];
-            $company_number='';
-            $company_authcode='';
-            return view('frontend.companies.import_company',compact('fetch_result','company_number','company_authcode','request'));
-        }
+                $fetch_result= $this->xmlService->importCompany($request);
+                if($fetch_result['Body']!=null){
+                    $company_number=$request->company_number;
+                    $company_authcode=$request->company_authcode;
+                    $msg = '';
+                }else{
+                    $fetch_result=[];
+                    $company_number='';
+                    $company_authcode='';
+                    $msg = 'Company not found. Please confirm correct entry of details.';
+                }
+
+                return view('frontend.companies.import_company',compact('fetch_result','company_number','company_authcode','request','msg'));
+            }else{
+                $fetch_result=[];
+                $company_number='';
+                $company_authcode='';
+                $msg='';
+                return view('frontend.companies.import_company',compact('fetch_result','company_number','company_authcode','request','msg'));
+            }
+
 
     }
 
@@ -94,7 +110,7 @@ class CompaniesListController extends Controller
         // dd($fetch_result);
         if($fetch_result){
             //--------------- Create Order----------------
-            $company_name_exist = Companie::where('companie_name',$fetch_result['Body']['CompanyData']['CompanyName'])->first();
+            // $company_name_exist = Companie::where('companie_name',$fetch_result['Body']['CompanyData']['CompanyName'])->first();
             // if(!$company_name_exist){
 
                 if($fetch_result['Body']['CompanyData']['CompanyCategory']== 'BYSHR'){
@@ -169,7 +185,7 @@ class CompaniesListController extends Controller
                 $company->office_address = $Office_address->id;
                 $company->companie_name = $fetch_result['Body']['CompanyData']['CompanyName'];
                 $company->companie_type = $company_type;
-                $company->status= '3';
+                $company->status= '8';
                 $company->made_upto= $fetch_result['Body']['CompanyData']['MadeUpDate'];
                 $company->due_date= $fetch_result['Body']['CompanyData']['NextDueDate'];
                 $company->save();
@@ -802,7 +818,7 @@ class CompaniesListController extends Controller
                 }
 
 
-
+            // }
 
 
         }
