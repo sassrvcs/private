@@ -52,6 +52,8 @@ class DeliverPartnerServiceController extends Controller
         $user = Auth::user();
         $countries = Country::all();
 
+        $delivery_details = DeliveryPartnerDetail::where('order_id',$order_id)->first();
+
         $primary_address = Address::join('countries','countries.id','=','addresses.billing_country')
                                     ->select('countries.name as country_name','addresses.user_id','addresses.address_type','addresses.house_number','addresses.street','addresses.town','addresses.locality','addresses.county','addresses.post_code','addresses.billing_country','addresses.id as addrees_id')
                                     ->where('addresses.user_id',Auth::user()->id)
@@ -126,7 +128,7 @@ class DeliverPartnerServiceController extends Controller
         if(empty($billing_address_list)){
             $billing_address_list = $primary_address_list ;
         }
-        return view('frontend.company_form.deliver_partner.delivery_service',compact('deliveryPartner','user','primary_address','billing_address','countries','primary_address_list','billing_address_list','all_order','net_total','total_vat','partner_services_contact_name','purchased_company_addresses','purchased_appointment_addresses','total_purchased_address_amount'));
+        return view('frontend.company_form.deliver_partner.delivery_service',compact('deliveryPartner','user','primary_address','billing_address','countries','primary_address_list','billing_address_list','all_order','net_total','total_vat','partner_services_contact_name','purchased_company_addresses','purchased_appointment_addresses','total_purchased_address_amount','delivery_details'));
 
     }
     // public function fetchPartnerDetails()
@@ -142,7 +144,7 @@ class DeliverPartnerServiceController extends Controller
      */
     public function create(Request $request)
     {
-        // dd($request);
+
         $exist_order = DeliveryPartnerDetail::where('order_id',$request->order_id)->first();
         if($exist_order){
             $exist_order->delete();
@@ -185,7 +187,14 @@ class DeliverPartnerServiceController extends Controller
             elseif($company_details->companie_type=='Limited Liability Partnership'){
                 $this->xmlService->byLLPModel($request->order_id);
             }
-            return redirect( route('checkout', ['order' => $request->order_id,'step'=>'final_payment']) );
+
+            if($request->due_amount==0){
+                return view('frontend.company_form.deliver_partner.success');
+
+            }else{
+
+                return redirect( route('checkout', ['order' => $request->order_id,'step'=>'final_payment']) );
+            }
 
 
         }else{
@@ -193,6 +202,7 @@ class DeliverPartnerServiceController extends Controller
         }
     }
 
+  
     /**
      * Store a newly created resource in storage.
      *

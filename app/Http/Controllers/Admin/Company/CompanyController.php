@@ -48,7 +48,11 @@ class CompanyController extends Controller
             '1' => 'Pending',
             '2' => 'In progress',
             '3' => 'Approved',
-            '4' => 'Reject'
+            '4' => 'Reject',
+            '5' => 'Awaiting Documents',
+            '6' => 'Validating',
+            '7' => 'Action Required'
+
         ];
 
         if ($request->routeIs('admin.company-download-report')) {
@@ -354,7 +358,7 @@ class CompanyController extends Controller
         if ($order) {
             $order->company_number = $company_number;
             $order->auth_code = $auth_code;
-            $order->order_status = $status;
+            // $order->order_status = $status;
 
             //update
             $order->save();
