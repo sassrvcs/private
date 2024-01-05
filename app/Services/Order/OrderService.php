@@ -17,36 +17,36 @@ class OrderService
     /**
      * Order listing
      */
-    // public function index($status = "")
-    // {
-    //     $orders = Order::with('transactions')->where('user_id', auth()->user()->id);
-
-    //     if (!empty($status)) {
-    //         $orders = $orders->where('order_status', $status);
-    //     }
-
-    //     $orders = $orders->paginate(50);
-
-    //     return $orders;
-    // }
-
     public function index($status = "")
     {
-        $orders = Order::with('transactions')
-            ->leftJoin('companies', 'orders.order_id', '=', 'companies.order_id')
-            ->where('orders.user_id', auth()->user()->id);
+        $orders = Order::with('transactions')->where('user_id', auth()->user()->id);
 
         if (!empty($status)) {
-            $orders = $orders->where('orders.order_status', $status);
+            $orders = $orders->where('order_status', $status);
         }
 
-        $orders = $orders
-            ->where('companies.status', '!=', 8)
-            ->select('orders.*')
-            ->paginate(50);
+        $orders = $orders->paginate(50);
 
         return $orders;
     }
+
+    // public function index($status = "")
+    // {
+    //     $orders = Order::with('transactions')
+    //         ->leftJoin('companies', 'orders.order_id', '=', 'companies.order_id')
+    //         ->where('orders.user_id', auth()->user()->id);
+
+    //     if (!empty($status)) {
+    //         $orders = $orders->where('orders.order_status', $status);
+    //     }
+
+    //     $orders = $orders
+    //         ->where('companies.status', '!=', 8)
+    //         ->select('orders.*')
+    //         ->paginate(50);
+
+    //     return $orders;
+    // }
 
 
     /**

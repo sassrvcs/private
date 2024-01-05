@@ -111,6 +111,7 @@
                                         <th>Comp. No.</th>
                                         <th>Auth. Code</th>
                                         <th>Admin Comment</th>
+                                        <th>Supporting Doc</th>
                                         <th>Approval</th>
                                         {{-- <th>Action</th> --}}
                                         <th>Action</th>
@@ -196,6 +197,7 @@
                                                         ->first();
 
                                             @endphp
+
                                             <td>
                                                 <input type="text" name="auth_code_{{ $order->order_id }}"
                                                         id="auth_code_{{ $order->order_id }}"
@@ -209,6 +211,28 @@
                                                         value="{{ $admin_comment ?? '' }}">
                                                 <span class="error"
                                                         id="error_admin_comment_{{ $order->order_id }}"></span>
+                                            </td>
+                                            <td>
+                                                @php
+                                                    $orders = App\Models\Order::where('order_id', $order->order_id )->first();
+
+                                                        $sensitiveFirstMedia = $orders->getFirstMedia('sensetive-document');
+                                                        $sameAsFirstMedia = $orders->getFirstMedia('same-as-name-document');
+                                                        if($sensitiveFirstMedia) {
+                                                            $documentName = $sensitiveFirstMedia ? $sensitiveFirstMedia->file_name : '';
+                                                            $documentUrl = $sensitiveFirstMedia ? $sensitiveFirstMedia->getUrl() : '';
+                                                        } else {
+                                                            $documentName = $sameAsFirstMedia ? $sameAsFirstMedia->file_name : '';
+                                                            $documentUrl = $sameAsFirstMedia ? $sameAsFirstMedia->getUrl() : '';
+                                                        }
+                                                        $mediaDoc = [
+                                                            'name' => $documentName,
+                                                            'url'  => $documentUrl,
+                                                        ];
+                                                @endphp
+                                                @if (!empty($mediaDoc['url']))
+                                                    <a href="{{ $mediaDoc['url'] }}" target="_blank" class="btn btn_baseColor btn-sm">View</a>
+                                                @endif
                                             </td>
                                             <td>
                                                 {{-- <span class="status {{ ($order->order_status == 'pending') ? 'incomplete' : 'accepted' }}">

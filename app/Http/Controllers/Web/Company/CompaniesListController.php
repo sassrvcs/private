@@ -1339,7 +1339,7 @@ class CompaniesListController extends Controller
             // return $filePath;
             $direct_submit = $d_pay;
             try {
-                Mail::to('debasish.ghosh@technoexponent.co.in')->send(new CompanyEditAdmin($cart_items,$purchase_address,$filePath,$direct_submit,$order_particulars));
+                Mail::to('contact@formationshunt.co.uk')->send(new CompanyEditAdmin($cart_items,$purchase_address,$filePath,$direct_submit,$order_particulars));
                 Mail::to($order_particulars->recipient_email)->send(new CompanyEditCustomer($cart_items,$purchase_address,$filePath,$user,$direct_submit,$order_particulars->recipient_name));
             }catch (\Exception $e) {
                 // dd($e);

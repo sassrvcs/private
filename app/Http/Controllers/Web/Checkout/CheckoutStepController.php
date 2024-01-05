@@ -155,36 +155,43 @@ class CheckoutStepController extends Controller
 
         $order = $request->order.'/'.uniqid().Str::random(10);
 
-        $paymentUrl = "https://mdepayments.epdq.co.uk/ncol/test/orderstandard_utf8.asp"; // Barclays payment gateway URL
-        $pspid = "epdq1638710";
-        $shaInPasscode = "";
-        $shaOutPasscode = "F&I4s97SdqEE(lDAaJ";
-        $amount = $request->total_amount *100;
-        $currency = "GBP";
-        // $orderID = "ORDER12356".time();
-        $formData = array(
-            "PSPID" => $pspid,
-            "orderID" => $order,
-            "amount" => $amount,
-            "order" => $request->order,
-            "currency" => $currency,
-            "ACCEPTURL" => route('payment-success'),
-            "DECLINEURL" => route('payment-declined'),
-            "EXCEPTIONURL" => route('payment-exception'),
-            "CANCELURL" => route('payment-cancelled')
-        );
+        $details = [
+            'order_id' => $order,
+            'total_amount' => $request->total_amount,
+            'accept_url' => route('payment-success'),
+        ];
+        return $this->ProcessPayment($request,$details);
 
-        ksort($formData);
-        // dd($formData);
-        $shaString = "";
-        foreach ($formData as $field => $value) {
-            $shaString .= strtoupper($field) . "=" . $value . $shaOutPasscode;
-        }
+        // $paymentUrl = "https://mdepayments.epdq.co.uk/ncol/test/orderstandard_utf8.asp"; // Barclays payment gateway URL
+        // $pspid = "epdq1638710";
+        // $shaInPasscode = "";
+        // $shaOutPasscode = "F&I4s97SdqEE(lDAaJ";
+        // $amount = $request->total_amount *100;
+        // $currency = "GBP";
+        // // $orderID = "ORDER12356".time();
+        // $formData = array(
+        //     "PSPID" => $pspid,
+        //     "orderID" => $order,
+        //     "amount" => $amount,
+        //     "order" => $request->order,
+        //     "currency" => $currency,
+        //     "ACCEPTURL" => route('payment-success'),
+        //     "DECLINEURL" => route('payment-declined'),
+        //     "EXCEPTIONURL" => route('payment-exception'),
+        //     "CANCELURL" => route('payment-cancelled')
+        // );
 
-        $shaOutSignature = hash('sha512',$shaString);
-        $formData["SHASIGN"] = $shaOutSignature;
-        // dd($formData);
-        return view('frontend.payment_getway.view', compact('formData', 'paymentUrl'));
+        // ksort($formData);
+        // // dd($formData);
+        // $shaString = "";
+        // foreach ($formData as $field => $value) {
+        //     $shaString .= strtoupper($field) . "=" . $value . $shaOutPasscode;
+        // }
+
+        // $shaOutSignature = hash('sha512',$shaString);
+        // $formData["SHASIGN"] = $shaOutSignature;
+        // // dd($formData);
+        // return view('frontend.payment_getway.view', compact('formData', 'paymentUrl'));
 
 
     }

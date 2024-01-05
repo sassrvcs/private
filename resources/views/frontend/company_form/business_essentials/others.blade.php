@@ -140,14 +140,14 @@ button.btn.btn-danger {
                                         <div class="optional-top">
                                             <div class="ttl">
                                                 <p><strong> {{ $service->service_name }}
-
+                                                </strong></p>
+                                            <p>
                                                 @if ($package_name!='')
                                                     @if(in_array($package_name, $include_with_packages) )
                                                     <b><span> (Included with this package)</span></b>
                                                      @endif
                                                 @endif
-
-                                                </strong></p>
+                                            </p>
                                             </div>
                                             <div class="price-btn">
                                                 <div class="price-block">

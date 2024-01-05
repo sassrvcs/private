@@ -250,13 +250,15 @@
                                                     <ul>
                                                         <li>
                                                             <input type="radio" value="no" id="no"
-                                                                name="regulated" checked>
+                                                                name="regulated" @if (!isset($delivery_details->regulated_body))
+                                                                    checked
+                                                                @endif {{@$delivery_details->regulated_body=='no'?'checked':''}}>
                                                             <label for="no">NO</label>
                                                         </li>
                                                         <li>
                                                             <input type="radio" value="yes" id="yes"
-                                                                name="regulated">
-                                                            <label for="yes">yes</label>
+                                                                name="regulated" {{@$delivery_details->regulated_body=='yes'?'checked':''}}>
+                                                            <label for="yes">YES</label>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -430,7 +432,7 @@
                                                     </li>
                                                 </ul>
                                                 <div class="checkbox-panel">
-                                                    <input type="checkbox" id="lorem" name="i_confirm">
+                                                    <input checked type="checkbox" id="lorem" name="i_confirm">
                                                     <label for="lorem">Lorem ipsum dolor sit amet, consectetur
                                                         adipiscing elit. Quisque interdum diam quam, ut malesuada magna
                                                         sollicitudin eu. Donec ut magna malesuada, scelerisque elit ut,
@@ -441,12 +443,12 @@
                                                     <i>*A referral fee may have been paid for an introduction.</i>
                                                 </div>
                                                 <div class="checkbox-panel">
-                                                    <input type="checkbox" id="updates" name="receive_updates">
+                                                    <input checked type="checkbox" id="updates" name="receive_updates">
                                                     <label for="updates"><strong>I would like to receive updates from 1st
                                                             Formations</strong></label>
                                                 </div>
                                                 <div class="checkbox-panel">
-                                                    <input type="checkbox" id="lorem" name="terms">
+                                                    <input checked type="checkbox" id="lorem" name="terms">
                                                     <label for="lorem"><strong>I agree to the <a
                                                                 href="{{ route('page', ['slug' => 'terms-conditions']) }}">Terms
                                                                 and Conditions</a> & <a
@@ -455,7 +457,7 @@
                                                 </div>
                                                 <input type="hidden" name="due_amount" value="{{ $due_amount }}">
                                                 <div class="step-btn-wrap mt-4">
-                                                    <button class="btn" type="submit" id="submitBtn" onclick="$('#overlay').fadeIn(300)">Submit</button>
+                                                    <button class="btn" type="submit" id="submitBtn">Submit</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -695,14 +697,14 @@
         }
 
 
-        // $('#submitBtn').click(function(){
-        //     console.log('under Click');
-        //     $("#overlay").fadeIn(300);　
-        //     // $('#submitBtn').prop('disabled', true).text('Submitting...');
+        $('#submitBtn').click(function(){
+            $("#overlay").fadeIn(300);　
+            // $('#submitBtn').prop('disabled', true).text('Submitting...');
 
-        // })
+        })
 
-        $('#delivery_form').validate({
+        $('#delivery_form').validate(
+        {
             errorClass: "my-error-class",
             rules: {
                 recipient_name: "required",
@@ -725,14 +727,12 @@
                 terms: "required",
             },
             invalidHandler: function(event, validator) {
+
                 $("#overlay").fadeOut(300);
 
             },
-            submitHandler: function() {
-
-                $('#submitBtn').prop('disabled', true).text('Submitting...');
-
-                $('#delivery_form').submit();
+            submitHandler: function(from) {
+                form.submit();
             }
 
         });

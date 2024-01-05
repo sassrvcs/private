@@ -1,5 +1,10 @@
 @extends('layouts.master')
 @section('content')
+<style>
+    .button {
+    margin-top: 0px!important;
+}
+</style>
     <section class="common-inner-page-banner"
         style="background-image: url({{ asset('frontend/assets/images/digital-package-banner.png') }}">
         <div class="custom-container">
@@ -362,7 +367,7 @@
                                                                     data-url="{{ route('upload-company-doc') }}"
                                                                     data-collection="sensetive-document"
                                                                     id="sensitive-doc-attach"
-                                                                    class="button doc-attach">Attach</button>
+                                                                    class="button doc-attach btn btn-success">Attach</button>
                                                                 @if (!empty($mediaDoc['name']))
                                                                     <input type="hidden" name="sesitive_documents"
                                                                         id="sesitive-documents" value="true">
@@ -370,7 +375,7 @@
                                                                         class="w-col w-col-12 sensitive-col ef-upload-result">
                                                                         <span class="attached-label-sensitive">Document
                                                                             Attached
-                                                                            <a class="button"
+                                                                            <a class="button btn btn-success"
                                                                                 href="{{ $mediaDoc['url'] }}"
                                                                                 target="_blank">View</a>
                                                                         </span>
@@ -411,7 +416,7 @@
                                                                     data-url="{{ route('upload-company-doc') }}"
                                                                     data-collection="same-as-name-document"
                                                                     id="same-as-name-doc-attach"
-                                                                    class="button doc-attach">Attach</button>
+                                                                    class="button doc-attach btn btn-success">Attach</button>
                                                                 @if (!empty($mediaDoc['name']))
                                                                     <input type="hidden" name="same_as_name_documents"
                                                                         id="same-as-name-documents" value="true">
@@ -419,7 +424,7 @@
                                                                         class="w-col w-col-12 sensitive-col ef-upload-result">
                                                                         <span class="attached-label-sensitive">Document
                                                                             Attached
-                                                                            <a class="button"
+                                                                            <a class="button btn btn-success"
                                                                                 href="{{ $mediaDoc['url'] }}"
                                                                                 target="_blank">View</a>
                                                                         </span>

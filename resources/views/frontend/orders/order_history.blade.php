@@ -34,7 +34,7 @@
             <div class="row woo-account">
                 @include('layouts.navbar')
                 <div class="MyAccount-content col-md-12">
-                    
+
                         <div class="companies-topbar">
                             <h3>
                                 @if($status == '')
@@ -63,9 +63,15 @@
                                         </thead>
                                         <tbody>
                                             @foreach($orders as $order)
-
+                                            @php
+                                               $row_count = 0;
+                                            @endphp
+                                            @if (!(isset($order->getCompanyByOrderId->status)&&$order->getCompanyByOrderId->status == '8'))
+                                            @php
+                                                $row_count++;
+                                            @endphp
                                             <tr>
-                                                <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}"> {{ $order->order_id }}</a></td>
+                                                <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->getCompanyByOrderId->section_name?? 'Company_formaction', 'step' => $order->getCompanyByOrderId->step_name?? 'particulars' ]) }}"> {{ $order->order_id }}</a></td>
                                                 <td> @if (isset($order->transactions[0]->invoice_id))
                                                     {{$order->transactions[0]->invoice_id}}
                                                 @else
@@ -73,10 +79,10 @@
                                                 @endif
                                             </td>
                                                 @php
-                                                if ($order->cart->package!=null) {
-                                                    $package_type = $order->cart->package->package_type;
+                                                if (@$order->cart->package!=null) {
+                                                    $package_type = @$order->cart->package->package_type;
                                                 }else{
-                                                    $package_type = $order->getCompanyByOrderId->companie_type;
+                                                    $package_type = @$order->getCompanyByOrderId->companie_type;
                                                     // $package_type = '-';
                                                 }
                                                 $full_pkg_type = '-';
@@ -100,7 +106,7 @@
                                                 }
                                                 @endphp
                                                 <td>{{$full_pkg_type}}</td>
-                                                <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" >{{ $order->company_name }}</a></td>
+                                                <td><a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->getCompanyByOrderId->section_name?? 'Company_formaction', 'step' => $order->getCompanyByOrderId->step_name?? 'particulars' ]) }}" >{{ $order->company_name }}</a></td>
                                                 <td>
                                                     <span class="status accepted">
                                                         {{ ($order->order_status == 'pending') ? 'Incomplete' : (($order->order_status == 'progress') ? 'Inprogress' : 'Complete') }}
@@ -114,7 +120,7 @@
                                                                 <strong>Delete</strong>
                                                             </a>
                                                             <button class="view-btn ml-2">
-                                                                <a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->myCompany->section_name?? 'Company_formaction', 'step' => $order->myCompany->step_name?? 'particulars' ]) }}" >
+                                                                <a href="{{ route('companie-formation', ['order' => $order->order_id, 'section' => $order->getCompanyByOrderId->section_name?? 'Company_formaction', 'step' => $order->getCompanyByOrderId->step_name?? 'particulars' ]) }}" >
                                                                     <img src="{{ asset('frontend/assets/images/right-arrow-icon.png')}}" alt="">
                                                                     <strong>Continue Order</strong>
                                                                 </a>
@@ -129,6 +135,12 @@
                                                     @endif
                                                 </td>
                                             </tr>
+
+                                            @endif
+                                            @if ($row_count==0)
+                                                {{ 'No data found' }}
+
+                                            @endif
                                             @endforeach
                                         </tbody>
                                     </table>
