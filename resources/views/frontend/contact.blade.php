@@ -362,14 +362,62 @@
 
                           </li>
 
+                          <li>
+
+                             <div class="icon-container icon_circle2 wow zoomIn">
+
+                                <img src="{{ asset('frontend/assets/images/company.svg')}}" class="" alt="" decoding="async" loading="lazy">
+
+                             </div>
+
+                             <div class="text-container">
+
+                                <div class="sub_heading_white">Company Nr :</div>
+
+                                <p>14177067</p>
+
+                             </div>
+
+                          </li>
+
+                          <li>
+
+                             <div class="icon-container icon_circle2 wow zoomIn">
+
+                                <img src="{{ asset('frontend/assets/images/vat.svg')}}" class="" alt="" decoding="async" loading="lazy">
+
+                             </div>
+
+                             <div class="text-container">
+
+                                <div class="sub_heading_white">Vat Reg. no :</div>
+
+                                <p></p>
+
+                             </div>
+
+                          </li>
+
+                          <li>
+
+                             <div class="icon-container icon_circle2 wow zoomIn">
+
+                                <img src="{{ asset('frontend/assets/images/ico.svg')}}" class="" alt="" decoding="async" loading="lazy">
+
+                             </div>
+
+                             <div class="text-container">
+
+                                <div class="sub_heading_white">ICO Reg. ref :</div>
+
+                                <p>ZB587491</p>
+
+                             </div>
+
+                          </li>
+
                        </ul>
 
-                    </div>
-
-                    <div class="company_details">
-                        <p>Company Nr: 14177067</p> 
-                        <p>Vat Reg. no.</p>
-                        <p>ICO Reg. ref. ZB587491</p>
                     </div>
 
                  </div>

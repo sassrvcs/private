@@ -149,8 +149,8 @@
         <p>Please enter your correspondence address:</p>
         <div class="mb-3 row">
 
-            <div class="col-md-3"><label for="uk_postal_code" class="col-form-label">UK
-                    Postcode Lookup:</label></div>
+            <label for="uk_postal_code" class="col-sm-3 col-form-label">
+            UK Postcode Lookup:</label>
 
             <div class="col-sm-9 input-group w-auto">
 
@@ -158,7 +158,7 @@
                     value="">
 
                 <button type="button" class="input-group-text btn btn-primary" id="own_find_address_btn"
-                    onclick="find_address('own')" style="padding:8px;">Find Address</button>
+                    onclick="find_address('own')" style="padding:8px; margin-left: 8px;">Find Address</button>
                 <div class="loader" id="loader" style="display:none;"><img
                         src="https://formationshunt.co.uk/wp-content/themes/formationshunt/images/loader.gif"
                         style="width:50px;"></div>
@@ -326,20 +326,34 @@
 
             <div class="mb-3 row">
 
-                <div class="col-md-3"><label for="invoice_uk_postal_code" class="col-form-label">UK Postcode
-                        Lookup:</label></div>
+                <label for="invoice_uk_postal_code" class="col-sm-3 col-form-label">UK Postcode
+                        Lookup:</label>
 
-                <div class="col-sm-9 input-group w-auto">
+                <div class="col-sm-8 input-group w-auto">
 
                     <input type="text" class="form-control" name="invoice_uk_postal_code"
                         id="invoice_uk_postal_code" value="">
 
                     <button type="button" class="input-group-text btn btn-primary" id="invoice_find_address_btn"
-                        onclick="find_address('invoice')" id="basic-addon2" style="padding:8px;">Find
+                        onclick="find_address('invoice')" id="basic-addon2" style="padding:8px; margin-left: 8px">Find
                         Address</button>
                     <div class="loader" id="loader1" style="display:none;"><img
                             src="https://formationshunt.co.uk/wp-content/themes/formationshunt/images/loader.gif"
                             style="width:50px;"></div>
+                </div>
+
+            </div>
+
+            <div class="mb-3 row">
+
+                <label for="street" class="col-sm-3 col-form-label">Name/Company <span
+                        class="starred">*</span></label>
+
+                <div class="col-sm-8">
+
+                    <input type="text" class="form-control invoice_address name_test"
+                        name="invoice_name_or_company" id="invoice_name_or_company" value="">
+
                 </div>
 
             </div>

@@ -564,7 +564,7 @@
 
                 <h5 class="modal-title" id="exampleModalLongTitle">Choose your address</h5>
 
-                <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close btn-close"  data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
 
@@ -590,7 +590,7 @@
 
 @section('script')
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> --}}
 
 <script>
 

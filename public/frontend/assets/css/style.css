@@ -15756,22 +15756,136 @@ body .checkout .card-header h3 {
     z-index: 2;
 }
 
-.scroll_up:before {
-    width: 80%;
-    height: 80%;
-    border-radius: 50%;
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    margin: auto;
-    background: #fff;
+
+
+.common-inner-page-banner .call-info {
+    display: none;
+}
+
+
+.total_priceAmnt {
+    background: #87cb28;
+    color: #fff;
+    font-weight: 700;
 }
 
 
 
-.company_details {
-    width: 100%;
+.wizard .steps {
+    background: transparent;
+}
+
+.wizard .steps ul li {
+    background: #C2C0C0;
+    position: relative;
+}
+
+.wizard .steps ul li.current {
+    background: #87cb28;
+}
+
+
+.wizard .steps ul li:before {
+    content: '';
+    border-left: 20px solid #FFFFFF;
+    border-top: 27px solid transparent;
+    border-bottom: 23px solid transparent;
+    position: absolute;
+    top: 0;
+    left: 2px;
+}
+
+.wizard .steps ul li:after {
+    content: '';
+    border-left: 20px solid #C2C0C0;
+    border-top: 27px solid transparent;
+    border-bottom: 23px solid transparent;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    z-index: 20;
+}
+
+.wizard .steps ul li.current:before {
+    border: none;
+}
+
+.wizard .steps ul li.current:after {
+    border-left-color: #87cb28;
+}
+
+
+.wizard .steps ul li a,
+.wizard .steps ul li.current a {
+    padding: 12px 0 !important;
+    background: transparent !important;
+}
+
+
+.wizard .steps ul li .number { display:none; }
+
+
+
+
+.contactUs-sec .contactUs-container {
+    padding: 0;
+}
+
+.contactUs-sec .contactUs-container .left-div {
+    padding: 40px 0 40px 40px;
+}
+
+.contactUs-sec .contactUs-container .right-div {
+    padding: 40px;
+    background: #f9f5f5;
+}
+
+
+
+.portfolio_banner .text_layer {
+    padding: 100px 0;
+}
+
+.portfolio_banner .text_layer h1 {
+    line-height: 80px;
+}
+
+
+
+.plugin-icon h4 {
+    line-height: 38px;
+}
+
+.plugin-icon ul {
+    margin-top: 40px;
+}
+
+
+.sec-title1 p {
+    margin-top: 15px;
+}
+
+.top-seo-factor-list li {
+    margin-top: 15px;
+}
+
+
+.whatMakesDifferent-sec01.design_page .what-you-like {
+    padding: 135px 0 45px;
+}
+
+.demo .one-click-demo .color-white {
+    margin-bottom: 15px;
+}
+
+.demo .insallation {
+    background-color: #fff;
+}
+
+.demo .mobile-first .mobile-first-content {
+    padding: 40px 300px 40px 20px;
+}
+
+.sales-through-website .sec-title1 {
+    margin-bottom: 100px;
 }

@@ -253,10 +253,10 @@ $(document).ready(function(){
 
 
 <script type="text/javascript">
-    $(document).ready(function(){ 
-        $('#scroll').click(function(){ 
-            $("html, body").animate({ scrollTop: 0 }, 3500); 
-            return false; 
-        }); 
+    $(document).ready(function(){
+        $('#scroll, #searchInputanother').click(function(){
+            $("html, body").animate({ scrollTop: 0 }, 3500);
+            return false;
+        });
     });
 </script>
