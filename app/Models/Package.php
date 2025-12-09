@@ -14,7 +14,7 @@ class Package extends Model implements HasMedia
     protected $fillable = [
         'package_name', 'package_price',
         'short_description', 'description',
-        'features', 'faqs', 'notes', 'special_offer'
+        'features', 'faqs', 'notes', 'special_offer', 'stripe_product_id', 'stripe_price_id'
     ];
 
     /*

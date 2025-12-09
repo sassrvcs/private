@@ -27,5 +27,8 @@ class orderServiceTransaction extends Model
         'amount',
         'step',
         'uuid',
+        'stripe_price_id',
+        'stripe_product_id',
+        'item_type'
     ];
 }

@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Addonservice extends Model
 {
+    use HasFactory;
     protected $table = 'add_on_services';
     protected $fillable = [
         'service_name', 'price',
-        'short_desc', 'long_desc'
+        'short_desc', 'long_desc', 'stripe_product_id', 'stripe_price_id', 'billing_type'
     ];
 
     /**
