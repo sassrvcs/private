@@ -29,7 +29,8 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <label for="select-order">Select Order&nbsp;<span class="mandetory">* </span></label>
-                                    <select class="form-select" name="order_id" id="" data-placeholder="Choose Order id">
+                                    <select class="form-select select-orderid" name="order_id" id="" data-placeholder="Choose Order id">
+                                        <option value="">Choose Order id..</option>
                                         @foreach ($orders as $order)
                                         <option value="{{ $order->order_id }}">{{ $order->order_id }}</option>
                                         @endforeach
@@ -37,7 +38,8 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="select-service">Select Order&nbsp;<span class="mandetory">* </span></label>
-                                    <select class="form-select" name="service_id" id="" data-placeholder="Choose Service" required>
+                                    <select class="form-select select-serviceid" name="service_id" id="" data-placeholder="Choose Service" required>
+                                        <option value="">Choose Service..</option>
                                         @foreach ($services as $s)
                                         <option value="{{ $s->id }}">
                                             {{ $s->service_name }} — {{ $s->amount }} USD ({{ $s->billing_type }})
@@ -46,7 +48,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <button class="btn btn_baseColor btn-sm mt-2" type="submit">Proceed to Stripe Form</button>
+                            <button class="btn btn_baseColor btn-sm mt-2" type="submit">Proceed to Stripe Pay</button>
                         </form>
                     </div>
                 </div>
@@ -61,4 +63,16 @@
         loadEmbeddedStripe("{{ $clientSecret }}", "{{ env('STRIPE_KEY') }}");
     </script>
 @endif
+@endsection
+@section('scripts')
+<script>
+$(document).ready(function(){
+    $( '.select-serviceid, .select-orderid' ).select2( {
+        theme: "bootstrap-5",
+        width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+        placeholder: $( this ).data( 'placeholder' ),
+        closeOnSelect: false,
+    });
+});
+</script>
 @endsection
