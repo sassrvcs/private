@@ -355,6 +355,24 @@
                 </ul>
             </li>
             {{--@endcan--}}
+            <li class="nav-item {{ request()->routeIs('admin.stripe.pay') ? 'menu-is-opening menu-open' : '' }}">
+                <a href="#" class="nav-link  {{ request()->routeIs('admin.stripe.pay*') ? ' active' : '' }}">
+                    <i class="nav-icon fas fa-graduation-cap"></i>
+                    <p>
+                        Stripe Pay
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.stripe.pay')}}"
+                            class="nav-link {{ request()->routeIs('admin.stripe.pay') ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Stripe Pay</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
