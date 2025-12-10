@@ -39,6 +39,8 @@ use App\Http\Controllers\MailTestController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\Admin\FacilitorController;
 
+use App\Http\Controllers\Admin\StripePayController;
+use App\Http\Controllers\StripeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -358,3 +360,12 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
 });
 
 
+Route::get('/admin/stripe-pay', [StripePayController::class, 'index'])->name('admin.stripe.pay');
+Route::post('/admin/stripe-create-intent', [StripePayController::class, 'createIntent'])->name('admin.stripe.createIntent');
+Route::post('/admin/stripe-complete', [StripePayController::class, 'complete'])->name('admin.stripe.complete');
+
+Route::get('/pay', [StripeController::class, 'showPaymentForm'])->name('pay')->middleware('auth');
+Route::post('/payment/create', [StripeController::class, 'createPaymentIntent'])->name('payment.create')->middleware('auth');
+Route::post('/payment/webhook', [StripeController::class, 'webhook']);
+Route::get('/stripe/create-products', [StripeController::class, 'createProducts']);
+Route::get('/stripe/sync-products', [StripeController::class, 'syncFromStripe']);

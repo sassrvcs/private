@@ -13,6 +13,7 @@ use App\Models\Addonservice;
 use Stripe\Product;
 use Stripe\Price;
 use Illuminate\Support\Str;
+use App\Models\ShoppingCart;
 
 class StripeController extends Controller
 {
@@ -31,26 +32,26 @@ class StripeController extends Controller
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
         $user = auth()->user();
-    $currency = 'usd';
-    $amount = 0;
+        $currency = 'usd';
+        $amount = 0;
 
-    // Handle package
-    if ($request->package_id) {
-        $package = \App\Models\Package::findOrFail($request->package_id);
-        $amount += (float) $package->package_price;
-    }
-
-    // Handle addons (multiple)
-    if ($request->addons && is_array($request->addons)) {
-        $addons = \App\Models\AddonService::whereIn('id', $request->addons)->get();
-
-        foreach ($addons as $addon) {
-            $amount += (float) $addon->price;
+        // Handle package
+        if ($request->package_id) {
+            $package = \App\Models\Package::findOrFail($request->package_id);
+            $amount += (float) $package->package_price;
         }
-    }
 
-    // Convert to cents for Stripe
-    $stripeAmount = intval($amount * 100);
+        // Handle addons (multiple)
+        if ($request->addons && is_array($request->addons)) {
+            $addons = \App\Models\AddonService::whereIn('id', $request->addons)->get();
+
+            foreach ($addons as $addon) {
+                $amount += (float) $addon->price;
+            }
+        }
+
+        // Convert to cents for Stripe
+        $stripeAmount = intval($amount * 100);
 
         // 1. CUSTOMER
         $customer = Customer::create([
@@ -125,9 +126,18 @@ class StripeController extends Controller
             'subscriptions'    => json_encode($subscription_ids),
             'status'           => 'pending',
         ]); */
+
+        $cart = ShoppingCart::firstOrCreate(
+            [
+                'user_id' => $user->id
+            ], 
+            [
+                'package_id' => $package->id
+            ]
+        );
         $order = new \App\Models\Order();
         $order->user_id = $user->id;
-        $order->cart_id = 1; // if you have cart logic, update accordingly
+        $order->cart_id = $cart->id; // if you have cart logic, update accordingly
         $order->order_id = 'ORD-' . strtoupper(uniqid()); // internal order reference
         $order->payable_amount = $amount;
         $order->payment_mode = "online";
