@@ -355,9 +355,9 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
             Route::get('/company/send-email/{id}', [CompanyController::class,'sendEmail'])->name('company.sendEmail');
             Route::post('/company/sent_email',[CompanyController::class, 'sendEmailUpdate'])->name('company.sent_email_user');
             Route::get('/company/agent-email/{id}', [CompanyController::class,'sendEmailAgent'])->name('company.sendEmailAgent');
-            Route::get('/stripe-pay', [StripePayController::class, 'index'])->name('admin.stripe.pay');
-            Route::post('/stripe-create-intent', [StripePayController::class, 'createIntent'])->name('admin.stripe.createIntent');
-            Route::post('/stripe-complete', [StripePayController::class, 'complete'])->name('admin.stripe.complete');
+            Route::get('/stripe-pay', [StripePayController::class, 'index'])->name('stripe.pay');
+            Route::post('/stripe-create-intent', [StripePayController::class, 'createIntent'])->name('stripe.createIntent');
+            Route::post('/stripe-complete', [StripePayController::class, 'complete'])->name('stripe.complete');
         });
     });
 });
