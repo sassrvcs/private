@@ -37,13 +37,13 @@ class StripeController extends Controller
 
         // Handle package
         if ($request->package_id) {
-            $package = \App\Models\Package::findOrFail($request->package_id);
+            $package = Package::findOrFail($request->package_id);
             $amount += (float) $package->package_price;
         }
 
         // Handle addons (multiple)
         if ($request->addons && is_array($request->addons)) {
-            $addons = \App\Models\AddonService::whereIn('id', $request->addons)->get();
+            $addons = Addonservice::whereIn('id', $request->addons)->get();
 
             foreach ($addons as $addon) {
                 $amount += (float) $addon->price;
