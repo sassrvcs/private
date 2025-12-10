@@ -135,6 +135,7 @@ class StripeController extends Controller
                 'package_id' => $package->id
             ]
         );
+        //create order
         $order = new \App\Models\Order();
         $order->user_id = $user->id;
         $order->cart_id = $cart->id; // if you have cart logic, update accordingly

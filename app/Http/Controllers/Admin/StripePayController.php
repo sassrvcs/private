@@ -41,7 +41,7 @@ class StripePayController extends Controller
             $customerId = $customer->id;
         } */
 
-            $customerId = 'cus_TZ7VGhKus5rCPm';
+        $customerId = 'cus_TZ7VGhKus5rCPm';
 
         $intent = PaymentIntent::create([
             'amount' => $service->amount * 100,
