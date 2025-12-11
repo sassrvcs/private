@@ -24,32 +24,46 @@
             <div class="col-md-12">
                 <div class="card card-primary">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.stripe.createIntent') }}">
+                        <form method="POST" action="{{ route('admin.stripe.scheduleSubscription') }}">
                             @csrf
+
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label for="select-order">Select Order&nbsp;<span class="mandetory">* </span></label>
-                                    <select class="form-select select-orderid" name="order_id" id="" data-placeholder="Choose Order id">
-                                        <option value="">Choose Order id..</option>
-                                        @foreach ($orders as $order)
-                                        <option value="{{ $order->order_id }}">{{ $order->order_id }}</option>
+                                    <label>Select Order <span class="mandetory">*</span></label>
+                                    <select class="form-select select-orderid" name="order_id" required>
+                                        <option value="">Choose Order ID..</option>
+                                        @foreach ($orders as $o)
+                                            <option value="{{ $o->id }}">{{ $o->order_id }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+
                                 <div class="col-sm-4">
-                                    <label for="select-service">Select Order&nbsp;<span class="mandetory">* </span></label>
-                                    <select class="form-select select-serviceid" name="service_id" id="" data-placeholder="Choose Service" required>
+                                    <label>Company Name</label>
+                                    <input type="text" class="form-control company-name" readonly>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <label>Select Service <span class="mandetory">*</span></label>
+                                    <select class="form-select select-serviceid" name="service_id" required>
                                         <option value="">Choose Service..</option>
                                         @foreach ($services as $s)
-                                        <option value="{{ $s->id }}">
-                                            {{ $s->service_name }} — {{ $s->amount }} USD ({{ $s->billing_type }})
-                                        </option>
+                                            <option value="{{ $s->id }}">
+                                                {{ $s->service_name }} — {{ $s->amount }} GBP ({{ $s->billing_type }})
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
+
+                                <div class="col-sm-4 mt-3">
+                                    <label>Subscription Start Date <span class="mandetory">*</span></label>
+                                    <input type="date" name="start_date" class="form-control" required>
+                                </div>
                             </div>
-                            <button class="btn btn_baseColor btn-sm mt-2" type="submit">Proceed to Stripe Pay</button>
+
+                            <button class="btn btn-primary btn-sm mt-3" type="submit">Schedule Subscription</button>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -72,6 +86,16 @@ $(document).ready(function(){
         width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
         placeholder: $( this ).data( 'placeholder' ),
         closeOnSelect: true,
+    });
+    //ajax to show company name based on order id
+    $('.select-orderid').on('change', function() {
+        let orderId = $(this).val();
+
+        if (!orderId) return;
+
+        $.get("{{ route('admin.getOrderDetails') }}", { id: orderId }, function(res) {
+            $('.company-name').val(res.company_name);
+        });
     });
 });
 </script>
