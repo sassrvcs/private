@@ -89,7 +89,7 @@ $(document).ready(function(){
         closeOnSelect: true,
     });
     //ajax to show company name based on order id
-    $('.select-orderid').on('change', function() {
+    /* $('.select-orderid').on('change', function() {
         let orderId = $(this).val();
 
         if (!orderId) return;
@@ -97,6 +97,18 @@ $(document).ready(function(){
         $.get("{{ route('admin.getOrderDetails') }}", { id: orderId }, function(res) {
             $('.company-name').val(res.company_name);
         });
+    }); */
+
+    document.querySelector('.select-orderid').addEventListener('change', function() {
+        let orderId = this.value;
+        if (!orderId) return;
+
+        fetch('/get-company-name/' + orderId)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('company_name').value = data.company_name;
+            })
+            .catch(error => console.error('Error:', error));
     });
 });
 </script>
