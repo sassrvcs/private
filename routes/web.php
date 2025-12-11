@@ -361,11 +361,11 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
         });
     });
 });
-/* 
-Route::get('/admin/stripe-pay', [StripePayController::class, 'index'])->name('admin.stripe.pay');
-Route::post('/admin/stripe-schedule', [StripePayController::class, 'schedule'])->name('admin.stripe.scheduleSubscription');
-Route::get('/admin/order-details', [StripePayController::class, 'orderDetails'])->name('admin.getOrderDetails');
- */
+
+// Route::get('/admin/stripe-pay', [StripePayController::class, 'index'])->name('admin.stripe.pay');
+// Route::post('/admin/stripe-schedule', [StripePayController::class, 'schedule'])->name('admin.stripe.scheduleSubscription');
+// Route::get('/admin/order-details/{orderId}', [StripePayController::class, 'orderDetails'])->name('admin.getOrderDetails');
+
 Route::get('/pay', [StripeController::class, 'showPaymentForm'])->name('pay')->middleware('auth');
 Route::post('/payment/create', [StripeController::class, 'createPaymentIntent'])->name('payment.create')->middleware('auth');
 Route::post('/payment/webhook', [StripeController::class, 'webhook']);

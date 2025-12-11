@@ -94,7 +94,10 @@ $(document).ready(function() {
         let orderId = $(this).val();
         if (!orderId) return;
 
-        fetch('/admin/order-details/' + orderId)
+        let url = "{{ route('admin.getOrderDetails', ':id') }}";
+        url = url.replace(':id', orderId);
+
+        fetch(url)
             .then(res => res.json())
             .then(data => {
                 $('#company_name').val(data.company_name);
