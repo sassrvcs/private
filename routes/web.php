@@ -357,7 +357,7 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
             Route::get('/company/agent-email/{id}', [CompanyController::class,'sendEmailAgent'])->name('company.sendEmailAgent');
             Route::get('/stripe-pay', [StripePayController::class, 'index'])->name('stripe.pay');
             Route::post('/stripe-schedule', [StripePayController::class, 'schedule'])->name('stripe.scheduleSubscription');
-            Route::get('/order-details', [StripePayController::class, 'orderDetails'])->name('getOrderDetails');
+            Route::get('/order-details/{orderId}', [StripePayController::class, 'orderDetails'])->name('getOrderDetails');
         });
     });
 });
