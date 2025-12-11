@@ -49,7 +49,7 @@
                                         <option value="">Choose Service..</option>
                                         @foreach ($services as $s)
                                             <option value="{{ $s->id }}">
-                                                {{ $s->service_name }} — {{ $s->price }} GBP ({{ $s->billing_type }})
+                                                {{ $s->service_name }} — {{ $s->price }} GBP
                                             </option>
                                         @endforeach
                                     </select>
