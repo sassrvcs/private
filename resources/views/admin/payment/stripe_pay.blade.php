@@ -98,26 +98,26 @@ $(document).ready(function(){
         });
     }); */
 
-   document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
 
-    const orderSelect = document.querySelector('.select-orderid');
-    const companyField = document.getElementById('company_name');
+        const orderSelect = document.querySelector('.select-orderid');
+        const companyField = document.getElementById('company_name');
 
-    orderSelect.addEventListener('change', function () {
+        orderSelect.addEventListener('change', function () {
 
-        let orderId = this.value;
-        if (!orderId) return;
+            let orderId = this.value;
+            if (!orderId) return;
 
-        fetch('/admin/order-details/' + orderId)
-            .then(response => response.json())
-            .then(data => {
-                companyField.value = data.company_name ?? '';
-            })
-            .catch(err => console.error("Fetch error:", err));
+            fetch('/admin/order-details/' + orderId)
+                .then(response => response.json())
+                .then(data => {
+                    companyField.value = data.company_name ?? '';
+                })
+                .catch(err => console.error("Fetch error:", err));
+
+        });
 
     });
-
-});
 });
 </script>
 @endsection
