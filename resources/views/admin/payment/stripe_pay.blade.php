@@ -102,7 +102,7 @@ $(document).ready(function(){
         let orderId = this.value;
         if (!orderId) return;
 
-        fetch('/get-company-name/' + orderId)
+        fetch('/admin/order-details' + orderId)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('company_name').value = data.company_name;
