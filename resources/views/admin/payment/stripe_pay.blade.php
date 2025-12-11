@@ -98,17 +98,33 @@ $(document).ready(function(){
         });
     }); */
 
-    document.querySelector('.select-orderid').addEventListener('change', function() {
+   document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM Loaded!");
+
+    const orderSelect = document.querySelector('.select-orderid');
+
+    if (!orderSelect) {
+        console.error("Dropdown not found!");
+        return;
+    }
+
+    orderSelect.addEventListener('change', function () {
         let orderId = this.value;
+
         if (!orderId) return;
 
-        fetch('/admin/order-details' + orderId)
+        console.log("Fetching data for order:", orderId);
+
+        fetch('/admin/order-details/' + orderId)
             .then(response => response.json())
             .then(data => {
+                console.log("Response:", data);
                 document.getElementById('company_name').value = data.company_name;
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('ERROR:', error));
     });
+});
+
 });
 </script>
 @endsection
