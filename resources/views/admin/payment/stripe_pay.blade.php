@@ -80,6 +80,7 @@
 @endsection
 @section('scripts')
 <script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 $(document).ready(function(){
     $( '.select-serviceid, .select-orderid' ).select2( {
         theme: "bootstrap-5",
