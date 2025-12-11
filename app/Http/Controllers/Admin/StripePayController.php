@@ -17,7 +17,7 @@ class StripePayController extends Controller
         $orders = Order::all();
         $services = Addonservice::all();
 
-        return view('admin.stripe.pay', compact('orders', 'services'));
+        return view('admin.payment.stripe_pay', compact('orders', 'services'));
     }
 
     // AJAX — Return Company Name
