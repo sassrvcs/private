@@ -21,9 +21,9 @@ class StripePayController extends Controller
     }
 
     // AJAX — Return Company Name
-    public function orderDetails($req)
+    public function orderDetails($orderId)
     {
-        $order = Order::find($req);
+        $order = Order::find($orderId);
 
         return response()->json([
             'company_name' => $order->company_name ?? '',

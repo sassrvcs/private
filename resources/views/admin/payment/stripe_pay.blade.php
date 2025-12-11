@@ -40,7 +40,7 @@
 
                                 <div class="col-sm-4">
                                     <label>Company Name</label>
-                                    <input type="text" class="form-control company-name" readonly>
+                                    <input type="text" id="company_name" class="form-control company-name" readonly>
                                 </div>
 
                                 <div class="col-sm-4">
@@ -80,44 +80,30 @@
 @endsection
 @section('scripts')
 <script>
-$(document).ready(function(){
-    $( '.select-serviceid, .select-orderid' ).select2( {
-        theme: "bootstrap-5",
-        width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-        placeholder: $( this ).data( 'placeholder' ),
-        closeOnSelect: true,
-    });
-    //ajax to show company name based on order id
-    /* $('.select-orderid').on('change', function() {
-        let orderId = $(this).val();
+$(document).ready(function() {
 
+    // Initialize select2
+    $('.select-serviceid, .select-orderid').select2({
+        theme: "bootstrap-5",
+        width: '100%',
+    });
+
+    // Handle order ID select
+    $('.select-orderid').on('change', function() {
+
+        let orderId = $(this).val();
         if (!orderId) return;
 
-        $.get("{{ route('admin.getOrderDetails') }}", { id: orderId }, function(res) {
-            $('.company-name').val(res.company_name);
-        });
-    }); */
-
-    document.addEventListener('DOMContentLoaded', function () {
-
-        const orderSelect = document.querySelector('.select-orderid');
-        const companyField = document.getElementById('company_name');
-
-        orderSelect.addEventListener('change', function () {
-
-            let orderId = this.value;
-            if (!orderId) return;
-
-            fetch('/admin/order-details/' + orderId)
-                .then(response => response.json())
-                .then(data => {
-                    companyField.value = data.company_name ?? '';
-                })
-                .catch(err => console.error("Fetch error:", err));
-
-        });
+        fetch('/admin/order-details/' + orderId)
+            .then(res => res.json())
+            .then(data => {
+                $('#company_name').val(data.company_name);
+            })
+            .catch(err => console.error("Fetch error:", err));
 
     });
+
 });
 </script>
+
 @endsection
