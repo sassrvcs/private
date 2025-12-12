@@ -199,7 +199,7 @@ Route::get('companies/pdf/incorporate-certificate', [CompaniesListController::cl
 Route::get('companies/pdf/memo-articles-full', [CompaniesListController::class, 'memoArticlesFull'])->middleware('auth')->name('memoArticlesFull');
 
 
-Route::get('/search-companie', CompanieController::class)->name('search-companie');
+Route::get('/search-companie', [CompanieController::class, '__invoke'])->name('search-companie');
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
 Route::get('about-us', [PageController::class, 'aboutUs'])->name('aboutUs');
 
@@ -362,9 +362,9 @@ Route::group([ 'middleware' => 'isAdmin'], function() {
     });
 });
 
-// Route::get('/admin/stripe-pay', [StripePayController::class, 'index'])->name('admin.stripe.pay');
-// Route::post('/admin/stripe-schedule', [StripePayController::class, 'schedule'])->name('admin.stripe.scheduleSubscription');
-// Route::get('/admin/order-details/{orderId}', [StripePayController::class, 'orderDetails'])->name('admin.getOrderDetails');
+Route::get('/admin/stripe-pay', [StripePayController::class, 'index'])->name('admin.stripe.pay');
+Route::post('/admin/stripe-schedule', [StripePayController::class, 'schedule'])->name('admin.stripe.scheduleSubscription');
+Route::get('/admin/order-details/{orderId}', [StripePayController::class, 'orderDetails'])->name('admin.getOrderDetails');
 
 Route::get('/pay', [StripeController::class, 'showPaymentForm'])->name('pay')->middleware('auth');
 Route::post('/payment/create', [StripeController::class, 'createPaymentIntent'])->name('payment.create')->middleware('auth');
