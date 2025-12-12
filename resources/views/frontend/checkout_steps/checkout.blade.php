@@ -523,7 +523,7 @@
                                                         <p>Pay with cash upon delivery.</p>
                                                     </div>
                                                 </li> --}}
-                                                <li class="wc_payment_method payment_method_epdq_checkout">
+                                                <!-- <li class="wc_payment_method payment_method_epdq_checkout">
                                                     <input id="payment_method_epdq_checkout" type="radio"
                                                         class="input-radio" name="payment_method"
                                                         value="epdq_checkout" checked="checked" data-order_button_text="">
@@ -541,9 +541,32 @@
                                                     <div class="payment_box payment_method_epdq_checkout" style="display:none;">
                                                         <p>Use the secure payment processor of Barclaycard and checkout with your debit/credit card.</p>
                                                     </div>
+                                                </li> -->
+                                                <li class="wc_payment_method payment_method_stripe_checkout">
+                                                    <input id="payment_method_stripe_checkout"
+                                                        type="radio"
+                                                        class="input-radio"
+                                                        name="payment_method"
+                                                        value="stripe_checkout"
+                                                        data-order_button_text="">
+
+                                                    <label for="payment_method_stripe_checkout">
+                                                        Credit/Debit Card (Stripe)
+                                                        <img src="{{ asset('frontend/assets/images/visa.png') }}" width="40">
+                                                        <img src="{{ asset('frontend/assets/images/mastercard.png') }}" width="40">
+                                                        <img src="{{ asset('frontend/assets/images/amex.png') }}" width="40">
+                                                    </label>
+
+                                                    <div class="payment_box payment_method_stripe_checkout" style="display:none;">
+                                                        <p>Pay securely using your debit/credit card via Stripe.</p>
+
+                                                        <div id="payment-element"></div>
+                                                        <button id="place_order" class="button alt">Pay Now</button>
+                                                    </div>
                                                 </li>
+                                                
                                             </ul>
-                                            <div class="form-row place-order">
+                                            <!-- <div class="form-row place-order">
                                                 <noscript>
                                                     Since your browser does not support JavaScript, or it is disabled,
                                                     please ensure you click the <em>Update Totals</em> button before
@@ -558,7 +581,7 @@
                                                 <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Place order" data-value="Place order">Pay Now</button>
                                                 <input type="hidden" id="woocommerce-process-checkout-nonce" name="woocommerce-process-checkout-nonce" value="800f687a3e">
                                                 <input type="hidden" name="_wp_http_referer" value="/?wc-ajax=update_order_review">
-                                            </div>
+                                            </div> -->
                                         </fieldset>
                                     </div>
                                 </div>
@@ -778,6 +801,67 @@
 
 
         // })
-        window.scrollTo(0, 600);
+        window.scrollTo(0, 600);        
     </script>
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+
+        const stripeRadio = document.getElementById("payment_method_stripe_checkout");
+        const paymentBox = document.querySelector(".payment_method_stripe_checkout .payment_box");
+        const submitButton = document.getElementById("submit");
+
+        let stripe = null;
+        let elements = null;
+
+        async function loadStripeForm() {
+
+            // 1. Create PaymentIntent
+            let formData = new FormData();
+            formData.append("package", document.querySelector("input[name=package]:checked").value);
+
+            document.querySelectorAll("input[name='addons[]']:checked")
+                .forEach(c => formData.append("addons[]", c.value));
+
+            let res = await fetch("{{ route('payment.create') }}", {
+                method: "POST",
+                headers: { "X-CSRF-TOKEN": "{{ csrf_token() }}" },
+                body: formData
+            });
+
+            let json = await res.json();
+            let clientSecret = json.clientSecret;
+
+            // 2. Init Stripe
+            stripe = Stripe("{{ env('STRIPE_KEY') }}");
+            elements = stripe.elements({ clientSecret });
+
+            // 3. Mount card form
+            const paymentElement = elements.create("payment");
+            paymentElement.mount("#payment-element");
+
+            submitButton.onclick = async function (e) {
+                e.preventDefault();
+
+                const { error } = await stripe.confirmPayment({
+                    elements,
+                    confirmParams: { return_url: window.location.href }
+                });
+
+                if (error) alert(error.message);
+            };
+        }
+
+        // When Stripe payment option is selected
+        stripeRadio.addEventListener("change", function () {
+            if (stripeRadio.checked) {
+                paymentBox.style.display = "block";
+                loadStripeForm();
+            }
+        });
+
+    });
+    </script>
+
 @endsection
