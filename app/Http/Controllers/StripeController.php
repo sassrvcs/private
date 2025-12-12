@@ -201,13 +201,13 @@ class StripeController extends Controller
             if($service->billing_type == 'one_time'){
                 $priceOneTime = Price::create([
                     'product' => $product->id,
-                    'unit_amount' => $service->price,
+                    'unit_amount' => $service->price * 100,
                     'currency' => 'GBP',
                 ]);
             } elseif($service->billing_type == 'monthly'){
                 $priceMonthly = Price::create([
                     'product' => $product->id,
-                    'unit_amount' => $service->price,
+                    'unit_amount' => $service->price * 100,
                     'currency' => 'gbp',
                     'recurring' => [
                         'interval' => 'month'
@@ -216,7 +216,7 @@ class StripeController extends Controller
             } elseif($service->billing_type == 'yearly'){
                 $priceYearly = Price::create([
                     'product' => $product->id,
-                    'unit_amount' => $service->price,
+                    'unit_amount' => $service->price * 100,
                     'currency' => 'gbp',
                     'recurring' => [
                         'interval' => 'year'
