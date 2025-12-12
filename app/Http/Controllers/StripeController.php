@@ -193,98 +193,91 @@ class StripeController extends Controller
     {
         Stripe::setApiKey(config('services.stripe.secret'));
 
-        $created = [];
-
-        // ✅ 1️⃣ ONE-TIME PRODUCT
-        $productOneTime = Product::create([
-            'name' => 'Company Name Registration Service',
-        ]);
-
-        $priceOneTime = Price::create([
-            'product' => $productOneTime->id,
-            'unit_amount' => 50 * 100, // $100
-            'currency' => 'usd',
-        ]);
-
-        $created[] = [
-            'type' => 'one_time',
-            'product_id' => $productOneTime->id,
-            'price_id' => $priceOneTime->id,
-        ];
-
-        // ✅ 2️⃣ MONTHLY SUBSCRIPTION PRODUCT
-        $productMonthly = Product::create([
-            'name' => 'Monthly Registration Service',
-        ]);
-
-        $priceMonthly = Price::create([
-            'product' => $productMonthly->id,
-            'unit_amount' => 19 * 100, // $29
-            'currency' => 'usd',
-            'recurring' => [
-                'interval' => 'month'
-            ]
-        ]);
-
-        $created[] = [
-            'type' => 'monthly',
-            'product_id' => $productMonthly->id,
-            'price_id' => $priceMonthly->id,
-        ];
-
-        // ✅ 3️⃣ YEARLY SUBSCRIPTION PRODUCT
-        $productYearly = Product::create([
-            'name' => 'Yearly Legal Technical Support',
-        ]);
-
-        $priceYearly = Price::create([
-            'product' => $productYearly->id,
-            'unit_amount' => 49 * 100, // $199
-            'currency' => 'usd',
-            'recurring' => [
-                'interval' => 'year'
-            ]
-        ]);
-
-        $created[] = [
-            'type' => 'yearly',
-            'product_id' => $productYearly->id,
-            'price_id' => $priceYearly->id,
-        ];
+        $services = Addonservice::all();
+        foreach($services as $service){
+            $product = Product::create([
+                'name' => $service->service_name,
+            ]);
+            if($service->billing_type == 'one_time'){
+                $priceOneTime = Price::create([
+                    'product' => $product->id,
+                    'unit_amount' => $service->price,
+                    'currency' => 'GBP',
+                ]);
+            } elseif($service->billing_type == 'monthly'){
+                $priceMonthly = Price::create([
+                    'product' => $product->id,
+                    'unit_amount' => $service->price,
+                    'currency' => 'gbp',
+                    'recurring' => [
+                        'interval' => 'month'
+                    ]
+                ]);
+            } elseif($service->billing_type == 'yearly'){
+                $priceYearly = Price::create([
+                    'product' => $product->id,
+                    'unit_amount' => $service->price,
+                    'currency' => 'gbp',
+                    'recurring' => [
+                        'interval' => 'year'
+                    ]
+                ]);
+            }
+        }
 
         return response()->json([
             'status' => true,
-            'message' => 'Stripe products & prices created successfully',
-            'data' => $created
+            'message' => 'Stripe products & prices created successfully'
         ]);
     }
     //fetch products from stripe
-    public function syncFromStripe()
+   public function syncFromStripe()
     {
         Stripe::setApiKey(config('services.stripe.secret'));
 
-        $products = Product::all(['limit' => 100]);
+        $allProducts = [];
+        $startingAfter = null;
 
-        if (empty($products->data)) {
+        // 🔄 Fetch ALL products using pagination
+        do {
+            $params = ['limit' => 100];
+            if (!empty($startingAfter)) {
+                $params['starting_after'] = $startingAfter;
+            }
+
+            $response = Product::all($params);
+            $batch = $response->data;
+
+            if (!empty($batch)) {
+                $allProducts = array_merge($allProducts, $batch);
+                $startingAfter = end($batch)->id;
+            }
+
+        } while ($response->has_more);
+
+        if (empty($allProducts)) {
             return response()->json([
                 'status' => false,
                 'message' => 'No products found in Stripe.'
             ]);
         }
 
-        foreach ($products->data as $product) {
+        foreach ($allProducts as $product) {
 
+            // 🔄 Fetch all prices for this product
             $prices = Price::all([
                 'product' => $product->id,
-                'active'  => true,
+                'limit'   => 100,
             ]);
 
             foreach ($prices->data as $price) {
 
                 $amount = $price->unit_amount / 100;
+
+                // Detect billing type
                 $billingType = 'one_time';
 
-                if ($price->type === 'recurring') {
+                if (isset($price->recurring)) {
                     if ($price->recurring->interval === 'month') {
                         $billingType = 'monthly';
                     } elseif ($price->recurring->interval === 'year') {
@@ -292,47 +285,27 @@ class StripeController extends Controller
                     }
                 }
 
-                // ✅ RULE:
-                // One-time products go into PACKAGES
-                // Subscriptions go into ADD-ON SERVICES
-
-                if ($billingType === 'one_time') {
-
-                    Package::updateOrCreate(
-                        [
-                            'stripe_price_id' => $price->id
-                        ],
-                        [
-                            'package_name' => $product->name,
-                            'stripe_product_id' => $product->id,
-                            'package_price' => $amount,
-                            'package_type' => 'shares',
-                            'description' => $product->description,
-                        ]
-                    );
-
-                } else {
-
-                    AddOnService::updateOrCreate(
-                        [
-                            'stripe_price_id' => $price->id
-                        ],
-                        [
-                            'service_name' => $product->name,
-                            'stripe_product_id' => $product->id,
-                            'price' => $amount,
-                            'billing_type' => $billingType,
-                            'slug' => Str::slug($product->name),
-                        ]
-                    );
-
-                }
+                // 🔥 HERE: Always update ONLY add_on_services table
+                Addonservice::updateOrCreate(
+                    [
+                        'service_name'     => $product->name,
+                    ],
+                    [
+                        'service_name'     => $product->name,
+                        'stripe_price_id'  => $price->id,
+                        'stripe_product_id' => $product->id,
+                        'price'            => $amount,
+                        'billing_type'     => $billingType,
+                        'slug'             => Str::slug($product->name)
+                    ]
+                );
             }
         }
 
         return response()->json([
             'status' => true,
-            'message' => 'Stripe products synced successfully into Packages & Add-on Services tables.'
+            'message' => 'All Stripe products synced successfully into Add-on Services.'
         ]);
     }
+
 }
