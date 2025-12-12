@@ -25,6 +25,7 @@ class CompanieController extends Controller
     public function __invoke(SearchCompanyRequest $request)
     {
 
+        dd($request);
         $requestParam = $request->validated();
 
         if($requestParam['same_as'] === 'true') {
