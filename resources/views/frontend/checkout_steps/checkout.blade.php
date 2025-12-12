@@ -818,16 +818,16 @@
         async function loadStripeForm() {
 
             // 1. Create PaymentIntent
-            let formData = new FormData();
-            formData.append("package", document.querySelector("input[name=package]:checked").value);
+            // let formData = new FormData();
+            // formData.append("package", document.querySelector("input[name=package]:checked").value);
 
-            document.querySelectorAll("input[name='addons[]']:checked")
-                .forEach(c => formData.append("addons[]", c.value));
+            // document.querySelectorAll("input[name='addons[]']:checked")
+            //     .forEach(c => formData.append("addons[]", c.value));
 
-            let res = await fetch("{{ route('payment.create') }}", {
+            let res = await fetch("{{ route('checkout-final') }}", {
                 method: "POST",
                 headers: { "X-CSRF-TOKEN": "{{ csrf_token() }}" },
-                body: formData
+                // body: formData
             });
 
             let json = await res.json();
@@ -853,12 +853,9 @@
             };
         }
 
-        // When Stripe payment option is selected
-        stripeRadio.addEventListener("change", function () {
-            if (stripeRadio.checked) {
-                paymentBox.style.display = "block";
-                loadStripeForm();
-            }
+        document.addEventListener("DOMContentLoaded", function () {
+            loadStripeForm();
+            document.querySelector(".payment_method_stripe_checkout .payment_box").style.display = "block";
         });
 
     });
