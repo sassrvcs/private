@@ -199,7 +199,7 @@ Route::get('companies/pdf/incorporate-certificate', [CompaniesListController::cl
 Route::get('companies/pdf/memo-articles-full', [CompaniesListController::class, 'memoArticlesFull'])->middleware('auth')->name('memoArticlesFull');
 
 
-Route::get('/search-companie', [CompanieController::class, '__invoke'])->name('search-companie');
+Route::get('/search-companie', CompanieController::class)->name('search-companie');
 Route::get('/page/{slug}', [PageController::class, 'show'])->name('page');
 Route::get('about-us', [PageController::class, 'aboutUs'])->name('aboutUs');
 

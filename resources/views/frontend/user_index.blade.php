@@ -1286,7 +1286,7 @@
     }
 
     function searchSubmit(companyName) {
-        axios.get('/search-companie', {
+        axios.get("{{ route('search-companie') }}", {
                 params: {
                     'search': companyName,
                     'same_as': 'true',
