@@ -849,7 +849,7 @@
                 const { error } = await stripe.confirmPayment({
                     elements,
                     confirmParams: {
-                        return_url: "{{ route('payment.success') }}"
+                        return_url: "{{ route('payment-success') }}"
                     }
                 });
 
