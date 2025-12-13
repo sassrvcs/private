@@ -25,7 +25,6 @@ class CheckoutService
         // dd($request);
         $order='';
         $sessionCart = Session::get('cart', []);
-        dd($sessionCart);
 
         return DB::transaction(function () use ($request, $user, $sessionCart,$order) {
             $addonServices = [];

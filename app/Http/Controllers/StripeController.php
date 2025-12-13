@@ -29,132 +29,44 @@ class StripeController extends Controller
     /** Create PaymentIntent + Subscriptions + return clientSecret */
     public function createPaymentIntent(Request $request)
     {
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(config('services.stripe.secret'));
 
-        $user = auth()->user();
-        $currency = 'usd';
-        $amount = 0;
+        $cart = session('cart');
 
-        // Handle package
-        if ($request->package_id) {
-            $package = Package::findOrFail($request->package_id);
-            $amount += (float) $package->package_price;
+        if (empty($cart)) {
+            return response()->json(['error' => 'Cart empty'], 400);
         }
 
-        // Handle addons (multiple)
-        if ($request->addons && is_array($request->addons)) {
-            $addons = Addonservice::whereIn('id', $request->addons)->get();
+        $total = 0;
 
-            foreach ($addons as $addon) {
-                $amount += (float) $addon->price;
+        foreach ($cart as $item) {
+
+            // Package price
+            $total += $item['price'] * $item['quantity'];
+
+            // Add-on services
+            if (!empty($item['addon_service'])) {
+                foreach ($item['addon_service'] as $addon) {
+                    $total += $addon['price'] * $addon['quantity'];
+                }
             }
         }
 
-        // Convert to cents for Stripe
-        $stripeAmount = intval($amount * 100);
+        // Stripe works in cents
+        $amountInCents = (int) round($total * 100);
 
-        // 1. CUSTOMER
-        $customer = Customer::create([
-            'email' => $request->email,
-            'name'  => $request->name,
+        $intent = PaymentIntent::create([
+            'amount' => $amountInCents,
+            'currency' => 'gbp',
+            'automatic_payment_methods' => ['enabled' => true],
+            'metadata' => [
+                'company_name' => $cart[0]['company_name'] ?? '',
+                'package_id'   => $cart[0]['package_id'] ?? '',
+            ],
         ]);
 
-        $oneTimeAmounts = 0;
-
-        /** Collect items */
-        $items = [];
-
-        // PACKAGE (one time)
-        $package = Package::where('stripe_price_id', $request->package)->first();
-        if ($package) {
-            $oneTimeAmounts += $package->package_price * 100;
-            $items[] = ['type' => 'one_time', 'price_id' => $package->stripe_price_id];
-        }
-
-        // ADD-ONS
-        foreach ($request->addons ?? [] as $price_id) {
-            $addon = \DB::table('add_on_services')->where('stripe_price_id', $price_id)->first();
-            if (!$addon) continue;
-
-            if ($addon->billing_type == 'one_time') {
-                $oneTimeAmounts += $addon->price * 100;
-                $items[] = ['type' => 'one_time', 'price_id' => $price_id];
-
-            } else {
-                // subscription
-                $items[] = ['type' => 'subscription', 'price_id' => $price_id];
-            }
-        }
-
-        /** CREATE PAYMENT INTENT ONLY FOR ONE-TIME ITEMS */
-        $intent = null;
-        if ($oneTimeAmounts > 0) {
-            $intent = PaymentIntent::create([
-                'amount'   => $oneTimeAmounts,
-                'currency' => 'usd',
-                'customer' => $customer->id,
-                'automatic_payment_methods' => ['enabled' => true],
-                'metadata' => [
-                    'user_id' => $user->id,
-                ]
-            ]);
-        }
-        // dd($intent->toArray());
-        /** CREATE SUBSCRIPTIONS (WITHOUT PAYMENT NOW) */
-        $subscription_ids = [];
-        foreach ($items as $i) {
-            if ($i['type'] === 'subscription') {
-                $subscription = Subscription::create([
-                    'customer' => $customer->id,
-                    'items'    => [
-                        ['price' => $i['price_id']]
-                    ],
-                    'payment_behavior' => 'default_incomplete',
-                    'expand' => ['latest_invoice.payment_intent'],
-                ]);
-                $subscription_ids[] = $subscription->id;
-            }
-        }
-
-        /** SAVE TEMP ORDER BEFORE PAYMENT */
-        /* $order = Order::create([
-            // 'customer_email'   => $customer->email,
-            'user_id'      => $customer->id,
-            'package_price_id' => $req->package,
-            'addons'           => json_encode($req->addons),
-            'amount'           => $oneTimeAmounts,
-            'subscriptions'    => json_encode($subscription_ids),
-            'status'           => 'pending',
-        ]); */
-
-        $cart = ShoppingCart::firstOrCreate(
-            [
-                'user_id' => $user->id
-            ], 
-            [
-                'package_id' => $package->id
-            ]
-        );
-        //create order
-        $order = new \App\Models\Order();
-        $order->user_id = $user->id;
-        $order->cart_id = $cart->id; // if you have cart logic, update accordingly
-        $order->order_id = 'ORD-' . strtoupper(uniqid()); // internal order reference
-        $order->payable_amount = $amount;
-        $order->payment_mode = "online";
-        $order->payment_status = "pending";
-        $order->order_status = "pending";
-
-        $order->stripe_customer_id = $customer->id;
-        $order->payment_intent_id = $intent->id;
-        $order->currency = $currency;
-
-        $order->save();
-
         return response()->json([
-            'clientSecret' => $intent->client_secret,
-            'customer' => $customer->id,
-            'order_id' => $order->id,
+            'clientSecret' => $intent->client_secret
         ]);
     }
 

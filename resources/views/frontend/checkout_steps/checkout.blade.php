@@ -812,53 +812,59 @@
         const paymentBox = document.querySelector(".payment_method_stripe_checkout .payment_box");
         const submitButton = document.getElementById("submit");
 
-        let stripe = null;
-        let elements = null;
+        let stripe, elements;
 
         async function loadStripeForm() {
 
-            // 1. Create PaymentIntent
-            let formData = new FormData();
-            formData.append("package", document.querySelector("input[name=package]:checked").value);
-
-            document.querySelectorAll("input[name='addons[]']:checked")
-                .forEach(c => formData.append("addons[]", c.value));
-
-            let res = await fetch("{{ route('payment.create') }}", {
+            // 🔥 Call backend – no cart data sent from JS
+            const res = await fetch("{{ route('payment.create') }}", {
                 method: "POST",
-                headers: { "X-CSRF-TOKEN": "{{ csrf_token() }}" },
-                body: formData
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "Accept": "application/json"
+                }
             });
 
-            let json = await res.json();
-            let clientSecret = json.clientSecret;
+            const json = await res.json();
 
-            // 2. Init Stripe
-            stripe = Stripe("{{ env('STRIPE_KEY') }}");
-            elements = stripe.elements({ clientSecret });
+            if (!json.clientSecret) {
+                alert('Unable to initialize payment');
+                return;
+            }
 
-            // 3. Mount card form
+            stripe = Stripe("{{ config('services.stripe.key') }}");
+
+            elements = stripe.elements({
+                clientSecret: json.clientSecret
+            });
+
             const paymentElement = elements.create("payment");
             paymentElement.mount("#payment-element");
 
             submitButton.onclick = async function (e) {
                 e.preventDefault();
 
+                submitButton.disabled = true;
+
                 const { error } = await stripe.confirmPayment({
                     elements,
-                    confirmParams: { return_url: window.location.href }
+                    confirmParams: {
+                        return_url: "{{ route('payment.success') }}"
+                    }
                 });
 
-                if (error) alert(error.message);
+                if (error) {
+                    alert(error.message);
+                    submitButton.disabled = false;
+                }
             };
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            loadStripeForm();
-            document.querySelector(".payment_method_stripe_checkout .payment_box").style.display = "block";
-        });
+        paymentBox.style.display = "block";
+                loadStripeForm();
 
     });
     </script>
+
 
 @endsection
