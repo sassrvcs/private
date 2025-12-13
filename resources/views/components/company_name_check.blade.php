@@ -262,7 +262,7 @@
                 searchButton.prop('disabled', true).text('Searching...');
 
                 // Make the GET request using Axios
-                axios.get('/search-companie', {
+                axios.get("{{ route('search-companie') }}", {
                         params: {
                             'search': companyName,
                             'same_as': 'true',

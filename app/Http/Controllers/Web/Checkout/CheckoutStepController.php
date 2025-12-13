@@ -85,7 +85,7 @@ class CheckoutStepController extends Controller
      */
     public function validateAuthentication(Request $request)
     {
-        // dd($request);
+        echo '<pre>'; print_r($request);die('fsfsd');
 
 
         $order_id=null;

@@ -818,16 +818,16 @@
         async function loadStripeForm() {
 
             // 1. Create PaymentIntent
-            // let formData = new FormData();
-            // formData.append("package", document.querySelector("input[name=package]:checked").value);
+            let formData = new FormData();
+            formData.append("package", document.querySelector("input[name=package]:checked").value);
 
-            // document.querySelectorAll("input[name='addons[]']:checked")
-            //     .forEach(c => formData.append("addons[]", c.value));
+            document.querySelectorAll("input[name='addons[]']:checked")
+                .forEach(c => formData.append("addons[]", c.value));
 
-            let res = await fetch("{{ route('checkout-final') }}", {
+            let res = await fetch("{{ route('payment.create') }}", {
                 method: "POST",
                 headers: { "X-CSRF-TOKEN": "{{ csrf_token() }}" },
-                // body: formData
+                body: formData
             });
 
             let json = await res.json();
