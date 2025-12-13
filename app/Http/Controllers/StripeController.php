@@ -100,6 +100,15 @@ class StripeController extends Controller
         return response('OK', 200);
     }
 
+    public function paymentSuccess(Request $request)
+    {
+        // ✅ Save order here in DB if needed
+
+        return response()->json([
+            'message' => 'Payment successful'
+        ]);
+    }
+
     //create product in stripe
     public function createProducts()
     {
