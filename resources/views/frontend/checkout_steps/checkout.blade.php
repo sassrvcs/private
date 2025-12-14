@@ -321,7 +321,8 @@
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="reistration" role="tabpanel" aria-labelledby="nav-home-tab">
                             @if (auth()->check())
-                                <form action="{{ route('checkout-final')}}" method="POST">
+                                <form action="{{ route('payment-success')}}" method="POST">
+                                <!-- <form action="{{ route('checkout-final')}}" method="POST"> -->
 
                             @else
                                 <form action="{{ route('save-register-form')}}" method="POST">
