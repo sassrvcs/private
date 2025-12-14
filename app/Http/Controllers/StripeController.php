@@ -14,6 +14,7 @@ use Stripe\Product;
 use Stripe\Price;
 use Illuminate\Support\Str;
 use App\Models\ShoppingCart;
+use Illuminate\Support\Facades\Log;
 
 class StripeController extends Controller
 {
@@ -41,33 +42,57 @@ class StripeController extends Controller
 
         foreach ($cart as $item) {
 
-            // Package price
-            $total += $item['price'] * $item['quantity'];
+            // Package
+            $price = isset($item['price']) ? (float) $item['price'] : 0;
+            $qty   = isset($item['quantity']) ? (int) $item['quantity'] : 1;
 
-            // Add-on services
+            $total += $price * $qty;
+
+            // Add-ons
             if (!empty($item['addon_service'])) {
                 foreach ($item['addon_service'] as $addon) {
-                    $total += $addon['price'] * $addon['quantity'];
+                    $addonPrice = isset($addon['price']) ? (float) $addon['price'] : 0;
+                    $addonQty   = isset($addon['quantity']) ? (int) $addon['quantity'] : 1;
+
+                    $total += $addonPrice * $addonQty;
                 }
             }
         }
 
-        // Stripe works in cents
+        // Convert to cents
         $amountInCents = (int) round($total * 100);
 
-        $intent = PaymentIntent::create([
-            'amount' => $amountInCents,
-            'currency' => 'gbp',
-            'automatic_payment_methods' => ['enabled' => true],
-            'metadata' => [
-                'company_name' => $cart[0]['company_name'] ?? '',
-                'package_id'   => $cart[0]['package_id'] ?? '',
-            ],
-        ]);
+        if ($amountInCents < 1) {
+            return response()->json(['error' => 'Invalid payment amount'], 400);
+        }
 
-        return response()->json([
-            'clientSecret' => $intent->client_secret
-        ]);
+        try {
+
+            $intent = PaymentIntent::create([
+                'amount'   => $amountInCents,
+                'currency' => 'gbp',
+                'automatic_payment_methods' => ['enabled' => true],
+                'metadata' => [
+                    'company_name' => $cart[0]['company_name'] ?? '',
+                    'package_id'   => $cart[0]['package_id'] ?? '',
+                ],
+            ]);
+
+            return response()->json([
+                'clientSecret' => $intent->client_secret
+            ]);
+
+        } catch (\Exception $e) {
+
+            Log::error('Stripe PaymentIntent Error', [
+                'message' => $e->getMessage(),
+                'amount'  => $amountInCents,
+            ]);
+
+            return response()->json([
+                'error' => 'Unable to initiate payment'
+            ], 500);
+        }
     }
 
 
