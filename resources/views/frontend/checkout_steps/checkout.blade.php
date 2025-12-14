@@ -544,13 +544,6 @@
                                                     </div>
                                                 </li> -->
                                                 <li class="wc_payment_method payment_method_stripe_checkout">
-                                                    <input id="payment_method_stripe_checkout"
-                                                        type="radio"
-                                                        class="input-radio"
-                                                        name="payment_method"
-                                                        value="stripe_checkout"
-                                                        data-order_button_text="">
-
                                                     <label for="payment_method_stripe_checkout">
                                                         Credit/Debit Card (Stripe)
                                                         <img src="{{ asset('frontend/assets/images/visa.png') }}" width="40">
