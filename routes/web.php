@@ -371,4 +371,4 @@ Route::post('/payment/create', [StripeController::class, 'createPaymentIntent'])
 Route::post('/payment/webhook', [StripeController::class, 'webhook']);
 Route::get('/stripe/create-products', [StripeController::class, 'createProducts']);
 Route::get('/stripe/sync-products', [StripeController::class, 'syncFromStripe']);
-Route::post('/payment-success', [StripeController::class, 'paymentSuccess'])->name('payment.success');
+// Route::post('/payment-success', [StripeController::class, 'paymentSuccess'])->name('payment.success');
