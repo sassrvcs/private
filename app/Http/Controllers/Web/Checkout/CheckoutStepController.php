@@ -283,7 +283,7 @@ class CheckoutStepController extends Controller
         $formData["SHASIGN"] = $shaOutSignature;
         // dd($formData);
         return view('frontend.payment_getway.view', compact('formData', 'paymentUrl')); */
-        return view('frontend.payment_getway.view', compact('formData', 'paymentUrl')); 
+        return view('frontend.payment_getway.view'); 
     }
 
 
