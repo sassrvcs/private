@@ -245,7 +245,7 @@ class CheckoutStepController extends Controller
     public function ProcessPayment(Request $request,$details){
 
         // dd($request);
-        $payment_mode = env('PAYMENT_ENV','LIVE');
+        /* $payment_mode = env('PAYMENT_ENV','LIVE');
         if ($payment_mode!='TEST'){
             $paymentUrl = env('LIVE_PAYMENT_URL',);
             $shaOutPasscode = env('LIVE_SHAOUTPASSCODE');
@@ -282,7 +282,8 @@ class CheckoutStepController extends Controller
         $shaOutSignature = hash('sha512',$shaString);
         $formData["SHASIGN"] = $shaOutSignature;
         // dd($formData);
-        return view('frontend.payment_getway.view', compact('formData', 'paymentUrl'));
+        return view('frontend.payment_getway.view', compact('formData', 'paymentUrl')); */
+        return view('frontend.payment_getway.view', compact('formData', 'paymentUrl')); 
     }
 
 
