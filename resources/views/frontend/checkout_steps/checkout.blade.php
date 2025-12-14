@@ -546,9 +546,9 @@
                                                 <li class="wc_payment_method payment_method_stripe_checkout">
                                                     <label for="payment_method_stripe_checkout">
                                                         Credit/Debit Card (Stripe)
-                                                        <img src="{{ asset('frontend/assets/images/visa.png') }}" width="40">
-                                                        <img src="{{ asset('frontend/assets/images/mastercard.png') }}" width="40">
-                                                        <img src="{{ asset('frontend/assets/images/amex.png') }}" width="40">
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/visa.png') }}" alt="visa">
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/mastercard.png') }}" alt="mastercard">
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/amex.png') }}" alt="amex">
                                                     </label>
 
                                                     <div class="payment_box payment_method_stripe_checkout" style="display:none;">
@@ -799,66 +799,79 @@
     </script>
     <script src="https://js.stripe.com/v3/"></script>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", async function () {
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
 
-        const stripeRadio = document.getElementById("payment_method_stripe_checkout");
-        const paymentBox = document.querySelector(".payment_method_stripe_checkout .payment_box");
-        const submitButton = document.getElementById("submit");
+    const paymentBox = document.querySelector(".payment_method_stripe_checkout .payment_box");
+    const submitButton = document.getElementById("submit");
 
-        let stripe, elements;
+    let stripe, elements;
 
-        async function loadStripeForm() {
+    async function loadStripeForm() {
 
-            // 🔥 Call backend – no cart data sent from JS
-            const res = await fetch("{{ route('payment.create') }}", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    "Accept": "application/json"
-                }
-            });
-
-            const json = await res.json();
-
-            if (!json.clientSecret) {
-                alert('Unable to initialize payment');
-                return;
+        const res = await fetch("{{ route('payment.create') }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                "Accept": "application/json"
             }
+        });
 
-            stripe = Stripe("{{ config('services.stripe.key') }}");
+        const json = await res.json();
 
-            elements = stripe.elements({
-                clientSecret: json.clientSecret
-            });
-
-            const paymentElement = elements.create("payment");
-            paymentElement.mount("#payment-element");
-
-            submitButton.onclick = async function (e) {
-                e.preventDefault();
-
-                submitButton.disabled = true;
-
-                const { error } = await stripe.confirmPayment({
-                    elements,
-                    confirmParams: {
-                        return_url: "{{ route('payment-success') }}"
-                    }
-                });
-
-                if (error) {
-                    alert(error.message);
-                    submitButton.disabled = false;
-                }
-            };
+        if (!json.clientSecret) {
+            alert('Unable to initialize payment');
+            return;
         }
 
-        paymentBox.style.display = "block";
-                loadStripeForm();
+        stripe = Stripe("{{ config('services.stripe.key') }}");
 
-    });
-    </script>
+        elements = stripe.elements({
+            clientSecret: json.clientSecret
+        });
+
+        // ✅ Payment Element configuration
+        const paymentElement = elements.create("payment", {
+            fields: {
+                billingDetails: {
+                    name: 'auto',
+                    email: 'auto',
+                    phone: 'auto',
+                    address: {
+                        country: 'never',      // ❌ remove country
+                        postalCode: 'auto',    // keep or change to 'never'
+                        line1: 'auto',
+                        city: 'auto'
+                    }
+                }
+            }
+        });
+
+        paymentElement.mount("#payment-element");
+
+        submitButton.onclick = async function (e) {
+            e.preventDefault();
+            submitButton.disabled = true;
+
+            const { error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: "{{ route('payment-success') }}"
+                }
+            });
+
+            if (error) {
+                alert(error.message);
+                submitButton.disabled = false;
+            }
+        };
+    }
+
+    paymentBox.style.display = "block";
+    loadStripeForm();
+});
+</script>
+
 
 
 @endsection
