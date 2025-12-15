@@ -803,7 +803,7 @@
         document.addEventListener("DOMContentLoaded", async function () { 
             const paymentBox = document.querySelector(".payment_method_stripe_checkout .payment_box"); 
             const submitButton = document.getElementById("submit"); 
-            
+
             let stripe, elements; 
             async function loadStripeForm() { // 🔥 Call backend – no cart data sent from JS
                 const res = await fetch("{{ route('payment.create') }}", { 
@@ -830,7 +830,7 @@
                     e.preventDefault(); 
                     submitButton.disabled = true; 
                     
-                    const { error } = await stripe.confirmPayment({ 
+                    const { error, paymentIntent } = await stripe.confirmPayment({ 
                         elements, 
                         confirmParams: { 
                             return_url: "{{ route('payment-success') }}" 
@@ -840,6 +840,9 @@
                         alert(error.message); 
                         submitButton.disabled = false; 
                     } 
+                    if (paymentIntent && paymentIntent.status === "succeeded") {
+                        window.location.href = "{{ route('payment-success') }}?payment_intent=" + paymentIntent.id;
+                    }
                 }; 
             } 
         
