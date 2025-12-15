@@ -94,9 +94,12 @@
                                 </div>
                             </section>
                             @includeIf(
+                                resource_path('views/frontend/service/load_services/your_details_confirmation/company_services_your_details.blade.php')
+                            )
+                            @includeIf(
                                 resource_path('views/frontend/service/load_services/your_details_confirmation/company_services_confirmation.blade.php')
                             )
-                            @includeIf('frontend.service.load_services.your_details_confirmation.company_services_your_details')
+                            
                             {{-- @include('frontend.service.load_services.your_details_confirmation.company_services_confirmation')
                             @include('frontend.service.load_services.your_details_confirmation.company_services_your_details') --}}
                         </div>
