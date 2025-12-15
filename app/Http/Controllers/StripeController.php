@@ -33,7 +33,6 @@ class StripeController extends Controller
         Stripe::setApiKey(config('services.stripe.secret'));
 
         $cart = session('cart');
-        dd($cart);
         if (empty($cart)) {
             return response()->json(['error' => 'Cart empty'], 400);
         }
@@ -57,7 +56,7 @@ class StripeController extends Controller
                     $total += $addonPrice * $addonQty;
                 }
             }
-            $orderId = $cart['order_id'];
+            $orderId = $item['order_id'];
         }
 
         // Convert to cents
