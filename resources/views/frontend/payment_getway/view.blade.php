@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <!-- <form action="" id="payment_getway" method="POST">
-        <input type="text" name="" value="">
+    <form action="{{ $paymentUrl }}" id="payment_getway" method="POST">
+        @foreach ($formData as $key => $value)
+            <input type="text" name="{{ $key }}" value="{{ $value }}">
+        @endforeach
 
-    </form> -->
+    </form>
 @endsection
 @section('script')
     <script>

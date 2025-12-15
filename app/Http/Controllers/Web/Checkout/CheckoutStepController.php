@@ -85,6 +85,7 @@ class CheckoutStepController extends Controller
      */
     public function validateAuthentication(Request $request)
     {
+        
 
         $order_id=null;
         if($request){
@@ -123,7 +124,7 @@ class CheckoutStepController extends Controller
 
             $request->total_amount = $totalPrice;
             $request->indx=$indx;
-                // dd($sessionCart, $package,$indx);
+                dd($sessionCart);
             if(auth()->user()) {
                 // dd($request);
                 $user = $this->userService->show(auth()->user()->id);
@@ -289,8 +290,10 @@ class CheckoutStepController extends Controller
 
     public function paymentSuccess(Request $request){
         // dd($request);
-        $order_arr = explode('/',$request->query('orderID'));
-        $order_id =$order_arr[0];
+        $paymentIntentId = $request->query('payment_intent');
+        $intent = \Stripe\PaymentIntent::retrieve($paymentIntentId);
+
+        $order_id = $intent->metadata->order_id;
 
         $order_details = Order::where('order_id',$order_id)->first();
 
