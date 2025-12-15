@@ -133,6 +133,7 @@ class CheckoutStepController extends Controller
                 $user = $this->userService->show(auth()->user()->id);
                 $checkout = $this->checkoutService->doCheckoutFinalStep($request, auth()->user());
                 $sessionCart[$indx]['order_id'] = $checkout->order_id;
+                $sessionCart[$indx]['amount'] = $totalPrice;
                 Session::put('cart', $sessionCart);
                 return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user','checkout','indx'));
             }else{                
@@ -299,6 +300,7 @@ class CheckoutStepController extends Controller
         $intent = \Stripe\PaymentIntent::retrieve($paymentIntentId);
 
         $order_id = $intent->metadata->order_id;
+        $amount = $intent->amount;
 
         $order_details = Order::where('order_id',$order_id)->first();
 
@@ -321,7 +323,7 @@ class CheckoutStepController extends Controller
             $order_transaction->PAYID=$request->query('PAYID');
             $order_transaction->ACCEPTANCE=$request->query('ACCEPTANCE');
             $order_transaction->SHASIGN=$request->query('SHASIGN'); */
-            $order_transaction->amount=null;
+            $order_transaction->amount=$amount;
             $order_transaction->save();
 
             $filename = 'Invoice'.uniqid().Str::random(10).'.pdf';
