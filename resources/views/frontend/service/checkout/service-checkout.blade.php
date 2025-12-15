@@ -372,7 +372,7 @@
                                                         <p>Pay with cash upon delivery.</p>
                                                     </div>
                                                 </li> --}}
-                                                <li class="wc_payment_method payment_method_epdq_checkout">
+                                                <!-- <li class="wc_payment_method payment_method_epdq_checkout">
                                                     <input id="payment_method_epdq_checkout" type="radio"
                                                         class="input-radio" name="payment_method"
                                                         value="epdq_checkout" checked="checked" data-order_button_text="">
@@ -390,9 +390,24 @@
                                                     <div class="payment_box payment_method_epdq_checkout" style="display:none;">
                                                         <p>Use the secure payment processor of Barclaycard and checkout with your debit/credit card.</p>
                                                     </div>
+                                                </li> -->
+                                                <li class="wc_payment_method payment_method_stripe_checkout">
+                                                    <label for="payment_method_stripe_checkout">
+                                                        Credit/Debit Card (Stripe)
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/visa.png') }}" alt="visa">
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/mastercard.png') }}" alt="mastercard">
+                                                        <img class="ePDQ-card-icons" src="{{ asset('frontend/assets/images/amex.png') }}" alt="amex">
+                                                    </label>
+
+                                                    <div class="payment_box payment_method_stripe_checkout" style="display:none;">
+                                                        <p>Pay securely using your debit/credit card via Stripe.</p>
+
+                                                        <div id="payment-element"></div>
+                                                        <button id="place_order" type="button" class="button alt">Pay Now</button>
+                                                    </div>
                                                 </li>
                                             </ul>
-                                            <div class="form-row place-order">
+                                            <!-- <div class="form-row place-order">
                                                 <noscript>
                                                     Since your browser does not support JavaScript, or it is disabled,
                                                     please ensure you click the <em>Update Totals</em> button before
@@ -407,7 +422,7 @@
                                                 <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Place order" data-value="Place order">Pay Now</button>
                                                 <input type="hidden" id="woocommerce-process-checkout-nonce" name="woocommerce-process-checkout-nonce" value="800f687a3e">
                                                 <input type="hidden" name="_wp_http_referer" value="/?wc-ajax=update_order_review">
-                                            </div>
+                                            </div> -->
                                         </fieldset>
                                     </div>
 
@@ -638,5 +653,58 @@
             // Hide model
             $("#exampleModalCenterAddress").hide();
             }
+    </script>
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script> 
+        document.addEventListener("DOMContentLoaded", async function () { 
+            const paymentBox = document.querySelector(".payment_method_stripe_checkout .payment_box"); 
+            const submitButton = document.getElementById("place_order"); 
+
+            let stripe, elements; 
+            async function loadStripeForm() { // 🔥 Call backend – no cart data sent from JS
+                const res = await fetch("{{ route('payment.create') }}", { 
+                    method: "POST", 
+                    headers: { 
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}", 
+                        "Accept": "application/json" 
+                    } 
+                }); 
+                const json = await res.json(); 
+                if (!json.clientSecret) {
+                    alert('Unable to initialize payment'); 
+                    return; 
+                } 
+
+                stripe = Stripe("{{ config('services.stripe.key') }}"); 
+                elements = stripe.elements({ 
+                    clientSecret: json.clientSecret 
+                }); 
+
+                const paymentElement = elements.create("payment"); 
+                paymentElement.mount("#payment-element"); 
+                submitButton.onclick = async function (e) { 
+                    e.preventDefault(); 
+                    submitButton.disabled = true; 
+                    
+                    const { error, paymentIntent } = await stripe.confirmPayment({ 
+                        elements, 
+                        confirmParams: { 
+                            return_url: "{{ route('payment-success') }}" 
+                        } 
+                    }); 
+                    if (error) { 
+                        alert(error.message); 
+                        submitButton.disabled = false; 
+                    } 
+                    if (paymentIntent && paymentIntent.status === "succeeded") {
+                        window.location.href = "{{ route('payment-success') }}?payment_intent=" + paymentIntent.id;
+                    }
+                }; 
+            } 
+        
+            paymentBox.style.display = "block"; 
+            loadStripeForm(); 
+        }); 
     </script>
 @endsection

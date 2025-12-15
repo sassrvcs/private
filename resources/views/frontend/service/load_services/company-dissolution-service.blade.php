@@ -93,8 +93,11 @@
                                     </ul>
                                 </div>
                             </section>
-                            @include('frontend.service.load_services.your_details_confirmation.company_services_confirmation')
-                            @include('frontend.service.load_services.your_details_confirmation.company_services_your_details')
+                            @includeIf(
+                                resource_path('views/frontend/service/load_services/your_details_confirmation/company_services_confirmation.blade.php')
+                            )
+                            {{-- @include('frontend.service.load_services.your_details_confirmation.company_services_confirmation')
+                            @include('frontend.service.load_services.your_details_confirmation.company_services_your_details') --}}
                         </div>
                         {{-- <div class="actions clearfix">
                             <ul role="menu" aria-label="Pagination">
