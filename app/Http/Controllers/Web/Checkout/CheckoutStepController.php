@@ -135,6 +135,7 @@ class CheckoutStepController extends Controller
                 $sessionCart[$indx]['order_id'] = $checkout->order_id;
                 $sessionCart[$indx]['amount'] = $totalPrice;
                 Session::put('cart', $sessionCart);
+                dd($sessionCart);
                 return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user','checkout','indx'));
             }else{                
                 return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user', 'indx'));
@@ -325,12 +326,6 @@ class CheckoutStepController extends Controller
             $order_transaction->amount=$amount;
             $order_transaction->save();
 
-            if ($intent->redirect_status == 'succeeded') {
-                Order::where('order_id', $order_id)->update([
-                    'payment_status' => 'paid',
-                    'order_status' => 'progress'
-                ]);
-            }
             $filename = 'Invoice'.uniqid().Str::random(10).'.pdf';
 
             $name = auth()->user()->title.' '.auth()->user()->forename.' '.auth()->user()->surname;

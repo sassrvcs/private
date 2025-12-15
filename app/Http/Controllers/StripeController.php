@@ -75,7 +75,7 @@ class StripeController extends Controller
                 'metadata' => [
                     'company_name' => $cart[0]['company_name'] ?? '',
                     'order_id'   => $orderId,
-                    'package_id'   => $cart[0]['package_id'] ?? '',
+                    'package_name'   => $cart[0]['package_name'] ?? '',
                 ],
             ]);
 
