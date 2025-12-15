@@ -799,73 +799,53 @@
     </script>
     <script src="https://js.stripe.com/v3/"></script>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", async function () {
+    <script> 
+        document.addEventListener("DOMContentLoaded", async function () { 
+            const paymentBox = document.querySelector(".payment_method_stripe_checkout .payment_box"); 
+            const submitButton = document.getElementById("submit"); 
+            
+            let stripe, elements; 
+            async function loadStripeForm() { // 🔥 Call backend – no cart data sent from JS
+                const res = await fetch("{{ route('payment.create') }}", { 
+                    method: "POST", 
+                    headers: { 
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}", 
+                        "Accept": "application/json" 
+                    } 
+                }); 
+                const json = await res.json(); 
+                if (!json.clientSecret) {
+                    alert('Unable to initialize payment'); 
+                    return; 
+                } 
 
-        const paymentBox = document.querySelector(".payment_method_stripe_checkout .payment_box");
-        const submitButton = document.getElementById("place_order");
+                stripe = Stripe("{{ config('services.stripe.key') }}"); 
+                elements = stripe.elements({ 
+                    clientSecret: json.clientSecret 
+                }); 
 
-        let stripe, elements;
-
-        async function loadStripeForm() {
-            const res = await fetch("{{ route('payment.create') }}", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    "Accept": "application/json"
-                }
-            });
-            const json = await res.json();
-            if (!json.clientSecret) {
-                alert('Unable to initialize payment');
-                return;
-            }
-
-            stripe = Stripe("{{ config('services.stripe.key') }}");
-            elements = stripe.elements({
-                clientSecret: json.clientSecret
-            });
-
-            // ✅ Payment Element configuration
-            const paymentElement = elements.create("payment", {
-                fields: {
-                    billingDetails: {
-                        name: 'auto',
-                        email: 'auto',
-                        phone: 'auto',
-                        address: {
-                            country: 'never',      // ❌ remove country
-                            postalCode: 'never',    // keep or change to 'never'
-                            line1: 'never',
-                            city: 'never'
-                        }
-                    }
-                }
-            });
-
-            paymentElement.mount("#payment-element");
-
-            submitButton.onclick = async function (e) {
-                e.preventDefault();
-                submitButton.disabled = true;
-
-                const { error } = await stripe.confirmPayment({
-                    elements,
-                    confirmParams: {
-                        return_url: "{{ route('payment-success') }}"
-                    }
-                });
-
-                if (error) {
-                    alert(error.message);
-                    submitButton.disabled = false;
-                }
-            };
-        }
-
-        paymentBox.style.display = "block";
-        loadStripeForm();
-    });
+                const paymentElement = elements.create("payment"); 
+                paymentElement.mount("#payment-element"); 
+                submitButton.onclick = async function (e) { 
+                    e.preventDefault(); 
+                    submitButton.disabled = true; 
+                    
+                    const { error } = await stripe.confirmPayment({ 
+                        elements, 
+                        confirmParams: { 
+                            return_url: "{{ route('payment-success') }}" 
+                        } 
+                    }); 
+                    if (error) { 
+                        alert(error.message); 
+                        submitButton.disabled = false; 
+                    } 
+                }; 
+            } 
+        
+            paymentBox.style.display = "block"; 
+            loadStripeForm(); 
+        }); 
     </script>
 
 
