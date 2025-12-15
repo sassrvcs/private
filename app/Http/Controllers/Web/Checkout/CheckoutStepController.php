@@ -123,7 +123,7 @@ class CheckoutStepController extends Controller
                     $totalPrice = $totalPrice + $addonService['price'];
                     // dump($addonService['price']);
                 }
-
+            $totalPrice = $totalPrice + $sessionCart[$indx]['price'];
             $request->total_amount = $totalPrice;
             $request->indx=$indx;
             
