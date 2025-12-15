@@ -292,6 +292,7 @@ class CheckoutStepController extends Controller
 
     public function paymentSuccess(Request $request){
         // dd($request);
+        Stripe::setApiKey(config('services.stripe.secret'));
         $paymentIntentId = $request->query('payment_intent');
         $intent = \Stripe\PaymentIntent::retrieve($paymentIntentId);
 
