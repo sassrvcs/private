@@ -33,7 +33,7 @@ class StripeController extends Controller
         Stripe::setApiKey(config('services.stripe.secret'));
 
         $cart = session('cart');
-
+        dd($cart);
         if (empty($cart)) {
             return response()->json(['error' => 'Cart empty'], 400);
         }
