@@ -57,6 +57,7 @@ class StripeController extends Controller
                     $total += $addonPrice * $addonQty;
                 }
             }
+            $orderId = $cart['order_id'];
         }
 
         // Convert to cents
@@ -74,6 +75,7 @@ class StripeController extends Controller
                 'automatic_payment_methods' => ['enabled' => true],
                 'metadata' => [
                     'company_name' => $cart[0]['company_name'] ?? '',
+                    'order_id'   => $orderId,
                     'package_id'   => $cart[0]['package_id'] ?? '',
                 ],
             ]);

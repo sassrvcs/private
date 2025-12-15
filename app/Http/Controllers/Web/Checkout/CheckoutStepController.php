@@ -124,14 +124,16 @@ class CheckoutStepController extends Controller
 
             $request->total_amount = $totalPrice;
             $request->indx=$indx;
-                dd($sessionCart);
+            
+                // dd($sessionCart);
             if(auth()->user()) {
                 // dd($request);
                 $user = $this->userService->show(auth()->user()->id);
                 $checkout = $this->checkoutService->doCheckoutFinalStep($request, auth()->user());
-
+                $sessionCart[$indx]['order_id'] = $checkout->order_id;
+                Session::put('cart', $sessionCart);
                 return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user','checkout','indx'));
-            }else{
+            }else{                
                 return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user', 'indx'));
 
             }
@@ -311,11 +313,11 @@ class CheckoutStepController extends Controller
 
 
             $order_transaction->order_id =$order_id;
-            $order_transaction->uuid =$request->query('orderID');
-            $order_transaction->status=$request->query('STATUS');
+            $order_transaction->uuid =$order_id;
+            /* $order_transaction->status=$request->query('STATUS');
             $order_transaction->PAYID=$request->query('PAYID');
             $order_transaction->ACCEPTANCE=$request->query('ACCEPTANCE');
-            $order_transaction->SHASIGN=$request->query('SHASIGN');
+            $order_transaction->SHASIGN=$request->query('SHASIGN'); */
             $order_transaction->amount=null;
             $order_transaction->save();
 
