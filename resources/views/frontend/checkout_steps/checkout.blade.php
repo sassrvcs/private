@@ -555,7 +555,7 @@
                                                         <p>Pay securely using your debit/credit card via Stripe.</p>
 
                                                         <div id="payment-element"></div>
-                                                        <button id="place_order" class="button alt">Pay Now</button>
+                                                        <button id="place_order" type="button" class="button alt">Pay Now</button>
                                                     </div>
                                                 </li>
                                                 
@@ -802,7 +802,7 @@
     <script> 
         document.addEventListener("DOMContentLoaded", async function () { 
             const paymentBox = document.querySelector(".payment_method_stripe_checkout .payment_box"); 
-            const submitButton = document.getElementById("submit"); 
+            const submitButton = document.getElementById("place_order"); 
 
             let stripe, elements; 
             async function loadStripeForm() { // 🔥 Call backend – no cart data sent from JS
