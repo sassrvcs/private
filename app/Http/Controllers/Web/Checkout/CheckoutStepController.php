@@ -135,7 +135,6 @@ class CheckoutStepController extends Controller
                 $sessionCart[$indx]['order_id'] = $checkout->order_id;
                 $sessionCart[$indx]['amount'] = $totalPrice;
                 Session::put('cart', $sessionCart);
-                dd($sessionCart);
                 return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user','checkout','indx'));
             }else{                
                 return view('frontend.checkout_steps.checkout', compact('sessionCart', 'package', 'countries', 'user', 'indx'));
