@@ -48,7 +48,7 @@ class CheckoutService
                     'order_id'      => $this->generateOrderId(), // create random order id
                     'payable_amount'=> $request->total_amount,
                     'company_name'  => $cart['company_name'] ?? '',
-                    'payment_mode'  => 'cod',
+                    'payment_mode'  => 'online',
                     'payment_status'=> 'pending',
                     'order_status'  => 'pending'
                 ]);

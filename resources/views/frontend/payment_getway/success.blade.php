@@ -9,7 +9,7 @@
         </div>
         <div class="text">
           <h2>Thank You!</h2>
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur, vero dolorum fugit consectetur vel debitis laborum incidunt harum quis cum tempora dolorem reiciendis, possimus praesentium id quas ut assumenda. Vitae.</p>
+          <p>Payment is successfully done for this company. Please check dashboard using your registered email address.</p>
           @php
                 $route = route('companies-list');
 

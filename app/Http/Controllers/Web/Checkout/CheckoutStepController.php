@@ -316,7 +316,6 @@ class CheckoutStepController extends Controller
                 $order_transaction->step = 0;
             }
 
-
             $order_transaction->order_id =$order_id;
             $order_transaction->uuid =$order_id;
             /* $order_transaction->status=$request->query('STATUS');
@@ -326,8 +325,13 @@ class CheckoutStepController extends Controller
             $order_transaction->amount=$amount;
             $order_transaction->save();
 
+            if ($intent->redirect_status == 'succeeded') {
+                Order::where('order_id', $order_id)->update([
+                    'payment_status' => 'paid',
+                    'order_status' => 'progress'
+                ]);
+            }
             $filename = 'Invoice'.uniqid().Str::random(10).'.pdf';
-
 
             $name = auth()->user()->title.' '.auth()->user()->forename.' '.auth()->user()->surname;
             $pdf = $this->generatePdf($order_id);
@@ -339,13 +343,8 @@ class CheckoutStepController extends Controller
             } catch (\Throwable $th) {
                 throw $th;
             }
-
         }
-
-
-
         return view('frontend.payment_getway.success');
-
     }
 
     public function paymentDeclined(Request $request){
