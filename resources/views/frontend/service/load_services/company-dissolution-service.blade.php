@@ -96,9 +96,7 @@
                             @includeIf(
                                 resource_path('views/frontend/service/load_services/your_details_confirmation/company_services_confirmation.blade.php')
                             )
-                            @includeIf(
-                                resource_path('views/frontend/service/load_services/your_details_confirmation/company_services_your_details.blade.php')
-                            )
+                            @includeIf('frontend.service.load_services.your_details_confirmation.company_services_your_details')
                             {{-- @include('frontend.service.load_services.your_details_confirmation.company_services_confirmation')
                             @include('frontend.service.load_services.your_details_confirmation.company_services_your_details') --}}
                         </div>
@@ -247,8 +245,8 @@
                     'border-color': '#ced4da'
                 })
             }
-            console.log(diss_error)
-            return diss_error
+            console.log(diss_error);
+            return diss_error;
 
         }
         // $(".addDirectorbtn").click(function() {
@@ -274,8 +272,8 @@
             //     "cursor": "default",
             //     "font-size": "18px!important"
             // });
-            $(".second").addClass('current')
-            $("#steps-uid-0-h-0").html("2.Your Details")
+            $(".second").addClass('current');
+            $("#steps-uid-0-h-0").html("2.Your Details");
             scrollToTopDynamic(200)
         }
 
