@@ -34,6 +34,8 @@ use App\Models\Custom_payment;
 use App\Models\purchaseAddressCart;
 use Redirect;
 use DB;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
 
 class CheckoutStepController extends Controller
 {
