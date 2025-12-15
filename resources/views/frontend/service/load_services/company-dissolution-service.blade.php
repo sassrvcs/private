@@ -26,8 +26,6 @@
                         @include('frontend.service.load_services.header.company_services_header')
 
                         <div class="content clearfix">
-                            @include('frontend.service.load_services.your_details_confirmation.company_services_confirmation')
-                            @include('frontend.service.load_services.your_details_confirmation.company_services_your_details')
                             <h3 id="steps-uid-0-h-0" tabindex="-1" class="title current">1.Your Service</h3>
                             <section id="steps-uid-0-p-0" role="tabpanel" aria-labelledby="steps-uid-0-h-0"
                                 class="body current" aria-hidden="false">
@@ -95,7 +93,8 @@
                                     </ul>
                                 </div>
                             </section>
-                            
+                            @include('frontend.service.load_services.your_details_confirmation.company_services_confirmation')
+                            @include('frontend.service.load_services.your_details_confirmation.company_services_your_details')
                         </div>
                         {{-- <div class="actions clearfix">
                             <ul role="menu" aria-label="Pagination">
