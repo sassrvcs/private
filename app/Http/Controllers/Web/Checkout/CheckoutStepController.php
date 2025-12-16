@@ -305,8 +305,8 @@ class CheckoutStepController extends Controller
         $order_details = Order::where('order_id',$order_id)->first();
 
         $company = Companie::where('order_id',$order_id)->first();
-        $exist_order = orderTransaction::where('PAYID',$request->query('PAYID'))->first();
-        if(!$exist_order){
+        // $exist_order = orderTransaction::where('PAYID',$request->query('PAYID'))->first();
+        // if(!$exist_order){
             $order_transaction = new orderTransaction;
             if($company){
                 $order_transaction->step = 1;
@@ -337,7 +337,7 @@ class CheckoutStepController extends Controller
             } catch (\Throwable $th) {
                 throw $th;
             }
-        }
+        // }
         return view('frontend.payment_getway.success');
     }
 
