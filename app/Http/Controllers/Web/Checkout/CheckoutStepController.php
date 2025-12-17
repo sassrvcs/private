@@ -298,7 +298,7 @@ class CheckoutStepController extends Controller
         Stripe::setApiKey(config('services.stripe.secret'));
         $paymentIntentId = $request->query('payment_intent');
         $intent = \Stripe\PaymentIntent::retrieve($paymentIntentId);
-
+        dd($intent);
         $order_id = $intent->metadata->order_id;
         $amount = $intent->amount;
 
