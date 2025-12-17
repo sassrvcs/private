@@ -333,7 +333,7 @@ class CheckoutStepController extends Controller
             file_put_contents($filePath, $pdf );
             $content = ['name'=>$name,'pdf'=>$filePath,'order_id'=>$order_id];
             try {
-            $status =  Mail::to(auth()->user()->email)->send(new FinalSubmitMail ($content));
+            // $status =  Mail::to(auth()->user()->email)->send(new FinalSubmitMail ($content));
             } catch (\Throwable $th) {
                 throw $th;
             }
