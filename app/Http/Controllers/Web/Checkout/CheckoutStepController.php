@@ -316,7 +316,7 @@ class CheckoutStepController extends Controller
             }
 
             $order_transaction->order_id =$order_id;
-            $order_transaction->uuid =$order_id;
+            $order_transaction->uuid =$order_id.'/'.uniqid().Str::random(10);
             $order_transaction->PAYID=$intent->id;
             /* $order_transaction->status=$request->query('STATUS');
             $order_transaction->PAYID=$request->query('PAYID');
