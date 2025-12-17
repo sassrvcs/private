@@ -300,7 +300,7 @@ class CheckoutStepController extends Controller
         $intent = \Stripe\PaymentIntent::retrieve($paymentIntentId);
         $order_id = $intent->metadata->order_id;
         $amount = number_format($intent->amount / 100, 2, '.', '');
-
+        dd($intent);
         $order_details = Order::where('order_id',$order_id)->first();
 
         $company = Companie::where('order_id',$order_id)->first();
